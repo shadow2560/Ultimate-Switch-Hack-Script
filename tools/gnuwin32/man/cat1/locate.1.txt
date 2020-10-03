@@ -1,0 +1,182 @@
+LOCATE(1)                                             LOCATE(1)
+
+
+
+
+
+NAME
+       locate - list files in databases that match a pattern
+
+SYNOPSIS
+       locate [-d path | --database=path] [-e | --existing] [-i
+       | --ignore-case] [-0 | --null]  [-c  |  --count]  [-w  |
+       --wholename]  [-b | --basename] [-l N | --limit=N] [-S |
+       --statistics] [-r | --regex ] [-P | -H | --nofollow] [-L
+       | --follow] [--version] [--help] pattern...
+
+DESCRIPTION
+       This  manual  page  documents the GNU version of locate.
+       For each given pattern,  locate  searches  one  or  more
+       databases of file names and displays the file names that
+       contain the pattern.  Patterns can  contain  shell-style
+       metacharacters:  `*', `?', and `[]'.  The metacharacters
+       do not treat `/' or `.'  specially.  Therefore,  a  pat-
+       tern  `foo*bar'  can  match  a  file  name that contains
+       `foo3/bar', and a pattern `*duck*' can match a file name
+       that  contains  `lake/.ducky'.   Patterns  that  contain
+       metacharacters should be quoted  to  protect  them  from
+       expansion by the shell.
+
+       If  a  pattern  is  a  plain  string  --  it contains no
+       metacharacters -- locate displays all file names in  the
+       database  that  contain that string anywhere.  If a pat-
+       tern does contain metacharacters, locate  only  displays
+       file names that match the pattern exactly.  As a result,
+       patterns  that  contain  metacharacters  should  usually
+       begin  with  a  `*', and will most often end with one as
+       well.  The exceptions are patterns that are intended  to
+       explicitly match the beginning or end of a file name.
+
+       The file name databases contain lists of files that were
+       on the system when the databases were last updated.  The
+       system  administrator  can  choose  the file name of the
+       default database, the frequency with which the databases
+       are  updated, and the directories for which they contain
+       entries; see updatedb(1).
+
+OPTIONS
+       -c, --count
+              Instead of printing the matched  filenames,  just
+              print the total number of matches we found.
+
+       -d path, --database=path
+              Instead  of searching the default file name data-
+              base, search the file  name  databases  in  path,
+              which  is a colon-separated list of database file
+              names.  You can also use the environment variable
+              LOCATE_PATH  to set the list of database files to
+              search.  The  option  overrides  the  environment
+              variable if both are used.  Empty elements in the
+              path are taken to be synonyms for the  file  name
+              of the default database.
+
+              The  file  name  database format changed starting
+              with GNU find and locate  version  4.0  to  allow
+              machines with diffent byte orderings to share the
+              databases.  This version of locate can  automati-
+              cally  recognize  and read databases produced for
+              older versions of GNU locate or Unix versions  of
+              locate or find.  Support for the old locate data-
+              base format will  be  discontinued  in  a  future
+              release.
+
+       -e, --existing
+              Only  print  out  such names that currently exist
+              (instead of such  names  that  existed  when  the
+              database  was  created).  Note that this may slow
+              down the program a lot, if there are many matches
+              in  the  database.   If you are using this option
+              within a program, please note that it is possible
+              for  the  file  to  be  deleted  after locate has
+              checked that it exists, but before you use it.
+
+       -L, --follow
+              If testing for the existence of files  (with  the
+              -e option), omit broken symbolic links.   This is
+              the default.
+
+       -P, -H, --nofollow
+              If testing for the existence of files  (with  the
+              -e  option), treat broken symbolic links count as
+              if they were exiting files.  The -H form of  this
+              option  is  provided  purely  for similarity with
+              find; the use of -P is recommended over -H.
+
+       -i, --ignore-case
+              Ignore case distinctions in both the pattern  and
+              the file names.
+
+       -l N, --limit=N
+              Limit  the number of matches to N.  If a limit is
+              set  via  this  option,  the  number  of  results
+              printed  for  the  -c option will never be larger
+              than this number.
+
+       -m, --mmap
+              Accepted but does nothing, for compatibility with
+              BSD locate.
+
+       -0, --null
+              Use ASCII NUL as a separator, instead of newline.
+
+       -w, --wholename
+              Match against the  whole  name  of  the  file  as
+              listed in the database.  This is the default.
+
+       -b, --basename
+              Results  are  considered  to match if the pattern
+              specified matches the final component of the name
+              of  a file as listed in the database.  This final
+              component is usually referred  to  as  the  `base
+              name'.
+
+       -r, --regex
+              The  pattern  specified  on  the  command line is
+              understood to be a POSIX exteded regular  expres-
+              sion,  as  opposed  to a glob pattern.  Filenames
+              whose full  paths  match  the  specified  regular
+              expression are printed (or, in the case of the -c
+              option, counted).  If you  wish  to  anchor  your
+              regular  expression  at the ends of the full path
+              name, then as is usual with regular  expressions,
+              you  should use the characters ^ and $ to signify
+              this.   Newline is not considered to be  special.
+
+       -s, --stdio
+              Accepted but does nothing, for compatibility with
+              BSD locate.
+
+       -S, --statistics
+              Print  various  statistics  about   each   locate
+              database  and  then  exit  without  performing  a
+              search.  Any patterns given on the  command  line
+              are  ignored.   For compatibility with BSD, -S is
+              accepted as a synonym for --statistics.
+
+       --help Print a summary of  the  options  to  locate  and
+              exit.
+
+       --version
+              Print the version number of locate and exit.
+
+ENVIRONMENT
+       LOCATE_PATH
+              Colon-separated  list of databases to search.  If
+              the value has a leading or trailing colon, or has
+              two  colons  in  a  row, you may get results that
+              vary between different versions of locate.
+
+
+SEE ALSO
+       find(1),     locatedb(5),     updatedb(1),     xargs(1),
+       glob(3),egex(7),  Finding  Files  (on-line  in  Info, or
+       printed)
+
+BUGS
+       The locate database correctly handles filenames contain-
+       ing  newlines, but only if the system's sort command has
+       a working -z option.  If you  suspect  that  locate  may
+       need  to  return filenames containing newlines, consider
+       using its --null option.
+
+       The best way to report a bug  is  to  use  the  form  at
+       http://savannah.gnu.org/bugs/?group=findutils.  The rea-
+       son for this is that you will  then  be  able  to  track
+       progress  in  fixing the problem.   Other comments about
+       locate(1) and about the findutils package in general can
+       be  sent to the bug-findutils mailing list.  To join the
+       list, send email to bug-findutils-request@gnu.org.
+
+
+
+                                                      LOCATE(1)

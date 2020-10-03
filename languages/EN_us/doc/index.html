@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<title>Documentation Shadow256 Ultimate Switch Hack Script</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Documentation Shadow256 Ultimate Switch Hack Script</h1>
+&nbsp;
+<h2>Introduction</h2>
+&nbsp;
+<p>
+This is a set of scripts that originally allows you to launch a payload or Linux on the Switch via its RCM. Other functionalities were then developed. 
+<br/><br/>
+Cette This documentation is intended to guide the user to make these tools work as well as possible. The subject for this application is on <a target="_new" href="http://www.logic-sunrise.com/forums/topic/81314-shadow256-switch-payload-injector-script/">this page</a> and the Github project is on <a target="_new" href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/">this page</a>.
+<br/><br/>
+This script is usable on Windows 7 32 and 64 bits as well as on higher versions (Windows Vista not tested but should work). 
+<br/><br/>
+Please note that I cannot be held responsible for any damage resulting from the use of this software and everything it contains. Notez que je ne pourrai être tenu responsable en cas de domages résultant de l'utilisation de ce logiciel et de tout se qu'il contient.
+<br/><br/>
+All my work is subject to the GPL V3 license (all scripts or programs marked "by shadow256" in the source code or in the program itself). Translation files are also subject to this license. The rest of the tools are under the license of their authors. 
+<br/><br/>
+To participate in the translation, please read <a href="files/translate.html">this part of the documentation</a>.
+</p>
+&nbsp;
+<h2>Features</h2>
+&nbsp;
+<ul>
+<li>Possibility of automatic updating of scripts/functionalities.</li>
+<li>Multi-language support.</li>
+<li>Installation of the RCM mode drivers ( "APX" driver) and the libnx_USB_comms mode used by Tinfoil ( "libnx_USB_comms" driver) of the Switch, see <a href="files/install_drivers.html">this documentation page for more informations</a>.</li>
+<li>Launching a payload via the RCM mode of the Switch. You can place the payloads in a "Payloads" folder located at the root of this script or choose a payload file via an explorer. Note that the Switch's RCM mode drivers must be installed for this to work.</li>
+<li>Preparations to be able to use <a target="_blank" href="https://github.com/pixel-stuck/nereba">the Nereba exploit</a>, thanks to <a target="_blank" href="https://github.com/reswitched/pegaswitch">Pegaswitch</a>. The Caffeine exploit can also be used via this method.</li>
+<li>Help to install Switchboot on modchips and some UF2 dongles; and some other functions linked to the modchips.</li>
+<li>Installation of applications on Android via the USB debug mode of Android.</li>
+<li>Management of a toolbox allowing to launch software in autonomous mode with the possibility to manage a list of personal software. It should be noted that the programs can be integrated into the "tools\toolbox" folder of the script, which allows you to have a portability option if you wish. Finally, avoid modifying the toolbox configuration files by hand, prefer the script.</li>
+<li>Obsolete: Launching Linux via the Switch's RCM mode (either with the official kernel, or via <a target="_blank" href="https://gbatemp.net/attachments/image-gz-zip.121538/">a patched kernel</a> (thanks Krazer89 from GBATemp and Killua from Logic-sunrise for the info) for SDs not compatible with the official kernel), or with a  kernel file that you can select via a file explorer. Note that the Switch's RCM mode drivers must be installed for this to work.</li>
+<li>Obsolete: Downloading/updating Shofel2 binaries.</li>
+<li>Biskey retrieval thanks to the Biskeydump payload in the "biskey.txt" file which will be located at the root of the script (biskeys start at line 7 of the file). Note that the Switch's RCM mode drivers must be installed for this to work.</li>
+<li>Check if a console is patched, can be patched or not patched.</li>
+<li>Mounting the Boot0, Boot1, EMMC or SD card partition as a USB storage device on the PC.</li>
+<li>Nand management (file or physical disk) to get information about the nand, dump the nand or a specific partition of it or restore a nand dump or a dumped partition. Note that for these features using a physical disk you will need to mount the part of the nand you want to work on via Memloader, the script to do this is integrated.</li>
+<li>Reunification of the files of a nand dump performed by Hekate or SX OS on an SD formatted in FAT32 or on an SD too small to host the dump at once in a "rawnand.bin" file that can then be reused to restore the nand.</li>
+<li>Split a dump of the rawnand that could be used by the emunand of Atmosphere.</li>
+<li>Creation of a file from a complete dump of the nand allowing to prepare the emunand on a dedicated partition of the SD.</li>
+<li>Creation of update packages via ChoiDuJour with all parameters.</li>
+<li>Downloading a firmware and preparing the SD with it for ChoiDuJourNX or Daybreak, the homebrew is also copied during this script. This script also allows you to create the update package via ChoiDuJour in the process. To know how to use ChoiDuJourNX, you can refer to <a href="files/choidujournx.html">this page of the documentation</a>.</li>
+<li>Checking a key file ( "prod.keys", "keys.txt", "keys.dat", etc.).</li>
+<li>Preparation of an SD, from formatting (FAT32 or EXFAT) to the implementation of different solutions, see <a href="files/sd_prepare.html">this page</a> for more informations on the content of the packs.</li>
+<li>Simplified unbricking functions.</li>
+<li>Repairing a BOOT0 file witch have corrupted keyblobs (the concerned console keys mendatory).</li>
+<li>Launch of NSC_Builder. This script is useful for converting XCIs or NSPs to XCIs or NSPs. Files converted via this script are cleaned and made, in theory, undetectable by Nintendo, especially for NSPs. Finally, this script also allows you to create NSPs or XCIs containing the game, its updates and DLCs in a single file. For more information, see <a target="_new" href="https://github.com/julesontheroad/NSC_BUILDER">this page</a>.</li>
+<li>Conversion of XCI files to NSP.</li>
+<li>Conversion of an NSP file to make it compatible with the lowest possible switch firmware.</li>
+<li>Installation of NSP via Goldleaf and the network.</li>
+<li>Backup, restore and reset important files used by the script.</li>
+<li>Verification of the NSPs.</li>
+<li>Converting a Zelda Breath Of The Wild backup from Wii U format to Switch or vice versa.</li>
+<li>Extraction of the certificate from a console via the decrypted "PRODINFO.bin" file.</li>
+<li>Installation of NSP via Goldleaf via USB.</li>
+<li>Cutting of NSP or XCI to be able to put them on an SD formatted in FAT32.</li>
+<li>Launch of the necessary to play online on the alternative network, see <a href="files/netplay.html">this page</a>. A list of servers can also be created.</li>
+<li>Creation and launch of a personal server for Switch-Lan-Play.</li>
+<li>Launch of the companion for the HID_mitm module.</li>
+<li>Using NSZip to compress/uncompress games.</li>
+<li>Configuration of the Nes Classic Edition and Snes Classic Edition emulators.</li>
+<li>Extract files from a Switch gamesave.</li>
+<li>And more...</li>
+</ul>
+&nbsp;
+<h2>Known bugs</h2>
+&nbsp;
+<ul>
+<li>The Nes Classic Edition and Snes Classic Edition configuration scripts display all games that can only be played by one player, so this must be manually fixed in the emulator's game configuration file for now.</li>
+<li>The use of quotation marks and a few other signs in the user entries causes the script to crash.</li>
+<li>When a console output made by an "echo" is performed, it produces an error in the log file. UTF-8 encoding seems to be the cause of this problem but I haven't found a way to solve it yet.</li>
+<li>The biskey dump also retrieves the result of the TegraRcmSmash program, the bis keys starts from line 7 of the file.</li>
+</ul>
+&nbsp;
+<h2>Future functions</h2>
+&nbsp;
+<ul>
+<li>Improve and optimize the automatic update script.</li>
+<li>In the script for creating the emunand file for a partition or in the script for attaching a nand dump, implement a choice to handle other types of split dump.</li>
+<li>Set up a script that will take care of the flash of a partition of the SD with the partition file of an Emunand and that will indicate to the user in which sector it starts story that he can then easily configure it in Atmosphere.</li>
+<li>Create new scripts to prepare and install Linux or Laka, the old Linux preparation scripts will be kept but will be noted as obsolete.</li>
+<li>In cheat management, some games are not named, the database ( "tools\sd_switch\cheats\README.md" file) must be updated.</li>
+<li>Retrieving Biskeys directly from a text file using the Biskeydump payload (function present but not perfect yet).</li>
+<li>Implementing a more or less automated method allowing to go back to the line before a word that would reach the width of the window, in order to avoid cutting it.</li>
+<li>Other things you might suggest to me.</li>
+</ul>
+&nbsp;
+<h2>Useful links</h2>
+&nbsp;
+<p>
+This documentation will not cover the different tutorials on how to use the software or how to switch your console to RCM mode, but here are some useful links:
+<br/>
+<a target="_blank" href="https://gbatemp.net/categories/nintendo-switch-discussions.282/">Look this page</a>, you will probably find what you want on  this website.
+</p>
+&nbsp;
+<h2>Download</h2>
+&nbsp;
+<p>
+You can download the last base version on <a target="_blank" href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/releases">this page</a> (the functions used will be added during their use) or you can the last full version of the project by <a href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/archive/master.zip">clicking here</a>.
+</p>
+&nbsp;
+<h2>Changelog</h2>
+&nbsp;
+<p>
+See <a target="_blank" href="files/changelog.html">this page of the documentation</a>.
+<br/>
+For the changelog of the packs copied on the SD during the preparation of the SD after version 2.00.04 of the script, see <a target="_blank" href="files/packs_changelog.html">this page of the documentation</a>.
+</p>
+&nbsp;
+<h2>Credits</h2>
+&nbsp;
+<p>
+See <a target="_blank" href="files/credits.html">This page</a>.
+</p>
+</div>
+</body>
+</html>

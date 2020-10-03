@@ -1,0 +1,74 @@
+- bug: when the session is started by megatools dl, it will have an
+  empty fs_nodes list, so next call to megatools ls will return empty
+  results and user needs to do --reload
+
+- add usages to the code
+
+---------------------------------------
+
+- https://github.com/megous/megatools/issues/306
+   Use XDG_CONFIG_HOME for configuration file #306 
+- https://github.com/megous/megatools/issues/305
+  megals return values when secifying invalid paths
+- https://github.com/megous/megatools/issues/292
+   Create remote folder if it doesn't exist when using megacopy #292 
+-  Output coloring doesn't work on non-utf8 Linux #270
+  My system is using the fi_FI@euro locale, which uses the ISO-8859-15 encoding.
+- https://github.com/megous/megatools/issues/269
+  - key pinning
+-  Add time left and download speed #239 
+- https://github.com/megous/megatools/issues/163
+  - Prompt for decryption key when not avaliable in megadl #163 
+- megacopy: show paths relative to destination directory
+  https://github.com/megous/megatools/issues/120
+-  Make remote path optional for megacopy #307 
+- https://github.com/megous/megatools/issues/322
+  --force option
+- https://github.com/megous/megatools/issues/372
+  improve output
+
+- gpg/ssh agent/windows vault support
+
+#include <windows.h>
+#include <wincred.h>
+#include <tchar.h>
+#pragma hdrstop
+
+void main ()
+{
+    { //--- SAVE
+        char* password = "brillant";
+        DWORD cbCreds = 1 + strlen(password);
+
+        CREDENTIALW cred = {0};
+        cred.Type = CRED_TYPE_GENERIC;
+        cred.TargetName = L"FOO/account";
+        cred.CredentialBlobSize = cbCreds;
+        cred.CredentialBlob = (LPBYTE) password;
+        cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
+        cred.UserName = L"paula";
+
+        BOOL ok = ::CredWriteW (&cred, 0);
+        wprintf (L"CredWrite() - errno %d\n", ok ? 0 : ::GetLastError());
+        if (!ok) exit(1);
+    }
+    { //--- RETRIEVE
+        PCREDENTIALW pcred;
+        BOOL ok = ::CredReadW (L"FOO/account", CRED_TYPE_GENERIC, 0, &pcred);
+        wprintf (L"CredRead() - errno %d\n", ok ? 0 : ::GetLastError());
+        if (!ok) exit(1);
+        wprintf (L"Read username = '%s', password='%S' (%d bytes)\n", 
+                 pcred->UserName, (char*)pcred->CredentialBlob, pcred->CredentialBlobSize);
+        // must free memory allocated by CredRead()!
+        ::CredFree (pcred);
+    }
+}
+
+- only retry on non-persistent errors
+- rework streaming (split download function into a streaming core and a wrapper)
+
+------
+
+- better abort mechanism for http workers
+
+- https://github.com/megous/megatools/issues/324

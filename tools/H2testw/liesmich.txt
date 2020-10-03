@@ -1,0 +1,180 @@
+H2testw -- by Harald Bögeholz / c't Magazin für Computertechnik
+Integritätstest für USB-Sticks und andere Datenträger
+Version 1.4, Copyright (C) 2008 Heise Zeitschriften Verlag GmbH & Co. KG
+========================================================================
+
+H2testw wurde entwickelt, um USB-Sticks auf einwandfreie Funktion zu
+testen. Es eignet sich aber auch für beliebige andere Datenträger wie
+Speicherkarten, interne und externe Festplatten und sogar
+Netzwerklaufwerke.
+
+Die Exe-Datei H2testw.exe ist ohne Installation direkt lauffähig. Das
+Programm wurde entwickelt für Windows XP und Vista; unter Windows 2000
+sollte es auch funktionieren, wurde jedoch nicht getestet. Windows
+9x/ME wird nicht unterstützt; als Alternative bietet sich das ältere
+Kommandozeilenprogramm H2test an.
+
+Das Funktionsprinzip von H2testw ist einfach: Es füllt den gewählten
+Speicherort mit Testdateien, liest diese anschließend wieder ein und
+überprüft, ob die gelesenen Daten mit den ursprünglich geschriebenen
+übereinstimmen. 
+
+H2testw überschreibt oder löscht grundsätzlich keine bestehenden
+Dateien. Es greift nicht tief ins System ein, sondern legt als
+gewöhnliches Anwendungsprogramm Dateien an; Administratorrechte sind
+daher nicht erforderlich. Wenn die Hardware korrekt arbeitet, wird
+H2testw also keine bestehenden Daten gefährden.
+
+ABER: _Wenn_ ein Hardwarefehler vorliegt, dann kann H2testw diesen zum
+Vorschein bringen und dadurch eventuell auch bestehende Daten
+beschädigen. Daher der Rat: WENN SIE EINEN USB-STICK ODER SONSTIGEN
+DATENTRÄGER IM VERDACHT HABEN, NICHT RICHTIG ZU ARBEITEN, LEEREN SIE
+IHN ZUNÄCHST UND TESTEN IHN DANN VOLLSTÄNDIG MIT H2TESTW. Nur wenn ein
+Datenträger leer ist, kann H2testw ihn vollständig testen. Für
+reproduzierbare Ergebnisse empfehlen wir, den Datenträger frisch zu
+formatieren (Schnellformatierung genügt) und dann zu testen.
+
+H2testw schreibt an den gewählten Speicherort jeweils bis zu 1 GByte
+große Dateien mit den fortlaufenden Namen 1.h2w, 2.h2w, 3.h2w usw.
+Wenn am Zielort bereits ein gültig aussehender Satz solcher Dateien
+vorliegt, bietet H2testw an, diese zu prüfen; existieren irgendwelche
+anderen Dateien mit Namen *.h2w, verweigert es die Arbeit. Löschen Sie
+in diesem Falle alle Dateien *.h2w und drücken Sie den Knopf
+"Aktualisieren".
+
+Nach getaner Arbeit bleiben die Testdateien auf dem Datenträger
+liegen. Sie können sie nach Belieben löschen oder -- im Falle eines
+USB-Sticks zum Beispiel an einem anderen Rechner -- nochmals
+überprüfen.
+
+Die Checkbox "Prüfen als Dauertest" versetzt H2testw in eine
+Endlosschleife, in der es die Testdateien immer wieder einliest und
+überprüft, bis ein Fehler auftritt. Diese Option ist dafür gedacht,
+sporadisch auftretende Übertragungsfehler zu entdecken.
+
+Eine Anmerkung zur Restzeitschätzung: Bei intakten
+Flash-Speichermedien sollte die Schätzung sehr genau stimmen, weil die
+Datenrate konstant ist. Bei defekten Flash-Medien haben wir starke
+Einbrüche in der Übertragungsrate beobachtet, die dazu führen, dass
+die Schätzung ständig nach oben korrigiert wird. Festplatten erzielen
+grundsätzlich im Innenbereich eine niedrigere Datenrate als außen,
+daher ist die Schätzung prinzipbedingt ungenau.
+
+Bei Fragen oder Anregungen zu H2testw wenden Sie sich bitte per E-Mail
+an Harald Bögeholz <hwb@heise.de> (in Deutsch oder Englisch).
+
+
+Was tun im Fehlerfall?
+----------------------
+
+Wenn H2testw beim Überprüfen Datenfehler meldet, dann heißt das, dass
+das Speichermedium nicht alle Daten so zurückgeliefert hat, wie sie
+geschrieben wurden. Wahrscheinlich handelt es sich um ein defektes
+Speichermedium, es kommen aber auch andere Fehlerquellen in Betracht.
+Sie sollten daher im Fehlerfalle den Test wiederholen und dabei
+Folgendes beachten:
+
+* Medium nach Möglichkeit frisch formatieren
+
+* Keine USB-Verlängerungskabel oder USB-Hubs verwenden
+
+* USB- oder FireWire-Geräte versuchsweise an einem anderen Anschluss
+  testen (manchmal sind die USB-Ports an der ATX-Blende besser als die
+  Front-Anschlüsse).
+
+* Bei externen Platten auch mal ein anderes Kabel probieren, falls
+  möglich.
+
+
+Ausgabe im Fehlerfall
+---------------------
+
+Wenn beim Überprüfen Fehler auftreten, schlüsselt H2testw die Anzahl
+der fehlerhaften Sektoren auf in
+
+* solche, die durch andere überschrieben wurden (siehe oben unter
+  Adressierungsfehler),
+
+* solche, die nur leicht verfälscht wurden (weniger als 8 abweichende
+  Bits pro Sektor)
+
+* komplett fehlerhafte bzw. stärker verfälschte ("Datenmüll").
+
+Im Falle überschriebener Sektoren versucht H2testw herauszufinden, wie
+viel Speicher in dem betroffenen Bereich real vorhanden ist und weist
+diese Datenmenge als "mehrfach genutzt" aus (ohne Gewähr!).
+
+Für den ersten gefundenen Fehler gibt das Programm schließlich den
+Offset innerhalb des Datenbestands, den dort erwarteten (Soll) und den
+tatsächlich vorgefundenen Wert (Ist) aus.
+
+Tipp: Der Text der Fehlermeldung lässt sich markieren und mit
+Kopieren und Einfügen zum Beispiel in eine E-Mail übernehmen. 
+
+
+Typische Fehlerbilder
+---------------------
+
+Die Testdaten von H2testw sind so konstruiert, dass man typische
+Fehler voneinander unterscheiden kann. Sie fallen in drei Kategorien:
+
+* Adressierungsfehler: Beim Schreiben eines Sektors landet der Inhalt
+  nicht an der gewünschten Adresse, sondern an einer anderen,
+  überschreibt also einen anderen Sektor. Dieser Fehler tritt bei
+  einigen manipulierten USB-Sticks auf. Weiteres prominentes Beispiel:
+  Eine Festplatte über 128 GByte an einem Rechner, dessen BIOS
+  und/oder Betriebssystem noch nicht die dafür nötige Adressierungsart
+  beherrscht. Dann erfolgen alle Zugriffe modulo 128 GByte: Daten, die
+  man an der 128-GByte-Grenze schreibt, überschreiben also wieder den
+  Anfang der Festplatte.
+
+* Daten werden gar nicht gespeichert: Diesen Fehler haben wir im
+  Zusammenhang mit fehlerhaften USB-Sticks beobachtet. Statt der
+  geschriebenen Daten liefert ein Sektor beim Lesen nur Nullen oder
+  Einsen zurück -- ein typisches Anzeichen dafür, dass auf nicht
+  bestückten Speicher zugegriffen wurde.
+
+* Einzelne Bits werden verfälscht: Das deutet auf
+  Übertragungsstörungen auf dem Signalweg vom Prozessor zum
+  Speichermedium hin. Ebenfalls denkbar, aber noch nicht beobachtet:
+  Theoretisch könnte in einem Flash-Speicher auch mal ein Bit
+  "umkippen".
+
+
+Aufbau der Testdaten
+--------------------
+
+H2testw schreibt und liest die Testdaten megabyteweise. Auch wenn man
+die Option wählt, den Datenträger ganz zu füllen, bleibt daher am Ende
+bis zu 1 MByte Verschnitt übrig, wobei mit 1 MByte 1048576 Byte
+gemeint sind (1024 KByte). Um auch mit FAT-Dateisystemen zu
+funktionieren, hält H2testw einen respektvollen Abstand von der
+4-GByte-Grenze und fängt nach jeweils einem Gigabyte (1024 MByte) eine
+neue Datei an.
+
+Innerhalb einer Datei beginnt jeder 512-Byte-Sektor mit einem
+64-Bit-Wort (8 Byte), in dem der Offset innerhalb der gesamten
+Testdaten (nicht nur innerhalb der Datei) abgelegt ist, und zwar
+Intel-typisch im Format Little-Endian, also niederwertiges Byte
+zuerst.
+
+Die Datei 1.h2w beginnt also mit der Bytefolge
+
+00 00 00 00 00 00 00 00,
+
+der nächste Sektor mit
+
+00 02 00 00 00 00 00 00,
+
+der nächste mit
+
+00 04 00 00 00 00 00 00
+
+und so weiter. Die Datei 2.h2w beginnt mit der Bytefolge
+
+00 00 00 40 00 00 00 00
+
+(Offset 1 GByte = 0x40000000).
+
+Der Rest eines jeden Sektors ist mit einer Pseudo-Zufallszahlenfolge
+aufgefüllt.

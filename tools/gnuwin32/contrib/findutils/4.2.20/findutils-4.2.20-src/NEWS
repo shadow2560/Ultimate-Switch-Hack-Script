@@ -1,0 +1,435 @@
+GNU findutils NEWS - User visible changes.	-*- outline -*- (allout)
+
+* Major changes in release 4.2.20
+** Internationalization and Localization
+Updated Vietnamese and Dutch translations.   
+
+** Bug Fixes
+Minor bugfix affecting only those who compile from the CVS repository, 
+as opposed to those who compile from the source releases.
+
+* Major changes in release 4.2.19
+** Bug Fixes
+
+find should now no longer hang on systems which lack the O_NOFOLLOW
+flag to open(2) and which are clients of an unresponsive NFS server
+(Savannah bug #12044).
+
+We now avoid inappropriately failing for "find -L foo" or "find -H
+foo" if foo is a symbolic link (Savannah bug #12181).  Previously we
+used to fail with the error message "Too many levels of symbolic
+links".
+
+"find . -false -exec foo {} +" no longer runs an extra instance of foo
+when find exits (Savannah bug #12230).
+
+If the chdir() safety check fails but we can no longer get back to 
+where we started, exit with an explanatory (fatal) error message.
+This does not happen on GNU/Linux and FreeBSD because the safety check
+is not needed (the security problem the safety check protects against
+is prevented in a cleaner way on those systems).
+
+"make distclean" no longer deletes regex.c (which "make all" needs).
+
+**  Functionality Changes
+"find -printf "%h\n" will now print "." for files in the current directory.
+Previously it printed nothing (but there was a bug in the %h
+implementation anyway).  This fixes Savannah bug #12085.
+
+Should now build (again) on non-C99-compliant systems.
+
+** Documentation enhancements
+Fixed some typos and clarified wording in "Working with automounters".
+
+** Internationalization and Localization
+New Vietnamese message translation.
+
+* Major changes in release 4.2.18
+** Bug Fixes
+*** "find -depth" was missing out non-leaf directories when they contain 
+    non-directories.  This affected findutils releases 4.2.15,
+    4.2.16 and 4.2.17, but the bug is now fixed.
+*** Find no longer hangs on systems which are clients of unresponsive 
+    NFS servers.
+**  Documentation improvements
+*** Improvements and corrections to the find.1 manpage, including corrections to the descriptions of -H and -L.
+
+* Major changes in release 4.2.17
+** Bug Fixes
+*** bug #11861 	undefined symbol "basename" on IRIX 5.3 
+*** bug #11865 	xargs -i regression  (as compared to findutils-4.2.12)
+*** bug #11866 	Typo in pred_okdir renders it useless (affecting 4.2.16 only)
+*** patch #3723 fix recent process_top_path change (for -execdir on /)
+*** Fixing bug #11866 and applying patch #3723 made -execdir work much better.
+*** find bar/baz/ugh now works again if baz is a symbolic link (broken 
+    in 4.2.15).
+
+* Major changes in release 4.2.16
+**  Functionality Changes
+*** Updated the message catalogues for the translated messages.
+*** The subfs filesystem is now treated the same as the autofs
+    filesystem is.
+*** New translations:  Belarusian, Catalan, Greek, Esperanto,
+    Finnish, Irish, Croatian, Hungarian, Japanese, Luganda,
+    Malay, Romanian, Slovenian, Serbian, Chinese (simplified).
+
+**  Bug Fixes
+*** The -execdir action now works correctly for files named on the 
+    command line.
+
+* Major changes in release 4.2.15
+**  Functionality Changes
+*** locate now supports matching regular expression (--regex).
+*** --enable-d_type-optimization (introduced in findutils 4.2.13) is now turned on by default.
+
+* Major changes in release 4.2.14
+**  Functionality Changes
+*** New options -L, -P, -H for locate.  The work in the same was as the same options for find.
+**  Bug Fixes
+*** Don't include the "findutils/find/testsuite/find.gnu" subdirectory in the 
+    distributed tar file more than once.
+*** Should now build on Solaris once again.
+*** -xtype and -printf %Y now work correctly for symbolic links once again
+**  Documentation improvements
+*** All options for "locate" are now documented
+
+* Major changes in release 4.2.13
+**  Performance Enhancements
+*** On Linux and some other systems, a large performance improvement, 
+    because we can eliminate many of the calls to lstat() (in extreme
+    cases, 99% of them).  Limited testing shows a 2x speedup on NFS
+    filesystems.  Other systems which can make use of this enhancement
+    include Mac OS X and *BSD.
+
+* Major changes in release 4.2.12
+**  Functionality Changes
+*** find is now POSIX-compliant, as far as I know.
+*** -exec ... {} + now works.
+*** New actions -execdir and -okdir which are like -exec and -ok but more secure.
+*** "locate -w" is now a synonym for "locate --wholepath".
+*** An empty path entry in the locate database path (for example "::" in 
+    $LOCATE_PATH or in the argument to "locate -d") is taken to mean
+    the default database, whose name is hard-coded in locate.
+**  Bug Fixes
+*** If find or xargs cannot write to stdout, for example because 
+    output is redirected to a file and the disk is full, the 
+    relevant program will return a non-zero exit status.
+
+* Major changes in release 4.2.11
+**  Bug Fixes
+*** Compilation fix for systems without EOVERFLOW.
+*** More helpful error message if you make a mistake with (, ), -o or -a.
+**  Functionality Changes
+*** If you have unclosed parentheses on the find command line, 
+    or any of a number of similar problems, find will now produce 
+    a more helpful error message.
+*** locate -b is now a synonym for locate --basename
+*** locate now supports a --statistics (or -S) option, which prints some
+    statistics about the locate databases.
+*** Implemented the -samefile option.
+**  Documentation improvements
+*** New chapter in the manual, "Security Considerations". 
+*** Better documentation for -prune (Mainly thanks to 	Stepan Kasal)
+**  Bug Fixes
+*** locate's options -i and -w now work with the -e option (previously a bug 
+    prevented this).
+
+* Major changes in release 4.2.10
+**  Bug Fixes
+*** Portability fix for fstype.c: should now compile on UNICOS, and possibly 
+    also produce useful results on BeOS and Dolphin, perhaps other
+    systems too.   
+
+* Major changes in release 4.2.9
+**  Functionality Changes
+*** xargs no longer treats a line containing only an underscore as a logical end-of-file.   To obtain the behaviour that was previously the default, use "-E_". 
+*** xargs now supports the POSIX options -E, -I and -L.   These are synonyms 
+    for the existing options -e, -i and -l, but the latter three are
+    now deprecated.
+**  Bug Fixes
+*** xargs -n NUM now invokes a command as soon as it has NUM arguments.  
+    Previously, it waited until NUM+1 items had been read, and then
+    invoked the command with NUM arguments, saving the remaining one
+    for next time. 
+*** If "find -L" discovers a symbolic link loop, an error message is issued.
+*** If you specify a directory on the find command line, but -prune 
+    is applied to it, find will no longer chdir() into it anyway.
+**  Documentation improvements
+*** The precise interpretation of the arguments to the -atime, -ctime 
+    and similar tests in find has been documented more clearly.
+
+* Major changes in release 4.2.8
+*** Bugfix to the findutils 4.2.7 automount handling on Solaris.  This 
+    worked to some extent in findutils-4.2.7, but is much improved in
+    findutils-4.2.8.
+
+* Major changes in release 4.2.7
+**  Functionality Changes
+*** xargs can now read a list of arguments from a named file, allowing 
+    the invoked program to use the same stdin as xargs started with
+    (for example ``xargs --arg-file=todo emacs'').
+**  Documentation improvements
+*** The Texinfo manual now has an extra chapter, "Error Messages".  Most 
+    error messages are self-explanatory, but some of the ones which
+    are not are explained in this chapter.
+**  Bug Fixes
+*** Avoid trying to link against -lsun on UNICOS, which doesn't need it or 
+    have it.
+*** Bugfix to the findutils 4.2.6 automount handling (which hadn't been enabled
+    on Solaris).
+*** Reenabled internationalisation support (which had been accidentally 
+    disabled in findutils-4.2.5).
+
+* Major changes in release 4.2.6
+**  Bug Fixes
+*** find now copes rather better when a directory appears to change just as
+    it is about to start examining it, which happens with automount.
+    This is because automount mounts filesystems as you change
+    directory into them.  This should resolve Savannah bugs #3998,
+    #9043.
+
+* Major changes in release 4.2.5
+**  Functionality Changes
+*** The POSIX options -H and -L are supported.  These control whether or not
+    find will follow symbolic links.
+*** The BSD option -P is also now supported (though in any case 
+    it is the default).
+**  Documentation improvements
+***  Better documentation for "xargs -i".
+**  Bug Fixes
+*** "make install" now respects DESTDIR when generating localstatedir.
+    (this is only relevant if you are installing to some location
+    other than the one that you indictaed when you ran "configure").
+*** Compatible with automake versions 1.8 and 1.9.
+*** Build problems on UNICOS now fixed, though the linker will still generate 
+    warnings because we try to link with the nonexistent library
+    "-lsun".  Edit $(LIBS) to work around this problem.
+
+* Major changes in release 4.2.4
+**  Functionality Changes
+*** If your system sort command has a working "-z" option, updatedb will
+    now correctly handle newline characters in filenames (as will
+    locate).
+*** xargs now uses 128Kb of command line by default (less if the system 
+    doesn't support that much).
+*** If you specify a 'find' option after non-option, a warning message 
+    is now issued.  Options should be specified immediately after the 
+    list of paths to search.  These warnings are enabled if you
+    specify the -warn option, or if stdin is a tty.  They are diabled
+    by the use of the -nowarn option.  
+*** Like find, the locate program now supports an option --null (short form -0)
+    which changes the result separator from newline to NULL.
+*** Locate supports the option -c (long form --count) which suppresses normal
+    output but prints on stdout the number of results produced (like
+    grep -c).
+*** Locate supports the option -l (long form --limit) which limits the 
+    number of results.  This is useful if you only want to find out if
+    there are copies of a certain file on the system, but don't want
+    to wait for the entire locate database to be searched.
+*** Locate now has an option --basename which forces the specified pattern to 
+    be matched against the basename of the entries in the locate
+    database, rather than the whole name.  The default behaviour
+    (matching against the whole name of the file including all the
+    parent directory names) corresponds to the option --wholename.
+*** updatedb has a new option, --findoptions, that can be used to 
+    pass extra options through to the find command that it uses.
+**  Bug Fixes
+*** "find -printf '%H\n'" now works (rather than segfaulting) on
+    systems that have non-writable string constants.
+*** Better POSIX compliance for the -s option to xargs (out of range 
+    values should just result in bounding to the correct range, not an
+    error, so now we just print a warning message and adjust the
+    value).
+*** Corrected section numbers of manual page cross-references
+
+* Major changes in release 4.2.3
+**  Functionality Changes
+*** Added new action -delete which deletes things that find matches.
+*** Added new action -quit which causes find to exit immediately.
+*** A new format directive '%D' for "find -printf" prints the device number.
+*** The -ls predicate no longer truncates user or group names.
+*** Added new option "-d" which is a synonym for "-depth" for compatibility
+    with Mac OS, OpenBSD and FreeBSD.  This option is already
+    deprecated since the POSIX standard specifies "-depth".   
+*** Added two new format specifiers to the -printf action; these are 
+    %y and %Y.  They indicate the type of the file as a single letter;
+    these are the same latters as are used by the "-type" test.
+*** If a parent directory changes during the execution of find, 
+    the error message we issue identifies the nature of the change
+    (for example the previous and current inode numbers of the 
+    directory we've just returned out of).
+** Other Changes
+*** Non-functional code changes to silence compiler warnings.
+
+* Major changes in release 4.2.2
+**  Documentation improvements
+*** "find ... -exec {}+" is not yet supported.
+** Bug Fixes
+*** Fixed compilation problems on Solaris, RedHat EL AS 2.1, Irix, AIX
+*** Work around possible compiler bug on HP-UX 11.23 for ia64
+*** The built-in internationalisation support now works again.
+** Other Changes
+*** We now import the gnulib source in the way it is intended to be used,
+    which means among other things that we only have one config.h file
+    now.
+*** Functions which findutils requires but which are not present in 
+    gnulib are now defined in "libfind.a".  This is in the lib
+    directory, while gnulib is in the gnulib subdirectory.
+*** Fixed a typo in the address of the FSF in many of the file headers.
+
+* Major changes in release 4.2.1
+** Bug Fixes
+*** 'find -name \*bar now matches .foobar, because the POSIX standard 
+     requires it, as explained at
+     http://standards.ieee.org/reading/ieee/interp/1003-2-92_int/pasc-1003.2-126.html
+
+* Major changes in release 4.2.1
+** Bug Fixes
+*** find -iname now works correctly on systems that have an fnmatch() function 
+    that does not support FNM_CASEFOLD
+*** updatedb now uses signal names for "trap" instead of numbers, 
+    as per bug #9465 (see http://www.opengroup.org/onlinepubs/009695399/utilities/trap.html)
+*** Better support for systems lacking intmax_t
+** Other Changes
+**** findutils now uses a newer version of gnulib (dated 2004-10-17).
+
+* Major changes in release 4.2.0
+** Functionality Changes
+*** xargs now works better when the environment variables are very extensive.
+    The xargs command used to run into difficulties if the environment 
+    data contained more than 20480 bytes.
+*** New options -wholename and -iwholename 
+    As per the GNU Projecvt coding standard, These are preferred over 
+    the -path and -ipath options.  Using -ipath now generates a warning,
+    though -path does not (since HPUX also offers -path).   
+*** The environment variable FIND_BLOCK_SIZE is now ignored.
+*** New option "-ignore_readdir_race"
+    silences an error messages which would otherwise occur if a file is removed
+    after find has read it from the directory using readdir(), but before 
+    find stats the file.  There is also an option
+    -noignore_readdir_race which has the opposite effect.   
+**  Documentation improvements
+*** The -size option of find is now documented in more detail
+*** POSIX compliance and GNU extensions
+    The find manual page also now includes a section 
+    which describes the relationship between the features of GNU 
+    find and the POSIX standard.  Some other small improvements 
+    to the find and xargs manual pages have been made.
+*** The argument to the -fprintf directive is now better documented.
+    The escape code '\0' for the `-printf' predicate of find is now
+    documented, and the documentation for the %k and %b specifiers
+    has been improved.  
+*** xargs -i is now more clearly documented.
+** Bug Fixes
+*** locate 'pa*d' will now find /etc/passwd (if it exists, of course)
+*** xargs standard input is not inherited by child processes
+    If the command invoked by xargs reads from its standard input, 
+    it now gets nothing, as opposed to stealing data from the 
+    list of files that xargs is trying to read.
+*** Better support for 64-bit systems.
+*** The command "xargs -i -n1" now works as one might expect, 
+    I think this is a strange thing to want to do.  
+*** Arguments to find -mtime that are too large are now diagnosed 
+    Previously, this just used to cause find just to do the wrong thing.
+*** updatedb is now somewhat more robust
+    The updatedb shell script now does not generate an empty 
+    database if it fails.  
+*** Sanity-check on some data read from locatedb
+    Locate now detects some types of file corruption in the 
+    locate database.
+*** The %k format specifier for -fprintf now works
+    This was broken in 4.1.20.
+
+* Major changes in release 4.1.20:
+** New maintainer, James Youngman <jay@gnu.org>
+** As far as I know, this is the first release after 4.1.7, but I've left 
+   a gap just in case. 
+** We now use an "imported" version of gnulib, rather than including 
+   a copy of the gnulib code in our CVS repository.   There are no
+   differences in the build instructions, though (unless you are 
+   building directly from CVS, in which case please read the file
+   README-CVS).
+** There are no (deliberate) functional changes in version 4.1.20.
+
+* Major changes in release 4.1.7:
+fix problem so that default "-print" is added when "-prune" is used.
+security fixes related to directories changing while find is executing.
+
+* Major changes in release 4.1.6:
+correct bug in prune.
+added --ignore-case option for locate
+
+* Major changes in release 4.1.5:
+Add support for large files
+
+* Major changes in release 4.1.4:
+bug fixes, more up-to-date languages.
+
+* Major changes in release 4.1.3:
+added internationalization and localization.
+
+* Major changes in release 4.1.1:
+attempt at successful compilation on many platforms after years of neglect
+ "--existing" option added to locate "--prunefs" option added to updatedb
+
+* Major changes in release 4.1:
+
+** Distribution renamed to findutils.
+** updatedb is now a user command, installed in $exec_prefix/bin
+  instead of $exec_prefix/libexec.
+** A few problems in Makefiles and testsuite corrected.
+
+* Major changes in release 4.0:
+
+** Documentation:
+*** Texinfo manual.
+*** Man page for updatedb.
+*** Man page for the locate database formats.
+
+** find:
+*** Takes less CPU time on long paths, because it uses chdir to descend
+   trees, so it does fewer inode lookups.
+*** Does not get trapped in symbolic link loops when -follow is given.
+*** Supports "-fstype afs" if you have /afs and /usr/afsws/include
+   and you configure using the --with-afs option.
+*** New action -fls FILE; like -ls but writes to FILE.
+
+** locate:
+*** Supports a new database format, which is 8-bit clean and
+   allows machines with different byte orderings and integer sizes to
+   share the databases.  The new locate can also detect and read the
+   old database format automatically.  The new databases are typically
+   30% or more larger than the old ones (due to allowing all 8 bits in
+   file names).  Search times are approximately the same, or faster on
+   some systems.
+*** Warns if a file name database is more than 8 days old.
+
+** updatedb:
+*** Takes command-line options.
+
+** xargs:
+*** Performance improved 10-20%.
+*** The EOF string is not used when -0 is given.
+*** Now has a test suite.  Some minor bugs fixed as a result.
+
+* Major changes in release 3.8:
+
+** case insensitive versions of -lname, -name, -path, -regex:
+  -ilname, -iname, -ipath, -iregex
+** %F directive for -printf, -fprintf to print file system type
+
+* Major changes in release 3.7:
+
+** locate can search multiple databases
+** locate has an option to specify the database path
+** updatedb no longer goes into an infinite loop with some versions of tail
+
+                        --//--
+This is used by Emacs' spell checker ispell.el:
+
+LocalWords: ansi knr strftime xargs updatedb sh fnmatch hin strcpy
+LocalWords: lib getstr getline frcode bigram texi depcomp automake
+LocalWords: strncasecmp strcasecmp LIBOBJS FUNC prunefs allout libexec
+LocalWords: testsuite Texinfo chdir inode fstype afs fls ls EOF lname
+LocalWords: regex ilname iname ipath iregex printf fprintf
+

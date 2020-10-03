@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="fr-FR">
+<head>
+<title>Traduction</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Instructions de traduction</h1>
+&nbsp;
+<p>
+Dans cette partie de la documentation je vais expliquer la façon de traduire le script.
+<br/><br/>
+Malheureusement, le batch possède certaines limitations donc il faut respecter certaines règles car sinon la traduction risque de faire planter le script.
+<br/><br/>
+Notez également que la traduction la plus à jour sera le français, le script restera optimisé pour cette langue en premier lieu.
+</p>
+&nbsp;
+<h2>Consignes</h2>
+&nbsp;
+<ul>
+<li>Toujours partir de la dernière base du dossier "FR_fr" se trouvant dans le dossier "languages" du script.</li>
+<li>Garder l'encodage en UTF-8 (chcp 65001) car le script est en grande partie fait pour fonctionner correctement sous cet encodage de caractère. Quelques scripts fonctionnent aussi en ANSI (chcp 1252), garder également cette encodage pour ces fichiers.</li>
+<li>Tout ce qui se trouve entre deux caractères "%" ou "!" ne doit pas être traduit, ce sont des variables utilisées par le ou les scripts. Par contre, si le signe "^" précède un de ces signes, cela signifie qu'il sera affiché dans la chaîne de caractère et que donc là la suite du caractère "%" ou "!" peut être traduite. Autre chose pour le caractère "%", s'il est suivi d'un "~" il faudra reprendre la traduction à partir de l'espace qui suivra et laisser ce qui est collé au "%~".</li>
+<li>Les signes "(", ")", "<", ">", "^|" et "^" doivent toujours être précédé du signe "^" pour s'afficher correctement et ne pas impacter le fonctionnement du script.</li>
+<li>Pour afficher une ligne vide, ajouter une ligne contenant "echo." (sans les guillemets) à l'endroit où vous souhaitez qu'elle s'affiche.</li>
+<li>Pour les lignes à traduire commençant par "title" (sans les guillemets), la traduction commence à partir du premier espace.</li>
+<li>Pour les lignes à traduire commençant par "echo" (sans les guillemets), la traduction commence à partir du premier espace.</li>
+<li>Pour les lignes à traduire commençant par "set" (sans les guillemets), la traduction commence à partir du premier signe "=".</li>
+<li>Parfois, une condition se trouve avant la ligne à traduire donc ne pas toucher à la condition, seulement traduire ce qui est de l'ordre du message. Parfois également, les conditions sont en forme de bloque donc ne pas toucher au bloque mais traduire ce qui peut l'être dans ceux-ci.</li>
+<li>Certaines lignes contiennent des infos à traduire dans les paramètres, notamment les lignes commençant par "%windir%\system32\wscript.exe".</li>
+<li>Vous êtes totalement libre de la présentation des choses dans vos traductions tant que cela n'impact pas le fonctionnement du script.</li>
+</ul>
+<p>
+Vous devez également remplacer la ligne "goto:%~1" (la première ligne de chaque script de traduction française)  par cette petite fonction:
+</p>
+<quote>
+set lng_label_exist=0
+%ushs_base_path%tools\gnuwin32\bin\grep.exe -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
+set /p lng_label_exist=<"%ushs_base_path%temp_lng_var.txt"
+del /q "%ushs_base_path%temp_lng_var.txt"
+IF "%lng_label_exist%"=="0" (
+	call "!associed_language_script:%language_path%=languages\FR_fr!" "%~1"
+	goto:eof
+) else (
+	goto:%~1
+)
+</quote>
+<h2>Proposer une traduction</h2>
+&nbsp;
+<p>
+Pour me proposer une traduction à intégrer, vous pouvez faire un pull request sur Github ou me proposer un zip en ouvrant une issue. S'il vous plaît, veuillez communiquer avec moi en français de préférence ou en anglais.
+</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="fr-FR">
+<head>
+<title>Infos sur le script de débrickage</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<h1>Infos sur le script de débrickage</h1>
+&nbsp;
+<p>
+Ceci est un  script batch automatisant le débrickage de la Switch pour la plupart des problèmes software (méthode ChoiDuJour grandement automatisée et optimisée, voir <a target="_blank" href="http://www.logic-sunrise.com/forums/topic/84655-tuto-avance-reinitialiser-completement-une-console-la-debricker-ou-installer-un-firmware-en-utilisant-choidujour/">cette page</a> qui explique la méthode manuelle de débrickage via ChoiDuJour).
+<br/><br/>
+Attention, une fois le script de TegraExplorer exécuté, toutes les données de la sysnand seront supprimées. Veuillez faire un dump complet de la nand avant tout (même si la console ne fonctionne plus) via Hekate ou NXNandManager par exemple (non couvert par ce projet) et veuillez également faire un dump des clés de la console via Lockpick-RCM (si celui-ci ne fonctionne pas il est probable que cette procédure ne donne rien). Il est également préférable d'utiliser une SD vierge (1 GO suffit largement), ceci dit cela n'est pas obligatoire mais si certains fichiers de votre SD sont différents de ceux de cette procédure ils seront remplacés, notamment le fichier "bootloader\hekate_ipl.ini" qui est le plus important si vous utilisez Hekate et Atmosphere sera mis à jour vers la version incluse dans cette procédure (Atmosphere 0.12.0 actuellement).
+</p>
+&nbsp;
+<h2>Fonctionnalités</h2>
+&nbsp;
+<ul>
+<li>Création du package 6.1.0 grâce à ChoiDuJour.</li>
+<li>Installation des drivers du mode RCM (driver "APX").</li>
+<li>Téléchargement d'un firmware choisi par l'utilisateur et préparation de la SD avec celui-ci pour ChoiDuJourNX, le homebrew est également copié durant le processus.</li>
+<li>Préparation d'une SD, formatage (FAT32 ou EXFAT) et copie des fichiers nécessaires au débrickage sur celle-ci.</li>
+<li>Lancement des payloads nécessaires tout au long du script via le mode RCM de la Switch.</li>
+<li>Restauration du package créé par ChoiDuJour grâce à un script exécutable via le payload TegraExplorer (ne pas utiliser ce script hors de la procédure de ce projet car cela pourrait poser des problèmes sur la console, résolvables ceci dit en faisant la procédure depuis le début).</li>
+<li>Réécriture d'un fichier BOOT0 avec les keyblobs obtenu par Linkle via le fichier de clés dumpé sur la console ciblée par cette modification avec Lockpick-RCM.</li>
+</ul>
+</body>
+</html>

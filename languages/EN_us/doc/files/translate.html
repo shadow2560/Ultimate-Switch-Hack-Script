@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<title>Translation</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Translation instructions</h1>
+&nbsp;
+<p>
+In this part of the documentation I will explain how to translate the script. 
+<br/><br/>
+Unfortunately, the batch has some limitations so you have to respect some rules because otherwise the translation may cause the script to crash. 
+<br/><br/>
+Also note that the most up-to-date translation will be French, the script will remain optimized for this language in the first place. 
+</p>
+&nbsp;
+<h2>Instructions</h2>
+&nbsp;
+<ul>
+<li>Always start from the last version of the "FR_fr" folder in the "languages" folder of the script.</li>
+<li>Keep the encoding in UTF-8 (chcp 65001) because the script is largely made to work correctly under this character encoding. Some scripts also work in ANSI (chcp 1252), keep this encoding for these files as well.</li>
+<li>Anything between two characters "%" or"!" must not be translated, they are variables used by the script(s). On the other hand, if the sign "^" precedes one of these signs, it means that it will be displayed in the character string and that therefore the continuation of the character "%" or"!" can be translated. Another thing for the "%" character, if it is followed by a "~", it will be necessary to repeat the translation from the space that will follow and leave what is stuck to the "%~".</li>
+<li>The signs"(",")"," <"," >"," ^|" and" ^" must always be preceded by the sign" ^" to be displayed correctly and not to impact the script's operation.</li>
+<li>To display an empty line, add a line containing "echo." (without quotation marks) where you want it to appear.</li>
+<li>For lines to be translated starting with "title" (without quotation marks), the translation starts from the first space.</li>
+<li>For lines to be translated starting with "echo" (without quotation marks), the translation starts from the first space.</li>
+<li>For lines to be translated starting with "set" (without quotation marks), the translation starts from the first sign "=".</li>
+<li>Sometimes, a condition is before the line to be translated so do not touch the condition, only translate what is in the order of the message. Sometimes also, the conditions are in the form of a block so do not touch the block but translate what can be in them.</li>
+<li>Some lines contain information to be translated in the settings, including lines beginning with "%windir%\system32\wscript.exe".</li>
+<li>You are completely free to present things in your translations as long as it does not impact the functioning of the script.</li>
+</ul>
+<p>
+Also, in the languages script, you must replace the line "goto:%~1" (the first line of eatch french translation script) by this little function:
+</p>
+<quote>
+set lng_label_exist=0
+%ushs_base_path%tools\gnuwin32\bin\grep.exe -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
+set /p lng_label_exist=<"%ushs_base_path%temp_lng_var.txt"
+del /q "%ushs_base_path%temp_lng_var.txt"
+IF "%lng_label_exist%"=="0" (
+	call "!associed_language_script:%language_path%=languages\FR_fr!" "%~1"
+	goto:eof
+) else (
+	goto:%~1
+)
+</quote>
+<h2>Submit a translation</h2>
+&nbsp;
+<p>
+To offer me a translation to integrate, you can make a pull request on Github or propose a zip by opening an exit. Please contact me in French or English.
+</p>
+</div>
+</body>
+</html>

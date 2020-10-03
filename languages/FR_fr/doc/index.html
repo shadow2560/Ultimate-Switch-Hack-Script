@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="fr-FR">
+<head>
+<title>Documentation Shadow256 Ultimate Switch Hack Script</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Documentation Shadow256 Ultimate Switch Hack Script</h1>
+&nbsp;
+<h2>Introduction</h2>
+&nbsp;
+<p>
+Ceci est un ensemble de script permettant, à l'origine,  de lancer un payload ou Linux sur la Switch via le mode RCM (mode recovery) de celle-ci. D'autres fonctionnalités ont été développées ensuite.
+<br/><br/>
+Cette documentation a pour but d'orienter l'utilisateur pour faire fonctionner au mieux ces outils. Le sujet concernant cette application se trouve sur <a target="_new" href="http://www.logic-sunrise.com/forums/topic/81314-shadow256-switch-payload-injector-script/">cette page</a> et le projet Github se trouve sur <a target="_new" href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/">celle-ci</a>.
+<br/><br/>
+Ce script est utilisable sur Windows 7 32 et 64 bits ainsi que sur les versions supérieurs (Windows Vista non testé mais devrait fonctionner).
+<br/><br/>
+Notez que je ne pourrai être tenu responsable en cas de dommages résultant de l'utilisation de ce logiciel et de tout ce qu'il contient.
+<br/><br/>
+L'ensemble de mon travail est soumis à la licence GPL V3 (tous les scripts ou programme portant la mention "by shadow256" dans le code source ou dans le programme en lui-même). Les fichiers de traduction sont aussi soumis à cette licence. Le reste des outils sont sous la licence de leurs auteurs.
+<br/><br/>
+Pour participer à la traduction, veuillez lire <a href="files/translate.html">cette partie de la documentation</a>.
+</p>
+&nbsp;
+<h2>Fonctionnalités</h2>
+&nbsp;
+<ul>
+<li>Possibilité de mise à jour automatique des scripts/fonctionnalités.</li>
+<li>Support du multi-langues.</li>
+<li>Installation des drivers du mode RCM (driver "APX") et du mode libnx_USB_comms utilisé par Tinfoil (driver "libnx_USB_comms") de la Switch, voir <a href="files/install_drivers.html">cette page de la documentation pour plus d'infos</a>.</li>
+<li>Lancement d'un payload via le mode RCM de la Switch. Vous pouvez placer les payloads dans un dossier "Payloads" situé à la racine de ce script ou choisir un fichier de payload via un explorateur. Notez que les drivers du mode RCM de la Switch doivent être installé pour que cela fonctionne.</li>
+<li>Préparations pour pouvoir utiliser assez simplement <a target="_blank" href="https://github.com/pixel-stuck/nereba">l'exploit Nereba</a> grâce à <a target="_blank" href="https://github.com/reswitched/pegaswitch">Pegaswitch</a>. L'exploit Caffeine est également utilisable via cette méthode.</li>
+<li>Aide à l'installation de Switchboot sur les puces et certains dongles UF2 et quelques autres fonctionnalités liés aux puces.</li>
+<li>Installation d'applications sur Android via le mode débogage USB de celui-ci.</li>
+<li>Gestion d'une boîte à outils (toolbox) permettant de lancer des logiciels en mode autonome avec la possibilité de gérer une liste de logiciel personnel. Il est à noter que les programmes peuvent être intégrés au dossier "tools\toolbox" du script ce qui permet d'avoir une possibilité de portabilité si cela est souhaité. Enfin, évitez de modifier les fichiers de configuration de la toolbox à la main, préférez le script.</li>
+<li>Obsolète: Lancement de Linux via le mode RCM de la Switch (soit avec le kernel officiel, soit via un <a target="_blank" href="https://gbatemp.net/attachments/image-gz-zip.121538/">kernel patché</a> (merci Krazer89 de GBATemp et à Killua de Logic-sunrise pour l'info) pour les SD non compatibles avec le kernel officiel), soit avec un fichier de kernel sélectionnable via un explorateur de fichiers. Notez que les drivers du mode RCM de la Switch doivent être installé pour que cela fonctionne.</li>
+<li>Obsolète: Téléchargement/mise à jour des binaires de Shofel2.</li>
+<li>Récupération des biskeys grâce au payload Biskeydump dans le fichier "biskey.txt" qui sera situé à la racine du script (les biskeys commencent à la ligne 7 du fichier). Notez que les drivers du mode RCM de la Switch doivent être installé pour que cela fonctionne.</li>
+<li>Vérification si une console est patchée, peut-être patchée ou non patchée.</li>
+<li>Montage de la partition Boot0, Boot1, EMMC ou de la carte SD comme périphérique de stockage USB sur le PC.</li>
+<li>Gestion de nand (fichier ou disque physique) permettant d'obtenir des infos sur la nand, de dumper la nand ou une partition spécifique de celle-ci ou de restaurer un dump de nand ou une partition dumpée. Notez que pour ces fonctionnalités utilisant un disque physique vous aurez besoin de monter la partie de la nand sur laquelle vous souhaitez travailler via Memloader, le script permettant de faire cela est intégré.</li>
+<li>Réunification des fichiers d'un dump de la nand effectué par Hekate ou SX OS sur une SD formatée en FAT32 ou sur une SD trop petite pour accueillir le dump en une seule fois dans un fichier "rawnand.bin" qui pourra ensuite être réutilisé pour restaurer la nand.</li>
+<li>Split d'un dump de la rawnand pour être utiliser par l'emunand de Atmosphere.</li>
+<li>Création d'un fichier à partir d'un dump complet de la nand permettant de pouvoir ensuite préparer l'emunand sur une partition dédiée de la SD.</li>
+<li>Création de packages de mise à jour via ChoiDuJour avec tous les paramètres.</li>
+<li>Téléchargement d'un firmware et préparation de la SD avec celui-ci pour ChoiDuJourNX ou Daybreak, le homebrew est également copié durant ce script. Ce script permet également d'éventuellement  créé le package de mise à jour via ChoiDuJour dans la foulée. Pour savoir comment utiliser ChoiDuJourNX, vous pouvez vous référer à <a href="files/choidujournx.html">cette page de la documentation</a>.</li>
+<li>Vérification d'un fichier de clés (fichier "prod.keys", "keys.txt", "keys.dat", etc...).</li>
+<li>Préparation d'une SD, du formatage (FAT32 ou EXFAT) à la mise en place de différentes solutions, voir <a href="files/sd_prepare.html">cette page</a> pour plus d'informations sur le contenu des packs.</li>
+<li>Fonctions de débrickage simplifié.</li>
+<li>Réparation d'un fichier BOOT0 dont les keyblobs seraient corrompues (les clés de la console visée sont nécessaire).</li>
+<li>Lancement de NSC_Builder. Ce script est utile pour convertir des XCIs ou NSPs en XCIs ou NSPs. Les fichiers convertis via ce script sont nettoyés et rendus, en théorie, indétectable par Nintendo, surtout pour les NSPs. Enfin, ce script permet aussi de créé des NSPs ou XCIs contenant le jeu, ses mises à jour et DLCs dans un seul fichier. Pour plus d'infos, voir <a target="_new" href="https://github.com/julesontheroad/NSC_BUILDER">cette page</a>.</li>
+<li>Conversion de fichiers XCI en NSP.</li>
+<li>Conversion d'un fichier NSP pour le rendre compatible avec le firmware de la Switch le plus bas possible.</li>
+<li>Installation de NSP via Goldleaf et le réseau.</li>
+<li>Sauvegarde, restauration et réinitialisation des fichiers importants utilisés par le script.</li>
+<li>Vérification des NSPs.</li>
+<li>Conversion d'une sauvegarde de Zelda Breath Of The Wild du format Wii U vers Switch ou inversement.</li>
+<li>Extraction du certificat d'une console via le fichier "PRODINFO.bin" décrypté.</li>
+<li>Installation de NSP via Goldleaf en USB.</li>
+<li>Découpage de NSP ou de XCI pour pouvoir les mettre sur une SD formatée en FAT32.</li>
+<li>Lancement du nécessaire pour jouer en ligne sur le réseau alternatif, voir <a href="files/netplay.html">cette page</a>. Une liste de serveurs peut aussi être créée.</li>
+<li>Création et lancement d'un serveur personnel pour Switch-Lan-Play.</li>
+<li>Lancement du compagnon pour le module HID_mitm.</li>
+<li>Utilisation de NSZip pour compresser/décompresser des jeux.</li>
+<li>Configuration des émulateurs Nes Classic Edition et Snes Classic Edition.</li>
+<li>Extraction des fichiers d'une sauvegarde de jeu de la Switch.</li>
+<li>Et d'autres choses...</li>
+</ul>
+&nbsp;
+<h2>Bugs connus</h2>
+&nbsp;
+<ul>
+<li>Les scripts de configuration de Nes Classic Edition et de Snes Classic Edition affichent tous les jeux n'étant jouables qu'à un seul joueur, ceci doit être corrigé manuellement dans le fichier de configuration des jeux de l'émulateur pour l'instant.</li>
+<li>L'utilisation de guillemets et de quelques autres signes dans les entrées utilisateurs fait planter le script.</li>
+<li>Lorsqu'une sortie console faite par un "echo" est effectuée, cela produit une erreur dans le fichier log. L'encodage en UTF-8 semble être à l'origine de ce problème mais je n'ai pas trouvé comment le résoudre pour l'instant.</li>
+<li>Le dump des biskeys récupère également le résultat du programme TegraRcmSmash, les biskeys commencent à partir de la ligne 7 du fichier.</li>
+</ul>
+&nbsp;
+<h2>Fonctions à venir</h2>
+&nbsp;
+<ul>
+<li>Améliorer et optimiser le script de mise à jour automatique.</li>
+<li>Dans le script de création du fichier de l'emunand pour une partition ou dans le script permettant de joindre un dump de nand, implémenter un choix permettant de traiter d'autres types de dump splitté.</li>
+<li>Mettre en place un script qui s'occupera du flash d'une partition de la SD avec le fichier de partition d'une Emunand et qui indiquera à l'utilisateur à quel secteur elle commence histoire qu'il puisse configurer ensuite facilement celle-ci dans Atmosphere.</li>
+<li>Créer de nouveaux scripts pour préparer et installer Linux ou Laka, les anciens scripts de préparation de Linux seront gardés mais seront notés comme étant obsolètes.</li>
+<li>Dans la gestion des cheats, certains jeux ne sont pas nommés, la base de données (fichier "tools\sd_switch\cheats\README.md") doit être mise à jour.</li>
+<li>Récupération des Biskeys directement dans un fichier texte grâce au payload Biskeydump (fonction présente mais pas parfaite pour l'instant).</li>
+<li>Mise en place d'une méthode plus ou moins automatisée permettant de revenir à la ligne avant un mot qui atteindrait la largeur de la fenêtre, pour éviter de couper ce dernier.</li>
+<li>D'autres choses que vous pourriez me suggérer.</li>
+</ul>
+&nbsp;
+<h2>Liens utiles</h2>
+&nbsp;
+<p>
+Cette documentation ne couvrira pas les différents tutoriels d'utilisations des logiciels ou encore la façon de passer sa console en mode RCM mais voici quelques liens utiles:
+<br/>
+<a target="_blank" href="http://www.logic-sunrise.com/forums/topic/82021-faqinfos-importantes-a-lire-avant-de-poster/">La FAQ, contient beaucoup d'informations</a>.
+<br/>
+<a target="_blank" href="http://www.logic-sunrise.com/forums/topic/81201-tuto-tester-fusee-gelee-sur-windows/">Tutoriel de lancement d'un payload sous Windows (indispensable pour installer les drivers de la Switch)</a>.
+<br/>
+<a target="_blank" href="http://www.logic-sunrise.com/forums/topic/81197-tuto-switch-lancer-linux-sauvegarder-et-decrypter-sa-nand/">Préparation d'une SD contenant Linux pour la Switch et utilisation de celui-ci</a>
+<br/><br/>
+<a target="_blank" href="https://sdsetup.com/">créé un package personnalisé pour la Switch</a>
+</p>
+&nbsp;
+<h2>Téléchargement</h2>
+&nbsp;
+<p>
+Vous pouvez télécharger la dernière version base sur <a target="_blank" href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/releases">cette page</a> (elle ajoutera les fonctionnalités au fur et à mesure de leurs utilisations) ou vous pouvez télécharger la dernière version complète du projet en <a href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/archive/master.zip">cliquant ici</a>.
+</p>
+&nbsp;
+<h2>Changelog</h2>
+&nbsp;
+<p>
+Voir <a target="_blank" href="files/changelog.html">cette page de la documentation</a>.
+<br/>
+Pour le changelog des packs copiés sur la SD pendant la préparation de celle-ci après la version 2.00.04 du script, voir <a target="_blank" href="files/packs_changelog.html">cette page de la documentation</a>.
+</p>
+&nbsp;
+<h2>Crédits</h2>
+&nbsp;
+<p>
+Voir <a target="_blank" href="files/credits.html">cette page</a>.
+</p>
+</div>
+</body>
+</html>

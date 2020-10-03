@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<title>Keys dump</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Dump keys</h1>
+&nbsp;
+<h2>Use Kezplez-nx (now Lockpick but the operation is almost the same)</h2>
+&nbsp;
+<p>
+This homebrew allows you to dump the different keys used by Hactool and other derivatives. Be careful, do not share the "prod.keys" file obtained thanks to this homebrew because it contains console-specific keys such as the tsec_key for example. Kezplez-nx is a little special because it requires you to dump some console-specific files before you can use it. 
+<br/><br/>
+Note: Now it is better to use the Lockpick-RCM payload to dump these keys, there is no need for anything but an SD in the console and to launch the payload via the RCM mode of the Switch and the keys will be dumped. Also note that for firmware 7.0.0 and above, you will also need to have Sept on the SD (copied by default with the SD preparation script of my script or available for example in the latest releases of Atmosphere, do not copy the file "payload.bin" in if you do not use Atmosphere) so that all keys are dumped. 
+<br/><br/>
+Here's how to use Kezplez-NX or Lockpick: 
+</p>
+<ul>
+<li>Dump the files "fuses.bin" and "tsec_keys.bin" with the Hekate version included in this script. These dump options will be found in the "Console info" menu ("Print fuse info" and "Print TSEC keys") and you will have to press the "Power" button once the info is displayed to dump it on the SD in the "/Backup/[an_hexadecimal_number]/Dumps" folder or otherwise in the "/Backup/Dumps" folder.</li>
+<li>For 1.X to 2.3.0 included firmwares (Kezplez-NX): Try using the "debug" option in the Hekate configuration file (not tested) or use the latest version of Atmosphere. Otherwise, if it doesn't work, in Hekate, go to "Tools" then "Backup" then "Backup eMMC BOOT0/1" and in "Tools" then "Dump package1/2". Once these dumps are done, copy the obtained files into the "/switch/kezplez-nx" folder of the SD. Note: With Lockpick, the debug option needs to be enabled on all firmwares to make full key dumps.</li>
+<li>In case of a bug with Lockpick, it is also possible to dump the Bis keys on the SD with the payload Biskeydump V7 (version present in my script) and leave it at the root of the SD so that Lockpick can use it.</li>
+<li>Launch the homebrew, press "A" and voilà, the keys will be in the file "prod.keys", at the root of the SD for Kezplez-NX and in the folder "switch" for Lockpick.</li>
+</ul>
+</div>
+</body>
+</html>

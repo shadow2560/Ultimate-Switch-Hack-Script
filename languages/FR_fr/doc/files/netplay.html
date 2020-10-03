@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="fr-FR">
+<head>
+<title>Netplay</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<div class="menu" id="menu" role="menu">
+</div>
+<script type="text/javascript">load_menu();</script>
+<div class="contenu" id="contenu" role="main">
+<h1>Netplay</h1>
+&nbsp;
+<h2>Utilisations:</h2>
+&nbsp;
+<p>
+Dans ce tuto nous allons voir comment jouer en ligne avec une console bannie ou non. Il est à noter qu'évidemment, cela ne passe donc pas par les serveurs officiels de Nintendo donc il s'agit d'un mode online alternatif. Pour expliquer rapidement le fonctionnement, cela permet d'utiliser la fonctionnalité LAN (réseau local) des jeux/homebrews Switch et de rediriger le trafic sur un serveur qui fera le lien entre les clients.
+<br/><br/>
+Ce tuto fonctionne quel que soit le firmware de la console et d'ailleurs, il n'est même pas nécessaire d'utiliser un CFW si bien sûre vous possédez le jeu de manière officielle. Il est également préférable d'avoir la dernière mise à jour du jeu joué.
+<br/><br/>
+Note: On peut même jouer en ligne avec Retroarch, ceci va plaire à pas mal de monde j'en suis sûre.
+<br/><br/>
+Il faut commencer par configurer les paramètres internet de la Switch:
+</p>
+<ul>
+<li>Passer l'adresse IP en statique.</li>
+<li>Entrer une adresse IP allant de "10.13.0.1" à "10.13.255.254" (l'adresse "10.13.37.1" ne peut être utilisée car c'est la passerelle). Attention, ne pas utiliser la même IP qu'un de vos amis.</li>
+<li>Le masque de sous-réseau doit être "255.255.0.0".</li>
+<li>La passerelle doit donc être "10.13.37.1".</li>
+<li>Passer les DNS en manuel et entrer l'adresse "8.8.8.8" et "4.4.4.4" pour les consoles bannies (à mon avis on peut même utiliser les DNS de notre fournisseur internet ou d'autres DNS d'ailleurs et cela fonctionnera très bien) et pour les consoles qui ne sont pas bannies, utiliser les adresses "163.172.141.219" et "45.248.48.62" et là par contre il faut les utiliser pour empêcher l'envoi d'infos de télémétries à Nintendo.</li>
+<li>Sauvegarder les réglages.</li>
+</ul>
+&nbsp;
+<p>
+Lancer ensuite le script et choisir l'option permettant de lancer le client pour pouvoir jouer en réseau?".
+<br/><br/>
+Si cela n'a jamais été fait, il faudra choisir l'option permettant d'installer Winpcap et aller au bout de l'installation de celui-ci. Une fois cela fait, ceci n'est plus à refaire à moins qu'une mise à jour de Winpcap sorte.
+<br/><br/>
+Une fois cela fait, choisir l'option permettant de lancer le client. Une nouvelle fenêtre va s'ouvrir dans laquelle il faut commencer par entrer un des serveurs disponible puis appuyer sur "Entrer". Les serveurs publics disponibles sont notés à la fin de cette page.
+<br/><br/>
+Note: Pour quitter le client, il suffit de faire le raccourci "ctrl+c".
+<br/><br/>
+Il est également possible de créer soi-même un serveur mais ceci ne sera pas traité ici pour l'instant, voir <a target="_blank" href="https://github.com/spacemeowx2/switch-lan-play">le readme du Github</a> pour savoir comment faire.
+<br/><br/>
+Maintenant il va falloir entrer le numéro de l'interface réseau à utiliser. Pour savoir laquelle il faut entrer, il faut que l'adresse IP qui est utilisée par le PC soit celle qui se connecte à internet et elle doit se trouver également sur le même réseau que la Switch (connectée au même routeur). Pour la retrouver, faire le raccourci clavier "touche Windows+r", taper "cmd", appuyer sur "Entrer", taper "ipconfig" dans la fenêtre qui va s'ouvrir et les différentes infos seront affichées. Il faut donc trouver l'adresse IP qui se connecte à Internet, se sera probablement la première affichée dans la liste ou sinon, se sera probablement celle qui aura comme passerelle "192.168.1.1" ou "192.168.1.254" ou "192.168.0.1" ou "192.168.0.254" (après, cela dépend de la configuration internet de chacun). Si vous n'arrivez pas à trouver, essayez chacune des interfaces proposées jusqu'à ce que la Switch se connecte bien à internet.
+<br/><br/>
+Ensuite, connecter la Switch à internet et vérifier que celle-ci est un accès total à celui-ci.
+<br/><br/>
+Lancer le jeu, allé dans le jeu en ligne, se positionner sur l'option Wifi et maintenir "L+R+LStick" (la manipulation peut être différente selon le jeu).
+<br/><br/>
+Enfin, créer ou rejoindre une partie et s'amuser.
+<br/><br/>
+Source:
+</p>
+<ul>
+<li><a href="https://gbatemp.net/threads/official-switch-lan-play.520912/?fbclid=IwAR1iQkaWrkro5BFlYqwFmoh0I7l3ZhxHrP_QXZvfxrOfB8cKvcF6gGCrmQ8" target="_new">Cette page</a> qui explique comment lancer le mode lan de certains jeux.</li>
+<li><a href="https://gbatemp.net/threads/exclusive-online-play-for-banned-members-network-possible.520846/" target="_new">cette page</a> expliquant comment mettre en place la solution.</li>
+<li><a href="https://github.com/spacemeowx2/switch-lan-play" target="_new">Le Github du projet.</a></li>
+</ul>
+&nbsp;
+<h2>Serveurs publiques</h2>
+&nbsp;
+<ul>
+<li>35.236.10.223:11451</li>
+<li>189.222.60.255:11451</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+-*-outline-*-
+* -fstype core dumps on sparc-sun-sunos4.1.3_U1 with gcc-2.95.2
+This is on foxtrot.rahul.net.  dbx does not work on compiled find.
+Perhaps gcc is installed incorrectly.  "find / -fstype ufs" core dumps
+quickly.  cc works correctly.
+
+* Speed of locate without "-i" option needs to be increased.
+
+* Internationalization
+** Is ansi2knr internationalized?  Does it need to be?
+
+** Should these files be internationalized?
+	strftime.c
+
+** updatedb.sh should be internationalized as well
+
+* Eliminate unnecessary strcpy calls in xargs.
+
+* man pages for frcode, bigram, and code
+Perhaps a better description in texi pages as well.
+
+* Add option for find to sort output in lexical order for use for updatedb
+olarsac@airfrance.fr (Olivier) made the following suggestion:
+
+As I was running thru the code looking for the bug I wondered why the updatedb
+has to use sort...
+why not add an option to find that sorts the output in lexical order?
+my point is:
+- sort on a big list is costly (here we do locate on big big file system)
+- find may (in theory) sort incrementally very easily by sorting only the current
+directory entries before recursion
+
+
+* large file problems
+depcomp gets added by automake
+
+* xargs: allow newline or arbitrary character to separate arguments
+Tyler 'Crackerjack' MacDonald <yi@yi.org> suggested that it would be
+nice if newlines could separate arguments to xargs.  This would allow
+a single line to be used as an argument, regardless of white space,
+quotes, and backslash.  A function similar to read_string in xargs.c
+can be written which replaces the line:
+
+      if (c == '\0')
+
+with the appropriate character.
+
+* investigate _LIBC when used with TOLOWER and TOUPPER
+_LIBC is used to determine whether TOLOWER should check isupper first.
+Is there something better to check?  Alternatively, can tolower be
+checked at run time to determine whether isupper should be called first.
+
+* BeOS problems with multibyte
+Bruno Haible reported problems with BeOS.
+
+* Include example of use of updatedb in documentation.
+Use something close to the Debian daily cron job.
+
+* Side effects do not allow the implicit use of -print.
+Specifically, the use of -prune turns off the implicit use of -print.
+Look at this line in find.c:
+  else if (!no_side_effects (predicates->pred_next))
+side_effects really means:
+predicate which produces output, according to find.c, at least it does
+some of the time.
+Two predicates, side_effects, and produce_output
+
+
+* Supply example for time range commands for find.
+
+                        --//--
+This is used by Emacs' spell checker ispell.el:
+
+LocalWords: ansi knr strftime xargs updatedb sh fnmatch hin strcpy
+LocalWords: lib getstr getline frcode bigram texi depcomp automake
+LocalWords: strncasecmp strcasecmp LIBOBJS FUNC findutils Solaris
+LocalWords: LIBC TOLOWER TOUPPER tolower isupper PRUNEFS
+LocalWords: nfs proc Debian cron
+LocalWords: Haible BeOS Crackerjack

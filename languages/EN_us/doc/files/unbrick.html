@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<title>Unbrick script infos</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" media="screen" type="text/css" href="../style.css" title="default" />
+<script type="text/javascript" src="menu.js"></script>
+</head>
+<body>
+<h1>Unbrick script infos</h1>
+&nbsp;
+<p>
+This is a batch script that automates the debugging of the switch for most software problems (highly automated and optimized ChoiDuJour method, see <a target="_blank" href="https://gbatemp.net/threads/how-to-install-run-any-switch-firmware-unofficially-without-burning-any-fuses.507461/">this page</a> which explains the manual unbricking method via ChoiDuJour).
+<br/><br/>
+Be careful, once the TegraExplorer script is executed, all data in the sysnand will be deleted. Please do a complete dump of the nand first (even if the console doesn't work anymore) via Hekate or NXNandManager for example (not covered by this script) and please also do a dump of the console keys via Lockpick-RCM (if this one doesn't work it is likely that this procedure won't work). It is also preferable to use a blank SD (1 GB is more than enough), this is not mandatory but if some files in your SD are different from those in this procedure they will be replaced, especially the "bootloader\hekate_ipl.ini" file which is the most important if you use Hekate and Atmosphere will be updated to the version included in this procedure (Atmosphere 0.12.0 currently).
+</p>
+&nbsp;
+<h2>Functionnalities</h2>
+&nbsp;
+<ul>
+<li>Creating the 6.1.0 package via ChoiDuJour.</li>
+<li>Installation of the RCM mode drivers ("APX" driver).</li>
+<li>Downloading a user selected firmware and preparing the SD with it for ChoiDuJourNX, the homebrew is also copied during the process.</li>
+<li>Preparing an SD, formatting it (FAT32 or EXFAT) and copying the files needed to execute the procedure.</li>
+<li>Launch the necessary payloads throughout the script via the RCM mode of the Switch.</li>
+<li>Restoration of the package created by ChoiDuJour thanks to a script executable via the TegraExplorer payload (do not use this script outside the procedure of this project because it could cause problems on the console, which can be solved by doing the procedure from the beginning).</li>
+<li>Rewriting of a BOOT0 file with the keyblobs obtained by Linkle via the key file dumped on the console targeted by this modification with Lockpick-RCM.</li>
+</ul>
+</body>
+</html>
