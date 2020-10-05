@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V405</h2>
+<ul>
+<li>Update Edizon-SE to version 3.7.8.1.</li>
+<li>Update MissionControl to version 0.3.0.</li>
+</ul>
 <h2>V404</h2>
 <ul>
 <li>Remove sig_patches.</li>
