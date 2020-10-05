@@ -4,6 +4,7 @@
 <ul>
 <li>Mise à jour de Edizon-SE en version 3.7.8.1.</li>
 <li>Mise à jour de MissionControl en version 0.3.0.</li>
+<li>Mise à jour de OpenBOR en version 1.1.</li>
 </ul>
 <h2>V404</h2>
 <ul>
