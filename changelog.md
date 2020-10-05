@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.62</h2>
 <ul>
+<li>Mise à jour de NXNandManager vers la version Master du Github, compilé par moi-même.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 405.</li>
 </ul>
 <h2>V4.3.61</h2>
