@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.63</h2>
+<ul>
+<li>Fix some important bugs in the update manager.</li>
+<li>Add a script for TegraExplorer witch can unbrick an emunand  like a sysnand unbrick process, unused in the script but  maybe this can be usful for experimented users.</li>
+</ul>
 <h2>V4.3.62</h2>
 <ul>
 <li>Update NXNandManager to the Github's master version, compiled by myself.</li>

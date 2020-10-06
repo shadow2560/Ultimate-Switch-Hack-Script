@@ -199,10 +199,13 @@ IF /i "%auto_update%"=="N" (
 echo :::::::::::::::::::::::::::::::::::::
 echo ::Shadow256 Ultimate Switch Hack Script %ushs_version% updater::
 echo.
+IF EXIST "failed_updates\*.failed" (
+	set failed_updates_finded=Y
+)
 IF NOT EXIST "failed_updates\*.failed" (
 	rmdir /s /q "failed_updates" 2>nul
 )
-mkdir "failed_updates" >nul
+mkdir "failed_updates" >nul 2>&1
 :new_script_install
 IF "%what_to_update%"=="update_all" goto:skip_new_script_install
 IF "%what_to_update%"=="general_content_update" goto:skip_new_script_install
@@ -1512,7 +1515,7 @@ call :verif_folder_version "tools\sd_switch\payloads"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-call :verif_folder_version "tools\sd_switch\reinx"
+rem call :verif_folder_version "tools\sd_switch\reinx"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2263,11 +2266,11 @@ IF "%temp_folder_path%"=="Payloads" (
 		exit
 	) else (
 		IF NOT EXIST "%temp_folder_path%\*.*" (
-			IF EXIST ""%temp_folder_path%"" del /q "%temp_folder_path%"
-			mkdir "%temp_folder_path%"
+			IF EXIST ""%temp_folder_path%"" del /q "%temp_folder_path%" >nul 2>&1
+			mkdir "%temp_folder_path%">nul 2>&1
 		)
-		move "templogs\Payloads\*.*" "%temp_folder_path%" >nul
-		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed"
+		move "templogs\Payloads\*.*" "%temp_folder_path%" >nul 2>&1
+		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
 call "%associed_language_script%" "update_folder_success"
 		exit /b
 	)
@@ -2282,8 +2285,8 @@ IF "%temp_folder_path%"=="tools\gitget" (
 		pause
 		exit
 	) else (
-		rmdir /s /q "%temp_folder_path%"
-		move "templogs\gitget" "%temp_folder_path%"
+		rmdir /s /q "%temp_folder_path%" >nul 2>&1
+		move "templogs\gitget" "%temp_folder_path%" >nul 2>&1
 		exit /b
 	)
 )
@@ -2307,10 +2310,10 @@ IF "%temp_folder_path%"=="tools\NSC_Builder" (
 IF "%temp_folder_path%"=="tools\toolbox" (
 	mkdir templogs\tempsave
 	%windir%\System32\Robocopy.exe tools\toolbox templogs\tempsave /e >nul 2>&1
-	del /q templogs\tempsave\default_tools.txt
-	del /q templogs\tempsave\folder_version.txt
+	del /q templogs\tempsave\default_tools.txt >nul 2>&1
+	del /q templogs\tempsave\folder_version.txt >nul 2>&1
 )
-rmdir /s /q "%temp_folder_path%"
+rmdir /s /q "%temp_folder_path%" >nul 2>&1
 "tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
 set temp_folder_download_error=%errorlevel%
 IF "%temp_folder_path%"=="tools\Hactool_based_programs" (

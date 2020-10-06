@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.63</h2>
+<ul>
+<li>Correction de bugs importants dans le gestionnaire de mises à jour.</li>
+<li>Ajout d'un script pour TegraExplorer permettant de débricker une emunand de la même façon que la sysnand, inutilisé dans le script mais qui servira peut-être aux utilisateurs expérimentés.</li>
+</ul>
 <h2>V4.3.62</h2>
 <ul>
 <li>Mise à jour de NXNandManager vers la version Master du Github, compilé par moi-même.</li>
