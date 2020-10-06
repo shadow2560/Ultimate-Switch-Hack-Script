@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V406</h2>
+<ul>
+<li>Update AIO-switch-updater to version 1.2.1.</li>
+</ul>
 <h2>V405</h2>
 <ul>
 <li>Update Edizon-SE to version 3.7.8.1.</li>

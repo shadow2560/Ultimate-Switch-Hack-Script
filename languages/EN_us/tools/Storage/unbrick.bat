@@ -375,14 +375,14 @@ goto:eof
 :hekate_launch_end
 echo.
 echo Once the payload is launched, click on "More configs" ^(second icon on the left^).
-echo Next, click on "unbrick first launch only firmware 6.1.0" ^(first icon in the top left corner^).
+echo Next, click on "sysnand first launch FW 6.1.0" ^(first icon in the top left corner^).
 echo.
 IF "%optional_firmware_download%"=="Y" (
 	echo If the console has booted, you will be able to start Atmosphere with one of the configurations available in Hekate's "More configs" menu and then update to the firmware you chose at the beginning of this script using ChoiDuJourNX ^(preferably choose the EXFAT firmware that ChoiDuJourNX will offer you, the rest of the instructions won't be covered here^).
 ) else (
 	echo If the console has booted, you can do what you want to do with it.
 )
-echo Be careful, The configuration "unbrick first launch only firmware 6.1.0" in Hekate should not be restarted if the console has been booted at least once.
+echo Be careful, The configuration "sysnand first launch FW 6.1.0" in Hekate should not be restarted if the console has been booted at least once.
 echo.
 echo If the console has not booted, try running Hekate again and choose the same configuration to run or one of the others available in the "More configs" menu.
 echo If it still doesn't work, either something went wrong during the script and in this case redo the operations from the beginning or the problem can't be solved using this method.

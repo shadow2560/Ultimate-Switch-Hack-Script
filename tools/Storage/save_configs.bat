@@ -70,6 +70,8 @@ for /d %%p in ("*") do (
 	)
 )
 cd ..
+IF NOT EXIST KEY_SAVES\sd_user mkdir KEY_SAVES\sd_user
+%windir%\System32\Robocopy.exe sd_user KEY_SAVES\sd_user\ /e >nul 2>&1
 IF NOT EXIST KEY_SAVES\tools mkdir KEY_SAVES\tools
 IF NOT EXIST "KEY_SAVES\tools\Hactool_based_programs" mkdir "KEY_SAVES\tools\Hactool_based_programs"
 copy /V tools\Hactool_based_programs\keys.txt KEY_SAVES\tools\Hactool_based_programs\keys.txt >nul 2>&1
