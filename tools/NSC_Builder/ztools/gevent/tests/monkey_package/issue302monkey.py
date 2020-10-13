@@ -1,17 +1,19 @@
 from __future__ import print_function
 import socket
 import sys
+import os.path
 if sys.argv[1] == 'patched':
     print('gevent' in repr(socket.socket))
 else:
     assert sys.argv[1] == 'stdlib'
     print('gevent' not in repr(socket.socket))
-print(__file__)
+print(os.path.abspath(__file__))
+
 
 if sys.version_info[:2] == (2, 7):
     # Prior to gevent 1.3, 'python -m gevent.monkey' guaranteed this to be
     # None for all python versions.
-    print(__package__ == None)
+    print(__package__ is None)
 else:
     if sys.argv[1] == 'patched':
         # __package__ is handled differently, for some reason, and
@@ -25,4 +27,4 @@ else:
         print(__package__ == '')
     else:
         # but the interpreter sets it to None
-        print(__package__ == None)
+        print(__package__ is None)

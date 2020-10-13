@@ -10,38 +10,56 @@ from __future__ import absolute_import, print_function
 import sys
 import os
 import os.path # pylint:disable=no-name-in-module
-import struct
+from cffi import FFI
+
+sys.path.append(".")
+try:
+    import _setuplibev
+    import _setuputils
+except ImportError:
+    print("This file must be imported with setup.py in the current working dir.")
+    raise
+
+thisdir = os.path.dirname(os.path.abspath(__file__))
+parentdir = os.path.abspath(os.path.join(thisdir, '..'))
+setup_dir = os.path.abspath(os.path.join(thisdir, '..', '..', '..'))
+
 
 __all__ = []
 
 
-def system_bits():
-    return struct.calcsize('P') * 8
-
-
-def st_nlink_type():
-    if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
-        return "short"
-    if system_bits() == 32:
-        return "unsigned long"
-    return "long long"
-
-
-from cffi import FFI
 ffi = FFI()
+distutils_ext = _setuplibev.build_extension()
 
-thisdir = os.path.dirname(os.path.abspath(__file__))
 def read_source(name):
     with open(os.path.join(thisdir, name), 'r') as f:
         return f.read()
 
+# cdef goes to the cffi library and determines what can be used in
+# Python.
 _cdef = read_source('_corecffi_cdef.c')
-_source = read_source('_corecffi_source.c')
 
-_cdef = _cdef.replace('#define GEVENT_ST_NLINK_T int', '')
+# These defines and uses help keep the C file readable and lintable by
+# C tools.
 _cdef = _cdef.replace('#define GEVENT_STRUCT_DONE int', '')
-_cdef = _cdef.replace('GEVENT_ST_NLINK_T', st_nlink_type())
 _cdef = _cdef.replace("GEVENT_STRUCT_DONE _;", '...;')
+
+_cdef = _cdef.replace('#define GEVENT_ST_NLINK_T int',
+                      'typedef int... nlink_t;')
+_cdef = _cdef.replace('GEVENT_ST_NLINK_T', 'nlink_t')
+
+if _setuplibev.LIBEV_EMBED:
+    # Arrange access to the loop internals
+    _cdef += """
+struct ev_loop {
+    int backend_fd;
+    int activecnt;
+    ...;
+};
+    """
+
+# arrange to be configured.
+_setuputils.ConfiguringBuildExt.gevent_add_pre_run_action(distutils_ext.configure)
 
 
 if sys.platform.startswith('win'):
@@ -57,14 +75,28 @@ vfd_socket_t vfd_get(int);
 void vfd_free(int);
 """
 
+# source goes to the C compiler
+_source = read_source('_corecffi_source.c')
 
+macros = list(distutils_ext.define_macros)
+try:
+    # We need the data pointer.
+    macros.remove(('EV_COMMON', ''))
+except ValueError:
+    pass
 
-include_dirs = [
-    thisdir, # libev_vfd.h
-    os.path.abspath(os.path.join(thisdir, '..', '..', '..', 'deps', 'libev')),
-]
 ffi.cdef(_cdef)
-ffi.set_source('gevent.libev._corecffi', _source, include_dirs=include_dirs)
+ffi.set_source(
+    'gevent.libev._corecffi',
+    _source,
+    include_dirs=distutils_ext.include_dirs + [
+        thisdir, # "libev.h"
+        parentdir, # _ffi/alloc.c
+    ],
+    define_macros=macros,
+    undef_macros=distutils_ext.undef_macros,
+    libraries=distutils_ext.libraries,
+)
 
 if __name__ == '__main__':
     # XXX: Note, on Windows, we would need to specify the external libraries
@@ -72,4 +104,22 @@ if __name__ == '__main__':
     # Python.h calls) the proper Python library---at least for PyPy. I never got
     # that to work though, and calling python functions is strongly discouraged
     # from CFFI code.
-    ffi.compile()
+
+    # On macOS to make the non-embedded case work correctly, against
+    # our local copy of libev:
+    #
+    # 1) configure and make libev
+    # 2) CPPFLAGS=-Ideps/libev/ LDFLAGS=-Ldeps/libev/.libs GEVENTSETUP_EMBED_LIBEV=0 \
+    #     python setup.py build_ext -i
+    # 3) export DYLD_LIBRARY_PATH=`pwd`/deps/libev/.libs
+    #
+    # The DYLD_LIBRARY_PATH is because the linker hard-codes
+    # /usr/local/lib/libev.4.dylib in the corecffi.so dylib, because
+    # that's the "install name" of the libev dylib that was built.
+    # Adding a -rpath to the LDFLAGS doesn't change things.
+    # This can be fixed with `install_name_tool`:
+    #
+    # 3) install_name_tool -change /usr/local/lib/libev.4.dylib \
+    #    `pwd`/deps/libev/.libs/libev.4.dylib \
+    #     src/gevent/libev/_corecffi.abi3.so
+    ffi.compile(verbose=True)

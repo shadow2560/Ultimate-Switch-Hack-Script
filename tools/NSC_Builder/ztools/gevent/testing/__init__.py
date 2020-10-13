@@ -25,9 +25,37 @@ import unittest
 
 # pylint:disable=unused-import
 
+# It's important to do this ASAP, because if we're monkey patched,
+# then importing things like the standard library test.support can
+# need to construct the hub (to check for IPv6 support using a socket).
+# We can't do it in the testrunner, as the testrunner spawns new, unrelated
+# processes.
+from .hub import QuietHub
+import gevent.hub
+gevent.hub.set_default_hub_class(QuietHub)
+
+try:
+    import faulthandler
+except ImportError:
+    # The backport isn't installed.
+    pass
+else:
+    # Enable faulthandler for stack traces. We have to do this here
+    # for the same reasons as above.
+    faulthandler.enable()
+
+try:
+    from gevent.libuv import _corecffi
+except ImportError:
+    pass
+else:
+    _corecffi.lib.gevent_test_setup() # pylint:disable=no-member
+    del _corecffi
+
 from .sysinfo import VERBOSE
 from .sysinfo import WIN
 from .sysinfo import LINUX
+from .sysinfo import OSX
 from .sysinfo import LIBUV
 from .sysinfo import CFFI_BACKEND
 from .sysinfo import DEBUG
@@ -36,7 +64,6 @@ from .sysinfo import RUN_COVERAGE
 
 from .sysinfo import PY2
 from .sysinfo import PY3
-from .sysinfo import PY34
 from .sysinfo import PY36
 from .sysinfo import PY37
 
@@ -79,6 +106,12 @@ from .skipping import skipOnPurePython
 from .skipping import skipWithCExtensions
 from .skipping import skipOnLibuvOnTravisOnCPython27
 from .skipping import skipOnPy37
+from .skipping import skipOnPy3
+from .skipping import skipWithoutResource
+from .skipping import skipWithoutExternalNetwork
+from .skipping import skipOnPy2
+from .skipping import skipOnManylinux
+from .skipping import skipOnMacOnCI
 
 from .exception import ExpectedException
 
@@ -86,23 +119,20 @@ from .exception import ExpectedException
 from .leakcheck import ignores_leakcheck
 
 
-
 from .params import LARGE_TIMEOUT
-
 from .params import DEFAULT_LOCAL_HOST_ADDR
 from .params import DEFAULT_LOCAL_HOST_ADDR6
 from .params import DEFAULT_BIND_ADDR
+from .params import DEFAULT_BIND_ADDR_TUPLE
+from .params import DEFAULT_CONNECT_HOST
 
 
 from .params import DEFAULT_SOCKET_TIMEOUT
 from .params import DEFAULT_XPC_SOCKET_TIMEOUT
 
 main = unittest.main
+SkipTest = unittest.SkipTest
 
-from .hub import QuietHub
-
-import gevent.hub
-gevent.hub.set_default_hub_class(QuietHub)
 
 
 
@@ -129,9 +159,24 @@ def gc_collect_if_needed():
     if PYPY: # pragma: no cover
         gc.collect()
 
+# Our usage of mock should be limited to '@mock.patch()'
+# and other things that are easily...mocked...here on Python 2
+# when mock is not installed.
 try:
     from unittest import mock
 except ImportError: # Python 2
-    import mock
+    try:
+        import mock
+    except ImportError: # pragma: no cover
+        # Backport not installed
+        class mock(object):
+
+            @staticmethod
+            def patch(reason):
+                return unittest.skip(reason)
 
 mock = mock
+
+
+# zope.interface
+from zope.interface import verify

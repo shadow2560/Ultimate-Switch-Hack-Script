@@ -555,7 +555,11 @@ class WSGIHandler(object):
         if self.request_version == "HTTP/1.1":
             conntype = self.headers.get("Connection", "").lower()
             self.close_connection = (conntype == 'close')
+        elif self.request_version == 'HTTP/1.0':
+            conntype = self.headers.get("Connection", "close").lower()
+            self.close_connection = (conntype != 'keep-alive')
         else:
+            # XXX: HTTP 0.9. We should drop support
             self.close_connection = True
 
         return True
@@ -710,7 +714,6 @@ class WSGIHandler(object):
         self.response_length += len(data)
 
     def _write(self, data,
-               _PY34_EXACTLY=(sys.version_info[:2] == (3, 4)),
                _bytearray=bytearray):
         if not data:
             # The application/middleware are allowed to yield
@@ -718,20 +721,9 @@ class WSGIHandler(object):
             return
 
         if self.response_use_chunked:
-            ## Write the chunked encoding
-            # header
-            if _PY34_EXACTLY:
-                # This is the only version we support that doesn't
-                # allow % to be used with bytes. Passing a bytestring
-                # directly in to bytearray() is faster than passing a
-                # (unicode) str with encoding, which naturally is faster still
-                # than encoding first. Interestingly, byte formatting on Python 3
-                # is faster than str formatting.
-                header_str = '%x\r\n' % len(data)
-                towrite = _bytearray(header_str, 'ascii')
-            else:
-                header_str = b'%x\r\n' % len(data)
-                towrite = _bytearray(header_str)
+            # Write the chunked encoding header
+            header_str = b'%x\r\n' % len(data)
+            towrite = _bytearray(header_str)
 
             # data
             towrite += data
@@ -741,19 +733,21 @@ class WSGIHandler(object):
         else:
             self._sendall(data)
 
+    ApplicationError = AssertionError
+
     def write(self, data):
         # The write() callable we return from start_response.
         # https://www.python.org/dev/peps/pep-3333/#the-write-callable
         # Supposed to do pretty much the same thing as yielding values
         # from the application's return.
         if self.code in (304, 204) and data:
-            raise AssertionError('The %s response must have no body' % self.code)
+            raise self.ApplicationError('The %s response must have no body' % self.code)
 
         if self.headers_sent:
             self._write(data)
         else:
             if not self.status:
-                raise AssertionError("The application did not call start_response()")
+                raise self.ApplicationError("The application did not call start_response()")
             self._write_with_headers(data)
 
     def _write_with_headers(self, data):
@@ -854,7 +848,7 @@ class WSGIHandler(object):
         self.response_headers = response_headers
         self.code = code
 
-        provided_connection = None
+        provided_connection = None # Did the wsgi app give us a Connection header?
         self.provided_date = None
         self.provided_content_length = None
 
@@ -868,8 +862,8 @@ class WSGIHandler(object):
                 self.provided_content_length = value
 
         if self.request_version == 'HTTP/1.0' and provided_connection is None:
-            response_headers.append((b'Connection', b'close'))
-            self.close_connection = True
+            conntype = b'close' if self.close_connection else b'keep-alive'
+            response_headers.append((b'Connection', conntype))
         elif provided_connection == 'close':
             self.close_connection = True
 
@@ -878,7 +872,7 @@ class WSGIHandler(object):
                 msg = 'Invalid Content-Length for %s response: %r (must be absent or zero)' % (self.code, self.provided_content_length)
                 if PY3:
                     msg = msg.encode('latin-1')
-                raise AssertionError(msg)
+                raise self.ApplicationError(msg)
 
         return self.write
 
@@ -1025,7 +1019,7 @@ class WSGIHandler(object):
     def handle_error(self, t, v, tb):
         # Called for internal, unexpected errors, NOT invalid client input
         self._log_error(t, v, tb)
-        del tb
+        t = v = tb = None
         self._send_error_response_if_possible(500)
 
     def _handle_client_error(self, ex):
@@ -1395,6 +1389,8 @@ class WSGIServer(StreamServer):
     .. versionchanged:: 1.1a3
         Add support for passing :class:`logging.Logger` objects to the ``log`` and
         ``error_log`` arguments.
+    .. versionchanged:: 20.6.0
+        Passing a ``handle`` kwarg to the constructor is now officially deprecated.
     """
 
     #: A callable taking three arguments: (socket, address, server) and returning
@@ -1442,7 +1438,21 @@ class WSGIServer(StreamServer):
                  log='default', error_log='default',
                  handler_class=None,
                  environ=None, **ssl_args):
+        if 'handle' in ssl_args:
+            # The ultimate base class (BaseServer) uses 'handle' for
+            # the thing we call 'application'. We never deliberately
+            # bass a `handle` argument to the base class, but one
+            # could sneak in through ``**ssl_args``, even though that
+            # is not the intent, while application is None. That
+            # causes our own ``def handle`` method to be replaced,
+            # probably leading to bad results. Passing a 'handle'
+            # instead of an 'application' can really confuse things.
+            import warnings
+            warnings.warn("Passing 'handle' kwarg to WSGIServer is deprecated. "
+                          "Did you mean application?", DeprecationWarning, stacklevel=2)
+
         StreamServer.__init__(self, listener, backlog=backlog, spawn=spawn, **ssl_args)
+
         if application is not None:
             self.application = application
         if handler_class is not None:

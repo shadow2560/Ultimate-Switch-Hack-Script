@@ -22,16 +22,52 @@ from __future__ import absolute_import, print_function, division
 import os
 import unittest
 import re
+import gc
+import functools
 
 from . import sysinfo
 
-# Linux/OS X/BSD platforms can implement this by calling out to lsof
+# Linux/OS X/BSD platforms /can/ implement this by calling out to lsof.
+# However, if psutil is available (it is cross-platform) use that.
+# It is *much* faster than shelling out to lsof each time
+# (Running 14 tests takes 3.964s with lsof and 0.046 with psutil)
+# However, it still doesn't completely solve the issue on Windows: fds are reported
+# as -1 there, so we can't fully check those.
+
+def _collects(func):
+    # We've seen OSError: No such file or directory /proc/PID/fd/NUM.
+    # This occurs in the loop that checks open files. It first does
+    # listdir() and then tries readlink() on each file. But the file
+    # went away. This must be because of async GC in PyPy running
+    # destructors at arbitrary times. This became an issue in PyPy 7.2
+    # but could theoretically be an issue with any objects caught in a
+    # cycle. This is one reason we GC before we begin. (The other is
+    # to clean up outstanding objects that will close files in
+    # __del__.)
+    #
+    # Note that this can hide errors, though, by causing greenlets to get
+    # collected and drop references and thus close files. We should be deterministic
+    # and careful about closing things.
+    @functools.wraps(func)
+    def f(**kw):
+        gc.collect()
+        gc.collect()
+        enabled = gc.isenabled()
+        gc.disable()
+
+        try:
+            return func(**kw)
+        finally:
+            if enabled:
+                gc.enable()
+    return f
 
 
 if sysinfo.WIN:
     def _run_lsof():
         raise unittest.SkipTest("lsof not expected on Windows")
 else:
+    @_collects
     def _run_lsof():
         import tempfile
         pid = os.getpid()
@@ -46,7 +82,7 @@ else:
         os.remove(tmpname)
         return data
 
-def default_get_open_files(pipes=False):
+def default_get_open_files(pipes=False, **_kwargs):
     data = _run_lsof()
     results = {}
     for line in data.split('\n'):
@@ -70,6 +106,7 @@ def default_get_open_files(pipes=False):
     results['data'] = data
     return results
 
+@_collects
 def default_get_number_open_files():
     if os.path.exists('/proc/'):
         # Linux only
@@ -91,13 +128,13 @@ except ImportError:
     get_open_files = default_get_open_files
     get_number_open_files = default_get_number_open_files
 else:
-    # If psutil is available (it is cross-platform) use that.
-    # It is *much* faster than shelling out to lsof each time
-    # (Running 14 tests takes 3.964s with lsof and 0.046 with psutil)
-    # However, it still doesn't completely solve the issue on Windows: fds are reported
-    # as -1 there, so we can't fully check those.
+    class _TrivialOpenFile(object):
+        __slots__ = ('fd',)
+        def __init__(self, fd):
+            self.fd = fd
 
-    def get_open_files():
+    @_collects
+    def get_open_files(count_closing_as_open=True, **_kw):
         """
         Return a list of popenfile and pconn objects.
 
@@ -108,14 +145,50 @@ else:
            (socket.listen(1)). Unlike the lsof implementation, this will only
            return sockets in a state like that.
         """
+
         results = dict()
-        process = psutil.Process()
-        results['data'] = process.open_files() + process.connections('all')
+
+        for _ in range(3):
+            try:
+                if count_closing_as_open and os.path.exists('/proc/'):
+                    # Linux only.
+                    # psutil doesn't always see all connections, even though
+                    # they exist in the filesystem. It's not entirely clear why.
+                    # It sees them on Travis (prior to Ubuntu Bionic, at least)
+                    # but doesn't in the manylinux image or Fedora 33 Rawhide image.
+                    # This happens in test__makefile_ref TestSSL.*; in particular, if a
+                    # ``sslsock.makefile()`` is opened and used to read all data, and the sending
+                    # side shuts down, psutil no longer finds the open file. So we add them
+                    # back in.
+                    #
+                    # Of course, the flip side of this is that we sometimes find connections
+                    # we're not expecting.
+                    # I *think* this has to do with CLOSE_WAIT handling?
+                    fd_directory = '/proc/%d/fd' % os.getpid()
+                    fd_files = os.listdir(fd_directory)
+                else:
+                    fd_files = []
+                process = psutil.Process()
+                results['data'] = process.open_files()
+                results['data'] += process.connections('all')
+                break
+            except OSError:
+                pass
+        else:
+            # No break executed
+            raise unittest.SkipTest("Unable to read open files")
+
         for x in results['data']:
             results[x.fd] = x
-        results['data'] += ['From psutil', process]
+        for fd_str in fd_files:
+            if fd_str not in results:
+                fd = int(fd_str)
+                results[fd] = _TrivialOpenFile(fd)
+        results['data'] += [('From psutil', process)]
+        results['data'] += [('fd files', fd_files)]
         return results
 
+    @_collects
     def get_number_open_files():
         process = psutil.Process()
         try:
@@ -123,3 +196,28 @@ else:
         except AttributeError:
             # num_fds is unix only. Is num_handles close enough on Windows?
             return 0
+
+
+
+class DoesNotLeakFilesMixin(object): # pragma: no cover
+    """
+    A test case mixin that helps find a method that's leaking an
+    open file.
+
+    Only mix this in when needed to debug, it slows tests down.
+    """
+    def setUp(self):
+        self.__open_files_count = get_number_open_files()
+        super(DoesNotLeakFilesMixin, self).setUp()
+
+    def tearDown(self):
+        super(DoesNotLeakFilesMixin, self).tearDown()
+        after = get_number_open_files()
+        if after > self.__open_files_count:
+            raise AssertionError(
+                "Too many open files. Before: %s < After: %s.\n%s" % (
+                    self.__open_files_count,
+                    after,
+                    get_open_files()
+                )
+            )

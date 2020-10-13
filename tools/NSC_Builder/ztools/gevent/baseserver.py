@@ -1,12 +1,20 @@
 """Base class for implementing servers"""
 # Copyright (c) 2009-2012 Denis Bilenko. See LICENSE for details.
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
 import sys
 import _socket
 import errno
+
 from gevent.greenlet import Greenlet
 from gevent.event import Event
 from gevent.hub import get_hub
-from gevent._compat import string_types, integer_types, xrange
+from gevent._compat import string_types
+from gevent._compat import integer_types
+from gevent._compat import xrange
+
 
 
 __all__ = ['BaseServer']
@@ -66,6 +74,8 @@ class BaseServer(object):
        When the *handle* function returns from processing a connection,
        the client socket will be closed. This resolves the non-deterministic
        closing of the socket, fixing ResourceWarnings under Python 3 and PyPy.
+    .. versionchanged:: 1.5
+       Now a context manager that returns itself and calls :meth:`stop` on exit.
 
     """
     # pylint: disable=too-many-instance-attributes,bare-except,broad-except
@@ -79,9 +89,16 @@ class BaseServer(object):
     #: Sets the maximum number of consecutive accepts that a process may perform on
     #: a single wake up. High values give higher priority to high connection rates,
     #: while lower values give higher priority to already established connections.
-    #: Default is 100. Note, that in case of multiple working processes on the same
-    #: listening value, it should be set to a lower value. (pywsgi.WSGIServer sets it
-    #: to 1 when environ["wsgi.multiprocess"] is true)
+    #: Default is 100.
+    #:
+    #: Note that, in case of multiple working processes on the same
+    #: listening socket, it should be set to a lower value. (pywsgi.WSGIServer sets it
+    #: to 1 when ``environ["wsgi.multiprocess"]`` is true)
+    #:
+    #: This is equivalent to libuv's `uv_tcp_simultaneous_accepts
+    #: <http://docs.libuv.org/en/v1.x/tcp.html#c.uv_tcp_simultaneous_accepts>`_
+    #: value. Setting the environment variable UV_TCP_SINGLE_ACCEPT to a true value
+    #: (usually 1) changes the default to 1 (in libuv only; this does not affect gevent).
     max_accept = 100
 
     _spawn = Greenlet.spawn
@@ -100,7 +117,10 @@ class BaseServer(object):
         # XXX: FIXME: Subclasses rely on the presence or absence of the
         # `socket` attribute to determine whether we are open/should be opened.
         # Instead, have it be None.
-        self.pool = None
+        # XXX: In general, the state management here is confusing. Lots of stuff is
+        # deferred until the various ``set_`` methods are called, and it's not documented
+        # when it's safe to call those
+        self.pool = None # can be set from ``spawn``; overrides self.full()
         try:
             self.set_listener(listener)
             self.set_spawn(spawn)
@@ -112,6 +132,12 @@ class BaseServer(object):
         except:
             self.close()
             raise
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.stop()
 
     def set_listener(self, listener):
         if hasattr(listener, 'accept'):
@@ -194,6 +220,8 @@ class BaseServer(object):
         for _ in xrange(self.max_accept):
             if self.full():
                 self.stop_accepting()
+                if self.pool is not None:
+                    self.pool._semaphore.rawlink(self._start_accepting_if_started)
                 return
             try:
                 args = self.do_read()
@@ -225,9 +253,9 @@ class BaseServer(object):
                         self.delay = min(self.max_delay, self.delay * 2)
                     break
 
-    def full(self):
-        # copied from self.pool
-        # pylint: disable=method-hidden
+    def full(self): # pylint: disable=method-hidden
+        # If a Pool is given for to ``set_spawn`` (the *spawn* argument
+        # of the constructor) it will replace this method.
         return False
 
     def __repr__(self):
@@ -259,7 +287,7 @@ class BaseServer(object):
             try:
                 if fself is self:
                     # Checks the __self__ of the handle in case it is a bound
-                    # method of self to prevent recursivly defined reprs.
+                    # method of self to prevent recursively defined reprs.
                     handle_repr = '<bound method %s.%s of self>' % (
                         self.__class__.__name__,
                         handle.__name__,
@@ -286,11 +314,14 @@ class BaseServer(object):
             return self.address[1]
 
     def init_socket(self):
-        """If the user initialized the server with an address rather than socket,
-        then this function will create a socket, bind it and put it into listening mode.
+        """
+        If the user initialized the server with an address rather than
+        socket, then this function must create a socket, bind it, and
+        put it into listening mode.
 
         It is not supposed to be called by the user, it is called by :meth:`start` before starting
-        the accept loop."""
+        the accept loop.
+        """
 
     @property
     def started(self):

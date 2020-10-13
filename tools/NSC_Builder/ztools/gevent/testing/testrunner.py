@@ -1,24 +1,32 @@
 #!/usr/bin/env python
 from __future__ import print_function, absolute_import, division
 
+import re
 import sys
 import os
 import glob
 import traceback
-import time
 import importlib
-from datetime import timedelta
 
+from contextlib import contextmanager
+from datetime import timedelta
 from multiprocessing.pool import ThreadPool
 from multiprocessing import cpu_count
+
+from gevent._util import Lazy
+
 from . import util
-from .util import log
+from .resources import parse_resources
+from .resources import setup_resources
+from .resources import unparse_resources
 from .sysinfo import RUNNING_ON_CI
 from .sysinfo import PYPY
 from .sysinfo import PY2
 from .sysinfo import RESOLVER_ARES
 from .sysinfo import RUN_LEAKCHECKS
+from .sysinfo import OSX
 from . import six
+from . import travis
 
 # Import this while we're probably single-threaded/single-processed
 # to try to avoid issues with PyPy 5.10.
@@ -29,10 +37,12 @@ except (ImportError, OSError, IOError):
     # This can raise a wide variety of errors
     pass
 
-TIMEOUT = 100
-NWORKERS = int(os.environ.get('NWORKERS') or max(cpu_count() - 1, 4))
-if NWORKERS > 10:
-    NWORKERS = 10
+TIMEOUT = 100 # seconds
+AVAIL_NWORKERS = cpu_count() - 1
+DEFAULT_NWORKERS = int(os.environ.get('NWORKERS') or max(AVAIL_NWORKERS, 4))
+if DEFAULT_NWORKERS > 15:
+    DEFAULT_NWORKERS = 10
+
 
 if RUN_LEAKCHECKS:
     # Capturing the stats takes time, and we run each
@@ -46,9 +56,7 @@ DEFAULT_RUN_OPTIONS = {
 
 if RUNNING_ON_CI:
     # Too many and we get spurious timeouts
-    NWORKERS = 4
-
-
+    DEFAULT_NWORKERS = 4 if not OSX else 2
 
 
 def _package_relative_filename(filename, package):
@@ -64,190 +72,460 @@ def _dir_from_package_name(package):
     return package_dir
 
 
-def run_many(tests,
-             configured_failing_tests=(),
-             failfast=False,
-             quiet=False,
-             configured_run_alone_tests=()):
-    # pylint:disable=too-many-locals,too-many-statements
-    global NWORKERS
-    start = time.time()
-    total = 0
-    failed = {}
-    passed = {}
-    total_cases = [0]
-    total_skipped = [0]
+class ResultCollector(object):
 
-    NWORKERS = min(len(tests), NWORKERS) or 1
+    def __init__(self):
+        self.total = 0
+        self.failed = {}
+        self.passed = {}
+        self.total_cases = 0
+        self.total_skipped = 0
 
-    pool = ThreadPool(NWORKERS)
-    util.BUFFER_OUTPUT = NWORKERS > 1 or quiet
-
-    def run_one(cmd, **kwargs):
-        kwargs['quiet'] = quiet
-        result = util.run(cmd, **kwargs)
-        if result:
-            if failfast:
-                sys.exit(1)
-            failed[result.name] = [cmd, kwargs]
+    def __iadd__(self, result):
+        if not result:
+            self.failed[result.name] = result #[cmd, kwargs]
         else:
-            passed[result.name] = True
-        total_cases[0] += result.run_count
-        total_skipped[0] += result.skipped_count
+            self.passed[result.name] = True
+        self.total_cases += result.run_count
+        self.total_skipped += result.skipped_count
+        return self
 
-    results = []
 
-    def reap():
-        for r in results[:]:
+class FailFast(Exception):
+    pass
+
+class Runner(object):
+
+    TIME_WAIT_REAP = 0.1
+    TIME_WAIT_SPAWN = 0.05
+
+    def __init__(self,
+                 tests,
+                 configured_failing_tests=(),
+                 failfast=False,
+                 quiet=False,
+                 configured_run_alone_tests=(),
+                 worker_count=DEFAULT_NWORKERS):
+        """
+        :keyword quiet: Set to True or False to explicitly choose. Set to
+            `None` to use the default, which may come from the environment variable
+            ``GEVENTTEST_QUIET``.
+        """
+        self._tests = tests
+        self._configured_failing_tests = configured_failing_tests
+        self._failfast = failfast
+        self._quiet = quiet
+        self._configured_run_alone_tests = configured_run_alone_tests
+
+        self.results = ResultCollector()
+        self.results.total = len(self._tests)
+        self._running_jobs = []
+
+        self._worker_count = min(len(tests), worker_count) or 1
+
+    def _run_one(self, cmd, **kwargs):
+        if self._quiet is not None:
+            kwargs['quiet'] = self._quiet
+        result = util.run(cmd, **kwargs)
+        if not result and self._failfast:
+            # Under Python 3.9 (maybe older versions?), raising the
+            # SystemExit here (a background thread belonging to the
+            # pool) doesn't seem to work well. It gets stuck waiting
+            # for a lock? The job never shows up as finished.
+            raise FailFast(cmd)
+        self.results += result
+
+    def _reap(self):
+        "Clean up the list of running jobs, returning how many are still outstanding."
+        for r in self._running_jobs[:]:
             if not r.ready():
                 continue
             if r.successful():
-                results.remove(r)
+                self._running_jobs.remove(r)
             else:
                 r.get()
                 sys.exit('Internal error in testrunner.py: %r' % (r, ))
-        return len(results)
+        return len(self._running_jobs)
 
-    def reap_all():
-        while reap() > 0:
-            time.sleep(0.1)
+    def _reap_all(self):
+        util.log("Reaping %d jobs", len(self._running_jobs), color="debug")
+        while self._running_jobs:
+            if not self._reap():
+                break
+            util.sleep(self.TIME_WAIT_REAP)
 
-    def spawn(cmd, options):
+    def _spawn(self, pool, cmd, options):
         while True:
-            if reap() < NWORKERS:
-                r = pool.apply_async(run_one, (cmd, ), options or {})
-                results.append(r)
+            if self._reap() < self._worker_count:
+                job = pool.apply_async(self._run_one, (cmd, ), options or {})
+                self._running_jobs.append(job)
                 return
 
-            time.sleep(0.05)
+            util.sleep(self.TIME_WAIT_SPAWN)
 
-    run_alone = []
+    def __call__(self):
+        util.log("Running tests in parallel with concurrency %s %s." % (
+            self._worker_count,
+            util._colorize('number', '(concurrency available: %d)' % AVAIL_NWORKERS)
+        ),)
+        # Setting global state, in theory we can be used multiple times.
+        # This is fine as long as we are single threaded and call these
+        # sequentially.
+        util.BUFFER_OUTPUT = self._worker_count > 1 or self._quiet
 
-    try:
+        start = util.perf_counter()
         try:
-            log("Running tests in parallel with concurrency %s" % (NWORKERS,),)
+            self._run_tests()
+        except KeyboardInterrupt:
+            self._report(util.perf_counter() - start, exit=False)
+            util.log('(partial results)\n')
+            raise
+        except:
+            traceback.print_exc()
+            raise
+
+        self._reap_all()
+        self._report(util.perf_counter() - start, exit=True)
+
+    def _run_tests(self):
+        "Runs the tests, produces no report."
+        run_alone = []
+
+        tests = self._tests
+        pool = ThreadPool(self._worker_count)
+        try:
             for cmd, options in tests:
-                total += 1
                 options = options or {}
-                if matches(configured_run_alone_tests, cmd):
+                if matches(self._configured_run_alone_tests, cmd):
                     run_alone.append((cmd, options))
                 else:
-                    spawn(cmd, options)
+                    self._spawn(pool, cmd, options)
             pool.close()
             pool.join()
 
-            log("Running tests marked standalone")
-            for cmd, options in run_alone:
-                run_one(cmd, **options)
-
+            if run_alone:
+                util.log("Running tests marked standalone")
+                for cmd, options in run_alone:
+                    self._run_one(cmd, **options)
         except KeyboardInterrupt:
             try:
-                log('Waiting for currently running to finish...')
-                reap_all()
+                util.log('Waiting for currently running to finish...')
+                self._reap_all()
             except KeyboardInterrupt:
                 pool.terminate()
-                report(total, failed, passed, exit=False, took=time.time() - start,
-                       configured_failing_tests=configured_failing_tests,
-                       total_cases=total_cases[0], total_skipped=total_skipped[0])
-                log('(partial results)\n')
                 raise
-    except:
-        traceback.print_exc()
-        pool.terminate()
-        raise
+        except:
+            pool.terminate()
+            raise
 
-    reap_all()
-    report(total, failed, passed, took=time.time() - start,
-           configured_failing_tests=configured_failing_tests,
-           total_cases=total_cases[0], total_skipped=total_skipped[0])
+    def _report(self, elapsed_time, exit=False):
+        results = self.results
+        report(
+            results.total, results.failed, results.passed,
+            exit=exit,
+            took=elapsed_time,
+            configured_failing_tests=self._configured_failing_tests,
+            total_cases=results.total_cases,
+            total_skipped=results.total_skipped
+        )
 
-def discover(
-        tests=None, ignore_files=None,
-        ignored=(), coverage=False,
-        package=None,
-        configured_ignore_coverage=(),
-        configured_test_options=None,
-):
-    # pylint:disable=too-many-locals,too-many-branches
-    configured_test_options = configured_test_options or {}
-    olddir = os.getcwd()
-    ignore = set(ignored or ())
 
-    if ignore_files:
-        ignore_files = ignore_files.split(',')
-        for f in ignore_files:
-            ignore.update(set(load_list_from_file(f, package)))
+class TravisFoldingRunner(object):
 
-    if coverage:
-        ignore.update(configured_ignore_coverage)
+    def __init__(self, runner, travis_fold_msg):
+        self._runner = runner
+        self._travis_fold_msg = travis_fold_msg
+        self._travis_fold_name = str(int(util.perf_counter()))
 
-    if package:
-        package_dir = _dir_from_package_name(package)
-        # We need to glob relative names, our config is based on filenames still
-        os.chdir(package_dir)
+        # A zope-style acquisition proxy would be convenient here.
+        run_tests = runner._run_tests
 
-    if not tests:
-        tests = set(glob.glob('test_*.py')) - set(['test_support.py'])
-    else:
-        tests = set(tests)
+        def _run_tests():
+            self._begin_fold()
+            try:
+                run_tests()
+            finally:
+                self._end_fold()
 
-    if ignore:
-        # Always ignore the designated list, even if tests were specified
-        # on the command line. This fixes a nasty interaction with test__threading_vs_settrace.py
-        # being run under coverage when 'grep -l subprocess test*py' is used to list the tests
-        # to run.
-        tests -= ignore
-    tests = sorted(tests)
+        runner._run_tests = _run_tests
 
-    to_process = []
-    to_import = []
+    def _begin_fold(self):
+        travis.fold_start(self._travis_fold_name,
+                          self._travis_fold_msg)
 
-    for filename in tests:
-        module_name = os.path.splitext(filename)[0]
-        qualified_name = package + '.' + module_name if package else module_name
-        with open(os.path.abspath(filename), 'rb') as f:
-            # Some of the test files (e.g., test__socket_dns) are
-            # UTF8 encoded. Depending on the environment, Python 3 may
-            # try to decode those as ASCII, which fails with UnicodeDecodeError.
-            # Thus, be sure to open and compare in binary mode.
-            # Open the absolute path to make errors more clear,
-            # but we can't store the absolute path, our configuration is based on
-            # relative file names.
-            contents = f.read()
-        if b'TESTRUNNER' in contents: # test__monkey_patching.py
-            # XXX: Rework this to avoid importing.
-            to_import.append(qualified_name)
-        else:
+    def _end_fold(self):
+        travis.fold_end(self._travis_fold_name)
+
+    def __call__(self):
+        return self._runner()
+
+
+class Discovery(object):
+    package_dir = None
+    package = None
+
+    def __init__(
+            self,
+            tests=None,
+            ignore_files=None,
+            ignored=(),
+            coverage=False,
+            package=None,
+            config=None,
+            allow_combine=True,
+    ):
+        self.config = config or {}
+        self.ignore = set(ignored or ())
+        self.tests = tests
+        self.configured_test_options = config.get('TEST_FILE_OPTIONS', set())
+        self.allow_combine = allow_combine
+        if ignore_files:
+            ignore_files = ignore_files.split(',')
+            for f in ignore_files:
+                self.ignore.update(set(load_list_from_file(f, package)))
+
+        if coverage:
+            self.ignore.update(config.get('IGNORE_COVERAGE', set()))
+
+        if package:
+            self.package = package
+            self.package_dir = _dir_from_package_name(package)
+
+    class Discovered(object):
+        def __init__(self, package, configured_test_options, ignore, config, allow_combine):
+            self.orig_dir = os.getcwd()
+            self.configured_run_alone = config['RUN_ALONE']
+            self.configured_failing_tests = config['FAILING_TESTS']
+            self.package = package
+            self.configured_test_options = configured_test_options
+            self.allow_combine = allow_combine
+            self.ignore = ignore
+
+            self.to_import = []
+            self.std_monkey_patch_files = []
+            self.no_monkey_patch_files = []
+
+            self.commands = []
+
+        @staticmethod
+        def __makes_simple_monkey_patch(
+                contents,
+                _patch_present=re.compile(br'[^#].*patch_all\(\)'),
+                _patch_indented=re.compile(br'    .*patch_all\(\)')
+        ):
+            return (
+                # A non-commented patch_all() call is present
+                bool(_patch_present.search(contents))
+                # that is not indented (because that implies its not at the top-level,
+                # so some preconditions are being set)
+                and not _patch_indented.search(contents)
+            )
+
+        @staticmethod
+        def __file_allows_monkey_combine(contents):
+            return b'testrunner-no-monkey-combine' not in contents
+
+        @staticmethod
+        def __file_allows_combine(contents):
+            return b'testrunner-no-combine' not in contents
+
+        @staticmethod
+        def __calls_unittest_main_toplevel(
+                contents,
+                _greentest_main=re.compile(br'    greentest.main\(\)'),
+                _unittest_main=re.compile(br'    unittest.main\(\)'),
+                _import_main=re.compile(br'from gevent.testing import.*main'),
+                _main=re.compile(br'    main\(\)'),
+        ):
+            # TODO: Add a check that this comes in a line directly after
+            # if __name__ == __main__.
+            return (
+                _greentest_main.search(contents)
+                or _unittest_main.search(contents)
+                or (_import_main.search(contents) and _main.search(contents))
+            )
+
+        def __has_config(self, filename):
+            return (
+                RUN_LEAKCHECKS
+                or filename in self.configured_test_options
+                or filename in self.configured_run_alone
+                or matches(self.configured_failing_tests, filename)
+            )
+
+        def __can_monkey_combine(self, filename, contents):
+            return (
+                self.allow_combine
+                and not self.__has_config(filename)
+                and self.__makes_simple_monkey_patch(contents)
+                and self.__file_allows_monkey_combine(contents)
+                and self.__file_allows_combine(contents)
+                and self.__calls_unittest_main_toplevel(contents)
+            )
+
+        @staticmethod
+        def __makes_no_monkey_patch(contents, _patch_present=re.compile(br'[^#].*patch_\w*\(')):
+            return not _patch_present.search(contents)
+
+        def __can_nonmonkey_combine(self, filename, contents):
+            return (
+                self.allow_combine
+                and not self.__has_config(filename)
+                and self.__makes_no_monkey_patch(contents)
+                and self.__file_allows_combine(contents)
+                and self.__calls_unittest_main_toplevel(contents)
+            )
+
+        def __begin_command(self):
             cmd = [sys.executable, '-u']
             if PYPY and PY2:
                 # Doesn't seem to be an env var for this
                 cmd.extend(('-X', 'track-resources'))
-            if package:
-                # Using a package is the best way to work with coverage 5
-                # when we specify 'source = <package>'
-                cmd.append('-m' + qualified_name)
+            return cmd
+
+
+        def __add_test(self, qualified_name, filename, contents):
+            if b'TESTRUNNER' in contents: # test__monkey_patching.py
+                # XXX: Rework this to avoid importing.
+                # XXX: Rework this to allow test combining (it could write the files out and return
+                # them directly; we would use 'python -m gevent.monkey --module unittest ...)
+                self.to_import.append(qualified_name)
+            elif self.__can_monkey_combine(filename, contents):
+                self.std_monkey_patch_files.append(qualified_name if self.package else filename)
+            elif self.__can_nonmonkey_combine(filename, contents):
+                self.no_monkey_patch_files.append(qualified_name if self.package else filename)
             else:
-                cmd.append(filename)
+                # XXX: For simple python module tests, try this with
+                # `runpy.run_module`, very similar to the way we run
+                # things for monkey patching. The idea here is that we
+                # can perform setup ahead of time (e.g.,
+                # setup_resources()) in each test without having to do
+                # it manually or force calls or modifications to those
+                # tests.
+                cmd = self.__begin_command()
+                if self.package:
+                    # Using a package is the best way to work with coverage 5
+                    # when we specify 'source = <package>'
+                    cmd.append('-m' + qualified_name)
+                else:
+                    cmd.append(filename)
 
-            options = DEFAULT_RUN_OPTIONS.copy()
-            options.update(configured_test_options.get(filename, {}))
-            to_process.append((cmd, options))
+                options = DEFAULT_RUN_OPTIONS.copy()
+                options.update(self.configured_test_options.get(filename, {}))
+                self.commands.append((cmd, options))
 
-    os.chdir(olddir)
-    # When we actually execute, do so from the original directory,
-    # this helps find setup.py
-    for qualified_name in to_import:
-        module = importlib.import_module(qualified_name)
-        for cmd, options in module.TESTRUNNER():
-            if remove_options(cmd)[-1] in ignore:
-                continue
-            to_process.append((cmd, options))
+        @staticmethod
+        def __remove_options(lst):
+            return [x for x in lst if x and not x.startswith('-')]
 
-    return to_process
+        def __expand_imports(self):
+            for qualified_name in self.to_import:
+                module = importlib.import_module(qualified_name)
+                for cmd, options in module.TESTRUNNER():
+                    if self.__remove_options(cmd)[-1] in self.ignore:
+                        continue
+                    self.commands.append((cmd, options))
+            del self.to_import[:]
+
+        def __combine_commands(self, files, group_size=5):
+            if not files:
+                return
+
+            from itertools import groupby
+            cnt = [0, 0]
+            def make_group(_):
+                if cnt[0] > group_size:
+                    cnt[0] = 0
+                    cnt[1] += 1
+                cnt[0] += 1
+                return cnt[1]
+
+            for _, group in groupby(files, make_group):
+
+                cmd = self.__begin_command()
+                cmd.append('-m')
+                cmd.append('unittest')
+                # cmd.append('-v')
+                for name in group:
+                    cmd.append(name)
+                self.commands.insert(0, (cmd, DEFAULT_RUN_OPTIONS.copy()))
+
+            del files[:]
 
 
-def remove_options(lst):
-    return [x for x in lst if x and not x.startswith('-')]
+        def visit_file(self, filename):
+            # Support either 'gevent.tests.foo' or 'gevent/tests/foo.py'
+            if filename.startswith('gevent.tests'):
+                # XXX: How does this interact with 'package'? Probably not well
+                qualified_name = module_name = filename
+                filename = filename[len('gevent.tests') + 1:]
+                filename = filename.replace('.', os.sep) + '.py'
+            else:
+                module_name = os.path.splitext(filename)[0]
+                qualified_name = self.package + '.' + module_name if self.package else module_name
+
+            with open(os.path.abspath(filename), 'rb') as f:
+                # Some of the test files (e.g., test__socket_dns) are
+                # UTF8 encoded. Depending on the environment, Python 3 may
+                # try to decode those as ASCII, which fails with UnicodeDecodeError.
+                # Thus, be sure to open and compare in binary mode.
+                # Open the absolute path to make errors more clear,
+                # but we can't store the absolute path, our configuration is based on
+                # relative file names.
+                contents = f.read()
+
+            self.__add_test(qualified_name, filename, contents)
+
+        def visit_files(self, filenames):
+            for filename in filenames:
+                self.visit_file(filename)
+            with Discovery._in_dir(self.orig_dir):
+                self.__expand_imports()
+            self.__combine_commands(self.std_monkey_patch_files)
+            self.__combine_commands(self.no_monkey_patch_files)
+
+    @staticmethod
+    @contextmanager
+    def _in_dir(package_dir):
+        olddir = os.getcwd()
+        if package_dir:
+            os.chdir(package_dir)
+        try:
+            yield
+        finally:
+            os.chdir(olddir)
+
+    @Lazy
+    def discovered(self):
+        tests = self.tests
+        discovered = self.Discovered(self.package, self.configured_test_options,
+                                     self.ignore, self.config, self.allow_combine)
+
+        # We need to glob relative names, our config is based on filenames still
+        with self._in_dir(self.package_dir):
+            if not tests:
+                tests = set(glob.glob('test_*.py')) - set(['test_support.py'])
+            else:
+                tests = set(tests)
+
+            if self.ignore:
+                # Always ignore the designated list, even if tests
+                # were specified on the command line. This fixes a
+                # nasty interaction with
+                # test__threading_vs_settrace.py being run under
+                # coverage when 'grep -l subprocess test*py' is used
+                # to list the tests to run.
+                tests -= self.ignore
+            tests = sorted(tests)
+            discovered.visit_files(tests)
+
+        return discovered
+
+    def __iter__(self):
+        return iter(self.discovered.commands) # pylint:disable=no-member
+
+    def __len__(self):
+        return len(self.discovered.commands) # pylint:disable=no-member
 
 def load_list_from_file(filename, package):
     result = []
@@ -273,6 +551,8 @@ def matches(possibilities, command, include_flaky=True):
         # XXX: This could be much better. Our command needs better structure.
         if command.endswith(' ' + line) or command.endswith(line.replace(".py", '')):
             return True
+        if ' '  not in command and command == line:
+            return True
     return False
 
 
@@ -289,14 +569,14 @@ def report(total, failed, passed, exit=True, took=None,
            configured_failing_tests=(),
            total_cases=0, total_skipped=0):
     # pylint:disable=redefined-builtin,too-many-branches,too-many-locals
-    runtimelog = util.runtimelog
+    runtimelog = util.runtimelog # XXX: Global state!
     if runtimelog:
-        log('\nLongest-running tests:')
+        util.log('\nLongest-running tests:')
         runtimelog.sort()
         length = len('%.1f' % -runtimelog[0][0])
         frmt = '%' + str(length) + '.1f seconds: %s'
         for delta, name in runtimelog[:5]:
-            log(frmt, -delta, name)
+            util.log(frmt, -delta, name)
     if took:
         took = ' in %s' % format_seconds(took)
     else:
@@ -311,11 +591,11 @@ def report(total, failed, passed, exit=True, took=None,
             passed_unexpected.append(name)
 
     if passed_unexpected:
-        log('\n%s/%s unexpected passes', len(passed_unexpected), total, color='error')
+        util.log('\n%s/%s unexpected passes', len(passed_unexpected), total, color='error')
         print_list(passed_unexpected)
 
     if failed:
-        log('\n%s/%s tests failed%s', len(failed), total, took)
+        util.log('\n%s/%s tests failed%s', len(failed), total, took, color='warning')
 
         for name in failed:
             if matches(configured_failing_tests, name, include_flaky=True):
@@ -324,20 +604,20 @@ def report(total, failed, passed, exit=True, took=None,
                 failed_unexpected.append(name)
 
         if failed_expected:
-            log('\n%s/%s expected failures', len(failed_expected), total)
+            util.log('\n%s/%s expected failures', len(failed_expected), total, color='warning')
             print_list(failed_expected)
 
         if failed_unexpected:
-            log('\n%s/%s unexpected failures', len(failed_unexpected), total, color='error')
+            util.log('\n%s/%s unexpected failures', len(failed_unexpected), total, color='error')
             print_list(failed_unexpected)
-    else:
-        log(
-            '\nRan %s tests%s in %s files%s',
-            total_cases,
-            util._colorize('skipped', " (skipped=%d)" % total_skipped) if total_skipped else '',
-            total,
-            took,
-        )
+
+    util.log(
+        '\nRan %s tests%s in %s files%s',
+        total_cases,
+        util._colorize('skipped', " (skipped=%d)" % total_skipped) if total_skipped else '',
+        total,
+        took,
+    )
 
     if exit:
         if failed_unexpected:
@@ -350,21 +630,40 @@ def report(total, failed, passed, exit=True, took=None,
 
 def print_list(lst):
     for name in lst:
-        log(' - %s', name)
+        util.log(' - %s', name)
 
 def _setup_environ(debug=False):
-    if 'PYTHONWARNINGS' not in os.environ and not sys.warnoptions:
+    def not_set(key):
+        return not bool(os.environ.get(key))
 
+    if (not_set('PYTHONWARNINGS')
+            and (not sys.warnoptions
+                 # Python 3.7 goes from [] to ['default'] for nothing
+                 or sys.warnoptions == ['default'])):
         # action:message:category:module:line
-        os.environ['PYTHONWARNINGS'] = ','.join([
-            # Enable default warnings such as ResourceWarning.
+
+        # - when a warning matches
+        #   more than one option, the action for the last matching
+        #   option is performed.
+        # - action is one of : ignore, default, all, module, once, error
+
+        # Enable default warnings such as ResourceWarning.
+        # ResourceWarning doesn't exist on Py2, so don't put it
+        # in there to avoid a warnnig.
+        defaults = [
             'default',
+            'default::DeprecationWarning',
+        ]
+        if not PY2:
+            defaults.append('default::ResourceWarning')
+
+        os.environ['PYTHONWARNINGS'] = ','.join(defaults + [
             # On Python 3[.6], the system site.py module has
             # "open(fullname, 'rU')" which produces the warning that
             # 'U' is deprecated, so ignore warnings from site.py
             'ignore:::site:',
             # pkgutil on Python 2 complains about missing __init__.py
-            'ignore:::pkgutil',
+            'ignore:::pkgutil:',
             # importlib/_bootstrap.py likes to spit out "ImportWarning:
             # can't resolve package from __spec__ or __package__, falling
             # back on __name__ and __path__". I have no idea what that means, but it seems harmless
@@ -373,25 +672,51 @@ def _setup_environ(debug=False):
             'ignore:::importlib._bootstrap_external:',
             # importing ABCs from collections, not collections.abc
             'ignore:::pkg_resources._vendor.pyparsing:',
+            'ignore:::dns.namedict:',
+            # dns.hash itself is being deprecated, importing it raises the warning;
+            # we don't import it, but dnspython still does
+            'ignore:::dns.hash:',
+            # dns.zone uses some raw regular expressions
+            # without the r'' syntax, leading to DeprecationWarning: invalid
+            # escape sequence. This is fixed in 2.0 (Python 3 only).
+            'ignore:::dns.zone:',
         ])
 
-    if 'PYTHONFAULTHANDLER' not in os.environ:
+    if not_set('PYTHONFAULTHANDLER'):
         os.environ['PYTHONFAULTHANDLER'] = 'true'
 
-    if 'GEVENT_DEBUG' not in os.environ and debug:
+    if not_set('GEVENT_DEBUG') and debug:
         os.environ['GEVENT_DEBUG'] = 'debug'
 
-    if 'PYTHONTRACEMALLOC' not in os.environ:
+    if not_set('PYTHONTRACEMALLOC') and debug:
+        # This slows the tests down quite a bit. Reserve
+        # for debugging.
         os.environ['PYTHONTRACEMALLOC'] = '10'
 
-    if 'PYTHONDEVMODE' not in os.environ:
-        # Python 3.7
+    if not_set('PYTHONDEVMODE'):
+        # Python 3.7 and above.
         os.environ['PYTHONDEVMODE'] = '1'
 
-    if 'PYTHONMALLOC' not in os.environ:
-        # Python 3.6
+    if not_set('PYTHONMALLOC') and debug:
+        # Python 3.6 and above.
+        # This slows the tests down some, but
+        # can detect memory corruption. Unfortunately
+        # it can also be flaky, especially in pre-release
+        # versions of Python (e.g., lots of crashes on Python 3.8b4).
         os.environ['PYTHONMALLOC'] = 'debug'
 
+    if sys.version_info.releaselevel != 'final' and not debug:
+        os.environ['PYTHONMALLOC'] = 'default'
+        os.environ['PYTHONDEVMODE'] = ''
+
+    interesting_envs = {
+        k: os.environ[k]
+        for k in os.environ
+        if k.startswith(('PYTHON', 'GEVENT'))
+    }
+    widest_k = max(len(k) for k in interesting_envs)
+    for k, v in sorted(interesting_envs.items()):
+        util.log('%*s\t=\t%s', widest_k, k, v, color="debug")
 
 
 def main():
@@ -402,34 +727,79 @@ def main():
     parser.add_argument('--discover', action='store_true')
     parser.add_argument('--full', action='store_true')
     parser.add_argument('--config', default='known_failures.py')
-    parser.add_argument('--failfast', action='store_true')
+    parser.add_argument('--failfast', '-x', action='store_true')
     parser.add_argument("--coverage", action="store_true")
     parser.add_argument("--quiet", action="store_true", default=True)
     parser.add_argument("--verbose", action="store_false", dest='quiet')
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--package", default="gevent.tests")
+    parser.add_argument(
+        "--processes", "-j", default=DEFAULT_NWORKERS, type=int,
+        help="Use up to the given number of parallel processes to execute tests. "
+        "Defaults to %(default)s."
+    )
+    parser.add_argument(
+        '--no-combine', default=True, action='store_false',
+        help="Do not combine tests into process groups."
+    )
+    parser.add_argument('-u', '--use', metavar='RES1,RES2,...',
+                        action='store', type=parse_resources,
+                        help='specify which special resource intensive tests '
+                        'to run. "all" is the default; "none" may also be used. '
+                        'Disable individual resources with a leading -.'
+                        'For example, "-u-network". GEVENTTEST_USE_RESOURCES is used '
+                        'if no argument is given. To only use one resources, specify '
+                        '"-unone,resource".')
+
+    parser.add_argument("--travis-fold", metavar="MSG",
+                        help="Emit Travis CI log fold markers around the output.")
     parser.add_argument('tests', nargs='*')
     options = parser.parse_args()
+    # options.use will be either None for not given, or a list
+    # of the last specified -u argument.
+    # If not given, use the default, which we'll take from the environment, if set.
+    options.use = list(set(parse_resources() if options.use is None else options.use))
+
+    # Whether or not it came from the environment, put it in the
+    # environment now.
+    os.environ['GEVENTTEST_USE_RESOURCES'] = unparse_resources(options.use)
+    setup_resources(options.use)
+
+
+    # Set this before any test imports in case of 'from .util import QUIET';
+    # not that this matters much because we spawn tests in subprocesses,
+    # it's the environment setting that matters
+    util.QUIET = options.quiet
+    if 'GEVENTTEST_QUIET' not in os.environ:
+        os.environ['GEVENTTEST_QUIET'] = str(options.quiet)
+
     FAILING_TESTS = []
     IGNORED_TESTS = []
     RUN_ALONE = []
-    TEST_FILE_OPTIONS = {}
 
     coverage = False
     if options.coverage or os.environ.get("GEVENTTEST_COVERAGE"):
-        coverage = True
-        os.environ['COVERAGE_PROCESS_START'] = os.path.abspath(".coveragerc")
-        if PYPY:
-            os.environ['COVERAGE_PROCESS_START'] = os.path.abspath(".coveragerc-pypy")
-        this_dir = os.path.dirname(__file__)
-        site_dir = os.path.join(this_dir, 'coveragesite')
-        site_dir = os.path.abspath(site_dir)
-        os.environ['PYTHONPATH'] = site_dir + os.pathsep + os.environ.get("PYTHONPATH", "")
-        # We change directory often, use an absolute path to keep all the
-        # coverage files (which will have distinct suffixes because of parallel=true in .coveragerc
-        # in this directory; makes them easier to combine and use with coverage report)
-        os.environ['COVERAGE_FILE'] = os.path.abspath(".") + os.sep + ".coverage"
-        print("Enabling coverage to", os.environ['COVERAGE_FILE'], "with site", site_dir)
+        if PYPY and RUNNING_ON_CI:
+            print("Ignoring coverage option on PyPy on CI; slow")
+        else:
+            coverage = True
+            cov_config = os.environ['COVERAGE_PROCESS_START'] = os.path.abspath(".coveragerc")
+            if PYPY:
+                cov_config = os.environ['COVERAGE_PROCESS_START'] = os.path.abspath(".coveragerc-pypy")
+
+            this_dir = os.path.dirname(__file__)
+            site_dir = os.path.join(this_dir, 'coveragesite')
+            site_dir = os.path.abspath(site_dir)
+            os.environ['PYTHONPATH'] = site_dir + os.pathsep + os.environ.get("PYTHONPATH", "")
+            # We change directory often, use an absolute path to keep all the
+            # coverage files (which will have distinct suffixes because of parallel=true in .coveragerc
+            # in this directory; makes them easier to combine and use with coverage report)
+            os.environ['COVERAGE_FILE'] = os.path.abspath(".") + os.sep + ".coverage"
+            print("Enabling coverage to", os.environ['COVERAGE_FILE'],
+                  "with site", site_dir,
+                  "and configuration file", cov_config)
+            assert os.path.exists(cov_config)
+            assert os.path.exists(os.path.join(site_dir, 'sitecustomize.py'))
 
     _setup_environ(debug=options.debug)
 
@@ -442,18 +812,15 @@ def main():
         FAILING_TESTS = config['FAILING_TESTS']
         IGNORED_TESTS = config['IGNORED_TESTS']
         RUN_ALONE = config['RUN_ALONE']
-        TEST_FILE_OPTIONS = config['TEST_FILE_OPTIONS']
-        IGNORE_COVERAGE = config['IGNORE_COVERAGE']
 
-
-    tests = discover(
+    tests = Discovery(
         options.tests,
         ignore_files=options.ignore,
         ignored=IGNORED_TESTS,
         coverage=coverage,
         package=options.package,
-        configured_ignore_coverage=IGNORE_COVERAGE,
-        configured_test_options=TEST_FILE_OPTIONS,
+        config=config,
+        allow_combine=options.no_combine,
     )
     if options.discover:
         for cmd, options in tests:
@@ -468,13 +835,19 @@ def main():
             # Put this directory on the path so relative imports work.
             package_dir = _dir_from_package_name(options.package)
             os.environ['PYTHONPATH'] = os.environ.get('PYTHONPATH', "") + os.pathsep + package_dir
-        run_many(
+        runner = Runner(
             tests,
             configured_failing_tests=FAILING_TESTS,
             failfast=options.failfast,
             quiet=options.quiet,
             configured_run_alone_tests=RUN_ALONE,
+            worker_count=options.processes,
         )
+
+        if options.travis_fold:
+            runner = TravisFoldingRunner(runner, options.travis_fold)
+
+        runner()
 
 
 if __name__ == '__main__':

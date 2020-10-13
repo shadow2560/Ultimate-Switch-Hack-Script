@@ -1,5 +1,5 @@
 # Copyright (c) 2009-2012 Denis Bilenko. See LICENSE for details.
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,too-many-lines
 """
 Make the standard library cooperative.
 
@@ -45,8 +45,10 @@ module provides functions for that purpose.
 - :func:`is_object_patched`
 - :func:`get_original`
 
-Plugins
-=======
+.. _plugins:
+
+Plugins and Events
+==================
 
 Beginning in gevent 1.3, events are emitted during the monkey patching process.
 These events are delivered first to :mod:`gevent.events` subscribers, and then
@@ -146,12 +148,27 @@ __all__ = [
 if sys.version_info[0] >= 3:
     string_types = (str,)
     PY3 = True
+    PY2 = False
 else:
     import __builtin__ # pylint:disable=import-error
     string_types = (__builtin__.basestring,)
     PY3 = False
+    PY2 = True
 
 WIN = sys.platform.startswith("win")
+PY36 = sys.version_info[:2] >= (3, 6)
+PY37 = sys.version_info[:2] >= (3, 7)
+
+class _BadImplements(AttributeError):
+    """
+    Raised when ``__implements__`` is incorrect.
+    """
+
+    def __init__(self, module):
+        AttributeError.__init__(
+            self,
+            "Module %r has a bad or missing value for __implements__" % (module,)
+        )
 
 class MonkeyPatchWarning(RuntimeWarning):
     """
@@ -234,7 +251,9 @@ def get_original(mod_name, item_name):
     retrieved.
 
     :param str mod_name: The name of the standard library module,
-        e.g., ``'socket'``.
+        e.g., ``'socket'``. Can also be a sequence of standard library
+        modules giving alternate names to try, e.g., ``('thread', '_thread')``;
+        the first importable module will supply all *item_name* items.
     :param item_name: A string or sequence of strings naming the
         attribute(s) on the module ``mod_name`` to return.
 
@@ -242,10 +261,22 @@ def get_original(mod_name, item_name):
              ``item_name`` or a sequence of original values if a
              sequence was passed.
     """
+    mod_names = [mod_name] if isinstance(mod_name, string_types) else mod_name
     if isinstance(item_name, string_types):
-        return _get_original(mod_name, [item_name])[0]
-    return _get_original(mod_name, item_name)
+        item_names = [item_name]
+        unpack = True
+    else:
+        item_names = item_name
+        unpack = False
 
+    for mod in mod_names:
+        try:
+            result = _get_original(mod, item_names)
+        except ImportError:
+            if mod is mod_names[-1]:
+                raise
+        else:
+            return result[0] if unpack else result
 
 _NONE = object()
 
@@ -281,9 +312,40 @@ def __call_module_hook(gevent_module, name, module, items, _warnings):
     func(module, items, warn)
 
 
+class _GeventDoPatchRequest(object):
+
+    PY3 = PY3
+    get_original = staticmethod(get_original)
+
+    def __init__(self,
+                 target_module,
+                 source_module,
+                 items,
+                 patch_kwargs):
+        self.target_module = target_module
+        self.source_module = source_module
+        self.items = items
+        self.patch_kwargs = patch_kwargs or {}
+
+    def default_patch_items(self):
+        for attr in self.items:
+            patch_item(self.target_module, attr, getattr(self.source_module, attr))
+
+    def remove_item(self, target_module, *items):
+        if isinstance(target_module, str):
+            items = (target_module,) + items
+            target_module = self.target_module
+
+        for item in items:
+            remove_item(target_module, item)
+
+
 def patch_module(target_module, source_module, items=None,
                  _warnings=None,
-                 _notify_did_subscribers=True):
+                 _patch_kwargs=None,
+                 _notify_will_subscribers=True,
+                 _notify_did_subscribers=True,
+                 _call_hooks=True):
     """
     patch_module(target_module, source_module, items=None)
 
@@ -293,7 +355,8 @@ def patch_module(target_module, source_module, items=None,
     The *source_module* can provide some attributes to customize the process:
 
     * ``__implements__`` is a list of attribute names to copy; if not present,
-      the *items* keyword argument is mandatory.
+      the *items* keyword argument is mandatory. ``__implements__`` must only have
+      names from the standard library module in it.
     * ``_gevent_will_monkey_patch(target_module, items, warn, **kwargs)``
     * ``_gevent_did_monkey_patch(target_module, items, warn, **kwargs)``
       These two functions in the *source_module* are called *if* they exist,
@@ -315,21 +378,32 @@ def patch_module(target_module, source_module, items=None,
     if items is None:
         items = getattr(source_module, '__implements__', None)
         if items is None:
-            raise AttributeError('%r does not have __implements__' % source_module)
+            raise _BadImplements(source_module)
 
     try:
-        __call_module_hook(source_module, 'will', target_module, items, _warnings)
-        _notify_patch(
-            events.GeventWillPatchModuleEvent(target_module.__name__, source_module,
-                                              target_module, items),
-            _warnings)
+        if _call_hooks:
+            __call_module_hook(source_module, 'will', target_module, items, _warnings)
+        if _notify_will_subscribers:
+            _notify_patch(
+                events.GeventWillPatchModuleEvent(target_module.__name__, source_module,
+                                                  target_module, items),
+                _warnings)
     except events.DoNotPatch:
         return False
 
-    for attr in items:
-        patch_item(target_module, attr, getattr(source_module, attr))
+    # Undocumented, internal use: If the module defines
+    # `_gevent_do_monkey_patch(patch_request: _GeventDoPatchRequest)` call that;
+    # the module is responsible for its own patching.
+    do_patch = getattr(
+        source_module,
+        '_gevent_do_monkey_patch',
+        _GeventDoPatchRequest.default_patch_items
+    )
+    request = _GeventDoPatchRequest(target_module, source_module, items, _patch_kwargs)
+    do_patch(request)
 
-    __call_module_hook(source_module, 'did', target_module, items, _warnings)
+    if _call_hooks:
+        __call_module_hook(source_module, 'did', target_module, items, _warnings)
 
     if _notify_did_subscribers:
         # We allow turning off the broadcast of the 'did' event for the benefit
@@ -342,15 +416,55 @@ def patch_module(target_module, source_module, items=None,
 
     return True
 
-def _patch_module(name, items=None, _warnings=None, _notify_did_subscribers=True):
+def _check_availability(name):
+    """
+    Test that the source and target modules for *name* are
+    available and return them.
 
+    :raise ImportError: If the source or target cannot be imported.
+    :return: The tuple ``(gevent_module, target_module, target_module_name)``
+    """
     gevent_module = getattr(__import__('gevent.' + name), name)
-    module_name = getattr(gevent_module, '__target__', name)
-    target_module = __import__(module_name)
+    target_module_name = getattr(gevent_module, '__target__', name)
+    target_module = __import__(target_module_name)
+
+    return gevent_module, target_module, target_module_name
+
+def _patch_module(name,
+                  items=None,
+                  _warnings=None,
+                  _patch_kwargs=None,
+                  _notify_will_subscribers=True,
+                  _notify_did_subscribers=True,
+                  _call_hooks=True):
+
+    gevent_module, target_module, target_module_name = _check_availability(name)
 
     patch_module(target_module, gevent_module, items=items,
-                 _warnings=_warnings,
-                 _notify_did_subscribers=_notify_did_subscribers)
+                 _warnings=_warnings, _patch_kwargs=_patch_kwargs,
+                 _notify_will_subscribers=_notify_will_subscribers,
+                 _notify_did_subscribers=_notify_did_subscribers,
+                 _call_hooks=_call_hooks)
+
+    # On Python 2, the `futures` package will install
+    # a bunch of modules with the same name as those from Python 3,
+    # such as `_thread`; primarily these just do `from thread import *`,
+    # meaning we have alternate references. If that's already been imported,
+    # we need to attempt to patch that too.
+
+    # Be sure to keep the original states matching also.
+
+    alternate_names = getattr(gevent_module, '__alternate_targets__', ())
+    for alternate_name in alternate_names:
+        alternate_module = sys.modules.get(alternate_name)
+        if alternate_module is not None and alternate_module is not target_module:
+            saved.pop(alternate_name, None)
+            patch_module(alternate_module, gevent_module, items=items,
+                         _warnings=_warnings,
+                         _notify_will_subscribers=False,
+                         _notify_did_subscribers=False,
+                         _call_hooks=False)
+            saved[alternate_name] = saved[target_module_name]
 
     return gevent_module, target_module
 
@@ -457,10 +571,56 @@ def patch_time():
     """
     _patch_module('time')
 
+@_ignores_DoNotPatch
+def patch_contextvars():
+    """
+    Replaces the implementations of :mod:`contextvars` with
+    :mod:`gevent.contextvars`.
+
+    On Python 3.7 and above, this is a standard library module. On
+    earlier versions, a backport that uses the same distribution name
+    and import name is available on PyPI (though this is not
+    recommended). If that is installed, it will be patched.
+
+    .. versionchanged:: 20.04.0
+       Clarify that the backport is also patched.
+
+    .. versionchanged:: 20.9.0
+       This now does nothing on Python 3.7 and above.
+       gevent now depends on greenlet 0.4.17, which
+       natively handles switching context vars when greenlets are switched.
+       Older versions of Python that have the backport installed will
+       still be patched.
+    """
+    if PY37:
+        return
+    try:
+        __import__('contextvars')
+    except ImportError:
+        pass
+    else:
+        try:
+            _patch_module('contextvars')
+        except _BadImplements:
+            # Prior to Python 3.7, but the backport must be installed.
+            # *Assume* it has the same things as the standard library would.
+            import gevent.contextvars
+            _patch_module('contextvars', gevent.contextvars.__stdlib_expected__)
+
 
 def _patch_existing_locks(threading):
     if len(list(threading.enumerate())) != 1:
         return
+    # This is used to protect internal data structures for enumerate.
+    # It's acquired when threads are started and when they're stopped.
+    # Stopping a thread checks a Condition, which on Python 2 wants to test
+    # _is_owned of its (patched) Lock. Since our LockType doesn't have
+    # _is_owned, it tries to acquire the lock non-blocking; that triggers a
+    # switch. If the next thing in the callback list was a thread that needed
+    # to start or end, we wouldn't be able to acquire this native lock
+    # because it was being held already; we couldn't switch either, so we'd
+    # block permanently.
+    threading._active_limbo_lock = threading._allocate_lock()
     try:
         tid = threading.get_ident()
     except AttributeError:
@@ -478,6 +638,10 @@ def _patch_existing_locks(threading):
     # Since we're supposed to be done very early in the process, there shouldn't be
     # too many.
 
+    # Note that the C implementation of locks, at least on some
+    # versions of CPython, cannot be found and cannot be fixed (they simply
+    # don't show up to GC; see https://github.com/gevent/gevent/issues/1354)
+
     # By definition there's only one thread running, so the various
     # owner attributes were the old (native) thread id. Make it our
     # current greenlet id so that when it wants to unlock and compare
@@ -485,12 +649,20 @@ def _patch_existing_locks(threading):
     gc = __import__('gc')
     for o in gc.get_objects():
         if isinstance(o, rlock_type):
-            if hasattr(o, '_owner'): # Py3
-                if o._owner is not None:
-                    o._owner = tid
-            else:
-                if o._RLock__owner is not None:
-                    o._RLock__owner = tid
+            for owner_name in (
+                    '_owner', # Python 3 or backported PyPy2
+                    '_RLock__owner', # Python 2
+            ):
+                if hasattr(o, owner_name):
+                    if getattr(o, owner_name) is not None:
+                        setattr(o, owner_name, tid)
+                    break
+            else: # pragma: no cover
+                raise AssertionError(
+                    "Unsupported Python implementation; "
+                    "Found unknown lock implementation.",
+                    vars(o)
+                )
         elif isinstance(o, _ModuleLock):
             if o.owner is not None:
                 o.owner = tid
@@ -514,7 +686,10 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
     :keyword bool existing_locks: When True (the default), and the
         process is still single threaded, make sure that any
         :class:`threading.RLock` (and, under Python 3, :class:`importlib._bootstrap._ModuleLock`)
-        instances that are currently locked can be properly unlocked.
+        instances that are currently locked can be properly unlocked. **Important**: This is a
+        best-effort attempt and, on certain implementations, may not detect all
+        locks. It is important to monkey-patch extremely early in the startup process.
+        Setting this to False is not recommended, especially on Python 2.
 
     .. caution::
         Monkey-patching :mod:`thread` and using
@@ -569,11 +744,14 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
         orig_current_thread = None
 
     gevent_thread_mod, thread_mod = _patch_module('thread',
-                                                  _warnings=_warnings, _notify_did_subscribers=False)
+                                                  _warnings=_warnings,
+                                                  _notify_did_subscribers=False)
+
 
     if threading:
         gevent_threading_mod, _ = _patch_module('threading',
-                                                _warnings=_warnings, _notify_did_subscribers=False)
+                                                _warnings=_warnings,
+                                                _notify_did_subscribers=False)
 
         if Event:
             from gevent.event import Event
@@ -614,6 +792,22 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
                 raise RuntimeError("Cannot join current thread")
             if thread_greenlet is not None and thread_greenlet.dead:
                 return
+            # You may ask: Why not call thread_greenlet.join()?
+            # Well, in the one case we actually have a greenlet, it's the
+            # low-level greenlet.greenlet object for the main thread, which
+            # doesn't have a join method.
+            #
+            # You may ask: Why not become the main greenlet's *parent*
+            # so you can get notified when it finishes? Because you can't
+            # create a greenlet cycle (the current greenlet is a descendent
+            # of the parent), and nor can you set a greenlet's parent to None,
+            # so there can only ever be one greenlet with a parent of None: the main
+            # greenlet, the one we need to watch.
+            #
+            # You may ask: why not swizzle out the problematic lock on the main thread
+            # into a gevent friendly lock? Well, the interpreter actually depends on that
+            # for the main thread in threading._shutdown; see below.
+
             if not thread.is_alive():
                 return
 
@@ -634,7 +828,7 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
                 continue
             thread.join = make_join_func(thread, None)
 
-    if sys.version_info[:2] >= (3, 4):
+    if PY3:
 
         # Issue 18808 changes the nature of Thread.join() to use
         # locks. This means that a greenlet spawned in the main thread
@@ -642,12 +836,63 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
         # hangs forever. We patch around this if possible. See also
         # gevent.threading.
         greenlet = __import__('greenlet')
+        already_patched = is_object_patched('threading', '_shutdown')
 
-        if orig_current_thread == threading_mod.main_thread():
+        if orig_current_thread == threading_mod.main_thread() and not already_patched:
             main_thread = threading_mod.main_thread()
             _greenlet = main_thread._greenlet = greenlet.getcurrent()
+            main_thread.__real_tstate_lock = main_thread._tstate_lock
+            assert main_thread.__real_tstate_lock is not None
+            # The interpreter will call threading._shutdown
+            # when the main thread exits and is about to
+            # go away. It is called *in* the main thread. This
+            # is a perfect place to notify other greenlets that
+            # the main thread is done. We do this by overriding the
+            # lock of the main thread during operation, and only restoring
+            # it to the native blocking version at shutdown time
+            # (the interpreter also has a reference to this lock in a
+            # C data structure).
+            main_thread._tstate_lock = threading_mod.Lock()
+            main_thread._tstate_lock.acquire()
+            orig_shutdown = threading_mod._shutdown
+            def _shutdown():
+                # Release anyone trying to join() me,
+                # and let us switch to them.
+                if not main_thread._tstate_lock:
+                    return
 
-            main_thread.join = make_join_func(main_thread, _greenlet)
+                main_thread._tstate_lock.release()
+                from gevent import sleep
+                try:
+                    sleep()
+                except: # pylint:disable=bare-except
+                    # A greenlet could have .kill() us
+                    # or .throw() to us. I'm the main greenlet,
+                    # there's no where else for this to go.
+                    from gevent  import get_hub
+                    get_hub().print_exception(_greenlet, *sys.exc_info())
+
+                # Now, this may have resulted in us getting stopped
+                # if some other greenlet actually just ran there.
+                # That's not good, we're not supposed to be stopped
+                # when we enter _shutdown.
+                main_thread._is_stopped = False
+                main_thread._tstate_lock = main_thread.__real_tstate_lock
+                main_thread.__real_tstate_lock = None
+                # The only truly blocking native shutdown lock to
+                # acquire should be our own (hopefully), and the call to
+                # _stop that orig_shutdown makes will discard it.
+
+                orig_shutdown()
+                patch_item(threading_mod, '_shutdown', orig_shutdown)
+
+            patch_item(threading_mod, '_shutdown', _shutdown)
+
+            # We create a bit of a reference cycle here,
+            # so main_thread doesn't get to be collected in a timely way.
+            # Not good. Take it out of dangling so we don't get
+            # warned about it.
+            threading_mod._dangling.remove(main_thread)
 
             # Patch up the ident of the main thread to match. This
             # matters if threading was imported before monkey-patching
@@ -658,7 +903,7 @@ def patch_thread(threading=True, _threading_local=True, Event=True, logging=True
                 threading_mod._active[main_thread.ident] = threading_mod._active[oldid]
             if oldid != main_thread.ident:
                 del threading_mod._active[oldid]
-        else:
+        elif not already_patched:
             _queue_warning("Monkey-patching not on the main thread; "
                            "threading.main_thread().join() will hang from a greenlet",
                            _warnings)
@@ -743,7 +988,7 @@ def patch_ssl(_warnings=None, _first_time=True):
     """
     may_need_warning = (
         _first_time
-        and sys.version_info[:2] >= (3, 6)
+        and PY36
         and 'ssl' in sys.modules
         and hasattr(sys.modules['ssl'], 'SSLContext'))
     # Previously, we didn't warn on Python 2 if pkg_resources has been imported
@@ -790,67 +1035,47 @@ def patch_select(aggressive=True):
     and :func:`select.poll` with :class:`gevent.select.poll` (where available).
 
     If ``aggressive`` is true (the default), also remove other
-    blocking functions from :mod:`select` and (on Python 3.4 and
-    above) :mod:`selectors`:
+    blocking functions from :mod:`select` .
 
     - :func:`select.epoll`
     - :func:`select.kqueue`
     - :func:`select.kevent`
     - :func:`select.devpoll` (Python 3.5+)
+    """
+    _patch_module('select',
+                  _patch_kwargs={'aggressive': aggressive})
+
+@_ignores_DoNotPatch
+def patch_selectors(aggressive=True):
+    """
+    Replace :class:`selectors.DefaultSelector` with
+    :class:`gevent.selectors.GeventSelector`.
+
+    If ``aggressive`` is true (the default), also remove other
+    blocking classes :mod:`selectors`:
+
     - :class:`selectors.EpollSelector`
     - :class:`selectors.KqueueSelector`
     - :class:`selectors.DevpollSelector` (Python 3.5+)
+
+    On Python 2, the :mod:`selectors2` module is used instead
+    of :mod:`selectors` if it is available. If this module cannot
+    be imported, no patching is done and :mod:`gevent.selectors` is
+    not available.
+
+    In :func:`patch_all`, the *select* argument controls both this function
+    and :func:`patch_select`.
+
+    .. versionadded:: 20.6.0
     """
+    try:
+        _check_availability('selectors')
+    except ImportError: # pragma: no cover
+        return
 
-    source_mod, target_mod = _patch_module('select', _notify_did_subscribers=False)
-    if aggressive:
-        select = target_mod
-        # since these are blocking we're removing them here. This makes some other
-        # modules (e.g. asyncore)  non-blocking, as they use select that we provide
-        # when none of these are available.
-        remove_item(select, 'epoll')
-        remove_item(select, 'kqueue')
-        remove_item(select, 'kevent')
-        remove_item(select, 'devpoll')
+    _patch_module('selectors',
+                  _patch_kwargs={'aggressive': aggressive})
 
-    if sys.version_info[:2] >= (3, 4):
-        # Python 3 wants to use `select.select` as a member function,
-        # leading to this error in selectors.py (because gevent.select.select is
-        # not a builtin and doesn't get the magic auto-static that they do)
-        #    r, w, _ = self._select(self._readers, self._writers, [], timeout)
-        #    TypeError: select() takes from 3 to 4 positional arguments but 5 were given
-        # Note that this obviously only happens if selectors was imported after we had patched
-        # select; but there is a code path that leads to it being imported first (but now we've
-        # patched select---so we can't compare them identically)
-        select = target_mod # Should be gevent-patched now
-        orig_select_select = get_original('select', 'select')
-        assert select.select is not orig_select_select
-        selectors = __import__('selectors')
-        if selectors.SelectSelector._select in (select.select, orig_select_select):
-            def _select(self, *args, **kwargs): # pylint:disable=unused-argument
-                return select.select(*args, **kwargs)
-            selectors.SelectSelector._select = _select
-            _select._gevent_monkey = True
-
-        # Python 3.7 refactors the poll-like selectors to use a common
-        # base class and capture a reference to select.poll, etc, at
-        # import time. selectors tends to get imported early
-        # (importing 'platform' does it: platform -> subprocess -> selectors),
-        # so we need to clean that up.
-        if hasattr(selectors, 'PollSelector') and hasattr(selectors.PollSelector, '_selector_cls'):
-            selectors.PollSelector._selector_cls = select.poll
-
-        if aggressive:
-            # If `selectors` had already been imported before we removed
-            # select.epoll|kqueue|devpoll, these may have been defined in terms
-            # of those functions. They'll fail at runtime.
-            remove_item(selectors, 'EpollSelector')
-            remove_item(selectors, 'KqueueSelector')
-            remove_item(selectors, 'DevpollSelector')
-            selectors.DefaultSelector = selectors.SelectSelector
-
-    from gevent import events
-    _notify_patch(events.GeventDidPatchModuleEvent('select', source_mod, target_mod))
 
 @_ignores_DoNotPatch
 def patch_subprocess():
@@ -878,7 +1103,7 @@ def patch_builtins():
     .. _greenlet safe: https://github.com/gevent/gevent/issues/108
 
     """
-    if sys.version_info[:2] < (3, 3):
+    if PY2:
         _patch_module('builtins')
 
 @_ignores_DoNotPatch
@@ -899,16 +1124,26 @@ def patch_signal():
 
 def _check_repatching(**module_settings):
     _warnings = []
-    key = '_gevent_saved_patch_all'
+    key = '_gevent_saved_patch_all_module_settings'
+
     del module_settings['kwargs']
-    if saved.get(key, module_settings) != module_settings:
+    currently_patched = saved.setdefault(key, {})
+    first_time = not currently_patched
+    if not first_time and currently_patched != module_settings:
         _queue_warning("Patching more than once will result in the union of all True"
                        " parameters being patched",
                        _warnings)
 
-    first_time = key not in saved
-    saved[key] = module_settings
-    return _warnings, first_time, module_settings
+    to_patch = {}
+    for k, v in module_settings.items():
+        # If we haven't seen the setting at all, record it and echo it.
+        # If we have seen the setting, but it became true, record it and echo it.
+        if k not in currently_patched:
+            to_patch[k] = currently_patched[k] = v
+        elif v and not currently_patched[k]:
+            to_patch[k] = currently_patched[k] = True
+
+    return _warnings, first_time, to_patch
 
 
 def _subscribe_signal_os(will_patch_all):
@@ -921,10 +1156,9 @@ def _subscribe_signal_os(will_patch_all):
                        warnings)
 
 def patch_all(socket=True, dns=True, time=True, select=True, thread=True, os=True, ssl=True,
-              httplib=False, # Deprecated, to be removed.
               subprocess=True, sys=False, aggressive=True, Event=True,
               builtins=True, signal=True,
-              queue=True,
+              queue=True, contextvars=True,
               **kwargs):
     """
     Do all of the default monkey patching (calls every other applicable
@@ -951,15 +1185,27 @@ def patch_all(socket=True, dns=True, time=True, select=True, thread=True, os=Tru
        for kwarg values to be interpreted by plugins, for example, `patch_all(mylib_futures=True)`.
     .. versionchanged:: 1.3.5
        Add *queue*, defaulting to True, for Python 3.7.
+    .. versionchanged:: 1.5
+       Remove the ``httplib`` argument. Previously, setting it raised a ``ValueError``.
+    .. versionchanged:: 1.5a3
+       Add the ``contextvars`` argument.
+    .. versionchanged:: 1.5
+       Better handling of patching more than once.
     """
     # pylint:disable=too-many-locals,too-many-branches
 
     # Check to see if they're changing the patched list
     _warnings, first_time, modules_to_patch = _check_repatching(**locals())
-    if not _warnings and not first_time:
-        # Nothing to do, identical args to what we just
-        # did
+
+    if not modules_to_patch:
+        # Nothing to do. Either the arguments were identical to what
+        # we previously did, or they specified false values
+        # for things we had previously patched.
+        _process_warnings(_warnings)
         return
+
+    for k, v in modules_to_patch.items():
+        locals()[k] = v
 
     from gevent import events
     try:
@@ -982,10 +1228,9 @@ def patch_all(socket=True, dns=True, time=True, select=True, thread=True, os=Tru
         patch_socket(dns=dns, aggressive=aggressive)
     if select:
         patch_select(aggressive=aggressive)
+        patch_selectors(aggressive=aggressive)
     if ssl:
         patch_ssl(_warnings=_warnings, _first_time=first_time)
-    if httplib:
-        raise ValueError('gevent.httplib is no longer provided, httplib must be False')
     if subprocess:
         patch_subprocess()
     if builtins:
@@ -994,6 +1239,8 @@ def patch_all(socket=True, dns=True, time=True, select=True, thread=True, os=Tru
         patch_signal()
     if queue:
         patch_queue()
+    if contextvars:
+        patch_contextvars()
 
     _notify_patch(events.GeventDidPatchBuiltinModulesEvent(modules_to_patch, kwargs), _warnings)
     _notify_patch(events.GeventDidPatchAllEvent(modules_to_patch, kwargs), _warnings)
@@ -1006,11 +1253,14 @@ def main():
     args = {}
     argv = sys.argv[1:]
     verbose = False
+    run_fn = "run_path"
     script_help, patch_all_args, modules = _get_script_help()
     while argv and argv[0].startswith('--'):
         option = argv[0][2:]
         if option == 'verbose':
-            verbose = True
+            verbose += 1
+        elif option == 'module':
+            run_fn = "run_module"
         elif option.startswith('no-') and option.replace('no-', '') in patch_all_args:
             args[option[3:]] = False
         elif option in patch_all_args:
@@ -1031,19 +1281,40 @@ def main():
         print('sys.modules=%s' % pprint.pformat(sorted(sys.modules.keys())))
         print('cwd=%s' % os.getcwd())
 
-    patch_all(**args)
-    if argv:
-        sys.argv = argv
-        import runpy
-        # Use runpy.run_path to closely (exactly) match what the
-        # interpreter does given 'python <path>'. This includes allowing
-        # passing .pyc/.pyo files and packages with a __main__ and
-        # potentially even zip files. Previously we used exec, which only
-        # worked if we directly read a python source file.
-        runpy.run_path(sys.argv[0],
-                       run_name='__main__')
-    else:
+    if not argv:
         print(script_help)
+        return
+
+    sys.argv[:] = argv
+    # Make sure that we don't get imported again under a different
+    # name (usually it's ``__main__`` here) because that could lead to
+    # double-patching, and making monkey.get_original() not work.
+    try:
+        mod_name = __spec__.name
+    except NameError:
+        # Py2: __spec__ is not defined as standard
+        mod_name = 'gevent.monkey'
+    sys.modules[mod_name] = sys.modules[__name__]
+    # On Python 2, we have to set the gevent.monkey attribute
+    # manually; putting gevent.monkey into sys.modules stops the
+    # import machinery from making that connection, and ``from gevent
+    # import monkey`` is broken. On Python 3 (.8 at least) that's not
+    # necessary.
+    if 'gevent' in sys.modules:
+        sys.modules['gevent'].monkey = sys.modules[mod_name]
+    # Running ``patch_all()`` will load pkg_resources entry point plugins
+    # which may attempt to import ``gevent.monkey``, so it is critical that
+    # we have established the correct saved module name first.
+    patch_all(**args)
+
+    import runpy
+    # Use runpy.run_path to closely (exactly) match what the
+    # interpreter does given 'python <path>'. This includes allowing
+    # passing .pyc/.pyo files and packages with a __main__ and
+    # potentially even zip files. Previously we used exec, which only
+    # worked if we directly read a python source file.
+    run_meth = getattr(runpy, run_fn)
+    return run_meth(sys.argv[0], run_name='__main__')
 
 
 def _get_script_help():
@@ -1057,18 +1328,24 @@ def _get_script_help():
     modules = [x for x in patch_all_args if 'patch_' + x in globals()]
     script_help = """gevent.monkey - monkey patch the standard modules to use gevent.
 
-USAGE: ``python -m gevent.monkey [MONKEY OPTIONS] script [SCRIPT OPTIONS]``
+USAGE: ``python -m gevent.monkey [MONKEY OPTIONS] [--module] (script|module) [SCRIPT OPTIONS]``
 
-If no OPTIONS present, monkey patches all the modules it can patch.
-You can exclude a module with --no-module, e.g. --no-thread. You can
-specify a module to patch with --module, e.g. --socket. In the latter
+If no MONKEY OPTIONS are present, monkey patches all the modules as if by calling ``patch_all()``.
+You can exclude a module with --no-<module>, e.g. --no-thread. You can
+specify a module to patch with --<module>, e.g. --socket. In the latter
 case only the modules specified on the command line will be patched.
+
+The default behavior is to execute the script passed as argument. If you wish
+to run a module instead, pass the `--module` argument before the module name.
 
 .. versionchanged:: 1.3b1
     The *script* argument can now be any argument that can be passed to `runpy.run_path`,
     just like the interpreter itself does, for example a package directory containing ``__main__.py``.
     Previously it had to be the path to
     a .py source file.
+
+.. versionchanged:: 1.5
+    The `--module` option has been added.
 
 MONKEY OPTIONS: ``--verbose %s``""" % ', '.join('--[no-]%s' % m for m in modules)
     return script_help, patch_all_args, modules

@@ -1,16 +1,23 @@
-from gevent import monkey; monkey.patch_all()
+from __future__ import print_function, division, absolute_import
+from gevent import monkey
+monkey.patch_all()
 import os
 
 import socket
 import gevent.testing as greentest
 # Be careful not to have TestTCP as a bare attribute in this module,
 # even aliased, to avoid running duplicate tests
-import test__socket
+from gevent.tests import test__socket
 import ssl
 
+from gevent.testing import PY2
 
-import unittest
-from gevent.hub import LoopExit
+def ssl_listener(private_key, certificate):
+    raw_listener = socket.socket()
+    greentest.bind_and_listen(raw_listener)
+    sock = ssl.wrap_socket(raw_listener, private_key, certificate, server_side=True)
+    return sock, raw_listener
+
 
 class TestSSL(test__socket.TestTCP):
 
@@ -20,16 +27,20 @@ class TestSSL(test__socket.TestTCP):
     # ssl.SSLError); That's gone in Py3 though. In Python 2, most timeouts are raised
     # as SSLError, but Python 3 raises the normal socket.timeout instead. So this has
     # the effect of making TIMEOUT_ERROR be SSLError on Py2 and socket.timeout on Py3
-    # See https://bugs.python.org/issue10272
-    TIMEOUT_ERROR = getattr(socket, 'sslerror', socket.timeout)
+    # See https://bugs.python.org/issue10272.
+    # PyPy3 7.2 has a bug, though: it shares much of the SSL implementation with Python 2,
+    # and it unconditionally does `socket.sslerror = SSLError` when ssl is imported.
+    # So we can't rely on getattr/hasattr tests, we must be explicit.
+    TIMEOUT_ERROR = socket.sslerror if PY2 else socket.timeout # pylint:disable=no-member
 
     def _setup_listener(self):
-        listener, raw_listener = ssl_listener(('127.0.0.1', 0), self.privfile, self.certfile)
+        listener, raw_listener = ssl_listener(self.privfile, self.certfile)
         self._close_on_teardown(raw_listener)
         return listener
 
-    def create_connection(self, *args, **kwargs): # pylint:disable=arguments-differ
-        return ssl.wrap_socket(super(TestSSL, self).create_connection(*args, **kwargs))
+    def create_connection(self, *args, **kwargs): # pylint:disable=signature-differs
+        return self._close_on_teardown(
+            ssl.wrap_socket(super(TestSSL, self).create_connection(*args, **kwargs)))
 
     # The SSL library can take a long time to buffer the large amount of data we're trying
     # to send, so we can't compare to the timeout values
@@ -38,6 +49,18 @@ class TestSSL(test__socket.TestTCP):
     # The SSL layer has extra buffering, so test_sendall needs
     # to send a very large amount to make it timeout
     _test_sendall_data = data_sent = b'hello' * 100000000
+
+    test_sendall_array = greentest.skipOnMacOnCI("Sometimes misses data")(
+        greentest.skipOnManylinux("Sometimes misses data")(
+            test__socket.TestTCP.test_sendall_array
+        )
+    )
+
+    test_sendall_str = greentest.skipOnMacOnCI("Sometimes misses data")(
+        greentest.skipOnManylinux("Sometimes misses data")(
+            test__socket.TestTCP.test_sendall_str
+        )
+    )
 
     @greentest.skipOnWindows("Not clear why we're skipping")
     def test_ssl_sendall_timeout0(self):
@@ -59,15 +82,14 @@ class TestSSL(test__socket.TestTCP):
             client.close()
             server_sock[0][0].close()
 
-    def test_fullduplex(self):
-        try:
-            super(TestSSL, self).test_fullduplex()
-        except LoopExit:
-            if greentest.LIBUV and greentest.WIN:
-                # XXX: Unable to duplicate locally
-                raise unittest.SkipTest("libuv on Windows sometimes raises LoopExit")
-            raise
-
+    # def test_fullduplex(self):
+    #     try:
+    #         super(TestSSL, self).test_fullduplex()
+    #     except LoopExit:
+    #         if greentest.LIBUV and greentest.WIN:
+    #             # XXX: Unable to duplicate locally
+    #             raise greentest.SkipTest("libuv on Windows sometimes raises LoopExit")
+    #         raise
 
     @greentest.ignores_leakcheck
     def test_empty_send(self):
@@ -93,11 +115,6 @@ class TestSSL(test__socket.TestTCP):
         # Override; doesn't work with SSL sockets.
         pass
 
-def ssl_listener(address, private_key, certificate):
-    raw_listener = socket.socket()
-    greentest.bind_and_listen(raw_listener, address)
-    sock = ssl.wrap_socket(raw_listener, private_key, certificate)
-    return sock, raw_listener
 
 
 if __name__ == '__main__':

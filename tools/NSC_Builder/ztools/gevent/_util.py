@@ -3,9 +3,10 @@
 internal gevent utilities, not for external use.
 """
 
-from __future__ import print_function, absolute_import, division
+# Be very careful not to import anything that would cause issues with
+# monkey-patching.
 
-from functools import update_wrapper
+from __future__ import print_function, absolute_import, division
 
 from gevent._compat import iteritems
 
@@ -22,6 +23,38 @@ class _NONE(object):
         return '<default value>'
 
 _NONE = _NONE()
+
+WRAPPER_ASSIGNMENTS = ('__module__', '__name__', '__qualname__', '__doc__',
+                       '__annotations__')
+WRAPPER_UPDATES = ('__dict__',)
+def update_wrapper(wrapper,
+                   wrapped,
+                   assigned=WRAPPER_ASSIGNMENTS,
+                   updated=WRAPPER_UPDATES):
+    """
+    Based on code from the standard library ``functools``, but
+    doesn't perform any of the troublesome imports.
+
+    functools imports RLock from _thread for purposes of the
+    ``lru_cache``, making it problematic to use from gevent.
+
+    The other imports are somewhat heavy: abc, collections, types.
+    """
+    for attr in assigned:
+        try:
+            value = getattr(wrapped, attr)
+        except AttributeError:
+            pass
+        else:
+            setattr(wrapper, attr, value)
+    for attr in updated:
+        getattr(wrapper, attr).update(getattr(wrapped, attr, {}))
+    # Issue #17482: set __wrapped__ last so we don't inadvertently copy it
+    # from the wrapped function when updating __dict__
+    wrapper.__wrapped__ = wrapped
+    # Return the wrapper so this can be used as a decorator via partial()
+    return wrapper
+
 
 def copy_globals(source,
                  globs,
@@ -75,9 +108,19 @@ def copy_globals(source,
 
 def import_c_accel(globs, cname):
     """
-    Import the C-accelerator for the __name__
+    Import the C-accelerator for the *cname*
     and copy its globals.
+
+    The *cname* should be hardcoded to match the expected
+    C accelerator module.
+
+    Unless PURE_PYTHON is set (in the environment or automatically
+    on PyPy), then the C-accelerator is required.
     """
+    if not cname.startswith('gevent._gevent_c'):
+        # Old module code that hasn't been updated yet.
+        cname = cname.replace('gevent._',
+                              'gevent._gevent_c')
 
     name = globs.get('__name__')
 
@@ -119,7 +162,9 @@ class Lazy(object):
     A non-data descriptor used just like @property. The
     difference is the function value is assigned to the instance
     dict the first time it is accessed and then the function is never
-    called agoin.
+    called again.
+
+    Contrast with `readproperty`.
     """
     def __init__(self, func):
         self.data = (func, func.__name__)
@@ -136,9 +181,16 @@ class Lazy(object):
 
 class readproperty(object):
     """
-    A non-data descriptor like @property. The difference is that
-    when the property is assigned to, it is cached in the instance
-    and the function is not called on that instance again.
+    A non-data descriptor similar to :class:`property`.
+
+    The difference is that the property can be assigned to directly,
+    without invoking a setter function. When the property is assigned
+    to, it is cached in the instance and the function is not called on
+    that instance again.
+
+    Contrast with `Lazy`, which caches the result of the function in the
+    instance the first time it is called and never calls the function on that
+    instance again.
     """
 
     def __init__(self, func):
@@ -151,6 +203,35 @@ class readproperty(object):
 
         return self.func(inst)
 
+class LazyOnClass(object):
+    """
+    Similar to `Lazy`, but stores the value in the class.
+
+    This is useful when the getter is expensive and conceptually
+    a shared class value, but we don't want import-time side-effects
+    such as expensive imports because it may not always be used.
+
+    Probably doesn't mix well with inheritance?
+    """
+
+    @classmethod
+    def lazy(cls, cls_dict, func):
+        "Put a LazyOnClass object in *cls_dict* with the same name as *func*"
+        cls_dict[func.__name__] = cls(func)
+
+    def __init__(self, func, name=None):
+        self.name = name or func.__name__
+        self.func = func
+
+    def __get__(self, inst, klass):
+        if inst is None: # pragma: no cover
+            return self
+
+        val = self.func(inst)
+        setattr(klass, self.name, val)
+        return val
+
+
 def gmctime():
     """
     Returns the current time as a string in RFC3339 format.
@@ -158,21 +239,111 @@ def gmctime():
     import time
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
-try:
-    from zope.interface import Interface
-    from zope.interface import implementer
-    from zope.interface import Attribute
-except ImportError:
-    class Interface(object):
-        pass
-    def implementer(_iface):
-        def dec(c):
-            return c
-        return dec
 
-    def Attribute(s):
-        return s
+###
+# Release automation.
+#
+# Most of this is to integrate zest.releaser with towncrier. There is
+# a plugin package that can do the same:
+# https://github.com/collective/zestreleaser.towncrier
+###
 
-Interface = Interface
-implementer = implementer
-Attribute = Attribute
+def prereleaser_middle(data): # pragma: no cover
+    """
+    zest.releaser prerelease middle hook for gevent.
+
+    The prerelease step:
+
+        asks you for a version number
+        updates the setup.py or version.txt and the
+        CHANGES/HISTORY/CHANGELOG file (with either
+        this new version
+        number and offers to commit those changes to git
+
+    The middle hook:
+
+        All data dictionary items are available and some questions
+        (like new version number) have been asked.
+        No filesystem changes have been made yet.
+
+    It is our job to finish up the filesystem changes needed, including:
+
+    - Calling towncrier to handle CHANGES.rst
+    - Add the version number to ``versionadded``, ``versionchanged`` and
+      ``deprecated`` directives in Python source.
+    """
+    if data['name'] != 'gevent':
+        # We are specified in ``setup.cfg``, not ``setup.py``, so we do not
+        # come into play for other projects, only this one. We shouldn't
+        # need this check, but there it is.
+        return
+
+    import re
+    import os
+    import subprocess
+    from gevent.testing import modules
+
+    new_version = data['new_version']
+
+    # Generate CHANGES.rst, remove old news entries.
+    subprocess.check_call([
+        'towncrier',
+        'build',
+        '--version', data['new_version'],
+        '--yes'
+    ])
+
+    data['update_history'] = False # Because towncrier already did.
+
+    # But unstage it; we want it to show in the diff zest.releaser will do
+    subprocess.check_call([
+        'git',
+        'restore',
+        '--staged',
+        'CHANGES.rst',
+    ])
+
+    # Put the version number in source files.
+    regex = re.compile(b'.. (versionchanged|versionadded|deprecated):: NEXT')
+    if not isinstance(new_version, bytes):
+        new_version_bytes = new_version.encode('ascii')
+    else:
+        new_version_bytes = new_version
+    new_version_bytes = new_version.encode('ascii')
+    replacement = br'.. \1:: %s' % (new_version_bytes,)
+    for path, _ in modules.walk_modules(
+            # Start here
+            basedir=os.path.join(data['reporoot'], 'src', 'gevent'),
+            # Include sub-dirs
+            recursive=True,
+            # Include tests
+            include_tests=True,
+            # and other things usually excluded
+            excluded_modules=(),
+            # Don't return build binaries
+            include_so=False,
+            # Don't try to import things; we want all files.
+            check_optional=False,
+    ):
+        with open(path, 'rb') as f:
+            contents = f.read()
+        new_contents, count = regex.subn(replacement, contents)
+        if count:
+            print("Replaced version NEXT in", path)
+            with open(path, 'wb') as f:
+                f.write(new_contents)
+
+def postreleaser_before(data): # pragma: no cover
+    """
+    Prevents zest.releaser from modifying the CHANGES.rst to add the
+    'no changes yet' section; towncrier is in charge of CHANGES.rst.
+
+    Needs zest.releaser 6.15.0.
+    """
+    if data['name'] != 'gevent':
+        # We are specified in ``setup.cfg``, not ``setup.py``, so we do not
+        # come into play for other projects, only this one. We shouldn't
+        # need this check, but there it is.
+        return
+
+    data['update_history'] = False

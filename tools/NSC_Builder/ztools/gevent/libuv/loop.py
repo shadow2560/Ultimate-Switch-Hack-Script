@@ -10,13 +10,17 @@ from collections import namedtuple
 from operator import delitem
 import signal
 
+from zope.interface import implementer
+
+from gevent import getcurrent
+from gevent.exceptions import LoopExit
+
 from gevent._ffi import _dbg # pylint: disable=unused-import
 from gevent._ffi.loop import AbstractLoop
-from gevent.libuv import _corecffi # pylint:disable=no-name-in-module,import-error
 from gevent._ffi.loop import assign_standard_callbacks
 from gevent._ffi.loop import AbstractCallbacks
-from gevent._util import implementer
 from gevent._interfaces import ILoop
+from gevent.libuv import _corecffi # pylint:disable=no-name-in-module,import-error
 
 ffi = _corecffi.ffi
 libuv = _corecffi.lib
@@ -43,12 +47,19 @@ class _Callbacks(AbstractCallbacks):
 
         the_watcher.loop._queue_callback(watcher_ptr, revents)
 
+    def __loop_from_loop_ptr(self, loop_ptr):
+        loop_handle = loop_ptr.data
+        return self.from_handle(loop_handle)
+
 
 _callbacks = assign_standard_callbacks(
     ffi, libuv, _Callbacks,
-    [('python_sigchld_callback', None),
-     ('python_timer0_callback', None),
-     ('python_queue_callback', None)])
+    [
+        'python_sigchld_callback',
+        'python_timer0_callback',
+        'python_queue_callback',
+    ]
+)
 
 from gevent._ffi.loop import EVENTS
 GEVENT_CORE_EVENTS = EVENTS # export
@@ -76,6 +87,8 @@ def get_header_version():
 def supported_backends():
     return ['default']
 
+libuv.gevent_set_uv_alloc()
+
 @implementer(ILoop)
 class loop(AbstractLoop):
 
@@ -83,6 +96,14 @@ class loop(AbstractLoop):
     # practice, looping on gevent.sleep(0.001) takes about 0.00138 s
     # (+- 0.000036s)
     approx_timer_resolution = 0.001 # 1ms
+
+    # It's relatively more expensive to break from the callback loop
+    # because we don't do it "inline" from C, we're looping in Python
+    CALLBACK_CHECK_COUNT = max(AbstractLoop.CALLBACK_CHECK_COUNT, 100)
+
+    # Defines the maximum amount of time the loop will sleep waiting for IO,
+    # which is also the interval at which signals are checked and handled.
+    SIGNAL_CHECK_INTERVAL_MS = 300
 
     error_handler = None
 
@@ -100,7 +121,7 @@ class loop(AbstractLoop):
         self._io_watchers = dict()
         self._fork_watchers = set()
         self._pid = os.getpid()
-        self._default = self._ptr == libuv.uv_default_loop()
+        self._default = (self._ptr == libuv.uv_default_loop())
         self._queued_callbacks = []
 
     def _queue_callback(self, watcher_ptr, revents):
@@ -126,13 +147,23 @@ class loop(AbstractLoop):
 
         # Track whether or not any object has destroyed
         # this loop. See _can_destroy_default_loop
-        ptr.data = ptr
+        ptr.data = self._handle_to_self
         return ptr
 
     _signal_idle = None
 
+    @property
+    def ptr(self):
+        if not self._ptr:
+            return None
+        if self._ptr and not self._ptr.data:
+            # Another instance of the Python loop destroyed
+            # the C loop. It was probably the default.
+            self._ptr = None
+        return self._ptr
+
     def _init_and_start_check(self):
-        libuv.uv_check_init(self._ptr, self._check)
+        libuv.uv_check_init(self.ptr, self._check)
         libuv.uv_check_start(self._check, libuv.python_check_callback)
         libuv.uv_unref(self._check)
 
@@ -150,16 +181,26 @@ class loop(AbstractLoop):
         # scheduled, this should also be the same and unnecessary?
         # libev does takes this basic approach on Windows.
         self._signal_idle = ffi.new("uv_timer_t*")
-        libuv.uv_timer_init(self._ptr, self._signal_idle)
+        libuv.uv_timer_init(self.ptr, self._signal_idle)
         self._signal_idle.data = self._handle_to_self
         sig_cb = ffi.cast('void(*)(uv_timer_t*)', libuv.python_check_callback)
         libuv.uv_timer_start(self._signal_idle,
                              sig_cb,
-                             300,
-                             300)
+                             self.SIGNAL_CHECK_INTERVAL_MS,
+                             self.SIGNAL_CHECK_INTERVAL_MS)
         libuv.uv_unref(self._signal_idle)
 
+    def __check_and_die(self):
+        if not self.ptr:
+            # We've been destroyed during the middle of self.run().
+            # This method is being called into from C, and it's not
+            # safe to go back to C (Windows in particular can abort
+            # the process with "GetQueuedCompletionStatusEx: (6) The
+            # handle is invalid.") So switch to the parent greenlet.
+            getcurrent().parent.throw(LoopExit('Destroyed during run'))
+
     def _run_callbacks(self):
+        self.__check_and_die()
         # Manually handle fork watchers.
         curpid = os.getpid()
         if curpid != self._pid:
@@ -193,12 +234,12 @@ class loop(AbstractLoop):
         super(loop, self)._run_callbacks()
 
     def _init_and_start_prepare(self):
-        libuv.uv_prepare_init(self._ptr, self._prepare)
+        libuv.uv_prepare_init(self.ptr, self._prepare)
         libuv.uv_prepare_start(self._prepare, libuv.python_prepare_callback)
         libuv.uv_unref(self._prepare)
 
     def _init_callback_timer(self):
-        libuv.uv_check_init(self._ptr, self._timer0)
+        libuv.uv_check_init(self.ptr, self._timer0)
 
     def _stop_callback_timer(self):
         libuv.uv_check_stop(self._timer0)
@@ -311,64 +352,80 @@ class loop(AbstractLoop):
         self._start_callback_timer()
         libuv.uv_ref(self._timer0)
 
-
     def _can_destroy_loop(self, ptr):
-        # We're being asked to destroy a loop that's,
-        # at the time it was constructed, was the default loop.
-        # If loop objects were constructed more than once,
-        # it may have already been destroyed, though.
-        # We track this in the data member.
-        return ptr.data
+        return ptr
 
-    def _destroy_loop(self, ptr):
-        ptr.data = ffi.NULL
-        libuv.uv_stop(ptr)
+    def __close_loop(self, ptr):
+        closed_failed = 1
 
-        libuv.gevent_close_all_handles(ptr)
+        while closed_failed:
+            closed_failed = libuv.uv_loop_close(ptr)
+            if not closed_failed:
+                break
 
-        closed_failed = libuv.uv_loop_close(ptr)
-        if closed_failed:
-            assert closed_failed == libuv.UV_EBUSY
+            if closed_failed != libuv.UV_EBUSY:
+                raise SystemError("Unknown close failure reason", closed_failed)
             # We already closed all the handles. Run the loop
             # once to let them be cut off from the loop.
             ran_has_more_callbacks = libuv.uv_run(ptr, libuv.UV_RUN_ONCE)
             if ran_has_more_callbacks:
                 libuv.uv_run(ptr, libuv.UV_RUN_NOWAIT)
-            closed_failed = libuv.uv_loop_close(ptr)
-            assert closed_failed == 0, closed_failed
-
-        # Destroy the native resources *after* we have closed
-        # the loop. If we do it before, walking the handles
-        # attached to the loop is likely to segfault.
-
-        libuv.gevent_zero_check(self._check)
-        libuv.gevent_zero_check(self._timer0)
-        libuv.gevent_zero_prepare(self._prepare)
-        libuv.gevent_zero_timer(self._signal_idle)
-        del self._check
-        del self._prepare
-        del self._signal_idle
-        del self._timer0
-
-        libuv.gevent_zero_loop(ptr)
-
-        # Destroy any watchers we're still holding on to.
-        del self._io_watchers
-        del self._fork_watchers
-        del self._child_watchers
 
 
+    def _destroy_loop(self, ptr):
+        # We're being asked to destroy a loop that's, potentially, at
+        # the time it was constructed, was the default loop. If loop
+        # objects were constructed more than once, it may have already
+        # been destroyed, though. We track this in the data member.
+        data = ptr.data
+        ptr.data = ffi.NULL
+        try:
+            if data:
+                libuv.uv_stop(ptr)
+                libuv.gevent_close_all_handles(ptr)
+        finally:
+            ptr.data = ffi.NULL
+
+        try:
+            if data:
+                self.__close_loop(ptr)
+        finally:
+            # Destroy the native resources *after* we have closed
+            # the loop. If we do it before, walking the handles
+            # attached to the loop is likely to segfault.
+            # Note that these may have been closed already if the default loop was shared.
+            if data:
+                libuv.gevent_zero_check(self._check)
+                libuv.gevent_zero_check(self._timer0)
+                libuv.gevent_zero_prepare(self._prepare)
+                libuv.gevent_zero_timer(self._signal_idle)
+                libuv.gevent_zero_loop(ptr)
+
+            del self._check
+            del self._prepare
+            del self._signal_idle
+            del self._timer0
+
+            # Destroy any watchers we're still holding on to.
+            del self._io_watchers
+            del self._fork_watchers
+            del self._child_watchers
+
+    _HandleState = namedtuple("HandleState",
+                              ['handle',
+                               'type',
+                               'watcher',
+                               'ref',
+                               'active',
+                               'closing'])
     def debug(self):
         """
         Return all the handles that are open and their ref status.
         """
-        handle_state = namedtuple("HandleState",
-                                  ['handle',
-                                   'type',
-                                   'watcher',
-                                   'ref',
-                                   'active',
-                                   'closing'])
+        if not self.ptr:
+            return ["Loop has been destroyed"]
+
+        handle_state = self._HandleState
         handles = []
 
         # XXX: Convert this to a modern callback.
@@ -385,7 +442,7 @@ class loop(AbstractLoop):
                                         libuv.uv_is_active(handle),
                                         libuv.uv_is_closing(handle)))
 
-        libuv.uv_walk(self._ptr,
+        libuv.uv_walk(self.ptr,
                       ffi.callback("void(*)(uv_handle_t*,void*)",
                                    walk),
                       ffi.NULL)
@@ -399,7 +456,7 @@ class loop(AbstractLoop):
         pass
 
     def break_(self, how=None):
-        libuv.uv_stop(self._ptr)
+        libuv.uv_stop(self.ptr)
 
     def reinit(self):
         # TODO: How to implement? We probably have to simply
@@ -423,7 +480,7 @@ class loop(AbstractLoop):
         # (https://github.com/joyent/libuv/issues/1405)
 
         # In 1.12, the uv_loop_fork function was added (by gevent!)
-        libuv.uv_loop_fork(self._ptr)
+        libuv.uv_loop_fork(self.ptr)
 
     _prepare_ran_callbacks = False
 
@@ -431,8 +488,8 @@ class loop(AbstractLoop):
         if not self._queued_callbacks:
             return False
 
-        cbs = list(self._queued_callbacks)
-        self._queued_callbacks = []
+        cbs = self._queued_callbacks[:]
+        del self._queued_callbacks[:]
 
         for watcher_ptr, arg in cbs:
             handle = watcher_ptr.data
@@ -441,15 +498,23 @@ class loop(AbstractLoop):
                 assert not libuv.uv_is_active(watcher_ptr)
                 continue
             val = _callbacks.python_callback(handle, arg)
-            if val == -1:
+            if val == -1: # Failure.
                 _callbacks.python_handle_error(handle, arg)
-            elif val == 1:
+            elif val == 1: # Success, and we may need to close the Python watcher.
                 if not libuv.uv_is_active(watcher_ptr):
-                    if watcher_ptr.data != handle:
-                        if watcher_ptr.data:
-                            _callbacks.python_stop(None)
-                    else:
-                        _callbacks.python_stop(handle)
+                    # The callback closed the native watcher resources. Good.
+                    # It's *supposed* to also reset the .data handle to NULL at
+                    # that same time. If it resets it to something else, we're
+                    # re-using the same watcher object, and that's not correct either.
+                    # On Windows in particular, if the .data handle is changed because
+                    # the IO multiplexer is being restarted, trying to dereference the
+                    # *old* handle can crash with an FFI error.
+                    handle_after_callback = watcher_ptr.data
+                    try:
+                        if handle_after_callback and handle_after_callback == handle:
+                            _callbacks.python_stop(handle_after_callback)
+                    finally:
+                        watcher_ptr.data = ffi.NULL
         return True
 
 
@@ -464,13 +529,34 @@ class loop(AbstractLoop):
 
         if mode == libuv.UV_RUN_DEFAULT:
             while self._ptr and self._ptr.data:
-                # This is here to better preserve order guarantees. See _run_callbacks
-                # for details.
-                # It may get run again from the prepare watcher, so potentially we
-                # could take twice as long as the switch interval.
+                # This is here to better preserve order guarantees.
+                # See _run_callbacks for details.
+
+                # It may get run again from the prepare watcher, so
+                # potentially we could take twice as long as the
+                # switch interval.
+                # If we have *lots* of callbacks to run, we may not actually
+                # get through them all before we're requested to poll for IO;
+                # so in that case, just spin the loop once (UV_RUN_NOWAIT) and
+                # go again.
                 self._run_callbacks()
                 self._prepare_ran_callbacks = False
-                ran_status = libuv.uv_run(self._ptr, libuv.UV_RUN_ONCE)
+
+                # UV_RUN_ONCE will poll for IO, blocking for up to the time needed
+                # for the next timer to expire. Worst case, that's our _signal_idle
+                # timer, about 1/3 second. UV_RUN_ONCE guarantees that some forward progress
+                # is made, either by an IO watcher or a timer.
+                #
+                # In contrast, UV_RUN_NOWAIT makes no such guarantee, it only polls for IO once and
+                # immediately returns; it does not update the loop time or timers after
+                # polling for IO.
+                run_mode = (
+                    libuv.UV_RUN_ONCE
+                    if not self._callbacks and not self._queued_callbacks
+                    else libuv.UV_RUN_NOWAIT
+                )
+
+                ran_status = libuv.uv_run(self._ptr, run_mode)
                 # Note that we run queued callbacks when the prepare watcher runs,
                 # thus accounting for timers that expired before polling for IO,
                 # and idle watchers. This next call should get IO callbacks and
@@ -491,17 +577,19 @@ class loop(AbstractLoop):
         return result
 
     def now(self):
+        self.__check_and_die()
         # libuv's now is expressed as an integer number of
         # milliseconds, so to get it compatible with time.time units
         # that this method is supposed to return, we have to divide by 1000.0
-        now = libuv.uv_now(self._ptr)
+        now = libuv.uv_now(self.ptr)
         return now / 1000.0
 
     def update_now(self):
-        libuv.uv_update_time(self._ptr)
+        self.__check_and_die()
+        libuv.uv_update_time(self.ptr)
 
     def fileno(self):
-        if self._ptr:
+        if self.ptr:
             fd = libuv.uv_backend_fd(self._ptr)
             if fd >= 0:
                 return fd
@@ -517,8 +605,10 @@ class loop(AbstractLoop):
             return
 
         self._sigchld_watcher = ffi.new('uv_signal_t*')
-        libuv.uv_signal_init(self._ptr, self._sigchld_watcher)
+        libuv.uv_signal_init(self.ptr, self._sigchld_watcher)
         self._sigchld_watcher.data = self._handle_to_self
+        # Don't let this keep the loop alive
+        libuv.uv_unref(self._sigchld_watcher)
 
         libuv.uv_signal_start(self._sigchld_watcher,
                               libuv.python_sigchld_callback,
@@ -566,7 +656,7 @@ class loop(AbstractLoop):
         except ValueError:
             pass
 
-        # Now's a good time to clean up any dead lists we don't need
+        # Now's a good time to clean up any dead watchers we don't need
         # anymore
         for pid in list(self._child_watchers):
             if not self._child_watchers[pid]:

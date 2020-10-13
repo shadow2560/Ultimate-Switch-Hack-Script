@@ -4,13 +4,14 @@ from gevent import monkey; monkey.patch_all()
 import socket
 import ssl
 import threading
-import unittest
 import errno
 import weakref
 
 
 import gevent.testing as greentest
-
+from gevent.testing.params import DEFAULT_BIND_ADDR_TUPLE
+from gevent.testing.params import DEFAULT_CONNECT
+from gevent.testing.sockets import tcp_listener
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 certfile = os.path.join(dirname, '2_7_keycert.pem')
@@ -53,16 +54,29 @@ class Test(greentest.TestCase):
             raise
         raise AssertionError('NOT RAISED EBADF: %r() returned %r' % (func, result))
 
-    def assert_fd_open(self, fileno):
-        assert isinstance(fileno, fd_types)
-        open_files = get_open_files()
-        if fileno not in open_files:
-            raise AssertionError('%r is not open:\n%s' % (fileno, open_files['data']))
+    if WIN or (PYPY and greentest.LINUX):
+        def __assert_fd_open(self, fileno):
+            # We can't detect open file descriptors on Windows.
+            # On PyPy 3.6-7.3 on Travis CI (linux), for some reason the
+            # client file descriptors don't always show as open. Don't know why,
+            # was fine in 7.2.
+            # On March 23 2020 we had to pin psutil back to a version
+            # for PyPy 2 (see setup.py) and this same problem started happening there.
+            # PyPy on macOS was unaffected.
+            pass
+    else:
+        def __assert_fd_open(self, fileno):
+            assert isinstance(fileno, fd_types)
+            open_files = get_open_files()
+            if fileno not in open_files:
+                raise AssertionError('%r is not open:\n%s' % (fileno, open_files['data']))
 
     def assert_fd_closed(self, fileno):
         assert isinstance(fileno, fd_types), repr(fileno)
         assert fileno > 0, fileno
-        open_files = get_open_files()
+        # Here, if we're in the process of closing, don't consider it open.
+        # This goes into details of psutil
+        open_files = get_open_files(count_closing_as_open=False)
         if fileno in open_files:
             raise AssertionError('%r is not closed:\n%s' % (fileno, open_files['data']))
 
@@ -78,15 +92,14 @@ class Test(greentest.TestCase):
 
     def assert_open(self, sock, *rest):
         if isinstance(sock, fd_types):
-            if not WIN:
-                self.assert_fd_open(sock)
+            self.__assert_fd_open(sock)
         else:
             fileno = sock.fileno()
             assert isinstance(fileno, fd_types), fileno
             sockname = sock.getsockname()
             assert isinstance(sockname, tuple), sockname
             if not WIN:
-                self.assert_fd_open(fileno)
+                self.__assert_fd_open(fileno)
             else:
                 self._assert_sock_open(sock)
         if rest:
@@ -109,116 +122,97 @@ class Test(greentest.TestCase):
 
     def make_open_socket(self):
         s = socket.socket()
-        s.bind(('127.0.0.1', 0))
-        self._close_on_teardown(s)
-        if WIN or greentest.LINUX:
-            # Windows and linux (with psutil) doesn't show as open until
-            # we call listen (linux with lsof accepts either)
-            s.listen(1)
-        self.assert_open(s, s.fileno())
+        try:
+            s.bind(DEFAULT_BIND_ADDR_TUPLE)
+            if WIN or greentest.LINUX:
+                # Windows and linux (with psutil) doesn't show as open until
+                # we call listen (linux with lsof accepts either)
+                s.listen(1)
+            self.assert_open(s, s.fileno())
+        except:
+            s.close()
+            s = None
+            raise
         return s
-
-    if CPYTHON and PY2:
-        # Keeping raw sockets alive keeps SSL sockets
-        # from being closed too, at least on CPython2, so we
-        # need to use weakrefs.
-
-        # In contrast, on PyPy, *only* having a weakref lets the
-        # original socket die and leak
-
-        def _close_on_teardown(self, resource):
-            self.close_on_teardown.append(weakref.ref(resource))
-            return resource
-
-        def _tearDownCloseOnTearDown(self):
-            self.close_on_teardown = [r() for r in self.close_on_teardown if r() is not None]
-            super(Test, self)._tearDownCloseOnTearDown()
 
 # Sometimes its this one, sometimes it's test_ssl. No clue why or how.
 @greentest.skipOnAppVeyor("This sometimes times out for no apparent reason.")
 class TestSocket(Test):
 
     def test_simple_close(self):
-        s = self.make_open_socket()
-        fileno = s.fileno()
-        s.close()
+        with Closing() as closer:
+            s = closer(self.make_open_socket())
+            fileno = s.fileno()
+            s.close()
         self.assert_closed(s, fileno)
 
     def test_makefile1(self):
-        s = self.make_open_socket()
-        fileno = s.fileno()
-        f = s.makefile()
-        self.assert_open(s, fileno)
-        s.close()
-        # Under python 2, this closes socket wrapper object but not the file descriptor;
-        # under python 3, both stay open
-        if PY3:
+        with Closing() as closer:
+            s = closer(self.make_open_socket())
+            fileno = s.fileno()
+            f = closer(s.makefile())
+
             self.assert_open(s, fileno)
-        else:
+            # Under python 2, this closes socket wrapper object but not the file descriptor;
+            # under python 3, both stay open
+            s.close()
+            if PY3:
+                self.assert_open(s, fileno)
+            else:
+                self.assert_closed(s)
+                self.assert_open(fileno)
+            f.close()
             self.assert_closed(s)
-            self.assert_open(fileno)
-        f.close()
-        self.assert_closed(s)
-        self.assert_closed(fileno)
+            self.assert_closed(fileno)
 
     def test_makefile2(self):
-        s = self.make_open_socket()
-        fileno = s.fileno()
-        self.assert_open(s, fileno)
-        f = s.makefile()
-        self.assert_open(s)
-        self.assert_open(s, fileno)
-        f.close()
-        # closing fileobject does not close the socket
-        self.assert_open(s, fileno)
-        s.close()
-        self.assert_closed(s, fileno)
+        with Closing() as closer:
+            s = closer(self.make_open_socket())
+            fileno = s.fileno()
+            self.assert_open(s, fileno)
+            f = closer(s.makefile())
+            self.assert_open(s)
+            self.assert_open(s, fileno)
+            f.close()
+            # closing fileobject does not close the socket
+            self.assert_open(s, fileno)
+            s.close()
+            self.assert_closed(s, fileno)
 
     def test_server_simple(self):
-        listener = socket.socket()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
 
-        connector = socket.socket()
-        self._close_on_teardown(connector)
+            connector = closer(socket.socket())
 
-        def connect():
-            connector.connect(('127.0.0.1', port))
+            def connect():
+                connector.connect((DEFAULT_CONNECT, port))
 
-        t = threading.Thread(target=connect)
-        t.start()
+            closer.running_task(threading.Thread(target=connect))
 
-        try:
-            client_socket, _addr = listener.accept()
+            client_socket = closer.accept(listener)
             fileno = client_socket.fileno()
             self.assert_open(client_socket, fileno)
             client_socket.close()
             self.assert_closed(client_socket)
-        finally:
-            t.join()
-            listener.close()
-            connector.close()
 
     def test_server_makefile1(self):
-        listener = socket.socket()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
 
-        connector = socket.socket()
-        self._close_on_teardown(connector)
+            connector = closer(socket.socket())
 
-        def connect():
-            connector.connect(('127.0.0.1', port))
+            def connect():
+                connector.connect((DEFAULT_CONNECT, port))
 
-        t = threading.Thread(target=connect)
-        t.start()
+            closer.running_task(threading.Thread(target=connect))
 
-        try:
-            client_socket, _addr = listener.accept()
+
+            client_socket = closer.accept(listener)
             fileno = client_socket.fileno()
-            f = client_socket.makefile()
+            f = closer(client_socket.makefile())
             self.assert_open(client_socket, fileno)
             client_socket.close()
             # Under python 2, this closes socket wrapper object but not the file descriptor;
@@ -230,51 +224,43 @@ class TestSocket(Test):
                 self.assert_open(fileno)
             f.close()
             self.assert_closed(client_socket, fileno)
-        finally:
-            t.join()
-            listener.close()
-            connector.close()
 
     def test_server_makefile2(self):
-        listener = socket.socket()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
 
-        connector = socket.socket()
-        self._close_on_teardown(connector)
+            connector = closer(socket.socket())
 
-        def connect():
-            connector.connect(('127.0.0.1', port))
+            def connect():
+                connector.connect((DEFAULT_CONNECT, port))
 
-        t = threading.Thread(target=connect)
-        t.start()
+            closer.running_task(threading.Thread(target=connect))
+            client_socket = closer.accept(listener)
 
-        try:
-            client_socket, _addr = listener.accept()
             fileno = client_socket.fileno()
-            f = client_socket.makefile()
+            f = closer(client_socket.makefile())
             self.assert_open(client_socket, fileno)
             # closing fileobject does not close the socket
             f.close()
             self.assert_open(client_socket, fileno)
             client_socket.close()
             self.assert_closed(client_socket, fileno)
-        finally:
-            t.join()
-            listener.close()
-            connector.close()
 
 
 @greentest.skipOnAppVeyor("This sometimes times out for no apparent reason.")
 class TestSSL(Test):
 
-    def _ssl_connect_task(self, connector, port):
-        connector.connect(('127.0.0.1', port))
+    def _ssl_connect_task(self, connector, port, accepted_event):
+        connector.connect((DEFAULT_CONNECT, port))
+
         try:
             # Note: We get ResourceWarning about 'x'
             # on Python 3 if we don't join the spawned thread
             x = ssl.wrap_socket(connector)
+            # Wait to be fully accepted. We could otherwise raise ahead
+            # of the server and close ourself before it's ready to read.
+            accepted_event.wait()
         except socket.error:
             # Observed on Windows with PyPy2 5.9.0 and libuv:
             # if we don't switch in a timely enough fashion,
@@ -282,15 +268,232 @@ class TestSSL(Test):
             # our socket first, so this fails.
             pass
         else:
-            #self._close_on_teardown(x)
             x.close()
 
     def _make_ssl_connect_task(self, connector, port):
-        t = threading.Thread(target=self._ssl_connect_task, args=(connector, port))
+        accepted_event = threading.Event()
+        t = threading.Thread(target=self._ssl_connect_task,
+                             args=(connector, port, accepted_event))
         t.daemon = True
+        t.accepted_event = accepted_event
         return t
 
-    def __cleanup(self, task, *sockets):
+    def test_simple_close(self):
+        with Closing() as closer:
+            s = closer(self.make_open_socket())
+            fileno = s.fileno()
+            s = closer(ssl.wrap_socket(s))
+            fileno = s.fileno()
+            self.assert_open(s, fileno)
+            s.close()
+            self.assert_closed(s, fileno)
+
+    def test_makefile1(self):
+        with Closing() as closer:
+            raw_s = closer(self.make_open_socket())
+            s = closer(ssl.wrap_socket(raw_s))
+
+            fileno = s.fileno()
+            self.assert_open(s, fileno)
+            f = closer(s.makefile())
+            self.assert_open(s, fileno)
+            s.close()
+            self.assert_open(s, fileno)
+            f.close()
+            raw_s.close()
+            self.assert_closed(s, fileno)
+
+    def test_makefile2(self):
+        with Closing() as closer:
+            s = closer(self.make_open_socket())
+            fileno = s.fileno()
+
+            s = closer(ssl.wrap_socket(s))
+            fileno = s.fileno()
+            self.assert_open(s, fileno)
+            f = closer(s.makefile())
+            self.assert_open(s, fileno)
+            f.close()
+            # closing fileobject does not close the socket
+            self.assert_open(s, fileno)
+            s.close()
+            self.assert_closed(s, fileno)
+
+    def test_server_simple(self):
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
+
+            connector = closer(socket.socket())
+
+            t = self._make_ssl_connect_task(connector, port)
+            closer.running_task(t)
+
+            client_socket = closer.accept(listener)
+            t.accepted_event.set()
+            client_socket = closer(
+                ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile,
+                                server_side=True))
+            fileno = client_socket.fileno()
+            self.assert_open(client_socket, fileno)
+            client_socket.close()
+            self.assert_closed(client_socket, fileno)
+
+    def test_server_makefile1(self):
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
+
+            connector = closer(socket.socket())
+
+            t = self._make_ssl_connect_task(connector, port)
+            closer.running_task(t)
+
+            client_socket = closer.accept(listener)
+            t.accepted_event.set()
+            client_socket = closer(
+                ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile,
+                                server_side=True))
+            fileno = client_socket.fileno()
+            self.assert_open(client_socket, fileno)
+            f = client_socket.makefile()
+            self.assert_open(client_socket, fileno)
+            client_socket.close()
+            self.assert_open(client_socket, fileno)
+            f.close()
+            self.assert_closed(client_socket, fileno)
+
+    def test_server_makefile2(self):
+        with Closing() as closer:
+            listener = closer(tcp_listener(backlog=1))
+            port = listener.getsockname()[1]
+
+            connector = closer(socket.socket())
+            t = self._make_ssl_connect_task(connector, port)
+            closer.running_task(t)
+
+            t.accepted_event.set()
+            client_socket = closer.accept(listener)
+            client_socket = closer(
+                ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile,
+                                server_side=True))
+
+            fileno = client_socket.fileno()
+            self.assert_open(client_socket, fileno)
+            f = client_socket.makefile()
+            self.assert_open(client_socket, fileno)
+            # Closing fileobject does not close SSLObject
+            f.close()
+            self.assert_open(client_socket, fileno)
+            client_socket.close()
+            self.assert_closed(client_socket, fileno)
+
+    def test_serverssl_makefile1(self):
+        raw_listener = tcp_listener(backlog=1)
+        fileno = raw_listener.fileno()
+        port = raw_listener.getsockname()[1]
+        listener = ssl.wrap_socket(raw_listener, keyfile=certfile, certfile=certfile)
+
+        connector = socket.socket()
+        t = self._make_ssl_connect_task(connector, port)
+        t.start()
+
+        with CleaningUp(t, listener, raw_listener, connector) as client_socket:
+            t.accepted_event.set()
+            fileno = client_socket.fileno()
+            self.assert_open(client_socket, fileno)
+            f = client_socket.makefile()
+            self.assert_open(client_socket, fileno)
+            client_socket.close()
+            self.assert_open(client_socket, fileno)
+            f.close()
+            self.assert_closed(client_socket, fileno)
+
+    def test_serverssl_makefile2(self):
+        raw_listener = tcp_listener(backlog=1)
+        port = raw_listener.getsockname()[1]
+        listener = ssl.wrap_socket(raw_listener, keyfile=certfile, certfile=certfile)
+
+        accepted_event = threading.Event()
+        def connect(connector=socket.socket()):
+            try:
+                connector.connect((DEFAULT_CONNECT, port))
+                s = ssl.wrap_socket(connector)
+                accepted_event.wait()
+                s.sendall(b'test_serverssl_makefile2')
+                s.shutdown(socket.SHUT_RDWR)
+                s.close()
+            finally:
+                connector.close()
+
+        t = threading.Thread(target=connect)
+        t.daemon = True
+        t.start()
+        client_socket = None
+        with CleaningUp(t, listener, raw_listener) as client_socket:
+            accepted_event.set()
+            fileno = client_socket.fileno()
+            self.assert_open(client_socket, fileno)
+            f = client_socket.makefile()
+            self.assert_open(client_socket, fileno)
+            self.assertEqual(f.read(), 'test_serverssl_makefile2')
+            self.assertEqual(f.read(), '')
+            # Closing file object does not close the socket.
+            f.close()
+            if WIN and psutil:
+                # Hmm?
+                self.extra_allowed_open_states = (psutil.CONN_CLOSE_WAIT,)
+
+            self.assert_open(client_socket, fileno)
+            client_socket.close()
+            self.assert_closed(client_socket, fileno)
+
+
+class Closing(object):
+
+    def __init__(self, *init):
+        self._objects = []
+        for i in init:
+            self.closing(i)
+        self.task = None
+
+    def accept(self, listener):
+        client_socket, _addr = listener.accept()
+        return self.closing(client_socket)
+
+    def __enter__(self):
+        o = self.objects()
+        if len(o) == 1:
+            return o[0]
+        return self
+
+    if PY2 and CPYTHON:
+        # This implementation depends or refcounting
+        # for things to close. Eww.
+        def closing(self, o):
+            self._objects.append(weakref.ref(o))
+            return o
+        def objects(self):
+            return [r() for r in self._objects if r() is not None]
+
+    else:
+        def objects(self):
+            # PyPy returns an object without __len__...
+            return list(reversed(self._objects))
+
+        def closing(self, o):
+            self._objects.append(o)
+            return o
+
+    __call__ = closing
+
+    def running_task(self, thread):
+        assert self.task is None
+        self.task = thread
+        self.task.start()
+        return self.task
+
+    def __exit__(self, t, v, tb):
         # workaround for test_server_makefile1, test_server_makefile2,
         # test_server_simple, test_serverssl_makefile1.
 
@@ -306,211 +509,36 @@ class TestSSL(Test):
 
         # On PyPy on macOS, we don't have that problem and can use the
         # more logical order.
-
-        task.join()
-        for s in sockets:
-            s.close()
-
-        del sockets
-        del task
-
-    def test_simple_close(self):
-        s = self.make_open_socket()
-        fileno = s.fileno()
-        s = ssl.wrap_socket(s)
-        self._close_on_teardown(s)
-        fileno = s.fileno()
-        self.assert_open(s, fileno)
-        s.close()
-        self.assert_closed(s, fileno)
-
-    def test_makefile1(self):
-        raw_s = self.make_open_socket()
-        s = ssl.wrap_socket(raw_s)
-
-        self._close_on_teardown(s)
-        fileno = s.fileno()
-        self.assert_open(s, fileno)
-        f = s.makefile()
-        self.assert_open(s, fileno)
-        s.close()
-        self.assert_open(s, fileno)
-        f.close()
-        raw_s.close()
-        self.assert_closed(s, fileno)
-
-
-    def test_makefile2(self):
-        s = self.make_open_socket()
-        fileno = s.fileno()
-
-        s = ssl.wrap_socket(s)
-        self._close_on_teardown(s)
-        fileno = s.fileno()
-        self.assert_open(s, fileno)
-        f = s.makefile()
-        self.assert_open(s, fileno)
-        f.close()
-        # closing fileobject does not close the socket
-        self.assert_open(s, fileno)
-        s.close()
-        self.assert_closed(s, fileno)
-
-    def test_server_simple(self):
-        listener = socket.socket()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
-
-        connector = socket.socket()
-        self._close_on_teardown(connector)
-
-        t = self._make_ssl_connect_task(connector, port)
-        t.start()
-
         try:
-            client_socket, _addr = listener.accept()
-            self._close_on_teardown(client_socket.close)
-            client_socket = ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile, server_side=True)
-            self._close_on_teardown(client_socket)
-            fileno = client_socket.fileno()
-            self.assert_open(client_socket, fileno)
-            client_socket.close()
-            self.assert_closed(client_socket, fileno)
+            if self.task is not None:
+                self.task.join()
         finally:
-            self.__cleanup(t, listener, connector)
+            self.task = None
+            for o in self.objects():
+                try:
+                    o.close()
+                except Exception: # pylint:disable=broad-except
+                    pass
 
-    def test_server_makefile1(self):
-        listener = socket.socket()
-        self._close_on_teardown(listener)
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
+        self._objects = ()
 
+class CleaningUp(Closing):
 
-        connector = socket.socket()
-        self._close_on_teardown(connector)
+    def __init__(self, task, listener, *other_sockets):
+        super(CleaningUp, self).__init__(listener, *other_sockets)
+        self.task = task
+        self.listener = listener
 
-        t = self._make_ssl_connect_task(connector, port)
-        t.start()
+    def __enter__(self):
+        return self.accept(self.listener)
 
+    def __exit__(self, t, v, tb):
         try:
-            client_socket, _addr = listener.accept()
-            self._close_on_teardown(client_socket.close) # hard ref
-            client_socket = ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile, server_side=True)
-            self._close_on_teardown(client_socket)
-            fileno = client_socket.fileno()
-            self.assert_open(client_socket, fileno)
-            f = client_socket.makefile()
-            self.assert_open(client_socket, fileno)
-            client_socket.close()
-            self.assert_open(client_socket, fileno)
-            f.close()
-            self.assert_closed(client_socket, fileno)
+            Closing.__exit__(self, t, v, tb)
         finally:
-            self.__cleanup(t, listener, connector)
+            self.listener = None
 
-
-    def test_server_makefile2(self):
-        listener = socket.socket()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
-
-        connector = socket.socket()
-        self._close_on_teardown(connector)
-
-        t = self._make_ssl_connect_task(connector, port)
-        t.start()
-
-        try:
-            client_socket, _addr = listener.accept()
-            self._close_on_teardown(client_socket)
-            client_socket = ssl.wrap_socket(client_socket, keyfile=certfile, certfile=certfile, server_side=True)
-            self._close_on_teardown(client_socket)
-            fileno = client_socket.fileno()
-            self.assert_open(client_socket, fileno)
-            f = client_socket.makefile()
-            self.assert_open(client_socket, fileno)
-            # Closing fileobject does not close SSLObject
-            f.close()
-            self.assert_open(client_socket, fileno)
-            client_socket.close()
-            self.assert_closed(client_socket, fileno)
-        finally:
-            self.__cleanup(t, connector, listener, client_socket)
-
-    def test_serverssl_makefile1(self):
-        listener = socket.socket()
-        fileno = listener.fileno()
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
-        self._close_on_teardown(listener)
-        listener = ssl.wrap_socket(listener, keyfile=certfile, certfile=certfile)
-
-        connector = socket.socket()
-        self._close_on_teardown(connector)
-
-        t = self._make_ssl_connect_task(connector, port)
-        t.start()
-
-        try:
-            client_socket, _addr = listener.accept()
-            fileno = client_socket.fileno()
-            self.assert_open(client_socket, fileno)
-            f = client_socket.makefile()
-            self.assert_open(client_socket, fileno)
-            client_socket.close()
-            self.assert_open(client_socket, fileno)
-            f.close()
-            self.assert_closed(client_socket, fileno)
-        finally:
-            self.__cleanup(t, listener, connector)
-
-    @greentest.skipIf(greentest.RUNNING_ON_TRAVIS and greentest.PY37 and greentest.LIBUV,
-                      "Often segfaults, cannot reproduce locally. "
-                      "Not too worried about this before Python 3.7rc1. "
-                      "https://travis-ci.org/gevent/gevent/jobs/327357684")
-    def test_serverssl_makefile2(self):
-        listener = socket.socket()
-        self._close_on_teardown(listener)
-        listener.bind(('127.0.0.1', 0))
-        port = listener.getsockname()[1]
-        listener.listen(1)
-        listener = ssl.wrap_socket(listener, keyfile=certfile, certfile=certfile)
-
-        connector = socket.socket()
-
-        def connect():
-            connector.connect(('127.0.0.1', port))
-            s = ssl.wrap_socket(connector)
-            s.sendall(b'test_serverssl_makefile2')
-            s.close()
-            connector.close()
-
-        t = threading.Thread(target=connect)
-        t.daemon = True
-        t.start()
-
-        try:
-            client_socket, _addr = listener.accept()
-            fileno = client_socket.fileno()
-            self.assert_open(client_socket, fileno)
-            f = client_socket.makefile()
-            self.assert_open(client_socket, fileno)
-            self.assertEqual(f.read(), 'test_serverssl_makefile2')
-            self.assertEqual(f.read(), '')
-            f.close()
-            if WIN and psutil:
-                # Hmm?
-                self.extra_allowed_open_states = (psutil.CONN_CLOSE_WAIT,)
-            self.assert_open(client_socket, fileno)
-            client_socket.close()
-            self.assert_closed(client_socket, fileno)
-        finally:
-            self.__cleanup(t, listener)
 
 
 if __name__ == '__main__':
-    unittest.main()
+    greentest.main()

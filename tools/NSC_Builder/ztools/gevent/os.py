@@ -277,9 +277,11 @@ if hasattr(os, 'fork'):
             # just not waited on yet.
             now = time.time()
             oldest_allowed = now - timeout
-            dead = [pid for pid, val
-                    in _watched_children.items()
-                    if isinstance(val, tuple) and val[2] < oldest_allowed]
+            dead = [
+                pid for pid, val
+                in _watched_children.items()
+                if isinstance(val, tuple) and val[2] < oldest_allowed
+            ]
             for pid in dead:
                 del _watched_children[pid]
 
@@ -296,7 +298,10 @@ if hasattr(os, 'fork'):
             :func:`os.waitpid`. Some combinations of *options* may not
             be supported cooperatively (as of 1.1 that includes
             WUNTRACED). Using a *pid* of 0 to request waiting on only processes
-            from the current process group is not cooperative.
+            from the current process group is not cooperative. A *pid* of -1
+            to wait for any child is non-blocking, but may or may not
+            require a trip around the event loop, depending on whether any children
+            have already terminated but not been waited on.
 
             Availability: POSIX.
 
@@ -316,12 +321,19 @@ if hasattr(os, 'fork'):
             if pid <= 0:
                 # magic functions for multiple children.
                 if pid == -1:
-                    # Any child. If we have one that we're watching and that finished,
-                    # we will use that one. Otherwise, let the OS take care of it.
+                    # Any child. If we have one that we're watching
+                    # and that finished, we will use that one,
+                    # preferring the oldest. Otherwise, let the OS
+                    # take care of it.
+                    finished_at = None
                     for k, v in _watched_children.items():
-                        if isinstance(v, tuple):
+                        if (
+                                isinstance(v, tuple)
+                                and (finished_at is None or v[2] < finished_at)
+                        ):
                             pid = k
-                            break
+                            finished_at = v[2]
+
                 if pid <= 0:
                     # We didn't have one that was ready. If there are
                     # no funky options set, and the pid was -1
@@ -385,6 +397,12 @@ if hasattr(os, 'fork'):
             # we're not watching it
             return _waitpid(pid, options)
 
+        def _watch_child(pid, callback=None, loop=None, ref=False):
+            loop = loop or get_hub().loop
+            watcher = loop.child(pid, ref=ref)
+            _watched_children[pid] = watcher
+            watcher.start(_on_child, watcher, callback)
+
         def fork_and_watch(callback=None, loop=None, ref=False, fork=fork_gevent):
             """
             Fork a child process and start a child watcher for it in the parent process.
@@ -413,10 +431,7 @@ if hasattr(os, 'fork'):
             pid = fork()
             if pid:
                 # parent
-                loop = loop or get_hub().loop
-                watcher = loop.child(pid, ref=ref)
-                _watched_children[pid] = watcher
-                watcher.start(_on_child, watcher, callback)
+                _watch_child(pid, callback, loop, ref)
             return pid
 
         __extensions__.append('fork_and_watch')
@@ -474,6 +489,23 @@ if hasattr(os, 'fork'):
                     # take any args to match fork_and_watch
                     return forkpty_and_watch(*args, **kwargs)
             __implements__.append("waitpid")
+
+            if hasattr(os, 'posix_spawn'):
+                _raw_posix_spawn = os.posix_spawn
+                _raw_posix_spawnp = os.posix_spawnp
+
+                def posix_spawn(*args, **kwargs):
+                    pid = _raw_posix_spawn(*args, **kwargs)
+                    _watch_child(pid)
+                    return pid
+
+                def posix_spawnp(*args, **kwargs):
+                    pid = _raw_posix_spawnp(*args, **kwargs)
+                    _watch_child(pid)
+                    return pid
+
+                __implements__.append("posix_spawn")
+                __implements__.append("posix_spawnp")
         else:
             def fork():
                 """
@@ -502,6 +534,7 @@ if hasattr(os, 'fork'):
 
 else:
     __implements__.remove('fork')
+
 
 __imports__ = copy_globals(os, globals(),
                            names_to_ignore=__implements__ + __extensions__,

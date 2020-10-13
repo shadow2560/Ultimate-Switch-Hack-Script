@@ -14,7 +14,8 @@ __all__ = [
     'loop',
 ]
 
-from gevent._util import implementer
+from zope.interface import implementer
+
 from gevent._interfaces import ILoop
 
 from gevent.libev import _corecffi # pylint:disable=no-name-in-module,import-error
@@ -30,6 +31,8 @@ if hasattr(libev, 'vfd_open'):
     vfd_get = libev.vfd_get
 else:
     vfd_open = vfd_free = vfd_get = lambda fd: fd
+
+libev.gevent_set_ev_alloc()
 
 #####
 ## NOTE on Windows:
@@ -110,15 +113,23 @@ def get_version():
 def get_header_version():
     return 'libev-%d.%02d' % (libev.EV_VERSION_MAJOR, libev.EV_VERSION_MINOR)
 
-_flags = [(libev.EVBACKEND_PORT, 'port'),
-          (libev.EVBACKEND_KQUEUE, 'kqueue'),
-          (libev.EVBACKEND_EPOLL, 'epoll'),
-          (libev.EVBACKEND_POLL, 'poll'),
-          (libev.EVBACKEND_SELECT, 'select'),
-          (libev.EVFLAG_NOENV, 'noenv'),
-          (libev.EVFLAG_FORKCHECK, 'forkcheck'),
-          (libev.EVFLAG_SIGNALFD, 'signalfd'),
-          (libev.EVFLAG_NOSIGMASK, 'nosigmask')]
+# This list backends in the order they are actually tried by libev,
+# as defined in loop_init. The names must be lower case.
+_flags = [
+    # IOCP --- not supported/used.
+    (libev.EVBACKEND_PORT, 'port'),
+    (libev.EVBACKEND_KQUEUE, 'kqueue'),
+    (libev.EVBACKEND_IOURING, 'linux_iouring'),
+    (libev.EVBACKEND_LINUXAIO, "linux_aio"),
+    (libev.EVBACKEND_EPOLL, 'epoll'),
+    (libev.EVBACKEND_POLL, 'poll'),
+    (libev.EVBACKEND_SELECT, 'select'),
+
+    (libev.EVFLAG_NOENV, 'noenv'),
+    (libev.EVFLAG_FORKCHECK, 'forkcheck'),
+    (libev.EVFLAG_SIGNALFD, 'signalfd'),
+    (libev.EVFLAG_NOSIGMASK, 'nosigmask')
+]
 
 _flags_str2int = dict((string, flag) for (flag, string) in _flags)
 
@@ -245,7 +256,7 @@ class loop(AbstractLoop):
             ptr = libev.ev_loop_new(c_flags)
             if not ptr:
                 raise SystemError("ev_loop_new(%s) failed" % (c_flags, ))
-        if default or globals()["__SYSERR_CALLBACK"] is None:
+        if default or SYSERR_CALLBACK is None:
             set_syserr_cb(self._handle_syserr)
 
         # Mark this loop as being used.
@@ -289,7 +300,7 @@ class loop(AbstractLoop):
         if self._ptr:
             super(loop, self).destroy()
             # pylint:disable=comparison-with-callable
-            if globals()["__SYSERR_CALLBACK"] == self._handle_syserr:
+            if globals()["SYSERR_CALLBACK"] == self._handle_syserr:
                 set_syserr_cb(None)
 
 
@@ -380,6 +391,12 @@ class loop(AbstractLoop):
     def pendingcnt(self):
         return libev.ev_pending_count(self._ptr)
 
+    def closing_fd(self, fd):
+        pending_before = libev.ev_pending_count(self._ptr)
+        libev.ev_feed_fd_event(self._ptr, fd, 0xFFFF)
+        pending_after = libev.ev_pending_count(self._ptr)
+        return pending_after > pending_before
+
     if sys.platform != "win32":
 
         def install_sigchld(self):
@@ -389,7 +406,9 @@ class loop(AbstractLoop):
             libev.gevent_reset_sigchld_handler()
 
     def fileno(self):
-        if self._ptr:
+        if self._ptr and LIBEV_EMBED:
+            # If we don't embed, we can't access these fields,
+            # the type is opaque
             fd = self._ptr.backend_fd
             if fd >= 0:
                 return fd
@@ -398,30 +417,32 @@ class loop(AbstractLoop):
     def activecnt(self):
         if not self._ptr:
             raise ValueError('operation on destroyed loop')
-        return self._ptr.activecnt
+        if LIBEV_EMBED:
+            return self._ptr.activecnt
+        return -1
 
 
 @ffi.def_extern()
 def _syserr_cb(msg):
     try:
         msg = ffi.string(msg)
-        __SYSERR_CALLBACK(msg, ffi.errno)
+        SYSERR_CALLBACK(msg, ffi.errno)
     except:
         set_syserr_cb(None)
         raise  # let cffi print the traceback
 
 
 def set_syserr_cb(callback):
-    global __SYSERR_CALLBACK
+    global SYSERR_CALLBACK
     if callback is None:
         libev.ev_set_syserr_cb(ffi.NULL)
-        __SYSERR_CALLBACK = None
+        SYSERR_CALLBACK = None
     elif callable(callback):
         libev.ev_set_syserr_cb(libev._syserr_cb)
-        __SYSERR_CALLBACK = callback
+        SYSERR_CALLBACK = callback
     else:
         raise TypeError('Expected callable or None, got %r' % (callback, ))
 
-__SYSERR_CALLBACK = None
+SYSERR_CALLBACK = None
 
-LIBEV_EMBED = True
+LIBEV_EMBED = libev.LIBEV_EMBED

@@ -30,6 +30,12 @@ class _EVENTSType(object):
 EVENTS = GEVENT_CORE_EVENTS = _EVENTSType()
 
 
+class _DiscardedSet(frozenset):
+    __slots__ = ()
+
+    def discard(self, o):
+        "Does nothing."
+
 #####
 ## Note on CFFI objects, callbacks and the lifecycle of watcher objects
 #
@@ -86,7 +92,7 @@ class AbstractCallbacks(object):
           :func:`_python_handle_error` to deal with it. The Python watcher
           object will have the exception tuple saved in ``_exc_info``.
         - 1
-          Everything went according to plan. You should check to see if the libev
+          Everything went according to plan. You should check to see if the native
           watcher is still active, and call :func:`python_stop` if it is not. This will
           clean up the memory. Finding the watcher still active at the event loop level,
           but not having stopped itself at the gevent level is a buggy scenario and
@@ -98,8 +104,9 @@ class AbstractCallbacks(object):
         This function should never return 0, as that's the default value that
         Python exceptions will produce.
         """
-        #print("Running callback", handle)
+        #_dbg("Running callback", handle)
         orig_ffi_watcher = None
+        orig_loop = None
         try:
             # Even dereferencing the handle needs to be inside the try/except;
             # if we don't return normally (e.g., a signal) then we wind up going
@@ -115,6 +122,7 @@ class AbstractCallbacks(object):
                 return 1
             the_watcher = self.from_handle(handle)
             orig_ffi_watcher = the_watcher._watcher
+            orig_loop = the_watcher.loop
             args = the_watcher.args
             if args is None:
                 # Legacy behaviour from corecext: convert None into ()
@@ -122,10 +130,8 @@ class AbstractCallbacks(object):
                 args = _NOARGS
             if args and args[0] == GEVENT_CORE_EVENTS:
                 args = (revents, ) + args[1:]
-            #print("Calling function", the_watcher.callback, args)
-            the_watcher.callback(*args)
+            the_watcher.callback(*args) # None here means we weren't started
         except: # pylint:disable=bare-except
-            _dbg("Got exception servicing watcher with handle", handle, sys.exc_info())
             # It's possible for ``the_watcher`` to be undefined (UnboundLocalError)
             # if we threw an exception (signal) on the line that created that variable.
             # This is typically the case with a signal under libuv
@@ -133,23 +139,52 @@ class AbstractCallbacks(object):
                 the_watcher
             except UnboundLocalError:
                 the_watcher = self.from_handle(handle)
+
+            # It may not be safe to do anything with `handle` or `orig_ffi_watcher`
+            # anymore. If the watcher closed or stopped itself *before* throwing the exception,
+            # then the `handle` and `orig_ffi_watcher` may no longer be valid. Attempting to
+            # e.g., dereference the handle is likely to crash the process.
             the_watcher._exc_info = sys.exc_info()
-            # Depending on when the exception happened, the watcher
-            # may or may not have been stopped. We need to make sure its
-            # memory stays valid so we can stop it at the ev level if needed.
+
+
+            # If it hasn't been stopped, we need to make sure its
+            # memory stays valid so we can stop it at the native level if needed.
             # If its loop is gone, it has already been stopped,
             # see https://github.com/gevent/gevent/issues/1295 for a case where
-            # that happened
-            if the_watcher.loop is not None:
-                the_watcher.loop._keepaliveset.add(the_watcher)
+            # that happened, as well as issue #1482
+            if (
+                    # The last thing it does. Full successful close.
+                    the_watcher.loop is None
+                    # Only a partial close. We could leak memory and even crash later.
+                    or the_watcher._handle is None
+            ):
+                # Prevent unhandled_onerror from using the invalid handle
+                handle = None
+                exc_info = the_watcher._exc_info
+                del the_watcher._exc_info
+                try:
+                    if orig_loop is not None:
+                        orig_loop.handle_error(the_watcher, *exc_info)
+                    else:
+                        self.unhandled_onerror(*exc_info)
+                except:
+                    print("WARNING: gevent: Error when handling error",
+                          file=sys.stderr)
+                    traceback.print_exc()
+                # Signal that we're closed, no need to do more.
+                return 2
+
+            # Keep it around so we can close it later.
+            the_watcher.loop._keepaliveset.add(the_watcher)
             return -1
         else:
             if (the_watcher.loop is not None
                     and the_watcher in the_watcher.loop._keepaliveset
                     and the_watcher._watcher is orig_ffi_watcher):
                 # It didn't stop itself, *and* it didn't stop itself, reset
-                # its watcher, and start itself again. libuv's io watchers MAY
-                # do that.
+                # its watcher, and start itself again. libuv's io watchers
+                # multiplex and may do this.
+
                 # The normal, expected scenario when we find the watcher still
                 # in the keepaliveset is that it is still active at the event loop
                 # level, so we don't expect that python_stop gets called.
@@ -204,7 +239,7 @@ class AbstractCallbacks(object):
         # at least for signals under libuv, which are delivered at very odd times.
         # Hopefully the event still shows up when we poll the next time.
         watcher = None
-        handle = tb.tb_frame.f_locals['handle'] if tb is not None else None
+        handle = tb.tb_frame.f_locals.get('handle') if tb is not None else None
         if handle: # handle could be NULL
             watcher = self.from_handle(handle)
         if watcher is not None:
@@ -282,16 +317,28 @@ class AbstractCallbacks(object):
 
 
 def assign_standard_callbacks(ffi, lib, callbacks_class, extras=()): # pylint:disable=unused-argument
+    """
+    Given the typical *ffi* and *lib* arguments, and a subclass of :class:`AbstractCallbacks`
+    in *callbacks_class*, set up the ``def_extern`` Python callbacks from C
+    into an instance of *callbacks_class*.
+
+    :param tuple extras: If given, this is a sequence of ``(name, error_function)``
+      additional callbacks to register. Each *name* is an attribute of
+      the *callbacks_class* instance. (Each element cas also be just a *name*.)
+    :return: The *callbacks_class* instance. This object must be kept alive,
+      typically at module scope.
+    """
     # callbacks keeps these cdata objects alive at the python level
     callbacks = callbacks_class(ffi)
+    extras = [extra if len(extra) == 2 else (extra, None) for extra in extras]
     extras = tuple([(getattr(callbacks, name), error) for name, error in extras])
-    for (func, error_func) in ((callbacks.python_callback, None),
-                               (callbacks.python_handle_error, None),
-                               (callbacks.python_stop, None),
-                               (callbacks.python_check_callback,
-                                callbacks.check_callback_onerror),
-                               (callbacks.python_prepare_callback,
-                                callbacks.check_callback_onerror)) + extras:
+    for (func, error_func) in (
+            (callbacks.python_callback, None),
+            (callbacks.python_handle_error, None),
+            (callbacks.python_stop, None),
+            (callbacks.python_check_callback, callbacks.check_callback_onerror),
+            (callbacks.python_prepare_callback, callbacks.check_callback_onerror)
+    ) + extras:
         # The name of the callback function matches the 'extern Python' declaration.
         error_func = error_func or callbacks.unhandled_onerror
         callback = ffi.def_extern(onerror=error_func)(func)
@@ -320,10 +367,13 @@ else:
 
 _NOARGS = ()
 
-CALLBACK_CHECK_COUNT = 50
 
 class AbstractLoop(object):
     # pylint:disable=too-many-public-methods,too-many-instance-attributes
+
+    # How many callbacks we should run between checking against the
+    # switch interval.
+    CALLBACK_CHECK_COUNT = 50
 
     error_handler = None
 
@@ -340,6 +390,8 @@ class AbstractLoop(object):
     # whether they were the default loop.
     _default = None
 
+    _keepaliveset = _DiscardedSet()
+
     def __init__(self, ffi, lib, watchers, flags=None, default=None):
         self._ffi = ffi
         self._lib = lib
@@ -354,9 +406,7 @@ class AbstractLoop(object):
 
 
     def _init_loop_and_aux_watchers(self, flags=None, default=None):
-
         self._ptr = self._init_loop(flags, default)
-
 
         # self._check is a watcher that runs in each iteration of the
         # mainloop, just after the blocking call. It's point is to handle
@@ -427,7 +477,7 @@ class AbstractLoop(object):
         # moment there.
         self.starting_timer_may_update_loop_time = True
         try:
-            count = CALLBACK_CHECK_COUNT
+            count = self.CALLBACK_CHECK_COUNT
             now = self.now()
             expiration = now + getswitchinterval()
             self._stop_callback_timer()
@@ -478,7 +528,7 @@ class AbstractLoop(object):
                 # but we may have more, so before looping check our
                 # switch interval.
                 if count == 0 and self._callbacks:
-                    count = CALLBACK_CHECK_COUNT
+                    count = self.CALLBACK_CHECK_COUNT
                     self.update_now()
                     if self.now() >= expiration:
                         now = 0
@@ -498,12 +548,13 @@ class AbstractLoop(object):
         raise NotImplementedError()
 
     def destroy(self):
-        if self._ptr:
+        ptr = self.ptr
+        if ptr:
             try:
-                if not self._can_destroy_loop(self._ptr):
+                if not self._can_destroy_loop(ptr):
                     return False
                 self._stop_aux_watchers()
-                self._destroy_loop(self._ptr)
+                self._destroy_loop(ptr)
             finally:
                 # not ffi.NULL, we don't want something that can be
                 # passed to C and crash later. This will create nice friendly
@@ -523,6 +574,7 @@ class AbstractLoop(object):
 
     @property
     def ptr(self):
+        # Use this when you need to be sure the pointer is valid.
         return self._ptr
 
     @property
@@ -598,11 +650,16 @@ class AbstractLoop(object):
         self.update_now()
 
     def __repr__(self):
-        return '<%s at 0x%x %s>' % (self.__class__.__name__, id(self), self._format())
+        return '<%s.%s at 0x%x %s>' % (
+            self.__class__.__module__,
+            self.__class__.__name__,
+            id(self),
+            self._format()
+        )
 
     @property
     def default(self):
-        return self._default if self._ptr else False
+        return self._default if self.ptr else False
 
     @property
     def iteration(self):
@@ -626,6 +683,9 @@ class AbstractLoop(object):
 
     def io(self, fd, events, ref=True, priority=None):
         return self._watchers.io(self, fd, events, ref, priority)
+
+    def closing_fd(self, fd): # pylint:disable=unused-argument
+        return False
 
     def timer(self, after, repeat=0.0, ref=True, priority=None):
         return self._watchers.timer(self, after, repeat, ref, priority)
@@ -679,9 +739,11 @@ class AbstractLoop(object):
         return cb
 
     def _format(self):
-        if not self._ptr:
+        ptr = self.ptr
+        if not ptr:
             return 'destroyed'
-        msg = self.backend
+        msg = "backend=" + self.backend
+        msg += ' ptr=' + str(ptr)
         if self.default:
             msg += ' default'
         msg += ' pending=%s' % self.pendingcnt
@@ -708,6 +770,6 @@ class AbstractLoop(object):
 
     @property
     def activecnt(self):
-        if not self._ptr:
+        if not self.ptr:
             raise ValueError('operation on destroyed loop')
         return 0

@@ -6,11 +6,13 @@ import random
 import weakref
 import gc
 
-import gevent.testing as greentest
+
 import gevent.threadpool
 from gevent.threadpool import ThreadPool
 import gevent
+from gevent.exceptions import InvalidThreadUseError
 
+import gevent.testing as greentest
 from gevent.testing import ExpectedException
 from gevent.testing import PYPY
 
@@ -34,34 +36,36 @@ class TestCase(greentest.TestCase):
     # These generally need more time
     __timeout__ = greentest.LARGE_TIMEOUT
     pool = None
+    _all_pools = ()
 
     ClassUnderTest = ThreadPool
     def _FUT(self):
         return self.ClassUnderTest
 
-    def _makeOne(self, size, increase=greentest.RUN_LEAKCHECKS):
-        self.pool = pool = self._FUT()(size)
-        if increase:
+    def _makeOne(self, maxsize, create_all_worker_threads=greentest.RUN_LEAKCHECKS):
+        self.pool = pool = self._FUT()(maxsize)
+        self._all_pools += (pool,)
+        if create_all_worker_threads:
             # Max size to help eliminate false positives
-            self.pool.size = size
+            self.pool.size = maxsize
         return pool
 
     def cleanup(self):
-        pool = self.pool
-        if pool is not None:
+        self.pool = None
+        all_pools, self._all_pools = self._all_pools, ()
+        for pool in all_pools:
             kill = getattr(pool, 'kill', None) or getattr(pool, 'shutdown')
             kill()
             del kill
-            del self.pool
 
-            if greentest.RUN_LEAKCHECKS:
-                # Each worker thread created a greenlet object and switched to it.
-                # It's a custom subclass, but even if it's not, it appears that
-                # the root greenlet for the new thread sticks around until there's a
-                # gc. Simply calling 'getcurrent()' is enough to "leak" a greenlet.greenlet
-                # and a weakref.
-                for _ in range(3):
-                    gc.collect()
+        if greentest.RUN_LEAKCHECKS:
+            # Each worker thread created a greenlet object and switched to it.
+            # It's a custom subclass, but even if it's not, it appears that
+            # the root greenlet for the new thread sticks around until there's a
+            # gc. Simply calling 'getcurrent()' is enough to "leak" a greenlet.greenlet
+            # and a weakref.
+            for _ in range(3):
+                gc.collect()
 
 
 class PoolBasicTests(TestCase):
@@ -353,7 +357,7 @@ class TestSpawn(TestCase):
     switch_expected = True
 
     @greentest.ignores_leakcheck
-    def test(self):
+    def test_basics(self):
         pool = self._makeOne(1)
         self.assertEqual(len(pool), 0)
         log = []
@@ -371,6 +375,20 @@ class TestSpawn(TestCase):
         self.assertEqual(log, ['a', 'b'])
         self.assertEqual(len(pool), 0)
 
+    @greentest.ignores_leakcheck
+    def test_cannot_spawn_from_other_thread(self):
+        # Only the thread that owns a threadpool can spawn to it;
+        # this is because the threadpool uses the creating thread's hub,
+        # which is not threadsafe.
+        pool1 = self._makeOne(1)
+        pool2 = self._makeOne(2)
+
+        def func():
+            pool2.spawn(lambda: "Hi")
+
+        res = pool1.spawn(func)
+        with self.assertRaises(InvalidThreadUseError):
+            res.get()
 
 def error_iter():
     yield 1
@@ -420,7 +438,7 @@ class TestMaxsize(TestCase):
         pool.spawn(sleep, 0.2)
         pool.spawn(sleep, 0.3)
         gevent.sleep(0.2)
-        self.assertEqual(pool.size, 3)
+        self.assertGreaterEqual(pool.size, 2)
         pool.maxsize = 0
         gevent.sleep(0.2)
         self.assertEqualFlakyRaceCondition(pool.size, 0)
@@ -430,7 +448,7 @@ class TestSize(TestCase):
 
     @greentest.reraises_flaky_race_condition()
     def test(self):
-        pool = self.pool = self._makeOne(2, increase=False)
+        pool = self.pool = self._makeOne(2, create_all_worker_threads=False)
         self.assertEqual(pool.size, 0)
         pool.size = 1
         self.assertEqual(pool.size, 1)
@@ -507,146 +525,199 @@ class TestRefCount(TestCase):
         gevent.sleep(0)
         pool.kill()
 
-if hasattr(gevent.threadpool, 'ThreadPoolExecutor'):
 
-    from concurrent.futures import TimeoutError as FutureTimeoutError
-    from concurrent.futures import wait as cf_wait
-    from concurrent.futures import as_completed as cf_as_completed
 
-    from gevent import monkey
+from gevent import monkey
 
-    class TestTPE(_AbstractPoolTest):
-        size = 1
+@greentest.skipUnless(
+    hasattr(gevent.threadpool, 'ThreadPoolExecutor'),
+    "Requires ThreadPoolExecutor")
+class TestTPE(_AbstractPoolTest):
+    size = 1
 
-        MAP_IS_GEN = True
+    MAP_IS_GEN = True
 
-        ClassUnderTest = gevent.threadpool.ThreadPoolExecutor
+    @property
+    def ClassUnderTest(self):
+        return gevent.threadpool.ThreadPoolExecutor
 
-        MONKEY_PATCHED = False
+    MONKEY_PATCHED = False
 
-        @greentest.ignores_leakcheck
-        def test_future(self):
-            self.assertEqual(monkey.is_module_patched('threading'),
-                             self.MONKEY_PATCHED)
-            pool = self.pool
+    @property
+    def FutureTimeoutError(self):
+        from concurrent.futures import TimeoutError as FutureTimeoutError
+        return FutureTimeoutError
 
-            calledback = []
+    @property
+    def cf_wait(self):
+        from concurrent.futures import wait as cf_wait
+        return cf_wait
 
-            def fn():
-                gevent.sleep(0.5)
-                return 42
+    @property
+    def cf_as_completed(self):
+        from concurrent.futures import as_completed as cf_as_completed
+        return cf_as_completed
 
-            def callback(future):
-                future.calledback += 1
-                raise greentest.ExpectedException("Expected, ignored")
+    @greentest.ignores_leakcheck
+    def test_future(self):
+        self.assertEqual(monkey.is_module_patched('threading'),
+                         self.MONKEY_PATCHED)
+        pool = self.pool
 
-            future = pool.submit(fn) # pylint:disable=no-member
-            future.calledback = 0
-            future.add_done_callback(callback)
-            self.assertRaises(FutureTimeoutError, future.result, timeout=0.001)
+        calledback = []
 
-            def spawned():
-                return 2016
+        def fn():
+            gevent.sleep(0.5)
+            return 42
 
-            spawned_greenlet = gevent.spawn(spawned)
+        def callback(future):
+            future.calledback += 1
+            raise greentest.ExpectedException("Expected, ignored")
 
-            # Whether or not we are monkey patched, the background
-            # greenlet we spawned got to run while we waited.
+        future = pool.submit(fn) # pylint:disable=no-member
+        future.calledback = 0
+        future.add_done_callback(callback)
+        self.assertRaises(self.FutureTimeoutError, future.result, timeout=0.001)
 
-            self.assertEqual(future.result(), 42)
-            self.assertTrue(future.done())
-            self.assertFalse(future.cancelled())
-            # Make sure the notifier has a chance to run so the call back
-            # gets called
-            gevent.sleep()
-            self.assertEqual(future.calledback, 1)
+        def spawned():
+            return 2016
 
-            self.assertTrue(spawned_greenlet.ready())
-            self.assertEqual(spawned_greenlet.value, 2016)
+        spawned_greenlet = gevent.spawn(spawned)
 
-            # Adding the callback again runs immediately
-            future.add_done_callback(lambda f: calledback.append(True))
-            self.assertEqual(calledback, [True])
+        # Whether or not we are monkey patched, the background
+        # greenlet we spawned got to run while we waited.
 
-            # We can wait on the finished future
-            done, _not_done = cf_wait((future,))
-            self.assertEqual(list(done), [future])
+        self.assertEqual(future.result(), 42)
+        self.assertTrue(future.done())
+        self.assertFalse(future.cancelled())
+        # Make sure the notifier has a chance to run so the call back
+        # gets called
+        gevent.sleep()
+        self.assertEqual(future.calledback, 1)
 
-            self.assertEqual(list(cf_as_completed((future,))), [future])
-            # Doing so does not call the callback again
-            self.assertEqual(future.calledback, 1)
-            # even after a trip around the event loop
-            gevent.sleep()
-            self.assertEqual(future.calledback, 1)
+        self.assertTrue(spawned_greenlet.ready())
+        self.assertEqual(spawned_greenlet.value, 2016)
 
-            pool.kill()
-            del future
-            del pool
-            del self.pool
+        # Adding the callback again runs immediately
+        future.add_done_callback(lambda f: calledback.append(True))
+        self.assertEqual(calledback, [True])
 
-        @greentest.ignores_leakcheck
-        def test_future_wait_module_function(self):
-            # Instead of waiting on the result, we can wait
-            # on the future using the module functions
-            self.assertEqual(monkey.is_module_patched('threading'),
-                             self.MONKEY_PATCHED)
-            pool = self.pool
+        # We can wait on the finished future
+        done, _not_done = self.cf_wait((future,))
+        self.assertEqual(list(done), [future])
 
-            def fn():
-                gevent.sleep(0.5)
-                return 42
+        self.assertEqual(list(self.cf_as_completed((future,))), [future])
+        # Doing so does not call the callback again
+        self.assertEqual(future.calledback, 1)
+        # even after a trip around the event loop
+        gevent.sleep()
+        self.assertEqual(future.calledback, 1)
 
-            future = pool.submit(fn) # pylint:disable=no-member
-            if self.MONKEY_PATCHED:
-                # Things work as expected when monkey-patched
-                _done, not_done = cf_wait((future,), timeout=0.001)
-                self.assertEqual(list(not_done), [future])
+        pool.kill()
+        del future
+        del pool
+        del self.pool
 
-                def spawned():
-                    return 2016
+    @greentest.ignores_leakcheck
+    def test_future_wait_module_function(self):
+        # Instead of waiting on the result, we can wait
+        # on the future using the module functions
+        self.assertEqual(monkey.is_module_patched('threading'),
+                         self.MONKEY_PATCHED)
+        pool = self.pool
 
-                spawned_greenlet = gevent.spawn(spawned)
+        def fn():
+            gevent.sleep(0.5)
+            return 42
 
-                done, _not_done = cf_wait((future,))
-                self.assertEqual(list(done), [future])
-                self.assertTrue(spawned_greenlet.ready())
-                self.assertEqual(spawned_greenlet.value, 2016)
-            else:
-                # When not monkey-patched, raises an AttributeError
-                self.assertRaises(AttributeError, cf_wait, (future,))
-
-            pool.kill()
-            del future
-            del pool
-            del self.pool
-
-        @greentest.ignores_leakcheck
-        def test_future_wait_gevent_function(self):
-            # The future object can be waited on with gevent functions.
-            self.assertEqual(monkey.is_module_patched('threading'),
-                             self.MONKEY_PATCHED)
-            pool = self.pool
-
-            def fn():
-                gevent.sleep(0.5)
-                return 42
-
-            future = pool.submit(fn) # pylint:disable=no-member
+        future = pool.submit(fn) # pylint:disable=no-member
+        if self.MONKEY_PATCHED:
+            # Things work as expected when monkey-patched
+            _done, not_done = self.cf_wait((future,), timeout=0.001)
+            self.assertEqual(list(not_done), [future])
 
             def spawned():
                 return 2016
 
             spawned_greenlet = gevent.spawn(spawned)
 
-            done = gevent.wait((future,))
+            done, _not_done = self.cf_wait((future,))
             self.assertEqual(list(done), [future])
             self.assertTrue(spawned_greenlet.ready())
             self.assertEqual(spawned_greenlet.value, 2016)
+        else:
+            # When not monkey-patched, raises an AttributeError
+            self.assertRaises(AttributeError, self.cf_wait, (future,))
 
-            pool.kill()
-            del future
-            del pool
-            del self.pool
+        pool.kill()
+        del future
+        del pool
+        del self.pool
+
+    @greentest.ignores_leakcheck
+    def test_future_wait_gevent_function(self):
+        # The future object can be waited on with gevent functions.
+        self.assertEqual(monkey.is_module_patched('threading'),
+                         self.MONKEY_PATCHED)
+        pool = self.pool
+
+        def fn():
+            gevent.sleep(0.5)
+            return 42
+
+        future = pool.submit(fn) # pylint:disable=no-member
+
+        def spawned():
+            return 2016
+
+        spawned_greenlet = gevent.spawn(spawned)
+
+        done = gevent.wait((future,))
+        self.assertEqual(list(done), [future])
+        self.assertTrue(spawned_greenlet.ready())
+        self.assertEqual(spawned_greenlet.value, 2016)
+
+        pool.kill()
+        del future
+        del pool
+        del self.pool
+
+
+class TestThreadResult(greentest.TestCase):
+
+    def test_exception_in_on_async_doesnt_crash(self):
+        # Issue 1482. An FFI-based loop could crash the whole process
+        # by dereferencing a handle after it was closed.
+        called = []
+        class MyException(Exception):
+            pass
+
+        def bad_when_ready():
+            called.append(1)
+            raise MyException
+
+        tr = gevent.threadpool.ThreadResult(None, gevent.get_hub(), bad_when_ready)
+
+        def wake():
+            called.append(1)
+            tr.set(42)
+
+        gevent.spawn(wake).get()
+        # Spin the loop a few times to make sure we run the callbacks.
+        # If we neglect to spin, we don't trigger the bug.
+        # If error handling is correct, the exception raised from the callback
+        # will be surfaced in the main greenlet. On windows, it can sometimes take
+        # more than one spin for some reason; if we don't catch it here, then
+        # some other test is likely to die unexpectedly with MyException.
+        with self.assertRaises(MyException):
+            for _ in range(5):
+                gevent.sleep(0.001)
+
+
+        self.assertEqual(called, [1, 1])
+        # But value was cleared in a finally block
+        self.assertIsNone(tr.value)
+        self.assertIsNotNone(tr.receiver)
 
 
 if __name__ == '__main__':

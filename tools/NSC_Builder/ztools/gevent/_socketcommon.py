@@ -69,13 +69,26 @@ __py3_imports__ = [
 __imports__.extend(__py3_imports__)
 
 import time
-import sys
+
 from gevent._hub_local import get_hub_noargs as get_hub
 from gevent._compat import string_types, integer_types, PY3
+from gevent._compat import PY38
+from gevent._compat import PY39
+from gevent._compat import WIN as is_windows
+from gevent._compat import OSX as is_macos
 from gevent._util import copy_globals
 
-is_windows = sys.platform == 'win32'
-is_macos = sys.platform == 'darwin'
+if PY38:
+    __imports__.extend([
+        'create_server',
+        'has_dualstack_ipv6',
+    ])
+
+if PY39:
+    __imports__.extend([
+        'recv_fds',
+        'send_fds',
+    ])
 
 # pylint:disable=no-name-in-module,unused-import
 if is_windows:
@@ -115,6 +128,11 @@ if is_macos:
 import _socket
 _realsocket = _socket.socket
 import socket as __socket__
+try:
+    # Provide implementation of socket.socketpair on Windows < 3.5.
+    import backports.socketpair
+except ImportError:
+    pass
 
 _name = _value = None
 __imports__ = copy_globals(__socket__, globals(),
@@ -385,6 +403,20 @@ def _resolve_addr(sock, address):
     if sock.family not in _RESOLVABLE_FAMILIES or not isinstance(address, tuple):
         return address
     # address is (host, port) (ipv4) or (host, port, flowinfo, scopeid) (ipv6).
+    # If it's already resolved, no need to go through getaddrinfo() again.
+    # That can lose precision (e.g., on IPv6, it can lose scopeid). The standard library
+    # does this in socketmodule.c:setipaddr. (This is only part of the logic, the real
+    # thing is much more complex.)
+    try:
+        if __socket__.inet_pton(sock.family, address[0]):
+            return address
+    except AttributeError: # pragma: no cover
+        # inet_pton might not be available.
+        pass
+    except __socket__.error:
+        # Not parseable, needs resolved.
+        pass
+
 
     # We don't pass the port to getaddrinfo because the C
     # socket module doesn't either (on some systems its
@@ -399,3 +431,27 @@ def _resolve_addr(sock, address):
     else:
         address = (address[0], port, address[2], address[3])
     return address
+
+class SocketMixin(object):
+    __slots__ = (
+        '_read_event',
+        '_write_event',
+        '_sock',
+    )
+
+    def _drop_events_and_close(self, closefd=True, _cancel_wait_ex=cancel_wait_ex):
+        hub = self.hub
+        read_event = self._read_event
+        write_event = self._write_event
+        self._read_event = self._write_event = None
+        hub.cancel_waits_close_and_then(
+            (read_event, write_event),
+            _cancel_wait_ex,
+            # Pass the socket to keep it alive until such time as
+            # the waiters are guaranteed to be closed.
+            self._drop_ref_on_close if closefd else id,
+            self._sock
+        )
+
+    def _drop_ref_on_close(self, sock):
+        raise NotImplementedError

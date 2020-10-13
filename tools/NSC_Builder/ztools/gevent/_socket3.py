@@ -40,17 +40,45 @@ __dns__ = _socketcommon.__dns__
 
 SocketIO = __socket__.SocketIO # pylint:disable=no-member
 
-
-def _get_memory(data):
-    mv = memoryview(data)
-    if mv.shape:
-        return mv
-    # No shape, probably working with a ctypes object,
-    # or something else exotic that supports the buffer interface
-    return mv.tobytes()
+from gevent._greenlet_primitives import get_memory as _get_memory
 
 timeout_default = object()
 
+class _closedsocket(object):
+    __slots__ = ('family', 'type', 'proto', 'orig_fileno', 'description')
+
+    def __init__(self, family, type, proto, orig_fileno, description):
+        self.family = family
+        self.type = type
+        self.proto = proto
+        self.orig_fileno = orig_fileno
+        self.description = description
+
+    def fileno(self):
+        return -1
+
+    def close(self):
+        "No-op"
+
+    detach = fileno
+
+    def _dummy(*args, **kwargs): # pylint:disable=no-method-argument,unused-argument
+        raise OSError(EBADF, 'Bad file descriptor')
+    # All _delegate_methods must also be initialized here.
+    send = recv = recv_into = sendto = recvfrom = recvfrom_into = _dummy
+    getsockname = _dummy
+
+    def __bool__(self):
+        return False
+
+    __getattr__ = _dummy
+
+    def __repr__(self):
+        return "<socket object [closed proxy at 0x%x fd=%s %s]>" % (
+            id(self),
+            self.orig_fileno,
+            self.description,
+        )
 
 class _wrefsocket(_socket.socket):
     # Plain stdlib socket.socket objects subclass _socket.socket
@@ -70,7 +98,7 @@ class _wrefsocket(_socket.socket):
 
 from gevent._hub_primitives import wait_on_socket as _wait_on_socket
 
-class socket(object):
+class socket(_socketcommon.SocketMixin):
     """
     gevent `socket.socket <https://docs.python.org/3/library/socket.html#socket-objects>`_
     for Python 3.
@@ -156,7 +184,7 @@ class socket(object):
     def __repr__(self):
         """Wrap __repr__() to reveal the real class name."""
         try:
-            s = _socket.socket.__repr__(self._sock)
+            s = repr(self._sock)
         except Exception as ex: # pylint:disable=broad-except
             # Observed on Windows Py3.3, printing the repr of a socket
             # that just suffered a ConnectionResetError [WinError 10054]:
@@ -165,11 +193,17 @@ class socket(object):
             s = '<socket [%r]>' % ex
 
         if s.startswith("<socket object"):
-            s = "<%s.%s%s%s" % (self.__class__.__module__,
-                                self.__class__.__name__,
-                                getattr(self, '_closed', False) and " [closed] " or "",
-                                s[7:])
+            s = "<%s.%s%s at 0x%x%s%s" % (
+                self.__class__.__module__,
+                self.__class__.__name__,
+                getattr(self, '_closed', False) and " [closed]" or "",
+                id(self),
+                self._extra_repr(),
+                s[7:])
         return s
+
+    def _extra_repr(self):
+        return ''
 
     def __getstate__(self):
         raise TypeError("Cannot serialize socket object")
@@ -227,7 +261,9 @@ class socket(object):
         except the only mode characters supported are 'r', 'w' and 'b'.
         The semantics are similar too.
         """
-        # (XXX refactor to share code?)
+        # XXX refactor to share code? We ought to be able to use our FileObject,
+        # adding the appropriate amount of refcounting. At the very least we can use our
+        # OpenDescriptor to handle the parsing.
         for c in mode:
             if c not in {"r", "w", "b"}:
                 raise ValueError("invalid mode %r (only r, w, b allowed)")
@@ -270,23 +306,23 @@ class socket(object):
         if self._closed:
             self.close()
 
-    def _drop_events(self):
-        if self._read_event is not None:
-            self.hub.cancel_wait(self._read_event, cancel_wait_ex, True)
-            self._read_event = None
-        if self._write_event is not None:
-            self.hub.cancel_wait(self._write_event, cancel_wait_ex, True)
-            self._write_event = None
+    def _drop_ref_on_close(self, sock):
+        # Send the close event to wake up any watchers we don't know about
+        # so that (hopefully) they can be closed before we destroy
+        # the FD and invalidate them. We may be in the hub running pending
+        # callbacks now, or this may take until the next iteration.
+        scheduled_new = self.hub.loop.closing_fd(sock.fileno())
+        # Schedule the actual close to happen after that, but only if needed.
+        # (If we always defer, we wind up closing things much later than expected.)
+        if scheduled_new:
+            self.hub.loop.run_callback(sock.close)
+        else:
+            sock.close()
 
-    def _real_close(self, _ss=_socket.socket, cancel_wait_ex=cancel_wait_ex):
-        # This function should not reference any globals. See Python issue #808164.
 
-        # Break any reference to the loop.io objects. Our fileno,
-        # which they were tied to, is now free to be reused, so these
-        # objects are no longer functional.
-        self._drop_events()
-
-        _ss.close(self._sock)
+    def _detach_socket(self, reason):
+        if not self._sock:
+            return
 
         # Break any references to the underlying socket object. Tested
         # by test__refcount. (Why does this matter?). Be sure to
@@ -294,13 +330,31 @@ class socket(object):
         # don't, we can get TypeError instead of OSError; see
         # test_socket.SendmsgUDP6Test.testSendmsgAfterClose)... but
         # this isn't always possible (see test_socket.test_unknown_socket_family_repr)
-        # TODO: Can we use a simpler proxy, like _socket2 does?
+        sock = self._sock
+        family = -1
+        type = -1
+        proto = -1
+        fileno = None
         try:
-            self._sock = self._gevent_sock_class(self.family, self.type, self.proto)
+            family = sock.family
+            type = sock.type
+            proto = sock.proto
+            fileno = sock.fileno()
         except OSError:
             pass
-        else:
-            _ss.close(self._sock)
+        # Break any reference to the loop.io objects. Our fileno,
+        # which they were tied to, is about to be free to be reused, so these
+        # objects are no longer functional.
+        self._drop_events_and_close(closefd=(reason == 'closed'))
+
+        self._sock = _closedsocket(family, type, proto, fileno, reason)
+
+    def _real_close(self, _ss=_socket.socket):
+        # This function should not reference any globals. See Python issue #808164.
+        if not self._sock:
+            return
+
+        self._detach_socket('closed')
 
 
     def close(self):
@@ -314,20 +368,38 @@ class socket(object):
         return self._closed
 
     def detach(self):
-        """detach() -> file descriptor
+        """
+        detach() -> file descriptor
 
-        Close the socket object without closing the underlying file descriptor.
-        The object cannot be used after this call, but the file descriptor
-        can be reused for other purposes.  The file descriptor is returned.
+        Close the socket object without closing the underlying file
+        descriptor. The object cannot be used after this call; when the
+        real file descriptor is closed, the number that was previously
+        used here may be reused. The fileno() method, after this call,
+        will return an invalid socket id.
+
+        The previous descriptor is returned.
+
+        .. versionchanged:: 1.5
+
+           Also immediately drop any native event loop resources.
         """
         self._closed = True
-        return self._sock.detach()
+        sock = self._sock
+        self._detach_socket('detached')
+        return sock.detach()
 
     def connect(self, address):
+        """
+        Connect to *address*.
+
+        .. versionchanged:: 20.6.0
+            If the host part of the address includes an IPv6 scope ID,
+            it will be used instead of ignored, if the platform supplies
+            :func:`socket.inet_pton`.
+        """
         if self.timeout == 0.0:
             return _socket.socket.connect(self._sock, address)
         address = _socketcommon._resolve_addr(self._sock, address)
-
         with Timeout._start_new_or_dummy(self.timeout, timeout("timed out")):
             while True:
                 err = self.getsockopt(SOL_SOCKET, SO_ERROR)
@@ -337,7 +409,7 @@ class socket(object):
 
                 if not result or result == EISCONN:
                     break
-                elif (result in (EWOULDBLOCK, EINPROGRESS, EALREADY)) or (result == EINVAL and is_windows):
+                if (result in (EWOULDBLOCK, EINPROGRESS, EALREADY)) or (result == EINVAL and is_windows):
                     self._wait(self._write_event)
                 else:
                     if (isinstance(address, tuple)
@@ -375,7 +447,7 @@ class socket(object):
     def recv(self, *args):
         while True:
             try:
-                return _socket.socket.recv(self._sock, *args)
+                return self._sock.recv(*args)
             except error as ex:
                 if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                     raise
@@ -388,7 +460,7 @@ class socket(object):
         def recvmsg(self, *args):
             while True:
                 try:
-                    return _socket.socket.recvmsg(self._sock, *args)
+                    return self._sock.recvmsg(*args)
                 except error as ex:
                     if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                         raise
@@ -396,10 +468,14 @@ class socket(object):
 
     if hasattr(_socket.socket, 'recvmsg_into'):
 
-        def recvmsg_into(self, *args):
+        def recvmsg_into(self, buffers, *args):
             while True:
                 try:
-                    return _socket.socket.recvmsg_into(self._sock, *args)
+                    if args:
+                        # The C code is sensitive about whether extra arguments are
+                        # passed or not.
+                        return self._sock.recvmsg_into(buffers, *args)
+                    return self._sock.recvmsg_into(buffers)
                 except error as ex:
                     if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                         raise
@@ -408,7 +484,7 @@ class socket(object):
     def recvfrom(self, *args):
         while True:
             try:
-                return _socket.socket.recvfrom(self._sock, *args)
+                return self._sock.recvfrom(*args)
             except error as ex:
                 if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                     raise
@@ -417,7 +493,7 @@ class socket(object):
     def recvfrom_into(self, *args):
         while True:
             try:
-                return _socket.socket.recvfrom_into(self._sock, *args)
+                return self._sock.recvfrom_into(*args)
             except error as ex:
                 if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                     raise
@@ -426,7 +502,7 @@ class socket(object):
     def recv_into(self, *args):
         while True:
             try:
-                return _socket.socket.recv_into(self._sock, *args)
+                return self._sock.recv_into(*args)
             except error as ex:
                 if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                     raise
@@ -436,7 +512,7 @@ class socket(object):
         if timeout is timeout_default:
             timeout = self.timeout
         try:
-            return _socket.socket.send(self._sock, data, flags)
+            return self._sock.send(data, flags)
         except error as ex:
             if ex.args[0] not in _socketcommon.GSENDAGAIN or timeout == 0.0:
                 raise
@@ -459,13 +535,13 @@ class socket(object):
 
     def sendto(self, *args):
         try:
-            return _socket.socket.sendto(self._sock, *args)
+            return self._sock.sendto(*args)
         except error as ex:
             if ex.args[0] != EWOULDBLOCK or self.timeout == 0.0:
                 raise
             self._wait(self._write_event)
             try:
-                return _socket.socket.sendto(self._sock, *args)
+                return self._sock.sendto(*args)
             except error as ex2:
                 if ex2.args[0] == EWOULDBLOCK:
                     return 0
@@ -475,7 +551,7 @@ class socket(object):
         # Only on Unix
         def sendmsg(self, buffers, ancdata=(), flags=0, address=None):
             try:
-                return _socket.socket.sendmsg(self._sock, buffers, ancdata, flags, address)
+                return self._sock.sendmsg(buffers, ancdata, flags, address)
             except error as ex:
                 if flags & getattr(_socket, 'MSG_DONTWAIT', 0):
                     # Enable non-blocking behaviour
@@ -486,7 +562,7 @@ class socket(object):
                     raise
                 self._wait(self._write_event)
                 try:
-                    return _socket.socket.sendmsg(self._sock, buffers, ancdata, flags, address)
+                    return self._sock.sendmsg(buffers, ancdata, flags, address)
                 except error as ex2:
                     if ex2.args[0] == EWOULDBLOCK:
                         return 0
@@ -607,45 +683,26 @@ class socket(object):
         """
         return self._sendfile_use_send(file, offset, count)
 
-    # get/set_inheritable new in 3.4
-    if hasattr(os, 'get_inheritable') or hasattr(os, 'get_handle_inheritable'):
-        # pylint:disable=no-member
-        if os.name == 'nt':
-            def get_inheritable(self):
-                return os.get_handle_inheritable(self.fileno())
 
-            def set_inheritable(self, inheritable):
-                os.set_handle_inheritable(self.fileno(), inheritable)
-        else:
-            def get_inheritable(self):
-                return os.get_inheritable(self.fileno())
+    if os.name == 'nt':
+        def get_inheritable(self):
+            return os.get_handle_inheritable(self.fileno())
 
-            def set_inheritable(self, inheritable):
-                os.set_inheritable(self.fileno(), inheritable)
-        _added = "\n\n.. versionadded:: 1.1rc4 Added in Python 3.4"
-        get_inheritable.__doc__ = "Get the inheritable flag of the socket" + _added
-        set_inheritable.__doc__ = "Set the inheritable flag of the socket" + _added
-        del _added
+        def set_inheritable(self, inheritable):
+            os.set_handle_inheritable(self.fileno(), inheritable)
+    else:
+        def get_inheritable(self):
+            return os.get_inheritable(self.fileno())
+
+        def set_inheritable(self, inheritable):
+            os.set_inheritable(self.fileno(), inheritable)
+
+    get_inheritable.__doc__ = "Get the inheritable flag of the socket"
+    set_inheritable.__doc__ = "Set the inheritable flag of the socket"
 
 
-if sys.version_info[:2] == (3, 4) and sys.version_info[:3] <= (3, 4, 2):
-    # Python 3.4, up to and including 3.4.2, had a bug where the
-    # SocketType enumeration overwrote the SocketType class imported
-    # from _socket. This was fixed in 3.4.3 (http://bugs.python.org/issue20386
-    # and https://github.com/python/cpython/commit/0d2f85f38a9691efdfd1e7285c4262cab7f17db7).
-    # Prior to that, if we replace SocketType with our own class, the implementation
-    # of socket.type breaks with "OSError: [Errno 97] Address family not supported by protocol".
-    # Therefore, on these old versions, we must preserve it as an enum; while this
-    # seems like it could lead to non-green behaviour, code on those versions
-    # cannot possibly be using SocketType as a class anyway.
-    SocketType = __socket__.SocketType # pylint:disable=no-member
-    # Fixup __all__; note that we get exec'd multiple times during unit tests
-    if 'SocketType' in __implements__:
-        __implements__.remove('SocketType')
-    if 'SocketType' not in __imports__:
-        __imports__.append('SocketType')
-else:
-    SocketType = socket
+
+SocketType = socket
 
 
 def fromfd(fd, family, type, proto=0):
@@ -668,6 +725,7 @@ if hasattr(_socket.socket, "share"):
         return socket(0, 0, 0, info)
 
     __implements__.append('fromshare')
+
 
 if hasattr(_socket, "socketpair"):
 
@@ -696,9 +754,8 @@ if hasattr(_socket, "socketpair"):
 else: # pragma: no cover
     # Origin: https://gist.github.com/4325783, by Geert Jansen.  Public domain.
 
-    # gevent: taken from 3.6 release. Expected to be used only on Win. Added to Win/3.5
-    # gevent: for < 3.5, pass the default value of 128 to lsock.listen()
-    # (3.5+ uses this as a default and the original code passed no value)
+    # gevent: taken from 3.6 release, confirmed unchanged in 3.7 and
+    # 3.8a1. Expected to be used only on Win. Added to Win/3.5
 
     _LOCALHOST = '127.0.0.1'
     _LOCALHOST_V6 = '::1'
@@ -721,7 +778,7 @@ else: # pragma: no cover
         lsock = socket(family, type, proto)
         try:
             lsock.bind((host, 0))
-            lsock.listen(128)
+            lsock.listen()
             # On IPv6, ignore flow_info and scope_id
             addr, port = lsock.getsockname()[:2]
             csock = socket(family, type, proto)
@@ -739,14 +796,6 @@ else: # pragma: no cover
         finally:
             lsock.close()
         return (ssock, csock)
-
-    if sys.version_info[:2] < (3, 5):
-        # Not provided natively
-        if 'socketpair' in __implements__:
-            # Multiple imports can cause this to be missing if _socketcommon
-            # was successfully imported, leading to subsequent imports to cause
-            # ValueError
-            __implements__.remove('socketpair')
 
 
 if hasattr(__socket__, 'close'): # Python 3.7b1+

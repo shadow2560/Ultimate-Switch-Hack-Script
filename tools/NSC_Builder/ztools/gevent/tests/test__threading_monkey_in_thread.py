@@ -1,6 +1,6 @@
 # We can monkey-patch in a thread, but things don't work as expected.
 from __future__ import print_function
-import sys
+
 import threading
 from gevent import monkey
 import gevent.testing as greentest
@@ -25,7 +25,7 @@ class Test(greentest.TestCase):
 
         def target():
             tcurrent = threading.current_thread()
-            monkey.patch_all()
+            monkey.patch_all() # pragma: testrunner-no-monkey-combine
             tcurrent2 = threading.current_thread()
             self.assertIsNot(tcurrent, current)
             # We get a dummy thread now
@@ -44,7 +44,7 @@ class Test(greentest.TestCase):
 
 
         # We generated some warnings
-        if sys.version_info >= (3, 4):
+        if greentest.PY3:
             self.assertEqual(all_warnings,
                              ['Monkey-patching outside the main native thread. Some APIs will not be '
                               'available. Expect a KeyError to be printed at shutdown.',

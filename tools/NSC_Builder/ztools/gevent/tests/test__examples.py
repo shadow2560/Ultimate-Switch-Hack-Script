@@ -1,4 +1,16 @@
-import sys
+"""
+Test the contents of the ``examples/`` directory.
+
+If an existing test in *this* directory named ``test__example_<fn>.py`` exists,
+where ``<fn>`` is the base filename of an example file, it will not be tested
+here.
+
+Examples can specify that they need particular test resources to be enabled
+by commenting (one per line) ``# gevent-test-requires-resource: <resource>``;
+most commonly the resource will be ``network``. You can use this technique to specify
+non-existant resources for things that should never be tested.
+"""
+import re
 import os
 import glob
 import time
@@ -14,44 +26,52 @@ def _find_files_to_ignore():
     try:
         os.chdir(this_dir)
 
-        result = [
-            'wsgiserver.py',
-            'wsgiserver_ssl.py',
-            'webproxy.py',
-            'webpy.py',
-            'unixsocket_server.py',
-            'unixsocket_client.py',
-            'psycopg2_pool.py',
-            'geventsendfile.py',
-        ]
-        result += [x[14:] for x in glob.glob('test__example_*.py')]
-
+        result = [x[14:] for x in glob.glob('test__example_*.py')]
+        if greentest.PYPY and greentest.RUNNING_ON_APPVEYOR:
+            # For some reason on Windows with PyPy, this times out,
+            # when it should be very fast.
+            result.append("processes.py")
     finally:
         os.chdir(old_dir)
 
     return result
 
-default_time_range = (2, 4)
+default_time_range = (2, 10)
 time_ranges = {
     'concurrent_download.py': (0, 30),
-    'processes.py': (0, 4)
+    'processes.py': (0, default_time_range[-1])
 }
 
 class _AbstractTestMixin(util.ExampleMixin):
-    time_range = (2, 4)
-    filename = None
+    time_range = default_time_range
+    example = None
+
+    def _check_resources(self):
+        from gevent.testing import resources
+
+        with open(os.path.join(self.cwd, self.example), 'r') as f:
+            contents = f.read()
+
+        pattern = re.compile('^# gevent-test-requires-resource: (.*)$', re.MULTILINE)
+        resources_needed = re.finditer(pattern, contents)
+        for match in resources_needed:
+            needed = contents[match.start(1):match.end(1)]
+            resources.skip_without_resource(needed)
 
     def test_runs(self):
+        self._check_resources()
+
         start = time.time()
         min_time, max_time = self.time_range
-        if util.run([sys.executable, '-u', self.filename],
-                    timeout=max_time,
-                    cwd=self.cwd,
-                    quiet=True,
-                    buffer_output=True,
-                    nested=True,
-                    setenv={'GEVENT_DEBUG': 'error'}):
-            self.fail("Failed example: " + self.filename)
+        self.start_kwargs = {
+            'timeout': max_time,
+            'quiet': True,
+            'buffer_output': True,
+            'nested': True,
+            'setenv': {'GEVENT_DEBUG': 'error'}
+        }
+        if not self.run_example():
+            self.fail("Failed example: " + self.example)
         else:
             took = time.time() - start
             self.assertGreaterEqual(took, min_time)
@@ -69,11 +89,12 @@ def _build_test_classes():
         bn = os.path.basename(filename)
         if bn in ignore:
             continue
+
         tc = type(
             'Test_' + bn,
             (_AbstractTestMixin, greentest.TestCase),
             {
-                'filename': bn,
+                'example': bn,
                 'time_range': time_ranges.get(bn, _AbstractTestMixin.time_range)
             }
         )

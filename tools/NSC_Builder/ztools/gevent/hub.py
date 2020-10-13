@@ -14,8 +14,7 @@ import traceback
 from greenlet import greenlet as RawGreenlet
 from greenlet import getcurrent
 from greenlet import GreenletExit
-
-
+from greenlet import error as GreenletError
 
 __all__ = [
     'getcurrent',
@@ -58,6 +57,7 @@ from gevent.exceptions import LoopExit
 
 from gevent._waiter import Waiter
 
+
 # Need the real get_ident. We're imported early enough (by gevent/__init__.py)
 # that we can be sure nothing is monkey patched yet.
 get_thread_ident = __import__(thread_mod_name).get_ident
@@ -96,12 +96,16 @@ def spawn_raw(function, *args, **kwargs):
        if ``GEVENT_TRACK_GREENLET_TREE`` is enabled (the default). If not enabled,
        those attributes will not be set.
 
+    .. versionchanged:: 1.5a3
+       The returned greenlet always has a *loop* attribute matching the
+       current hub's loop. This helps it work better with more gevent APIs.
     """
     if not callable(function):
         raise TypeError("function must be callable")
 
     # The hub is always the parent.
     hub = _get_hub_noargs()
+    loop = hub.loop
 
     factory = TrackedRawGreenlet if GEVENT_CONFIG.track_greenlet_tree else RawGreenlet
 
@@ -111,11 +115,11 @@ def spawn_raw(function, *args, **kwargs):
     if kwargs:
         function = _functools_partial(function, *args, **kwargs)
         g = factory(function, hub)
-        hub.loop.run_callback(g.switch)
+        loop.run_callback(g.switch)
     else:
         g = factory(function, hub)
-        hub.loop.run_callback(g.switch, *args)
-
+        loop.run_callback(g.switch, *args)
+    g.loop = hub.loop
     return g
 
 
@@ -171,10 +175,10 @@ def idle(priority=0):
     .. seealso:: :func:`sleep`
     """
     hub = _get_hub_noargs()
-    watcher = hub.loop.idle()
-    if priority:
-        watcher.priority = priority
-    hub.wait(watcher)
+    with hub.loop.idle() as watcher:
+        if priority:
+            watcher.priority = priority
+        hub.wait(watcher)
 
 
 def kill(greenlet, exception=GreenletExit):
@@ -209,25 +213,37 @@ def kill(greenlet, exception=GreenletExit):
 
 class signal(object):
     """
+    signal_handler(signalnum, handler, *args, **kwargs) -> object
+
     Call the *handler* with the *args* and *kwargs* when the process
     receives the signal *signalnum*.
 
-    The *handler* will be run in a new greenlet when the signal is delivered.
+    The *handler* will be run in a new greenlet when the signal is
+    delivered.
 
-    This returns an object with the useful method ``cancel``, which, when called,
-    will prevent future deliveries of *signalnum* from calling *handler*.
+    This returns an object with the useful method ``cancel``, which,
+    when called, will prevent future deliveries of *signalnum* from
+    calling *handler*. It's best to keep the returned object alive
+    until you call ``cancel``.
 
     .. note::
 
-        This may not operate correctly with SIGCHLD if libev child watchers
-        are used (as they are by default with os.fork).
+        This may not operate correctly with ``SIGCHLD`` if libev child
+        watchers are used (as they are by default with
+        `gevent.os.fork`). See :mod:`gevent.signal` for a more
+        general purpose solution.
 
     .. versionchanged:: 1.2a1
-       The ``handler`` argument is required to be callable at construction time.
-    """
 
-    # XXX: This is manually documented in gevent.rst while it is aliased in
-    # the gevent module.
+        The ``handler`` argument is required to
+        be callable at construction time.
+
+    .. versionchanged:: 20.5.1
+       The ``cancel`` method now properly cleans up all native resources,
+       and drops references to all the arguments of this function.
+    """
+    # This is documented as a function, not a class,
+    # so we're free to change implementation details.
 
     greenlet_class = None
 
@@ -237,27 +253,39 @@ class signal(object):
 
         self.hub = _get_hub_noargs()
         self.watcher = self.hub.loop.signal(signalnum, ref=False)
-        self.watcher.start(self._start)
         self.handler = handler
         self.args = args
         self.kwargs = kwargs
         if self.greenlet_class is None:
             from gevent import Greenlet
+            type(self).greenlet_class = Greenlet
             self.greenlet_class = Greenlet
 
-    def _get_ref(self):
-        return self.watcher.ref
+        self.watcher.start(self._start)
 
-    def _set_ref(self, value):
-        self.watcher.ref = value
-
-    ref = property(_get_ref, _set_ref)
-    del _get_ref, _set_ref
+    ref = property(
+        lambda self: self.watcher.ref,
+        lambda self, nv: setattr(self.watcher, 'ref', nv)
+    )
 
     def cancel(self):
-        self.watcher.stop()
+        if self.watcher is not None:
+            self.watcher.stop()
+            # Must close the watcher at a deterministic time, otherwise
+            # when CFFI reclaims the memory, the native loop might still
+            # have some reference to it; if anything tries to touch it
+            # we can wind up writing to memory that is no longer valid,
+            # leading to a wide variety of crashes.
+            self.watcher.close()
+        self.watcher = None
+        self.handler = None
+        self.args = None
+        self.kwargs = None
+        self.hub = None
+        self.greenlet_class = None
 
     def _start(self):
+        # TODO: Maybe this should just be Greenlet.spawn()?
         try:
             greenlet = self.greenlet_class(self.handle)
             greenlet.switch()
@@ -460,41 +488,67 @@ class Hub(WaitOperationsGreenlet):
         result += ' thread_ident=%s' % (hex(self.thread_ident), )
         return result + '>'
 
-    def handle_error(self, context, type, value, tb):
-        """
-        Called by the event loop when an error occurs. The arguments
-        type, value, and tb are the standard tuple returned by :func:`sys.exc_info`.
+    def _normalize_exception(self, t, v, tb):
+        # Allow passing in all None if the caller doesn't have
+        # easy access to sys.exc_info()
+        if (t, v, tb) == (None, None, None):
+            t, v, tb = sys.exc_info()
 
-        Applications can set a property on the hub with this same signature
-        to override the error handling provided by this class.
-
-        Errors that are :attr:`system errors <SYSTEM_ERROR>` are passed
-        to :meth:`handle_system_error`.
-
-        :param context: If this is ``None``, indicates a system error that
-            should generally result in exiting the loop and being thrown to the
-            parent greenlet.
-        """
-        if isinstance(value, str):
+        if isinstance(v, str):
             # Cython can raise errors where the value is a plain string
             # e.g., AttributeError, "_semaphore.Semaphore has no attr", <traceback>
-            value = type(value)
+            v = t(v)
+
+        return t, v, tb
+
+    def handle_error(self, context, type, value, tb):
+        """
+        Called by the event loop when an error occurs. The default
+        action is to print the exception to the :attr:`exception
+        stream <exception_stream>`.
+
+        The arguments ``type``, ``value``, and ``tb`` are the standard
+        tuple as returned by :func:`sys.exc_info`. (Note that when
+        this is called, it may not be safe to call
+        :func:`sys.exc_info`.)
+
+        Errors that are :attr:`not errors <NOT_ERROR>` are not
+        printed.
+
+        Errors that are :attr:`system errors <SYSTEM_ERROR>` are
+        passed to :meth:`handle_system_error` after being printed.
+
+        Applications can set a property on the hub instance with this
+        same signature to override the error handling provided by this
+        class. This is an advanced usage and requires great care. This
+        function *must not* raise any exceptions.
+
+        :param context: If this is ``None``, indicates a system error
+            that should generally result in exiting the loop and being
+            thrown to the parent greenlet.
+        """
+        type, value, tb = self._normalize_exception(type, value, tb)
+
         if not issubclass(type, self.NOT_ERROR):
             self.print_exception(context, type, value, tb)
         if context is None or issubclass(type, self.SYSTEM_ERROR):
-            self.handle_system_error(type, value)
+            self.handle_system_error(type, value, tb)
 
-    def handle_system_error(self, type, value):
+    def handle_system_error(self, type, value, tb=None):
         """
         Called from `handle_error` when the exception type is determined
         to be a :attr:`system error <SYSTEM_ERROR>`.
 
         System errors cause the exception to be raised in the main
         greenlet (the parent of this hub).
+
+        .. versionchanged:: 20.5.1
+           Allow passing the traceback to associate with the
+           exception if it is rethrown into the main greenlet.
         """
         current = getcurrent()
         if current is self or current is self.parent or self.loop is None:
-            self.parent.throw(type, value)
+            self.parent.throw(type, value, tb)
         else:
             # in case system error was handled and life goes on
             # switch back to this greenlet as well
@@ -504,7 +558,7 @@ class Hub(WaitOperationsGreenlet):
             except: # pylint:disable=bare-except
                 traceback.print_exc(file=self.exception_stream)
             try:
-                self.parent.throw(type, value)
+                self.parent.throw(type, value, tb)
             finally:
                 if cb is not None:
                     cb.stop()
@@ -513,7 +567,8 @@ class Hub(WaitOperationsGreenlet):
     def exception_stream(self):
         """
         The stream to which exceptions will be written.
-        Defaults to ``sys.stderr`` unless assigned to.
+        Defaults to ``sys.stderr`` unless assigned. Assigning a
+        false (None) value disables printing exceptions.
 
         .. versionadded:: 1.2a1
         """
@@ -527,7 +582,7 @@ class Hub(WaitOperationsGreenlet):
             stderr = stderr.io # pylint:disable=no-member
         return stderr
 
-    def print_exception(self, context, type, value, tb):
+    def print_exception(self, context, t, v, tb):
         # Python 3 does not gracefully handle None value or tb in
         # traceback.print_exception() as previous versions did.
         # pylint:disable=no-member
@@ -539,10 +594,12 @@ class Hub(WaitOperationsGreenlet):
             # See https://github.com/gevent/gevent/issues/1295
             return
 
-        if value is None:
-            errstream.write('%s\n' % type.__name__)
+        t, v, tb = self._normalize_exception(t, v, tb)
+
+        if v is None:
+            errstream.write('%s\n' % t.__name__)
         else:
-            traceback.print_exception(type, value, tb, file=errstream)
+            traceback.print_exception(t, v, tb, file=errstream)
         del tb
 
         try:
@@ -560,7 +617,7 @@ class Hub(WaitOperationsGreenlet):
                 except: # pylint:disable=bare-except
                     traceback.print_exc(file=self.exception_stream)
                     context = repr(context)
-            errstream.write('%s failed with %s\n\n' % (context, getattr(type, '__name__', 'exception'), ))
+            errstream.write('%s failed with %s\n\n' % (context, getattr(t, '__name__', 'exception'), ))
 
 
     def run(self):
@@ -582,14 +639,44 @@ class Hub(WaitOperationsGreenlet):
                 loop.run()
             finally:
                 loop.error_handler = None  # break the refcount cycle
+
+            # This function must never return, as it will cause
+            # switch() in the parent greenlet to return an unexpected
+            # value. This can show up as unexpected failures e.g.,
+            # from Waiters raising AssertionError or MulitpleWaiter
+            # raising invalid IndexError.
+            #
+            # It is still possible to kill this greenlet with throw.
+            # However, in that case switching to it is no longer safe,
+            # as switch will return immediately.
+            #
+            # Note that there's a problem with simply doing
+            # ``self.parent.throw()`` and never actually exiting this
+            # greenlet: The greenlet tends to stay alive. This is
+            # because throwing the exception captures stack frames
+            # (regardless of what we do with the argument) and those
+            # get saved. In addition to this object having
+            # ``gr_frame`` pointing to this method, which contains
+            # ``self``, which points to the parent, and both of which point to
+            # an internal thread state dict that points back to the current greenlet for the thread,
+            # which is likely to be the parent: a cycle.
+            #
+            # We can't have ``join()`` tell us to finish, because we
+            # need to be able to resume after this throw. The only way
+            # to dispose of the greenlet is to use ``self.destroy()``.
+
             debug = []
             if hasattr(loop, 'debug'):
                 debug = loop.debug()
-            self.parent.throw(LoopExit('This operation would block forever', self, debug))
-        # this function must never return, as it will cause switch() in the parent greenlet
-        # to return an unexpected value
-        # It is still possible to kill this greenlet with throw. However, in that case
-        # switching to it is no longer safe, as switch will return immediately
+            loop = None
+
+            self.parent.throw(LoopExit('This operation would block forever',
+                                       self,
+                                       debug))
+            # Execution could resume here if another blocking API call is made
+            # in the same thread and the hub hasn't been destroyed, so clean
+            # up anything left.
+            debug = None
 
     def start_periodic_monitoring_thread(self):
         if self.periodic_monitoring_thread is None and GEVENT_CONFIG.monitor_thread:
@@ -612,13 +699,20 @@ class Hub(WaitOperationsGreenlet):
         return self.periodic_monitoring_thread
 
     def join(self, timeout=None):
-        """Wait for the event loop to finish. Exits only when there are
-        no more spawned greenlets, started servers, active timeouts or watchers.
+        """
+        Wait for the event loop to finish. Exits only when there
+        are no more spawned greenlets, started servers, active
+        timeouts or watchers.
 
-        If *timeout* is provided, wait no longer for the specified number of seconds.
+        .. caution:: This doesn't clean up all resources associated
+           with the hub. For that, see :meth:`destroy`.
 
-        Returns True if exited because the loop finished execution.
-        Returns False if exited because of timeout expired.
+        :param float timeout: If *timeout* is provided, wait no longer
+            than the specified number of seconds.
+
+        :return: `True` if this method returns because the loop
+                 finished execution. Or `False` if the timeout
+                 expired.
         """
         assert getcurrent() is self.parent, "only possible from the MAIN greenlet"
         if self.dead:
@@ -632,21 +726,52 @@ class Hub(WaitOperationsGreenlet):
 
         try:
             try:
+                # Switch to the hub greenlet and let it continue.
+                # Since we're the parent greenlet of the hub, when it exits
+                # by `parent.throw(LoopExit)`, control will resume here.
+                # If the timer elapses, however, ``waiter.switch()`` is called and
+                # again control resumes here, but without an exception.
                 waiter.get()
             except LoopExit:
+                # Control will immediately be returned to this greenlet.
                 return True
         finally:
+            # Clean up as much junk as we can. There is a small cycle in the frames,
+            # and it won't be GC'd.
+            # this greenlet -> this frame
+            # this greenlet -> the exception that was thrown
+            # the exception that was thrown -> a bunch of other frames, including this frame.
+            # some frame calling self.run() -> self
+            del waiter # this frame -> waiter -> self
+            del self # this frame -> self
             if timeout is not None:
                 timeout.stop()
                 timeout.close()
+            del timeout
         return False
 
     def destroy(self, destroy_loop=None):
         """
         Destroy this hub and clean up its resources.
 
-        If you manually create hubs, you *should* call this
-        method before disposing of the hub object reference.
+        If you manually create hubs, or you use a hub or the gevent
+        blocking API from multiple native threads, you *should* call this
+        method before disposing of the hub object reference. Ideally,
+        this should be called from the same thread running the hub, but
+        it can be called from other threads after that thread has exited.
+
+        Once this is done, it is impossible to continue running the
+        hub. Attempts to use the blocking gevent API with pre-existing
+        objects from this native thread and bound to this hub will fail.
+
+        .. versionchanged:: 20.5.1
+            Attempt to ensure that Python stack frames and greenlets referenced by this
+            hub are cleaned up. This guarantees that switching to the hub again
+            is not safe after this. (It was never safe, but it's even less safe.)
+
+            Note that this only works if the hub is destroyed in the same thread it
+            is running in. If the hub is destroyed by a different thread
+            after a ``fork()``, for example, expect some garbage to leak.
         """
         if self.periodic_monitoring_thread is not None:
             self.periodic_monitoring_thread.kill()
@@ -657,6 +782,25 @@ class Hub(WaitOperationsGreenlet):
         if self._threadpool is not None:
             self._threadpool.kill()
             del self._threadpool
+
+        # Let the frame be cleaned up by causing the run() function to
+        # exit. This is the only way to guarantee that the hub itself
+        # and the main greenlet, if this was a secondary thread, get
+        # cleaned up. Otherwise there are likely to be reference
+        # cycles still around. We MUST do this before we destroy the
+        # loop; if we destroy the loop and then switch into the hub,
+        # things will go VERY, VERY wrong.
+        try:
+            self.throw(GreenletExit)
+        except LoopExit:
+            # Expected.
+            pass
+        except GreenletError:
+            # Must be coming from a different thread.
+            # Note that python stack frames are likely to leak
+            # in this case.
+            pass
+
         if destroy_loop is None:
             destroy_loop = not self.loop.default
         if destroy_loop:
@@ -669,10 +813,10 @@ class Hub(WaitOperationsGreenlet):
             # thread.
             set_loop(self.loop)
 
-
         self.loop = None
         if _get_hub() is self:
             set_hub(None)
+
 
 
     # XXX: We can probably simplify the resolver and threadpool properties.

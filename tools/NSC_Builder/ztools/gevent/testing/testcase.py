@@ -20,13 +20,16 @@
 from __future__ import absolute_import, print_function, division
 
 import sys
-from time import time
 import os.path
 from contextlib import contextmanager
 from unittest import TestCase as BaseTestCase
 from functools import wraps
 
 import gevent
+from gevent._util import LazyOnClass
+from gevent._compat import perf_counter
+from gevent._compat import get_clock_info
+from gevent._hub_local import get_hub_if_exists
 
 from . import sysinfo
 from . import params
@@ -62,13 +65,17 @@ class TimeAssertMixin(object):
                 fuzzy = expected * 5.0
             else:
                 fuzzy = expected / 2.0
-        start = time()
-        yield
-        elapsed = time() - start
+        min_time = expected - fuzzy
+        max_time = expected + fuzzy
+        start = perf_counter()
+        yield (min_time, max_time)
+        elapsed = perf_counter() - start
         try:
             self.assertTrue(
-                expected - fuzzy <= elapsed <= expected + fuzzy,
-                'Expected: %r; elapsed: %r; fuzzy %r' % (expected, elapsed, fuzzy))
+                min_time <= elapsed <= max_time,
+                'Expected: %r; elapsed: %r; fuzzy %r; clock_info: %s' % (
+                    expected, elapsed, fuzzy, get_clock_info('perf_counter')
+                ))
         except AssertionError:
             flaky.reraiseFlakyTestRaceCondition()
 
@@ -78,13 +85,100 @@ class TimeAssertMixin(object):
         return self.runs_in_given_time(0.0, fuzzy)
 
 
+class GreenletAssertMixin(object):
+    """Assertions related to greenlets."""
+
+    def assert_greenlet_ready(self, g):
+        self.assertTrue(g.dead, g)
+        self.assertTrue(g.ready(), g)
+        self.assertFalse(g, g)
+
+    def assert_greenlet_not_ready(self, g):
+        self.assertFalse(g.dead, g)
+        self.assertFalse(g.ready(), g)
+
+    def assert_greenlet_spawned(self, g):
+        self.assertTrue(g.started, g)
+        self.assertFalse(g.dead, g)
+
+    # No difference between spawned and switched-to once
+    assert_greenlet_started = assert_greenlet_spawned
+
+    def assert_greenlet_finished(self, g):
+        self.assertFalse(g.started, g)
+        self.assertTrue(g.dead, g)
+
+
+class StringAssertMixin(object):
+    """
+    Assertions dealing with strings.
+    """
+
+    @LazyOnClass
+    def HEX_NUM_RE(self):
+        import re
+        return re.compile('-?0x[0123456789abcdef]+L?', re.I)
+
+    def normalize_addr(self, s, replace='X'):
+        # https://github.com/PyCQA/pylint/issues/1127
+        return self.HEX_NUM_RE.sub(replace, s) # pylint:disable=no-member
+
+    def normalize_module(self, s, module=None, replace='module'):
+        if module is None:
+            module = type(self).__module__
+
+        return s.replace(module, replace)
+
+    def normalize(self, s):
+        return self.normalize_module(self.normalize_addr(s))
+
+    def assert_nstr_endswith(self, o, val):
+        s = str(o)
+        n = self.normalize(s)
+        self.assertTrue(n.endswith(val), (s, n))
+
+    def assert_nstr_startswith(self, o, val):
+        s = str(o)
+        n = self.normalize(s)
+        self.assertTrue(n.startswith(val), (s, n))
+
+
+
+class TestTimeout(gevent.Timeout):
+    _expire_info = ''
+
+    def __init__(self, timeout, method='Not Given'):
+        gevent.Timeout.__init__(
+            self,
+            timeout,
+            '%r: test timed out\n' % (method,),
+            ref=False
+        )
+
+    def _on_expiration(self, prev_greenlet, ex):
+        from gevent.util import format_run_info
+        loop = gevent.get_hub().loop
+        debug_info = 'N/A'
+        if hasattr(loop, 'debug'):
+            debug_info = [str(s) for s in loop.debug()]
+        run_info = format_run_info()
+        self._expire_info = 'Loop Debug:\n%s\nRun Info:\n%s' % (
+            '\n'.join(debug_info), '\n'.join(run_info)
+        )
+        gevent.Timeout._on_expiration(self, prev_greenlet, ex)
+
+    def __str__(self):
+        s = gevent.Timeout.__str__(self)
+        s += self._expire_info
+        return s
+
 def _wrap_timeout(timeout, method):
     if timeout is None:
         return method
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
-        with gevent.Timeout(timeout, 'test timed out', ref=False):
+        with TestTimeout(timeout, method):
             return method(self, *args, **kwargs)
 
     return wrapper
@@ -152,6 +246,10 @@ class SubscriberCleanupMixin(object):
         from gevent import events
         self.__old_subscribers = events.subscribers[:]
 
+    def addSubscriber(self, sub):
+        from gevent import events
+        events.subscribers.append(sub)
+
     def tearDown(self):
         from gevent import events
         events.subscribers[:] = self.__old_subscribers
@@ -159,21 +257,29 @@ class SubscriberCleanupMixin(object):
 
 
 class TestCase(TestCaseMetaClass("NewBase",
-                                 (SubscriberCleanupMixin, TimeAssertMixin, BaseTestCase,),
+                                 (SubscriberCleanupMixin,
+                                  TimeAssertMixin,
+                                  GreenletAssertMixin,
+                                  StringAssertMixin,
+                                  BaseTestCase,),
                                  {})):
     __timeout__ = params.LOCAL_TIMEOUT if not sysinfo.RUNNING_ON_CI else params.CI_TIMEOUT
 
     switch_expected = 'default'
+    #: Set this to true to cause errors that get reported to the hub to
+    #: always get propagated to the main greenlet. This can be done at the
+    #: class or method level.
+    #: .. caution:: This can hide errors and make it look like exceptions
+    #:    are propagated even if they're not.
     error_fatal = True
     uses_handle_error = True
     close_on_teardown = ()
     __old_subscribers = ()
 
-    def run(self, *args, **kwargs):
-        # pylint:disable=arguments-differ
+    def run(self, *args, **kwargs): # pylint:disable=signature-differs
         if self.switch_expected == 'default':
             self.switch_expected = get_switch_expected(self.fullname)
-        return BaseTestCase.run(self, *args, **kwargs)
+        return super(TestCase, self).run(*args, **kwargs)
 
     def setUp(self):
         super(TestCase, self).setUp()
@@ -183,42 +289,30 @@ class TestCase(TestCaseMetaClass("NewBase",
         # so that doesn't always happen. test__pool.py:TestPoolYYY.test_async
         # tends to show timeouts that are too short if we don't.
         # XXX: Should some core part of the loop call this?
-        gevent.get_hub().loop.update_now()
+        hub = get_hub_if_exists()
+        if hub and hub.loop:
+            hub.loop.update_now()
         self.close_on_teardown = []
+        self.addCleanup(self._tearDownCloseOnTearDown)
 
     def tearDown(self):
         if getattr(self, 'skipTearDown', False):
+            del self.close_on_teardown[:]
             return
 
         cleanup = getattr(self, 'cleanup', _noop)
         cleanup()
         self._error = self._none
-        self._tearDownCloseOnTearDown()
-        self.close_on_teardown = []
         super(TestCase, self).tearDown()
 
     def _tearDownCloseOnTearDown(self):
-        # XXX: Should probably reverse this
-        for x in self.close_on_teardown:
+        while self.close_on_teardown:
+            x = self.close_on_teardown.pop()
             close = getattr(x, 'close', x)
             try:
                 close()
             except Exception: # pylint:disable=broad-except
                 pass
-
-    @classmethod
-    def setUpClass(cls):
-        import warnings
-        cls._warning_cm = warnings.catch_warnings()
-        cls._warning_cm.__enter__()
-        if not sys.warnoptions:
-            warnings.simplefilter('default')
-        super(TestCase, cls).setUpClass()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls._warning_cm.__exit__(None, None, None)
-        super(TestCase, cls).tearDownClass()
 
     def _close_on_teardown(self, resource):
         """
@@ -338,3 +432,6 @@ class TestCase(TestCaseMetaClass("NewBase",
 
     assertRaisesRegex = getattr(BaseTestCase, 'assertRaisesRegex',
                                 getattr(BaseTestCase, 'assertRaisesRegexp'))
+
+    def assertStartsWith(self, it, has_prefix):
+        self.assertTrue(it.startswith(has_prefix), (it, has_prefix))

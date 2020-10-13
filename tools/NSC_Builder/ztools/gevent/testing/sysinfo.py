@@ -17,21 +17,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
+import errno
 import os
 import sys
 
 import gevent.core
 from gevent import _compat as gsysinfo
 
+VERBOSE = sys.argv.count('-v') > 1
+
+# Python implementations
 PYPY = gsysinfo.PYPY
 CPYTHON = not PYPY
-VERBOSE = sys.argv.count('-v') > 1
+
+# Platform/operating system
 WIN = gsysinfo.WIN
 LINUX = gsysinfo.LINUX
 OSX = gsysinfo.OSX
 
 PURE_PYTHON = gsysinfo.PURE_PYTHON
+
+get_this_psutil_process = gsysinfo.get_this_psutil_process
 
 # XXX: Formalize this better
 LIBUV = 'libuv' in gevent.core.loop.__module__ # pylint:disable=no-member
@@ -55,25 +61,28 @@ if WIN:
 
 PY2 = None
 PY3 = None
-PY34 = None
 PY35 = None
 PY36 = None
 PY37 = None
+PY38 = None
+PY39 = None
 
 NON_APPLICABLE_SUFFIXES = ()
-if sys.version_info[0] == 3:
+if sys.version_info[0] >= 3:
     # Python 3
     NON_APPLICABLE_SUFFIXES += ('2', '279')
     PY2 = False
     PY3 = True
-    if sys.version_info[1] >= 4:
-        PY34 = True
     if sys.version_info[1] >= 5:
         PY35 = True
     if sys.version_info[1] >= 6:
         PY36 = True
     if sys.version_info[1] >= 7:
         PY37 = True
+    if sys.version_info[1] >= 8:
+        PY38 = True
+    if sys.version_info[1] >= 9:
+        PY39 = True
 
 elif sys.version_info[0] == 2:
     # Any python 2
@@ -107,31 +116,74 @@ else:
 RUNNING_ON_TRAVIS = os.environ.get('TRAVIS')
 RUNNING_ON_APPVEYOR = os.environ.get('APPVEYOR')
 RUNNING_ON_CI = RUNNING_ON_TRAVIS or RUNNING_ON_APPVEYOR
+RUNNING_ON_MANYLINUX = os.environ.get('GEVENT_MANYLINUX')
 
 if RUNNING_ON_APPVEYOR:
     # We can't exec corecext on appveyor if we haven't run setup.py in
     # 'develop' mode (i.e., we install)
     NON_APPLICABLE_SUFFIXES += ('corecext',)
 
-EXPECT_POOR_TIMER_RESOLUTION = (PYPY3
-                                or RUNNING_ON_APPVEYOR
-                                or (LIBUV and PYPY)
-                                or RUN_COVERAGE)
+EXPECT_POOR_TIMER_RESOLUTION = (
+    PYPY3
+    # Really, this is probably only in VMs. But that's all I test
+    # Windows with.
+    or WIN
+    or (LIBUV and PYPY)
+    or RUN_COVERAGE
+    or (OSX and RUNNING_ON_CI)
+)
 
 
 CONN_ABORTED_ERRORS = []
-try:
-    from errno import WSAECONNABORTED
-    CONN_ABORTED_ERRORS.append(WSAECONNABORTED)
-except ImportError:
-    pass
+def _make_socket_errnos(*names):
+    result = []
+    for name in names:
+        try:
+            x = getattr(errno, name)
+        except AttributeError:
+            pass
+        else:
+            result.append(x)
+    return frozenset(result)
 
-from errno import ECONNRESET
-CONN_ABORTED_ERRORS.append(ECONNRESET)
-
-CONN_ABORTED_ERRORS = frozenset(CONN_ABORTED_ERRORS)
+CONN_ABORTED_ERRORS = _make_socket_errnos('WSAECONNABORTED', 'ECONNRESET')
+CONN_REFUSED_ERRORS = _make_socket_errnos('WSAECONNREFUSED', 'ECONNREFUSED')
 
 RESOLVER_ARES = os.getenv('GEVENT_RESOLVER') == 'ares'
 RESOLVER_DNSPYTHON = os.getenv('GEVENT_RESOLVER') == 'dnspython'
 
 RESOLVER_NOT_SYSTEM = RESOLVER_ARES or RESOLVER_DNSPYTHON
+
+def get_python_version():
+    """
+    Return a string of the simple python version,
+    such as '3.8.0b4'. Handles alpha and beta and final releases.
+    """
+    version = '%s.%s.%s' % sys.version_info[:3]
+    if sys.version_info[3] == 'alpha':
+        version += 'a%s' % sys.version_info[4]
+    elif sys.version_info[3] == 'beta':
+        version += 'b%s' % sys.version_info[4]
+
+    return version
+
+def libev_supports_linux_aio():
+    # libev requires kernel 4.19 or above to be able to support
+    # linux AIO. It can still be compiled in, but will fail to create
+    # the loop at runtime.
+    from distutils.version import LooseVersion
+    from platform import system
+    from platform import release
+
+    return system() == 'Linux' and LooseVersion(release() or '0') >= LooseVersion('4.19')
+
+def libev_supports_linux_iouring():
+    # libev requires kernel XXX to be able to support linux io_uring.
+    # It fails with the kernel in fedora rawhide (4.19.76) but
+    # works (doesn't fail catastrophically when asked to create one)
+    # with kernel 5.3.0 (Ubuntu Bionic)
+    from distutils.version import LooseVersion
+    from platform import system
+    from platform import release
+
+    return system() == 'Linux' and LooseVersion(release() or '0') >= LooseVersion('5.3')

@@ -10,6 +10,7 @@ import functools
 import warnings
 
 from gevent._config import config
+from gevent._util import LazyOnClass
 
 try:
     from tracemalloc import get_object_traceback
@@ -106,26 +107,6 @@ def only_if_watcher(func):
             return func(self)
         return _NoWatcherResult
     return if_w
-
-
-class LazyOnClass(object):
-
-    @classmethod
-    def lazy(cls, cls_dict, func):
-        "Put a LazyOnClass object in *cls_dict* with the same name as *func*"
-        cls_dict[func.__name__] = cls(func)
-
-    def __init__(self, func, name=None):
-        self.name = name or func.__name__
-        self.func = func
-
-    def __get__(self, inst, klass):
-        if inst is None: # pragma: no cover
-            return self
-
-        val = self.func(inst)
-        setattr(klass, self.name, val)
-        return val
 
 
 class AbstractWatcherType(type):
@@ -287,7 +268,7 @@ class watcher(object):
         raise NotImplementedError()
 
     def _watcher_ffi_stop(self):
-        self._watcher_stop(self.loop._ptr, self._watcher)
+        self._watcher_stop(self.loop.ptr, self._watcher)
 
     def _watcher_ffi_ref(self):
         raise NotImplementedError()
@@ -364,26 +345,36 @@ class watcher(object):
                 # may fail if __init__ did; will be harmlessly printed
                 self.close()
 
+    __in_repr = False
 
     def __repr__(self):
-        formats = self._format()
-        result = "<%s at 0x%x%s" % (self.__class__.__name__, id(self), formats)
-        if self.pending:
-            result += " pending"
-        if self.callback is not None:
-            fself = getattr(self.callback, '__self__', None)
-            if fself is self:
-                result += " callback=<bound method %s of self>" % (self.callback.__name__)
-            else:
-                result += " callback=%r" % (self.callback, )
-        if self.args is not None:
-            result += " args=%r" % (self.args, )
-        if self.callback is None and self.args is None:
-            result += " stopped"
-        result += " watcher=%s" % (self._watcher)
-        result += " handle=%s" % (self._watcher_handle)
-        result += " ref=%s" % (self.ref)
-        return result + ">"
+        basic = "<%s at 0x%x" % (self.__class__.__name__, id(self))
+        if self.__in_repr:
+            return basic + '>'
+        # Running child watchers have been seen to have a
+        # recursive repr in ``self.args``, thanks to ``gevent.os.fork_and_watch``
+        # passing the watcher as an argument to its callback.
+        self.__in_repr = True
+        try:
+            result = '%s%s' % (basic, self._format())
+            if self.pending:
+                result += " pending"
+            if self.callback is not None:
+                fself = getattr(self.callback, '__self__', None)
+                if fself is self:
+                    result += " callback=<bound method %s of self>" % (self.callback.__name__)
+                else:
+                    result += " callback=%r" % (self.callback, )
+            if self.args is not None:
+                result += " args=%r" % (self.args, )
+            if self.callback is None and self.args is None:
+                result += " stopped"
+            result += " watcher=%s" % (self._watcher)
+            result += " handle=%s" % (self._watcher_handle)
+            result += " ref=%s" % (self.ref)
+            return result + ">"
+        finally:
+            self.__in_repr = False
 
     @property
     def _watcher_handle(self):
@@ -398,7 +389,7 @@ class watcher(object):
         raise NotImplementedError()
 
     def _get_callback(self):
-        return self._callback
+        return self._callback if '_callback' in self.__dict__ else None
 
     def _set_callback(self, cb):
         if not callable(cb) and cb is not None:
@@ -435,15 +426,18 @@ class watcher(object):
         self._watcher_ffi_start_unref()
 
     def stop(self):
-        if self._callback is None:
+        if self.callback is None:
             assert self.loop is None or self not in self.loop._keepaliveset
             return
+        self.callback = None
+        # Only after setting the signal to make this idempotent do
+        # we move ahead.
         self._watcher_ffi_stop_ref()
         self._watcher_ffi_stop()
         self.loop._keepaliveset.discard(self)
         self._handle = None
         self._watcher_set_data(self._watcher, self._FFI.NULL) # pylint:disable=no-member
-        self.callback = None
+
         self.args = None
 
     def _get_priority(self):
@@ -559,6 +553,15 @@ class AsyncMixin(object):
 
     def send(self):
         raise NotImplementedError()
+
+    def send_ignoring_arg(self, _ignored):
+        """
+        Calling compatibility with ``greenlet.switch(arg)``
+        as used by waiters that have ``rawlink``.
+
+        This is an advanced method, not usually needed.
+        """
+        return self.send()
 
     @property
     def pending(self):

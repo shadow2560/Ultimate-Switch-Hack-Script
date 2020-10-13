@@ -33,16 +33,29 @@ __implements__ = [
     '_get_ident',
     '_sleep',
     '_DummyThread',
+    # RLock cannot go here, even though we need to import it.
+    # If it goes here, it replaces the RLock from the native
+    # threading module, but we really just need it here when some
+    # things import this module.
+    #'RLock',
 ]
 
 
 import threading as __threading__
 _DummyThread_ = __threading__._DummyThread
 from gevent.local import local
-from gevent.thread import start_new_thread as _start_new_thread, allocate_lock as _allocate_lock, get_ident as _get_ident
+from gevent.thread import start_new_thread as _start_new_thread
+from gevent.thread import allocate_lock as _allocate_lock
+from gevent.thread import get_ident as _get_ident
 from gevent.hub import sleep as _sleep, getcurrent
+from gevent.lock import RLock
 
-# Exports, prevent unused import warnings
+from gevent._compat import PY3
+from gevent._compat import PYPY
+from gevent._util import LazyOnClass
+
+# Exports, prevent unused import warnings.
+# XXX: Why don't we use __all__?
 local = local
 start_new_thread = _start_new_thread
 allocate_lock = _allocate_lock
@@ -51,6 +64,7 @@ _sleep = _sleep
 getcurrent = getcurrent
 
 Lock = _allocate_lock
+RLock = RLock
 
 
 def _cleanup(g):
@@ -75,7 +89,7 @@ class _DummyThread(_DummyThread_):
 
     # These objects are constructed quite frequently in some cases, so
     # the optimization matters: for example, in gunicorn, which uses
-    # pywsgi.WSGIServer, every request is handled in a new greenlet,
+    # pywsgi.WSGIServer, most every request is handled in a new greenlet,
     # and every request uses a logging.Logger to write the access log,
     # and every call to a log method captures the current thread (by
     # default).
@@ -108,11 +122,11 @@ class _DummyThread(_DummyThread_):
     def __init__(self): # pylint:disable=super-init-not-called
         #_DummyThread_.__init__(self)
 
-        # It'd be nice to use a pattern like "greenlet-%d", but maybe somebody out
-        # there is checking thread names...
-        self._name = self._Thread__name = __threading__._newname("DummyThread-%d")
+        # It'd be nice to use a pattern like "greenlet-%d", but there are definitely
+        # third-party libraries checking thread names to detect DummyThread objects.
+        self._name = self._Thread__name = __threading__._newname("Dummy-%d")
         # All dummy threads in the same native thread share the same ident
-        # (that of the native thread)
+        # (that of the native thread), unless we're monkey-patched.
         self._set_ident()
 
         g = getcurrent()
@@ -126,10 +140,8 @@ class _DummyThread(_DummyThread_):
         else:
             # ... so for them we use weakrefs.
             # See https://github.com/gevent/gevent/issues/918
-            global _weakref
-            if _weakref is None:
-                _weakref = __import__('weakref')
-            ref = _weakref.ref(g, _make_cleanup_id(gid))
+            ref = self.__weakref_ref
+            ref = ref(g, _make_cleanup_id(gid)) # pylint:disable=too-many-function-args
             self.__raw_ref = ref
 
     def _Thread__stop(self):
@@ -137,9 +149,12 @@ class _DummyThread(_DummyThread_):
 
     _stop = _Thread__stop # py3
 
-    def _wait_for_tstate_lock(self, *args, **kwargs):
-        # pylint:disable=arguments-differ
+    def _wait_for_tstate_lock(self, *args, **kwargs): # pylint:disable=signature-differs
         pass
+
+    @LazyOnClass
+    def __weakref_ref(self):
+        return __import__('weakref').ref
 
 if hasattr(__threading__, 'main_thread'): # py 3.4+
     def main_native_thread():
@@ -152,45 +167,28 @@ else:
 
         return main_threads[0]
 
-import sys
-if sys.version_info[:2] >= (3, 4):
-    # XXX: Issue 18808 breaks us on Python 3.4.
+if PY3:
+    # XXX: Issue 18808 breaks us on Python 3.4+.
     # Thread objects now expect a callback from the interpreter itself
-    # (threadmodule.c:release_sentinel). Because this never happens
+    # (threadmodule.c:release_sentinel) when the C-level PyThreadState
+    # object is being deallocated. Because this never happens
     # when a greenlet exits, join() and friends will block forever.
-    # The solution below involves capturing the greenlet when it is
-    # started and deferring the known broken methods to it.
+    # Fortunately this is easy to fix: just ensure that the allocation of the
+    # lock, _set_sentinel, creates a *gevent* lock, and release it when
+    # we're done. The main _shutdown code is in Python and deals with
+    # this gracefully.
 
     class Thread(__threading__.Thread):
-        _greenlet = None
-
-        def is_alive(self):
-            return bool(self._greenlet)
-
-        isAlive = is_alive
 
         def _set_tstate_lock(self):
-            self._greenlet = getcurrent()
+            super(Thread, self)._set_tstate_lock()
+            greenlet = getcurrent()
+            greenlet.rawlink(self.__greenlet_finished)
 
-        def run(self):
-            try:
-                super(Thread, self).run()
-            finally:
-                # avoid ref cycles, but keep in __dict__ so we can
-                # distinguish the started/never-started case
-                self._greenlet = None
-                self._stop() # mark as finished
-
-        def join(self, timeout=None):
-            if '_greenlet' not in self.__dict__:
-                raise RuntimeError("Cannot join an inactive thread")
-            if self._greenlet is None:
-                return
-            self._greenlet.join(timeout=timeout)
-
-        def _wait_for_tstate_lock(self, *args, **kwargs):
-            # pylint:disable=arguments-differ
-            raise NotImplementedError()
+        def __greenlet_finished(self, _):
+            if self._tstate_lock:
+                self._tstate_lock.release()
+                self._stop()
 
     __implements__.append('Thread')
 
@@ -199,22 +197,28 @@ if sys.version_info[:2] >= (3, 4):
 
     __implements__.append('Timer')
 
+    _set_sentinel = allocate_lock
+    __implements__.append('_set_sentinel')
     # The main thread is patched up with more care
     # in _gevent_will_monkey_patch
 
-if sys.version_info[:2] >= (3, 3):
+if PY3:
     __implements__.remove('_get_ident')
     __implements__.append('get_ident')
     get_ident = _get_ident
     __implements__.remove('_sleep')
 
+if hasattr(__threading__, '_CRLock'):
     # Python 3 changed the implementation of threading.RLock
     # Previously it was a factory function around threading._RLock
     # which in turn used _allocate_lock. Now, it wants to use
     # threading._CRLock, which is imported from _thread.RLock and as such
     # is implemented in C. So it bypasses our _allocate_lock function.
-    # Fortunately they left the Python fallback in place
-    assert hasattr(__threading__, '_CRLock'), "Unsupported Python version"
+    # Fortunately they left the Python fallback in place and use it
+    # if the imported _CRLock is None; this arranges for that to be the case.
+
+    # This was also backported to PyPy 2.7-7.0
+    assert PY3 or PYPY, "Unsupported Python version"
     _CRLock = None
     __implements__.append('_CRLock')
 

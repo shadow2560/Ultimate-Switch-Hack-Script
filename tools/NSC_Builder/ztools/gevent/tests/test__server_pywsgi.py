@@ -4,7 +4,7 @@ import gevent.testing as greentest
 import gevent
 from gevent import pywsgi
 
-import test__server
+from gevent.tests import test__server
 
 
 def application(environ, start_response):
@@ -51,20 +51,20 @@ class Settings(test__server.Settings):
 
     @staticmethod
     def assert500(inst):
-        conn = inst.makefile()
-        conn.write(b'GET / HTTP/1.0\r\n\r\n')
-        result = conn.read()
-        inst.assertTrue(result.startswith(internal_error_start),
-                        (result, internal_error_start))
-        inst.assertTrue(result.endswith(internal_error_end),
-                        (result, internal_error_end))
+        with inst.makefile() as conn:
+            conn.write(b'GET / HTTP/1.0\r\n\r\n')
+            result = conn.read()
+            inst.assertTrue(result.startswith(internal_error_start),
+                            (result, internal_error_start))
+            inst.assertTrue(result.endswith(internal_error_end),
+                            (result, internal_error_end))
 
     @staticmethod
     def assert503(inst):
-        conn = inst.makefile()
-        conn.write(b'GET / HTTP/1.0\r\n\r\n')
-        result = conn.read()
-        inst.assertEqual(result, internal_error503)
+        with inst.makefile() as conn:
+            conn.write(b'GET / HTTP/1.0\r\n\r\n')
+            result = conn.read()
+            inst.assertEqual(result, internal_error503)
 
     @staticmethod
     def assertPoolFull(inst):
@@ -73,9 +73,9 @@ class Settings(test__server.Settings):
 
     @staticmethod
     def assertAcceptedConnectionError(inst):
-        conn = inst.makefile()
-        result = conn.read()
-        inst.assertFalse(result)
+        with inst.makefile() as conn:
+            result = conn.read()
+            inst.assertFalse(result)
 
     @staticmethod
     def fill_default_server_args(inst, kwargs):
@@ -93,13 +93,13 @@ class TestDefaultSpawn(test__server.TestDefaultSpawn):
 class TestSSLSocketNotAllowed(test__server.TestSSLSocketNotAllowed):
     Settings = Settings
 
-class TestRawSpawn(test__server.TestRawSpawn):
+class TestRawSpawn(test__server.TestRawSpawn): # pylint:disable=too-many-ancestors
     Settings = Settings
 
 class TestSSLGetCertificate(test__server.TestSSLGetCertificate):
     Settings = Settings
 
-class TestPoolSpawn(test__server.TestPoolSpawn):
+class TestPoolSpawn(test__server.TestPoolSpawn): # pylint:disable=too-many-ancestors
     Settings = Settings
 
 if __name__ == '__main__':

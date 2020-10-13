@@ -17,13 +17,14 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-# pylint: disable=too-many-lines,unused-argument
+# pylint: disable=too-many-lines,unused-argument,too-many-ancestors
 from __future__ import print_function
 
 from gevent import monkey
 
-monkey.patch_all(thread=False)
+monkey.patch_all()
 
+from contextlib import contextmanager
 try:
     from urllib.parse import parse_qs
 except ImportError:
@@ -40,26 +41,28 @@ try:
 except ImportError:
     from io import BytesIO as StringIO
 import weakref
-
+import unittest
 from wsgiref.validate import validator
 
 import gevent.testing as greentest
 import gevent
 from gevent.testing import PY3, PYPY
+from gevent.testing.exception import ExpectedException
 from gevent import socket
 from gevent import pywsgi
 from gevent.pywsgi import Input
 
 
+class ExpectedAssertionError(ExpectedException, AssertionError):
+    """An expected assertion error"""
+
 CONTENT_LENGTH = 'Content-Length'
 CONN_ABORTED_ERRORS = greentest.CONN_ABORTED_ERRORS
-server_implements_chunked = True
-server_implements_pipeline = True
-server_implements_100continue = True
-DEBUG = '-v' in sys.argv
 
-REASONS = {200: 'OK',
-           500: 'Internal Server Error'}
+REASONS = {
+    200: 'OK',
+    500: 'Internal Server Error'
+}
 
 
 class ConnectionClosed(Exception):
@@ -91,11 +94,7 @@ def iread_chunks(fd):
     while True:
         line = fd.readline()
         chunk_size = line.strip()
-        try:
-            chunk_size = int(chunk_size, 16)
-        except:
-            print('Failed to parse chunk size: %r' % line)
-            raise
+        chunk_size = int(chunk_size, 16)
         if chunk_size == 0:
             crlf = fd.read(2)
             assert crlf == b'\r\n', repr(crlf)
@@ -174,21 +173,18 @@ class Response(object):
             if isinstance(content_length, int):
                 content_length = str(content_length)
             self.assertHeader('Content-Length', content_length)
-        try:
-            if 'chunked' in headers.get('Transfer-Encoding', ''):
-                if CONTENT_LENGTH in headers:
-                    print("WARNING: server used chunked transfer-encoding despite having Content-Length header (libevent 1.x's bug)")
-                self.chunks = list(iread_chunks(fd))
-                self.body = b''.join(self.chunks)
-            elif CONTENT_LENGTH in headers:
-                num = int(headers[CONTENT_LENGTH])
-                self.body = fd.read(num)
-            else:
-                self.body = fd.read()
-        except:
-            print('Response.read failed to read the body:\n%s' % self)
-            import traceback; traceback.print_exc()
-            raise
+
+        if 'chunked' in headers.get('Transfer-Encoding', ''):
+            if CONTENT_LENGTH in headers:
+                print("WARNING: server used chunked transfer-encoding despite having Content-Length header (libevent 1.x's bug)")
+            self.chunks = list(iread_chunks(fd))
+            self.body = b''.join(self.chunks)
+        elif CONTENT_LENGTH in headers:
+            num = int(headers[CONTENT_LENGTH])
+            self.body = fd.read(num)
+        else:
+            self.body = fd.read()
+
         if body is not None:
             self.assertBody(body)
         if chunks is not None:
@@ -205,21 +201,29 @@ class TestCase(greentest.TestCase):
 
     # Bind to default address, which should give us ipv6 (when available)
     # and ipv4. (see self.connect())
-    listen_addr = ''
+    listen_addr = greentest.DEFAULT_BIND_ADDR
     # connect on ipv4, even though we bound to ipv6 too
     # to prove ipv4 works...except on Windows, it apparently doesn't.
     # So use the hostname.
-    connect_addr = 'localhost'
+    connect_addr = greentest.DEFAULT_LOCAL_HOST_ADDR
+
+    class handler_class(pywsgi.WSGIHandler):
+        ApplicationError = ExpectedAssertionError
 
     def init_logger(self):
         import logging
-        logger = logging.getLogger('gevent.pywsgi')
+        logger = logging.getLogger('gevent.tests.pywsgi')
+        logger.setLevel(logging.CRITICAL)
         return logger
 
     def init_server(self, application):
         logger = self.logger = self.init_logger()
-        self.server = pywsgi.WSGIServer((self.listen_addr, 0), application,
-                                        log=logger, error_log=logger)
+        self.server = pywsgi.WSGIServer(
+            (self.listen_addr, 0),
+            application,
+            log=logger, error_log=logger,
+            handler_class=self.handler_class,
+        )
 
     def setUp(self):
         application = self.application
@@ -227,7 +231,10 @@ class TestCase(greentest.TestCase):
             application = self.validator(application)
         self.init_server(application)
         self.server.start()
+        while not self.server.server_port:
+            print("Waiting on server port")
         self.port = self.server.server_port
+        assert self.port
         greentest.TestCase.setUp(self)
 
     if greentest.CPYTHON and greentest.PY2:
@@ -252,11 +259,15 @@ class TestCase(greentest.TestCase):
             with gevent.Timeout.start_new(0.5):
                 self.server.stop()
         self.server = None
+        if greentest.PYPY:
+            import gc
+            gc.collect()
+            gc.collect()
 
 
+    @contextmanager
     def connect(self):
         conn = socket.create_connection((self.connect_addr, self.port))
-        self._close_on_teardown(conn)
         result = conn
         if PY3:
             conn_makefile = conn.makefile
@@ -288,85 +299,136 @@ class TestCase(greentest.TestCase):
                         return makefile
                     return getattr(conn, name)
             result = proxy()
-        return result
+        try:
+            yield result
+        finally:
+            result.close()
 
+    @contextmanager
     def makefile(self):
-        return self.connect().makefile(bufsize=1)
+        with self.connect() as sock:
+            try:
+                result = sock.makefile(bufsize=1)
+                yield result
+            finally:
+                result.close()
 
     def urlopen(self, *args, **kwargs):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        return read_http(fd, *args, **kwargs)
+        with self.connect() as sock:
+            with sock.makefile(bufsize=1) as fd:
+                fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
+                return read_http(fd, *args, **kwargs)
+
+    HTTP_CLIENT_VERSION = '1.1'
+    DEFAULT_EXTRA_CLIENT_HEADERS = {}
+
+    def format_request(self, method='GET', path='/', **headers):
+        def_headers = self.DEFAULT_EXTRA_CLIENT_HEADERS.copy()
+        def_headers.update(headers)
+        headers = def_headers
+
+        headers = '\r\n'.join('%s: %s' % item for item in headers.items())
+        headers = headers + '\r\n' if headers else headers
+        result = (
+            '%(method)s %(path)s HTTP/%(http_ver)s\r\n'
+            'Host: localhost\r\n'
+            '%(headers)s'
+            '\r\n'
+        )
+        result = result % dict(
+            method=method,
+            path=path,
+            http_ver=self.HTTP_CLIENT_VERSION,
+            headers=headers
+        )
+        return result
 
 
-class CommonTests(TestCase):
+class CommonTestMixin(object):
+    PIPELINE_NOT_SUPPORTED_EXS = ()
+    EXPECT_CLOSE = False
+    EXPECT_KEEPALIVE = False
 
     def test_basic(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        response = read_http(fd, body='hello world')
-        if response.headers.get('Connection') == 'close' and not server_implements_pipeline:
-            return
-        fd.write('GET /notexist HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        read_http(fd, code=404, reason='Not Found', body='not found')
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        read_http(fd, body='hello world')
-        fd.close()
+        with self.makefile() as fd:
+            fd.write(self.format_request())
+            response = read_http(fd, body='hello world')
+            if response.headers.get('Connection') == 'close':
+                self.assertTrue(self.EXPECT_CLOSE, "Server closed connection, not expecting that")
+                return response, None
+
+            self.assertFalse(self.EXPECT_CLOSE)
+            if self.EXPECT_KEEPALIVE:
+                response.assertHeader('Connection', 'keep-alive')
+            fd.write(self.format_request(path='/notexist'))
+            dne_response = read_http(fd, code=404, reason='Not Found', body='not found')
+            fd.write(self.format_request())
+            response = read_http(fd, body='hello world')
+            return response, dne_response
+
+
 
     def test_pipeline(self):
-        if not server_implements_pipeline:
-            return
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n' + 'GET /notexist HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        read_http(fd, body='hello world')
         exception = AssertionError('HTTP pipelining not supported; the second request is thrown away')
-        try:
-            timeout = gevent.Timeout.start_new(0.5, exception=exception)
+        with self.makefile() as fd:
+            fd.write(self.format_request() + self.format_request(path='/notexist'))
+            read_http(fd, body='hello world')
+
             try:
-                read_http(fd, code=404, reason='Not Found', body='not found')
-                fd.close()
-            finally:
-                timeout.close()
-        except AssertionError as ex:
-            if ex is not exception:
-                raise
+                timeout = gevent.Timeout.start_new(0.5, exception=exception)
+                try:
+                    read_http(fd, code=404, reason='Not Found', body='not found')
+                finally:
+                    timeout.close()
+            except self.PIPELINE_NOT_SUPPORTED_EXS:
+                pass
+            except AssertionError as ex:
+                if ex is not exception:
+                    raise
 
     def test_connection_close(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        response = read_http(fd)
-        if response.headers.get('Connection') == 'close' and not server_implements_pipeline:
-            return
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        read_http(fd)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        # This may either raise, or it may return an empty response,
-        # depend on timing and the Python version.
-        try:
-            result = fd.readline()
-        except socket.error as ex:
-            if ex.args[0] not in CONN_ABORTED_ERRORS:
-                raise
-        else:
-            self.assertFalse(
-                result,
-                'The remote side is expected to close the connection, but it sent %r' % (result,))
+        with self.makefile() as fd:
+            fd.write(self.format_request())
+            response = read_http(fd)
+            if response.headers.get('Connection') == 'close':
+                self.assertTrue(self.EXPECT_CLOSE, "Server closed connection, not expecting that")
+                return
+            self.assertFalse(self.EXPECT_CLOSE)
+            if self.EXPECT_KEEPALIVE:
+                response.assertHeader('Connection', 'keep-alive')
 
-    def SKIP_test_006_reject_long_urls(self):
-        fd = self.makefile()
+            fd.write(self.format_request(Connection='close'))
+            read_http(fd)
+            fd.write(self.format_request())
+            # This may either raise, or it may return an empty response,
+            # depend on timing and the Python version.
+            try:
+                result = fd.readline()
+            except socket.error as ex:
+                if ex.args[0] not in CONN_ABORTED_ERRORS:
+                    raise
+            else:
+                self.assertFalse(
+                    result,
+                    'The remote side is expected to close the connection, but it sent %r'
+                    % (result,))
+
+    @unittest.skip("Not sure")
+    def test_006_reject_long_urls(self):
         path_parts = []
         for _ in range(3000):
             path_parts.append('path')
         path = '/'.join(path_parts)
-        request = 'GET /%s HTTP/1.0\r\nHost: localhost\r\n\r\n' % path
-        fd.write(request)
-        result = fd.readline()
-        status = result.split(' ')[1]
-        self.assertEqual(status, '414')
-        fd.close()
+
+        with self.makefile() as fd:
+            request = 'GET /%s HTTP/1.0\r\nHost: localhost\r\n\r\n' % path
+            fd.write(request)
+            result = fd.readline()
+            status = result.split(' ')[1]
+            self.assertEqual(status, '414')
 
 
-class TestNoChunks(CommonTests):
+class TestNoChunks(CommonTestMixin, TestCase):
     # when returning a list of strings a shortcut is employed by the server:
     # it calculates the content-length and joins all the chunks before sending
     validator = None
@@ -380,20 +442,32 @@ class TestNoChunks(CommonTests):
         start_response('404 Not Found', [('Content-Type', 'text/plain')])
         return [b'not ', b'found']
 
-    def test(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        response = read_http(fd, body='hello world')
+    def test_basic(self):
+        response, dne_response = super(TestNoChunks, self).test_basic()
         self.assertFalse(response.chunks)
         response.assertHeader('Content-Length', '11')
+        if dne_response is not None:
+            self.assertFalse(dne_response.chunks)
+            dne_response.assertHeader('Content-Length', '9')
 
-        if not server_implements_pipeline:
-            fd = self.makefile()
-
-        fd.write('GET /not-found HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        response = read_http(fd, code=404, reason='Not Found', body='not found')
+    def test_dne(self):
+        with self.makefile() as fd:
+            fd.write(self.format_request(path='/notexist'))
+            response = read_http(fd, code=404, reason='Not Found', body='not found')
         self.assertFalse(response.chunks)
         response.assertHeader('Content-Length', '9')
+
+class TestNoChunks10(TestNoChunks):
+    HTTP_CLIENT_VERSION = '1.0'
+    PIPELINE_NOT_SUPPORTED_EXS = (ConnectionClosed,)
+    EXPECT_CLOSE = True
+
+class TestNoChunks10KeepAlive(TestNoChunks10):
+    DEFAULT_EXTRA_CLIENT_HEADERS = {
+        'Connection': 'keep-alive',
+    }
+    EXPECT_CLOSE = False
+    EXPECT_KEEPALIVE = True
 
 
 class TestExplicitContentLength(TestNoChunks): # pylint:disable=too-many-ancestors
@@ -411,7 +485,7 @@ class TestExplicitContentLength(TestNoChunks): # pylint:disable=too-many-ancesto
         return [b'not ', b'found']
 
 
-class TestYield(CommonTests):
+class TestYield(CommonTestMixin, TestCase):
 
     @staticmethod
     def application(env, start_response):
@@ -424,7 +498,7 @@ class TestYield(CommonTests):
             yield b"not found"
 
 
-class TestBytearray(CommonTests):
+class TestBytearray(CommonTestMixin, TestCase):
 
     validator = None
 
@@ -438,7 +512,7 @@ class TestBytearray(CommonTests):
         return [bytearray(b"not found")]
 
 
-class MultiLineHeader(TestCase):
+class TestMultiLineHeader(TestCase):
     @staticmethod
     def application(env, start_response):
         assert "test.submit" in env["CONTENT_TYPE"]
@@ -454,9 +528,9 @@ class MultiLineHeader(TestCase):
             ' type="text/xml";start="test.submit"',
             'Content-Length: 0',
             '', ''))
-        fd = self.makefile()
-        fd.write(request)
-        read_http(fd)
+        with self.makefile() as fd:
+            fd.write(request)
+            read_http(fd)
 
 
 class TestGetArg(TestCase):
@@ -472,19 +546,20 @@ class TestGetArg(TestCase):
 
     def test_007_get_arg(self):
         # define a new handler that does a get_arg as well as a read_body
-        fd = self.makefile()
+
         request = '\r\n'.join((
             'POST / HTTP/1.0',
             'Host: localhost',
             'Content-Length: 3',
             '',
             'a=a'))
-        fd.write(request)
+        with self.makefile() as fd:
+            fd.write(request)
 
-        # send some junk after the actual request
-        fd.write('01234567890123456789')
-        read_http(fd, body='a is a, body is a=a')
-        fd.close()
+            # send some junk after the actual request
+            fd.write('01234567890123456789')
+            read_http(fd, body='a is a, body is a=a')
+
 
 class TestCloseIter(TestCase):
 
@@ -506,9 +581,9 @@ class TestCloseIter(TestCase):
 
     def test_close_is_called(self):
         self.closed = False
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        read_http(fd, body=b"Hello World!", chunks=[b'Hello World', b'!'])
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
+            read_http(fd, body=b"Hello World!", chunks=[b'Hello World', b'!'])
         # We got closed exactly once.
         self.assertEqual(self.closed, 1)
 
@@ -526,21 +601,17 @@ class TestChunkedApp(TestCase):
             yield chunk
 
     def test_chunked_response(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        response = read_http(fd, body=self.body(), chunks=None)
-        if server_implements_chunked:
-            response.assertHeader('Transfer-Encoding', 'chunked')
-            self.assertEqual(response.chunks, self.chunks)
-        else:
-            response.assertHeader('Transfer-Encoding', False)
-            response.assertHeader('Content-Length', str(len(self.body())))
-            self.assertEqual(response.chunks, False)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            response = read_http(fd, body=self.body(), chunks=None)
+
+        response.assertHeader('Transfer-Encoding', 'chunked')
+        self.assertEqual(response.chunks, self.chunks)
 
     def test_no_chunked_http_1_0(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.0\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        response = read_http(fd)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.0\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            response = read_http(fd)
         self.assertEqual(response.body, self.body())
         self.assertEqual(response.headers.get('Transfer-Encoding'), None)
         content_length = response.headers.get('Content-Length')
@@ -562,20 +633,20 @@ class TestNegativeRead(TestCase):
             return [data]
 
     def test_negative_chunked_read(self):
-        fd = self.makefile()
         data = (b'POST /read HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
     def test_negative_nonchunked_read(self):
-        fd = self.makefile()
         data = (b'POST /read HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Content-Length: 6\r\n\r\n'
                 b'oh hai')
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
 
 class TestNegativeReadline(TestCase):
@@ -589,24 +660,23 @@ class TestNegativeReadline(TestCase):
             return [data]
 
     def test_negative_chunked_readline(self):
-        fd = self.makefile()
         data = (b'POST /readline HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
     def test_negative_nonchunked_readline(self):
-        fd = self.makefile()
         data = (b'POST /readline HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Content-Length: 6\r\n\r\n'
                 b'oh hai')
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
 
 class TestChunkedPost(TestCase):
-
 
     def application(self, env, start_response):
         self.assertTrue(env.get('wsgi.input_terminated'))
@@ -616,28 +686,28 @@ class TestChunkedPost(TestCase):
             return [data]
 
         if env['PATH_INFO'] == '/b':
-            lines = [x for x in iter(lambda: env['wsgi.input'].read(6), b'')]
+            lines = list(iter(lambda: env['wsgi.input'].read(6), b''))
             return lines
 
         if env['PATH_INFO'] == '/c':
-            return [x for x in iter(lambda: env['wsgi.input'].read(1), b'')]
+            return list(iter(lambda: env['wsgi.input'].read(1), b''))
 
     def test_014_chunked_post(self):
-        fd = self.makefile()
         data = (b'POST /a HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
         # self.close_opened() # XXX: Why?
 
-        fd = self.makefile()
-        fd.write(data.replace(b'/a', b'/b'))
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data.replace(b'/a', b'/b'))
+            read_http(fd, body='oh hai')
 
-        fd = self.makefile()
-        fd.write(data.replace(b'/a', b'/c'))
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data.replace(b'/a', b'/c'))
+            read_http(fd, body='oh hai')
 
     def test_229_incorrect_chunk_no_newline(self):
         # Giving both a Content-Length and a Transfer-Encoding,
@@ -648,9 +718,9 @@ class TestChunkedPost(TestCase):
                 b'Content-Length: 12\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'{"hi": "ho"}')
-        fd = self.makefile()
-        fd.write(data)
-        read_http(fd, code=400)
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, code=400)
 
     def test_229_incorrect_chunk_non_hex(self):
         # Giving both a Content-Length and a Transfer-Encoding,
@@ -660,34 +730,34 @@ class TestChunkedPost(TestCase):
                 b'Content-Length: 12\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'{"hi": "ho"}\r\n')
-        fd = self.makefile()
-        fd.write(data)
-        read_http(fd, code=400)
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, code=400)
 
     def test_229_correct_chunk_quoted_ext(self):
         data = (b'POST /a HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2;token="oh hi"\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
-        fd = self.makefile()
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
     def test_229_correct_chunk_token_ext(self):
         data = (b'POST /a HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2;token=oh_hi\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
-        fd = self.makefile()
-        fd.write(data)
-        read_http(fd, body='oh hai')
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, body='oh hai')
 
     def test_229_incorrect_chunk_token_ext_too_long(self):
         data = (b'POST /a HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
                 b'Transfer-Encoding: chunked\r\n\r\n'
                 b'2;token=oh_hi\r\noh\r\n4\r\n hai\r\n0\r\n\r\n')
         data = data.replace(b'oh_hi', b'_oh_hi' * 4000)
-        fd = self.makefile()
-        fd.write(data)
-        read_http(fd, code=400)
+        with self.makefile() as fd:
+            fd.write(data)
+            read_http(fd, code=400)
 
 
 class TestUseWrite(TestCase):
@@ -713,32 +783,28 @@ class TestUseWrite(TestCase):
         return [self.end]
 
     def test_explicit_content_length(self):
-        fd = self.makefile()
-        fd.write('GET /explicit-content-length HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        response = read_http(fd, body=self.body + self.end)
+        with self.makefile() as fd:
+            fd.write('GET /explicit-content-length HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            response = read_http(fd, body=self.body + self.end)
         response.assertHeader('Content-Length', self.content_length)
         response.assertHeader('Transfer-Encoding', False)
 
     def test_no_content_length(self):
-        fd = self.makefile()
-        fd.write('GET /no-content-length HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        response = read_http(fd, body=self.body + self.end)
-        if server_implements_chunked:
-            response.assertHeader('Content-Length', False)
-            response.assertHeader('Transfer-Encoding', 'chunked')
-        else:
-            response.assertHeader('Content-Length', self.content_length)
+        with self.makefile() as fd:
+            fd.write('GET /no-content-length HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            response = read_http(fd, body=self.body + self.end)
+
+        response.assertHeader('Content-Length', False)
+        response.assertHeader('Transfer-Encoding', 'chunked')
 
     def test_no_content_length_twice(self):
-        fd = self.makefile()
-        fd.write('GET /no-content-length-twice HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        response = read_http(fd, body=self.body + self.body + self.end)
-        if server_implements_chunked:
-            response.assertHeader('Content-Length', False)
-            response.assertHeader('Transfer-Encoding', 'chunked')
-            assert response.chunks == [self.body, self.body, self.end], response.chunks
-        else:
-            response.assertHeader('Content-Length', str(5 + 5 + 3))
+        with self.makefile() as fd:
+            fd.write('GET /no-content-length-twice HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            response = read_http(fd, body=self.body + self.body + self.end)
+
+        response.assertHeader('Content-Length', False)
+        response.assertHeader('Transfer-Encoding', 'chunked')
+        self.assertEqual(response.chunks, [self.body, self.body, self.end])
 
 
 class HttpsTestCase(TestCase):
@@ -752,24 +818,20 @@ class HttpsTestCase(TestCase):
 
     def urlopen(self, method='GET', post_body=None, **kwargs): # pylint:disable=arguments-differ
         import ssl
-        raw_sock = self.connect()
-        sock = ssl.wrap_socket(raw_sock)
-        fd = sock.makefile(bufsize=1) # pylint:disable=unexpected-keyword-arg
-        fd.write('%s / HTTP/1.1\r\nHost: localhost\r\n' % method)
-        if post_body is not None:
-            fd.write('Content-Length: %s\r\n\r\n' % len(post_body))
-            fd.write(post_body)
-            if kwargs.get('body') is None:
-                kwargs['body'] = post_body
-        else:
-            fd.write('\r\n')
-        fd.flush()
-        try:
-            return read_http(fd, **kwargs)
-        finally:
-            fd.close()
-            sock.close()
-            raw_sock.close()
+        with self.connect() as raw_sock:
+            with ssl.wrap_socket(raw_sock) as sock:
+                with sock.makefile(bufsize=1) as fd: # pylint:disable=unexpected-keyword-arg
+                    fd.write('%s / HTTP/1.1\r\nHost: localhost\r\n' % method)
+                    if post_body is not None:
+                        fd.write('Content-Length: %s\r\n\r\n' % len(post_body))
+                        fd.write(post_body)
+                        if kwargs.get('body') is None:
+                            kwargs['body'] = post_body
+                    else:
+                        fd.write('\r\n')
+                    fd.flush()
+
+                    return read_http(fd, **kwargs)
 
     def application(self, environ, start_response):
         assert environ['wsgi.url_scheme'] == 'https', environ['wsgi.url_scheme']
@@ -827,13 +889,15 @@ class TestInternational(TestCase):
         return []
 
     def test(self):
-        sock = self.connect()
-        sock.sendall(b'''GET /%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82?%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81=%D0%BE%D1%82%D0%B2%D0%B5%D1%82 HTTP/1.1
+        with self.connect() as sock:
+            sock.sendall(
+                b'''GET /%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82?%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81=%D0%BE%D1%82%D0%B2%D0%B5%D1%82 HTTP/1.1
 Host: localhost
 Connection: close
 
 '''.replace(b'\n', b'\r\n'))
-        read_http(sock.makefile(), reason='PASSED', chunks=False, body='', content_length=0)
+            with sock.makefile() as fd:
+                read_http(fd, reason='PASSED', chunks=False, body='', content_length=0)
 
 
 class TestNonLatin1HeaderFromApplication(TestCase):
@@ -863,18 +927,19 @@ class TestNonLatin1HeaderFromApplication(TestCase):
         return []
 
     def test(self):
-        sock = self.connect()
-        self.expect_one_error()
-        sock.sendall(b'''GET / HTTP/1.1\r\n\r\n''')
-        if self.should_error:
-            read_http(sock.makefile(), code=500, reason='Internal Server Error')
-            self.assert_error(where_type=pywsgi.SecureEnviron)
-            self.assertEqual(len(self.errors), 1)
-            _, v = self.errors[0]
-            self.assertIsInstance(v, UnicodeError)
-        else:
-            read_http(sock.makefile(), code=200, reason='PASSED')
-            self.assertEqual(len(self.errors), 0)
+        with self.connect() as sock:
+            self.expect_one_error()
+            sock.sendall(b'''GET / HTTP/1.1\r\n\r\n''')
+            with sock.makefile() as fd:
+                if self.should_error:
+                    read_http(fd, code=500, reason='Internal Server Error')
+                    self.assert_error(where_type=pywsgi.SecureEnviron)
+                    self.assertEqual(len(self.errors), 1)
+                    _, v = self.errors[0]
+                    self.assertIsInstance(v, UnicodeError)
+                else:
+                    read_http(fd, code=200, reason='PASSED')
+                    self.assertEqual(len(self.errors), 0)
 
 
 class TestNonLatin1UnicodeHeaderFromApplication(TestNonLatin1HeaderFromApplication):
@@ -905,12 +970,12 @@ class TestInputReadline(TestCase):
         return [l.encode('ascii') for l in lines] if PY3 else lines
 
     def test(self):
-        fd = self.makefile()
-        content = 'hello\n\nworld\n123'
-        fd.write('POST / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
-                 'Content-Length: %s\r\n\r\n%s' % (len(content), content))
-        fd.flush()
-        read_http(fd, reason='hello', body="'hello\\n' '\\n' 'world\\n' '123' ")
+        with self.makefile() as fd:
+            content = 'hello\n\nworld\n123'
+            fd.write('POST / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n'
+                     'Content-Length: %s\r\n\r\n%s' % (len(content), content))
+            fd.flush()
+            read_http(fd, reason='hello', body="'hello\\n' '\\n' 'world\\n' '123' ")
 
 
 class TestInputIter(TestInputReadline):
@@ -986,17 +1051,14 @@ class TestEmptyYield(TestCase):
         yield b""
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+        chunks = []
 
-        if server_implements_chunked:
-            chunks = []
-        else:
-            chunks = False
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
 
-        read_http(fd, body='', chunks=chunks)
+            read_http(fd, body='', chunks=chunks)
 
-        garbage = fd.read()
+            garbage = fd.read()
         self.assertEqual(garbage, b"", "got garbage: %r" % garbage)
 
 
@@ -1009,18 +1071,15 @@ class TestFirstEmptyYield(TestCase):
         yield b"hello"
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+        chunks = [b'hello']
 
-        if server_implements_chunked:
-            chunks = [b'hello']
-        else:
-            chunks = False
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
 
-        read_http(fd, body='hello', chunks=chunks)
+            read_http(fd, body='hello', chunks=chunks)
 
-        garbage = fd.read()
-        self.assertTrue(garbage == b"", "got garbage: %r" % garbage)
+            garbage = fd.read()
+        self.assertEqual(garbage, b"")
 
 
 class TestEmptyYield304(TestCase):
@@ -1032,11 +1091,11 @@ class TestEmptyYield304(TestCase):
         yield b""
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        read_http(fd, code=304, body='', chunks=False)
-        garbage = fd.read()
-        self.assertEqual(garbage, b"", "got garbage: %r" % garbage)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            read_http(fd, code=304, body='', chunks=False)
+            garbage = fd.read()
+        self.assertEqual(garbage, b"")
 
 
 class TestContentLength304(TestCase):
@@ -1052,12 +1111,13 @@ class TestContentLength304(TestCase):
             raise AssertionError('start_response did not fail but it should')
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
         body = "Invalid Content-Length for 304 response: '100' (must be absent or zero)"
-        read_http(fd, code=200, reason='Raised', body=body, chunks=False)
-        garbage = fd.read()
-        self.assertEqual(garbage, b"", "got garbage: %r" % garbage)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+
+            read_http(fd, code=200, reason='Raised', body=body, chunks=False)
+            garbage = fd.read()
+        self.assertEqual(garbage, b"")
 
 
 class TestBody304(TestCase):
@@ -1068,14 +1128,12 @@ class TestBody304(TestCase):
         return [b'body']
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        try:
-            read_http(fd)
-        except AssertionError as ex:
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            with self.assertRaises(AssertionError) as exc:
+                read_http(fd)
+            ex = exc.exception
             self.assertEqual(str(ex), 'The 304 response must have no body')
-        else:
-            raise AssertionError('AssertionError must be raised')
 
 
 class TestWrite304(TestCase):
@@ -1087,16 +1145,17 @@ class TestWrite304(TestCase):
         self.error_raised = False
         try:
             write('body')
-        except AssertionError:
+        except AssertionError as ex:
             self.error_raised = True
-            raise
+            raise ExpectedAssertionError(*ex.args)
 
     def test_err(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(b'GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        with self.assertRaises(AssertionError) as exc:
-            read_http(fd)
-        ex = exc.exception
+        with self.makefile() as fd:
+            fd.write(b'GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            with self.assertRaises(AssertionError) as exc:
+                read_http(fd)
+            ex = exc.exception
+
         self.assertEqual(str(ex), 'The 304 response must have no body')
         self.assertTrue(self.error_raised, 'write() must raise')
 
@@ -1123,15 +1182,15 @@ class BadRequestTests(TestCase):
 
     def test_negative_content_length(self):
         self.content_length = '-100'
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nContent-Length: %s\r\n\r\n' % self.content_length)
-        read_http(fd, code=(200, 400))
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nContent-Length: %s\r\n\r\n' % self.content_length)
+            read_http(fd, code=(200, 400))
 
     def test_illegal_content_length(self):
         self.content_length = 'abc'
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nContent-Length: %s\r\n\r\n' % self.content_length)
-        read_http(fd, code=(200, 400))
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nContent-Length: %s\r\n\r\n' % self.content_length)
+            read_http(fd, code=(200, 400))
 
 
 class ChunkedInputTests(TestCase):
@@ -1173,63 +1232,48 @@ class ChunkedInputTests(TestCase):
         read_http(fd, body="pong")
 
     def ping_if_possible(self, fd):
-        try:
-            self.ping(fd)
-        except ConnectionClosed:
-            if server_implements_pipeline:
-                raise
-            fd = self.connect().makefile(bufsize=1)
-            self.ping(fd)
+        self.ping(fd)
 
     def test_short_read_with_content_length(self):
         body = self.body()
         req = b"POST /short-read HTTP/1.1\r\ntransfer-encoding: Chunked\r\nContent-Length:1000\r\n\r\n" + body
-        conn = self.connect()
-        fd = conn.makefile(bufsize=1)
-        fd.write(req)
-        read_http(fd, body="this is ch")
+        with self.connect() as conn:
+            with conn.makefile(bufsize=1) as fd: # pylint:disable=unexpected-keyword-arg
+                fd.write(req)
+                read_http(fd, body="this is ch")
 
-        self.ping_if_possible(fd)
-        fd.close()
-        conn.close()
+                self.ping_if_possible(fd)
 
     def test_short_read_with_zero_content_length(self):
         body = self.body()
         req = b"POST /short-read HTTP/1.1\r\ntransfer-encoding: Chunked\r\nContent-Length:0\r\n\r\n" + body
         #print("REQUEST:", repr(req))
 
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(req)
-        read_http(fd, body="this is ch")
+        with self.makefile() as fd:
+            fd.write(req)
+            read_http(fd, body="this is ch")
 
-        self.ping_if_possible(fd)
+            self.ping_if_possible(fd)
 
     def test_short_read(self):
         body = self.body()
         req = b"POST /short-read HTTP/1.1\r\ntransfer-encoding: Chunked\r\n\r\n" + body
 
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(req)
-        read_http(fd, body="this is ch")
+        with self.makefile() as fd:
+            fd.write(req)
+            read_http(fd, body="this is ch")
 
-        self.ping_if_possible(fd)
+            self.ping_if_possible(fd)
 
     def test_dirt(self):
         body = self.body(dirt="; here is dirt\0bla")
         req = b"POST /ping HTTP/1.1\r\ntransfer-encoding: Chunked\r\n\r\n" + body
 
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(req)
-        try:
+        with self.makefile() as fd:
+            fd.write(req)
             read_http(fd, body="pong")
-        except AssertionError as ex:
-            if str(ex).startswith('Unexpected code: 400'):
-                if not server_implements_chunked:
-                    print('ChunkedNotImplementedWarning')
-                    return
-            raise
 
-        self.ping_if_possible(fd)
+            self.ping_if_possible(fd)
 
     def test_chunked_readline(self):
         body = self.body()
@@ -1237,18 +1281,18 @@ class ChunkedInputTests(TestCase):
         req = req.encode('latin-1')
         req += body
 
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(req)
-        read_http(fd, body='this is chunked\nline 2\nline3')
+        with self.makefile() as fd:
+            fd.write(req)
+            read_http(fd, body='this is chunked\nline 2\nline3')
 
     def test_close_before_finished(self):
         self.expect_one_error()
         body = b'4\r\nthi'
         req = b"POST /short-read HTTP/1.1\r\ntransfer-encoding: Chunked\r\n\r\n" + body
-        sock = self.connect()
-        fd = sock.makefile(bufsize=1, mode='wb')
-        fd.write(req)
-        fd.close()
+        with self.connect() as sock:
+            with sock.makefile(bufsize=1, mode='wb') as fd:# pylint:disable=unexpected-keyword-arg
+                fd.write(req)
+                fd.close()
 
         # Python 3 keeps the socket open even though the only
         # makefile is gone; python 2 closed them both (because there were
@@ -1304,21 +1348,13 @@ class Expect100ContinueTests(TestCase):
         return [text]
 
     def test_continue(self):
-        fd = self.connect().makefile(bufsize=1)
-
-        fd.write('PUT / HTTP/1.1\r\nHost: localhost\r\nContent-length: 1025\r\nExpect: 100-continue\r\n\r\n')
-        try:
+        with self.makefile() as fd:
+            fd.write('PUT / HTTP/1.1\r\nHost: localhost\r\nContent-length: 1025\r\nExpect: 100-continue\r\n\r\n')
             read_http(fd, code=417, body="failure")
-        except AssertionError as ex:
-            if str(ex).startswith('Unexpected code: 400'):
-                if not server_implements_100continue:
-                    print('100ContinueNotImplementedWarning')
-                    return
-            raise
 
-        fd.write('PUT / HTTP/1.1\r\nHost: localhost\r\nContent-length: 7\r\nExpect: 100-continue\r\n\r\ntesting')
-        read_http(fd, code=100)
-        read_http(fd, body="testing")
+            fd.write('PUT / HTTP/1.1\r\nHost: localhost\r\nContent-length: 7\r\nExpect: 100-continue\r\n\r\ntesting')
+            read_http(fd, code=100)
+            read_http(fd, body="testing")
 
 
 class MultipleCookieHeadersTest(TestCase):
@@ -1332,14 +1368,14 @@ class MultipleCookieHeadersTest(TestCase):
         return []
 
     def test(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write('''GET / HTTP/1.1
+        with self.makefile() as fd:
+            fd.write('''GET / HTTP/1.1
 Host: localhost
 Cookie: name1="value1"
 Cookie2: nameA="valueA"
 Cookie2: nameB="valueB"
 Cookie: name2="value2"\n\n'''.replace('\n', '\r\n'))
-        read_http(fd)
+            read_http(fd)
 
 
 class TestLeakInput(TestCase):
@@ -1364,15 +1400,15 @@ class TestLeakInput(TestCase):
         return [text]
 
     def test_connection_close_leak_simple(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(b"GET / HTTP/1.0\r\nConnection: close\r\n\r\n")
-        d = fd.read()
+        with self.makefile() as fd:
+            fd.write(b"GET / HTTP/1.0\r\nConnection: close\r\n\r\n")
+            d = fd.read()
         self.assertTrue(d.startswith(b"HTTP/1.1 200 OK"), d)
 
     def test_connection_close_leak_frame(self):
-        fd = self.connect().makefile(bufsize=1)
-        fd.write(b"GET /leak-frame HTTP/1.0\r\nConnection: close\r\n\r\n")
-        d = fd.read()
+        with self.makefile() as fd:
+            fd.write(b"GET /leak-frame HTTP/1.0\r\nConnection: close\r\n\r\n")
+            d = fd.read()
         self.assertTrue(d.startswith(b"HTTP/1.1 200 OK"), d)
         self._leak_environ.pop('_leak')
 
@@ -1405,9 +1441,9 @@ class TestHTTPResponseSplitting(TestCase):
         return ()
 
     def _assert_failure(self, message):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.0\r\nHost: localhost\r\n\r\n')
-        fd.read()
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.0\r\nHost: localhost\r\n\r\n')
+            fd.read()
         self.assertIsInstance(self.start_exc, ValueError)
         self.assertEqual(self.start_exc.args[0], message)
 
@@ -1432,17 +1468,18 @@ class TestInvalidEnviron(TestCase):
         for key, value in environ.items():
             if key in ('CONTENT_LENGTH', 'CONTENT_TYPE') or key.startswith('HTTP_'):
                 if key != 'HTTP_HOST':
-                    raise AssertionError('Unexpected environment variable: %s=%r' % (key, value))
+                    raise ExpectedAssertionError('Unexpected environment variable: %s=%r' % (
+                        key, value))
         start_response('200 OK', [])
         return []
 
     def test(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.0\r\nHost: localhost\r\n\r\n')
-        read_http(fd)
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
-        read_http(fd)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.0\r\nHost: localhost\r\n\r\n')
+            read_http(fd)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\n\r\n')
+            read_http(fd)
 
 
 class TestInvalidHeadersDropped(TestCase):
@@ -1455,59 +1492,52 @@ class TestInvalidHeadersDropped(TestCase):
         return []
 
     def test(self):
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.0\r\nx-auth_user: bob\r\n\r\n')
-        read_http(fd)
-
-
-class Handler(pywsgi.WSGIHandler):
-
-    def read_requestline(self):
-        data = self.rfile.read(7)
-        if data[0] == b'<'[0]:
-            # Returning nothing stops handle_one_request()
-            # Note that closing or even deleting self.socket() here
-            # can lead to the read side throwing Connection Reset By Peer,
-            # depending on the Python version and OS
-            data += self.rfile.read(15)
-            if data.lower() == b'<policy-file-request/>':
-                self.socket.sendall(b'HELLO')
-            else:
-                self.log_error('Invalid request: %r', data)
-            return None
-        else:
-            return data + self.rfile.readline()
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.0\r\nx-auth_user: bob\r\n\r\n')
+            read_http(fd)
 
 
 class TestHandlerSubclass(TestCase):
 
     validator = None
 
+    class handler_class(TestCase.handler_class):
+
+        def read_requestline(self):
+            data = self.rfile.read(7)
+            if data[0] == b'<'[0]: # py3: indexing bytes returns ints. sigh.
+                # Returning nothing stops handle_one_request()
+                # Note that closing or even deleting self.socket() here
+                # can lead to the read side throwing Connection Reset By Peer,
+                # depending on the Python version and OS
+                data += self.rfile.read(15)
+                if data.lower() == b'<policy-file-request/>':
+                    self.socket.sendall(b'HELLO')
+                else:
+                    self.log_error('Invalid request: %r', data)
+                return None
+            return data + self.rfile.readline()
+
     def application(self, environ, start_response):
         start_response('200 OK', [])
         return []
 
-    def init_server(self, application):
-        self.server = pywsgi.WSGIServer((self.listen_addr, 0),
-                                        application,
-                                        handler_class=Handler)
-
     def test(self):
-        fd = self.makefile()
-        fd.write(b'<policy-file-request/>\x00')
-        fd.flush() # flush() is needed on PyPy, apparently it buffers slightly differently
-        self.assertEqual(fd.read(), b'HELLO')
+        with self.makefile() as fd:
+            fd.write(b'<policy-file-request/>\x00')
+            fd.flush() # flush() is needed on PyPy, apparently it buffers slightly differently
+            self.assertEqual(fd.read(), b'HELLO')
 
-        fd = self.makefile()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
-        fd.flush()
-        read_http(fd)
+        with self.makefile() as fd:
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+            fd.flush()
+            read_http(fd)
 
-        fd = self.makefile()
-        # Trigger an error
-        fd.write('<policy-file-XXXuest/>\x00')
-        fd.flush()
-        self.assertEqual(fd.read(), b'')
+        with self.makefile() as fd:
+            # Trigger an error
+            fd.write('<policy-file-XXXuest/>\x00')
+            fd.flush()
+            self.assertEqual(fd.read(), b'')
 
 
 class TestErrorAfterChunk(TestCase):
@@ -1520,10 +1550,11 @@ class TestErrorAfterChunk(TestCase):
         raise greentest.ExpectedException('TestErrorAfterChunk')
 
     def test(self):
-        fd = self.connect().makefile(bufsize=1)
-        self.expect_one_error()
-        fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: keep-alive\r\n\r\n')
-        self.assertRaises(ValueError, read_http, fd)
+        with self.makefile() as fd:
+            self.expect_one_error()
+            fd.write('GET / HTTP/1.1\r\nHost: localhost\r\nConnection: keep-alive\r\n\r\n')
+            with self.assertRaises(ValueError):
+                read_http(fd)
         self.assert_error(greentest.ExpectedException)
 
 
@@ -1612,14 +1643,12 @@ class TestInputRaw(greentest.BaseTestCase):
     def test_32bit_overflow(self):
         # https://github.com/gevent/gevent/issues/289
         # Should not raise an OverflowError on Python 2
-        print("BEGIN 32bit")
         data = b'asdf\nghij\n'
         long_data = b'a' * (pywsgi.MAX_REQUEST_LINE + 10)
         long_data += b'\n'
         data = data + long_data
         partial_data = b'qjk\n' # Note terminating \n
         n = 25 * 1000000000
-        print("N", n, "Data len", len(data))
         if hasattr(n, 'bit_length'):
             self.assertEqual(n.bit_length(), 35)
         if not PY3 and not PYPY:
@@ -1650,10 +1679,10 @@ class Test414(TestCase):
         raise AssertionError('should not get there')
 
     def test(self):
-        fd = self.makefile()
         longline = 'x' * 20000
-        fd.write(('''GET /%s HTTP/1.0\r\nHello: world\r\n\r\n''' % longline).encode('latin-1'))
-        read_http(fd, code=414)
+        with self.makefile() as fd:
+            fd.write(('''GET /%s HTTP/1.0\r\nHello: world\r\n\r\n''' % longline).encode('latin-1'))
+            read_http(fd, code=414)
 
 
 class TestLogging(TestCase):
@@ -1805,7 +1834,6 @@ class TestEnviron(TestCase):
 
             self.assertEqual(json.dumps(bltin), json.dumps(env))
 
-del CommonTests
 
 if __name__ == '__main__':
     greentest.main()

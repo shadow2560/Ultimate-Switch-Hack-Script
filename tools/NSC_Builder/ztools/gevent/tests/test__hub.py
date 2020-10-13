@@ -30,6 +30,7 @@ import gevent
 from gevent import socket
 from gevent.hub import Waiter, get_hub
 from gevent._compat import NativeStrIO
+from gevent._compat import get_this_psutil_process
 
 DELAY = 0.1
 
@@ -158,6 +159,7 @@ class TestPeriodicMonitoringThread(greentest.TestCase):
         gevent.config.monitor_thread = self.monitor_thread
         self.monitored_hubs = None
         self._reset_hub()
+        super(TestPeriodicMonitoringThread, self).tearDown()
 
     def _monitor(self, hub):
         self.monitor_fired += 1
@@ -204,9 +206,16 @@ class TestPeriodicMonitoringThread(greentest.TestCase):
         monitor = hub.start_periodic_monitoring_thread()
         self.assertIsNotNone(monitor)
 
-        self.assertEqual(2, len(monitor.monitoring_functions()))
+        basic_monitor_func_count = 1
+        if get_this_psutil_process() is not None:
+            # psutil is installed
+            basic_monitor_func_count += 1
+
+        self.assertEqual(basic_monitor_func_count,
+                         len(monitor.monitoring_functions()))
         monitor.add_monitoring_function(self._monitor, 0.1)
-        self.assertEqual(3, len(monitor.monitoring_functions()))
+        self.assertEqual(basic_monitor_func_count + 1,
+                         len(monitor.monitoring_functions()))
         self.assertEqual(self._monitor, monitor.monitoring_functions()[-1].function)
         self.assertEqual(0.1, monitor.monitoring_functions()[-1].period)
 
@@ -219,7 +228,8 @@ class TestPeriodicMonitoringThread(greentest.TestCase):
             self._run_monitoring_threads(monitor)
         finally:
             monitor.add_monitoring_function(self._monitor, None)
-            self.assertEqual(2, len(monitor._monitoring_functions))
+            self.assertEqual(basic_monitor_func_count,
+                             len(monitor._monitoring_functions))
             assert hub.exception_stream is stream
             monitor.kill()
             del hub.exception_stream
@@ -320,12 +330,37 @@ class TestPeriodicMonitoringThread(greentest.TestCase):
 class TestLoopInterface(unittest.TestCase):
 
     def test_implemensts_ILoop(self):
-        from zope.interface import verify
+        from gevent.testing import verify
         from gevent._interfaces import ILoop
 
         loop = get_hub().loop
 
         verify.verifyObject(ILoop, loop)
+
+
+class TestHandleError(unittest.TestCase):
+
+    def tearDown(self):
+        try:
+            del get_hub().handle_error
+        except AttributeError:
+            pass
+
+    def test_exception_in_custom_handle_error_does_not_crash(self):
+
+        def bad_handle_error(*args):
+            raise AttributeError
+
+        get_hub().handle_error = bad_handle_error
+
+        class MyException(Exception):
+            pass
+
+        def raises():
+            raise MyException
+
+        with self.assertRaises(MyException):
+            gevent.spawn(raises).get()
 
 
 if __name__ == '__main__':

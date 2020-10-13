@@ -16,7 +16,25 @@ libuv = _corecffi.lib
 from gevent._ffi import watcher as _base
 from gevent._ffi import _dbg
 
-_closing_watchers = set()
+# A set of uv_handle_t* CFFI objects. Kept around
+# to keep the memory alive until libuv is done with them.
+class _ClosingWatchers(dict):
+    __slots__ = ()
+
+    def remove(self, obj):
+        try:
+            del self[obj]
+        except KeyError: # pragma: no cover
+            # This has been seen to happen if the module is executed twice
+            # and so the callback doesn't match the storage seen by watcher objects.
+            print(
+                'gevent error: Unable to remove closing watcher from keepaliveset. '
+                'Has the module state been corrupted or executed more than once?',
+                file=sys.stderr
+            )
+
+_closing_watchers = _ClosingWatchers()
+
 
 # In debug mode, it would be nice to be able to clear the memory of
 # the watcher (its size determined by
@@ -27,7 +45,9 @@ _closing_watchers = set()
 # crash) suggesting either that we're writing on memory that doesn't
 # belong to us, somehow, or that we haven't actually lost all
 # references...
-_uv_close_callback = ffi.def_extern(name='_uv_close_callback')(_closing_watchers.remove)
+_uv_close_callback = ffi.def_extern(name='_uv_close_callback')(
+    _closing_watchers.remove
+)
 
 
 _events = [(libuv.UV_READABLE, "READ"),
@@ -121,20 +141,19 @@ class watcher(_base.watcher):
         # Instead, this is arranged as a callback to GC when the
         # watcher class dies. Obviously it's important to keep the ffi
         # watcher alive.
-        # We can pass in "subclasses" if uv_handle_t that line up at the C level,
+        # We can pass in "subclasses" of uv_handle_t that line up at the C level,
         # but that don't in CFFI without a cast. But be careful what we use the cast
         # for, don't pass it back to C.
         ffi_handle_watcher = cls._FFI.cast('uv_handle_t*', ffi_watcher)
+        ffi_handle_watcher.data = ffi.NULL
+
         if ffi_handle_watcher.type and not libuv.uv_is_closing(ffi_watcher):
             # If the type isn't set, we were never properly initialized,
             # and trying to close it results in libuv terminating the process.
             # Sigh. Same thing if it's already in the process of being
             # closed.
-            _closing_watchers.add(ffi_watcher)
+            _closing_watchers[ffi_handle_watcher] = ffi_watcher
             libuv.uv_close(ffi_watcher, libuv._uv_close_callback)
-
-        ffi_handle_watcher.data = ffi.NULL
-
 
     def _watcher_ffi_set_init_ref(self, ref):
         self.ref = ref
@@ -471,22 +490,25 @@ class _SimulatedWithAsyncMixin(object):
         return self._async.active
 
     def start(self, cb, *args):
+        assert self._async is not None
         self._register_loop_callback()
         self.callback = cb
         self.args = args
         self._async.start(cb, *args)
-        #watcher.start(self, cb, *args)
 
     def stop(self):
         self._unregister_loop_callback()
         self.callback = None
         self.args = None
-        self._async.stop()
+        if self._async is not None:
+            # If we're stop() after close().
+            # That should be allowed.
+            self._async.stop()
 
     def close(self):
         if self._async is not None:
             a = self._async
-            #self._async = None
+            self._async = None
             a.close()
 
     def _register_loop_callback(self):
@@ -500,9 +522,7 @@ class _SimulatedWithAsyncMixin(object):
 class fork(_SimulatedWithAsyncMixin,
            _base.ForkMixin,
            watcher):
-    # We'll have to implement this one completely manually
-    # Right now it doesn't matter much since libuv doesn't survive
-    # a fork anyway. (That's a work in progress)
+    # We'll have to implement this one completely manually.
     _watcher_skip_ffi = False
 
     def _register_loop_callback(self):
@@ -548,33 +568,39 @@ class child(_SimulatedWithAsyncMixin,
 class async_(_base.AsyncMixin, watcher):
     _watcher_callback_name = '_gevent_async_callback0'
 
+    # libuv async watchers are different than all other watchers:
+    # They don't have a separate start/stop method (presumably
+    # because of race conditions). Simply initing them places them
+    # into the active queue.
+    #
+    # In the past, we sent a NULL C callback to the watcher, trusting
+    # that no one would call send() without actually starting us (or after
+    # closing us); doing so would crash. But we don't want to delay
+    # initing the struct because it will crash in uv_close() when we get GC'd,
+    # and send() will also crash. Plus that complicates our lifecycle (managing
+    # the memory).
+    #
+    # Now, we always init the correct C callback, and use a dummy
+    # Python callback that gets replaced when we are started and
+    # stopped. This prevents mistakes from being crashes.
+    _callback = lambda: None
+
     def _watcher_ffi_init(self, args):
-        # It's dangerous to have a raw, non-initted struct
-        # around; it will crash in uv_close() when we get GC'd,
-        # and send() will also crash.
         # NOTE: uv_async_init is NOT idempotent. Calling it more than
         # once adds the uv_async_t to the internal queue multiple times,
         # and uv_close only cleans up one of them, meaning that we tend to
         # crash. Thus we have to be very careful not to allow that.
-        return self._watcher_init(self.loop.ptr, self._watcher, ffi.NULL)
+        return self._watcher_init(self.loop.ptr, self._watcher,
+                                  self._watcher_callback)
 
     def _watcher_ffi_start(self):
-        # we're created in a started state, but we didn't provide a
-        # callback (because if we did and we don't have a value in our
-        # callback attribute, then python_callback would crash.) Note that
-        # uv_async_t->async_cb is not technically documented as public.
-        self._watcher.async_cb = self._watcher_callback
+        pass
 
     def _watcher_ffi_stop(self):
-        self._watcher.async_cb = ffi.NULL
-        # We have to unref this because we're setting the cb behind libuv's
-        # back, basically: once a async watcher is started, it can't ever be
-        # stopped through libuv interfaces, so it would never lose its active
-        # status, and thus if it stays reffed it would keep the event loop
-        # from exiting.
-        self._watcher_ffi_unref()
+        pass
 
     def send(self):
+        assert self._callback is not async_._callback, "Sending to a closed watcher"
         if libuv.uv_is_closing(self._watcher):
             raise Exception("Closing handle")
         libuv.uv_async_send(self._watcher)
@@ -610,7 +636,7 @@ class timer(_base.TimerMixin, watcher):
     _again = False
 
     def _watcher_ffi_init(self, args):
-        self._watcher_init(self.loop._ptr, self._watcher)
+        self._watcher_init(self.loop.ptr, self._watcher)
         self._after, self._repeat = args
         if self._after and self._after < 0.001:
             import warnings
@@ -665,7 +691,7 @@ class stat(_base.StatMixin, watcher):
         return data
 
     def _watcher_ffi_init(self, args):
-        return self._watcher_init(self.loop._ptr, self._watcher)
+        return self._watcher_init(self.loop.ptr, self._watcher)
 
     MIN_STAT_INTERVAL = 0.1074891 # match libev; 0.0 is default
 
@@ -698,7 +724,7 @@ class signal(_base.SignalMixin, watcher):
     _watcher_callback_name = '_gevent_signal_callback1'
 
     def _watcher_ffi_init(self, args):
-        self._watcher_init(self.loop._ptr, self._watcher)
+        self._watcher_init(self.loop.ptr, self._watcher)
         self.ref = False # libev doesn't ref these by default
 
 

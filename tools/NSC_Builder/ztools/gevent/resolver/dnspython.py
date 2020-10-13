@@ -60,314 +60,132 @@
 # THE SOFTWARE.
 from __future__ import absolute_import, print_function, division
 
-import time
-import re
-import os
 import sys
+import time
 
-import _socket
-from _socket import AI_NUMERICHOST
 from _socket import error
+from _socket import gaierror
+from _socket import herror
 from _socket import NI_NUMERICSERV
 from _socket import AF_INET
 from _socket import AF_INET6
 from _socket import AF_UNSPEC
+from _socket import EAI_NONAME
+from _socket import EAI_FAMILY
+
 
 import socket
 
 from gevent.resolver import AbstractResolver
-from gevent.resolver import hostname_types
+from gevent.resolver._hostsfile import HostsFile
+
+from gevent.builtins import __import__ as g_import
 
 from gevent._compat import string_types
 from gevent._compat import iteritems
-from gevent._patcher import import_patched
 from gevent._config import config
+
 
 __all__ = [
     'Resolver',
 ]
 
 # Import the DNS packages to use the gevent modules,
-# even if the system is not monkey-patched.
+# even if the system is not monkey-patched. If it *is* already
+# patched, this imports a second copy under a different name,
+# which is probably not strictly necessary, but matches
+# what we've historically done, and allows configuring the resolvers
+# differently.
+
 def _patch_dns():
-    top = import_patched('dns')
-    for pkg in ('dns',
-                'dns.rdtypes',
-                'dns.rdtypes.IN',
-                'dns.rdtypes.ANY'):
-        mod = import_patched(pkg)
-        for name in mod.__all__:
-            setattr(mod, name, import_patched(pkg + '.' + name))
+    from gevent._patcher import import_patched as importer
+    # The dns package itself is empty but defines __all__
+    # we make sure to import all of those things now under the
+    # patch. Note this triggers two DeprecationWarnings,
+    # one of which we could avoid.
+    extras = {
+        'dns': ('rdata', 'resolver', 'rdtypes'),
+        'dns.rdtypes': ('IN', 'ANY', ),
+        'dns.rdtypes.IN': ('A', 'AAAA',),
+        'dns.rdtypes.ANY': ('SOA', 'PTR'),
+    }
+    def extra_all(mod_name):
+        return extras.get(mod_name, ())
+
+    def after_import_hook(dns): # pylint:disable=redefined-outer-name
+        # Runs while still in the original patching scope.
+        # The dns.rdata:get_rdata_class() function tries to
+        # dynamically import modules using __import__ and then walk
+        # through the attribute tree to find classes in `dns.rdtypes`.
+        # It is critical that this all matches up, otherwise we can
+        # get different exception classes that don't get caught.
+        # We could patch __import__ to do things at runtime, but it's
+        # easier to enumerate the world and populate the cache now
+        # before we then switch the names back.
+        rdata = dns.rdata
+        get_rdata_class = rdata.get_rdata_class
+        try:
+            rdclass_values = list(dns.rdataclass.RdataClass)
+        except AttributeError:
+            # dnspython < 2.0
+            rdclass_values = dns.rdataclass._by_value
+
+        try:
+            rdtype_values = list(dns.rdatatype.RdataType)
+        except AttributeError:
+            # dnspython < 2.0
+            rdtype_values = dns.rdatatype._by_value
+
+
+        for rdclass in rdclass_values:
+            for rdtype in rdtype_values:
+                get_rdata_class(rdclass, rdtype)
+
+    patcher = importer('dns', extra_all, after_import_hook)
+    top = patcher.module
+
+    # Now disable the dynamic imports
+    def _no_dynamic_imports(name):
+        raise ValueError(name)
+
+    top.rdata.__import__ = _no_dynamic_imports
+
     return top
 
 dns = _patch_dns()
 
-def _dns_import_patched(name):
-    assert name.startswith('dns')
-    import_patched(name)
-    return dns
-
-# This module tries to dynamically import classes
-# using __import__, and it's important that they match
-# the ones we just created, otherwise exceptions won't be caught
-# as expected. It uses a one-arg __import__ statement and then
-# tries to walk down the sub-modules using getattr, so we can't
-# directly use import_patched as-is.
-dns.rdata.__import__ = _dns_import_patched
-
 resolver = dns.resolver
 dTimeout = dns.resolver.Timeout
 
-_exc_clear = getattr(sys, 'exc_clear', lambda: None)
+# This is a wrapper for dns.resolver._getaddrinfo with two crucial changes.
+# First, it backports https://github.com/rthalley/dnspython/issues/316
+# from version 2.0. This can be dropped when we support only dnspython 2
+# (which means only Python 3.)
 
-# This is a copy of resolver._getaddrinfo with the crucial change that it
-# doesn't have a bare except:, because that breaks Timeout and KeyboardInterrupt
-# A secondary change is that calls to sys.exc_clear() have been inserted to avoid
-# failing tests in test__refcount.py (timeouts).
-# See https://github.com/rthalley/dnspython/pull/300
+# Second, it adds calls to sys.exc_clear() to avoid failing tests in
+# test__refcount.py (timeouts) on Python 2. (Actually, this isn't
+# strictly necessary, it was necessary to increase the timeouts in
+# that function because dnspython is doing some parsing/regex/host
+# lookups that are not super fast. But it does have a habit of leaving
+# exceptions around which can complicate our memleak checks.)
 def _getaddrinfo(host=None, service=None, family=AF_UNSPEC, socktype=0,
-                 proto=0, flags=0):
-    # pylint:disable=too-many-locals,broad-except,too-many-statements
-    # pylint:disable=too-many-branches
-    # pylint:disable=redefined-argument-from-local
-    # pylint:disable=consider-using-in
+                 proto=0, flags=0,
+                 _orig_gai=resolver._getaddrinfo,
+                 _exc_clear=getattr(sys, 'exc_clear', lambda: None)):
     if flags & (socket.AI_ADDRCONFIG | socket.AI_V4MAPPED) != 0:
-        raise NotImplementedError
-    if host is None and service is None:
-        raise socket.gaierror(socket.EAI_NONAME)
-    v6addrs = []
-    v4addrs = []
-    canonical_name = None
-    try:
-        # Is host None or a V6 address literal?
-        if host is None:
-            canonical_name = 'localhost'
-            if flags & socket.AI_PASSIVE != 0:
-                v6addrs.append('::')
-                v4addrs.append('0.0.0.0')
-            else:
-                v6addrs.append('::1')
-                v4addrs.append('127.0.0.1')
-        else:
-            parts = host.split('%')
-            if len(parts) == 2:
-                ahost = parts[0]
-            else:
-                ahost = host
-            addr = dns.ipv6.inet_aton(ahost)
-            v6addrs.append(host)
-            canonical_name = host
-    except Exception:
-        _exc_clear()
-        try:
-            # Is it a V4 address literal?
-            addr = dns.ipv4.inet_aton(host)
-            v4addrs.append(host)
-            canonical_name = host
-        except Exception:
-            _exc_clear()
-            if flags & socket.AI_NUMERICHOST == 0:
-                try:
-                    if family == socket.AF_INET6 or family == socket.AF_UNSPEC:
-                        v6 = resolver._resolver.query(host, dns.rdatatype.AAAA,
-                                                      raise_on_no_answer=False)
-                        # Note that setting host ensures we query the same name
-                        # for A as we did for AAAA.
-                        host = v6.qname
-                        canonical_name = v6.canonical_name.to_text(True)
-                        if v6.rrset is not None:
-                            for rdata in v6.rrset:
-                                v6addrs.append(rdata.address)
-                    if family == socket.AF_INET or family == socket.AF_UNSPEC:
-                        v4 = resolver._resolver.query(host, dns.rdatatype.A,
-                                                      raise_on_no_answer=False)
-                        host = v4.qname
-                        canonical_name = v4.canonical_name.to_text(True)
-                        if v4.rrset is not None:
-                            for rdata in v4.rrset:
-                                v4addrs.append(rdata.address)
-                except dns.resolver.NXDOMAIN:
-                    _exc_clear()
-                    raise socket.gaierror(socket.EAI_NONAME)
-                except Exception:
-                    _exc_clear()
-                    raise socket.gaierror(socket.EAI_SYSTEM)
-    port = None
-    try:
-        # Is it a port literal?
-        if service is None:
-            port = 0
-        else:
-            port = int(service)
-    except Exception:
-        _exc_clear()
-        if flags & socket.AI_NUMERICSERV == 0:
-            try:
-                port = socket.getservbyname(service)
-            except Exception:
-                _exc_clear()
-
-    if port is None:
-        raise socket.gaierror(socket.EAI_NONAME)
-    tuples = []
-    if socktype == 0:
-        socktypes = [socket.SOCK_DGRAM, socket.SOCK_STREAM]
-    else:
-        socktypes = [socktype]
-    if flags & socket.AI_CANONNAME != 0:
-        cname = canonical_name
-    else:
-        cname = ''
-    if family == socket.AF_INET6 or family == socket.AF_UNSPEC:
-        for addr in v6addrs:
-            for socktype in socktypes:
-                for proto in resolver._protocols_for_socktype[socktype]:
-                    tuples.append((socket.AF_INET6, socktype, proto,
-                                   cname, (addr, port, 0, 0))) # XXX: gevent: this can get the scopeid wrong
-    if family == socket.AF_INET or family == socket.AF_UNSPEC:
-        for addr in v4addrs:
-            for socktype in socktypes:
-                for proto in resolver._protocols_for_socktype[socktype]:
-                    tuples.append((socket.AF_INET, socktype, proto,
-                                   cname, (addr, port)))
-    if len(tuples) == 0: # pylint:disable=len-as-condition
-        raise socket.gaierror(socket.EAI_NONAME)
-    return tuples
+        # Not implemented.  We raise a gaierror as opposed to a
+        # NotImplementedError as it helps callers handle errors more
+        # appropriately.  [Issue #316]
+        raise socket.gaierror(socket.EAI_SYSTEM)
+    res = _orig_gai(host, service, family, socktype, proto, flags)
+    _exc_clear()
+    return res
 
 
 resolver._getaddrinfo = _getaddrinfo
 
 HOSTS_TTL = 300.0
 
-def _is_addr(host, parse=dns.ipv4.inet_aton):
-    if not host:
-        return False
-    assert isinstance(host, hostname_types), repr(host)
-    try:
-        parse(host)
-    except dns.exception.SyntaxError:
-        return False
-    else:
-        return True
-
-# Return True if host is a valid IPv4 address
-_is_ipv4_addr = _is_addr
-
-
-def _is_ipv6_addr(host):
-    # Return True if host is a valid IPv6 address
-    if host:
-        s = '%' if isinstance(host, str) else b'%'
-        host = host.split(s, 1)[0]
-    return _is_addr(host, dns.ipv6.inet_aton)
-
-class HostsFile(object):
-    """
-    A class to read the contents of a hosts file (/etc/hosts).
-    """
-
-    LINES_RE = re.compile(r"""
-        \s*  # Leading space
-        ([^\r\n#]+?)  # The actual match, non-greedy so as not to include trailing space
-        \s*  # Trailing space
-        (?:[#][^\r\n]+)?  # Comments
-        (?:$|[\r\n]+)  # EOF or newline
-    """, re.VERBOSE)
-
-    def __init__(self, fname=None):
-        self.v4 = {} # name -> ipv4
-        self.v6 = {} # name -> ipv6
-        self.aliases = {} # name -> canonical_name
-        self.reverse = {} # ip addr -> some name
-        if fname is None:
-            if os.name == 'posix':
-                fname = '/etc/hosts'
-            elif os.name == 'nt': # pragma: no cover
-                fname = os.path.expandvars(
-                    r'%SystemRoot%\system32\drivers\etc\hosts')
-        self.fname = fname
-        assert self.fname
-        self._last_load = 0
-
-
-    def _readlines(self):
-        # Read the contents of the hosts file.
-        #
-        # Return list of lines, comment lines and empty lines are
-        # excluded. Note that this performs disk I/O so can be
-        # blocking.
-        with open(self.fname, 'rb') as fp:
-            fdata = fp.read()
-
-
-        # XXX: Using default decoding. Is that correct?
-        udata = fdata.decode(errors='ignore') if not isinstance(fdata, str) else fdata
-
-        return self.LINES_RE.findall(udata)
-
-    def load(self): # pylint:disable=too-many-locals
-        # Load hosts file
-
-        # This will (re)load the data from the hosts
-        # file if it has changed.
-
-        try:
-            load_time = os.stat(self.fname).st_mtime
-            needs_load = load_time > self._last_load
-        except (IOError, OSError):
-            from gevent import get_hub
-            get_hub().handle_error(self, *sys.exc_info())
-            needs_load = False
-
-        if not needs_load:
-            return
-
-        v4 = {}
-        v6 = {}
-        aliases = {}
-        reverse = {}
-
-        for line in self._readlines():
-            parts = line.split()
-            if len(parts) < 2:
-                continue
-            ip = parts.pop(0)
-            if _is_ipv4_addr(ip):
-                ipmap = v4
-            elif _is_ipv6_addr(ip):
-                if ip.startswith('fe80'):
-                    # Do not use link-local addresses, OSX stores these here
-                    continue
-                ipmap = v6
-            else:
-                continue
-            cname = parts.pop(0).lower()
-            ipmap[cname] = ip
-            for alias in parts:
-                alias = alias.lower()
-                ipmap[alias] = ip
-                aliases[alias] = cname
-
-            # XXX: This is wrong for ipv6
-            if ipmap is v4:
-                ptr = '.'.join(reversed(ip.split('.'))) + '.in-addr.arpa'
-            else:
-                ptr = ip + '.ip6.arpa.'
-            if ptr not in reverse:
-                reverse[ptr] = cname
-
-        self._last_load = load_time
-        self.v4 = v4
-        self.v6 = v6
-        self.aliases = aliases
-        self.reverse = reverse
-
-    def iter_all_host_addr_pairs(self):
-        self.load()
-        for name, addr in iteritems(self.v4):
-            yield name, addr
-        for name, addr in iteritems(self.v6):
-            yield name, addr
 
 class _HostsAnswer(dns.resolver.Answer):
     # Answer class for HostsResolver object
@@ -514,6 +332,7 @@ def _family_to_rdtype(family):
                               'Address family not supported')
     return rdtype
 
+
 class Resolver(AbstractResolver):
     """
     An *experimental* resolver that uses `dnspython`_.
@@ -540,7 +359,13 @@ class Resolver(AbstractResolver):
     .. caution::
 
         Many of the same caveats about DNS results apply here as are documented
-        for :class:`gevent.resolver.ares.Resolver`.
+        for :class:`gevent.resolver.ares.Resolver`. In addition, the handling of
+        symbolic scope IDs in IPv6 addresses passed to ``getaddrinfo`` exhibits
+        some differences.
+
+        On PyPy, ``getnameinfo`` can produce results when CPython raises
+        ``socket.error``, and gevent's DNSPython resolver also
+        raises ``socket.error``.
 
     .. caution::
 
@@ -548,6 +373,12 @@ class Resolver(AbstractResolver):
         the future. As always, feedback is welcome.
 
     .. versionadded:: 1.3a2
+
+    .. versionchanged:: 20.5.0
+       The errors raised are now much more consistent with those
+       raised by the standard library resolvers.
+
+       Handling of localhost and broadcast names is now more consistent.
 
     .. _dnspython: http://www.dnspython.org
     """
@@ -589,30 +420,36 @@ class Resolver(AbstractResolver):
         aliases = self._resolver.hosts_resolver.getaliases(hostname)
         net_resolver = self._resolver.network_resolver
         rdtype = _family_to_rdtype(family)
-        while True:
+        while 1:
             try:
                 ans = net_resolver.query(hostname, dns.rdatatype.CNAME, rdtype)
             except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN, dns.resolver.NoNameservers):
                 break
             except dTimeout:
                 break
+            except AttributeError as ex:
+                if hostname is None or isinstance(hostname, int):
+                    raise TypeError(ex)
+                raise
             else:
                 aliases.extend(str(rr.target) for rr in ans.rrset)
                 hostname = ans[0].target
         return aliases
 
-    def getaddrinfo(self, host, port, family=0, socktype=0, proto=0, flags=0):
-        if ((host in (u'localhost', b'localhost')
-             or (_is_ipv6_addr(host) and host.startswith('fe80')))
-                or not isinstance(host, str) or (flags & AI_NUMERICHOST)):
-            # this handles cases which do not require network access
-            # 1) host is None
-            # 2) host is of an invalid type
-            # 3) host is localhost or a link-local ipv6; dnspython returns the wrong
-            #    scope-id for those.
-            # 3) AI_NUMERICHOST flag is set
+    def _getaddrinfo(self, host_bytes, port, family, socktype, proto, flags):
+        # dnspython really wants the host to be in native format.
+        if not isinstance(host_bytes, str):
+            host_bytes = host_bytes.decode(self.HOSTNAME_ENCODING)
 
-            return _socket.getaddrinfo(host, port, family, socktype, proto, flags)
+        if host_bytes == 'ff02::1de:c0:face:8D':
+            # This is essentially a hack to make stdlib
+            # test_socket:GeneralModuleTests.test_getaddrinfo_ipv6_basic
+            # pass. They expect to get back a lowercase ``D``, but
+            # dnspython does not do that.
+            # ``test_getaddrinfo_ipv6_scopeid_symbolic`` also expect
+            # the scopeid to be dropped, but again, dnspython does not
+            # do that; we cant fix that here so we skip that test.
+            host_bytes = 'ff02::1de:c0:face:8d'
 
         if family == AF_UNSPEC:
             # This tends to raise in the case that a v6 address did not exist
@@ -625,22 +462,24 @@ class Resolver(AbstractResolver):
 
             # See also https://github.com/gevent/gevent/issues/1012
             try:
-                return _getaddrinfo(host, port, family, socktype, proto, flags)
-            except socket.gaierror:
+                return _getaddrinfo(host_bytes, port, family, socktype, proto, flags)
+            except gaierror:
                 try:
-                    return _getaddrinfo(host, port, AF_INET6, socktype, proto, flags)
-                except socket.gaierror:
-                    return _getaddrinfo(host, port, AF_INET, socktype, proto, flags)
+                    return _getaddrinfo(host_bytes, port, AF_INET6, socktype, proto, flags)
+                except gaierror:
+                    return _getaddrinfo(host_bytes, port, AF_INET, socktype, proto, flags)
         else:
-            return _getaddrinfo(host, port, family, socktype, proto, flags)
+            try:
+                return _getaddrinfo(host_bytes, port, family, socktype, proto, flags)
+            except gaierror as ex:
+                if ex.args[0] == EAI_NONAME and family not in self._KNOWN_ADDR_FAMILIES:
+                    # It's possible that we got sent an unsupported family. Check
+                    # that.
+                    ex.args = (EAI_FAMILY, self.EAI_FAMILY_MSG)
+                    ex.errno = EAI_FAMILY
+                raise
 
-    def getnameinfo(self, sockaddr, flags):
-        if (sockaddr
-                and isinstance(sockaddr, (list, tuple))
-                and sockaddr[0] in ('::1', '127.0.0.1', 'localhost')):
-            return _socket.getnameinfo(sockaddr, flags)
-        if isinstance(sockaddr, (list, tuple)) and not isinstance(sockaddr[0], hostname_types):
-            raise TypeError("getnameinfo(): illegal sockaddr argument")
+    def _getnameinfo(self, address_bytes, port, sockaddr, flags):
         try:
             return resolver._getnameinfo(sockaddr, flags)
         except error:
@@ -650,13 +489,21 @@ class Resolver(AbstractResolver):
                 # that does this. We conservatively fix it here; this could be expanded later.
                 return resolver._getnameinfo(sockaddr, NI_NUMERICSERV)
 
-    def gethostbyaddr(self, ip_address):
-        if ip_address in (u'127.0.0.1', u'::1',
-                          b'127.0.0.1', b'::1',
-                          'localhost'):
-            return _socket.gethostbyaddr(ip_address)
+    def _gethostbyaddr(self, ip_address_bytes):
+        try:
+            return resolver._gethostbyaddr(ip_address_bytes)
+        except gaierror as ex:
+            if ex.args[0] == EAI_NONAME:
+                # Note: The system doesn't *always* raise herror;
+                # sometimes the original gaierror propagates through.
+                # It's impossible to say ahead of time or just based
+                # on the name which it should be. The herror seems to
+                # be by far the most common, though.
+                raise herror(1, "Unknown host")
+            raise
 
-        if not isinstance(ip_address, hostname_types):
-            raise TypeError("argument 1 must be str, bytes or bytearray, not %s" % (type(ip_address),))
-
-        return resolver._gethostbyaddr(ip_address)
+    # Things that need proper error handling
+    getnameinfo = AbstractResolver.fixup_gaierror(AbstractResolver.getnameinfo)
+    gethostbyaddr = AbstractResolver.fixup_gaierror(AbstractResolver.gethostbyaddr)
+    gethostbyname_ex = AbstractResolver.fixup_gaierror(AbstractResolver.gethostbyname_ex)
+    getaddrinfo = AbstractResolver.fixup_gaierror(AbstractResolver.getaddrinfo)

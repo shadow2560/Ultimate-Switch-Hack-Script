@@ -1,6 +1,6 @@
 @ECHO OFF
 chcp 65001 >nul
-set "program_version=1.01"
+set "program_version=1.01B"
 
 :TOP_INIT
 set "prog_dir=%~dp0"

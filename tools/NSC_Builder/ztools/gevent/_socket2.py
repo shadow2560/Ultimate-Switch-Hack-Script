@@ -3,9 +3,11 @@
 Python 2 socket module.
 """
 from __future__ import absolute_import
+from __future__ import print_function
 
 # Our import magic sadly makes this warning useless
 # pylint: disable=undefined-variable
+import sys
 
 from gevent import _socketcommon
 from gevent._util import copy_globals
@@ -36,8 +38,9 @@ except AttributeError:
                       'gettimeout', 'shutdown')
 else:
     # Python 2 doesn't natively support with statements on _fileobject;
-    # but it eases our test cases if we can do the same with on both Py3
-    # and Py2. Implementation copied from Python 3
+    # but it substantially eases our test cases if we can do the same with on both Py3
+    # and Py2. (For this same reason we make the socket itself a context manager.)
+    # Implementation copied from Python 3
     assert not hasattr(_fileobject, '__enter__')
     # we could either patch in place:
     #_fileobject.__enter__ = lambda self: self
@@ -48,12 +51,15 @@ else:
     # socket._fileobject (sigh), so we have to work around that.
 
     # We also make it call our custom socket closing method that disposes
-    # if IO watchers but not the actual socket itself.
+    # of IO watchers but not the actual socket itself.
 
     # Python 2 relies on reference counting to close sockets, so this is all
     # very ugly and fragile.
 
     class _fileobject(_fileobject): # pylint:disable=function-redefined
+        __slots__ = (
+            '__weakref__',
+        )
 
         def __enter__(self):
             return self
@@ -64,32 +70,24 @@ else:
 
         def close(self):
             if self._sock is not None:
-                self._sock._drop_events()
+                self._sock._drop_events_and_close(closefd=False)
             super(_fileobject, self).close()
 
 
-def _get_memory(data):
-    try:
-        mv = memoryview(data)
-        if mv.shape:
-            return mv
-        # No shape, probably working with a ctypes object,
-        # or something else exotic that supports the buffer interface
-        return mv.tobytes()
-    except TypeError:
-        # fixes "python2.7 array.array doesn't support memoryview used in
-        # gevent.socket.send" issue
-        # (http://code.google.com/p/gevent/issues/detail?id=94)
-        return buffer(data)
-
+from gevent._greenlet_primitives import get_memory as _get_memory
 
 class _closedsocket(object):
-    __slots__ = []
+    __slots__ = ()
 
     def _dummy(*args, **kwargs): # pylint:disable=no-method-argument,unused-argument
         raise error(EBADF, 'Bad file descriptor')
     # All _delegate_methods must also be initialized here.
     send = recv = recv_into = sendto = recvfrom = recvfrom_into = _dummy
+
+    def __nonzero__(self):
+        return False
+
+    __bool__ = __nonzero__
 
     if PYPY:
 
@@ -103,10 +101,11 @@ class _closedsocket(object):
 
 
 timeout_default = object()
+gtype = type
 
 from gevent._hub_primitives import wait_on_socket as _wait_on_socket
 
-class socket(object):
+class socket(_socketcommon.SocketMixin):
     """
     gevent `socket.socket <https://docs.python.org/2/library/socket.html#socket-objects>`_
     for Python 2.
@@ -114,33 +113,45 @@ class socket(object):
     This object should have the same API as the standard library socket linked to above. Not all
     methods are specifically documented here; when they are they may point out a difference
     to be aware of or may document a method the standard library does not.
+
+    .. versionchanged:: 1.5.0
+        This object is a context manager, returning itself, like in Python 3.
     """
 
     # pylint:disable=too-many-public-methods
 
+    # TODO: Define __slots__.
+
     def __init__(self, family=AF_INET, type=SOCK_STREAM, proto=0, _sock=None):
+        timeout = _socket.getdefaulttimeout()
         if _sock is None:
             self._sock = _realsocket(family, type, proto)
-            self.timeout = _socket.getdefaulttimeout()
         else:
             if hasattr(_sock, '_sock'):
-                # passed a gevent socket
-                self._sock = _sock._sock
-                self.timeout = getattr(_sock, 'timeout', False)
-                if self.timeout is False:
-                    self.timeout = _socket.getdefaulttimeout()
-            else:
-                # passed a native socket
-                self._sock = _sock
-                self.timeout = _socket.getdefaulttimeout()
+                timeout = getattr(_sock, 'timeout', timeout)
+                while hasattr(_sock, '_sock'):
+                    # passed a gevent socket or a native
+                    # socket._socketobject. Unwrap this all the way to the
+                    # native _socket.socket.
+                    _sock = _sock._sock
+
+            self._sock = _sock
+
             if PYPY:
                 self._sock._reuse()
+        self.timeout = timeout
         self._sock.setblocking(0)
         fileno = self._sock.fileno()
         self.hub = get_hub()
         io = self.hub.loop.io
         self._read_event = io(fileno, 1)
         self._write_event = io(fileno, 2)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, t, v, tb):
+        self.close()
 
     def __repr__(self):
         return '<%s at %s %s>' % (type(self).__name__, hex(id(self)), self._formatinfo())
@@ -199,38 +210,55 @@ class socket(object):
             client_socket._drop()
         return sockobj, address
 
-    def _drop_events(self, cancel_wait_ex=cancel_wait_ex):
-        if self._read_event is not None:
-            self.hub.cancel_wait(self._read_event, cancel_wait_ex, True)
-            self._read_event = None
-        if self._write_event is not None:
-            self.hub.cancel_wait(self._write_event, cancel_wait_ex, True)
-            self._write_event = None
 
+    def _drop_ref_on_close(self, sock):
+        # See the same method in _socket3.py. We just can't be as deterministic
+        # as we can on Python 3.
+        scheduled_new = self.hub.loop.closing_fd(sock.fileno())
+        if PYPY:
+            meth = sock._drop
+        else:
+            meth = sock.fileno # Still keep it alive if we need to
+        if scheduled_new:
+            self.hub.loop.run_callback(meth)
+        else:
+            meth()
 
     def close(self, _closedsocket=_closedsocket):
+        if not self._sock:
+            return
+
         # This function should not reference any globals. See Python issue #808164.
 
-        # Also break any reference to the loop.io objects. Our fileno,
-        # which they were tied to, is now free to be reused, so these
-        # objects are no longer functional.
-        self._drop_events()
-        s = self._sock
+        # First, break any reference to the loop.io objects. Our
+        # fileno, which they were tied to, is about to be free to be
+        # reused, so these objects are no longer functional.
+        self._drop_events_and_close()
 
-        # Note that we change self._sock at this point. Methods *must not*
-        # cache `self._sock` separately from self._write_event/self._read_event,
-        # or they will be out of sync and we may get inappropriate errors.
-        # (See test__hub:TestCloseSocketWhilePolling for an example).
-
+        # Next, change self._sock. On CPython, this drops a
+        # reference, and if it was the last reference, __del__ will
+        # close it. (We cannot close it, makefile() relies on
+        # reference counting like this, and it may be shared among
+        # multiple wrapper objects). Methods *must not* cache
+        # `self._sock` separately from
+        # self._write_event/self._read_event, or they will be out of
+        # sync and we may get inappropriate errors. (See
+        # test__hub:TestCloseSocketWhilePolling for an example).
         self._sock = _closedsocket()
-        if PYPY:
-            s._drop()
 
     @property
     def closed(self):
         return isinstance(self._sock, _closedsocket)
 
     def connect(self, address):
+        """
+        Connect to *address*.
+
+        .. versionchanged:: 20.6.0
+            If the host part of the address includes an IPv6 scope ID,
+            it will be used instead of ignored, if the platform supplies
+            :func:`socket.inet_pton`.
+        """
         if self.timeout == 0.0:
             return self._sock.connect(address)
 
@@ -245,7 +273,7 @@ class socket(object):
                 result = self._sock.connect_ex(address)
                 if not result or result == EISCONN:
                     break
-                elif (result in (EWOULDBLOCK, EINPROGRESS, EALREADY)) or (result == EINVAL and is_windows):
+                if (result in (EWOULDBLOCK, EINPROGRESS, EALREADY)) or (result == EINVAL and is_windows):
                     self._wait(self._write_event)
                 else:
                     raise error(result, strerror(result))
@@ -432,7 +460,8 @@ class socket(object):
 SocketType = socket
 
 if hasattr(_socket, 'socketpair'):
-
+    # The native, low-level socketpair returns
+    # low-level objects
     def socketpair(family=getattr(_socket, 'AF_UNIX', _socket.AF_INET),
                    type=_socket.SOCK_STREAM, proto=0):
         one, two = _socket.socketpair(family, type, proto)
@@ -441,6 +470,20 @@ if hasattr(_socket, 'socketpair'):
             one._drop()
             two._drop()
         return result
+elif hasattr(__socket__, 'socketpair'):
+    # The high-level backport uses high-level socket APIs. It works
+    # cooperatively automatically if we're monkey-patched,
+    # else we must do it ourself.
+    _orig_socketpair = __socket__.socketpair
+    def socketpair(family=_socket.AF_INET, type=_socket.SOCK_STREAM, proto=0):
+        one, two = _orig_socketpair(family, type, proto)
+        if not isinstance(one, socket):
+            one = socket(_sock=one)
+            two = socket(_sock=two)
+            if PYPY:
+                one._drop()
+                two._drop()
+        return one, two
 elif 'socketpair' in __implements__:
     __implements__.remove('socketpair')
 

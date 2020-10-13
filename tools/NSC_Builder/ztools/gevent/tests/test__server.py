@@ -1,4 +1,5 @@
 from __future__ import print_function, division
+from contextlib import contextmanager
 import unittest
 import errno
 import os
@@ -6,10 +7,16 @@ import os
 
 import gevent.testing as greentest
 from gevent.testing import PY3
+from gevent.testing import sysinfo
 from gevent.testing import DEFAULT_SOCKET_TIMEOUT as _DEFAULT_SOCKET_TIMEOUT
+from gevent.testing.timing import SMALLEST_RELIABLE_DELAY
+from gevent.testing.sockets import tcp_listener
+from gevent.testing import WIN
+
 from gevent import socket
 import gevent
 from gevent.server import StreamServer
+from gevent.exceptions import LoopExit
 
 
 class SimpleStreamServer(StreamServer):
@@ -38,6 +45,17 @@ class SimpleStreamServer(StreamServer):
         finally:
             fd.close()
 
+def sleep_to_clear_old_sockets(*_args):
+    try:
+        # Allow any queued callbacks needed to close sockets
+        # to run. On Windows, this needs to spin the event loop to
+        # allow proper FD cleanup. Otherwise we risk getting an
+        # old FD that's being closed and then get spurious connection
+        # errors.
+        gevent.sleep(0 if not WIN else SMALLEST_RELIABLE_DELAY)
+    except Exception: # pylint:disable=broad-except
+        pass
+
 
 class Settings(object):
     ServerClass = StreamServer
@@ -47,8 +65,11 @@ class Settings(object):
 
     @staticmethod
     def assertAcceptedConnectionError(inst):
-        conn = inst.makefile()
-        result = conn.read()
+        with inst.makefile() as conn:
+            try:
+                result = conn.read()
+            except socket.timeout:
+                result = None
         inst.assertFalse(result)
 
     assert500 = assertAcceptedConnectionError
@@ -84,13 +105,10 @@ class TestCase(greentest.TestCase):
         if getattr(self, 'server', None) is not None:
             self.server.stop()
             self.server = None
+        sleep_to_clear_old_sockets()
 
     def get_listener(self):
-        sock = socket.socket()
-        sock.bind(('127.0.0.1', 0))
-        sock.listen(5)
-        self._close_on_teardown(sock)
-        return sock
+        return self._close_on_teardown(tcp_listener(backlog=5))
 
     def get_server_host_port_family(self):
         server_host = self.server.server_host
@@ -107,44 +125,61 @@ class TestCase(greentest.TestCase):
 
         return server_host, self.server.server_port, family
 
-    def makefile(self, timeout=_DEFAULT_SOCKET_TIMEOUT, bufsize=1):
+    @contextmanager
+    def makefile(self, timeout=_DEFAULT_SOCKET_TIMEOUT, bufsize=1, include_raw_socket=False):
         server_host, server_port, family = self.get_server_host_port_family()
-
-        sock = socket.socket(family=family)
-        try:
-            sock.connect((server_host, server_port))
-        except Exception:
-            # avoid ResourceWarning under Py3
-            sock.close()
-            raise
-
+        bufarg = 'buffering' if PY3 else 'bufsize'
+        makefile_kwargs = {bufarg: bufsize}
         if PY3:
             # Under Python3, you can't read and write to the same
             # makefile() opened in r, and r+ is not allowed
-            kwargs = {'buffering': bufsize, 'mode': 'rwb'}
-        else:
-            kwargs = {'bufsize': bufsize}
+            makefile_kwargs['mode'] = 'rwb'
 
-        rconn = sock.makefile(**kwargs)
-        if PY3:
-            rconn._sock = sock
-        rconn._sock.settimeout(timeout)
-        sock.close()
-        return rconn
+        with socket.socket(family=family) as sock:
+            rconn = None
+            # We want the socket to be accessible from the fileobject
+            # we return. On Python 2, natively this is available as
+            # _sock, but Python 3 doesn't have that.
+            sock.connect((server_host, server_port))
+            sock.settimeout(timeout)
+            with sock.makefile(**makefile_kwargs) as rconn:
+                result = rconn if not include_raw_socket else (rconn, sock)
+                yield result
 
     def send_request(self, url='/', timeout=_DEFAULT_SOCKET_TIMEOUT, bufsize=1):
-        conn = self.makefile(timeout=timeout, bufsize=bufsize)
-        conn.write(('GET %s HTTP/1.0\r\n\r\n' % url).encode('latin-1'))
-        conn.flush()
-        return conn
+        with self.makefile(timeout=timeout, bufsize=bufsize) as conn:
+            self.send_request_to_fd(conn, url)
 
-    def assertConnectionRefused(self):
-        with self.assertRaises(socket.error) as exc:
-            conn = self.makefile()
-            conn.close()
+    def send_request_to_fd(self, fd, url='/'):
+        fd.write(('GET %s HTTP/1.0\r\n\r\n' % url).encode('latin-1'))
+        fd.flush()
+
+    LOCAL_CONN_REFUSED_ERRORS = ()
+    if greentest.OSX:
+        # A kernel bug in OS X sometimes results in this
+        LOCAL_CONN_REFUSED_ERRORS = (errno.EPROTOTYPE,)
+
+    def assertConnectionRefused(self, in_proc_server=True):
+        try:
+            with self.assertRaises(socket.error) as exc:
+                with self.makefile() as conn:
+                    conn.close()
+        except LoopExit:
+            if not in_proc_server:
+                raise
+            # A LoopExit is fine. If we've killed the server
+            # and don't have any other greenlets to run, then
+            # blocking to open the connection might raise this.
+            # This became likely on Windows once we stopped
+            # passing IP addresses through an extra call to
+            # ``getaddrinfo``, which changed the number of switches
+            return
 
         ex = exc.exception
-        self.assertIn(ex.args[0], (errno.ECONNREFUSED, errno.EADDRNOTAVAIL))
+        self.assertIn(ex.args[0],
+                      (errno.ECONNREFUSED, errno.EADDRNOTAVAIL,
+                       errno.ECONNRESET, errno.ECONNABORTED) + self.LOCAL_CONN_REFUSED_ERRORS,
+                      (ex, ex.args))
 
     def assert500(self):
         self.Settings.assert500(self)
@@ -159,28 +194,33 @@ class TestCase(greentest.TestCase):
         self.Settings.assertPoolFull(self)
 
     def assertNotAccepted(self):
-        conn = self.makefile()
-        conn.write(b'GET / HTTP/1.0\r\n\r\n')
-        conn.flush()
-        result = b''
         try:
-            while True:
-                data = conn._sock.recv(1)
-                if not data:
-                    break
-                result += data
-        except socket.timeout:
-            self.assertFalse(result)
+            with self.makefile(include_raw_socket=True) as (conn, sock):
+                conn.write(b'GET / HTTP/1.0\r\n\r\n')
+                conn.flush()
+                result = b''
+                try:
+                    while True:
+                        data = sock.recv(1)
+                        if not data:
+                            break
+                        result += data
+                except socket.timeout:
+                    self.assertFalse(result)
+                    return
+        except LoopExit:
+            # See assertConnectionRefused
             return
+
         self.assertTrue(result.startswith(b'HTTP/1.0 500 Internal Server Error'), repr(result))
-        conn.close()
+
 
     def assertRequestSucceeded(self, timeout=_DEFAULT_SOCKET_TIMEOUT):
-        conn = self.makefile(timeout=timeout)
-        conn.write(b'GET /ping HTTP/1.0\r\n\r\n')
-        result = conn.read()
-        conn.close()
-        assert result.endswith(b'\r\n\r\nPONG'), repr(result)
+        with self.makefile(timeout=timeout) as conn:
+            conn.write(b'GET /ping HTTP/1.0\r\n\r\n')
+            result = conn.read()
+
+        self.assertTrue(result.endswith(b'\r\n\r\nPONG'), repr(result))
 
     def start_server(self):
         self.server.start()
@@ -196,23 +236,28 @@ class TestCase(greentest.TestCase):
         # with os.system. We can probably do better with psutil.
         return
 
-    def _create_server(self):
-        return self.ServerSubClass((greentest.DEFAULT_BIND_ADDR, 0))
+    def _create_server(self, *args, **kwargs):
+        kind = kwargs.pop('server_kind', self.ServerSubClass)
+        addr = kwargs.pop('server_listen_addr', (greentest.DEFAULT_BIND_ADDR, 0))
+        return kind(addr, *args, **kwargs)
 
-    def init_server(self):
-        self.server = self._create_server()
+    def init_server(self, *args, **kwargs):
+        self.server = self._create_server(*args, **kwargs)
         self.server.start()
-        gevent.sleep(0.01)
+        sleep_to_clear_old_sockets()
 
     @property
     def socket(self):
         return self.server.socket
 
     def _test_invalid_callback(self):
-        try:
-            self.server = self.ServerClass((greentest.DEFAULT_BIND_ADDR, 0), lambda: None)
-            self.server.start()
+        if sysinfo.RUNNING_ON_APPVEYOR:
+            self.skipTest("Sometimes misses the error") # XXX: Why?
 
+        try:
+            # Can't use a kwarg here, WSGIServer and StreamServer
+            # take different things (application and handle)
+            self.init_server(lambda: None)
             self.expect_one_error()
 
             self.assert500()
@@ -253,6 +298,7 @@ class TestDefaultSpawn(TestCase):
             self.assertNotAccepted()
             self.server.start_accepting()
             self.report_netstat('after start_accepting')
+            sleep_to_clear_old_sockets()
             self.assertRequestSucceeded()
         self.stop_server()
         self.report_netstat('after stop')
@@ -260,8 +306,10 @@ class TestDefaultSpawn(TestCase):
     def test_backlog_is_not_accepted_for_socket(self):
         self.switch_expected = False
         with self.assertRaises(TypeError):
-            self.ServerClass(self.get_listener(), backlog=25, handle=False)
+            self.ServerClass(self.get_listener(), backlog=25)
 
+    @greentest.skipOnLibuvOnCIOnPyPy("Sometimes times out")
+    @greentest.skipOnAppVeyor("Sometimes times out.")
     def test_backlog_is_accepted_for_address(self):
         self.server = self.ServerSubClass((greentest.DEFAULT_BIND_ADDR, 0), backlog=25)
         self.assertConnectionRefused()
@@ -271,6 +319,7 @@ class TestDefaultSpawn(TestCase):
         self.server = self.ServerSubClass(self.get_listener())
         self.assertNotAccepted()
 
+    @greentest.skipOnAppVeyor("Sometimes times out.")
     def test_subclass_with_socket(self):
         self.server = self.ServerSubClass(self.get_listener())
         # the connection won't be refused, because there exists a
@@ -290,55 +339,54 @@ class TestDefaultSpawn(TestCase):
     def _test_serve_forever(self):
         g = gevent.spawn(self.server.serve_forever)
         try:
-            gevent.sleep(0.01)
+            sleep_to_clear_old_sockets()
             self.assertRequestSucceeded()
             self.server.stop()
-            assert not self.server.started
+            self.assertFalse(self.server.started)
             self.assertConnectionRefused()
         finally:
             g.kill()
             g.get()
+            self.server.stop()
 
     def test_serve_forever(self):
-        self.server = self.ServerSubClass(('127.0.0.1', 0))
-        assert not self.server.started
+        self.server = self.ServerSubClass((greentest.DEFAULT_BIND_ADDR, 0))
+        self.assertFalse(self.server.started)
         self.assertConnectionRefused()
         self._test_serve_forever()
 
     def test_serve_forever_after_start(self):
         self.server = self.ServerSubClass((greentest.DEFAULT_BIND_ADDR, 0))
         self.assertConnectionRefused()
-        assert not self.server.started
+        self.assertFalse(self.server.started)
         self.server.start()
-        assert self.server.started
+        self.assertTrue(self.server.started)
         self._test_serve_forever()
 
+    @greentest.skipIf(greentest.EXPECT_POOR_TIMER_RESOLUTION, "Sometimes spuriously fails")
     def test_server_closes_client_sockets(self):
         self.server = self.ServerClass((greentest.DEFAULT_BIND_ADDR, 0), lambda *args: [])
         self.server.start()
-        conn = self.send_request()
-        # use assert500 below?
-        with gevent.Timeout._start_new_or_dummy(1):
-            try:
-                result = conn.read()
-                if result:
-                    assert result.startswith('HTTP/1.0 500 Internal Server Error'), repr(result)
-            except socket.error as ex:
-                if ex.args[0] == 10053:
-                    pass  # "established connection was aborted by the software in your host machine"
-                elif ex.args[0] == errno.ECONNRESET:
+        sleep_to_clear_old_sockets()
+        with self.makefile() as conn:
+            self.send_request_to_fd(conn)
+            # use assert500 below?
+            with gevent.Timeout._start_new_or_dummy(1):
+                try:
+                    result = conn.read()
+                    if result:
+                        assert result.startswith('HTTP/1.0 500 Internal Server Error'), repr(result)
+                except socket.timeout:
                     pass
-                else:
-                    raise
-            finally:
-                conn.close()
+                except socket.error as ex:
+                    if ex.args[0] == 10053:
+                        pass  # "established connection was aborted by the software in your host machine"
+                    elif ex.args[0] == errno.ECONNRESET:
+                        pass
+                    else:
+                        raise
 
         self.stop_server()
-
-    def init_server(self):
-        self.server = self._create_server()
-        self.server.start()
-        gevent.sleep(0.01)
 
     @property
     def socket(self):
@@ -348,7 +396,9 @@ class TestDefaultSpawn(TestCase):
         self.init_server()
         self.assertTrue(self.server.started)
         error = ExpectedError('test_error_in_spawn')
-        self.server._spawn = lambda *args: gevent.getcurrent().throw(error)
+        def _spawn(*_args):
+            gevent.getcurrent().throw(error)
+        self.server._spawn = _spawn
         self.expect_one_error()
         self.assertAcceptedConnectionError()
         self.assert_error(ExpectedError, error)
@@ -356,7 +406,7 @@ class TestDefaultSpawn(TestCase):
     def test_server_repr_when_handle_is_instancemethod(self):
         # PR 501
         self.init_server()
-        self.start_server()
+        assert self.server.started
         self.assertIn('Server', repr(self.server))
 
         self.server.set_handle(self.server.handle)
@@ -389,21 +439,20 @@ class TestPoolSpawn(TestDefaultSpawn):
                       "requests in the pool be full.")
     def test_pool_full(self):
         self.init_server()
-        short_request = self.send_request('/short')
-        long_request = self.send_request('/long')
-        # keep long_request in scope, otherwise the connection will be closed
-        gevent.get_hub().loop.update_now()
-        gevent.sleep(_DEFAULT_SOCKET_TIMEOUT / 10.0)
-        self.assertPoolFull()
-        self.assertPoolFull()
-        # XXX Not entirely clear why this fails (timeout) on appveyor;
-        # underlying socket timeout causing the long_request to close?
-        self.assertPoolFull()
-        short_request._sock.close()
-        if PY3:
-            # We use two makefiles to simulate reading/writing
-            # under py3
-            short_request.close()
+        with self.makefile() as long_request:
+            with self.makefile() as short_request:
+                self.send_request_to_fd(short_request, '/short')
+                self.send_request_to_fd(long_request, '/long')
+
+                # keep long_request in scope, otherwise the connection will be closed
+                gevent.get_hub().loop.update_now()
+                gevent.sleep(_DEFAULT_SOCKET_TIMEOUT / 10.0)
+                self.assertPoolFull()
+                self.assertPoolFull()
+                # XXX Not entirely clear why this fails (timeout) on appveyor;
+                # underlying socket timeout causing the long_request to close?
+                self.assertPoolFull()
+
         # gevent.http and gevent.wsgi cannot detect socket close, so sleep a little
         # to let /short request finish
         gevent.sleep(_DEFAULT_SOCKET_TIMEOUT)
@@ -414,8 +463,6 @@ class TestPoolSpawn(TestDefaultSpawn):
             self.assertRequestSucceeded()
         except socket.timeout:
             greentest.reraiseFlakyTestTimeout()
-
-        del long_request
 
     test_pool_full.error_fatal = False
 
@@ -428,11 +475,11 @@ class TestNoneSpawn(TestCase):
     def test_invalid_callback(self):
         self._test_invalid_callback()
 
+    @greentest.skipOnAppVeyor("Sometimes doesn't get the error.")
     def test_assertion_in_blocking_func(self):
         def sleep(*_args):
-            gevent.sleep(0)
-        self.server = self.Settings.ServerClass((greentest.DEFAULT_BIND_ADDR, 0), sleep, spawn=None)
-        self.server.start()
+            gevent.sleep(SMALLEST_RELIABLE_DELAY)
+        self.init_server(sleep, server_kind=self.ServerSubClass, spawn=None)
         self.expect_one_error()
         self.assert500()
         self.assert_error(AssertionError, 'Impossible to call blocking function in the event loop callback')
@@ -453,10 +500,7 @@ class TestSSLSocketNotAllowed(TestCase):
     @unittest.skipUnless(hasattr(socket, 'ssl'), "Uses socket.ssl")
     def test(self):
         from gevent.socket import ssl
-        from gevent.socket import socket as gsocket
-        listener = gsocket()
-        listener.bind(('0.0.0.0', 0))
-        listener.listen(5)
+        listener = self._close_on_teardown(tcp_listener(backlog=5))
         listener = ssl(listener)
         self.assertRaises(TypeError, self.ServerSubClass, listener)
 
@@ -470,7 +514,7 @@ class BadWrapException(BaseException):
 
 class TestSSLGetCertificate(TestCase):
 
-    def _create_server(self):
+    def _create_server(self): # pylint:disable=arguments-differ
         return self.ServerSubClass((greentest.DEFAULT_BIND_ADDR, 0),
                                    keyfile=_file('server.key'),
                                    certfile=_file('server.crt'))

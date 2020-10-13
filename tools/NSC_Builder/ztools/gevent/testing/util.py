@@ -2,22 +2,33 @@ from __future__ import print_function, absolute_import, division
 import re
 import sys
 import os
-from . import six
 import traceback
 import unittest
 import threading
 import subprocess
-import time
+from time import sleep
+
+from . import six
+from gevent._config import validate_bool
+from gevent._compat import perf_counter
+from gevent.monkey import get_original
 
 # pylint: disable=broad-except,attribute-defined-outside-init
 
 runtimelog = []
 MIN_RUNTIME = 1.0
 BUFFER_OUTPUT = False
-QUIET = False
+# This is set by the testrunner, defaulting to true (be quiet)
+# But if we're run standalone, default to false
+QUIET = validate_bool(os.environ.get('GEVENTTEST_QUIET', '0'))
 
 
 class Popen(subprocess.Popen):
+    """
+    Depending on when we're imported and if the process has been monkey-patched,
+    this could use cooperative or native Popen.
+    """
+    timer = None # a threading.Timer instance
 
     def __enter__(self):
         return self
@@ -33,23 +44,26 @@ class Popen(subprocess.Popen):
 _colorscheme = {
     'normal': 'normal',
     'default': 'default',
-    'info': 'normal',
-    'suboptimal-behaviour': 'magenta',
-    'error': 'brightred',
-    'number': 'green',
-    'slow-test': 'brightmagenta',
-    'ok-number': 'green',
-    'error-number': 'brightred',
-    'filename': 'lightblue',
-    'lineno': 'lightred',
-    'testname': 'lightcyan',
-    'failed-example': 'cyan',
-    'expected-output': 'green',
+
     'actual-output': 'red',
     'character-diffs': 'magenta',
+    'debug': 'cyan',
     'diff-chunk': 'magenta',
+    'error': 'brightred',
+    'error-number': 'brightred',
     'exception': 'red',
+    'expected-output': 'green',
+    'failed-example': 'cyan',
+    'filename': 'lightblue',
+    'info': 'normal',
+    'lineno': 'lightred',
+    'number': 'green',
+    'ok-number': 'green',
     'skipped': 'brightyellow',
+    'slow-test': 'brightmagenta',
+    'suboptimal-behaviour': 'magenta',
+    'testname': 'lightcyan',
+    'warning': 'cyan',
 }
 
 _prefixes = [
@@ -89,27 +103,29 @@ def _colorize(what, message, normal='normal'):
     return _color(what) + message + _color(normal)
 
 def log(message, *args, **kwargs):
+    """
+    Log a *message*
+
+    :keyword str color: One of the values from _colorscheme
+    """
     color = kwargs.pop('color', 'normal')
-    try:
-        if args:
-            string = message % args
-        else:
-            string = message
-    except Exception:
-        traceback.print_exc()
-        try:
-            string = '%r %% %r\n\n' % (message, args)
-        except Exception:
-            pass
-        try:
-            string = _colorize('exception', string)
-            sys.stderr.write(string)
-        except Exception:
-            traceback.print_exc()
+
+    if args:
+        string = message % args
     else:
-        string = _colorize(color, string)
+        string = message
+    string = _colorize(color, string)
+
+    with output_lock: # pylint:disable=not-context-manager
         sys.stderr.write(string + '\n')
 
+def debug(message, *args, **kwargs):
+    """
+    Log the *message* only if we're not in quiet mode.
+    """
+    if not QUIET:
+        kwargs.setdefault('color', 'debug')
+        log(message, *args, **kwargs)
 
 def killpg(pid):
     if not hasattr(os, 'killpg'):
@@ -125,7 +141,7 @@ def killpg(pid):
 
 def kill_processtree(pid):
     ignore_msg = 'ERROR: The process "%s" not found.' % pid
-    err = subprocess.Popen('taskkill /F /PID %s /T' % pid, stderr=subprocess.PIPE).communicate()[1]
+    err = Popen('taskkill /F /PID %s /T' % pid, stderr=subprocess.PIPE).communicate()[1]
     if err and err.strip() not in [ignore_msg, '']:
         log('%r', err)
 
@@ -150,6 +166,7 @@ def _kill(popen):
 def kill(popen):
     if popen.timer is not None:
         popen.timer.cancel()
+        popen.timer = None
     if popen.poll() is not None:
         return
     popen.was_killed = True
@@ -169,6 +186,21 @@ def kill(popen):
     except Exception:
         traceback.print_exc()
 
+# A set of environment keys we ignore for printing purposes
+IGNORED_GEVENT_ENV_KEYS = {
+    'GEVENTTEST_QUIET',
+    'GEVENT_DEBUG',
+    'GEVENTSETUP_EV_VERIFY',
+    'GEVENTSETUP_EMBED',
+}
+
+# A set of (name, value) pairs we ignore for printing purposes.
+# These should match the defaults.
+IGNORED_GEVENT_ENV_ITEMS = {
+    ('GEVENT_RESOLVER', 'thread'),
+    ('GEVENT_RESOLVER_NAMESERVERS', '8.8.8.8'),
+    ('GEVENTTEST_USE_RESOURCES', 'all'),
+}
 
 def getname(command, env=None, setenv=None):
     result = []
@@ -177,8 +209,13 @@ def getname(command, env=None, setenv=None):
     env.update(setenv or {})
 
     for key, value in sorted(env.items()):
-        if key.startswith('GEVENT'):
-            result.append('%s=%s' % (key, value))
+        if not key.startswith('GEVENT'):
+            continue
+        if key in IGNORED_GEVENT_ENV_KEYS:
+            continue
+        if (key, value) in IGNORED_GEVENT_ENV_ITEMS:
+            continue
+        result.append('%s=%s' % (key, value))
 
     if isinstance(command, six.string_types):
         result.append(command)
@@ -199,10 +236,7 @@ def start(command, quiet=False, **kwargs):
     if preexec_fn is not None:
         setenv['DO_NOT_SETPGRP'] = '1'
     if setenv:
-        if env:
-            env = env.copy()
-        else:
-            env = os.environ.copy()
+        env = env.copy() if env else os.environ.copy()
         env.update(setenv)
 
     if not quiet:
@@ -211,9 +245,9 @@ def start(command, quiet=False, **kwargs):
     popen.name = name
     popen.setpgrp_enabled = preexec_fn is not None
     popen.was_killed = False
-    popen.timer = None
     if timeout is not None:
-        t = threading.Timer(timeout, kill, args=(popen, ))
+        t = get_original('threading', 'Timer')(timeout, kill, args=(popen, ))
+        popen.timer = t
         t.setDaemon(True)
         t.start()
         popen.timer = t
@@ -221,24 +255,65 @@ def start(command, quiet=False, **kwargs):
 
 
 class RunResult(object):
+    """
+    The results of running an external command.
 
-    def __init__(self, code,
-                 output=None, name=None,
+    If the command was successful, this has a boolean
+    value of True; otherwise, a boolean value of false.
+
+    The integer value of this object is the command's exit code.
+
+    """
+
+    def __init__(self,
+                 command,
+                 run_kwargs,
+                 code,
+                 output=None, # type: str
+                 error=None, # type: str
+                 name=None,
                  run_count=0, skipped_count=0):
+        self.command = command
+        self.run_kwargs = run_kwargs
         self.code = code
         self.output = output
+        self.error = error
         self.name = name
         self.run_count = run_count
         self.skipped_count = skipped_count
 
+    @property
+    def output_lines(self):
+        return self.output.splitlines()
 
     def __bool__(self):
-        return bool(self.code)
+        return not bool(self.code)
 
     __nonzero__ = __bool__
 
     def __int__(self):
         return self.code
+
+    def __repr__(self):
+        return (
+            "RunResult of: %r\n"
+            "Code: %s\n"
+            "kwargs: %r\n"
+            "Output:\n"
+            "----\n"
+            "%s"
+            "----\n"
+            "Error:\n"
+            "----\n"
+            "%s"
+            "----\n"
+        ) % (
+            self.command,
+            self.code,
+            self.run_kwargs,
+            self.output,
+            self.error
+        )
 
 
 def _should_show_warning_output(out):
@@ -259,6 +334,9 @@ def _should_show_warning_output(out):
         out = out.replace('UserWarning: libuv only supports', 'NADA')
         # Packages on Python 2
         out = out.replace('ImportWarning: Not importing directory', 'NADA')
+        # Testing that U mode does the same thing
+        out = out.replace("DeprecationWarning: 'U' mode is deprecated", 'NADA')
+        out = out.replace("DeprecationWarning: dns.hash module", 'NADA')
     return 'Warning' in out
 
 output_lock = threading.Lock()
@@ -286,6 +364,11 @@ def _find_test_status(took, out):
 
 
 def run(command, **kwargs): # pylint:disable=too-many-locals
+    """
+    Execute *command*, returning a `RunResult`.
+
+    This blocks until *command* finishes or until it times out.
+    """
     buffer_output = kwargs.pop('buffer_output', BUFFER_OUTPUT)
     quiet = kwargs.pop('quiet', QUIET)
     verbose = not quiet
@@ -294,38 +377,45 @@ def run(command, **kwargs): # pylint:disable=too-many-locals
         assert 'stdout' not in kwargs and 'stderr' not in kwargs, kwargs
         kwargs['stderr'] = subprocess.STDOUT
         kwargs['stdout'] = subprocess.PIPE
-    popen = start(command, quiet=nested, **kwargs)
+    popen = start(command, quiet=quiet, **kwargs)
     name = popen.name
+
     try:
-        time_start = time.time()
+        time_start = perf_counter()
         out, err = popen.communicate()
-        took = time.time() - time_start
+        took = perf_counter() - time_start
         if popen.was_killed or popen.poll() is None:
             result = 'TIMEOUT'
         else:
             result = popen.poll()
     finally:
         kill(popen)
-    assert not err
-    with output_lock: # pylint:disable=not-context-manager
-        failed = bool(result)
-        if out:
-            out = out.strip()
-            out = out if isinstance(out, str) else out.decode('utf-8', 'ignore')
-        if out and (failed or verbose or _should_show_warning_output(out)):
-            if out:
-                out = '  ' + out.replace('\n', '\n  ')
-                out = out.rstrip()
-                out += '\n'
-                log('| %s\n%s', name, out)
-        status, run_count, skipped_count = _find_test_status(took, out)
-        if result:
-            log('! %s [code %s] %s', name, result, status, color='error')
-        elif not nested:
-            log('- %s %s', name, status)
+        assert popen.timer is None
+
+
+    failed = bool(result)
+    if out:
+        out = out.strip()
+        out = out if isinstance(out, str) else out.decode('utf-8', 'ignore')
+    if out and (failed or verbose or _should_show_warning_output(out)):
+        out = '  ' + out.replace('\n', '\n  ')
+        out = out.rstrip()
+        out += '\n'
+        log('| %s\n%s', name, out)
+    status, run_count, skipped_count = _find_test_status(took, out)
+    if result:
+        log('! %s [code %s] %s', name, result, status, color='error')
+    elif not nested:
+        log('- %s %s', name, status)
     if took >= MIN_RUNTIME:
         runtimelog.append((-took, name))
-    return RunResult(result, out, name, run_count, skipped_count)
+    return RunResult(
+        command, kwargs, result,
+        output=out, error=err,
+        name=name,
+        run_count=run_count,
+        skipped_count=skipped_count
+    )
 
 
 class NoSetupPyFound(Exception):
@@ -365,9 +455,68 @@ def search_for_setup_py(a_file=None, a_module_name=None, a_class=None, climb_cwd
 
     raise NoSetupPyFound("After checking %r" % (locals(),))
 
+def _version_dir_components():
+    directory = '%s.%s' % sys.version_info[:2]
+    full_directory = '%s.%s.%s' % sys.version_info[:3]
+    if hasattr(sys, 'pypy_version_info'):
+        directory += 'pypy'
+        full_directory += 'pypy'
+
+    return directory, full_directory
+
+def find_stdlib_tests():
+    """
+    Return a sequence of directories that could contain
+    stdlib tests for the running version of Python.
+
+    The most specific tests are at the end of the sequence.
+
+    No checks are performed on existence of the directories.
+    """
+    setup_py = search_for_setup_py(a_file=__file__)
+    greentest = os.path.join(setup_py, 'src', 'greentest')
+
+
+    directory, full_directory = _version_dir_components()
+
+    directory = '%s.%s' % sys.version_info[:2]
+    full_directory = '%s.%s.%s' % sys.version_info[:3]
+    if hasattr(sys, 'pypy_version_info'):
+        directory += 'pypy'
+        full_directory += 'pypy'
+
+    directory = os.path.join(greentest, directory)
+    full_directory = os.path.join(greentest, full_directory)
+
+    return directory, full_directory
+
+def absolute_pythonpath():
+    """
+    Return the PYTHONPATH environment variable (if set) with each
+    entry being an absolute path. If not set, returns None.
+    """
+    if 'PYTHONPATH' not in os.environ:
+        return None
+
+    path = os.environ['PYTHONPATH']
+    path = [os.path.abspath(p) for p in path.split(os.path.pathsep)]
+    return os.path.pathsep.join(path)
 
 class ExampleMixin(object):
-    "Something that uses the examples/ directory"
+    """
+    Something that uses the ``examples/`` directory
+    from the root of the gevent distribution.
+
+    The `cwd` property is set to the root of the gevent distribution.
+    """
+    #: Arguments to pass to the example file.
+    example_args = []
+    before_delay = 3
+    after_delay = 0.5
+    #: Path of the example Python file, relative to `cwd`
+    example = None # subclasses define this to be the path to the server.py
+    #: Keyword arguments to pass to the start or run method.
+    start_kwargs = None
 
     def find_setup_py(self):
         "Return the directory containing setup.py"
@@ -382,31 +531,64 @@ class ExampleMixin(object):
             root = self.find_setup_py()
         except NoSetupPyFound as e:
             raise unittest.SkipTest("Unable to locate file/dir to run: %s" % (e,))
-
         return os.path.join(root, 'examples')
+
+    @property
+    def setenv(self):
+        """
+        Returns a dictionary of environment variables to set for the
+        child in addition to (or replacing) the ones already in the
+        environment.
+
+        Since the child is run in `cwd`, relative paths in ``PYTHONPATH``
+        need to be converted to absolute paths.
+        """
+        abs_pythonpath = absolute_pythonpath()
+        return {'PYTHONPATH': abs_pythonpath} if abs_pythonpath else None
+
+    def _start(self, meth):
+        if getattr(self, 'args', None):
+            raise AssertionError("Invalid test", self, self.args)
+        if getattr(self, 'server', None):
+            raise AssertionError("Invalid test", self, self.server)
+
+        try:
+            # These could be or are properties that can raise
+            server = self.example
+            server_dir = self.cwd
+        except NoSetupPyFound as e:
+            raise unittest.SkipTest("Unable to locate file/dir to run: %s" % (e,))
+
+        kwargs = self.start_kwargs or {}
+        setenv = self.setenv
+        if setenv:
+            if 'setenv' in kwargs:
+                kwargs['setenv'].update(setenv)
+            else:
+                kwargs['setenv'] = setenv
+        return meth(
+            [sys.executable, '-W', 'ignore', '-u', server] + self.example_args,
+            cwd=server_dir,
+            **kwargs
+        )
+
+    def start_example(self):
+        return self._start(meth=start)
+
+    def run_example(self):# run() is a unittest method.
+        return self._start(meth=run)
+
 
 class TestServer(ExampleMixin,
                  unittest.TestCase):
-    args = []
-    before_delay = 3
-    after_delay = 0.5
     popen = None
-    server = None # subclasses define this to be the path to the server.py
-    start_kwargs = None
-
-    def start(self):
-        try:
-            kwargs = self.start_kwargs or {}
-            return start([sys.executable, '-u', self.server] + self.args, cwd=self.cwd, **kwargs)
-        except NoSetupPyFound as e:
-            raise unittest.SkipTest("Unable to locate file/dir to run: %s" % (e,))
 
     def running_server(self):
         from contextlib import contextmanager
 
         @contextmanager
         def running_server():
-            with self.start() as popen:
+            with self.start_example() as popen:
                 self.popen = popen
                 self.before()
                 yield
@@ -419,13 +601,19 @@ class TestServer(ExampleMixin,
 
     def before(self):
         if self.before_delay is not None:
-            time.sleep(self.before_delay)
-        assert self.popen.poll() is None, '%s died with code %s' % (self.server, self.popen.poll(), )
+            sleep(self.before_delay)
+        self.assertIsNone(self.popen.poll(),
+                          '%s died with code %s' % (
+                              self.example, self.popen.poll(),
+                          ))
 
     def after(self):
         if self.after_delay is not None:
-            time.sleep(self.after_delay)
-            assert self.popen.poll() is None, '%s died with code %s' % (self.server, self.popen.poll(), )
+            sleep(self.after_delay)
+        self.assertIsNone(self.popen.poll(),
+                          '%s died with code %s' % (
+                              self.example, self.popen.poll(),
+                          ))
 
     def _run_all_tests(self):
         ran = False
@@ -448,6 +636,6 @@ class alarm(threading.Thread):
         self.start()
 
     def run(self):
-        time.sleep(self.timeout)
+        sleep(self.timeout)
         sys.stderr.write('Timeout.\n')
         os._exit(5)

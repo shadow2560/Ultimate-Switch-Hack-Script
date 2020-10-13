@@ -5,16 +5,24 @@ internal gevent python 2/python 3 bridges. Not for external use.
 
 from __future__ import print_function, absolute_import, division
 
+## Important: This module should generally not have any other gevent
+## imports (the exception is _util_py2)
+
 import sys
 import os
 
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] >= 3
+PY35 = sys.version_info[:2] >= (3, 5)
+PY36 = sys.version_info[:2] >= (3, 6)
+PY37 = sys.version_info[:2] >= (3, 7)
+PY38 = sys.version_info[:2] >= (3, 8)
+PY39 = sys.version_info[:2] >= (3, 9)
 PYPY = hasattr(sys, 'pypy_version_info')
 WIN = sys.platform.startswith("win")
 LINUX = sys.platform.startswith('linux')
-OSX = sys.platform == 'darwin'
+OSX = MAC = sys.platform == 'darwin'
 
 
 PURE_PYTHON = PYPY or os.getenv('PURE_PYTHON')
@@ -36,9 +44,19 @@ else:
     native_path_types = string_types
     thread_mod_name = 'thread'
 
+hostname_types = tuple(set(string_types + (bytearray, bytes)))
+
 def NativeStrIO():
     import io
     return io.BytesIO() if str is bytes else io.StringIO()
+
+try:
+    from abc import ABC
+except ImportError:
+    import abc
+    ABC = abc.ABCMeta('ABC', (object,), {'__slots__': ()})
+    del abc
+
 
 ## Exceptions
 if PY3:
@@ -79,6 +97,16 @@ else:
     xrange = __builtin__.xrange
     from itertools import izip # python 3: pylint:disable=no-member,no-name-in-module
     izip = izip
+
+## The __fspath__ protocol
+
+try:
+    from os import PathLike # pylint:disable=unused-import
+except ImportError:
+    class PathLike(ABC):
+        @classmethod
+        def __subclasshook__(cls, subclass):
+            return hasattr(subclass, '__fspath__')
 
 # fspath from 3.6 os.py, but modified to raise the same exceptions as the
 # real native implementation.
@@ -145,16 +173,54 @@ except ImportError:
             # Not sure how to handle this.
             raise UnicodeEncodeError("Can't encode path to filesystem encoding")
 
+try:
+    from os import fsdecode # pylint:disable=unused-import
+except ImportError:
+    def fsdecode(filename):
+        """Decode filename (an os.PathLike, bytes, or str) from the filesystem
+        encoding with 'surrogateescape' error handler, return str unchanged. On
+        Windows, use 'strict' error handler if the file system encoding is
+        'mbcs' (which is the default encoding).
+        """
+        filename = fspath(filename)  # Does type-checking of `filename`.
+        if PY3 and isinstance(filename, bytes):
+            return filename.decode(encoding, errors)
+        return filename
 
 ## Clocks
 try:
     # Python 3.3+ (PEP 418)
     from time import perf_counter
+    from time import get_clock_info
+    from time import monotonic
     perf_counter = perf_counter
+    monotonic = monotonic
+    get_clock_info = get_clock_info
 except ImportError:
     import time
 
     if sys.platform == "win32":
-        perf_counter = time.clock
+        perf_counter = time.clock # pylint:disable=no-member
     else:
         perf_counter = time.time
+    monotonic = perf_counter
+    def get_clock_info(_):
+        return 'Unknown'
+
+## Monitoring
+def get_this_psutil_process():
+    # Depends on psutil. Defer the import until needed, who knows what
+    # it imports (psutil imports subprocess which on Python 3 imports
+    # selectors. This can expose issues with monkey-patching.)
+    # Returns a freshly queried object each time.
+    try:
+        from psutil import Process, AccessDenied
+        # Make sure it works (why would we be denied access to our own process?)
+        try:
+            proc = Process()
+            proc.memory_full_info()
+        except AccessDenied: # pragma: no cover
+            proc = None
+    except ImportError:
+        proc = None
+    return proc

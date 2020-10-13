@@ -1,37 +1,41 @@
 # pylint: disable=no-member
 
-# This module is only used to create and compile the gevent._corecffi module;
+# This module is only used to create and compile the gevent.libuv._corecffi module;
 # nothing should be directly imported from it except `ffi`, which should only be
 # used for `ffi.compile()`; programs should import gevent._corecfffi.
 # However, because we are using "out-of-line" mode, it is necessary to examine
 # this file to know what functions are created and available on the generated
 # module.
 from __future__ import absolute_import, print_function
-import sys
 import os
 import os.path # pylint:disable=no-name-in-module
-import struct
+import platform
+import sys
+
+from cffi import FFI
+
+sys.path.append(".")
+
+try:
+    import _setuputils
+except ImportError:
+    print("This file must be imported with setup.py in the current working dir.")
+    raise
+
 
 __all__ = []
 
 WIN = sys.platform.startswith('win32')
-
-def system_bits():
-    return struct.calcsize('P') * 8
+LIBUV_EMBED = _setuputils.should_embed('libuv')
 
 
-def st_nlink_type():
-    if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
-        return "short"
-    if system_bits() == 32:
-        return "unsigned long"
-    return "long long"
-
-
-from cffi import FFI
 ffi = FFI()
 
 thisdir = os.path.dirname(os.path.abspath(__file__))
+parentdir = os.path.abspath(os.path.join(thisdir, '..'))
+setup_py_dir = os.path.abspath(os.path.join(thisdir, '..', '..', '..'))
+libuv_dir = os.path.abspath(os.path.join(setup_py_dir, 'deps', 'libuv'))
+
 def read_source(name):
     with open(os.path.join(thisdir, name), 'r') as f:
         return f.read()
@@ -39,12 +43,18 @@ def read_source(name):
 _cdef = read_source('_corecffi_cdef.c')
 _source = read_source('_corecffi_source.c')
 
-_cdef = _cdef.replace('#define GEVENT_ST_NLINK_T int', '')
+# These defines and uses help keep the C file readable and lintable by
+# C tools.
 _cdef = _cdef.replace('#define GEVENT_STRUCT_DONE int', '')
-_cdef = _cdef.replace('#define GEVENT_UV_OS_SOCK_T int', '')
-
-_cdef = _cdef.replace('GEVENT_ST_NLINK_T', st_nlink_type())
 _cdef = _cdef.replace("GEVENT_STRUCT_DONE _;", '...;')
+
+# nlink_t is not used in libuv.
+_cdef = _cdef.replace('#define GEVENT_ST_NLINK_T int',
+                      '')
+_cdef = _cdef.replace('GEVENT_ST_NLINK_T', 'nlink_t')
+
+
+_cdef = _cdef.replace('#define GEVENT_UV_OS_SOCK_T int', '')
 # uv_os_sock_t is int on POSIX and SOCKET on Win32, but socket is
 # just another name for handle, which is just another name for 'void*'
 # which we will treat as an 'unsigned long' or 'unsigned long long'
@@ -54,12 +64,9 @@ _void_pointer_as_integer = 'intptr_t'
 _cdef = _cdef.replace("GEVENT_UV_OS_SOCK_T", 'int' if not WIN else _void_pointer_as_integer)
 
 
-setup_py_dir = os.path.abspath(os.path.join(thisdir, '..', '..', '..'))
-libuv_dir = os.path.abspath(os.path.join(setup_py_dir, 'deps', 'libuv'))
 
 
 LIBUV_INCLUDE_DIRS = [
-    thisdir, # libev_vfd.h
     os.path.join(libuv_dir, 'include'),
     os.path.join(libuv_dir, 'src'),
 ]
@@ -83,6 +90,7 @@ LIBUV_SOURCES = [
     _libuv_source('uv-data-getter-setters.c'),
     _libuv_source('timer.c'),
     _libuv_source('idna.c'),
+    _libuv_source('strscpy.c')
 ]
 
 if WIN:
@@ -153,7 +161,6 @@ if sys.platform.startswith('linux'):
         _libuv_source('unix/procfs-exepath.c'),
         _libuv_source('unix/proctitle.c'),
         _libuv_source('unix/sysinfo-loadavg.c'),
-        _libuv_source('unix/sysinfo-memory.c'),
     ]
 elif sys.platform == 'darwin':
     LIBUV_SOURCES += [
@@ -164,7 +171,8 @@ elif sys.platform == 'darwin':
         _libuv_source('unix/kqueue.c'),
         _libuv_source('unix/proctitle.c'),
     ]
-elif sys.platform.startswith(('freebsd', 'dragonfly')):
+elif sys.platform.startswith(('freebsd', 'dragonfly')): # pragma: no cover
+    # Not tested
     LIBUV_SOURCES += [
         _libuv_source('unix/bsd-ifaddrs.c'),
         _libuv_source('unix/freebsd.c'),
@@ -172,7 +180,8 @@ elif sys.platform.startswith(('freebsd', 'dragonfly')):
         _libuv_source('unix/posix-hrtime.c'),
         _libuv_source('unix/bsd-proctitle.c'),
     ]
-elif sys.platform.startswith('openbsd'):
+elif sys.platform.startswith('openbsd'): # pragma: no cover
+    # Not tested
     LIBUV_SOURCES += [
         _libuv_source('unix/bsd-ifaddrs.c'),
         _libuv_source('unix/kqueue.c'),
@@ -180,7 +189,8 @@ elif sys.platform.startswith('openbsd'):
         _libuv_source('unix/posix-hrtime.c'),
         _libuv_source('unix/bsd-proctitle.c'),
     ]
-elif sys.platform.startswith('netbsd'):
+elif sys.platform.startswith('netbsd'): # pragma: no cover
+    # Not tested
     LIBUV_SOURCES += [
         _libuv_source('unix/bsd-ifaddrs.c'),
         _libuv_source('unix/kqueue.c'),
@@ -188,15 +198,44 @@ elif sys.platform.startswith('netbsd'):
         _libuv_source('unix/posix-hrtime.c'),
         _libuv_source('unix/bsd-proctitle.c'),
     ]
-
-elif sys.platform.startswith('sunos'):
+elif sys.platform.startswith('sunos'): # pragma: no cover
+    # Not tested.
     LIBUV_SOURCES += [
         _libuv_source('unix/no-proctitle.c'),
         _libuv_source('unix/sunos.c'),
     ]
+elif sys.platform.startswith('aix'): # pragma: no cover
+    # Not tested.
+    LIBUV_SOURCES += [
+        _libuv_source('unix/aix.c'),
+        _libuv_source('unix/aix-common.c'),
+    ]
+elif sys.platform.startswith('haiku'): # pragma: no cover
+    # Not tested
+    LIBUV_SOURCES += [
+        _libuv_source('unix/haiku.c')
+    ]
+elif sys.platform.startswith('cygwin'): # pragma: no cover
+    # Not tested.
+
+    # Based on Cygwin package sources /usr/src/libuv-1.32.0-1.src/libuv-1.32.0/Makefile.am
+    # Apparently the same upstream at https://github.com/libuv/libuv/blob/v1.x/Makefile.am
+    LIBUV_SOURCES += [
+        _libuv_source('unix/cygwin.c'),
+        _libuv_source('unix/bsd-ifaddrs.c'),
+        _libuv_source('unix/no-fsevents.c'),
+        _libuv_source('unix/no-proctitle.c'),
+        _libuv_source('unix/posix-hrtime.c'),
+        _libuv_source('unix/posix-poll.c'),
+        _libuv_source('unix/procfs-exepath.c'),
+        _libuv_source('unix/sysinfo-loadavg.c'),
+        _libuv_source('unix/sysinfo-memory.c'),
+    ]
 
 
-LIBUV_MACROS = []
+LIBUV_MACROS = [
+    ('LIBUV_EMBED', int(LIBUV_EMBED)),
+]
 
 def _define_macro(name, value):
     LIBUV_MACROS.append((name, value))
@@ -218,15 +257,22 @@ if sys.platform.startswith('linux'):
 elif sys.platform == 'darwin':
     _define_macro('_DARWIN_USE_64_BIT_INODE', 1)
     _define_macro('_DARWIN_UNLIMITED_SELECT', 1)
-elif sys.platform.startswith('netbsd'):
+elif sys.platform.startswith('netbsd'): # pragma: no cover
     _add_library('kvm')
-elif sys.platform.startswith('sunos'):
+elif sys.platform.startswith('sunos'): # pragma: no cover
     _define_macro('__EXTENSIONS__', 1)
     _define_macro('_XOPEN_SOURCE', 500)
     _add_library('kstat')
     _add_library('nsl')
     _add_library('sendfile')
     _add_library('socket')
+    if platform.release() == '5.10':
+        # https://github.com/libuv/libuv/issues/1458
+        # https://github.com/giampaolo/psutil/blob/4d6a086411c77b7909cce8f4f141bbdecfc0d354/setup.py#L298-L300
+        _define_macro('SUNOS_NO_IFADDRS', '')
+elif sys.platform.startswith('aix'): # pragma: no cover
+    _define_macro('_LINUX_SOURCE_COMPAT', 1)
+    _add_library('perfstat')
 elif WIN:
     _define_macro('_GNU_SOURCE', 1)
     _define_macro('WIN32', 1)
@@ -243,14 +289,29 @@ elif WIN:
     _add_library('userenv')
     _add_library('ws2_32')
 
+if not LIBUV_EMBED:
+    del LIBUV_SOURCES[:]
+    del LIBUV_INCLUDE_DIRS[:]
+    _add_library('uv')
+
+LIBUV_INCLUDE_DIRS.append(parentdir)
+
 ffi.cdef(_cdef)
-ffi.set_source('gevent.libuv._corecffi',
-               _source,
-               sources=LIBUV_SOURCES,
-               depends=LIBUV_SOURCES,
-               include_dirs=LIBUV_INCLUDE_DIRS,
-               libraries=list(LIBUV_LIBRARIES),
-               define_macros=list(LIBUV_MACROS))
+ffi.set_source(
+    'gevent.libuv._corecffi',
+    _source,
+    sources=LIBUV_SOURCES,
+    depends=LIBUV_SOURCES,
+    include_dirs=LIBUV_INCLUDE_DIRS,
+    libraries=list(LIBUV_LIBRARIES),
+    define_macros=list(LIBUV_MACROS),
+    extra_compile_args=list(_setuputils.IGNORE_THIRD_PARTY_WARNINGS),
+)
 
 if __name__ == '__main__':
-    ffi.compile()
+    # See notes in libev/_corecffi_build.py for how to test this.
+    #
+    # Other than the obvious directory changes, the changes are:
+    #
+    # CPPFLAGS=-Ideps/libuv/include/ -Isrc/gevent/
+    ffi.compile(verbose=True)

@@ -37,6 +37,22 @@ import os
 import signal
 import sys
 import traceback
+# Python 3.9
+try:
+    from types import GenericAlias
+except ImportError:
+    GenericAlias = None
+
+try:
+    import grp
+except ImportError:
+    grp = None
+
+try:
+    import pwd
+except ImportError:
+    pwd = None
+
 from gevent.event import AsyncResult
 from gevent.hub import _get_hub_noargs as get_hub
 from gevent.hub import linkproxy
@@ -44,9 +60,14 @@ from gevent.hub import sleep
 from gevent.hub import getcurrent
 from gevent._compat import integer_types, string_types, xrange
 from gevent._compat import PY3
+from gevent._compat import PY35
+from gevent._compat import PY36
+from gevent._compat import PY37
+from gevent._compat import PY38
 from gevent._compat import reraise
-from gevent._compat import fspath
+from gevent._compat import fsdecode
 from gevent._compat import fsencode
+from gevent._compat import PathLike
 from gevent._util import _NONE
 from gevent._util import copy_globals
 
@@ -65,6 +86,7 @@ __implements__ = [
 if PY3 and not sys.platform.startswith('win32'):
     __implements__.append("_posixsubprocess")
     _posixsubprocess = None
+
 
 # Some symbols we define that we expect to export;
 # useful for static analysis
@@ -118,7 +140,7 @@ __extra__ = [
     'CompletedProcess',
 ]
 
-if sys.version_info[:2] >= (3, 3):
+if PY3:
     __imports__ += [
         'DEVNULL',
         'getstatusoutput',
@@ -130,7 +152,7 @@ else:
     __extra__.append("TimeoutExpired")
 
 
-if sys.version_info[:2] >= (3, 5):
+if PY35:
     __extra__.remove('run')
     __extra__.remove('CompletedProcess')
     __implements__.append('run')
@@ -144,12 +166,12 @@ if sys.version_info[:2] >= (3, 5):
     except:
         MAXFD = 256
 
-if sys.version_info[:2] >= (3, 6):
+if PY36:
     # This was added to __all__ for windows in 3.6
     __extra__.remove('STARTUPINFO')
     __imports__.append('STARTUPINFO')
 
-if sys.version_info[:2] >= (3, 7):
+if PY37:
     __imports__.extend([
         'ABOVE_NORMAL_PRIORITY_CLASS', 'BELOW_NORMAL_PRIORITY_CLASS',
         'HIGH_PRIORITY_CLASS', 'IDLE_PRIORITY_CLASS',
@@ -159,6 +181,33 @@ if sys.version_info[:2] >= (3, 7):
         'CREATE_DEFAULT_ERROR_MODE',
         'CREATE_BREAKAWAY_FROM_JOB'
     ])
+
+if PY38:
+    # Using os.posix_spawn() to start subprocesses
+    # bypasses our child watchers on certain operating systems,
+    # and with certain library versions. Possibly the right
+    # fix is to monkey-patch os.posix_spawn like we do os.fork?
+    # These have no effect, they're just here to match the stdlib.
+    # TODO: When available, given a monkey patch on them, I think
+    # we ought to be able to use them if the stdlib has identified them
+    # as suitable.
+    __implements__.extend([
+        '_use_posix_spawn',
+    ])
+
+    def _use_posix_spawn():
+        return False
+
+    _USE_POSIX_SPAWN = False
+
+    if __subprocess__._USE_POSIX_SPAWN:
+        __implements__.extend([
+            '_USE_POSIX_SPAWN',
+        ])
+    else:
+        __imports__.extend([
+            '_USE_POSIX_SPAWN',
+        ])
 
 actually_imported = copy_globals(__subprocess__, globals(),
                                  only_names=__imports__,
@@ -228,6 +277,13 @@ else:
     from gevent import monkey
     fork = monkey.get_original('os', 'fork')
     from gevent.os import fork_and_watch
+
+try:
+    BrokenPipeError
+except NameError: # Python 2
+    class BrokenPipeError(Exception):
+        "Never raised, never caught."
+
 
 def call(*popenargs, **kwargs):
     """
@@ -395,12 +451,101 @@ else:
     _set_inheritable = lambda i, v: True
 
 
-def FileObject(*args):
+def FileObject(*args, **kwargs):
     # Defer importing FileObject until we need it
     # to allow it to be configured more easily.
     from gevent.fileobject import FileObject as _FileObject
     globals()['FileObject'] = _FileObject
     return _FileObject(*args)
+
+
+class _CommunicatingGreenlets(object):
+    # At most, exactly one of these objects may be created
+    # for a given Popen object. This ensures that only one background
+    # greenlet at a time will be reading from the file object. This matters because
+    # if a timeout exception is raised, the user may call back into communicate() to
+    # get the output (usually after killing the process; see run()). We must not
+    # lose output in that case (Python 3 specifically documents that raising a timeout
+    # doesn't lose output). Also, attempting to read from a pipe while it's already
+    # being read from results in `RuntimeError: reentrant call in io.BufferedReader`;
+    # the same thing happens if you attempt to close() it while that's in progress.
+    __slots__ = (
+        'stdin',
+        'stdout',
+        'stderr',
+        '_all_greenlets',
+    )
+
+    def __init__(self, popen, input_data):
+        self.stdin = self.stdout = self.stderr = None
+        if popen.stdin: # Even if no data, we need to close
+            self.stdin = spawn(self._write_and_close, popen.stdin, input_data)
+
+        # If the timeout parameter is used, and the caller calls back after
+        # getting a TimeoutExpired exception, we can wind up with multiple
+        # greenlets trying to run and read from and close stdout/stderr.
+        # That's bad because it can lead to 'RuntimeError: reentrant call in io.BufferedReader'.
+        # We can't just kill the previous greenlets when a timeout happens,
+        # though, because we risk losing the output collected by that greenlet
+        # (and Python 3, where timeout is an official parameter, explicitly says
+        # that no output should be lost in the event of a timeout.) Instead, we're
+        # watching for the exception and ignoring it. It's not elegant,
+        # but it works
+        if popen.stdout:
+            self.stdout = spawn(self._read_and_close, popen.stdout)
+
+        if popen.stderr:
+            self.stderr = spawn(self._read_and_close, popen.stderr)
+
+        all_greenlets = []
+        for g in self.stdin, self.stdout, self.stderr:
+            if g is not None:
+                all_greenlets.append(g)
+        self._all_greenlets = tuple(all_greenlets)
+
+    def __iter__(self):
+        return iter(self._all_greenlets)
+
+    def __bool__(self):
+        return bool(self._all_greenlets)
+
+    __nonzero__ = __bool__
+
+    def __len__(self):
+        return len(self._all_greenlets)
+
+    @staticmethod
+    def _write_and_close(fobj, data):
+        try:
+            if data:
+                fobj.write(data)
+                if hasattr(fobj, 'flush'):
+                    # 3.6 started expecting flush to be called.
+                    fobj.flush()
+        except (OSError, IOError, BrokenPipeError) as ex:
+            # Test cases from the stdlib can raise BrokenPipeError
+            # without setting an errno value. This matters because
+            # Python 2 doesn't have a BrokenPipeError.
+            if isinstance(ex, BrokenPipeError) and ex.errno is None:
+                ex.errno = errno.EPIPE
+            if ex.errno != errno.EPIPE and ex.errno != errno.EINVAL:
+                raise
+        finally:
+            try:
+                fobj.close()
+            except EnvironmentError:
+                pass
+
+    @staticmethod
+    def _read_and_close(fobj):
+        try:
+            return fobj.read()
+        finally:
+            try:
+                fobj.close()
+            except EnvironmentError:
+                pass
+
 
 class Popen(object):
     """
@@ -441,7 +586,16 @@ class Popen(object):
     .. versionchanged:: 1.3a2
        Under Python 2, ``restore_signals`` defaults to ``False``. Previously it
        defaulted to ``True``, the same as it did in Python 3.
+
+    .. versionchanged:: 20.6.0
+       Add the *group*, *extra_groups*, *user*, and *umask* arguments. These
+       were added to Python 3.9, but are available in any gevent version, provided
+       the underlying platform support is present.
     """
+
+    if GenericAlias is not None:
+        # 3.9, annoying typing is creeping everywhere.
+        __class_getitem__ = classmethod(GenericAlias)
 
     # The value returned from communicate() when there was nothing to read.
     # Changes if we're in text mode or universal newlines mode.
@@ -460,6 +614,9 @@ class Popen(object):
                  encoding=None, errors=None,
                  # Added in 3.7. Not an ivar directly.
                  text=None,
+                 # Added in 3.9
+                 group=None, extra_groups=None, user=None,
+                 umask=-1,
                  # gevent additions
                  threadpool=None):
 
@@ -479,7 +636,7 @@ class Popen(object):
             if preexec_fn is not None:
                 raise ValueError("preexec_fn is not supported on Windows "
                                  "platforms")
-            if sys.version_info[:2] >= (3, 7):
+            if PY37:
                 if close_fds is _PLATFORM_DEFAULT_CLOSE_FDS:
                     close_fds = True
             else:
@@ -573,31 +730,26 @@ class Popen(object):
             # Python 3, so it's actually a unicode str
             self._communicate_empty_value = ''
 
+        uid, gid, gids = self.__handle_uids(user, group, extra_groups)
 
         if p2cwrite != -1:
             if PY3 and text_mode:
                 # Under Python 3, if we left on the 'b' we'd get different results
                 # depending on whether we used FileObjectPosix or FileObjectThread
-                self.stdin = FileObject(p2cwrite, 'wb', bufsize)
-                self.stdin.translate_newlines(None,
-                                              write_through=True,
-                                              line_buffering=(bufsize == 1),
-                                              encoding=self.encoding, errors=self.errors)
+                self.stdin = FileObject(p2cwrite, 'w', bufsize,
+                                        encoding=self.encoding, errors=self.errors)
             else:
                 self.stdin = FileObject(p2cwrite, 'wb', bufsize)
         if c2pread != -1:
             if universal_newlines or text_mode:
                 if PY3:
-                    # FileObjectThread doesn't support the 'U' qualifier
-                    # with a bufsize of 0
-                    self.stdout = FileObject(c2pread, 'rb', bufsize)
+                    self.stdout = FileObject(c2pread, 'r', bufsize,
+                                             encoding=self.encoding, errors=self.errors)
                     # NOTE: Universal Newlines are broken on Windows/Py3, at least
                     # in some cases. This is true in the stdlib subprocess module
                     # as well; the following line would fix the test cases in
                     # test__subprocess.py that depend on python_universal_newlines,
                     # but would be inconsistent with the stdlib:
-                    #msvcrt.setmode(self.stdout.fileno(), os.O_TEXT)
-                    self.stdout.translate_newlines('r', encoding=self.encoding, errors=self.errors)
                 else:
                     self.stdout = FileObject(c2pread, 'rU', bufsize)
             else:
@@ -605,8 +757,8 @@ class Popen(object):
         if errread != -1:
             if universal_newlines or text_mode:
                 if PY3:
-                    self.stderr = FileObject(errread, 'rb', bufsize)
-                    self.stderr.translate_newlines(None, encoding=encoding, errors=errors)
+                    self.stderr = FileObject(errread, 'r', bufsize,
+                                             encoding=encoding, errors=errors)
                 else:
                     self.stderr = FileObject(errread, 'rU', bufsize)
             else:
@@ -616,7 +768,7 @@ class Popen(object):
         # Convert here for the sake of all platforms. os.chdir accepts
         # path-like objects natively under 3.6, but CreateProcess
         # doesn't.
-        cwd = fspath(cwd) if cwd is not None else None
+        cwd = fsdecode(cwd) if cwd is not None else None
         try:
             self._execute_child(args, executable, preexec_fn, close_fds,
                                 pass_fds, cwd, env, universal_newlines,
@@ -624,7 +776,9 @@ class Popen(object):
                                 p2cread, p2cwrite,
                                 c2pread, c2pwrite,
                                 errread, errwrite,
-                                restore_signals, start_new_session)
+                                restore_signals,
+                                gid, gids, uid, umask,
+                                start_new_session)
         except:
             # Cleanup if the child failed starting.
             # (gevent: New in python3, but reported as gevent bug in #347.
@@ -660,6 +814,81 @@ class Popen(object):
                     del exc_info
             raise
 
+    def __handle_uids(self, user, group, extra_groups):
+        gid = None
+        if group is not None:
+            if not hasattr(os, 'setregid'):
+                raise ValueError("The 'group' parameter is not supported on the "
+                                 "current platform")
+
+            if isinstance(group, str):
+                if grp is None:
+                    raise ValueError("The group parameter cannot be a string "
+                                     "on systems without the grp module")
+
+                gid = grp.getgrnam(group).gr_gid
+            elif isinstance(group, int):
+                gid = group
+            else:
+                raise TypeError("Group must be a string or an integer, not {}"
+                                .format(type(group)))
+
+            if gid < 0:
+                raise ValueError("Group ID cannot be negative, got %s" % gid)
+
+        gids = None
+        if extra_groups is not None:
+            if not hasattr(os, 'setgroups'):
+                raise ValueError("The 'extra_groups' parameter is not "
+                                 "supported on the current platform")
+
+            if isinstance(extra_groups, str):
+                raise ValueError("Groups must be a list, not a string")
+
+            gids = []
+            for extra_group in extra_groups:
+                if isinstance(extra_group, str):
+                    if grp is None:
+                        raise ValueError("Items in extra_groups cannot be "
+                                         "strings on systems without the "
+                                         "grp module")
+
+                    gids.append(grp.getgrnam(extra_group).gr_gid)
+                elif isinstance(extra_group, int):
+                    gids.append(extra_group)
+                else:
+                    raise TypeError("Items in extra_groups must be a string "
+                                    "or integer, not {}"
+                                    .format(type(extra_group)))
+
+            # make sure that the gids are all positive here so we can do less
+            # checking in the C code
+            for gid_check in gids:
+                if gid_check < 0:
+                    raise ValueError("Group ID cannot be negative, got %s" % (gid_check,))
+
+        uid = None
+        if user is not None:
+            if not hasattr(os, 'setreuid'):
+                raise ValueError("The 'user' parameter is not supported on "
+                                 "the current platform")
+
+            if isinstance(user, str):
+                if pwd is None:
+                    raise ValueError("The user parameter cannot be a string "
+                                     "on systems without the pwd module")
+
+                uid = pwd.getpwnam(user).pw_uid
+            elif isinstance(user, int):
+                uid = user
+            else:
+                raise TypeError("User must be a string or an integer")
+
+            if uid < 0:
+                raise ValueError("User ID cannot be negative, got %s" % (uid,))
+
+        return uid, gid, gids
+
     def __repr__(self):
         return '<%s at 0x%x pid=%r returncode=%r>' % (self.__class__.__name__, id(self), self.pid, self.returncode)
 
@@ -677,13 +906,17 @@ class Popen(object):
             self._devnull = os.open(os.devnull, os.O_RDWR)
         return self._devnull
 
-    _stdout_buffer = None
-    _stderr_buffer = None
+    _communicating_greenlets = None
 
     def communicate(self, input=None, timeout=None):
-        """Interact with process: Send data to stdin.  Read data from
-        stdout and stderr, until end-of-file is reached.  Wait for
-        process to terminate.  The optional input argument should be a
+        """
+        Interact with process and return its output and error.
+
+        - Send *input* data to stdin.
+        - Read data from stdout and stderr, until end-of-file is reached.
+        - Wait for process to terminate.
+
+        The optional *input* argument should be a
         string to be sent to the child process, or None, if no data
         should be sent to the child.
 
@@ -702,51 +935,9 @@ class Popen(object):
            Honor a *timeout* even if there's no way to communicate with the child
            (stdin, stdout, and stderr are not pipes).
         """
-        greenlets = []
-        if self.stdin:
-            greenlets.append(spawn(write_and_close, self.stdin, input))
-
-        # If the timeout parameter is used, and the caller calls back after
-        # getting a TimeoutExpired exception, we can wind up with multiple
-        # greenlets trying to run and read from and close stdout/stderr.
-        # That's bad because it can lead to 'RuntimeError: reentrant call in io.BufferedReader'.
-        # We can't just kill the previous greenlets when a timeout happens,
-        # though, because we risk losing the output collected by that greenlet
-        # (and Python 3, where timeout is an official parameter, explicitly says
-        # that no output should be lost in the event of a timeout.) Instead, we're
-        # watching for the exception and ignoring it. It's not elegant,
-        # but it works
-        def _make_pipe_reader(pipe_name):
-            pipe = getattr(self, pipe_name)
-            buf_name = '_' + pipe_name + '_buffer'
-
-            def _read():
-                try:
-                    data = pipe.read()
-                except RuntimeError:
-                    return
-                if not data:
-                    return
-                the_buffer = getattr(self, buf_name)
-                if the_buffer:
-                    the_buffer.append(data)
-                else:
-                    setattr(self, buf_name, [data])
-            return _read
-
-        if self.stdout:
-            _read_out = _make_pipe_reader('stdout')
-            stdout = spawn(_read_out)
-            greenlets.append(stdout)
-        else:
-            stdout = None
-
-        if self.stderr:
-            _read_err = _make_pipe_reader('stderr')
-            stderr = spawn(_read_err)
-            greenlets.append(stderr)
-        else:
-            stderr = None
+        if self._communicating_greenlets is None:
+            self._communicating_greenlets = _CommunicatingGreenlets(self, input)
+        greenlets = self._communicating_greenlets
 
         # If we were given stdin=stdout=stderr=None, we have no way to
         # communicate with the child, and thus no greenlets to wait
@@ -758,9 +949,18 @@ class Popen(object):
             self.wait(timeout=timeout, _raise_exc=True)
 
         done = joinall(greenlets, timeout=timeout)
-        if timeout is not None and len(done) != len(greenlets):
+        # Allow finished greenlets, if any, to raise. This takes priority over
+        # the timeout exception.
+        for greenlet in done:
+            greenlet.get()
+        if timeout is not None and len(done) != len(self._communicating_greenlets):
             raise TimeoutExpired(self.args, timeout)
 
+        # Close only after we're sure that everything is done
+        # (there was no timeout, or there was, but everything finished).
+        # There should be no greenlets still running, even from a prior
+        # attempt. If there are, then this can raise RuntimeError: 'reentrant call'.
+        # So we ensure that previous greenlets are dead.
         for pipe in (self.stdout, self.stderr):
             if pipe:
                 try:
@@ -770,21 +970,8 @@ class Popen(object):
 
         self.wait()
 
-        def _get_output_value(pipe_name):
-            buf_name = '_' + pipe_name + '_buffer'
-            buf_value = getattr(self, buf_name)
-            setattr(self, buf_name, None)
-            if buf_value:
-                buf_value = self._communicate_empty_value.join(buf_value)
-            else:
-                buf_value = self._communicate_empty_value
-            return buf_value
-
-        stdout_value = _get_output_value('stdout')
-        stderr_value = _get_output_value('stderr')
-
-        return (None if stdout is None else stdout_value,
-                None if stderr is None else stderr_value)
+        return (None if greenlets.stdout is None else greenlets.stdout.get(),
+                None if greenlets.stderr is None else greenlets.stderr.get())
 
     def poll(self):
         """Check if child process has terminated. Set and return :attr:`returncode` attribute."""
@@ -947,10 +1134,28 @@ class Popen(object):
                            p2cread, p2cwrite,
                            c2pread, c2pwrite,
                            errread, errwrite,
-                           unused_restore_signals, unused_start_new_session):
+                           unused_restore_signals,
+                           unused_gid, unused_gids, unused_uid, unused_umask,
+                           unused_start_new_session):
             """Execute program (MS Windows version)"""
             # pylint:disable=undefined-variable
             assert not pass_fds, "pass_fds not supported on Windows."
+            if isinstance(args, str):
+                pass
+            elif isinstance(args, bytes):
+                if shell and PY3:
+                    raise TypeError('bytes args is not allowed on Windows')
+                args = list2cmdline([args])
+            elif isinstance(args, PathLike):
+                if shell:
+                    raise TypeError('path-like args is not allowed when '
+                                    'shell is true')
+                args = list2cmdline([args])
+            else:
+                args = list2cmdline(args)
+
+            if executable is not None:
+                executable = fsdecode(executable)
 
             if not isinstance(args, string_types):
                 args = list2cmdline(args)
@@ -958,6 +1163,15 @@ class Popen(object):
             # Process startup details
             if startupinfo is None:
                 startupinfo = STARTUPINFO()
+            elif hasattr(startupinfo, 'copy'):
+                # bpo-34044: Copy STARTUPINFO since it is modified below,
+                # so the caller can reuse it multiple times.
+                startupinfo = startupinfo.copy()
+            elif hasattr(startupinfo, '_copy'):
+                # When the fix was backported to Python 3.7, copy() was
+                # made private as _copy.
+                startupinfo = startupinfo._copy()
+
             use_std_handles = -1 not in (p2cread, c2pwrite, errwrite)
             if use_std_handles:
                 startupinfo.dwFlags |= STARTF_USESTDHANDLES
@@ -1024,7 +1238,7 @@ class Popen(object):
                                                  int(not close_fds),
                                                  creationflags,
                                                  env,
-                                                 cwd,
+                                                 cwd, # fsdecode handled earlier
                                                  startupinfo)
             except IOError as e: # From 2.6 on, pywintypes.error was defined as IOError
                 # Translate pywintypes.error to WindowsError, which is
@@ -1302,21 +1516,29 @@ class Popen(object):
                            p2cread, p2cwrite,
                            c2pread, c2pwrite,
                            errread, errwrite,
-                           restore_signals, start_new_session):
+                           restore_signals,
+                           gid, gids, uid, umask,
+                           start_new_session):
             """Execute program (POSIX version)"""
 
             if PY3 and isinstance(args, (str, bytes)):
                 args = [args]
             elif not PY3 and isinstance(args, string_types):
                 args = [args]
+            elif isinstance(args, PathLike):
+                if shell:
+                    raise TypeError('path-like args is not allowed when '
+                                    'shell is true')
+                args = [fsencode(args)] # os.PathLike -> [str]
             else:
-                try:
-                    args = list(args)
-                except TypeError:  # os.PathLike instead of a sequence?
-                    args = [fsencode(args)]  # os.PathLike -> [str]
+                args = list(args)
 
             if shell:
-                args = ["/bin/sh", "-c"] + args
+                # On Android the default shell is at '/system/bin/sh'.
+                unix_shell = (
+                    '/system/bin/sh' if hasattr(sys, 'getandroidapilevel') else '/bin/sh'
+                )
+                args = [unix_shell, "-c"] + args
                 if executable:
                     args[0] = executable
 
@@ -1372,8 +1594,10 @@ class Popen(object):
                             # is possible that it is overwritten (#12607).
                             if c2pwrite == 0:
                                 c2pwrite = os.dup(c2pwrite)
+                                _set_inheritable(c2pwrite, False)
                             while errwrite in (0, 1):
                                 errwrite = os.dup(errwrite)
+                                _set_inheritable(errwrite, False)
 
                             # Dup fds for child
                             def _dup2(existing, desired):
@@ -1397,11 +1621,18 @@ class Popen(object):
 
                             # Close pipe fds.  Make sure we don't close the
                             # same fd more than once, or standard fds.
-                            closed = set([None])
-                            for fd in [p2cread, c2pwrite, errwrite]:
-                                if fd not in closed and fd > 2:
-                                    os.close(fd)
-                                    closed.add(fd)
+                            if not PY3:
+                                closed = set([None])
+                                for fd in [p2cread, c2pwrite, errwrite]:
+                                    if fd not in closed and fd > 2:
+                                        os.close(fd)
+                                        closed.add(fd)
+
+                            # Python 3 (with a working set_inheritable):
+                            # We no longer manually close p2cread,
+	                        # c2pwrite, and errwrite here as
+	                        # _close_open_fds takes care when it is
+	                        # not already non-inheritable.
 
                             if cwd is not None:
                                 try:
@@ -1409,6 +1640,18 @@ class Popen(object):
                                 except OSError as e:
                                     e._failed_chdir = True
                                     raise
+
+                            # Python 3.9
+                            if umask >= 0:
+                                os.umask(umask)
+                            # XXX: CPython does _Py_RestoreSignals here.
+                            # Then setsid() based on ???
+                            if gids:
+                                os.setgroups(gids)
+                            if gid:
+                                os.setregid(gid, gid)
+                            if uid:
+                                os.setreuid(uid, uid)
 
                             if preexec_fn:
                                 preexec_fn()
@@ -1487,10 +1730,20 @@ class Popen(object):
                 errpipe_read = FileObject(errpipe_read, 'rb')
                 data = errpipe_read.read()
             finally:
-                if hasattr(errpipe_read, 'close'):
-                    errpipe_read.close()
-                else:
-                    os.close(errpipe_read)
+                try:
+                    if hasattr(errpipe_read, 'close'):
+                        errpipe_read.close()
+                    else:
+                        os.close(errpipe_read)
+                except OSError:
+                    # Especially on PyPy, we sometimes see the above
+                    # `os.close(errpipe_read)` raise an OSError.
+                    # It's not entirely clear why, but it happens in
+                    # InterprocessSignalTests.test_main sometimes, which must mean
+                    # we have some sort of race condition.
+                    pass
+                finally:
+                    errpipe_read = -1
 
             if data != b"":
                 self.wait()
@@ -1504,11 +1757,19 @@ class Popen(object):
                         child_exception.filename = cwd
                 raise child_exception
 
-        def _handle_exitstatus(self, sts):
-            if os.WIFSIGNALED(sts):
-                self.returncode = -os.WTERMSIG(sts)
-            elif os.WIFEXITED(sts):
-                self.returncode = os.WEXITSTATUS(sts)
+        def _handle_exitstatus(self, sts, _WIFSIGNALED=os.WIFSIGNALED,
+                               _WTERMSIG=os.WTERMSIG, _WIFEXITED=os.WIFEXITED,
+                               _WEXITSTATUS=os.WEXITSTATUS, _WIFSTOPPED=os.WIFSTOPPED,
+                               _WSTOPSIG=os.WSTOPSIG):
+            # This method is called (indirectly) by __del__, so it cannot
+            # refer to anything outside of its local scope.
+            # (gevent: We don't have a __del__, that's in the CPython implementation.)
+            if _WIFSIGNALED(sts):
+                self.returncode = -_WTERMSIG(sts)
+            elif _WIFEXITED(sts):
+                self.returncode = _WEXITSTATUS(sts)
+            elif _WIFSTOPPED(sts):
+                self.returncode = -_WSTOPSIG(sts)
             else:
                 # Should never happen
                 raise RuntimeError("Unknown child exit status!")
@@ -1555,22 +1816,6 @@ class Popen(object):
             self.send_signal(signal.SIGKILL)
 
 
-def write_and_close(fobj, data):
-    try:
-        if data:
-            fobj.write(data)
-            if hasattr(fobj, 'flush'):
-                # 3.6 started expecting flush to be called.
-                fobj.flush()
-    except (OSError, IOError) as ex:
-        if ex.errno != errno.EPIPE and ex.errno != errno.EINVAL:
-            raise
-    finally:
-        try:
-            fobj.close()
-        except EnvironmentError:
-            pass
-
 def _with_stdout_stderr(exc, stderr):
     # Prior to Python 3.5, most exceptions didn't have stdout
     # and stderr attributes and can't take the stderr attribute in their
@@ -1595,6 +1840,10 @@ class CompletedProcess(object):
        This first appeared in Python 3.5 and is available to all
        Python versions in gevent.
     """
+    if GenericAlias is not None:
+        # Sigh, 3.9 spreading typing stuff all over everything
+        __class_getitem__ = classmethod(GenericAlias)
+
     def __init__(self, args, returncode, stdout=None, stderr=None):
         self.args = args
         self.returncode = returncode
@@ -1686,3 +1935,15 @@ def run(*popenargs, **kwargs):
             raise _with_stdout_stderr(CalledProcessError(retcode, process.args, stdout), stderr)
 
     return CompletedProcess(process.args, retcode, stdout, stderr)
+
+def _gevent_did_monkey_patch(*_args):
+    # Beginning on 3.8 on Mac, the 'spawn' method became the default
+    # start method. That doesn't fire fork watchers and we can't
+    # easily patch to make it do so: multiprocessing uses the private
+    # c accelerated _subprocess module to implement this. Instead we revert
+    # back to using fork.
+    from gevent._compat import MAC
+    if MAC:
+        import multiprocessing
+        if hasattr(multiprocessing, 'set_start_method'):
+            multiprocessing.set_start_method('fork', force=True)

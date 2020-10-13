@@ -25,7 +25,11 @@ import types
 from functools import wraps
 import unittest
 
-import objgraph
+try:
+    import objgraph
+except ImportError: # pragma: no cover
+    # Optional test dependency
+    objgraph = None
 
 import gevent
 import gevent.core
@@ -85,7 +89,6 @@ class _RefCountChecker(object):
             return False
         return True
 
-
     def _growth(self):
         return objgraph.growth(limit=None, peak_stats=self.peak_stats, filter=self._ignore_object_p)
 
@@ -113,6 +116,7 @@ class _RefCountChecker(object):
             self.function(self.testcase, *args, **kwargs)
         finally:
             self.testcase.tearDown()
+            self.testcase.doCleanups()
             self.testcase.skipTearDown = True
             self.needs_setUp = True
             if gc_enabled:
@@ -193,8 +197,15 @@ class _RefCountChecker(object):
 
 
 def wrap_refcount(method):
-    if getattr(method, 'ignore_leakcheck', False):
-        return method
+
+    if objgraph is None or getattr(method, 'ignore_leakcheck', False):
+        if objgraph is None:
+            import warnings
+            warnings.warn("objgraph not available, leakchecks disabled")
+        @wraps(method)
+        def _method_skipped_during_leakcheck(self, *_args, **_kwargs):
+            self.skipTest("This method ignored during leakchecks")
+        return _method_skipped_during_leakcheck
 
 
     @wraps(method)

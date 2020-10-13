@@ -1,7 +1,7 @@
 from __future__ import print_function, absolute_import
-from gevent import monkey; monkey.patch_all(subprocess=True)
+from gevent import monkey; monkey.patch_all()
 import signal
-import sys
+
 import socket
 from time import sleep
 
@@ -13,17 +13,18 @@ from gevent.testing import util
 
 @greentest.skipOnLibuvOnCIOnPyPy("Timing issues sometimes lead to connection refused")
 class Test(util.TestServer):
-    server = 'portforwarder.py'
-    args = ['127.0.0.1:10011', '127.0.0.1:10012']
+    example = 'portforwarder.py'
+    # [listen on, forward to]
+    example_args = ['127.0.0.1:10011', '127.0.0.1:10012']
 
-    if sys.platform.startswith('win'):
+    if greentest.WIN:
         from subprocess import CREATE_NEW_PROCESS_GROUP
         # Must be in a new process group to use CTRL_C_EVENT, otherwise
         # we get killed too
         start_kwargs = {'creationflags': CREATE_NEW_PROCESS_GROUP}
 
     def after(self):
-        if sys.platform == 'win32':
+        if greentest.WIN:
             self.assertIsNotNone(self.popen.poll())
         else:
             self.assertEqual(self.popen.poll(), 0)
@@ -39,7 +40,7 @@ class Test(util.TestServer):
                     break
                 log.append(data)
 
-        server = StreamServer(self.args[1], handle)
+        server = StreamServer(self.example_args[1], handle)
         server.start()
         try:
             conn = socket.create_connection(('127.0.0.1', 10011))

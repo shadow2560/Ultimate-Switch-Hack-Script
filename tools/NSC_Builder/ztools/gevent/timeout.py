@@ -234,7 +234,11 @@ class Timeout(BaseException):
 
         # Make sure the timer updates the current time so that we don't
         # expire prematurely.
-        self.timer.start(getcurrent().throw, throws, update=True)
+        self.timer.start(self._on_expiration, getcurrent(), throws, update=True)
+
+    def _on_expiration(self, prev_greenlet, ex):
+        # Hook for subclasses.
+        prev_greenlet.throw(ex)
 
     @classmethod
     def start_new(cls, timeout=None, exception=None, ref=True, _one_shot=False):
@@ -262,12 +266,16 @@ class Timeout(BaseException):
         # Internal use only in 1.1
         # Return an object with a 'cancel' method; if timeout is None,
         # this will be a shared instance object that does nothing. Otherwise,
-        # return an actual Timeout. Because negative values are hard to reason about,
+        # return an actual Timeout. A 0 value is allowed and creates a real Timeout.
+
+        # Because negative values are hard to reason about,
         # and are often used as sentinels in Python APIs, in the future it's likely
         # that a negative timeout will also return the shared instance.
-        # This saves the previously common idiom of 'timer = Timeout.start_new(t) if t is not None else None'
+        # This saves the previously common idiom of
+        # 'timer = Timeout.start_new(t) if t is not None else None'
         # followed by 'if timer is not None: timer.cancel()'.
         # That idiom was used to avoid any object allocations.
+
         # A staticmethod is slightly faster under CPython, compared to a classmethod;
         # under PyPy in synthetic benchmarks it makes no difference.
         if timeout is None:

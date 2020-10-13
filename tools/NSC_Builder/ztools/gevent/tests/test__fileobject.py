@@ -1,18 +1,23 @@
-from __future__ import print_function
+from __future__ import print_function, absolute_import
+
+import functools
+import gc
+import io
 import os
 import sys
 import tempfile
-import gc
 import unittest
 
 import gevent
 from gevent import fileobject
+from gevent._fileobjectcommon import OpenDescriptor
+
+from gevent._compat import PY2
+from gevent._compat import PY3
+from gevent._compat import text_type
 
 import gevent.testing as greentest
-from gevent.testing.sysinfo import PY3
-from gevent.testing.flaky import reraiseFlakyTestRaceConditionLibuv
-from gevent.testing.skipping import skipOnLibuvOnCIOnPyPy
-
+from gevent.testing import sysinfo
 
 try:
     ResourceWarning
@@ -21,7 +26,7 @@ except NameError:
         "Python 2 fallback"
 
 
-def writer(fobj, line):
+def Writer(fobj, line):
     for character in line:
         fobj.write(character)
         fobj.flush()
@@ -34,7 +39,17 @@ def close_fd_quietly(fd):
     except (IOError, OSError):
         pass
 
-class TestFileObjectBlock(greentest.TestCase):
+def skipUnlessWorksWithRegularFiles(func):
+    @functools.wraps(func)
+    def f(self):
+        if not self.WORKS_WITH_REGULAR_FILES:
+            self.skipTest("Doesn't work with regular files")
+        func(self)
+    return f
+
+class TestFileObjectBlock(greentest.TestCase): # serves as a base for the concurrent tests too
+
+    WORKS_WITH_REGULAR_FILES = True
 
     def _getTargetClass(self):
         return fileobject.FileObjectBlock
@@ -85,8 +100,7 @@ class TestFileObjectBlock(greentest.TestCase):
     def test_del_close(self):
         self._test_del(close=True)
 
-    @skipOnLibuvOnCIOnPyPy("This appears to crash on libuv/pypy/travis.")
-    # No idea why, can't duplicate locally.
+    @skipUnlessWorksWithRegularFiles
     def test_seek(self):
         fileno, path = tempfile.mkstemp('.gevent.test__fileobject.test_seek')
         self.addCleanup(os.remove, path)
@@ -101,16 +115,7 @@ class TestFileObjectBlock(greentest.TestCase):
             native_data = f.read(1024)
 
         with open(path, 'rb') as f_raw:
-            try:
-                f = self._makeOne(f_raw, 'rb', close=False)
-            except ValueError:
-                # libuv on Travis can raise EPERM
-                # from FileObjectPosix. I can't produce it on mac os locally,
-                # don't know what the issue is. This started happening on Jan 19,
-                # in the branch that caused all watchers to be explicitly closed.
-                # That shouldn't have any effect on io watchers, though, which were
-                # already being explicitly closed.
-                reraiseFlakyTestRaceConditionLibuv()
+            f = self._makeOne(f_raw, 'rb', close=False)
 
             if PY3 or hasattr(f, 'seekable'):
                 # On Python 3, all objects should have seekable.
@@ -127,6 +132,94 @@ class TestFileObjectBlock(greentest.TestCase):
         self.assertEqual(native_data, s)
         self.assertEqual(native_data, fileobj_data)
 
+    def __check_native_matches(self, byte_data, open_mode,
+                               meth='read', open_path=True,
+                               **open_kwargs):
+        fileno, path = tempfile.mkstemp('.gevent_test_' + open_mode)
+        self.addCleanup(os.remove, path)
+
+        os.write(fileno, byte_data)
+        os.close(fileno)
+
+        with io.open(path, open_mode, **open_kwargs) as f:
+            native_data = getattr(f, meth)()
+
+        if open_path:
+            with self._makeOne(path, open_mode, **open_kwargs) as f:
+                gevent_data = getattr(f, meth)()
+        else:
+            # Note that we don't use ``io.open()`` for the raw file,
+            # on Python 2. We want 'r' to mean what the usual call to open() means.
+            opener = io.open if PY3 else open
+            with opener(path, open_mode, **open_kwargs) as raw:
+                with self._makeOne(raw) as f:
+                    gevent_data = getattr(f, meth)()
+
+        self.assertEqual(native_data, gevent_data)
+        return gevent_data
+
+    @skipUnlessWorksWithRegularFiles
+    def test_str_default_to_native(self):
+        # With no 'b' or 't' given, read and write native str.
+        gevent_data = self.__check_native_matches(b'abcdefg', 'r')
+        self.assertIsInstance(gevent_data, str)
+
+    @skipUnlessWorksWithRegularFiles
+    def test_text_encoding(self):
+        gevent_data = self.__check_native_matches(
+            u'\N{SNOWMAN}'.encode('utf-8'),
+            'r+',
+            buffering=5, encoding='utf-8'
+        )
+        self.assertIsInstance(gevent_data, text_type)
+
+    @skipUnlessWorksWithRegularFiles
+    def test_does_not_leak_on_exception(self):
+        # If an exception occurs during opening,
+        # everything still gets cleaned up.
+        pass
+
+    @skipUnlessWorksWithRegularFiles
+    def test_rbU_produces_bytes_readline(self):
+        # Including U in rb still produces bytes.
+        # Note that the universal newline behaviour is
+        # essentially ignored in explicit bytes mode.
+        gevent_data = self.__check_native_matches(
+            b'line1\nline2\r\nline3\rlastline\n\n',
+            'rbU',
+            meth='readlines',
+        )
+        self.assertIsInstance(gevent_data[0], bytes)
+        self.assertEqual(len(gevent_data), 4)
+
+    @skipUnlessWorksWithRegularFiles
+    def test_rU_produces_native(self):
+        gevent_data = self.__check_native_matches(
+            b'line1\nline2\r\nline3\rlastline\n\n',
+            'rU',
+            meth='readlines',
+        )
+        self.assertIsInstance(gevent_data[0], str)
+
+    @skipUnlessWorksWithRegularFiles
+    def test_r_readline_produces_native(self):
+        gevent_data = self.__check_native_matches(
+            b'line1\n',
+            'r',
+            meth='readline',
+        )
+        self.assertIsInstance(gevent_data, str)
+
+    @skipUnlessWorksWithRegularFiles
+    def test_r_readline_on_fobject_produces_native(self):
+        gevent_data = self.__check_native_matches(
+            b'line1\n',
+            'r',
+            meth='readline',
+            open_path=False,
+        )
+        self.assertIsInstance(gevent_data, str)
+
     def test_close_pipe(self):
         # Issue #190, 203
         r, w = os.pipe()
@@ -140,14 +233,31 @@ class ConcurrentFileObjectMixin(object):
     # Additional tests for fileobjects that cooperate
     # and we have full control of the implementation
 
-    def test_read1(self):
+    def test_read1_binary_present(self):
         # Issue #840
         r, w = os.pipe()
-        x = self._makeOne(r)
-        y = self._makeOne(w, 'w')
-        self._close_on_teardown(x)
-        self._close_on_teardown(y)
-        self.assertTrue(hasattr(x, 'read1'))
+        reader = self._makeOne(r, 'rb')
+        self._close_on_teardown(reader)
+        writer = self._makeOne(w, 'w')
+        self._close_on_teardown(writer)
+        self.assertTrue(hasattr(reader, 'read1'), dir(reader))
+
+    def test_read1_text_not_present(self):
+        # Only defined for binary.
+        r, w = os.pipe()
+        reader = self._makeOne(r, 'rt')
+        self._close_on_teardown(reader)
+        self.addCleanup(os.close, w)
+        self.assertFalse(hasattr(reader, 'read1'), dir(reader))
+
+    def test_read1_default(self):
+        # If just 'r' is given, whether it has one or not
+        # depends on if we're Python 2 or 3.
+        r, w = os.pipe()
+        self.addCleanup(os.close, w)
+        reader = self._makeOne(r)
+        self._close_on_teardown(reader)
+        self.assertEqual(PY2, hasattr(reader, 'read1'))
 
     def test_bufsize_0(self):
         # Issue #840
@@ -168,7 +278,7 @@ class ConcurrentFileObjectMixin(object):
         import warnings
         r, w = os.pipe()
         lines = [b'line1\n', b'line2\r', b'line3\r\n', b'line4\r\nline5', b'\nline6']
-        g = gevent.spawn(writer, self._makeOne(w, 'wb'), lines)
+        g = gevent.spawn(Writer, self._makeOne(w, 'wb'), lines)
 
         try:
             with warnings.catch_warnings():
@@ -188,13 +298,12 @@ class TestFileObjectThread(ConcurrentFileObjectMixin,
     def _getTargetClass(self):
         return fileobject.FileObjectThread
 
-    # FileObjectThread uses os.fdopen() when passed a file-descriptor,
-    # which returns an object with a destructor that can't be
-    # bypassed, so we can't even create one that way
     def test_del_noclose(self):
-        with self.assertRaisesRegex(TypeError,
-                                    'FileObjectThread does not support close=False on an fd.'):
-            self._test_del(close=False)
+        # In the past, we used os.fdopen() when given a file descriptor,
+        # and that has a destructor that can't be bypassed, so
+        # close=false wasn't allowed. Now that we do everything with the
+        # io module, it is allowed.
+        self._test_del(close=False)
 
     # We don't test this with FileObjectThread. Sometimes the
     # visibility of the 'close' operation, which happens in a
@@ -218,6 +327,12 @@ class TestFileObjectThread(ConcurrentFileObjectMixin,
 )
 class TestFileObjectPosix(ConcurrentFileObjectMixin,
                           TestFileObjectBlock):
+
+    if sysinfo.LIBUV and sysinfo.LINUX:
+        # On Linux, initializing the watcher for a regular
+        # file results in libuv raising EPERM. But that works
+        # fine on other platforms.
+        WORKS_WITH_REGULAR_FILES = False
 
     def _getTargetClass(self):
         return fileobject.FileObjectPosix
@@ -248,7 +363,6 @@ class TestFileObjectPosix(ConcurrentFileObjectMixin,
         self.assertEqual(io_ex.args, os_ex.args)
         self.assertEqual(str(io_ex), str(os_ex))
 
-
 class TestTextMode(unittest.TestCase):
 
     def test_default_mode_writes_linesep(self):
@@ -271,8 +385,40 @@ class TestTextMode(unittest.TestCase):
 
         self.assertEqual(data, os.linesep.encode('ascii'))
 
+class TestOpenDescriptor(greentest.TestCase):
+
+    def _makeOne(self, *args, **kwargs):
+        return OpenDescriptor(*args, **kwargs)
+
+    def _check(self, regex, kind, *args, **kwargs):
+        with self.assertRaisesRegex(kind, regex):
+            self._makeOne(*args, **kwargs)
+
+    case = lambda re, **kwargs: (re, TypeError, kwargs)
+    vase = lambda re, **kwargs: (re, ValueError, kwargs)
+    CASES = (
+        case('mode', mode=42),
+        case('buffering', buffering='nope'),
+        case('encoding', encoding=42),
+        case('errors', errors=42),
+        vase('mode', mode='aoeug'),
+        vase('mode U cannot be combined', mode='wU'),
+        vase('text and binary', mode='rtb'),
+        vase('append mode at once', mode='rw'),
+        vase('exactly one', mode='+'),
+        vase('take an encoding', mode='rb', encoding='ascii'),
+        vase('take an errors', mode='rb', errors='strict'),
+        vase('take a newline', mode='rb', newline='\n'),
+    )
+
+def pop():
+    for regex, kind, kwargs in TestOpenDescriptor.CASES:
+        setattr(
+            TestOpenDescriptor, 'test_' + regex,
+            lambda self, _re=regex, _kind=kind, _kw=kwargs: self._check(_re, _kind, 1, **_kw)
+        )
+pop()
 
 
 if __name__ == '__main__':
-    sys.argv.append('-v')
     greentest.main()

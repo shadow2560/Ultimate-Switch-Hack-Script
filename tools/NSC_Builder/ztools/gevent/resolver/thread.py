@@ -10,10 +10,6 @@ from gevent.hub import get_hub
 __all__ = ['Resolver']
 
 
-# trigger import of encodings.idna to avoid https://github.com/gevent/gevent/issues/349
-u'foo'.encode('idna')
-
-
 class Resolver(object):
     """
     Implementation of the resolver API using native threads and native resolution
@@ -47,7 +43,9 @@ class Resolver(object):
             hub.NOT_ERROR += (_socket.gaierror, _socket.herror)
 
     def __repr__(self):
-        return '<gevent.resolver_thread.Resolver at 0x%x pool=%r>' % (id(self), self.pool)
+        return '<%s.%s at 0x%x pool=%r>' % (type(self).__module__,
+                                            type(self).__name__,
+                                            id(self), self.pool)
 
     def close(self):
         pass

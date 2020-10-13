@@ -19,6 +19,7 @@ _ssl = __ssl__._ssl # pylint:disable=no-member
 
 import errno
 from gevent._socket2 import socket
+from gevent._socket2 import AF_INET # pylint:disable=no-name-in-module
 from gevent.socket import timeout_default
 from gevent.socket import create_connection
 from gevent.socket import error as socket_error
@@ -35,6 +36,7 @@ __implements__ = [
     '_create_unverified_context',
     '_create_default_https_context',
     '_create_stdlib_context',
+    '_fileobject',
 ]
 
 # Import all symbols from Python's ssl.py, except those that we are implementing
@@ -53,10 +55,28 @@ __all__ = __implements__ + __imports__
 if 'namedtuple' in __all__:
     __all__.remove('namedtuple')
 
+# See notes in _socket2.py. Python 3 returns much nicer
+# `io` object wrapped around a SocketIO class.
+if hasattr(__ssl__, '_fileobject'):
+    assert not hasattr(__ssl__._fileobject, '__enter__') # pylint:disable=no-member
+
+class _fileobject(getattr(__ssl__, '_fileobject', object)): # pylint:disable=no-member
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        # pylint:disable=no-member
+        if not self.closed:
+            self.close()
+
+
 orig_SSLContext = __ssl__.SSLContext # pylint: disable=no-member
 
-
 class SSLContext(orig_SSLContext):
+
+    __slots__ = ()
+
     def wrap_socket(self, sock, server_side=False,
                     do_handshake_on_connect=True,
                     suppress_ragged_eofs=True,
@@ -82,14 +102,14 @@ def create_default_context(purpose=Purpose.SERVER_AUTH, cafile=None,
     context = SSLContext(PROTOCOL_SSLv23)
 
     # SSLv2 considered harmful.
-    context.options |= OP_NO_SSLv2
+    context.options |= OP_NO_SSLv2 # pylint:disable=no-member
 
     # SSLv3 has problematic security and is only required for really old
     # clients such as IE6 on Windows XP
-    context.options |= OP_NO_SSLv3
+    context.options |= OP_NO_SSLv3 # pylint:disable=no-member
 
     # disable compression to prevent CRIME attacks (OpenSSL 1.0+)
-    context.options |= getattr(_ssl, "OP_NO_COMPRESSION", 0)
+    context.options |= getattr(_ssl, "OP_NO_COMPRESSION", 0) # pylint:disable=no-member
 
     if purpose == Purpose.SERVER_AUTH:
         # verify certs and host name in client mode
@@ -98,11 +118,11 @@ def create_default_context(purpose=Purpose.SERVER_AUTH, cafile=None,
     elif purpose == Purpose.CLIENT_AUTH:
         # Prefer the server's ciphers by default so that we get stronger
         # encryption
-        context.options |= getattr(_ssl, "OP_CIPHER_SERVER_PREFERENCE", 0)
+        context.options |= getattr(_ssl, "OP_CIPHER_SERVER_PREFERENCE", 0) # pylint:disable=no-member
 
         # Use single use keys in order to improve forward secrecy
-        context.options |= getattr(_ssl, "OP_SINGLE_DH_USE", 0)
-        context.options |= getattr(_ssl, "OP_SINGLE_ECDH_USE", 0)
+        context.options |= getattr(_ssl, "OP_SINGLE_DH_USE", 0) # pylint:disable=no-member
+        context.options |= getattr(_ssl, "OP_SINGLE_ECDH_USE", 0) # pylint:disable=no-member
 
         # disallow ciphers with known vulnerabilities
         context.set_ciphers(_RESTRICTED_SERVER_CIPHERS)
@@ -132,10 +152,10 @@ def _create_unverified_context(protocol=PROTOCOL_SSLv23, cert_reqs=None,
 
     context = SSLContext(protocol)
     # SSLv2 considered harmful.
-    context.options |= OP_NO_SSLv2
+    context.options |= OP_NO_SSLv2 # pylint:disable=no-member
     # SSLv3 has problematic security and is only required for really old
     # clients such as IE6 on Windows XP
-    context.options |= OP_NO_SSLv3
+    context.options |= OP_NO_SSLv3 # pylint:disable=no-member
 
     if cert_reqs is not None:
         context.verify_mode = cert_reqs
@@ -420,10 +440,9 @@ class SSLSocket(socket):
         if self._sslobj:
             raise ValueError("sendto not allowed on instances of %s" %
                              self.__class__)
-        elif addr is None:
+        if addr is None:
             return socket.sendto(self, data, flags_or_addr)
-        else:
-            return socket.sendto(self, data, flags_or_addr, addr)
+        return socket.sendto(self, data, flags_or_addr, addr)
 
     def sendmsg(self, *args, **kwargs):
         # Ensure programs don't send data unencrypted if they try to
@@ -485,8 +504,7 @@ class SSLSocket(socket):
         if self._sslobj:
             raise ValueError("recvfrom_into not allowed on instances of %s" %
                              self.__class__)
-        else:
-            return socket.recvfrom_into(self, buffer, nbytes, flags)
+        return socket.recvfrom_into(self, buffer, nbytes, flags)
 
     def recvmsg(self, *args, **kwargs):
         raise NotImplementedError("recvmsg not allowed on instances of %s" %
@@ -549,7 +567,13 @@ class SSLSocket(socket):
         if not self._sslobj:
             raise ValueError("No SSL wrapper around " + str(self))
 
-        s = self._sslobj_shutdown()
+        s = self._sock
+        try:
+            s = self._sslobj_shutdown()
+        except socket_error as ex:
+            if ex.args[0] != 0:
+                raise
+
         self._sslobj = None
         # match _ssl2; critical to drop/reuse here on PyPy
         # XXX: _ssl3 returns an SSLSocket. Is that what the standard lib does on
@@ -621,7 +645,7 @@ class SSLSocket(socket):
         SSL channel, and the address of the remote client."""
 
         newsock, addr = socket.accept(self)
-        newsock._drop_events()
+        newsock._drop_events_and_close(closefd=False) # Why, again?
         newsock = self._context.wrap_socket(newsock,
                                             do_handshake_on_connect=self.do_handshake_on_connect,
                                             suppress_ragged_eofs=self.suppress_ragged_eofs,

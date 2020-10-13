@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V408</h2>
+<ul>
+<li>Mise à jour de AIO-switch-updater en version 1.2.6.</li>
+</ul>
 <h2>V407</h2>
 <ul>
 <li>Mise à jour de AIO-switch-updater en version 1.2.5.</li>
