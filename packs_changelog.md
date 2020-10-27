@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V409</h2>
+<ul>
+<li>Mise à jour de Atmosphere en version 0.15.0 experimental.</li>
+<li>Mise à jour de Hekate vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour de AIO-switch-updater en version 1.2.7.</li>
+<li>Mise à jour de Edizon-SE en version 3.7.17.</li>
+</ul>
 <h2>V408</h2>
 <ul>
 <li>Mise à jour de AIO-switch-updater en version 1.2.6.</li>

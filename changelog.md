@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.67</h2>
+<ul>
+<li>Mise à jour de Atmosphere en version 0.15.0 experimental.</li>
+<li>Mise à jour de Hekate vers la version master du Github, compilé par moi-même.</li>
+<li>Suppression du payload Hekate_switchboot_mod.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 409.</li>
+</ul>
 <h2>V4.3.66</h2>
 <ul>
 <li>Mise à jour de NSC_Builder en version 1.01B.</li>
