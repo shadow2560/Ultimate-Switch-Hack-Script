@@ -39,6 +39,8 @@ echo 14: Configurer les profiles de copie d'overlays utilisés lors de la prépa
 echo.
 echo 15: Configurer les profiles d'emummc d'Atmosphere utilisés lors de la préparation d'une SD?
 echo.
+echo 16: Configurer les profiles de copie de modules Salty-nx utilisés lors de la préparation d'une SD?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

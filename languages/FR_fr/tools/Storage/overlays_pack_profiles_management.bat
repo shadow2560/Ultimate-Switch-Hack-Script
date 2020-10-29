@@ -114,7 +114,7 @@ echo Cette page n'existe pas.
 goto:eof
 
 :no_overlays_in_overlays_folder
-echo Erreur, il ne semble y avoir aucun overlay dans le dossier "tools\sd_switch\mixed\modular" du script, le processus ne peut continuer.
+echo Erreur, il ne semble y avoir aucun overlay dans le dossier "tools\sd_switch\overlays\pack" du script, le processus ne peut continuer.
 goto:eof
 
 :canceled

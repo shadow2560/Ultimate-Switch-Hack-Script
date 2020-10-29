@@ -123,7 +123,7 @@ echo This page doesn't exist.
 goto:eof
 
 :no_overlays_in_overlays_folder
-echo Error, no overlays in the "tools\sd_switch\mixed\modular" folder of the script, the process couldn't continue.
+echo Error, no overlays in the "tools\sd_switch\overlays\pack" folder of the script, the process couldn't continue.
 goto:eof
 
 :canceled

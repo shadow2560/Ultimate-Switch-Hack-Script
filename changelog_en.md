@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.69</h2>
+<ul>
+<li>Add support for  Salty-NX and his modules in the SD preparation.</li>
+<li>Update EmuGUIibo (AKA Emutool) to version 0.6.1.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 411.</li>
+</ul>
 <h2>V4.3.68</h2>
 <ul>
 <li>Update Hekate to version 5.3.4.</li>

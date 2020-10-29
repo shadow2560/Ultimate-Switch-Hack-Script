@@ -280,6 +280,13 @@ IF "%pass_copy_overlays_pack%"=="Y" (
 	tools\gnuwin32\bin\sort.exe -n "%overlays_profile_path%"
 )
 	echo.
+echo Salty-nx modules:
+IF "%pass_copy_salty-nx_pack%"=="Y" (
+	echo No Salty-nx module will be copied.
+) else (
+	tools\gnuwin32\bin\sort.exe -n "%salty-nx_profile_path%"
+)
+	echo.
 IF "%copy_cheats%"=="Y" (
 	echo Cheats:
 	IF "%copy_all_cheats_pack%"=="Y" (

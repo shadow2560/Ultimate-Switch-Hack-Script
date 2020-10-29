@@ -48,6 +48,8 @@ echo 14: configure the overlays profiles used in SD preparation?
 echo.
 echo 15: configure the Atmosphere's emummc profiles used in SD preparation?
 echo.
+echo 16: configure the Salty-nx modules profiles used in SD preparation?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.

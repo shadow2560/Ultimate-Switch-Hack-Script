@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V411</h2>
+<ul>
+<li>Update Emuiibo to version 0.6.1.</li>
+</ul>
 <h2>V410</h2>
 <ul>
 <li>Update Hekate to version 5.3.4.</li>

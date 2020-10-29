@@ -122,6 +122,21 @@ echo.
 set /p overlays_profile=Choisissez un profile d'overlays: 
 goto:eof
 
+:salty-nx_profile_choice_begin
+echo Sélection du profile pour la copie des modules Salty-nx:
+goto:eof
+
+:salty-nx_profile_all
+echo %temp_count%: Tous les modules Salty-nx.
+goto:eof
+
+:salty-nx_profile_choice
+echo 0: Accéder à la gestion des profiles de modules Salty-nx.
+echo Tout autre choix: Ne copier aucun des modules Salty-nx.
+echo.
+set /p salty-nx_profile=Choisissez un profile de modules Salty-nx: 
+goto:eof
+
 :cheats_profile_choice_begin
 echo Sélection du profile pour la copie des cheats:
 goto:eof

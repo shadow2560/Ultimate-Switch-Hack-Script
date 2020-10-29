@@ -1,0 +1,77 @@
+UnityEngine.QualitySettings::get_pixelLightCount =0x019F3EA0
+UnityEngine.QualitySettings::set_pixelLightCount =0x019F3ED0
+UnityEngine.QualitySettings::get_shadows =0x019F3F00
+UnityEngine.QualitySettings::set_shadows =0x019F3F30
+UnityEngine.QualitySettings::get_shadowProjection =0x019F3F60
+UnityEngine.QualitySettings::set_shadowProjection =0x019F3F90
+UnityEngine.QualitySettings::get_shadowCascades =0x019F3FC0
+UnityEngine.QualitySettings::set_shadowCascades =0x019F3FF0
+UnityEngine.QualitySettings::get_shadowDistance =0x019F4020
+UnityEngine.QualitySettings::set_shadowDistance =0x019F4050
+UnityEngine.QualitySettings::get_shadowResolution =0x019F4080
+UnityEngine.QualitySettings::set_shadowResolution =0x019F40B0
+UnityEngine.QualitySettings::get_shadowmaskMode =0x019F40E0
+UnityEngine.QualitySettings::set_shadowmaskMode =0x019F4110
+UnityEngine.QualitySettings::get_shadowNearPlaneOffset =0x019F4140
+UnityEngine.QualitySettings::set_shadowNearPlaneOffset =0x019F4170
+UnityEngine.QualitySettings::get_shadowCascade2Split =0x019F41A0
+UnityEngine.QualitySettings::set_shadowCascade2Split =0x019F41D0
+UnityEngine.QualitySettings::get_lodBias =0x019F4290
+UnityEngine.QualitySettings::set_lodBias =0x019F42C0
+UnityEngine.QualitySettings::get_anisotropicFiltering =0x019F42F0
+UnityEngine.QualitySettings::set_anisotropicFiltering =0x019F4320
+UnityEngine.QualitySettings::get_masterTextureLimit =0x00000000
+UnityEngine.QualitySettings::set_masterTextureLimit =0x00000000
+UnityEngine.QualitySettings::get_maximumLODLevel =0x019F43B0
+UnityEngine.QualitySettings::set_maximumLODLevel =0x019F43E0
+UnityEngine.QualitySettings::get_particleRaycastBudget =0x019F4410
+UnityEngine.QualitySettings::set_particleRaycastBudget =0x019F4440	
+UnityEngine.QualitySettings::get_softParticles =0x019F4470
+UnityEngine.QualitySettings::set_softParticles =0x019F44A0
+UnityEngine.QualitySettings::get_softVegetation =0x019F44D0
+UnityEngine.QualitySettings::set_softVegetation =0x019F4500
+UnityEngine.QualitySettings::get_vSyncCount =0x019F4530
+UnityEngine.QualitySettings::set_vSyncCount =0x019F4560
+UnityEngine.QualitySettings::get_antiAliasing =0x019F4590
+UnityEngine.QualitySettings::set_antiAliasing =0x019F45C0
+UnityEngine.QualitySettings::get_asyncUploadTimeSlice =0x019F45F0
+UnityEngine.QualitySettings::set_asyncUploadTimeSlice =0x019F4620
+UnityEngine.QualitySettings::get_asyncUploadBufferSize =0x019F4650
+UnityEngine.QualitySettings::set_asyncUploadBufferSize =0x019F4680
+UnityEngine.QualitySettings::get_asyncUploadPersistentBuffer =0x019F46B0
+UnityEngine.QualitySettings::set_asyncUploadPersistentBuffer =0x019F46E0
+UnityEngine.QualitySettings::get_realtimeReflectionProbes =0x019F4710
+UnityEngine.QualitySettings::set_realtimeReflectionProbes =0x019F4740
+UnityEngine.QualitySettings::get_billboardsFaceCameraPosition =0x019F4770
+UnityEngine.QualitySettings::set_billboardsFaceCameraPosition =0x019F47A0
+UnityEngine.QualitySettings::get_resolutionScalingFixedDPIFactor =0x019F47D0
+UnityEngine.QualitySettings::set_resolutionScalingFixedDPIFactor =0x019F4800
+UnityEngine.QualitySettings::get_blendWeights =0x019F4830
+UnityEngine.QualitySettings::set_blendWeights =0x019F4860
+UnityEngine.QualitySettings::get_streamingMipmapsActive =0x019F4890
+UnityEngine.QualitySettings::set_streamingMipmapsActive =0x019F48C0	
+UnityEngine.QualitySettings::get_streamingMipmapsMemoryBudget =0x019F48F0
+UnityEngine.QualitySettings::set_streamingMipmapsMemoryBudget =0x019F4920
+UnityEngine.QualitySettings::get_streamingMipmapsMaxLevelReduction =0x019F4980
+UnityEngine.QualitySettings::set_streamingMipmapsMaxLevelReduction =0x019F49B0
+UnityEngine.QualitySettings::get_streamingMipmapsAddAllCameras =0x019F49E0
+UnityEngine.QualitySettings::set_streamingMipmapsAddAllCameras =0x019F4A10
+UnityEngine.QualitySettings::get_streamingMipmapsMaxFileIORequests =0x019F4A40
+UnityEngine.QualitySettings::set_streamingMipmapsMaxFileIORequests =0x019F4A70	
+UnityEngine.QualitySettings::get_maxQueuedFrames =0x00000000
+UnityEngine.QualitySettings::set_maxQueuedFrames =0x00000000
+
+UnityEngine.Screen::get_width =0x019ee900
+UnityEngine.Screen::get_height =0x019ee920
+UnityEngine.Screen::SetResolution =0x019eebc0
+
+UnityEngine.ScalableBufferManager::get_widthScaleFactor =0x019f03d0
+UnityEngine.ScalableBufferManager::get_heightScaleFactor =0x019f03f0
+UnityEngine.ScalableBufferManager::ResizeBuffers =0x00000000
+
+Comments:
+- trying to change mastertexturelimit results in crash
+- trying to get maxQueuedFrames results in crash
+- changing anisotropicFiltering has irregular behaviour. In some scenes changing it in specific combination can result in crash. If game will not crash after change, then location that was crashing before where we were changing anisotropicFiltering won't crash if we will go back there. Try it on different locations to get different results. 
+- ShadowDistance and ShadowResolution are overrided in next frame by game. There are plans to implement things that will prevent game from overriding our settings.
+- ResizeBuffers crashes when changing to anything except 100%

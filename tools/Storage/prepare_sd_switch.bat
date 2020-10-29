@@ -327,6 +327,11 @@ IF NOT "%pass_copy_overlays_pack%"=="Y" (
 			set errorlevel=404
 	)
 )
+IF NOT "%pass_copy_salty-nx_pack%"=="Y" (
+	IF NOT EXIST "%salty-nx_profile_path%" (
+			set errorlevel=404
+	)
+)
 :confirm_settings
 call tools\Storage\prepare_sd_switch_infos.bat
 call "%associed_language_script%" "display_title"
@@ -464,6 +469,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	call :copy_modules_pack "atmosphere"
 	IF NOT "%atmosphere_pass_copy_emummc_pack%"=="Y" copy /v "%atmosphere_emummc_profile_path%" "%volume_letter%:\emummc\emummc.ini" >nul
 	IF NOT "%pass_copy_overlays_pack%"=="Y" call :force_copy_overlays_base_files "atmosphere"
+	IF NOT "%pass_copy_salty-nx_pack%"=="Y" call :force_copy_salty-nx_base_files "atmosphere"
 )
 
 IF /i "%copy_reinx_pack%"=="o" (
@@ -488,6 +494,7 @@ IF /i "%copy_reinx_pack%"=="o" (
 	copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\ReiNX\reboot_payload.bin >nul
 	call :copy_modules_pack "reinx"
 	IF NOT "%pass_copy_overlays_pack%"=="Y" call :force_copy_overlays_base_files "reinx"
+	IF NOT "%pass_copy_salty-nx_pack%"=="Y" call :force_copy_salty-nx_base_files "reinx"
 )
 
 IF /i "%copy_sxos_pack%"=="o" (
@@ -510,6 +517,7 @@ IF /i "%copy_sxos_pack%"=="o" (
 	)
 	call :copy_modules_pack "sxos"
 	IF NOT "%pass_copy_overlays_pack%"=="Y" call :force_copy_overlays_base_files "sxos"
+	IF NOT "%pass_copy_salty-nx_pack%"=="Y" call :force_copy_salty-nx_base_files "sxos"
 	IF EXIST "%volume_letter%:\switch\sx_installer" rmdir /s /q "%volume_letter%:\switch\sx_installer"
 	rem IF EXIST "%volume_letter%:\sxos\titles\420000000007E51A\*.*" rmdir /s /q "%volume_letter%:\sxos\titles\420000000007E51A"
 	del /Q /S "%volume_letter%:\sxos\.emptydir" >nul 2>&1
@@ -532,6 +540,7 @@ IF /i "%copy_memloader%"=="o" (
 
 call :copy_mixed_pack
 call :copy_overlays_pack
+call :copy_salty-nx_pack
 call :copy_emu_pack
 %windir%\System32\Robocopy.exe sd_user %volume_letter%:\ /e >nul
 
@@ -641,6 +650,20 @@ IF "%~1"=="sxos" (
 IF EXIST "%temp_modules_copy_path%\010000000007E51A\exefs.nsp" rmdir /s /q "%temp_modules_copy_path%\010000000007E51A"
 %windir%\System32\Robocopy.exe tools\sd_switch\modules\pack\Ovl-menu\titles %temp_modules_copy_path% /e >nul
 %windir%\System32\Robocopy.exe tools\sd_switch\modules\pack\Ovl-menu\others %volume_letter%:\ /e >nul
+exit /b
+
+:force_copy_salty-nx_base_files
+IF "%~1"=="atmosphere" (
+	set temp_modules_copy_path=%volume_letter%:\atmosphere\contents
+)
+IF "%~1"=="reinx" (
+	set temp_modules_copy_path=%volume_letter%:\ReiNX\titles
+)
+IF "%~1"=="sxos" (
+	set temp_modules_copy_path=%volume_letter%:\sxos\titles
+)
+%windir%\System32\Robocopy.exe tools\sd_switch\modules\pack\Salty-nx\titles %temp_modules_copy_path% /e >nul
+%windir%\System32\Robocopy.exe tools\sd_switch\modules\pack\Salty-nx\others %volume_letter%:\ /e >nul
 exit /b
 
 :copy_mixed_pack
@@ -868,6 +891,60 @@ for /l %%i in (1,1,%temp_count%) do (
 	)
 )
 :skip_copy_overlays_pack
+exit /b
+
+:copy_salty-nx_pack
+IF "%pass_copy_salty-nx_pack%"=="Y" goto:skip_copy_salty-nx_pack
+tools\gnuwin32\bin\grep.exe -c "" <"%salty-nx_profile_path%" > templogs\tempvar.txt
+set /p temp_count=<templogs\tempvar.txt
+for /l %%i in (1,1,%temp_count%) do (
+	set temp_special_salty-nx=N
+	set one_cfw_chosen=n
+	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%salty-nx_profile_path%" >templogs\tempvar.txt
+	set /p temp_salty-nx=<templogs\tempvar.txt
+	IF "!temp_salty-nx!"=="UnityGraphics" (
+		set temp_special_salty-nx=Y
+		IF EXIST "%volume_letter%:\atmosphere\contents" (
+			set one_cfw_chosen=Y
+			call :force_copy_overlays_base_files "atmosphere"
+		)
+		IF EXIST "%volume_letter%:\sxos\titles" (
+			set one_cfw_chosen=Y
+			call :force_copy_overlays_base_files "sxos"
+		)
+		IF EXIST "%volume_letter%:\boot.dat" (
+			set one_cfw_chosen=Y
+			IF NOT EXIST "%volume_letter%:\sxos" (
+				mkdir "%volume_letter%:\sxos"
+				mkdir "%volume_letter%:\sxos\titles"
+			)
+			call :force_copy_overlays_base_files "sxos"
+		)
+		IF /i "%copy_atmosphere_pack%"=="o" (
+			set one_cfw_chosen=Y
+			IF NOT EXIST "%volume_letter%:\atmosphere" (
+				mkdir "%volume_letter%:\atmosphere"
+				mkdir "%volume_letter%:\contents
+			)
+			call :force_copy_overlays_base_files "atmosphere"
+		)
+		IF /i "%copy_sxos_pack%"=="o" (
+			set one_cfw_chosen=Y
+			IF NOT EXIST "%volume_letter%:\sxos" (
+				mkdir "%volume_letter%:\sxos"
+				mkdir "%volume_letter%:\sxos\titles"
+			)
+			call :force_copy_overlays_base_files "sxos"
+		)
+		IF "!one_cfw_chosen!"=="Y" (
+			%windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
+		) else (
+			call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+		)
+	)
+	IF "!temp_special_salty-nx!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
+)
+:skip_copy_salty-nx_pack
 exit /b
 
 :copy_emu_pack

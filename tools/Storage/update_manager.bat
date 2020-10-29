@@ -1537,6 +1537,7 @@ call :update_emummc_profiles_management.bat
 call :update_mixed_pack_profiles_management.bat
 call :update_modules_profiles_management.bat
 call :update_overlays_pack_profiles_management.bat
+call :update_saltynx_pack_profiles_management.bat
 call :update_prepare_sd_switch_profiles_management.bat
 call :verif_file_version "tools\sd_switch\version.txt"
 IF "!update_finded!"=="Y" (
@@ -1713,6 +1714,39 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 		)
 	)
 )
+exit /b
+
+:update_saltynx_pack_profiles_management.bat
+call :verif_file_version "tools\Storage\saltynx_pack_profiles_management.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\saltynx_pack_profiles_management.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\saltynx_pack_profiles_management.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+tools\gnuwin32\bin\grep.exe -c "" <"tools\default_configs\Lists\salty-nx.list" > templogs\tempvar.txt
+set /p count_salty-nx=<templogs\tempvar.txt
+set /a temp_count=1
+:listing_salty-nx
+IF %temp_count% GTR %count_salty-nx% goto:skip_listing_salty-nx
+"tools\gnuwin32\bin\sed.exe" -n %temp_count%p "tools\default_configs\Lists\salty-nx.list" >templogs\tempvar.txt
+set /p temp_salty-nx=<templogs\tempvar.txt
+call :verif_folder_version "tools\sd_switch\salty-nx\pack\%temp_salty-nx%"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+set /a temp_count+=1
+goto:listing_salty-nx
+:skip_listing_salty-nx
 exit /b
 
 :update_save_configs.bat

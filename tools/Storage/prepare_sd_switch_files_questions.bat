@@ -328,6 +328,75 @@ set overlays_profile_path=tools\sd_switch\overlays\profiles\%overlays_profile_pa
 :skip_verif_overlays_profile
 del /q templogs\profiles_list.txt >nul
 
+:define_select_salty-nx_profile
+echo.
+set salty-nx_profile_path=
+set salty-nx_profile=
+call "%associed_language_script2%" "salty-nx_profile_choice_begin"
+set /a temp_count=1
+copy nul templogs\profiles_list.txt >nul
+IF NOT EXIST "tools\sd_switch\salty-nx\profiles\*.ini" (
+	goto:no_salty-nx_profile_created
+)
+cd tools\sd_switch\salty-nx\profiles
+for %%p in (*.ini) do (
+	set temp_profilename=%%p
+	set temp_profilename=!temp_profilename:~0,-4!
+	echo !temp_count!: !temp_profilename!
+	echo %%p>> ..\..\..\..\templogs\profiles_list.txt
+	set /a temp_count+=1
+)
+cd ..\..\..\..
+:no_salty-nx_profile_created
+IF EXIST "tools\default_configs\salty-nx_profile_all.ini" (
+	call "%associed_language_script2%" "salty-nx_profile_all"
+) else (
+	set /a temp_count-=1
+	set no_default_config=Y
+)
+call "%associed_language_script2%" "salty-nx_profile_choice"
+IF "%salty-nx_profile%"=="" (
+	set pass_copy_salty-nx_pack=Y
+	goto:skip_verif_salty-nx_profile
+)
+call TOOLS\Storage\functions\strlen.bat nb "%salty-nx_profile%"
+set i=0
+:check_chars_salty-nx_profile
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
+		IF "!salty-nx_profile:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_salty-nx_profile
+		)
+	)
+	IF "!check_chars!"=="0" (
+		set pass_copy_salty-nx_pack=Y
+		goto:skip_verif_salty-nx_profile
+	)
+)
+IF %salty-nx_profile% GTR %temp_count% (
+	set pass_copy_salty-nx_pack=Y
+		goto:skip_verif_salty-nx_profile
+)
+IF "%salty-nx_profile%"=="0" (
+	call tools\Storage\saltynx_pack_profiles_management.bat
+	call "%associed_language_script2%" "display_title"
+	goto:define_select_salty-nx_profile
+)
+IF %salty-nx_profile% EQU %temp_count% (
+	IF NOT "%no_default_config%"=="Y" (
+		set salty-nx_profile_path=tools\default_configs\salty-nx_profile_all.ini
+		goto:skip_verif_salty-nx_profile
+	)
+)
+TOOLS\gnuwin32\bin\sed.exe -n %salty-nx_profile%p <templogs\profiles_list.txt > templogs\tempvar.txt
+set /p salty-nx_profile_path=<templogs\tempvar.txt
+set salty-nx_profile_path=tools\sd_switch\salty-nx\profiles\%salty-nx_profile_path%
+:skip_verif_salty-nx_profile
+del /q templogs\profiles_list.txt >nul
+
 :define_select_cheats_profile
 set cheats_profile_path=
 set cheats_profile_name=
