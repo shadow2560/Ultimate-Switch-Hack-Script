@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V412</h2>
+<ul>
+<li>Re-include the Hekate's config file witch include the sig_patches configurations (be careful, the sig_patches are not included).</li>
+<li>Update DBI to version 175.</li>
+<li>Update MGBA to version 0.8.4.</li>
+</ul>
 <h2>V411</h2>
 <ul>
 <li>Update Emuiibo to version 0.6.1.</li>

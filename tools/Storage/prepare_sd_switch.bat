@@ -405,9 +405,9 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\atmosphere\BCT.ini" del /q "%volume_letter%:\atmosphere\BCT.ini"
 	IF EXIST "%volume_letter%:\atmosphere\loader.ini" del /q "%volume_letter%:\atmosphere\loader.ini"
 	IF EXIST "%volume_letter%:\atmosphere\system_settings.ini" del /q "%volume_letter%:\atmosphere\system_settings.ini"
-	IF EXIST "%volume_letter%:\atmosphere\kip_patches\fs_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\fs_patches" >nul
-	IF EXIST "%volume_letter%:\atmosphere\kip_patches\loader_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\loader_patches" >nul
-	IF EXIST "%volume_letter%:\atmosphere\exefs_patches\es_patches" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\es_patches" >nul
+	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\fs_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\fs_patches" >nul
+	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\loader_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\loader_patches" >nul
+	rem IF EXIST "%volume_letter%:\atmosphere\exefs_patches\es_patches" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\es_patches" >nul
 	IF EXIST "%volume_letter%:\atmosphere\hekate_kips\loader.kip" del /q "%volume_letter%:\atmosphere\hekate_kips\loader.kip" >nul
 	IF EXIST "%volume_letter%:\sept\sept-secondary.enc" del /q "%volume_letter%:\sept\sept-secondary.enc"
 	IF EXIST "%volume_letter%:\sept\ams\sept-secondary.enc" del /q "%volume_letter%:\sept\ams\sept-secondary.enc"

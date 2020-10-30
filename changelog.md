@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.71</h2>
+<ul>
+<li>Certains fichiers/dossiers du pack Atmosphere ne seront plus forcément nettoyé automatiquement par la préparation de la SD.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 412.</li>
+</ul>
 <h2>V4.3.70</h2>
 <ul>
 <li>Corrections de bugs dans la gestion des profiles de modules Salty-nx.</li>
