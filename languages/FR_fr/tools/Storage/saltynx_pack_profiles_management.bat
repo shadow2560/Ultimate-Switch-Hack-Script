@@ -83,19 +83,19 @@ echo.
 set /p profile_choice=Choisir un profile: 
 goto:eof
 
-:no_salty-nx_in_profile_error
+:no_salty_nx_in_profile_error
 echo Aucun module Salty-nx configuré pour ce profile.
 goto:eof
 
-:intro_salty-nx_one_page
+:intro_salty_nx_one_page
 echo Sélection d'un module Salty-nx à ajouter ou à supprimer pour le profile "%temp_profile:~0,-4%"
 goto:eof
 
-:intro_salty-nx_multi_page
+:intro_salty_nx_multi_page
 echo Sélection d'un module Salty-nx à ajouter ou à supprimer pour le profile "%temp_profile:~0,-4%", page %selected_page%/%page_number%
 goto:eof
 
-:add_remove_salty-nx_info
+:add_remove_salty_nx_info
 echo Les modules Salty-nx dont le nom est préfixé d'un "*" sont les modules Salty-nx présent dans le profile.
 goto:eof
 
@@ -103,17 +103,17 @@ goto:eof
 echo P: Changer de page, faire suivre le P d'un numéro de page valide.
 goto:eof
 
-:add_remove_salty-nx_choice_ending
+:add_remove_salty_nx_choice_ending
 echo N'importe quel autre choix: Arrêter la modification de la liste des modules Salty-nx du profile.
 echo.
-set /p salty-nx_choice=Choisir un module Salty-nx pour l'ajouter ou le supprimer ou changer de page: 
+set /p salty_nx_choice=Choisir un module Salty-nx pour l'ajouter ou le supprimer ou changer de page: 
 goto:eof
 
 :page_not_exist_error
 echo Cette page n'existe pas.
 goto:eof
 
-:no_salty-nx_in_salty-nx_folder
+:no_salty_nx_in_salty_nx_folder
 echo Erreur, il ne semble y avoir aucun module Salty-nx dans le dossier "tools\sd_switch\salty-nx\pack" du script, le processus ne peut continuer.
 goto:eof
 

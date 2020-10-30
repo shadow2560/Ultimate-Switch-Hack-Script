@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.70</h2>
+<ul>
+<li>Fix bugs in the  Salty-nx profiles management.</li>
+</ul>
 <h2>V4.3.69</h2>
 <ul>
 <li>Add support for  Salty-NX and his modules in the SD preparation.</li>

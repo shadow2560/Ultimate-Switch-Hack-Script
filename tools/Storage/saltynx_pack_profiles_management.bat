@@ -49,7 +49,7 @@ IF %errorlevel% EQU 404 (
 )
 echo.
 call "%associed_language_script%" "info_profile"
-call :list_salty-nx_in_profile "%profile_selected%"
+call :list_salty_nx_in_profile "%profile_selected%"
 pause
 goto:define_action_choice
 
@@ -87,7 +87,7 @@ IF %errorlevel% EQU 404 (
 )
 :skip_modify_select_profile
 IF %errorlevel% EQU 0 (
-	call :add_del_salty-nx_in_profile "%profile_selected%"
+	call :add_del_salty_nx_in_profile "%profile_selected%"
 ) else (
 	goto:define_action_choice
 )
@@ -107,7 +107,7 @@ IF %errorlevel% EQU 0 (
 	cd tools\sd_switch\profiles
 	set /a temp_count=0
 	for %%p in (*.bat) do (
-		..\..\gnuwin32\bin\grep.exe -c "salty-nx_profile_path=tools\\sd_switch\\salty-nx\\profiles\\%profile_selected%" <"%%p" > ..\..\..\templogs\tempvar.txt
+		..\..\gnuwin32\bin\grep.exe -c "salty_nx_profile_path=tools\\sd_switch\\salty_nx\\profiles\\%profile_selected%" <"%%p" > ..\..\..\templogs\tempvar.txt
 		set /p temp_test_profile=<..\..\..\templogs\tempvar.txt
 		IF "!temp_test_profile!"=="1" (
 			set /a temp_count+=1
@@ -186,38 +186,38 @@ del /q templogs\profiles_list.txt >nul
 set /p profile_selected=<templogs\tempvar.txt
 exit /b
 
-:list_salty-nx_in_profile
+:list_salty_nx_in_profile
 Setlocal disabledelayedexpansion
-copy nul templogs\salty-nx_list.txt >nul
+copy nul templogs\salty_nx_list.txt >nul
 tools\gnuwin32\bin\grep.exe -c "" <"tools\sd_switch\salty-nx\profiles\%~1" > templogs\tempvar.txt
-set /p count_salty-nx=<templogs\tempvar.txt
-IF %count_salty-nx% EQU 0 (
-	call "%associed_language_script%" "no_salty-nx_in_profile_error"
+set /p count_salty_nx=<templogs\tempvar.txt
+IF %count_salty_nx% EQU 0 (
+	call "%associed_language_script%" "no_salty_nx_in_profile_error"
 	endlocal
 	exit /b
 )
-%windir%\System32\sort.exe /l C <"tools\sd_switch\salty-nx\profiles\%~1" /o "templogs\salty-nx_list.txt"
-type "templogs\salty-nx_list.txt"
-del /q templogs\salty-nx_list.txt
+%windir%\System32\sort.exe /l C <"tools\sd_switch\salty-nx\profiles\%~1" /o "templogs\salty_nx_list.txt"
+type "templogs\salty_nx_list.txt"
+del /q templogs\salty_nx_list.txt
 endlocal
 exit /b
 
-:add_del_salty-nx_in_profile
+:add_del_salty_nx_in_profile
 set temp_profile=%~1
 set temp_path_profile=tools\sd_switch\salty-nx\profiles\%~1
 set /a selected_page=1
-call :salty-nx_list
+call :salty_nx_list
 IF %errorlevel% EQU 404 (
-	del /q templogs\salty-nx_list.txt
+	del /q templogs\salty_nx_list.txt
 	exit /b 400
 )
-set /a page_number=%count_salty-nx%/20
-IF %count_salty-nx% LEQ 20 (
+set /a page_number=%count_salty_nx%/20
+IF %count_salty_nx% LEQ 20 (
 	set /a modulo=0
 	set /a page_number=1
 	goto:skip:modulo_calc
 )
-set mod_a=!count_salty-nx!
+set mod_a=!count_salty_nx!
 set mod_b=20
 set mod_counter=0
 for /l %%k in (1,1,!mod_a!) do (
@@ -229,64 +229,64 @@ for /l %%k in (1,1,!mod_a!) do (
 if not defined modulo set modulo=0
 IF %modulo% NEQ 0 set /a page_number+=1
 :skip:modulo_calc
-:recall_add_remove_salty-nx
-IF %count_salty-nx% LEQ 20 (
-	call "%associed_language_script%" "intro_salty-nx_one_page"
+:recall_add_remove_salty_nx
+IF %count_salty_nx% LEQ 20 (
+	call "%associed_language_script%" "intro_salty_nx_one_page"
 ) else (
-	call "%associed_language_script%" "intro_salty-nx_multi_page"
+	call "%associed_language_script%" "intro_salty_nx_multi_page"
 )
 echo.
-call "%associed_language_script%" "add_remove_salty-nx_info"
+call "%associed_language_script%" "add_remove_salty_nx_info"
 echo.
 IF %modulo% NEQ 0 (
 	IF %selected_page% EQU %page_number% (
-		set /a temp_max_display_salty-nx=%count_salty-nx%
-		set /a temp_min_display_salty-nx=%count_salty-nx%-%modulo%+1
+		set /a temp_max_display_salty_nx=%count_salty_nx%
+		set /a temp_min_display_salty_nx=%count_salty_nx%-%modulo%+1
 	) else (
-		set /a temp_max_display_salty-nx=%selected_page%*20
-		set /a temp_min_display_salty-nx=!temp_max_display_salty-nx!-19
+		set /a temp_max_display_salty_nx=%selected_page%*20
+		set /a temp_min_display_salty_nx=!temp_max_display_salty_nx!-19
 	)
 ) else (
-	IF %count_salty-nx% LEQ 20 (
-		set /a temp_max_display_salty-nx=%count_salty-nx%
-		set /a temp_min_display_salty-nx=1
+	IF %count_salty_nx% LEQ 20 (
+		set /a temp_max_display_salty_nx=%count_salty_nx%
+		set /a temp_min_display_salty_nx=1
 	) else (
-		set /a temp_max_display_salty-nx=%selected_page%*20
-		set /a temp_min_display_salty-nx=!temp_max_display_salty-nx!-19
+		set /a temp_max_display_salty_nx=%selected_page%*20
+		set /a temp_min_display_salty_nx=!temp_max_display_salty_nx!-19
 	)
 )
-for /l %%i in (%temp_min_display_salty-nx%,1,%temp_max_display_salty-nx%) do (
-	tools\gnuwin32\bin\grep.exe -c "!salty-nx_list_%%i_0!" <"%temp_path_profile%" > templogs\tempvar.txt
-	set /p temp_count_salty-nx=<templogs\tempvar.txt
-	IF !temp_count_salty-nx! EQU 0 (
-		echo %%i: !salty-nx_list_%%i_0!
+for /l %%i in (%temp_min_display_salty_nx%,1,%temp_max_display_salty_nx%) do (
+	tools\gnuwin32\bin\grep.exe -c "!salty_nx_list_%%i_0!" <"%temp_path_profile%" > templogs\tempvar.txt
+	set /p temp_count_salty_nx=<templogs\tempvar.txt
+	IF !temp_count_salty_nx! EQU 0 (
+		echo %%i: !salty_nx_list_%%i_0!
 	) else (
-		echo %%i: *!salty-nx_list_%%i_0!
+		echo %%i: *!salty_nx_list_%%i_0!
 	)
 )
-IF %count_salty-nx% GTR 20 call "%associed_language_script%" "change_page_info"
-set salty-nx_choice=
-call "%associed_language_script%" "add_remove_salty-nx_choice_ending"
-IF "%salty-nx_choice%"=="" set /a salty-nx_choice=0
-call TOOLS\Storage\functions\strlen.bat nb "%salty-nx_choice%"
-IF /i "%salty-nx_choice:~0,1%"=="p" (
+IF %count_salty_nx% GTR 20 call "%associed_language_script%" "change_page_info"
+set salty_nx_choice=
+call "%associed_language_script%" "add_remove_salty_nx_choice_ending"
+IF "%salty_nx_choice%"=="" set /a salty_nx_choice=0
+call TOOLS\Storage\functions\strlen.bat nb "%salty_nx_choice%"
+IF /i "%salty_nx_choice:~0,1%"=="p" (
 	set change_page=Y
 	IF %nb% equ 1 (
-		set salty-nx_choice=0
+		set salty_nx_choice=0
 	) else (
-		set salty-nx_choice=%salty-nx_choice:~1%
+		set salty_nx_choice=%salty_nx_choice:~1%
 	)
 	)
-call TOOLS\Storage\functions\strlen.bat nb "%salty-nx_choice%"
+call TOOLS\Storage\functions\strlen.bat nb "%salty_nx_choice%"
 set i=0
-:check_chars_salty-nx_choice
+:check_chars_salty_nx_choice
 IF %i% NEQ %nb% (
 	set check_chars=0
 	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
-		IF "!salty-nx_choice:~%i%,1!"=="%%z" (
+		IF "!salty_nx_choice:~%i%,1!"=="%%z" (
 			set /a i+=1
 			set check_chars=1
-			goto:check_chars_salty-nx_choice
+			goto:check_chars_salty_nx_choice
 		)
 	)
 	IF "!check_chars!"=="0" (
@@ -294,63 +294,63 @@ exit /b 400
 	)
 )
 IF "%change_page%"=="Y" (
-	IF %salty-nx_choice% GTR %page_number% (
+	IF %salty_nx_choice% GTR %page_number% (
 		call "%associed_language_script%" "page_not_exist_error"
 		set change_page=
-		goto:recall_add_remove_salty-nx
-	) else IF %salty-nx_choice% LEQ 0 (
+		goto:recall_add_remove_salty_nx
+	) else IF %salty_nx_choice% LEQ 0 (
 	call "%associed_language_script%" "page_not_exist_error"
 	set change_page=
-	goto:recall_add_remove_salty-nx
+	goto:recall_add_remove_salty_nx
 	) else (
-		set selected_page=%salty-nx_choice%
+		set selected_page=%salty_nx_choice%
 		set change_page=
-		goto:recall_add_remove_salty-nx
+		goto:recall_add_remove_salty_nx
 	)
 )
-IF %salty-nx_choice% GTR %count_salty-nx% (
-	del /q templogs\salty-nx_list.txt
+IF %salty_nx_choice% GTR %count_salty_nx% (
+	del /q templogs\salty_nx_list.txt
 	exit /b 400
 )
-IF %salty-nx_choice% EQU 0 (
-	del /q templogs\salty-nx_list.txt
+IF %salty_nx_choice% EQU 0 (
+	del /q templogs\salty_nx_list.txt
 	exit /b 400
 )
-TOOLS\gnuwin32\bin\sed.exe -n %salty-nx_choice%p <templogs\salty-nx_list.txt > templogs\tempvar.txt
-set /p salty-nx_selected=<templogs\tempvar.txt
-tools\gnuwin32\bin\grep.exe -c "%salty-nx_selected%" <"%temp_path_profile%" > templogs\tempvar.txt
+TOOLS\gnuwin32\bin\sed.exe -n %salty_nx_choice%p <templogs\salty_nx_list.txt > templogs\tempvar.txt
+set /p salty_nx_selected=<templogs\tempvar.txt
+tools\gnuwin32\bin\grep.exe -c "%salty_nx_selected%" <"%temp_path_profile%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
 IF %temp_count% EQU 0 (
-	echo %salty-nx_selected%>>"%temp_path_profile%"
+	echo %salty_nx_selected%>>"%temp_path_profile%"
 ) else (
-	tools\gnuwin32\bin\grep.exe -v "%salty-nx_selected%" <"%temp_path_profile%" > templogs\tempvar.txt
+	tools\gnuwin32\bin\grep.exe -v "%salty_nx_selected%" <"%temp_path_profile%" > templogs\tempvar.txt
 	del /q "%temp_path_profile%" >nul
 	move templogs\tempvar.txt "%temp_path_profile%" >nul
 )
-goto:recall_add_remove_salty-nx
+goto:recall_add_remove_salty_nx
 exit /b
 
-:salty-nx_list
-copy nul templogs\salty-nx_list.txt >nul
+:salty_nx_list
+copy nul templogs\salty_nx_list.txt >nul
 cd tools\sd_switch\salty-nx\pack
 for /D %%i in (*) do (
-	echo %%i>>..\..\..\..\templogs\salty-nx_list.txt
+	echo %%i>>..\..\..\..\templogs\salty_nx_list.txt
 )
 cd ..\..\..\..
-tools\gnuwin32\bin\grep.exe -c "" <templogs\salty-nx_list.txt > templogs\tempvar.txt
-set /p count_salty-nx=<templogs\tempvar.txt
+tools\gnuwin32\bin\grep.exe -c "" <templogs\salty_nx_list.txt > templogs\tempvar.txt
+set /p count_salty_nx=<templogs\tempvar.txt
 set temp_count=1
-:listing_salty-nx
-IF %count_salty-nx% EQU 0 (
-	call "%associed_language_script%" "no_salty-nx_in_salty-nx_folder"
+:listing_salty_nx
+IF %count_salty_nx% EQU 0 (
+	call "%associed_language_script%" "no_salty_nx_in_salty_nx_folder"
 	exit /b 404
 )
-IF %temp_count% GTR %count_salty-nx% goto:skip_listing_salty-nx
-TOOLS\gnuwin32\bin\sed.exe -n %temp_count%p <templogs\salty-nx_list.txt > templogs\tempvar.txt
-set /p salty-nx_list_%temp_count%_0=<templogs\tempvar.txt
+IF %temp_count% GTR %count_salty_nx% goto:skip_listing_salty_nx
+TOOLS\gnuwin32\bin\sed.exe -n %temp_count%p <templogs\salty_nx_list.txt > templogs\tempvar.txt
+set /p salty_nx_list_%temp_count%_0=<templogs\tempvar.txt
 set /a temp_count+=1
-goto:listing_salty-nx
-:skip_listing_salty-nx
+goto:listing_salty_nx
+:skip_listing_salty_nx
 exit /b
 
 :end_script
