@@ -1531,13 +1531,6 @@ call :verif_folder_version "tools\Switchboot"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-call :update_cheats_profiles_management.bat
-call :update_emulators_pack_profiles_management.bat
-call :update_emummc_profiles_management.bat
-call :update_mixed_pack_profiles_management.bat
-call :update_modules_profiles_management.bat
-call :update_overlays_pack_profiles_management.bat
-call :update_saltynx_pack_profiles_management.bat
 call :update_prepare_sd_switch_profiles_management.bat
 call :verif_file_version "tools\sd_switch\version.txt"
 IF "!update_finded!"=="Y" (
@@ -1600,6 +1593,13 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 		)
 	)
 )
+call :update_cheats_profiles_management.bat
+call :update_emulators_pack_profiles_management.bat
+call :update_emummc_profiles_management.bat
+call :update_mixed_pack_profiles_management.bat
+call :update_modules_profiles_management.bat
+call :update_overlays_pack_profiles_management.bat
+call :update_saltynx_pack_profiles_management.bat
 call :update_prepare_sd_switch_files_questions.bat
 call :update_prepare_sd_switch_infos.bat
 exit /b

@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.72</h2>
+<ul>
+<li>In the update manager, change the method to update the management of general profiles for the SD preparation allowing to have access to all the possible options directly, this takes more time but is much more practical.</li>
+</ul>
 <h2>V4.3.71</h2>
 <ul>
 <li>Some files/folders of the Atmosphere pack will not be cleaned anymore by the SD preparation script.</li>
