@@ -131,6 +131,7 @@
 <li><a target="_blank" href="https://github.com/garethflowers/nodejs-portable">NodeJS Portable</a>/</li>
 <li><a target="_blank" href="https://github.com/julesontheroad/NSC_BUILDER">NSC_Builder</a></li>
 <li><a target="_blank" href="https://gbatemp.net/download/nspverify.35153/">NSPVerify</a></li>
+<li><a target="_blank" href="https://github.com/developersu/ns-usbloader">Ns-usbloader</a> and <a target="_blank" href="https://portableapps.com/apps/utilities/java_portable">jPortable to execute Java environment</li>
 <li><a target="_blank" href="https://github.com/nicoboss/nsZip">NsZip</a></li>
 <li><a target="_blank" href="https://github.com/eliboa/NxNandManager/">NXNandManager</a></li>
 <li><a target="_blank" href="https://github.com/developersu/ns-usbloader-mobile">NS-Usbloader-Mobile</a></li>

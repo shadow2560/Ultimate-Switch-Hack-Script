@@ -699,7 +699,12 @@ IF !errorlevel! NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript
 )
+IF EXIST "%volume_letter%:\bootloader\patches.ini" rename "%volume_letter%:\bootloader\patches.ini" "patches.ini.bak" >nul
 %windir%\System32\Robocopy.exe tools\unbrick_special_SD_files %volume_letter%:\ /e >nul
+IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
+	del /q "%volume_letter%:\bootloader\patches.ini" >nul
+	rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
+)
 %windir%\System32\Robocopy.exe update_packages\NX-6.1.0_exfat\SYSTEM %volume_letter%:\cdj_package_files\SYSTEM /e >nul
 copy "update_packages\NX-6.1.0_exfat\*.bin" "%volume_letter%:\cdj_package_files" >nul
 IF %errorlevel% NEQ 0 (

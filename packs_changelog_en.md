@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V413</h2>
+<ul>
+<li>Update Edizon-se to version 3.7.18.</li>
+</ul>
 <h2>V412</h2>
 <ul>
 <li>Re-include the Hekate's config file witch include the sig_patches configurations (be careful, the sig_patches are not included).</li>

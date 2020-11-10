@@ -426,6 +426,7 @@ call :update_merge_games.bat
 call :update_modchips_management.bat
 call :update_nand_toolbox.bat
 call :update_netplay.bat
+call :update_launch_nsusbloader.bat
 call :update_nsZip.bat
 call :update_pegaswitch.bat
 call :update_preload_NSC_Builder.bat
@@ -1329,6 +1330,38 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\ninfs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_launch_nsusbloader.bat
+call :verif_file_version "tools\Storage\launch_nsusbloader.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\launch_nsusbloader.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\launch_nsusbloader.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\java"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+	set /p nsusbloader_file_slash_path=<"tools\java\download_adress.txt"
+	set nsusbloader_file_path=templogs\java.tar.gz
+	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!nsusbloader_file_path!" !nsusbloader_file_slash_path!
+	tools\7zip\7za.exe x -tgzip -so templogs\java.tar.gz | tools\7zip\7za.exe x -si -ttar -o"tools\java"
+	del /q templogs\java.tar.gz >nul
+)
+call :verif_folder_version "tools\Ns-usb-loader"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

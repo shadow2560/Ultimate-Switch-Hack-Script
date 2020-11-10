@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.73</h2>
+<ul>
+<li>Add a function to launch Ns-usbloader in a portable Java environment witch can execute it.</li>
+<li>Fix some bugs in the SD preparation.</li>
+<li>During the SD preparation and the unbrick script, the file "bootloader\patches.ini" will not be replaced if you  already have one on the SD.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 413.</li>
+</ul>
 <h2>V4.3.72</h2>
 <ul>
 <li>In the update manager, change the method to update the management of general profiles for the SD preparation allowing to have access to all the possible options directly, this takes more time but is much more practical.</li>

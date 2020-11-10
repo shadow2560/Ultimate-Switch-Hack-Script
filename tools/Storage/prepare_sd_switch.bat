@@ -414,7 +414,12 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\switch\atmosphere-updater\*.*" rmdir /s /q "%volume_letter%:\switch\atmosphere-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatch-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatch-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatches-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatches-updater"
+	IF EXIST "%volume_letter%:\bootloader\patches.ini" rename "%volume_letter%:\bootloader\patches.ini" "patches.ini.bak" >nul
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
+	IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
+		del /q "%volume_letter%:\bootloader\patches.ini" >nul
+		rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
+	)
 	IF /i "%copy_payloads%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\Atmosphere_fusee-primary.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\Hekate.bin >nul
@@ -444,6 +449,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 			call :copy_cheats_profile "atmosphere"
 		)
 		%windir%\System32\Robocopy.exe TOOLS\sd_switch\mixed\modular\EdiZon %volume_letter%:\ /e >nul
+		call :force_copy_overlays_base_files "atmosphere"
 	)
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\atmosphere\reboot_payload.bin >nul
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\switch\HekateBrew\payload.bin >nul
@@ -679,6 +685,43 @@ for /l %%i in (1,1,%temp_count%) do (
 	IF "!temp_homebrew!"=="EdiZon" (
 		IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
 		IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
+		IF EXIST "%volume_letter%:\atmosphere\contents" (
+			call :force_copy_overlays_base_files "atmosphere"
+		)
+		IF EXIST "%volume_letter%:\ReiNX\contents" (
+			call :force_copy_overlays_base_files "reinx"
+		)
+		IF EXIST "%volume_letter%:\sxos\titles" (
+			call :force_copy_overlays_base_files "sxos"
+		)
+		IF EXIST "%volume_letter%:\boot.dat" (
+			IF NOT EXIST "%volume_letter%:\sxos" (
+				mkdir "%volume_letter%:\sxos"
+				mkdir "%volume_letter%:\sxos\titles"
+			)
+			call :force_copy_overlays_base_files "sxos"
+		)
+		IF /i "%copy_atmosphere_pack%"=="o" (
+			IF NOT EXIST "%volume_letter%:\atmosphere" (
+				mkdir "%volume_letter%:\atmosphere"
+				mkdir "%volume_letter%:\contents
+			)
+			call :force_copy_overlays_base_files "atmosphere"
+		)
+		IF /i "%copy_reinx_pack%"=="o" (
+			IF NOT EXIST "%volume_letter%:\ReiNX" (
+				mkdir "%volume_letter%:\ReiNX"
+				mkdir "%volume_letter%:\ReiNX\contents"
+			)
+			call :force_copy_overlays_base_files "reinx"
+		)
+		IF /i "%copy_sxos_pack%"=="o" (
+			IF NOT EXIST "%volume_letter%:\sxos" (
+				mkdir "%volume_letter%:\sxos"
+				mkdir "%volume_letter%:\sxos\titles"
+			)
+			call :force_copy_overlays_base_files "sxos"
+		)
 	)
 	IF "!temp_homebrew!"=="Switch-cheats-updater" (
 		IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt" rename "%volume_letter%:\config\cheats-updater\exclude.txt" "exclude.txt.bak" >nul
@@ -697,6 +740,7 @@ for /l %%i in (1,1,%temp_count%) do (
 		IF EXIST "%volume_letter%:\ReiNX\contents" (
 			set one_cfw_chosen=Y
 			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+			call :force_copy_overlays_base_files "reinx"
 		)
 		IF EXIST "%volume_letter%:\sxos\titles" (
 			set one_cfw_chosen=Y
@@ -725,9 +769,10 @@ for /l %%i in (1,1,%temp_count%) do (
 			set one_cfw_chosen=Y
 			IF NOT EXIST "%volume_letter%:\ReiNX" (
 				mkdir "%volume_letter%:\ReiNX"
-				mkdir "%volume_letter%:\reinx\contents"
+				mkdir "%volume_letter%:\ReiNX\contents"
 			)
 			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+			call :force_copy_overlays_base_files "reinx"
 		)
 		IF /i "%copy_sxos_pack%"=="o" (
 			set one_cfw_chosen=Y
@@ -756,6 +801,7 @@ for /l %%i in (1,1,%temp_count%) do (
 		IF EXIST "%volume_letter%:\switch\gcdumptool.nro" del /q "%volume_letter%:\switch\gcdumptool.nro"
 	)
 	IF "!temp_homebrew!"=="Payload_Launcher" (
+		IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
 		copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
@@ -769,6 +815,7 @@ for /l %%i in (1,1,%temp_count%) do (
 		IF /i "%copy_memloader%"=="o" copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
 	)
 	IF "!temp_homebrew!"=="Aio-switch-updater" (
+		IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
 		copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul

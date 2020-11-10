@@ -39,14 +39,15 @@ IF "%action_choice%"=="5" goto:updates_or_unbrick
 IF "%action_choice%"=="6" goto:nand_toolbox
 IF "%action_choice%"=="7" goto:launch_NSC_Builder
 IF "%action_choice%"=="8" goto:launch_toolbox
-IF "%action_choice%"=="9" goto:others_functions
-IF "%action_choice%"=="10" goto:ocasional_functions
-IF "%action_choice%"=="11" goto:settings
-IF "%action_choice%"=="12" goto:client_netplay
-IF "%action_choice%"=="13" goto:server_netplay
-IF "%action_choice%"=="14" goto:language_change
-IF "%action_choice%"=="15" goto:about
-IF "%action_choice%"=="16" goto:donate
+IF "%action_choice%"=="9" goto:launch_nsusbloader
+IF "%action_choice%"=="10" goto:others_functions
+IF "%action_choice%"=="11" goto:ocasional_functions
+IF "%action_choice%"=="12" goto:settings
+IF "%action_choice%"=="13" goto:client_netplay
+IF "%action_choice%"=="14" goto:server_netplay
+IF "%action_choice%"=="15" goto:language_change
+IF "%action_choice%"=="16" goto:about
+IF "%action_choice%"=="17" goto:donate
 goto:end_script
 :launch_payload
 set action_choice=
@@ -137,6 +138,18 @@ IF EXIST "tools\Storage\toolbox.bat" (
 	call tools\Storage\update_manager.bat "update_toolbox.bat" "force"
 )
 call tools\Storage\toolbox.bat
+@echo off
+goto:define_action_choice
+:launch_nsusbloader
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\launch_nsusbloader.bat" (
+	call tools\Storage\update_manager.bat "update_launch_nsusbloader.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_launch_nsusbloader.bat" "force"
+)
+call tools\Storage\launch_nsusbloader.bat
 @echo off
 goto:define_action_choice
 :others_functions

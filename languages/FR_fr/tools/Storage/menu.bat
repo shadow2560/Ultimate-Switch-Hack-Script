@@ -28,21 +28,23 @@ echo 7: Lancer NSC_Builder qui permet d'avoir des infos, de convertir et de nett
 echo.
 echo 8: Lancer ou configurer la boîte à outils?
 echo.
-echo 9: Autres fonctions?
+echo 9: Lancer Ns-usbloader pour installer du contenu sur la Switch via NSA-Installer ou Goldleaf?
 echo.
-echo 10: Fonctions à utiliser occasionnellement?
+echo 10: Autres fonctions?
 echo.
-echo 11: Sauvegarde/restauration et paramètres du script?
+echo 11: Fonctions à utiliser occasionnellement?
 echo.
-echo 12: Lancer ou configurer le client pour pouvoir jouer en réseau ^(serveur Switch-Lan-Play^)?
+echo 12: Sauvegarde/restauration et paramètres du script?
 echo.
-echo 13: Lancer un serveur pour le jeu en réseau ^(serveur Switch-Lan-Play^)?
+echo 13: Lancer ou configurer le client pour pouvoir jouer en réseau ^(serveur Switch-Lan-Play^)?
 echo.
-echo 14: Changer de langue?
+echo 14: Lancer un serveur pour le jeu en réseau ^(serveur Switch-Lan-Play^)?
 echo.
-echo 15: A propos du script?
+echo 15: Changer de langue?
 echo.
-echo 16: Me faire une donation?
+echo 16: A propos du script?
+echo.
+echo 17: Me faire une donation?
 echo.
 echo 0: Lancer la documentation ^(recommandé^)?
 echo.

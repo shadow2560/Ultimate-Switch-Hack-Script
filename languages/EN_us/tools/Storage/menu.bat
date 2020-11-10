@@ -37,21 +37,23 @@ echo 7: Launch NSC_Builder witch could display infos, to convert NSPs/XCIs, see 
 echo.
 echo 8: Launch or configure the software toolbox?
 echo.
-echo 9: Other functions?
+echo 9: Launch Ns-usbloader to install content via NSA-Installer or Goldleaf on your Switch?
 echo.
-echo 10: Ocasionnal functions?
+echo 10: Other functions?
 echo.
-echo 11: Save/restaure and script's settings?
+echo 11: Ocasionnal functions?
 echo.
-echo 12: Launch or configure the network gaming client ^(Switch-Lan-Play client^)?
+echo 12: Save/restaure and script's settings?
 echo.
-echo 13: Launch a network gaming server ^(Switch-Lan-Play server^)?
+echo 13: Launch or configure the network gaming client ^(Switch-Lan-Play client^)?
 echo.
-echo 14: change language?
+echo 14: Launch a network gaming server ^(Switch-Lan-Play server^)?
 echo.
-echo 15: About the script?
+echo 15: change language?
 echo.
-echo 16: Donate to me?
+echo 16: About the script?
+echo.
+echo 17: Donate to me?
 echo.
 echo 0: Launch the documentation ^(recommanded^)?
 echo.
