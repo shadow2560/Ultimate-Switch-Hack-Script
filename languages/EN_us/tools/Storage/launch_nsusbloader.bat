@@ -13,6 +13,10 @@ IF "%lng_label_exist%"=="0" (
 title Launch Ns-usbloader %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
 goto:eof
 
+:java_error
+echo Java is not installed, verify your internet connection  and relaunch the script.
+goto:eof
+
 :intro
 echo This script will just launch Ns-usbloader, a software witch can install content on the Switch via NSA-Installer, Awoo-Installer, Tinleaf or Goldleaf.
 echo.

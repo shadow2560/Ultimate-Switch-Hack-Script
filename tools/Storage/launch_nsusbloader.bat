@@ -22,6 +22,14 @@ IF EXIST "%~0.version" (
 	set this_script_version=1.00.00
 )
 call "%associed_language_script%" "display_title"
+IF NOT EXIST "tools\java\jre1.8.0_261\*.*" (
+	call "tools\Storage\update_manager.bat" "update_launch_nsusbloader.bat"
+)
+IF NOT EXIST "tools\java\jre1.8.0_261\*.*" (
+	call "%associed_language_script%" "java_error"
+	pause
+	goto:end_script
+)
 :define_action_choice
 set action_choice=
 cls

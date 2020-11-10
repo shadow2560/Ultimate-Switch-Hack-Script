@@ -89,6 +89,10 @@ IF "%what_to_update%"=="retroarch_update" (
 	call :retroarch_update
 	goto:end_script
 )
+IF "%what_to_update%"=="update_launch_nsusbloader.bat" (
+	call :update_launch_nsusbloader.bat
+	goto:end_script
+)
 call "%associed_language_script%" "display_title"
 IF "%lng_yes_choice%"=="" (
 	IF "%language_custom%"=="0" (
@@ -1352,15 +1356,7 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 		)
 	)
 )
-call :verif_folder_version "tools\java"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-	set /p nsusbloader_file_slash_path=<"tools\java\download_adress.txt"
-	set nsusbloader_file_path=templogs\java.tar.gz
-	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!nsusbloader_file_path!" !nsusbloader_file_slash_path!
-	tools\7zip\7za.exe x -tgzip -so templogs\java.tar.gz | tools\7zip\7za.exe x -si -ttar -o"tools\java"
-	del /q templogs\java.tar.gz >nul
-)
+call :java_update
 call :verif_folder_version "tools\Ns-usbloader"
 IF "!update_finded!"=="Y" (
 	call :update_folder
@@ -2579,6 +2575,38 @@ IF "!update_finded!"=="Y" (
 	set retroarch_file_path=tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z
 	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!retroarch_file_path!" !retroarch_file_slash_path!
 	call "%associed_language_script%" "retroarch_end_updating"
+)
+exit /b
+
+:java_update
+IF NOT EXIST "failed_updates" mkdir "failed_updates" >nul
+set errorlevel=0
+ping /n 2 www.github.com >nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "java_no_internet_connection"
+	pause
+	exit /b 500
+)
+ping /n 2 downloads.sourceforge.net >nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "java_no_internet_connection"
+	pause
+	exit /b 500
+)
+call :verif_folder_version "tools\java"
+IF NOT EXIST "tools\java\jre1.8.0_261\*.*" (
+	set update_finded=Y
+)
+IF "!update_finded!"=="Y" (
+	call "%associed_language_script%" "java_updating"
+	call :update_folder
+	call "%associed_language_script%" "java_updating"
+	set /p nsusbloader_file_slash_path=<"tools\java\download_adress.txt"
+	set nsusbloader_file_path=templogs\java.tar.gz
+	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!nsusbloader_file_path!" !nsusbloader_file_slash_path!
+	tools\7zip\7za.exe x -tgzip -so templogs\java.tar.gz | tools\7zip\7za.exe x -si -ttar -o"tools\java"
+	del /q templogs\java.tar.gz >nul
+	call "%associed_language_script%" "java_end_updating"
 )
 exit /b
 

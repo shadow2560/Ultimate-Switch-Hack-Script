@@ -4,6 +4,10 @@ goto:%~1
 title Lancer Ns-usbloader %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
 goto:eof
 
+:java_error
+echo Java n'a pas pu être installé, vérifiez votre connexion internet et relancer le script.
+goto:eof
+
 :intro
 echo Ce script permet juste de lancer Ns-usbloader, un logiciel permettant d'installer du contenu sur la Switch via NSA-Installer, Awoo-Installer, Tinleaf ou Goldleaf.
 echo.

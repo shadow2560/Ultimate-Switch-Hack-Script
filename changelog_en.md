@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.74</h2>
+<ul>
+<li>Amelioration of the   Java installation for Ns-usbloader.</li>
+</ul>
 <h2>V4.3.73</h2>
 <ul>
 <li>Add a function to launch Ns-usbloader in a portable Java environment witch can execute it.</li>
