@@ -1361,7 +1361,7 @@ IF "!update_finded!"=="Y" (
 	tools\7zip\7za.exe x -tgzip -so templogs\java.tar.gz | tools\7zip\7za.exe x -si -ttar -o"tools\java"
 	del /q templogs\java.tar.gz >nul
 )
-call :verif_folder_version "tools\Ns-usb-loader"
+call :verif_folder_version "tools\Ns-usbloader"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
