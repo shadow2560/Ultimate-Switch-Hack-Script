@@ -70,9 +70,9 @@ cd "Certificat"
 copy /v "%filepath%" "PRODINFO.bin"
 REM Check the file dependencies
 FOR %%G IN (PRODINFO.bin) DO (
-IF NOT EXIST %%G (ECHO Erreur: Placer %%G dans le répertoire "Certificat" et recommencez! && SET ERRORLEVEL=1)
+IF NOT EXIST %%G (ECHO Erreur: Placer %%G dans le répertoire "Certificat" et recommencez! && SET ERROR_LEVEL=1)
 )
-IF %ERRORLEVEL% NEQ 0 (ECHO: && cd .. && rmdir /s /q "Certificat" && goto:end_script)
+IF %ERROR_LEVEL% NEQ 0 (ECHO: && cd .. && rmdir /s /q "Certificat" && goto:end_script)
 
 REM Exécution du Script #1
 chcp 1250 >nul

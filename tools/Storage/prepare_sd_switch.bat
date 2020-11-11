@@ -31,6 +31,7 @@ IF NOT EXIST sd_user\*.* (
 	mkdir sd_user
 )
 call "%associed_language_script%" "display_title"
+set error_level=0
 call "%associed_language_script%" "intro"
 pause
 :define_volume_letter
@@ -294,43 +295,49 @@ IF NOT "%pass_prepare_packs%"=="Y" (
 IF /i "%copy_atmosphere_pack%"=="o" (
 	IF NOT "%atmosphere_pass_copy_modules_pack%"=="Y" (
 		IF NOT EXIST "%atmosphere_modules_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 		)
 	)
 )
 IF /i "%copy_reinx_pack%"=="o" (
 	IF NOT "%reinx_pass_copy_modules_pack%"=="Y" (
 		IF NOT EXIST "%reinx_modules_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 		)
 	)
 )
 IF /i "%copy_emu%"=="o" (
 	IF NOT "%pass_copy_emu_pack%"=="Y" (
 		IF NOT EXIST "%emu_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 		)
 	)
 )
 IF "%copy_cheats%"=="Y" (
 	IF NOT EXIST "%cheats_profile_path%" (
-		set errorlevel=404
+		set error_level=404
 	)
 )
 IF NOT "%pass_copy_mixed_pack%"=="Y" (
 	IF NOT EXIST "%mixed_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 	)
 )
 IF NOT "%pass_copy_overlays_pack%"=="Y" (
 	IF NOT EXIST "%overlays_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 	)
 )
 IF NOT "%pass_copy_salty-nx_pack%"=="Y" (
 	IF NOT EXIST "%salty-nx_profile_path%" (
-			set errorlevel=404
+			set error_level=404
 	)
+)
+IF %error_level% EQU 404 (
+	call "%associed_language_script%" "before_copy_error"
+	pause
+	endlocal
+	goto:begin_script
 )
 :confirm_settings
 call tools\Storage\prepare_sd_switch_infos.bat
@@ -340,8 +347,7 @@ call "%associed_language_script%" "confirm_copy_choice"
 IF NOT "%confirm_copy%"=="" set confirm_copy=%confirm_copy:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "confirm_copy" "o/n_choice"
 IF /i "%confirm_copy%"=="o" (
-	set errorlevel=200
-	goto:test_copy_launch
+	goto:begin_copy
 ) else IF /i "%confirm_copy%"=="n" (
 	call "%associed_language_script%" "canceled"
 	pause
@@ -350,18 +356,6 @@ IF /i "%confirm_copy%"=="o" (
 ) else (
 	call "%associed_language_script%" "bad_choice"
 	goto:confirm_settings
-)
-:test_copy_launch
-IF %errorlevel% EQU 200 (
-	goto:begin_copy
-) else IF %errorlevel% EQU 400 (
-	endlocal
-	goto:begin_script
-) else (
-	call "%associed_language_script%" "before_copy_error"
-	pause
-	endlocal
-	goto:begin_script
 )
 
 :begin_copy

@@ -111,8 +111,6 @@ IF %errorlevel% EQU 0 (
 	del /q "tools\sd_switch\profiles\%profile_selected%" >nul
 	call "%associed_language_script%" "delete_profile_success"
 	pause
-) else (
-	goto:define_action_choice
 )
 goto:define_action_choice
 
@@ -147,7 +145,7 @@ IF %i% NEQ %nb% (
 		)
 	)
 	IF "!check_chars!"=="0" (
-exit /b 400
+		exit /b 400
 	)
 )
 IF %profile_choice% GEQ %temp_count% exit /b 400

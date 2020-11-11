@@ -482,14 +482,12 @@ call "%associed_language_script2%" "confirm_script_settings"
 IF NOT "%confirm_copy%"=="" set confirm_copy=%confirm_copy:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "confirm_copy" "o/n_choice"
 IF /i "%confirm_copy%"=="o" (
-	set errorlevel=200
-	goto:endscript
+	exit /b 200
 	
 ) else IF /i "%confirm_copy%"=="n" (
 	call "%associed_language_script2%" "canceled"
 	pause
-	set errorlevel=400
-	goto:endscript
+	exit /b 400
 ) else (
 	call "%associed_language_script2%" "bad_choice"
 	goto:confirm_settings

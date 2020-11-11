@@ -210,16 +210,18 @@ IF NOT EXIST "failed_updates\*.failed" (
 	rmdir /s /q "failed_updates" 2>nul
 )
 mkdir "failed_updates" >nul 2>&1
+set error_level=0
 :new_script_install
 IF "%what_to_update%"=="update_all" goto:skip_new_script_install
 IF "%what_to_update%"=="general_content_update" goto:skip_new_script_install
 IF "%~2"=="force" (
 	IF NOT "%verified_internet_connexion%"=="Y" (
 		ping /n 2 www.github.com >nul 2>&1
+		set error_level=!errorlevel!
 	) else (
-		set errorlevel=0
+		set error_level=0
 	)
-	IF !errorlevel! NEQ 0 (
+	IF !error_level! NEQ 0 (
 		call "%associed_language_script%" "no_internet_connection_error"
 		call "%associed_language_script%" "no_internet_connection_for_new_installation_error"
 		pause
@@ -265,10 +267,11 @@ IF "%~2"=="force" (
 :skip_new_script_install
 IF NOT "%verified_internet_connexion%"=="Y" (
 	ping /n 2 www.github.com >nul 2>&1
+	set error_level=!errorlevel!
 ) else (
-	set errorlevel=0
+	set error_level=0
 )
-IF %errorlevel% NEQ 0 (
+IF %error_level% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	IF /i "%new_install_choice%"=="o" (
 		call "%associed_language_script%" "no_internet_connection_for_new_installation_error"
@@ -2550,7 +2553,6 @@ exit /b
 
 :retroarch_update
 IF NOT EXIST "failed_updates" mkdir "failed_updates" >nul
-set errorlevel=0
 ping /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "retroarch_no_internet_connection"
@@ -2580,7 +2582,6 @@ exit /b
 
 :java_update
 IF NOT EXIST "failed_updates" mkdir "failed_updates" >nul
-set errorlevel=0
 ping /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "java_no_internet_connection"
