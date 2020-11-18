@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.77</h2>
+<ul>
+<li>Correction d'un bug dans le script de lancement de NSC_builder qui empêchait l'ouverture du répertoire des jeux convertis.</li>
+</ul>
 <h2>V4.3.76</h2>
 <ul>
 <li>Les profiles généraux inclus par défaut pour la préparation d'une SD ne copieront plus le pack d'émulateurs.</li>
