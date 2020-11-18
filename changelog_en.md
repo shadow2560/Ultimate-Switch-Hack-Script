@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.76</h2>
+<ul>
+<li>The general profiles in the SD preparation will not copy anymore the emulators pack.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 414.</li>
+</ul>
 <h2>V4.3.75</h2>
 <ul>
 <li>Fix bugs in the preparation of an SD that could affect other related features such as the profiles' managements.</li>

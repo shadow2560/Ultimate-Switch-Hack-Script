@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V414</h2>
+<ul>
+<li>The Atmosphere's param that always save cheats state is now activated by default.</li>
+<li>Update Edizon-SE to version 3.7.20.</li>
+<li>Update Fizeau to version 2.1.0.</li>
+</ul>
 <h2>V413</h2>
 <ul>
 <li>Update Edizon-se to version 3.7.18.</li>

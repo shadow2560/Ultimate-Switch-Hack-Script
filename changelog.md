@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.76</h2>
+<ul>
+<li>Les profiles généraux inclus par défaut pour la préparation d'une SD ne copieront plus le pack d'émulateurs.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 414.</li>
+</ul>
 <h2>V4.3.75</h2>
 <ul>
 <li>Correction de bugs dans la préparation d'une SD pouvant influer sur d'autres fonctionnalités liées comme les gestions de profiles.</li>
