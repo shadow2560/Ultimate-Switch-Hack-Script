@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.78</h2>
+<ul>
+<li>Fix a bug in the unbrick scripts for TegraExplorer.</li>
+</ul>
 <h2>V4.3.77</h2>
 <ul>
 <li>Bug fix in NSC_builder launching script witch caused the impossibility to open the converted games folder.</li>
