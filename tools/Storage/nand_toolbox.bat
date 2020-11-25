@@ -190,7 +190,7 @@ IF "%input_path%"=="" (
 set partition=
 call :get_type_nand "%input_path%"
 IF /i "%nand_type%"=="RAWNAND" call :partition_select
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" call :partition_select
+IF /i "%nand_type%"=="RAWNAND - splitted dump" call :partition_select
 IF /i "%nand_type%"=="FULL NAND" call :partition_select full_nand_choice
 IF %errorlevel% EQU 3001 (
 	goto:dump_nand
@@ -213,7 +213,7 @@ IF NOT "%partition%"=="" (
 ) else (
 	IF "%nand_type%"=="RAWNAND" (
 		set output_path=%output_path%rawnand.bin
-	) else IF "%nand_type%"=="RAWNAND (splitted dump)" (
+	) else IF "%nand_type%"=="RAWNAND - splitted dump" (
 		set output_path=%output_path%rawnand.bin
 	) else IF "%nand_type%"=="FULL NAND" (
 		set output_path=%output_path%full_nand.bin
@@ -312,7 +312,7 @@ IF "%output_path%"=="" (
 set partition=
 call :get_type_nand "%output_path%"
 IF /i "%nand_type%"=="RAWNAND" call :partition_select
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" call :partition_select
+IF /i "%nand_type%"=="RAWNAND - splitted dump" call :partition_select
 IF /i "%nand_type%"=="FULL NAND" call :partition_select full_nand_choice
 IF %errorlevel% EQU 3001 (
 	goto:restaure_nand
@@ -328,14 +328,14 @@ IF "%input_nand_type%"=="UNKNOWN" (
 	call "%associed_language_script%" "restaure_input_dump_invalid_error"
 	goto:restaure_nand
 )
-IF "%input_nand_type%"=="RAWNAND (splitted dump)" (
+IF "%input_nand_type%"=="RAWNAND - splitted dump" (
 	set input_nand_type=RAWNAND
 )
 IF "%output_nand_type%"=="UNKNOWN" (
 	call "%associed_language_script%" "restaure_output_dump_invalid_error"
 	goto:restaure_nand
 )
-IF "%output_nand_type%"=="RAWNAND (splitted dump)" (
+IF "%output_nand_type%"=="RAWNAND - splitted dump" (
 	set output_nand_type=RAWNAND
 )
 IF "%output_nand_type%"=="BOOT0" (
@@ -430,7 +430,7 @@ IF "%input_path%"=="" (
 )
 set rawnand_path=
 call :get_type_nand "%input_path%"
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" set nand_type=RAWNAND
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
 IF /i "%nand_type%"=="RAWNAND" (
 	set rawnand_path=-i ^"%input_path%^"
 	goto:boot0_boot1_select
@@ -658,7 +658,7 @@ IF "%input_path%"=="" (
 )
 set partition=
 call :get_type_nand "%input_path%"
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" set nand_type=RAWNAND
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
 IF /i "%nand_type%"=="RAWNAND" (
 	call :partition_select
 ) else IF /i "%nand_type%"=="FULL NAND" (
@@ -709,7 +709,7 @@ IF NOT "%partition%"=="" (
 ) else (
 	IF "%nand_type%"=="RAWNAND" (
 		set output_path=%output_path%rawnand_decrypted.bin
-	) else IF "%nand_type%"=="RAWNAND (splitted dump)" (
+	) else IF "%nand_type%"=="RAWNAND - splitted dump" (
 		set output_path=%output_path%rawnand_decrypted.bin
 	)
 )
@@ -788,7 +788,7 @@ IF "%input_path%"=="" (
 )
 set partition=
 call :get_type_nand "%input_path%"
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" set nand_type=RAWNAND
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
 IF /i "%nand_type%"=="RAWNAND" (
 	call :partition_select
 ) else IF /i "%nand_type%"=="FULL NAND" (
@@ -830,7 +830,7 @@ IF NOT "%partition%"=="" (
 ) else (
 	IF "%nand_type%"=="RAWNAND" (
 		set output_path=%output_path%rawnand.bin
-	) else IF "%nand_type%"=="RAWNAND (splitted dump)" (
+	) else IF "%nand_type%"=="RAWNAND - splitted dump" (
 		set output_path=%output_path%rawnand.bin
 	)
 )
@@ -923,7 +923,7 @@ IF "%input_path%"=="" (
 )
 set partition=
 call :get_type_nand "%input_path%"
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" set nand_type=RAWNAND
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
 IF /i "%nand_type%"=="RAWNAND" (
 	set partition=PRODINFO
 	goto:incognito_verif_encrypted_or_not
@@ -1027,7 +1027,7 @@ IF "%input_path%"=="" (
 )
 call :get_type_nand "%input_path%"
 IF /i "%nand_type%"=="RAWNAND" goto:resize_user_partition_input_ok
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" goto:resize_user_partition_input_ok
+IF /i "%nand_type%"=="RAWNAND - splitted dump" goto:resize_user_partition_input_ok
 IF /i "%nand_type%"=="FULL NAND" goto:resize_user_partition_input_ok
 call "%associed_language_script%" "resize_user_part_bad_input_choice"
 goto:resize_user_partition
@@ -1056,7 +1056,7 @@ IF NOT "%output_path%"=="" set output_path=%output_path%\
 IF NOT "%output_path%"=="" set output_path=%output_path:\\=\%
 IF "%nand_type%"=="RAWNAND" (
 		set output_path=%output_path%rawnand_resized.bin
-) else IF "%nand_type%"=="RAWNAND (splitted dump)" (
+) else IF "%nand_type%"=="RAWNAND - splitted dump" (
 		set output_path=%output_path%rawnand_resized.bin
 ) else IF "%nand_type%"=="FULL NAND" (
 		set output_path=%output_path%full_nand_resized.bin
@@ -1182,7 +1182,7 @@ IF /i "%nand_type%"=="SAFE" set partition=SAFE
 IF /i "%nand_type%"=="SYSTEM" set partition=SYSTEM
 IF /i "%nand_type%"=="USER" set partition=USER
 IF /i "%nand_type%"=="RAWNAND" call :partition_select brute_force brute_force_choice
-IF /i "%nand_type%"=="RAWNAND (splitted dump)" call :partition_select brute_force brute_force_choice
+IF /i "%nand_type%"=="RAWNAND - splitted dump" call :partition_select brute_force brute_force_choice
 IF /i "%nand_type%"=="FULL NAND" call :partition_select brute_force_choice
 IF %errorlevel% EQU 3001 (
 	goto:brute_force
@@ -1355,7 +1355,7 @@ IF "%nand_type%"=="RAWNAND" (
 		)
 	)
 )
-IF "%nand_type%"=="RAWNAND ^(splitted dump^)" (
+IF "%nand_type%"=="RAWNAND - splitted dump" (
 	tools\gnuwin32\bin\grep.exe -E -n "^^Partitions" <"templogs\infos_nand.txt" |tools\gnuwin32\bin\cut.exe -d : -f 1 >templogs\tempvar.txt
 	set /p begin_partition_line=<templogs\tempvar.txt
 	tools\gnuwin32\bin\grep.exe "Backup GPT " <"templogs\infos_nand.txt" | tools\gnuwin32\bin\cut.exe -d : -f 2 >templogs\tempvar.txt

@@ -409,8 +409,8 @@ echo La taille minimum doit être de 300 MB.
 goto:eof
 
 :display_infos_nand
-IF /i "%nand_type%"=="RAWNAND ^(splitted dump^)" (
-	echo Type de la nand: RAWNAND ^(dump splitté^)
+IF /i "%nand_type%"=="RAWNAND - splitted dump" (
+	echo Type de la nand: RAWNAND - dump splitté
 ) else IF /i "%nand_type%"=="FULL NAND" (
 	echo Type de la nand: dump complet
 ) else IF /i "%nand_type%"=="UNKNOWN" (
@@ -426,9 +426,9 @@ IF "%nand_sectors_interval%"=="" (
 	)
 ) else (
 	IF /i "%nand_file_or_disk%"=="File" (
-		echo Support: fichier ^(%nand_sectors_interval%^)
+		echo Support: fichier [%nand_sectors_interval%]
 	) else IF /i "%nand_file_or_disk%"=="Disk" (
-		echo Support: Disque physique ^(%nand_sectors_interval%^)
+		echo Support: Disque physique [%nand_sectors_interval%]
 	)
 )
 IF /i "%nand_encrypted:~0,3%"=="Yes" (
@@ -506,7 +506,7 @@ IF /i "%nand_type%"=="RAWNAND" (
 		echo Sauvegarde de la table de partitions GPT trouvée: %nand_backup_gpt%
 	)
 )
-IF /i "%nand_type%"=="RAWNAND ^(splitted dump^)" (
+IF /i "%nand_type%"=="RAWNAND - splitted dump" (
 	IF NOT "%nand_serial_number%"=="" (
 		echo Numéro de série de la console associée: %nand_serial_number%
 	)

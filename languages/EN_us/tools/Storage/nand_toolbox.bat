@@ -418,8 +418,8 @@ echo The minimum size must be 300 MB.
 goto:eof
 
 :display_infos_nand
-IF /i "%nand_type%"=="RAWNAND ^(splitted dump^)" (
-	echo Nand type: RAWNAND ^(splitted dump^)
+IF /i "%nand_type%"=="RAWNAND - splitted dump" (
+	echo Nand type: RAWNAND - splitted dump
 ) else IF /i "%nand_type%"=="FULL NAND" (
 echo Nand type: Full nand
 ) else IF /i "%nand_type%"=="UNKNOWN" (
@@ -515,7 +515,7 @@ IF /i "%nand_type%"=="RAWNAND" (
 		echo GPT partition table backup finded: %nand_backup_gpt%
 	)
 )
-IF /i "%nand_type%"=="RAWNAND ^(splitted dump^)" (
+IF /i "%nand_type%"=="RAWNAND - splitted dump" (
 	IF NOT "%nand_serial_number%"=="" (
 		echo Console serial number: %nand_serial_number%
 	)

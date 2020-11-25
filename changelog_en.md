@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.79</h2>
+<ul>
+<li>Fix bugs that could affect old general profiles.</li>
+<li>Fix bugs for splitted nands in the Nand Toolbox.</li>
+<li>Update NXNandManager to the Github's master version, compiled by myself.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 415.</li>
+</ul>
 <h2>V4.3.78</h2>
 <ul>
 <li>Fix a bug in the unbrick scripts for TegraExplorer.</li>
