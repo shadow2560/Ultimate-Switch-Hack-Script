@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.80</h2>
+<ul>
+<li>Update the  sha256 values of two Mariko's keys  for the keys file verification function.</li>
+</ul>
 <h2>V4.3.79</h2>
 <ul>
 <li>Fix bugs that could affect old general profiles.</li>
