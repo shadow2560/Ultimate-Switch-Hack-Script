@@ -105,8 +105,9 @@ IF NOT EXIST tools\Hactool_based_programs\ChoiDuJour_keys.txt (
 	goto:endscript
 )
 
-IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" (
-	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\ChoiDuJour_package_6.1.0.zip" -o"." -r
+IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" del /q "downloads\ChoiDuJour_package_6.1.0.zip" >nul
+IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" (
+	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\ChoiDuJour_package_5.1.0.zip" -o"." -r
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "extract_error"
 		goto:endscript
@@ -247,10 +248,10 @@ IF EXIST "firmware_temp" (
 ) else (
 	mkdir firmware_temp
 )
-IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" goto:define_firmware_choice
-set expected_md5=320bd423e073a92b74dff30d92bcffa8
-set "firmware_link=https://mega.nz/#^!QAQ3ha4Y^!7fI6dJmhk3SUwyEl9cj9orRSE7Fjb1rghJxCnliXZRU"
-set firmware_file_name=Firmware 6.1.0.zip
+IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:define_firmware_choice
+set expected_md5=656823850a70fb3050079423ee177c1a
+set "firmware_link=https://mega.nz/#^!8BplGRQA^!z_2pCeh-8XV2Pf3E_38UfGhDPRSdN3nixb5s5-Q785w"
+set firmware_file_name=Firmware 5.1.0.zip
 set firmware_folder=firmware_temp\
 :download_firmware_choidujour
 set md5_try=0
@@ -629,11 +630,11 @@ if exist "%volume_letter%:\FW_%firmware_choice%" rmdir /s /q "%volume_letter%:\F
 %windir%\System32\Robocopy.exe firmware_temp %volume_letter%:\FW_%firmware_choice% /e >nul
 call :daybreak_convert "%volume_letter%:\FW_%firmware_choice%"
 :skip_optional_firmware_download
-IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" goto:copy_all_to_sd
-IF NOT "%firmware_choice%"=="6.1.0" (
+IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:copy_all_to_sd
+IF NOT "%firmware_choice%"=="5.1.0" (
 	rmdir /s /q firmware_temp
 	mkdir firmware_temp
-	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\Firmware 6.1.0.zip" -o"firmware_temp" -r
+	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\Firmware 5.1.0.zip" -o"firmware_temp" -r
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "extract_error"
 		goto:endscript
@@ -648,10 +649,10 @@ mkdir "update_packages"
 cd "update_packages"
 "..\tools\Hactool_based_programs\tools\ChoiDujour.exe" --keyset="..\tools\Hactool_based_programs\ChoiDuJour_keys.txt" %fspatches% "..\firmware_temp"
 IF %errorlevel% EQU 0 (
-	..\tools\7zip\7za.exe a -y -tzip -sccUTF-8 "..\downloads\ChoiDuJour_package_6.1.0".zip "..\update_packages" -r
+	..\tools\7zip\7za.exe a -y -tzip -sccUTF-8 "..\downloads\ChoiDuJour_package_5.1.0".zip "..\update_packages" -r
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "create_choidujour_package_backup_warning"
-		IF EXIST "..\downloads\ChoiDuJour_package_6.1.0.zip" del /q "..\downloads\ChoiDuJour_package_6.1.0.zip" >nul
+		IF EXIST "..\downloads\ChoiDuJour_package_5.1.0.zip" del /q "..\downloads\ChoiDuJour_package_5.1.0.zip" >nul
 		pause
 	)
 	call "%associed_language_script%" "package_creation_success"
@@ -669,19 +670,19 @@ echo.
 call "%associed_language_script%" "boot0_keyblobs_reparation_choice"
 IF %errorlevel% EQU 3 goto:endscript2
 IF %errorlevel% EQU 2 (
-	copy "update_packages\NX-6.1.0_exfat\BOOT0.bin" "update_packages\NX-6.1.0_exfat\BOOT0.bin.bak" >nul
+	copy "update_packages\NX-5.1.0_exfat\BOOT0.bin" "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" >nul
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "boot0_keyblobs_reparation_error"
 		pause
 	) else (
-		"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-6.1.0_exfat\BOOT0.bin" -o "update_packages\NX-6.1.0_exfat\BOOT0.bin" -k "tools\Hactool_based_programs\keys.txt" >nul
+		"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "tools\Hactool_based_programs\keys.txt" >nul
 		IF !errorlevel! NEQ 0 (
-			IF EXIST "update_packages\NX-6.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-6.1.0_exfat\BOOT0.bin" >nul
-			rename "update_packages\NX-6.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
+			IF EXIST "update_packages\NX-5.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin" >nul
+			rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
 			call "%associed_language_script%" "boot0_keyblobs_reparation_error"
 			pause
 		) else (
-			del /q "update_packages\NX-6.1.0_exfat\BOOT0.bin.bak"
+			del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak"
 			call "%associed_language_script%" "boot0_keyblobs_reparation_success"
 			pause
 		)
@@ -705,13 +706,13 @@ IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
 	del /q "%volume_letter%:\bootloader\patches.ini" >nul
 	rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
 )
-%windir%\System32\Robocopy.exe update_packages\NX-6.1.0_exfat\SYSTEM %volume_letter%:\cdj_package_files\SYSTEM /e >nul
-copy "update_packages\NX-6.1.0_exfat\*.bin" "%volume_letter%:\cdj_package_files" >nul
+%windir%\System32\Robocopy.exe update_packages\NX-5.1.0_exfat\SYSTEM %volume_letter%:\cdj_package_files\SYSTEM /e >nul
+copy "update_packages\NX-5.1.0_exfat\*.bin" "%volume_letter%:\cdj_package_files" >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript
 )
-copy "update_packages\NX-6.1.0_exfat\microSD\FS600-exfat_nocmac_nogc.kip1" "%volume_letter%:\cdj_package_files\FS600-exfat_nocmac_nogc.kip1" >nul
+copy "update_packages\NX-5.1.0_exfat\microSD\FS510-exfat_nocmac_nogc.kip1" "%volume_letter%:\cdj_package_files\FS510-exfat_nocmac_nogc.kip1" >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript
@@ -761,7 +762,7 @@ IF %errorlevel% EQU 2 goto:hacdiskmount_step
 call "%associed_language_script%" "memloader_launch_end"
 pause
 start tools\HacDiskMount\HacDiskMount.exe
-start explorer.exe "update_packages\NX-6.1.0_exfat"
+start explorer.exe "update_packages\NX-5.1.0_exfat"
 :launch_hekate
 echo.
 call "%associed_language_script%" "hekate_launch_begin"

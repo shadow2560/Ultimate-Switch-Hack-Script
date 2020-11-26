@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.81</h2>
+<ul>
+<li>Dans la fonction de débrickage, le firmware 5.1.0 sera utilisé à la place du firmware 6.1.0.</li>
+</ul>
 <h2>V4.3.80</h2>
 <ul>
 <li>Ajout des sha256 de deux  clés Mariko pour la fonction de vérification d'un fichier de clés.</li>

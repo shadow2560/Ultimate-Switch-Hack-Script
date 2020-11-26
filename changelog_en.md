@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.81</h2>
+<ul>
+<li>In the unbrick function, the firmware 5.1.0 will replace the use of the firmware 6.1.0.</li>
+</ul>
 <h2>V4.3.80</h2>
 <ul>
 <li>Update the  sha256 values of two Mariko's keys  for the keys file verification function.</li>
