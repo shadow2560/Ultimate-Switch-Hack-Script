@@ -14,7 +14,7 @@ echo.
 echo Veuillez, si vous ne l'avez pas fait avant, faire une sauvegarde complète de votre nand ainsi que de tout élément que vous souhaitez sauvegarder, ceci ne sera pas couvert par ce script.
 echo.
 echo Attention, à la fin de cette procédure, toutes les données de la sysnand ^(nand de la console^) seront supprimées.
-echo Notez également que le firmware qui sera installé sera le firmware 6.1.0.
+echo Notez également que le firmware qui sera installé sera le firmware 5.1.0.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous continuer la procédure? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
@@ -338,7 +338,7 @@ echo Attention, si l'ordinateur demande de formater un disque, refuser absolumen
 echo Attention, pour la suite vous devrez avoir activé l'affichage des fichiers cachées ainsi que l'affichage des fichiers systèmes sur Windows, ceci ne sera pas traité ici.
 echo.
 echo Maintenant, HacDiskMount va se lancer.
-echo Vous verrez aussi l'ouverture d'un dossier "NX-6.1.0_exfat" dans une fenêtre d'explorateur de fichiers, il sera très utile.
+echo Vous verrez aussi l'ouverture d'un dossier "NX-5.1.0_exfat" dans une fenêtre d'explorateur de fichiers, il sera très utile.
 echo.
 echo Dans HacDiskMount, vous devrez cliquer sur "file" puis sur "Open physical drive" et sélectionnez le disque de la Switch.
 echo Une fois cela fait, la liste des partitions devrait s'afficher.
@@ -350,7 +350,7 @@ echo Entrez les clés puis cliquez sur "Test". Si un message de couleur verte s'
 echo Revenir sur la partition "SYSTEM".
 echo Dans la section "Virtual drive", sélectionnez une lettre de lecteur dans la liste, cocher la case "Passthrough zeroes" et enfin cliquez sur "Mount".
 echo Vous devriez voir un nouveau disque avec la lettre de lecteur choisi dans votre poste de travail ^(parfois appelé "ordinateur" ou "ce pc" selon la version de Windows installée^), entrez dedans et supprimez tout se qui s'y trouve.
-echo Dans le dossier "NX-6.1.0_exfat" qui s'est également ouvert en même temps que HacDiskMount, allez dans le dossier "SYSTEM", copiez tout se qui s'y trouve et collez-le dans le lecteur créé par HacDiskMount.
+echo Dans le dossier "NX-5.1.0_exfat" qui s'est également ouvert en même temps que HacDiskMount, allez dans le dossier "SYSTEM", copiez tout se qui s'y trouve et collez-le dans le lecteur créé par HacDiskMount.
 echo Une fois terminé sans erreurs, fermez le lecteur créé par HacDiskMount, revenez sur ce dernier, cliquez sur "Unmount" et revenez sur la liste des partitions.
 echo Faites exactement comme vous venez de procéder avec la partition "SYSTEM" mais en remplaçant "SYSTEM" par "USER".
 echo Fermez HacDiskMount et éteindre la console en maintenant le bouton "Power" de celle-ci jusqu'à son extinction.
@@ -370,14 +370,14 @@ goto:eof
 :hekate_launch_end
 echo.
 echo Une fois le payload lancé, cliquez sur "More configs" ^(second icône à gauche^).
-echo Ensuite, cliquez sur "sysnand first launch FW 6.1.0" ^(premier icône en haut à gauche^).
+echo Ensuite, cliquez sur "sysnand first launch FW 5.1.0" ^(premier icône en haut à gauche^).
 echo.
 IF "%optional_firmware_download%"=="Y" (
 	echo Si la console a démarrée, vous pourez démarrer Atmosphere avec une des configurations disponibles dans le menu "More configs" de Hekate puis mettre à jour sur le firmware que vous avez choisi au début de ce script grâce à ChoiDuJourNX ^(choisir de préférence le firmware EXFAT que vous proposera ChoiDuJourNX, le reste des instructions ne seront pas couverte ici^).
 ) else (
 	echo Si la console a démarrée, vous pouvez faire se que vous voulez avec elle.
 )
-echo Attention: La configuration "sysnand first launch FW 6.1.0" dans Hekate ne doit pas être relancée si la console a bien démarrée au moins une fois.
+echo Attention: La configuration "sysnand first launch FW 5.1.0" dans Hekate ne doit pas être relancée si la console a bien démarrée au moins une fois.
 echo.
 echo Si la console n'a pas démarré, réessayez de lancer de nouveau Hekate et choisir la même configuration à lancer ou une des autres disponibles dans le menu "More configs".
 echo Si cela ne fonctionne toujours pas, soit quelque chose s'est mal passé durant le script et dans ce cas refaire les opérations depuis le début ou soit le problème ne peut être résolu via cette méthode.
