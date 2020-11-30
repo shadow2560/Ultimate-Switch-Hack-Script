@@ -292,11 +292,27 @@ IF NOT "%pass_prepare_packs%"=="Y" (
 		call "%general_profile_path%"
 	)
 )
+
+IF "%atmosphere_emummc_profile_path%"=="" set atmosphere_pass_copy_emummc_pack=Y
+IF "%atmosphere_modules_profile_path%"=="" set atmosphere_pass_copy_modules_pack=Y
+IF "%reinx_modules_profile_path%"=="" set reinx_pass_copy_modules_pack=Y
+IF "%sxos_modules_profile_path%"=="" set sxos_pass_copy_modules_pack=Y
+IF "%emu_profile_path%"=="" set pass_copy_emu_pack=Y
+IF "%mixed_profile_path%"=="" set pass_copy_mixed_pack=Y
+IF "%overlays_profile_path%"=="" set pass_copy_overlays_pack=Y
+IF "%salty-nx_profile_path%"=="" set pass_copy_salty-nx_pack=Y
+IF "%cheats_profile_path%"=="" (
+	IF NOT "%copy_all_cheats_pack%"=="Y" (
+		set copy_cheats=
+		set atmosphere_enable_cheats=
+		set sxos_enable_cheats=
+	)
+)
+
 IF /i "%copy_atmosphere_pack%"=="o" (
 	IF NOT "%atmosphere_pass_copy_modules_pack%"=="Y" (
 		IF NOT "%atmosphere_modules_profile_path%"=="" (
 			IF NOT EXIST "%atmosphere_modules_profile_path%" (
-				echo pass 1
 				set error_level=404
 			)
 		)
@@ -306,7 +322,6 @@ IF /i "%copy_reinx_pack%"=="o" (
 	IF NOT "%reinx_pass_copy_modules_pack%"=="Y" (
 		IF NOT "%reinx_modules_profile_path%"=="" (
 			IF NOT EXIST "%reinx_modules_profile_path%" (
-				echo pass 2
 				set error_level=404
 			)
 		)
@@ -316,7 +331,6 @@ IF /i "%copy_emu%"=="o" (
 	IF NOT "%pass_copy_emu_pack%"=="Y" (
 		IF NOT "%emu_profile_path%"=="" (
 			IF NOT EXIST "%emu_profile_path%" (
-				echo pass 3
 				set error_level=404
 			)
 		)
@@ -325,7 +339,6 @@ IF /i "%copy_emu%"=="o" (
 IF "%copy_cheats%"=="Y" (
 	IF NOT "%cheats_profile_path%"=="" (
 		IF NOT EXIST "%cheats_profile_path%" (
-			echo pass 4
 			set error_level=404
 		)
 	)
@@ -333,7 +346,6 @@ IF "%copy_cheats%"=="Y" (
 IF NOT "%pass_copy_mixed_pack%"=="Y" (
 	IF NOT "%mixed_profile_path%"=="" (
 		IF NOT EXIST "%mixed_profile_path%" (
-				echo pass 5
 				set error_level=404
 		)
 	)
@@ -341,7 +353,6 @@ IF NOT "%pass_copy_mixed_pack%"=="Y" (
 IF NOT "%pass_copy_overlays_pack%"=="Y" (
 	IF NOT "%overlays_profile_path%"=="" (
 		IF NOT EXIST "%overlays_profile_path%" (
-				echo pass 6
 				set error_level=404
 		)
 	)
@@ -349,7 +360,6 @@ IF NOT "%pass_copy_overlays_pack%"=="Y" (
 IF NOT "%pass_copy_salty-nx_pack%"=="Y" (
 	IF NOT "%salty-nx_profile_path%"=="" (
 		IF NOT EXIST "%salty-nx_profile_path%" (
-				echo pass 7
 				set error_level=404
 		)
 	)

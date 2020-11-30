@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.82</h2>
+<ul>
+<li>Fix an important bug if some elements wasn't defined in a general profile.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 416.</li>
+</ul>
 <h2>V4.3.81</h2>
 <ul>
 <li>In the unbrick function, the firmware 5.1.0 will replace the use of the firmware 6.1.0.</li>
