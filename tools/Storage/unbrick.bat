@@ -333,6 +333,7 @@ echo 10.0.3?
 echo 10.0.4?
 echo 10.1.0?
 echo 10.2.0?
+echo 11.0.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -580,6 +581,13 @@ IF "%firmware_choice%"=="10.2.0" (
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="11.0.0" (
+	set expected_md5=7330b3c560f80caeb2fa3d831d5203f2
+	set "firmware_link=https://mega.nz/file/YRZjWSqC#D2IFvaI8t0mMQMbEZRIiNH5PPR5dOUx17IkhEYqhcfM"
+	set firmware_file_name=Firmware 11.0.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
 goto:endscript2
 
 :download_firmware
@@ -734,10 +742,6 @@ IF %errorlevel% equ 1 (
 )
 IF %errorlevel% equ 2 (
 	set restore_method=2
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "copy_to_sd_error"
-		goto:endscript
-	) 
 	goto:end_copy_to_sd
 )
 goto:endscript2

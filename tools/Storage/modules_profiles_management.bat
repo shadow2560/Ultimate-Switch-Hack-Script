@@ -42,6 +42,7 @@ goto:end_script
 :info_profile
 call "%associed_language_script%" "intro_info_profile"
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "info_no_profile_exist_error"
 	pause
@@ -80,6 +81,7 @@ goto:skip_modify_select_profile
 call "%associed_language_script%" "intro_modify_profile"
 echo.
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "modify_no_profile_exist_error"
 	pause
@@ -97,6 +99,7 @@ goto:define_action_choice
 call "%associed_language_script%" "intro_delete_profile"
 echo.
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "delete_no_profile_exist_error"
 	pause

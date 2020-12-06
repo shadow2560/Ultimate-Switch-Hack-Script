@@ -3,7 +3,7 @@
 <h2>CFWs</h2>
 <ul>
 <li><a target="_blank" href="https://github.com/Atmosphere-NX/Atmosphere">Atmosphere-NX</a></li>
-<li><a target="_blank" href="https://github.com/ITotalJustice/patches">some sig_patches</a> and <a target="_blank" href="https://gbatemp.net/threads/atmosphere-patches-es-fs-and-loader-fusee_primary-only.562812/">this page for some others sig_patches</a> and <a target="_blank" href="https://gbatemp.net/threads/sigpatches-for-atmosphere-fusee-primary-only.567542/">here for last updated sig_patches</a> and also <a target="_blank" href="https://gbatemp.net/threads/sigpatches-for-atmosphere-hekate-fss0-fusee-secondary-only.571543/">this page for updated Hekate patches</a>.</li>
+<li><a target="_blank" href="https://github.com/ITotalJustice/patches">some sig_patches</a> and also <a target="_blank" href="https://gbatemp.net/threads/sigpatches-for-atmosphere-hekate-fss0-fusee-secondary-only.571543/">this page</a>.</li>
 <li><a target="_blank" href="https://github.com/Reisyukaku/ReiNX">ReiNX</a></li>
 <li><a target="_blank" href="https://sx.xecuter.com/">SX OS and Xecuter's team</a>, also see <a target="_blank" href="https://team-xecuter.com/community/resources/sx-autoloader.25/">SX Autoloader module page</a></li>
 <li>AtlasNX team for the <a target="_blank" href="https://github.com/AtlasNX/Kosmos/">Kosmos project</a>, replaced by <a target="_blank" href="https://github.com/Team-Neptune/DeepSea">this project</a>.</li>
@@ -47,6 +47,7 @@
 <li><a target="_blank" href="https://github.com/jakibaki/sys-ftpd">Sys-FTPD</a></li>
 <li><a target="_blank" href="https://github.com/cathery/sys-ftpd-light">Sys-FTPD-Light</a></li>
 <li><a target="_blank" href="https://github.com/Cesura/nxsh">Sys-nxsh, Nxsh</a></li>
+<li><a target="_blank" href="https://github.com/tallbl0nde/TriPlayer">Triplayer</a></li>
 <li><a target="_blank" href="https://github.com/XorTroll/uLaunch">uLaunch</a></li>
 <li><a target="_blank" href="https://github.com/khedoros/khedgb">Khedgb</a></li>
 <li><a target="_blank" href="https://github.com/mgba-emu/mgba">Mgba</a></li>
@@ -124,6 +125,8 @@
 <li><a target="_blank" href="http://www.ridgecrop.demon.co.uk/index.htm?fat32format.htm">fat32format 1.08</a>  (compiled and modified by myself)</li>
 <li><a target="_blank" href="https://sourceforge.net/projects/gptfdisk/">Gdisk</a>.</li>
 <li>GNU Win32 tools (Md5sum, Cut, DiffUtils, FindUtils, Grep, Head, Sed, split, Tail, Wc, Dd, Fdisk, Ls): See <a target="_blank" href="http://gnuwin32.sourceforge.net/">This page</a>. For Sed, see <a target="_blank" href="https://github.com/mbuilov/sed-windows/">this page</a>. For Split, dd and ls they come from portable Git, see <a target="_blank" href="https://git-scm.com/download/win">this page</a> and also thanks to  MSYS devs for the GNU tools that they have ported to Windows like fdisk.</li>
+<li><a target="_blank" href="https://gist.github.com/cd40c3d1b5dfafbf1fe8f7e5cf13f91e">Gw_flash</a></li>
+<li><a target="_blank" href="https://github.com/Spacecraft-NX">Spacecraft-NX projects</a></li>
 <li><a target="_blank" href="https://github.com/SciresM/hactool">Hactool</a></li>
 <li><a target="_blank" href="https://github.com/Thealexbarney/LibHac">Hactoolnet</a></li>
 <li>Imx_load Windows binary: rajkosto</li>

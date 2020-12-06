@@ -65,8 +65,14 @@ IF "%atmo_applet_heap_reservation_size%"=="" (
 IF "%atmo_hbl_override_key%"=="" (
 	set atmo_hbl_override_key=R
 )
+IF "%atmo_override_address_space%"=="" (
+	set atmo_override_address_space=39
+)
 IF "%atmo_hbl_override_any_app_key%"=="" (
 	set atmo_hbl_override_any_app_key=R
+)
+IF "%atmo_override_any_app_address_space%"=="" (
+	set atmo_override_any_app_address_space=39
 )
 IF "%atmo_layeredfs_override_key%"=="" (
 	set inverted_atmo_layeredfs_override_key=Y
@@ -91,6 +97,10 @@ IF "%cheats_profile_path%"=="" (
 		set sxos_enable_cheats=
 	)
 )
+IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
+	set sd_folder_structure_to_copy_choice=n
+)
+IF "%sd_folder_structure_to_copy_path%"=="" set sd_folder_structure_to_copy_choice=n
 echo.
 call "%associed_language_script%" "display_infos"
 endlocal

@@ -1,5 +1,18 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.83</h2>
+<ul>
+<li>Correction de nombreux bugs dans les gestions de profiles et dans la préparation d'une SD.</li>
+<li>Correction d'un bug pour la méthode "2" dans le script de débrickage.</li>
+<li>Support du firmware 11.0.0 dans la préparation d'une mise à jour.</li>
+<li>Mise à jour de NXNandManager vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour d'Atmosphere en version 0.16.0-p2 EXPERIMENTAL.</li>
+<li>Mise à jour de Hekate en version 5.5.0.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.8.5.</li>
+<li>Mise à jour de Tegraexplorer en version 2.0.5.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 417.</li>
+</ul>
 <h2>V4.3.82</h2>
 <ul>
 <li>Correction d'un bug très important dans la préparation d'une SD si certains éléments d'un profile général n'étaient pas définis.</li>

@@ -1,5 +1,20 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V417</h2>
+<ul>
+<li>Add the Triplayer module.</li>
+<li>Update Atmosphere to version 0.16.0-p2 EXPERIMENTAL.</li>
+<li>Update Hekate to version 5.5.0.</li>
+<li>Update Lockpick-RCM to version 1.8.5.</li>
+<li>Update Tegraexplorer to version 2.0.5.</li>
+<li>Update SXOS to version 3.1.0 beta.</li>
+<li>Update MissionControl to version 0.4.0.</li>
+<li>Update Edizon-se to version 3.7.21.</li>
+<li>Update Tinleaf to version 1.4.1.</li>
+<li>Update NightFall to version 1.1.1.</li>
+<li>Update Fizeau to version 2.1.1.</li>
+<li>Update Tinfoil to version 11.00.</li>
+</ul>
 <h2>V416</h2>
 <ul>
 <li>Update ShareNX to version 2.0.0b.</li>

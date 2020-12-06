@@ -108,11 +108,13 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Homebrew Menu button activation via the album: %atmo_hbl_override_key%
 		)
+		echo Adress space for the Homebrew Menu via the album: %atmo_override_address_space%_bit
 						IF "%inverted_atmo_hbl_override_any_app_key%"=="Y" (
 			echo Homebrew Menu button activation in application mode: toutes sauf %atmo_hbl_override_any_app_key%
 		) else (
 			echo Homebrew Menu button activation in application mode: %atmo_hbl_override_any_app_key%
 		)
+		echo Adress space for the Homebrew Menu in application mode: %atmo_override_any_app_address_space%_bit
 		IF "%inverted_atmo_cheats_override_key%"=="Y" (
 			echo Cheats enabling button activation: all except %atmo_cheats_override_key%
 		) else (
@@ -305,6 +307,13 @@ IF "%copy_cheats%"=="Y" (
 		echo The cheats for SX OS will not be copied.
 	)
 	echo.
+)
+IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
+	echo No custom folder will be copied.
+) else IF NOT EXIST "%sd_folder_structure_to_copy_path%\*.*" (
+	echo The "%sd_folder_structure_to_copy_path%" folder doesn't exist, it will not be copied.
+) else (
+	echo The content of the "%sd_folder_structure_to_copy_path%" folder will be copied on SD root.
 )
 IF /i "%del_files_dest_copy%"=="1" echo Be careful: All CFWs folder will be cleaned, included the "titles" folder of them.
 IF /i "%del_files_dest_copy%"=="2" echo Be careful: All files on the SD will be removed.

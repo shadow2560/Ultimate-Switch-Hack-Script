@@ -148,6 +148,18 @@ echo.
 set /p cheats_profile=Choisissez un profile de cheats: 
 goto:eof
 
+:define_sd_folder_structure_to_copy_choice
+set /p sd_folder_structure_to_copy_choice=Souhaitez-vous copier le contenu d'un dossier de votre choix à la racine de la SD? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:define_sd_folder_structure_to_copy_path
+%windir%\system32\wscript.exe //Nologo tools\Storage\functions\select_dir.vbs "templogs\tempvar.txt" "Sélection du dossier dont le contenu sera copié à la racine de la SD"
+goto:eof
+
+:sd_folder_structure_to_copy_path_dir_not_exist_error
+echo Le répertoire n'existe pas, veuillez réessayer.
+goto:eof
+
 :del_files_dest_copy_choice
 echo Suppression de données de la SD:
 echo 1: Remettre les données de tous les CFWs à zéro sur la SD ^(supprimera les thèmes, configurations personnels, mods de jeux car les dossiers "titles" ^(ou "contents" pour Atmosphere^) seront remis à zéro... donc bien sauvegarder vos données personnelles si vous souhaitez les concerver^)?
@@ -266,11 +278,19 @@ echo A, B, X, Y, L, R, ZL, ZR, LS, RS, SL, SR, +, -, DLEFT, DUP, DRIGHT, DDOWN
 goto:eof
 
 :atmosphere_manual_config_hbl_button_param_choice
-set /p "atmo_hbl_override_key=Bouton de contrôle du Homebrew Menu via l'album: "
+set /p "atmo_hbl_override_key=Bouton de lancement du Homebrew Menu via l'album: "
+goto:eof
+
+:atmosphere_manual_config_hbl_adress_space_param_choice
+set /p atmo_override_address_space=Espace d'adresse pour le homebrew menu via l'album en bit (39, 36 ou 32, 39 si laissé vide): 
 goto:eof
 
 :atmosphere_manual_config_hbl_app_button_param_choice
-set /p "atmo_hbl_override_any_app_key=Bouton de contrôle du Homebrew Menu en mode application: "
+set /p "atmo_hbl_override_any_app_key=Bouton de lancement du Homebrew Menu en mode application: "
+goto:eof
+
+:atmosphere_manual_config_hbl_any_app_adress_space_param_choice
+set /p atmo_override_any_app_address_space=Espace d'adresse pour le homebrew menu en mode application en bit (39, 36 ou 32, 39 si laissé vide): 
 goto:eof
 
 :value_not_accepted_error
@@ -278,11 +298,11 @@ echo Cette valeur ne peut être utilisée.
 goto:eof
 
 :atmosphere_manual_config_cheats_button_param_choice
-set /p atmo_cheats_override_key=Bouton de contrôle des cheats: 
+set /p atmo_cheats_override_key=Bouton de lancement des cheats: 
 goto:eof
 
 :atmosphere_manual_config_layeredfs_button_param_choice
-set /p atmo_layeredfs_override_key=Bouton de contrôle de Layeredfs ^(mods de jeux par exemple^): 
+set /p atmo_layeredfs_override_key=Bouton de lancement de Layeredfs ^(mods de jeux par exemple^): 
 goto:eof
 
 :emummc_profile_choice_begin

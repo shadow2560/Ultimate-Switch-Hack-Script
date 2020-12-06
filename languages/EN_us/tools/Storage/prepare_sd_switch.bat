@@ -21,7 +21,7 @@ echo Be careful: If you decide to format the SD, all datas on it will be lost so
 echo Be careful: Choose the good letter for your SD because no verification could be done to verify that point.
 echo.
 echo You could find a folder named "sd_user" at this script root.
-echo The content of this folder will be copied to the root of your SD, so you can put your personal configuration files like your SX OS license, specific settings for Hekate... whatever you want.
+echo The content of this folder will be copied to the root of your SD and will always be the last copy on the SD so you can put your personal configuration files like your SX OS license, specific settings for Hekate... whatever you want.
 echo For example, to use a personal file for Hekate, you will have to create a "bootloader" folder and put your "hekate_ipl.ini" file in it.
 echo No support will be given if you use this feature, only use it if you understand what you are doing.
 goto:eof

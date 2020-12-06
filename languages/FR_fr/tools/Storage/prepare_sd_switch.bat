@@ -14,7 +14,7 @@ echo.
 echo Je ne pourrais être tenu pour responsable de quelque domage que se soit lié à l'utilisation de ce script ou des outils qu'il contient.
 echo.
 echo Vous pourrez trouver, à la racine de ce script, un dossier "sd_user".
-echo Le contenu de ce dossier sera copié à la racine de votre SD, vous pouvez donc mettre vos fichiers de configurations personnelles comme votre licence SX OS, des paramètres spécifiques pour Hekate... bref se que vous voulez.
+echo Le contenu de ce dossier sera copié à la racine de votre SD et sera toujours copié en dernier, vous pouvez donc mettre vos fichiers de configurations personnelles comme votre licence SX OS, des paramètres spécifiques pour Hekate... bref se que vous voulez.
 echo Par exemple, pour utiliser un fichier personnel pour Hekate, vous devrez créer un dossier "bootloader" et y mettre votre fichier "hekate_ipl.ini" pour que celui-ci soit pris en compte.
 echo Aucun support ne sera donné si vous utilisez cette fonctionnalité, ne l'utilisez que si vous comprenez se que vous faites.
 goto:eof

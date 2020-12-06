@@ -157,6 +157,18 @@ echo.
 set /p cheats_profile=Make your choice: 
 goto:eof
 
+:define_sd_folder_structure_to_copy_choice
+set /p sd_folder_structure_to_copy_choice=Do you want to copy the content of a chosen folder on the SD root? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:define_sd_folder_structure_to_copy_path
+%windir%\system32\wscript.exe //Nologo tools\Storage\functions\select_dir.vbs "templogs\tempvar.txt" "Select the folder  to copy the structure into it on the SD root"
+goto:eof
+
+:sd_folder_structure_to_copy_path_dir_not_exist_error
+echo The folder doesn't exist, please try again.
+goto:eof
+
 :del_files_dest_copy_choice
 echo SD datas removing:
 echo 1: Reset all CFWs datas on the SD ^(will remove the themes, personals configurations, games mods  cause the  "titles" folders ^)or the "contents" folder for Atmosphere^) will be reset... so save your personals datas  if you want to keep them^)?
@@ -278,8 +290,16 @@ goto:eof
 set /p "atmo_hbl_override_key=Button for Homebrew Menu launching via the album: "
 goto:eof
 
+:atmosphere_manual_config_hbl_adress_space_param_choice
+set /p atmo_override_address_space=Adress space for homebrew menu via the album in bit (39, 36 or 32, 39 if empty): 
+goto:eof
+
 :atmosphere_manual_config_hbl_app_button_param_choice
 set /p "atmo_hbl_override_any_app_key=Button for Homebrew Menu launching in application mode: "
+goto:eof
+
+:atmosphere_manual_config_hbl_any_app_adress_space_param_choice
+set /p atmo_override_any_app_address_space=Adress space for homebrew menu in application mode in bit (39, 36 or 32, 39 if empty): 
 goto:eof
 
 :value_not_accepted_error

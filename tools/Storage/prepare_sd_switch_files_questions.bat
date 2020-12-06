@@ -23,20 +23,22 @@ IF EXIST "%~0.version" (
 )
 call "%associed_language_script2%" "display_title"
 echo.
+set launch_manual=
 call "%associed_language_script2%" "launch_manual_choice"
 IF NOT "%launch_manual%"=="" set launch_manual=%launch_manual:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "launch_manual" "o/n_choice"
 IF /i "%launch_manual%"=="o" (
 	start "" "%language_path%\doc\files\sd_prepare.html"
 )
-
 echo.
+set copy_atmosphere_pack=
 call "%associed_language_script2%" "copy_atmosphere_pack_choice"
 IF NOT "%copy_atmosphere_pack%"=="" set copy_atmosphere_pack=%copy_atmosphere_pack:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_atmosphere_pack" "o/n_choice"
 IF /i NOT "%copy_atmosphere_pack%"=="o" goto:skip_ask_cheats_atmosphere
 :ask_nogc_atmosphere
 echo.
+set atmosphere_enable_nogc_patch=
 call "%associed_language_script2%" "atmosphere_nogc_patch_choice"
 IF NOT "%atmosphere_enable_nogc_patch%"=="" set atmosphere_enable_nogc_patch=%atmosphere_enable_nogc_patch:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmosphere_enable_nogc_patch" "o/n_choice"
@@ -52,6 +54,7 @@ call :modules_profile_choice "atmosphere"
 IF "%cheats_update_error%"=="Y" goto:skip_ask_cheats_atmosphere
 :ask_cheats_atmosphere
 echo.
+set atmosphere_enable_cheats=
 call "%associed_language_script2%" "atmosphere_copy_cheats_choice"
 IF NOT "%atmosphere_enable_cheats%"=="" set atmosphere_enable_cheats=%atmosphere_enable_cheats:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmosphere_enable_cheats" "o/n_choice"
@@ -73,18 +76,22 @@ call :modules_profile_choice "reinx"
 :skip_copy_reinx_pack
 
 echo.
+set copy_memloader=
 call "%associed_language_script2%" "copy_memloader_pack_choice"
 IF NOT "%copy_memloader%"=="" set copy_memloader=%copy_memloader:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_memloader" "o/n_choice"
 
 echo.
+set copy_sxos_pack=
 call "%associed_language_script2%" "copy_sxos_pack_choice"
 IF NOT "%copy_sxos_pack%"=="" set copy_sxos_pack=%copy_sxos_pack:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_sxos_pack" "o/n_choice"
 IF /i NOT "%copy_sxos_pack%"=="o" goto:skip_ask_cheats_sxos
+set remove_sx_autoloader=
 call "%associed_language_script2%" "sxos_remove_sx_autoloader"
-IF NOT "!remove_sx_autoloader!"=="" set remove_sx_autoloader=!remove_sx_autoloader:~0,1!
+IF NOT "!remove_sx_autoloader!"=="" set remove_sx_autoloader=%remove_sx_autoloader:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "remove_sx_autoloader" "o/n_choice"
+set copy_payloads=
 call "%associed_language_script2%" "sxos_copy_selected_payloads_sd_root_choice"
 IF NOT "!copy_payloads!"=="" set copy_payloads=!copy_payloads:~0,1!
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_payloads" "o/n_choice"
@@ -92,17 +99,20 @@ call :modules_profile_choice "sxos"
 IF "%cheats_update_error%"=="Y" goto:skip_ask_cheats_sxos
 :ask_cheats_sxos
 echo.
+set sxos_enable_cheats=
 call "%associed_language_script2%" "sxos_cheats_copy_choice"
 IF NOT "%sxos_enable_cheats%"=="" set sxos_enable_cheats=%sxos_enable_cheats:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sxos_enable_cheats" "o/n_choice"
 :skip_ask_cheats_sxos
 
 echo.
+set copy_emu=
 call "%associed_language_script2%" "copy_emulators_pack_choice"
 IF NOT "%copy_emu%"=="" set copy_emu=%copy_emu:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_emu" "o/n_choice"
 IF /i "%copy_emu%"=="o" (
 	IF /i NOT "%del_files_dest_copy%"=="o" (
+		set keep_emu_configs=
 		call "%associed_language_script2%" "emulators_kip_configs_choice"
 		IF NOT "!keep_emu_configs!"=="" set keep_emu_configs=!keep_emu_configs:~0,1!
 		call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "keep_emu_configs" "o/n_choice"
@@ -460,6 +470,27 @@ set cheats_profile_path=tools\sd_switch\cheats\profiles\%cheats_profile_path%
 :skip_verif_cheats_profile
 del /q templogs\profiles_list.txt >nul
 
+:define_sd_folder_structure_to_copy
+set sd_folder_structure_to_copy_path=
+set sd_folder_structure_to_copy_choice=
+call "%associed_language_script2%" "define_sd_folder_structure_to_copy_choice"
+IF NOT "%sd_folder_structure_to_copy_choice%"=="" set sd_folder_structure_to_copy_choice=%sd_folder_structure_to_copy_choice:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sd_folder_structure_to_copy_choice" "o/n_choice"
+if /i "%sd_folder_structure_to_copy_choice%"=="O" (
+	call "%associed_language_script2%" "define_sd_folder_structure_to_copy_path"
+	set /p sd_folder_structure_to_copy_path=<templogs\tempvar.txt
+	IF NOT "!sd_folder_structure_to_copy_path!"=="" set sd_folder_structure_to_copy_path=!sd_folder_structure_to_copy_path!\
+	IF NOT "!sd_folder_structure_to_copy_path!"=="" set sd_folder_structure_to_copy_path=!sd_folder_structure_to_copy_path:\\=\!
+	IF NOT "!sd_folder_structure_to_copy_path!"=="" set sd_folder_structure_to_copy_path=!sd_folder_structure_to_copy_path:~0,-1!
+	IF NOT EXIST "!sd_folder_structure_to_copy_path!\*.*" (
+		call "%associed_language_script2%" "sd_folder_structure_to_copy_path_dir_not_exist_error"
+		pause
+		echo.
+		goto:define_sd_folder_structure_to_copy
+	)
+)
+:skip_define_sd_folder_structure_to_copy
+
 :define_del_files_dest_copy
 set del_files_dest_copy=
 IF /i NOT "%format_choice%"=="o" (
@@ -482,12 +513,13 @@ call "%associed_language_script2%" "confirm_script_settings"
 IF NOT "%confirm_copy%"=="" set confirm_copy=%confirm_copy:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "confirm_copy" "o/n_choice"
 IF /i "%confirm_copy%"=="o" (
-	exit /b 200
-	
+	set error_level=200
+	goto:endscript
 ) else IF /i "%confirm_copy%"=="n" (
 	call "%associed_language_script2%" "canceled"
 	pause
-	exit /b 400
+	set error_level=400
+	goto:endscript
 ) else (
 	call "%associed_language_script2%" "bad_choice"
 	goto:confirm_settings
@@ -755,6 +787,34 @@ IF "%check_chars%"=="0" (
 )
 :skip_check_atmo_hbl_override_key
 
+:set_atmo_override_address_space
+set atmo_override_address_space=
+call "%associed_language_script2%" "atmosphere_manual_config_hbl_adress_space_param_choice"
+IF "%atmo_override_address_space%"=="" set atmo_override_address_space=39
+call TOOLS\Storage\functions\strlen.bat nb "%atmo_override_address_space%"
+set i=0
+:check_chars_atmo_override_address_space
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
+		IF "!atmo_override_address_space:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_atmo_override_address_space
+		)
+	)
+	IF "!check_chars!"=="0" (
+		call "%associed_language_script2%" "bad_value"
+		goto:set_atmo_override_address_space
+	)
+)
+IF "%atmo_override_address_space%"=="39" goto:skip_check_atmo_override_address_space
+IF "%atmo_override_address_space%"=="36" goto:skip_check_atmo_override_address_space
+IF "%atmo_override_address_space%"=="32" goto:skip_check_atmo_override_address_space
+call "%associed_language_script2%" "bad_value"
+goto:set_atmo_override_address_space
+:skip_check_atmo_override_address_space
+
 :set_atmo_hbl_override_any_app_key
 set atmo_hbl_override_any_app_key=
 call "%associed_language_script2%" "atmosphere_manual_config_hbl_app_button_param_choice"
@@ -800,6 +860,34 @@ IF "%check_chars%"=="0" (
 	goto:set_atmo_hbl_override_any_app_key
 )
 :skip_check_atmo_hbl_override_any_app_key
+
+:set_atmo_override_any_app_address_space
+set atmo_override_any_app_address_space=
+call "%associed_language_script2%" "atmosphere_manual_config_hbl_any_app_adress_space_param_choice"
+IF "%atmo_override_any_app_address_space%"=="" set atmo_override_any_app_address_space=39
+call TOOLS\Storage\functions\strlen.bat nb "%atmo_override_any_app_address_space%"
+set i=0
+:check_chars_atmo_override_any_app_address_space
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
+		IF "!atmo_override_any_app_address_space:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_atmo_override_any_app_address_space
+		)
+	)
+	IF "!check_chars!"=="0" (
+		call "%associed_language_script2%" "bad_value"
+		goto:set_atmo_override_any_app_address_space
+	)
+)
+IF "%atmo_override_any_app_address_space%"=="39" goto:skip_check_atmo_override_any_app_address_space
+IF "%atmo_override_any_app_address_space%"=="36" goto:skip_check_atmo_override_any_app_address_space
+IF "%atmo_override_any_app_address_space%"=="32" goto:skip_check_atmo_override_any_app_address_space
+call "%associed_language_script2%" "bad_value"
+goto:set_atmo_override_any_app_address_space
+:skip_check_atmo_override_any_app_address_space
 
 :set_atmo_cheats_override_key
 set atmo_cheats_override_key=

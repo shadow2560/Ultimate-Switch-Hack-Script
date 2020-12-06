@@ -99,11 +99,13 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Touche associée à l'activation du Homebrew Menu via l'album: %atmo_hbl_override_key%
 		)
+		echo Espace d'adresse pour le Homebrew Menu via l'album: %atmo_override_address_space%_bit
 				IF "%inverted_atmo_hbl_override_any_app_key%"=="Y" (
 			echo Touche associée à l'activation du Homebrew Menu en mode application: toutes sauf %atmo_hbl_override_any_app_key%
 		) else (
 			echo Touche associée à l'activation du Homebrew Menu en mode application: %atmo_hbl_override_any_app_key%
 		)
+		echo Espace d'adresse pour le Homebrew Menu en mode application: %atmo_override_any_app_address_space%_bit
 		IF "%inverted_atmo_cheats_override_key%"=="Y" (
 			echo Touche associée à l'activation des cheats: toutes sauf %atmo_cheats_override_key%
 		) else (
@@ -297,6 +299,14 @@ IF "%copy_cheats%"=="Y" (
 	)
 	echo.
 )
+IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
+	echo Aucun dossier personnalisé ne sera copié.
+) else IF NOT EXIST "%sd_folder_structure_to_copy_path%\*.*" (
+	echo Le dossier "%sd_folder_structure_to_copy_path%" n'existe pas, la copie de ce dossier ne se fera donc pas.
+) else (
+	echo Le contenu du dossier "%sd_folder_structure_to_copy_path%" sera copié à la racine de la SD.
+)
+echo.
 IF /i "%del_files_dest_copy%"=="1" echo Attention: Les fichiers de tous les CFWs seront réinitialisé avant la copie, dossier "titles" de ceux-ci inclus.
 IF /i "%del_files_dest_copy%"=="2" echo Attention: Les fichiers de la SD seront intégralement supprimés avant la copie.
 IF /i "%del_files_dest_copy%"=="0" echo Les fichiers de la SD seront concervés et seul les fichiers mis à jour seront remplacés.

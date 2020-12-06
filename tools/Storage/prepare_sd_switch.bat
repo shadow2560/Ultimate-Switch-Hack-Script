@@ -167,11 +167,15 @@ IF NOT EXIST "tools\sd_switch\profiles\*.bat" (
 )
 cd tools\sd_switch\profiles
 for %%p in (*.bat) do (
-	set /a temp_count+=1
-	set temp_profilename=%%p
-	set temp_profilename=!temp_profilename:~0,-4!
-	echo !temp_count!: !temp_profilename!
-	echo %%p>> ..\..\..\templogs\profiles_list.txt
+	IF %%~zp EQU 0 (
+		del /q %%p >nul
+	) else (
+		set /a temp_count+=1
+		set temp_profilename=%%p
+		set temp_profilename=!temp_profilename:~0,-4!
+		echo !temp_count!: !temp_profilename!
+		echo %%p>> ..\..\..\templogs\profiles_list.txt
+	)
 )
 cd ..\..\..
 :general_no_profile_created
@@ -308,6 +312,11 @@ IF "%cheats_profile_path%"=="" (
 		set sxos_enable_cheats=
 	)
 )
+IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
+	set sd_folder_structure_to_copy_choice=n
+)
+IF "%sd_folder_structure_to_copy_path%"=="" set sd_folder_structure_to_copy_choice=n
+IF NOT EXIST "%sd_folder_structure_to_copy_path%\*.*" set sd_folder_structure_to_copy_choice=n
 
 IF /i "%copy_atmosphere_pack%"=="o" (
 	IF NOT "%atmosphere_pass_copy_modules_pack%"=="Y" (
@@ -573,6 +582,7 @@ call :copy_mixed_pack
 call :copy_overlays_pack
 call :copy_salty-nx_pack
 call :copy_emu_pack
+IF /i "%sd_folder_structure_to_copy_choice%"=="o" %windir%\System32\Robocopy.exe "%sd_folder_structure_to_copy_path% " "%volume_letter%:\ " /e >nul
 %windir%\System32\Robocopy.exe sd_user %volume_letter%:\ /e >nul
 
 del /Q /S "%volume_letter%:\switch\.emptydir" >nul 2>&1
@@ -1224,23 +1234,31 @@ IF "%atmo_hbl_override_key%"=="" (
 ) else (
 	IF "%inverted_atmo_hbl_override_key%"=="Y" set atmo_hbl_override_key=!%atmo_hbl_override_key%
 )
+IF "%atmo_override_address_space%"=="" (
+	set atmo_override_address_space=39_bit
+) else (
+	set atmo_override_address_space=%atmo_override_address_space%_bit
+)
 IF "%atmo_hbl_override_any_app_key%"=="" (
 	set atmo_hbl_override_any_app_key=R
 ) else (
 	IF "%inverted_atmo_hbl_override_any_app_key%"=="Y" set atmo_hbl_override_any_app_key=!%atmo_hbl_override_any_app_key%
 )
+IF "%atmo_override_any_app_address_space%"=="" (
+	set atmo_override_any_app_address_space=39_bit
+) else (
+	set atmo_override_any_app_address_space=%atmo_override_any_app_address_space%_bit
+)
 IF "%atmo_layeredfs_override_key%"=="" (
 	set inverted_atmo_layeredfs_override_key=Y
 	set atmo_layeredfs_override_key=L
-) else (
-	IF "%inverted_atmo_layeredfs_override_key%"=="Y" set atmo_layeredfs_override_key=!%atmo_layeredfs_override_key%
 )
+	IF "%inverted_atmo_layeredfs_override_key%"=="Y" set atmo_layeredfs_override_key=!%atmo_layeredfs_override_key%
 IF "%atmo_cheats_override_key%"=="" (
 	set inverted_atmo_cheats_override_key=Y
 	set atmo_cheats_override_key=L
-) else (
-	IF "%inverted_atmo_cheats_override_key%"=="Y" set atmo_cheats_override_key=!%atmo_cheats_override_key%
 )
+	IF "%inverted_atmo_cheats_override_key%"=="Y" set atmo_cheats_override_key=!%atmo_cheats_override_key%
 echo ; Disable uploading error reports to Nintendo>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [eupld]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo upload_enabled = u8!%atmo_upload_enabled%>>%volume_letter%:\atmosphere\config\system_settings.ini
@@ -1300,6 +1318,7 @@ echo ; Up to 8 program-specific configurations can be set.>>%volume_letter%:\atm
 echo ; These use `program_id_#` and `override_key_#`>>%volume_letter%:\atmosphere\config\override_config.ini
 echo ; where # is in range [0,7].>>%volume_letter%:\atmosphere\config\override_config.ini
 echo program_id_0=010000000000100D>>%volume_letter%:\atmosphere\config\override_config.ini
+echo override_address_space_0=%atmo_override_address_space%>>%volume_letter%:\atmosphere\config\override_config.ini
 echo override_key_0=%atmo_hbl_override_key%>>%volume_letter%:\atmosphere\config\override_config.ini
 echo.>>%volume_letter%:\atmosphere\config\override_config.ini
 echo ; Any Application Config>>%volume_letter%:\atmosphere\config\override_config.ini
@@ -1308,6 +1327,7 @@ echo ; are both applications and not specified above>>%volume_letter%:\atmospher
 echo ; by a program specific config.>>%volume_letter%:\atmosphere\config\override_config.ini
 echo override_any_app=true>>%volume_letter%:\atmosphere\config\override_config.ini
 echo override_any_app_key=%atmo_hbl_override_any_app_key%>>%volume_letter%:\atmosphere\config\override_config.ini
+echo override_any_app_address_space=%atmo_override_any_app_address_space%>>%volume_letter%:\atmosphere\config\override_config.ini
 echo path=atmosphere/hbl.nsp>>%volume_letter%:\atmosphere\config\override_config.ini
 echo.>>%volume_letter%:\atmosphere\config\override_config.ini
 echo [default_config]>>%volume_letter%:\atmosphere\config\override_config.ini

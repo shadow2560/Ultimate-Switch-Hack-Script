@@ -30,6 +30,7 @@ IF NOT EXIST "tools\sd_switch\profiles\*.*" mkdir "tools\sd_switch\profiles"
 
 :define_action_choice
 cls
+set error_level=0
 set action_choice=
 call "%associed_language_script%" "display_title"
 call "%associed_language_script%" "main_action_choice"
@@ -42,6 +43,7 @@ goto:end_script
 :info_profile
 call "%associed_language_script%" "intro_info_profile"
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "info_no_profile_exist_error"
 	pause
@@ -74,26 +76,28 @@ IF %i% LSS %nb% (
 copy nul "tools\sd_switch\profiles\%new_profile_name%.bat" >nul
 call "%associed_language_script%" "create_profile_success"
 set profile_selected=%new_profile_name%.bat
+set /a error_level=0
 goto:skip_modify_select_profile
 
 :modify_profile
 call "%associed_language_script%" "intro_modify_profile"
 echo.
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "modify_no_profile_exist_error"
 	pause
 	goto:define_action_choice
 )
-set /a errorlevel=0
+set /a error_level=0
 :skip_modify_select_profile
-IF %errorlevel% EQU 0 (
+IF %error_level% EQU 0 (
 	call tools\Storage\prepare_sd_switch_files_questions.bat
 	IF "%language_important_error%"=="Y" goto:define_action_choice
 ) else (
 	goto:define_action_choice
 )
-IF %errorlevel% EQU 200 (
+IF %error_level% EQU 200 (
 	call :save_profile_choices
 )
 goto:define_action_choice
@@ -102,6 +106,7 @@ goto:define_action_choice
 call "%associed_language_script%" "intro_delete_profile"
 echo.
 call :select_profile
+IF %errorlevel% EQU 400 goto:define_action_choice
 IF %errorlevel% EQU 404 (
 	call "%associed_language_script%" "delete_no_profile_exist_error"
 	pause
@@ -122,11 +127,15 @@ set /a temp_count=1
 copy nul templogs\profiles_list.txt >nul
 cd tools\sd_switch\profiles
 for %%p in (*.bat) do (
-	set temp_profilename=%%p
-	set temp_profilename=!temp_profilename:~0,-4!
-	echo !temp_count!: !temp_profilename!
-	echo %%p>> ..\..\..\templogs\profiles_list.txt
-	set /a temp_count+=1
+	IF %%~zp EQU 0 (
+		del /q %%p >nul
+	) else (
+		set temp_profilename=%%p
+		set temp_profilename=!temp_profilename:~0,-4!
+		echo !temp_count!: !temp_profilename!
+		echo %%p>> ..\..\..\templogs\profiles_list.txt
+		set /a temp_count+=1
+	)
 )
 cd ..\..\..
 set profile_choice=
@@ -157,7 +166,7 @@ set profile_path=tools\sd_switch\profiles\%profile_selected%
 exit /b
 
 :save_profile_choices
-IF %errorlevel% NEQ 200 exit /b
+IF %error_level% NEQ 200 exit /b
 set profile_path=tools\sd_switch\profiles\%profile_selected%
 echo set "copy_atmosphere_pack=%copy_atmosphere_pack%">"%profile_path%"
 echo set "atmosphere_enable_nogc_patch=%atmosphere_enable_nogc_patch%">>"%profile_path%"
@@ -177,9 +186,11 @@ echo set "atmo_applet_heap_size=%atmo_applet_heap_size%">>"%profile_path%"
 echo set "atmo_applet_heap_reservation_size=%atmo_applet_heap_reservation_size%">>"%profile_path%"
 echo set "atmo_hbl_override_key=%atmo_hbl_override_key%">>"%profile_path%"
 echo set "inverted_atmo_hbl_override_key=%inverted_atmo_hbl_override_key%">>"%profile_path%"
+echo set "atmo_override_address_space=%atmo_override_address_space%">>"%profile_path%"
 
 echo set "atmo_hbl_override_any_app_key=%atmo_hbl_override_any_app_key%">>"%profile_path%"
 echo set "inverted_atmo_hbl_override_any_app_key=%inverted_atmo_hbl_override_any_app_key%">>"%profile_path%"
+echo set "atmo_override_any_app_address_space=%atmo_override_any_app_address_space%">>"%profile_path%"
 
 echo set "atmo_cheats_override_key=%atmo_cheats_override_key%">>"%profile_path%"
 echo set "inverted_atmo_cheats_override_key=%inverted_atmo_cheats_override_key%">>"%profile_path%"
@@ -216,6 +227,8 @@ echo set "cheats_profile_name=%cheats_profile_name%">>"%profile_path%"
 echo set "cheats_profile_path=%cheats_profile_path%">>"%profile_path%"
 echo set "atmosphere_enable_cheats=%atmosphere_enable_cheats%">>"%profile_path%"
 echo set "sxos_enable_cheats=%sxos_enable_cheats%">>"%profile_path%"
+echo set "sd_folder_structure_to_copy_choice=%sd_folder_structure_to_copy_choice%">>"%profile_path%"
+echo set "sd_folder_structure_to_copy_path=%sd_folder_structure_to_copy_path%">>"%profile_path%"
 echo set "del_files_dest_copy=%del_files_dest_copy%">>"%profile_path%"
 call "%associed_language_script%" "values_saved_success"
 pause

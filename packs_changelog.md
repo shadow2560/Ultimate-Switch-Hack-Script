@@ -1,5 +1,20 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V417</h2>
+<ul>
+<li>Ajout du module Triplayer.</li>
+<li>Mise à jour d'Atmosphere en version 0.16.0-p2 EXPERIMENTAL.</li>
+<li>Mise à jour de Hekate en version 5.5.0.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.8.5.</li>
+<li>Mise à jour de Tegraexplorer en version 2.0.5.</li>
+<li>Mise à jour de SXOS en version 3.1.0 beta.</li>
+<li>Mise à jour de MissionControl en version 0.4.0.</li>
+<li>Mise à jour de Edizon-se en version 3.7.21.</li>
+<li>Mise à jour de Tinleaf en version 1.4.1.</li>
+<li>Mise à jour de NightFall en version 1.1.1.</li>
+<li>Mise à jour de Fizeau en version 2.1.1.</li>
+<li>Mise à jour de Tinfoil en version 11.00.</li>
+</ul>
 <h2>V416</h2>
 <ul>
 <li>Mise à jour de ShareNX en version 2.0.0b.</li>
