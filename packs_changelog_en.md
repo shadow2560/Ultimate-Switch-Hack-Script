@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V418</h2>
+<ul>
+<li>Update Tinleaf to version 1.4.3.</li>
+<li>Update Haku33 to version 3.2.</li>
+</ul>
 <h2>V417</h2>
 <ul>
 <li>Add the Triplayer module.</li>

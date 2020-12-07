@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.84</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 418.</li>
+</ul>
 <h2>V4.3.83</h2>
 <ul>
 <li>Important number of bugs fix in profiles management scripts and in the SD preparation.</li>
