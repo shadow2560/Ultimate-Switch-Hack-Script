@@ -42,22 +42,34 @@ IF %errorlevel% EQU 1 (
 	IF !errorlevel! EQU 2 goto:endscript2
 )
 
-IF EXIST tools\Hactool_based_programs\keys.txt (
-	call "%associed_language_script%" "define_new_keys_file_choice"
-	IF !errorlevel! equ 1 (
-		set define_new_keys_file=o
-		goto:keys_file_creation
-	)
-)
-IF NOT EXIST tools\Hactool_based_programs\keys.txt (
-	IF EXIST tools\Hactool_based_programs\keys.dat (
-		rename tools\Hactool_based_programs\keys.dat keys.txt >nul
-		goto:skip_keys_file_creation
-	)
-	call "%associed_language_script%" "keys_file_not_finded"
+call "%associed_language_script%" "method_creation_firmware_unbrick_choice"
+if "%errorlevel%"=="1" (
+	set method_creation_firmware_unbrick_choice=1
+) else if "%errorlevel%"=="2" (
+	set method_creation_firmware_unbrick_choice=2
 	goto:keys_file_creation
 ) else (
-	goto:skip_keys_file_creation
+	goto:endscript2
+)
+
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF EXIST tools\Hactool_based_programs\keys.txt (
+		call "%associed_language_script%" "define_new_keys_file_choice"
+		IF !errorlevel! equ 1 (
+			set define_new_keys_file=o
+			goto:keys_file_creation
+		)
+	)
+	IF NOT EXIST tools\Hactool_based_programs\keys.txt (
+		IF EXIST tools\Hactool_based_programs\keys.dat (
+			rename tools\Hactool_based_programs\keys.dat keys.txt >nul
+			goto:skip_keys_file_creation
+		)
+		call "%associed_language_script%" "keys_file_not_finded"
+		goto:keys_file_creation
+	) else (
+		goto:skip_keys_file_creation
+	)
 )
 :keys_file_creation
 echo.
@@ -67,50 +79,55 @@ IF "%keys_file_path%"=="" (
 	call "%associed_language_script%" "no_keys_file_selected_error"
 	goto:endscript
 )
-copy "%keys_file_path%" "tools\Hactool_based_programs\keys.txt" >nul
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	copy "%keys_file_path%" "tools\Hactool_based_programs\keys.txt" >nul
+)
 :skip_keys_file_creation
-IF EXIST tools\Hactool_based_programs\ChoiDuJour_keys.txt del /q tools\Hactool_based_programs\ChoiDuJour_keys.txt >nul
-cd tools\Hactool_based_programs
-..\python3_scripts\Keys_management\keys_management.exe create_choidujour_keys_file ..\Hactool_based_programs\keys.txt >..\..\templogs\result_choidujour_keys_file_creation_file.txt
-cd ..\..
-tools\gnuwin32\bin\tail.exe -n1 <"templogs\result_choidujour_keys_file_creation_file.txt" >templogs\tempvar.txt
-set /p create_choidujour_keys_file=<templogs\tempvar.txt
-echo %create_choidujour_keys_file% | tools\gnuwin32\bin\grep.exe -c "ChoiDuJour_keys.txt" >templogs\tempvar.txt
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF EXIST tools\Hactool_based_programs\ChoiDuJour_keys.txt del /q tools\Hactool_based_programs\ChoiDuJour_keys.txt >nul
+	cd tools\Hactool_based_programs
+	..\python3_scripts\Keys_management\keys_management.exe create_choidujour_keys_file ..\Hactool_based_programs\keys.txt >..\..\templogs\result_choidujour_keys_file_creation_file.txt
+	cd ..\..
+	tools\gnuwin32\bin\tail.exe -n1 <"templogs\result_choidujour_keys_file_creation_file.txt" >templogs\tempvar.txt
+	set /p create_choidujour_keys_file=<templogs\tempvar.txt
+	echo !create_choidujour_keys_file! | tools\gnuwin32\bin\grep.exe -c "ChoiDuJour_keys.txt" >templogs\tempvar.txt
+	set /p temp_count=<templogs\tempvar.txt
+	IF "!temp_count!"=="1" (
+		set create_choidujour_keys_file_state=0
+		goto:skip_choidujour_keys_file_create
+	)
+	echo !create_choidujour_keys_file! | tools\gnuwin32\bin\grep.exe -c " obligatoire " >templogs\tempvar.txt
+	set /p temp_count=<templogs\tempvar.txt
+	IF "!temp_count!"=="1" (
+		set create_choidujour_keys_file_state=1
+		echo !create_choidujour_keys_file! | tools\gnuwin32\bin\cut.exe -d \^" -f 2 >templogs\tempvar.txt
+		set /p key_missing=<templogs\tempvar.txt
+		del /q tools\Hactool_based_programs\keys.txt >nul
+		goto:skip_choidujour_keys_file_create
+	)
+	echo !create_choidujour_keys_file! | tools\gnuwin32\bin\grep.exe -c " facultative " >templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
-IF "%temp_count%"=="1" (
-	set create_choidujour_keys_file_state=0
-	goto:skip_choidujour_keys_file_create
-)
-echo %create_choidujour_keys_file% | tools\gnuwin32\bin\grep.exe -c " obligatoire " >templogs\tempvar.txt
-set /p temp_count=<templogs\tempvar.txt
-IF "%temp_count%"=="1" (
-	set create_choidujour_keys_file_state=1
-	echo %create_choidujour_keys_file% | tools\gnuwin32\bin\cut.exe -d \^" -f 2 >templogs\tempvar.txt
-	set /p key_missing=<templogs\tempvar.txt
-	del /q tools\Hactool_based_programs\keys.txt >nul
-	goto:skip_choidujour_keys_file_create
-)
-echo %create_choidujour_keys_file% | tools\gnuwin32\bin\grep.exe -c " facultative " >templogs\tempvar.txt
-set /p temp_count=<templogs\tempvar.txt
-IF "%temp_count%"=="1" (
-	set create_choidujour_keys_file_state=2
-	echo %create_choidujour_keys_file% | tools\gnuwin32\bin\cut.exe -d \^" -f 2 >templogs\tempvar.txt
-	set /p key_missing=<templogs\tempvar.txt
-	goto:skip_choidujour_keys_file_create
+	IF "!temp_count!"=="1" (
+		set create_choidujour_keys_file_state=2
+		echo !create_choidujour_keys_file! | tools\gnuwin32\bin\cut.exe -d \^" -f 2 >templogs\tempvar.txt
+		set /p key_missing=<templogs\tempvar.txt
+		goto:skip_choidujour_keys_file_create
+	)
 )
 :skip_choidujour_keys_file_create
-call "%associed_language_script%" "choidujour_keys_file_creation"
-IF NOT EXIST tools\Hactool_based_programs\ChoiDuJour_keys.txt (
-	call "%associed_language_script%" "choidujour_keys_file_create_error"
-	goto:endscript
-)
-
-IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" del /q "downloads\ChoiDuJour_package_6.1.0.zip" >nul
-IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" (
-	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\ChoiDuJour_package_5.1.0.zip" -o"." -r
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "extract_error"
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	call "%associed_language_script%" "choidujour_keys_file_creation"
+	IF NOT EXIST tools\Hactool_based_programs\ChoiDuJour_keys.txt (
+		call "%associed_language_script%" "choidujour_keys_file_create_error"
 		goto:endscript
+	)
+	IF EXIST "downloads\ChoiDuJour_package_6.1.0.zip" del /q "downloads\ChoiDuJour_package_6.1.0.zip" >nul
+	IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" (
+		TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\ChoiDuJour_package_5.1.0.zip" -o"." -r
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "extract_error"
+			goto:endscript
+		)
 	)
 )
 :internet_connection_verif
@@ -248,54 +265,66 @@ IF EXIST "firmware_temp" (
 ) else (
 	mkdir firmware_temp
 )
-IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:define_firmware_choice
-set expected_md5=656823850a70fb3050079423ee177c1a
-set "firmware_link=https://mega.nz/#^!8BplGRQA^!z_2pCeh-8XV2Pf3E_38UfGhDPRSdN3nixb5s5-Q785w"
-set firmware_file_name=Firmware 5.1.0.zip
-set firmware_folder=firmware_temp\
-:download_firmware_choidujour
-set md5_try=0
-IF EXIST "downloads\firmwares\%firmware_file_name%" goto:verif_md5sum_choidujour
-:downloading_firmware_choidujour
-IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
-	call "%associed_language_script%" "firmware_downloading_begin"
-Setlocal disabledelayedexpansion
-TOOLS\megatools\megatools.exe dl --path="templogs\temp.zip" "%firmware_link%"
-endlocal
-	TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
-		set /p md5_verif=<templogs\tempvar.txt
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:define_firmware_choice
+	set expected_md5=656823850a70fb3050079423ee177c1a
+	set "firmware_link=https://mega.nz/#^!8BplGRQA^!z_2pCeh-8XV2Pf3E_38UfGhDPRSdN3nixb5s5-Q785w"
+	set firmware_file_name=Firmware 5.1.0.zip
+	set firmware_folder=firmware_temp\
 )
-IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
-	IF NOT "%md5_verif%"=="%expected_md5%" (
-		IF %md5_try% EQU 3 (
-			call "%associed_language_script%" "firmware_downloading_md5_error"
-			goto:endscript
-		) else (
-			call "%associed_language_script%" "firmware_downloading_md5_retry"
-			set /a md5_try+=1
-			goto:downloading_firmware_choidujour
+:download_firmware_choidujour
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	set md5_try=0
+	IF EXIST "downloads\firmwares\%firmware_file_name%" goto:verif_md5sum_choidujour
+)
+:downloading_firmware_choidujour
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
+		call "%associed_language_script%" "firmware_downloading_begin"
+	Setlocal disabledelayedexpansion
+	TOOLS\megatools\megatools.exe dl --path="templogs\temp.zip" "%firmware_link%"
+	endlocal
+		TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
+			set /p md5_verif=<templogs\tempvar.txt
+	)
+	IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
+		IF NOT "!md5_verif!"=="%expected_md5%" (
+			IF !md5_try! EQU 3 (
+				call "%associed_language_script%" "firmware_downloading_md5_error"
+				goto:endscript
+			) else (
+				call "%associed_language_script%" "firmware_downloading_md5_retry"
+				set /a md5_try+=1
+				goto:downloading_firmware_choidujour
+			)
 		)
 	)
+	set md5_try=0
+	move "templogs\temp.zip" "downloads\firmwares\%firmware_file_name%" >nul
+	goto:skip_verif_md5sum_choidujour
 )
-set md5_try=0
-move "templogs\temp.zip" "downloads\firmwares\%firmware_file_name%" >nul
-goto:skip_verif_md5sum_choidujour
 :verif_md5sum_choidujour
-TOOLS\gnuwin32\bin\md5sum.exe "downloads\firmwares\%firmware_file_name%" | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
-set /p md5_verif=<templogs\tempvar.txt
-IF NOT "%md5_verif%"=="%expected_md5%" (
-	set md5_verif=
-	call "%associed_language_script%" "firmware_exist_but_bad_md5_tested_error"
-	goto:downloading_firmware_choidujour
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	TOOLS\gnuwin32\bin\md5sum.exe "downloads\firmwares\%firmware_file_name%" | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
+	set /p md5_verif=<templogs\tempvar.txt
+IF NOT "!md5_verif!"=="%expected_md5%" (
+		set md5_verif=
+		call "%associed_language_script%" "firmware_exist_but_bad_md5_tested_error"
+		goto:downloading_firmware_choidujour
+	)
 )
 :skip_verif_md5sum_choidujour
-call "%associed_language_script%" "firmware_downloading_end"
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	call "%associed_language_script%" "firmware_downloading_end"
+)
 :define_firmware_choice
 set optional_firmware_download=
-echo.
-call "%associed_language_script%" "optional_firmware_download_choice"
-IF %errorlevel% EQU 2 goto:skip_optional_firmware_download
-IF %errorlevel% EQU 1 set optional_firmware_download=Y
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo.
+	call "%associed_language_script%" "optional_firmware_download_choice"
+	IF !errorlevel! EQU 2 goto:skip_optional_firmware_download
+	IF !errorlevel! EQU 1 set optional_firmware_download=Y
+)
 set firmware_choice=
 call "%associed_language_script%" "firmware_choice_begin"
 echo 1.0.0?
@@ -634,65 +663,107 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "extract_error"
 	goto:endscript
 )
-if exist "%volume_letter%:\FW_%firmware_choice%" rmdir /s /q "%volume_letter%:\FW_%firmware_choice%"
-%windir%\System32\Robocopy.exe firmware_temp %volume_letter%:\FW_%firmware_choice% /e >nul
-call :daybreak_convert "%volume_letter%:\FW_%firmware_choice%"
-:skip_optional_firmware_download
-IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:copy_all_to_sd
-IF NOT "%firmware_choice%"=="5.1.0" (
-	rmdir /s /q firmware_temp
-	mkdir firmware_temp
-	TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\Firmware 5.1.0.zip" -o"firmware_temp" -r
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "extract_error"
-		goto:endscript
-	)
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	if exist "%volume_letter%:\FW_%firmware_choice%" rmdir /s /q "%volume_letter%:\FW_%firmware_choice%"
+	%windir%\System32\Robocopy.exe firmware_temp %volume_letter%:\FW_%firmware_choice% /e >nul
+	call :daybreak_convert "%volume_letter%:\FW_%firmware_choice%"
 )
-set fspatches=--fspatches=nocmac,nogc
+:skip_optional_firmware_download
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF EXIST "downloads\ChoiDuJour_package_5.1.0.zip" goto:copy_all_to_sd
+	IF NOT "%firmware_choice%"=="5.1.0" (
+		rmdir /s /q firmware_temp
+		mkdir firmware_temp
+		TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\Firmware 5.1.0.zip" -o"firmware_temp" -r
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "extract_error"
+			goto:endscript
+		)
+	)
+	set fspatches=--fspatches=nocmac,nogc
+)
 IF EXIST "update_packages" (
 	del /q "update_packages" 2>nul
 	rmdir /s /q "update_packages" 2>nul
 )
 mkdir "update_packages"
 cd "update_packages"
-"..\tools\Hactool_based_programs\tools\ChoiDujour.exe" --keyset="..\tools\Hactool_based_programs\ChoiDuJour_keys.txt" %fspatches% "..\firmware_temp"
-IF %errorlevel% EQU 0 (
-	..\tools\7zip\7za.exe a -y -tzip -sccUTF-8 "..\downloads\ChoiDuJour_package_5.1.0".zip "..\update_packages" -r
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "create_choidujour_package_backup_warning"
-		IF EXIST "..\downloads\ChoiDuJour_package_5.1.0.zip" del /q "..\downloads\ChoiDuJour_package_5.1.0.zip" >nul
-		pause
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	"..\tools\Hactool_based_programs\tools\ChoiDujour.exe" --keyset="..\tools\Hactool_based_programs\ChoiDuJour_keys.txt" %fspatches% "..\firmware_temp"
+	IF !errorlevel! EQU 0 (
+		..\tools\7zip\7za.exe a -y -tzip -sccUTF-8 "..\downloads\ChoiDuJour_package_5.1.0".zip "..\update_packages" -r
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "create_choidujour_package_backup_warning"
+			IF EXIST "..\downloads\ChoiDuJour_package_5.1.0.zip" del /q "..\downloads\ChoiDuJour_package_5.1.0.zip" >nul
+			pause
+		)
+		call "%associed_language_script%" "package_creation_success"
+	) else (
+		call "%associed_language_script%" "package_creation_error"
+		cd ..
+		rmdir /s /q "firmware_temp"
+		rmdir /s /q "update_packages"
+		goto:endscript
 	)
-	call "%associed_language_script%" "package_creation_success"
-) else (
-	call "%associed_language_script%" "package_creation_error"
 	cd ..
-	rmdir /s /q "firmware_temp"
-	rmdir /s /q "update_packages"
-	goto:endscript
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	copy /v "..\tools\EmmcHaccGen\save.stub" save.stub >nul
+	"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+	IF !errorlevel! EQU 0 (
+		call "%associed_language_script%" "package_creation_success"
+	) else (
+		call "%associed_language_script%" "package_creation_error"
+		cd ..
+		rmdir /s /q "firmware_temp"
+		rmdir /s /q "update_packages"
+		goto:endscript
+	)
+	del /q save.stub >nul
+	cd ..
+	dir /A:D /B update_packages >templogs\tempvar.txt
+	set /p emmchaccgen_firmware_folder=<templogs\tempvar.txt
 )
-cd ..
 :copy_all_to_sd
 rmdir /s /q firmware_temp
 echo.
 call "%associed_language_script%" "boot0_keyblobs_reparation_choice"
 IF %errorlevel% EQU 3 goto:endscript2
 IF %errorlevel% EQU 2 (
-	copy "update_packages\NX-5.1.0_exfat\BOOT0.bin" "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" >nul
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "boot0_keyblobs_reparation_error"
-		pause
-	) else (
-		"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "tools\Hactool_based_programs\keys.txt" >nul
+	if "%method_creation_firmware_unbrick_choice%"=="1" (
+		copy "update_packages\NX-5.1.0_exfat\BOOT0.bin" "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" >nul
 		IF !errorlevel! NEQ 0 (
-			IF EXIST "update_packages\NX-5.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin" >nul
-			rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
 			call "%associed_language_script%" "boot0_keyblobs_reparation_error"
 			pause
 		) else (
-			del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak"
-			call "%associed_language_script%" "boot0_keyblobs_reparation_success"
+			"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "tools\Hactool_based_programs\keys.txt" >nul
+			IF !errorlevel! NEQ 0 (
+				IF EXIST "update_packages\NX-5.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin" >nul
+				rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
+				call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+				pause
+			) else (
+				del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak"
+				call "%associed_language_script%" "boot0_keyblobs_reparation_success"
+				pause
+			)
+		)
+	) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+		copy "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" >nul
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "boot0_keyblobs_reparation_error"
 			pause
+		) else (
+			"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -o "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -k "%keys_file_path%" >nul
+			IF !errorlevel! NEQ 0 (
+				IF EXIST "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" >nul
+				rename "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" "BOOT0.bin" >nul
+				call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+				pause
+			) else (
+				del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak"
+				call "%associed_language_script%" "boot0_keyblobs_reparation_success"
+				pause
+			)
 		)
 	)
 )
@@ -714,16 +785,25 @@ IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
 	del /q "%volume_letter%:\bootloader\patches.ini" >nul
 	rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
 )
-%windir%\System32\Robocopy.exe update_packages\NX-5.1.0_exfat\SYSTEM %volume_letter%:\cdj_package_files\SYSTEM /e >nul
-copy "update_packages\NX-5.1.0_exfat\*.bin" "%volume_letter%:\cdj_package_files" >nul
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "copy_to_sd_error"
-	goto:endscript
-)
-copy "update_packages\NX-5.1.0_exfat\microSD\FS510-exfat_nocmac_nogc.kip1" "%volume_letter%:\cdj_package_files\FS510-exfat_nocmac_nogc.kip1" >nul
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "copy_to_sd_error"
-	goto:endscript
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	%windir%\System32\Robocopy.exe update_packages\NX-5.1.0_exfat\SYSTEM %volume_letter%:\cdj_package_files\SYSTEM /e >nul
+	copy "update_packages\NX-5.1.0_exfat\*.bin" "%volume_letter%:\cdj_package_files" >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "copy_to_sd_error"
+		goto:endscript
+	)
+	copy "update_packages\NX-5.1.0_exfat\microSD\FS510-exfat_nocmac_nogc.kip1" "%volume_letter%:\cdj_package_files\FS510-exfat_nocmac_nogc.kip1" >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "copy_to_sd_error"
+		goto:endscript
+	)
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	%windir%\System32\Robocopy.exe "update_packages\!emmchaccgen_firmware_folder!\SYSTEM " %volume_letter%:\cdj_package_files\SYSTEM /e >nul
+	copy "update_packages\!emmchaccgen_firmware_folder!\*.bin" "%volume_letter%:\cdj_package_files" >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "copy_to_sd_error"
+		goto:endscript
+	)
 )
 copy "%language_path%\tegra_scripts\cdj_restore_firmware.te" "%volume_letter%:\" >nul
 IF !errorlevel! NEQ 0 (
@@ -766,7 +846,11 @@ IF %errorlevel% EQU 2 goto:hacdiskmount_step
 call "%associed_language_script%" "memloader_launch_end"
 pause
 start tools\HacDiskMount\HacDiskMount.exe
-start explorer.exe "update_packages\NX-5.1.0_exfat"
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	start explorer.exe "update_packages\NX-5.1.0_exfat"
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	start explorer.exe "update_packages\%emmchaccgen_firmware_folder%"
+)
 :launch_hekate
 echo.
 call "%associed_language_script%" "hekate_launch_begin"

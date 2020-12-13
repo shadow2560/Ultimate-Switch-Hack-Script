@@ -23,7 +23,7 @@ echo.
 echo Please, if you have not done so before, make a full backup of your nand and any items you wish to back up, this will not be covered by this script.
 echo.
 echo Warning, at the end of this procedure, all data in the sysnand ^(nand of the console^) will be deleted.
-echo Also note that the firmware that will be installed will be 5.1.0 firmware.
+echo Also note that the firmware that will be installed will be 5.1.0 firmware if you choose the ChoiDuJour method.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you wish to continue the procedure? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
@@ -36,7 +36,7 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to install the driv
 goto:eof
 
 :dump_keys_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to dump your console keys ^(highly recommended to check if the console can possibly be debricked using this method^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to dump your console keys ^(highly recommended to check if the console can possibly be debricked using this method or necessary if the method via EmmcHaccGen is used^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :dump_keys_instructions_begin
@@ -53,9 +53,18 @@ echo If the dump didn't work, please specify this in the following choice to sto
 echo If you have not copied the Atmosphere's "sept" folder to the root of your SD, do so and restart the script.
 echo If this still doesn't work, the console problem probably can't be solved with this unbricking method alone.
 echo.
-echo If the dump worked well or if you want to try this procedure, you should put your SD in the PC.
+echo If the dump worked well or if you want to try this procedure, you should put your SD in the PC. The keys file is the file "switch\prod.keys" on your SD.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Did the key dump go well? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:method_creation_firmware_unbrick_choice
+echo What method do you want to use to create the firmware package for the unbrick:
+echo 1: Method via ChoiDuJour ^(method more universal witch don't require a console specific prod.keys^)?
+echo 2: Method via EmmcHaccGen ^(method that require the prod.keys of the console and cause of this the package could be used only on this specific console^)?
+echo 0: Exit this script?
+echo.
+choice /c 120 /n /m "Make your choice: "
 goto:eof
 
 :extract_error
@@ -72,10 +81,14 @@ echo Key files not found, please follow the instructions.
 goto:eof
 
 :keys_file_selection
-IF /i NOT "%define_new_keys_file%"=="o" (
-	echo Please select  the key file in the next window, prefer the prod.keys file from your console if youhave it.
-	pause
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF /i NOT "%define_new_keys_file%"=="o" (
+		echo Please select  the key file in the next window, prefer the prod.keys file from your console if you have it.
+	)
+) else (
+	echo Please select  the key file in the next window, the prod.keys file from your console.
 )
+		pause
 %windir%\system32\wscript.exe //Nologo "tools\Storage\functions\open_file.vbs" "" "Fichier de liste de clés Switch^(*.*^)|*.*|" "Keys file select" "templogs\tempvar.txt"
 goto:eof
 
@@ -215,7 +228,11 @@ echo Check the available space on your SD or that it is not write-protected.
 goto:eof
 
 :firmware_choice_begin
-echo Choose the firmware you want to install via ChoiDuJourNX when the console will be running again.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Choose the firmware you want to install via ChoiDuJourNX when the console will be running again.
+) else (
+	echo Choose the firmware you want to prepare via EmmcHaccGen.
+)
 echo.
 echo Firmwares list:
 goto:eof
@@ -343,7 +360,11 @@ echo Be careful, if the computer asks to format a disk, absolutely refuse this c
 echo Be careful, for the next steps you must have activated the display of hidden files as well as the display of system files on Windows, this will not be treated here.
 echo.
 echo Now, HacDiskMount will be launched.
-echo You will also see the opening of a folder "NX-5.1.0_exfat" in a file explorer window, it will be very useful.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo You will also see the opening of a folder "NX-5.1.0_exfat" in a file explorer window, it will be very useful.
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo You will also see the opening of a folder "%emmchaccgen_firmware_folder%" in a file explorer window, it will be very useful.
+)
 echo.
 echo In HacDiskMount, you will have to click on "file" then on "Open physical drive" and select the disk of the Switch.
 echo Once this is done, the list of partitions should be displayed.
@@ -355,7 +376,11 @@ echo Enter the keys and click on "Test". If a green message appears, click on "S
 echo Return to the "SYSTEM" partition.
 echo In the "Virtual drive" section, select a drive letter from the list, check the "Passthrough zeroes" box and finally click on "Mount".
 echo You should see a new disk with the drive letter you chose in your workstation ^(sometimes called "computer" or "this pc" depending on the version of Windows installed^), enter it and delete everything on it.
-echo In the "NX-5.1.0_exfat" folder which also opened at the same time as HacDiskMount, go to the "SYSTEM" folder, copy everything there and paste it into the drive created by HacDiskMount.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo In the "NX-5.1.0_exfat" folder which also opened at the same time as HacDiskMount, go to the "SYSTEM" folder, copy everything there and paste it into the drive created by HacDiskMount.
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo In the "%emmchaccgen_firmware_folder%" folder which also opened at the same time as HacDiskMount, go to the "SYSTEM" folder, copy everything there and paste it into the drive created by HacDiskMount.
+)
 echo Once finished without errors, close the drive created by HacDiskMount, return to it, click on "Unmount" and return to the list of partitions.
 echo Do exactly as you just did with the "SYSTEM" partition but replace "SYSTEM" with "USER".
 echo Close HacDiskMount and turn off the console by holding the "Power" button on the console until it is turned off.
@@ -374,17 +399,23 @@ goto:eof
 
 :hekate_launch_end
 echo.
-echo Once the payload is launched, click on "More configs" ^(second icon on the left^).
-echo Next, click on "sysnand first launch FW 5.1.0" ^(first icon in the top left corner^).
-echo.
-IF "%optional_firmware_download%"=="Y" (
-	echo If the console has booted, you will be able to start Atmosphere with one of the configurations available in Hekate's "More configs" menu and then update to the firmware you chose at the beginning of this script using ChoiDuJourNX ^(preferably choose the EXFAT firmware that ChoiDuJourNX will offer you, the rest of the instructions won't be covered here^).
-) else (
-	echo If the console has booted, you can do what you want to do with it.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Once the payload is launched, click on "More configs" ^(second icon on the left^).
+	echo Next, click on "sysnand first launch FW 5.1.0" ^(first icon in the top left corner^).
+	echo.
+	IF "%optional_firmware_download%"=="Y" (
+		echo If the console has booted, you will be able to start Atmosphere with one of the configurations available in Hekate's "More configs" menu and then update to the firmware you chose at the beginning of this script using ChoiDuJourNX ^(preferably choose the EXFAT firmware that ChoiDuJourNX will offer you, the rest of the instructions won't be covered here^). You can also update the console via official method if you are not banned but it's an choice that could make Nintendo ban the console.
+	) else (
+		echo If the console has booted, you can do what you want to do with it.
+	)
+	echo Be careful, The configuration "sysnand first launch FW 5.1.0" in Hekate should not be restarted if the console has been booted at least once.
+	echo.
+	echo If the console has not booted, try running Hekate again and choose the same configuration to run or one of the others available in the "More configs" menu.
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo Once the payload is launched, click on "Payloads" ^(third icon on the left^).
+	echo Next, click on "Atmosphere_fusee-primary.bin".
+	echo Atmosphere should start. You can also use the stock option of Hekate, this method will not be explained here.
 )
-echo Be careful, The configuration "sysnand first launch FW 5.1.0" in Hekate should not be restarted if the console has been booted at least once.
-echo.
-echo If the console has not booted, try running Hekate again and choose the same configuration to run or one of the others available in the "More configs" menu.
 echo If it still doesn't work, either something went wrong during the script and in this case redo the operations from the beginning or the problem can't be solved using this method.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to restart Hekate? ^(%lng_yes_choice%/%lng_no_choice%^): "

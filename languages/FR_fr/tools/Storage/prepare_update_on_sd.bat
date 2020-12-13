@@ -29,10 +29,11 @@ echo.
 Echo Que souhaitez-vous faire?
 echo.
 echo 1: Préparer un firmware qui sera copié sur la SD pour une installation via ChoiDuJour-NX?
-echo 2: Préparer un firmware pour la mise à jour manuel avec ChoiDuJour?
+echo 2: Préparer un firmware pour la mise à jour manuel avec ChoiDuJour ^(firmware 6.1.0 maximum^)?
 echo 3: Effectuer les deux actions.
 echo 4: Préparer une SD avec les différents CFWs et homebrews utiles et revenir à ce menu ensuite?
 echo 5: Seulement télécharger le firmware?
+echo 6: Préparer un firmware pour la mise à jour manuel avec EmmcHaccGen ^(prod.keys de la console requises^)?
 echo N'importe quel autre choix: Revenir au menu précédent.
 echo.
 set /p action_type=Faites votre choix: 

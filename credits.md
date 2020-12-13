@@ -22,7 +22,8 @@
 <li><a target="_blank" href="https://github.com/masagrator/ReverseNX">ReverseNX</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/UnityGraphics">UnityGraphics</a> and <a target="_blank" href="https://github.com/masagrator/UnityGraphicsWarehouse">UnityGraphicsWarehouse</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/NX-FPS">NX-FPS</a></li>
-<li><a target="_blank" href="https://switchtools.sshnuke.net/">Biskeydump, Memloader, Briccmii, Gptrestore, Romdump, ChoiDuJour, HacDiskMount, ChoiDuJourNX</a></li>
+<li><a target="_blank" href="https://switchtools.sshnuke.net/">Biskeydump, Memloader, Briccmii, Gptrestore, Romdump, ChoiDuJour, HacDiskMount, PartialAesKeyCrack, ChoiDuJourNX</a></li>
+<li><a target="_blank" href="https://github.com/suchmememanyskill/EmmcHaccGen">EmmcHaccGen</a></li>
 <li><a target="_blank" href="https://github.com/CTCaer/hekate">Hekate</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/trinket-rebug-others-switchboot_uf2-fusee_uf2-modchip-software.526607/">Switchboot</a></li>
 <li><a target="_blank" href="https://github.com/bemardev/HekateBrew/">HekateBrew</a></li>

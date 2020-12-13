@@ -25,6 +25,7 @@ echo 2: Unbrick a console ^(beta function^)?
 echo 3: Create an update package via ChoiDuJour?
 echo 4: Create a BOOT0 file with keyblobs repaired ^(beta function^)?
 echo 5: Unbrick PRODINFO ^(beta function^)?
+echo 6: Create an update package via EmmcHaccGen?
 echo 0: Obtain assistance with unbricking?
 echo.
 echo All other choices: Exit?

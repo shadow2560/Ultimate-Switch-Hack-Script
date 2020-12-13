@@ -14,7 +14,7 @@ echo.
 echo Veuillez, si vous ne l'avez pas fait avant, faire une sauvegarde complète de votre nand ainsi que de tout élément que vous souhaitez sauvegarder, ceci ne sera pas couvert par ce script.
 echo.
 echo Attention, à la fin de cette procédure, toutes les données de la sysnand ^(nand de la console^) seront supprimées.
-echo Notez également que le firmware qui sera installé sera le firmware 5.1.0.
+echo Notez également que le firmware qui sera installé sera le firmware 5.1.0 si vous choisissez la méthode ChoiDuJour.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous continuer la procédure? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
@@ -27,7 +27,7 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous installer les dr
 goto:eof
 
 :dump_keys_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous dumper les clés de votre console ^(très vivement recommandé pour vérifier si la console peut éventuellement être débricker via cette méthode^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous dumper les clés de votre console ^(très vivement recommandé pour vérifier si la console peut éventuellement être débricker via cette méthode ou nécessaire si la méthode via EmmcHaccGen est utilisée^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :dump_keys_instructions_begin
@@ -44,9 +44,18 @@ echo Si le dump n'a pas fonctionné, veuillez le préciser dans le choix qui va 
 echo Si vous n'avez pas copié le dossier "sept" d'Atmosphere à la racine de votre SD, faites-le et relancez le script.
 echo Si cela ne fonctionne toujours pas, le problème de la console ne pourra probablement pas être résolu seulement avec cette méthode de débrickage.
 echo.
-echo Si le dump a fonctionné ou que vous souhaitez tout de même continuer la procédure, vous pouvez remettre la SD dans le PC pour la suite.
+echo Si le dump a fonctionné ou que vous souhaitez tout de même continuer la procédure, vous pouvez remettre la SD dans le PC pour la suite, le fichier de clés sera le fichier "switch\prod.keys" situé sur la SD.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Le dump des clés s'est-il bien passé? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:method_creation_firmware_unbrick_choice
+echo Quelle méthode souhaitez-vous utiliser pour créer le firmware du package de débrickage:
+echo 1: Méthode via ChoiDuJour ^(méthode plus universelle ne nécessitant pas un prod.keys lié à la console^)?
+echo 2: Méthode via EmmcHaccGen ^(méthode nécessitant le prod.keys de la console et donc package utilisable uniquement sur une console spécifique^)?
+echo 0: Quitter le script sans rien faire?
+echo.
+choice /c 120 /n /m "Faites votre choix: "
 goto:eof
 
 :extract_error
@@ -63,10 +72,14 @@ echo Fichiers clés non trouvé, veuillez suivre les instructions.
 goto:eof
 
 :keys_file_selection
-IF /i NOT "%define_new_keys_file%"=="o" (
-	echo Veuillez renseigner le fichier de clés dans la fenêtre suivante, préférez le fichiers prod.keys lié à votre console si vous l'avez.
-	pause
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	IF /i NOT "%define_new_keys_file%"=="o" (
+		echo Veuillez renseigner le fichier de clés dans la fenêtre suivante, préférez le fichiers prod.keys lié à votre console si vous l'avez.
+	)
+) else (
+	echo Veuillez renseigner le fichier de clés dans la fenêtre suivante, le fichiers prod.keys lié à votre console.
 )
+	pause
 %windir%\system32\wscript.exe //Nologo "tools\Storage\functions\open_file.vbs" "" "Fichier de liste de clés Switch^(*.*^)|*.*|" "Sélection du fichier de clés" "templogs\tempvar.txt"
 goto:eof
 
@@ -210,7 +223,11 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous ajouter un firmw
 goto:eof
 
 :firmware_choice_begin
-echo Choisissez le firmware que vous souhaitez installer via ChoiDuJourNX lorsque la console fonctionnera de nouveau.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Choisissez le firmware que vous souhaitez installer via ChoiDuJourNX lorsque la console fonctionnera de nouveau.
+) else (
+	echo Choisissez le firmware que vous souhaitez préparer via EmmcHaccGen.
+)
 echo.
 echo Liste des firmwares:
 goto:eof
@@ -232,7 +249,7 @@ goto:eof
 
 :package_creation_error
 echo Un problème est survenu pendant la création du firmware.
-echo Vérifiez que vous avez bien toutes les clés requises dans le fichier "keys.txt".
+echo Vérifiez que vous avez bien toutes les clés requises.
 goto:eof
 
 :boot0_keyblobs_reparation_choice
@@ -338,7 +355,11 @@ echo Attention, si l'ordinateur demande de formater un disque, refuser absolumen
 echo Attention, pour la suite vous devrez avoir activé l'affichage des fichiers cachées ainsi que l'affichage des fichiers systèmes sur Windows, ceci ne sera pas traité ici.
 echo.
 echo Maintenant, HacDiskMount va se lancer.
-echo Vous verrez aussi l'ouverture d'un dossier "NX-5.1.0_exfat" dans une fenêtre d'explorateur de fichiers, il sera très utile.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Vous verrez aussi l'ouverture d'un dossier "NX-5.1.0_exfat" dans une fenêtre d'explorateur de fichiers, il sera très utile.
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo Vous verrez aussi l'ouverture d'un dossier "%emmchaccgen_firmware_folder%" dans une fenêtre d'explorateur de fichiers, il sera très utile.
+)
 echo.
 echo Dans HacDiskMount, vous devrez cliquer sur "file" puis sur "Open physical drive" et sélectionnez le disque de la Switch.
 echo Une fois cela fait, la liste des partitions devrait s'afficher.
@@ -350,7 +371,11 @@ echo Entrez les clés puis cliquez sur "Test". Si un message de couleur verte s'
 echo Revenir sur la partition "SYSTEM".
 echo Dans la section "Virtual drive", sélectionnez une lettre de lecteur dans la liste, cocher la case "Passthrough zeroes" et enfin cliquez sur "Mount".
 echo Vous devriez voir un nouveau disque avec la lettre de lecteur choisi dans votre poste de travail ^(parfois appelé "ordinateur" ou "ce pc" selon la version de Windows installée^), entrez dedans et supprimez tout se qui s'y trouve.
-echo Dans le dossier "NX-5.1.0_exfat" qui s'est également ouvert en même temps que HacDiskMount, allez dans le dossier "SYSTEM", copiez tout se qui s'y trouve et collez-le dans le lecteur créé par HacDiskMount.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Dans le dossier "NX-5.1.0_exfat" qui s'est également ouvert en même temps que HacDiskMount, allez dans le dossier "SYSTEM", copiez tout se qui s'y trouve et collez-le dans le lecteur créé par HacDiskMount.
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo Dans le dossier "%emmchaccgen_firmware_folder%" qui s'est également ouvert en même temps que HacDiskMount, allez dans le dossier "SYSTEM", copiez tout se qui s'y trouve et collez-le dans le lecteur créé par HacDiskMount.
+)
 echo Une fois terminé sans erreurs, fermez le lecteur créé par HacDiskMount, revenez sur ce dernier, cliquez sur "Unmount" et revenez sur la liste des partitions.
 echo Faites exactement comme vous venez de procéder avec la partition "SYSTEM" mais en remplaçant "SYSTEM" par "USER".
 echo Fermez HacDiskMount et éteindre la console en maintenant le bouton "Power" de celle-ci jusqu'à son extinction.
@@ -369,17 +394,23 @@ goto:eof
 
 :hekate_launch_end
 echo.
-echo Une fois le payload lancé, cliquez sur "More configs" ^(second icône à gauche^).
-echo Ensuite, cliquez sur "sysnand first launch FW 5.1.0" ^(premier icône en haut à gauche^).
-echo.
-IF "%optional_firmware_download%"=="Y" (
-	echo Si la console a démarrée, vous pourez démarrer Atmosphere avec une des configurations disponibles dans le menu "More configs" de Hekate puis mettre à jour sur le firmware que vous avez choisi au début de ce script grâce à ChoiDuJourNX ^(choisir de préférence le firmware EXFAT que vous proposera ChoiDuJourNX, le reste des instructions ne seront pas couverte ici^).
-) else (
-	echo Si la console a démarrée, vous pouvez faire se que vous voulez avec elle.
+if "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Une fois le payload lancé, cliquez sur "More configs" ^(second icône à gauche^).
+	echo Ensuite, cliquez sur "sysnand first launch FW 5.1.0" ^(premier icône en haut à gauche^).
+	echo.
+	IF "%optional_firmware_download%"=="Y" (
+		echo Si la console a démarrée, vous pourez démarrer Atmosphere avec une des configurations disponibles dans le menu "More configs" de Hekate puis mettre à jour sur le firmware que vous avez choisi au début de ce script grâce à ChoiDuJourNX ^(choisir de préférence le firmware EXFAT que vous proposera ChoiDuJourNX, le reste des instructions ne seront pas couverte ici^). Vous pouvez aussi mettre à jour la console de manière officielle si celle-ci n'est pas bannie, attention rien n'est garantie sur la sureté de mise à jour via cette procédure.
+	) else (
+		echo Si la console a démarrée, vous pouvez faire se que vous voulez avec elle.
+	)
+	echo Attention: La configuration "sysnand first launch FW 5.1.0" dans Hekate ne doit pas être relancée si la console a bien démarrée au moins une fois.
+	echo.
+	echo Si la console n'a pas démarré, réessayez de lancer de nouveau Hekate et choisir la même configuration à lancer ou une des autres disponibles dans le menu "More configs".
+) else if "%method_creation_firmware_unbrick_choice%"=="2" (
+	echo Une fois le payload lancé, cliquez sur "Payloads" ^(troisième icône à gauche^).
+	echo Ensuite, cliquez sur "Atmosphere_fusee-primary.bin".
+	echo Atmosphere devrait démarrer. Vous pouvez aussi utiliser les options normales de Hekate pour booter en mode stock si vous ne souhaitez pas lancer Atmosphere, méthode non traitée ici.
 )
-echo Attention: La configuration "sysnand first launch FW 5.1.0" dans Hekate ne doit pas être relancée si la console a bien démarrée au moins une fois.
-echo.
-echo Si la console n'a pas démarré, réessayez de lancer de nouveau Hekate et choisir la même configuration à lancer ou une des autres disponibles dans le menu "More configs".
 echo Si cela ne fonctionne toujours pas, soit quelque chose s'est mal passé durant le script et dans ce cas refaire les opérations depuis le début ou soit le problème ne peut être résolu via cette méthode.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous relancer Hekate? ^(%lng_yes_choice%/%lng_no_choice%^): "

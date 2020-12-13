@@ -53,6 +53,7 @@ IF "%action_type%"=="1" cls & goto:define_firmware_choice
 IF "%action_type%"=="2" cls & goto:define_firmware_choice
 IF "%action_type%"=="3" cls & goto:define_firmware_choice
 IF "%action_type%"=="5" cls & goto:define_firmware_choice
+IF "%action_type%"=="6" cls & goto:define_firmware_choice
 goto:end_script_2
 :define_firmware_choice
 set firmware_choice=
@@ -444,6 +445,12 @@ TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\%firmware_file_name%" -o"
 IF "%action_type%"=="1" goto:define_volume_letter
 IF "%action_type%"=="2" (
 	call tools\storage\create_update.bat "%~dp0..\..\firmware_temp"
+	call "%associed_language_script%" "display_title"
+	mkdir templogs
+	goto:define_action_type
+)
+IF "%action_type%"=="6" (
+	call tools\storage\create_update_2.bat "%~dp0..\..\firmware_temp"
 	call "%associed_language_script%" "display_title"
 	mkdir templogs
 	goto:define_action_type

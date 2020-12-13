@@ -2,6 +2,15 @@
 &nbsp;
 <h2>V418</h2>
 <ul>
+<li>Update Atmosphere to version 0.16.1-prerelease EXPERIMENTAL.</li>
+<li>Update Hekate to version 5.5.1.</li>
+<li>Update Lockpick-RCM to version 1.9.0.</li>
+<li>Update MissionControl to version 0.4.1.</li>
+<li>Update Awoo-Installer to version 1.3.4.</li>
+<li>Update AIO-switch-updater to version 1.3.0.</li>
+</ul>
+<h2>V418</h2>
+<ul>
 <li>Update Tinleaf to version 1.4.3.</li>
 <li>Update Haku33 to version 3.2.</li>
 </ul>

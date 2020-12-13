@@ -191,5 +191,5 @@ echo Le module uLaunch n'est pour l'instant pas utilisable officiellement avec S
 goto:eof
 
 :choidujournx_alert_message
-echo Attention, veuillez ne pas utiliser ChoiDuJour-NX sur une console équipée d'une puce SX Core ou SX Lite sous peine de brick.
+echo Attention, veuillez ne pas utiliser ChoiDuJour-NX sur la sysnand d'une console Mariko équipée d'une puce SX Core ou SX Lite sous peine de brick.
 goto:eof

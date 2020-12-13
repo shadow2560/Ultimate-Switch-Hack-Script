@@ -198,5 +198,5 @@ echo The uLaunch module isn't officialy compatible with SX OS for now, the modul
 goto:eof
 
 :choidujournx_alert_message
-echo Warning, don't use ChoiDuJour-NX on a console equiped with a SX Core or SX Lite modchip cause it will brick your console.
+echo Warning, don't use ChoiDuJour-NX on the sysnand on a Mariko console equiped with a SX Core or SX Lite modchip cause it will brick your console.
 goto:eof

@@ -666,6 +666,29 @@ IF "!update_finded!"=="Y" (
 )
 exit /b
 
+:update_create_update_2.bat
+call :verif_file_version "tools\Storage\create_update_2.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\create_update_2.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\create_update_2.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\EmmcHaccGen"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
 :update_donate.bat
 call :verif_file_version "tools\Storage\donate.bat"
 IF "!update_finded!"=="Y" (
@@ -1658,6 +1681,7 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :update_create_update.bat
+call :update_create_update_2.bat
 exit /b
 
 :update_prodinfo_rewrite.bat

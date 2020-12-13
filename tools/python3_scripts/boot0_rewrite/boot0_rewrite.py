@@ -150,6 +150,8 @@ except:
 i = 0
 for item2 in boot0_bct_index:
 	boot0_bct_index[i][0] -= 1
+	if boot0_bct_index[i][0] >5:
+		boot0_bct_index[i][0] = 5
 	for item in keys_source_list:
 		if (item[0] == "encrypted_keyblob_0" + str(item2[0])):
 			boot0_bct_index[i][1] = 1

@@ -1,5 +1,20 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.85</h2>
+<ul>
+<li>Ajout de la méthode EmmcHaccGen dans les scripts de création de mises à jour et de débrickage.</li>
+<li>Ajout de PartialAesKeyCrack qui sera utilisé plus tard dans certains scripts.</li>
+<li>Correction de bugs dans le script python permettant de re-générer un fichier BOOT0.</li>
+<li>Correction de bugs dans la Nand Toolbox.</li>
+<li>Support du firmware 11.0.1 dans la préparation d'une mise à jour.</li>
+<li>Mise à jour de NXNandManager vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour d'Atmosphere en version 0.16.1-prerelease EXPERIMENTAL.</li>
+<li>Mise à jour de Hekate en version 5.5.1.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.0.</li>
+<li>Mise à jour de NS-usbloader en version 5.0.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 419.</li>
+</ul>
 <h2>V4.3.84</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 418.</li>

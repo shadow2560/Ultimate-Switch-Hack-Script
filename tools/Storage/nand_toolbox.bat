@@ -713,9 +713,17 @@ IF NOT "%partition%"=="" (
 		set output_path=%output_path%rawnand_decrypted.bin
 	)
 )
-call :set_nnm_split_param
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call :set_nnm_split_param
+	)
+)
 set zip_param=
-call "%associed_language_script%" "zip_param_choice"
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call "%associed_language_script%" "zip_param_choice"
+	)
+)
 IF NOT "%zip_param%"=="" set zip_param=%zip_param:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "zip_param" "o/n_choice"
 set existing_file_finded=
@@ -759,7 +767,11 @@ IF /i NOT "%nand_type%"=="RAWNAND" (
 	set partition=
 )
 call :set_NNM_params
-call :set_nnm_passthrough_0_param
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call :set_nnm_passthrough_0_param
+	)
+)
 IF /i "%nand_type%"=="RAWNAND" (
 	IF "%partition%"=="" (
 		tools\NxNandManager\NxNandManager_old.exe -i "%input_path%" -o "%output_path%" -d %biskeys_param% %params%%lflags%
@@ -834,9 +846,17 @@ IF NOT "%partition%"=="" (
 		set output_path=%output_path%rawnand.bin
 	)
 )
-call :set_nnm_split_param
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call :set_nnm_split_param
+	)
+)
 set zip_param=
-call "%associed_language_script%" "zip_param_choice"
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call "%associed_language_script%" "zip_param_choice"
+	)
+)
 IF NOT "%zip_param%"=="" set zip_param=%zip_param:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "zip_param" "o/n_choice"
 set existing_file_finded=
@@ -880,7 +900,11 @@ IF /i NOT "%nand_type%"=="RAWNAND" (
 	set partition=
 )
 call :set_NNM_params
-call :set_nnm_passthrough_0_param
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	IF NOT "%partition%"=="" (
+		call :set_nnm_passthrough_0_param
+	)
+)
 IF /i "%nand_type%"=="RAWNAND" (
 	IF "%partition%"=="" (
 		tools\NxNandManager\NxNandManager_old.exe -i "%input_path%" -o "%output_path%" -e %biskeys_param% %params%%lflags%

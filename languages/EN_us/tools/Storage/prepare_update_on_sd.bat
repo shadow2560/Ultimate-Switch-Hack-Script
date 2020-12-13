@@ -35,10 +35,11 @@ echo.
 Echo What do you want to do?
 echo.
 echo 1: Prepare a firmware witch will be copied on the SD for ChoiDuJourNX?
-echo 2: Prepare a firmware for the manual installation via ChoiDuJour?
+echo 2: Prepare a firmware for the manual installation via ChoiDuJour ^(firmware 6.1.0 max^)?
 echo 3: Make the two actions?
 echo 4: Prepare an SD for the different CFWs ans go back to this menu after the SD preparation?
 echo 5: Only download the firmware?
+echo 6: Prepare a firmware for the manual installation via EmmcHaccGen ^(prod.keys of the console required^)?
 echo All other choices: Go back to previous menu?
 echo.
 set /p action_type=Make your choice: 
