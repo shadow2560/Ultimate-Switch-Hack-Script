@@ -1949,6 +1949,10 @@ call :verif_folder_version "tools\drivers"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\EmmcHaccGen"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\fat32format"
 IF "!update_finded!"=="Y" (
 	call :update_folder
