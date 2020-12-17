@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.87</h2>
+<ul>
+<li>Add support for firmware 11.0.0 for ChoiDuJour-NX/Daybrick update preparation and in the unbrick script.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 420.</li>
+</ul>
 <h2>V4.3.86</h2>
 <ul>
 <li>Fix a bug in the update manager for the unbrick script.</li>
@@ -26,7 +31,7 @@
 <ul>
 <li>Important number of bugs fix in profiles management scripts and in the SD preparation.</li>
 <li>Bug fix for method "2" in the unbrick script.</li>
-<li>Add support for firmware 11.0.0 for ChoiDuJour-NX/Daybrick update preparation.</li>
+<li>Add support for firmware 11.0.0 for ChoiDuJour-NX/Daybrick update preparation and in the unbrick script.</li>
 <li>Update NXNandManager to the Github's master version, compiled by myself.</li>
 <li>Update Atmosphere to version 0.16.0-p2 EXPERIMENTAL.</li>
 <li>Update Hekate to version 5.5.0.</li>

@@ -1,6 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
-<h2>V418</h2>
+<h2>V420</h2>
+<ul>
+<li>Update NightFall to version 1.1.2.</li>
+</ul>
+<h2>V419</h2>
 <ul>
 <li>Update Atmosphere to version 0.16.1-prerelease EXPERIMENTAL.</li>
 <li>Update Hekate to version 5.5.1.</li>

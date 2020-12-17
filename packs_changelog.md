@@ -1,6 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
-<h2>V418</h2>
+<h2>V420</h2>
+<ul>
+<li>Mise à jour de NightFall en version 1.1.2.</li>
+<li>Mise à jour de Aio-Switch-Updater en version 1.3.1.</li>
+<li>Mise à jour de Fizeau en version 2.1.2.</li>
+</ul>
+<h2>V419</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 0.16.1-prerelease EXPERIMENTAL.</li>
 <li>Mise à jour de Hekate en version 5.5.1.</li>
