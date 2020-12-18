@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.88</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 420.</li>
+</ul>
 <h2>V4.3.87</h2>
 <ul>
 <li>Add support for firmware 11.0.0 for ChoiDuJour-NX/Daybrick update preparation and in the unbrick script.</li>

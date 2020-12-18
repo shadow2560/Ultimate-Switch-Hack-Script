@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V421</h2>
+<ul>
+<li>Update Tinleaf to version 1.4.4.</li>
+<li>Update Edizon-SE to version 3.7.22.</li>
+<li>Update SaltyNX to version 0.4.0a.</li>
+</ul>
 <h2>V420</h2>
 <ul>
 <li>Update NightFall to version 1.1.2.</li>
