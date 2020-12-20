@@ -689,6 +689,10 @@ set atmo_enable_deprecated_hid_mitm=
 call "%associed_language_script2%" "atmosphere_manual_enable_deprecated_hid_mitm_param_choice"
 IF NOT "%atmo_enable_deprecated_hid_mitm%"=="" set atmo_enable_deprecated_hid_mitm=%atmo_enable_deprecated_hid_mitm:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_deprecated_hid_mitm" "o/n_choice"
+set atmo_enable_am_debug_mode=
+call "%associed_language_script2%" "atmosphere_manual_enable_am_debug_mode_param_choice"
+IF NOT "%atmo_enable_am_debug_mode%"=="" set atmo_enable_am_debug_mode=%atmo_enable_am_debug_mode:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_am_debug_mode" "o/n_choice"
 :define_atmo_applet_heap_size
 set atmo_applet_heap_size=
 call "%associed_language_script2%" "atmosphere_manual_config_applet-heap-size_param_choice"

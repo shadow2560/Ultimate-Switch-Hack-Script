@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V422</h2>
+<ul>
+<li>Update Atmosphere to version 0.16.2 EXPERIMENTAL.</li>
+<li>Update Ldn_mitm to version 1.7.0.</li>
+<li>update Linkalho to version 1.0.4.</li>
+</ul>
 <h2>V421</h2>
 <ul>
 <li>Update Tinleaf to version 1.4.4.</li>

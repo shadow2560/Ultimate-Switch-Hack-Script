@@ -50,6 +50,9 @@ IF /i NOT "%atmo_fsmitm_redirect_saves_to_sd%"=="o" (
 IF /i NOT "%atmo_enable_deprecated_hid_mitm%"=="o" (
 	set atmo_enable_deprecated_hid_mitm=n
 )
+IF /i NOT "%atmo_enable_am_debug_mode%"=="o" (
+	set atmo_enable_am_debug_mode=n
+)
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0
 )

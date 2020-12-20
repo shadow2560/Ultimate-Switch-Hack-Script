@@ -182,20 +182,21 @@ echo set "atmo_enable_hbl_bis_write=%atmo_enable_hbl_bis_write%">>"%profile_path
 echo set "atmo_enable_hbl_cal_read=%atmo_enable_hbl_cal_read%">>"%profile_path%"
 echo set "atmo_fsmitm_redirect_saves_to_sd=%atmo_fsmitm_redirect_saves_to_sd%">>"%profile_path%"
 echo set "atmo_enable_deprecated_hid_mitm=%atmo_enable_deprecated_hid_mitm%">>"%profile_path%"
+echo set "atmo_enable_am_debug_mode=%atmo_enable_am_debug_mode%">>"%profile_path%"
 echo set "atmo_applet_heap_size=%atmo_applet_heap_size%">>"%profile_path%"
 echo set "atmo_applet_heap_reservation_size=%atmo_applet_heap_reservation_size%">>"%profile_path%"
+
 echo set "atmo_hbl_override_key=%atmo_hbl_override_key%">>"%profile_path%"
 echo set "inverted_atmo_hbl_override_key=%inverted_atmo_hbl_override_key%">>"%profile_path%"
 echo set "atmo_override_address_space=%atmo_override_address_space%">>"%profile_path%"
-
 echo set "atmo_hbl_override_any_app_key=%atmo_hbl_override_any_app_key%">>"%profile_path%"
 echo set "inverted_atmo_hbl_override_any_app_key=%inverted_atmo_hbl_override_any_app_key%">>"%profile_path%"
 echo set "atmo_override_any_app_address_space=%atmo_override_any_app_address_space%">>"%profile_path%"
-
 echo set "atmo_cheats_override_key=%atmo_cheats_override_key%">>"%profile_path%"
 echo set "inverted_atmo_cheats_override_key=%inverted_atmo_cheats_override_key%">>"%profile_path%"
 echo set "atmo_layeredfs_override_key=%atmo_layeredfs_override_key%">>"%profile_path%"
 echo set "inverted_atmo_layeredfs_override_key=%inverted_atmo_layeredfs_override_key%">>"%profile_path%"
+
 echo set "atmosphere_pass_copy_emummc_pack=%atmosphere_pass_copy_emummc_pack%">>"%profile_path%"
 echo set "atmosphere_emummc_profile_path=%atmosphere_emummc_profile_path%">>"%profile_path%"
 echo set "atmosphere_pass_copy_modules_pack=%atmosphere_pass_copy_modules_pack%">>"%profile_path%"

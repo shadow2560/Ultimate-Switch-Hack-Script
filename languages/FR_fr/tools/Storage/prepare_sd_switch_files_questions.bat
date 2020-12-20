@@ -261,6 +261,10 @@ goto:eof
 set /p atmo_enable_deprecated_hid_mitm=Activer l'ancienne méthode de détection des boutons pour les homebrews ^(non recommandé sauf si vous utilisez encore des vieux homebrews^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_enable_am_debug_mode_param_choice
+set /p atmo_enable_am_debug_mode=Activer le mode débogage ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_config_applet-heap-size_param_choice
 set /p atmo_applet_heap_size=Taille réservée au Homebrew Loader en mode applet, mettre à 0 pour utiliser la taille maximum est fortement recommandé ^(valeur réglée à 0 si laissé vide^): 
 goto:eof

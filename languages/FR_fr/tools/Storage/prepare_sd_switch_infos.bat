@@ -74,6 +74,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Forçage de l'ancienne méthode de détection des boutons pour les homebrews: désactivée.
 		)
+						IF /i "%atmo_enable_am_debug_mode%"=="o" (
+			echo Mode débogage d'Atmosphere: activée.
+		) else (
+			echo Mode débogage d'Atmosphere: désactivée.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Temps avant de redémarrer en cas de crash: jusqu'à l'appui d'une touche par l'utilisateur
 		) else (

@@ -83,6 +83,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Force old method of buttons detections for homebrews: disabled.
 		)
+						IF /i "%atmo_enable_am_debug_mode%"=="o" (
+			echo Debug mode: enabled.
+		) else (
+			echo Debug mode: disabled.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Time before reboot if a crash occure: if the user press a button
 		) else (

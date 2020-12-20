@@ -1205,6 +1205,11 @@ IF /i "%atmo_enable_deprecated_hid_mitm%"=="o" (
 ) else (
 	set atmo_enable_deprecated_hid_mitm=0x0
 )
+IF /i "%atmo_enable_am_debug_mode%"=="o" (
+	set atmo_enable_am_debug_mode=0x1
+) else (
+	set atmo_enable_am_debug_mode=0x0
+)
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0x0
 ) else (
@@ -1302,6 +1307,10 @@ echo ; 0 = Do not enable, 1 = Enable.>>%volume_letter%:\atmosphere\config\system
 echo ; Please note this setting may be removed in a>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; future release of Atmosphere.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_deprecated_hid_mitm = u8!%atmo_enable_deprecated_hid_mitm%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Controls whether am sees system settings "DebugModeFlag" as>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; enabled or disabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled (not debug mode), 1 = Enabled (debug mode)>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo enable_am_debug_mode = u8!%atmo_enable_am_debug_mode%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [hbloader]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls the size of the homebrew heap when running as applet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If set to zero, all available applet memory is used as heap.>>%volume_letter%:\atmosphere\config\system_settings.ini
