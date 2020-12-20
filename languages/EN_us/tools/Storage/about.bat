@@ -34,6 +34,7 @@ echo 3: Display last credits page.
 echo 4: Update all updatable elements ^(recomanded^) ^(the script will close after the update and must be restarted manualy^)?
 echo 5: Force update  of all the script ^(last choice^)  ^(the script will close after the update and must be restarted manualy^)?
 echo 6: Donate to me?
+echo 7: See the download stats of the project?
 echo All other choices: Go back to main menu?
 echo.
 set /p action_choice=Enter your choice: 

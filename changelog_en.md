@@ -3,6 +3,8 @@
 <h2>V4.3.88</h2>
 <ul>
 <li>Update Atmosphere to version 0.16.2.</li>
+<li>Add the possibility to see the download stats of the project in the "About" menu.</li>
+<li>Update credits.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 422.</li>
 </ul>
 <h2>V4.3.88</h2>

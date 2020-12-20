@@ -25,6 +25,7 @@ echo 3: Afficher la dernière version de la page des crédits.
 echo 4: Mettre à jour tous les éléments du script pouvant être mis à jour ^(méthode recommandé^) ^(le script se fermera après la mise à jour et devra être redémarré^)?
 echo 5: Mettre à jour l'ensemble du script ^(dernier recours^)  ^(le script se fermera après la mise à jour et devra être redémarré^)?
 echo 6: Me faire une donation?
+echo 7: Voir les stats de téléchargement du projet?
 echo N'importe quel autre choix: Revenir au menu principal.
 echo.
 set /p action_choice=Faites votre choix: 

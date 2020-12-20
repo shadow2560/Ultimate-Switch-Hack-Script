@@ -162,6 +162,7 @@
 <li>Kate Temkin and (re)switched team for all their  unvaluable contributions and work for the Switch, for example <a target="_blank" href="https://switchbrew.org/wiki/Main_Page">this wiki</a>.</li>
 <li>@eliboa of Logic-sunrise forum for his script to load Linux on Windows, his work and his tuto for the Switch and also for the personal help he provided to me ocasionaly.</li>
 <li>PegaSwitch, Caffeine and Nereba, see <a target="_blank" href="https://github.com/AtlasNX/caffeine/releases">this for Caffeine</a>, <a target="_blank" href="https://github.com/noahc3/pegaswitch">this fork for PegaSwitch</a> and <a target="_blank" href="https://github.com/pixel-stuck/nereba">this for Nereba</a>.</li>
+<li><a target="_blank" href="https://somsubhra.com/github-release-stats/">Somsubhra Github-release-stats project</a></li>
 <li>@Nilecna from Logic-sunrise forum for all his tests and returns, he help me a lot to identify bugs.</li>
 <li>@fabriceunko from Logic-sunrise for his translation of NSC_Builder 0.86 and up.</li>
 <li>@markus95 from Logic-sunrise for his scripts witch configure the Nes Classic Edition and Snes Classic Edition emulators.</li>
