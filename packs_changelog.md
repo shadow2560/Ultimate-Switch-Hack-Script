@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V423</h2>
+<ul>
+<li>Ajout du homebrew et de l'overlay Cling-Wrap.</li>
+<li>Mise à jour de Incognito-RCM en version 0.6.8 via <a target="_blank" href="https://github.com/Scandal-UK/Incognito_RCM">ce fork</a></li>
+<li>Mise à jour de Edizon-SE en version 3.7.26b.</li>
+</ul>
 <h2>V422</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 0.16.2 EXPERIMENTAL.</li>

@@ -1,6 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
-<h2>V4.3.88</h2>
+<h2>V4.3.90</h2>
+<ul>
+<li>Update Lockpick-RCM to version 0.6.8 via <a target="_blank" href="https://github.com/Scandal-UK/Incognito_RCM">this fork</a></li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 423.</li>
+</ul>
+<h2>V4.3.89</h2>
 <ul>
 <li>Update Atmosphere to version 0.16.2.</li>
 <li>Add the possibility to see the download stats of the project in the "About" menu.</li>
