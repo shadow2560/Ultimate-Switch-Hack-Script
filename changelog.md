@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.91</h2>
+<ul>
+<li>Refonte des menus.</li>
+</ul>
 <h2>V4.3.90</h2>
 <ul>
 <li>Mise à jour de Lockpick-RCM en version 0.6.8 via <a target="_blank" href="https://github.com/Scandal-UK/Incognito_RCM">ce fork</a></li>

@@ -20,23 +20,15 @@ echo What do you want to do?
 echo.
 echo 1: Get the Bis keys in a text file via RCM mode?
 echo.
-echo 2: Install the drivers?
+echo 2: Use the Hid-mitm Compagnon software?
 echo.
-echo 3: Verify if a Switch serial is patched or not?
+echo 3: Launch the emuGUIibo software?
 echo.
-echo 4: Verify a keys file?
+echo 4: Extract gamesaves?
 echo.
-echo 5: Use the Hid-mitm Compagnon software?
+echo 5: Launch Linux ^(obsolete function^)?
 echo.
-echo 6: Launch the emuGUIibo software?
-echo.
-echo 7: Extract gamesaves?
-echo.
-echo 8: Launch Linux ^(obsolete function^)?
-echo.
-echo 9: Update Shofel2 ^(obsolete function^)?
-echo.
-echo 10: Compress/uncompress a game with nsZip ^(obsolete function^)?
+echo 6: Update Shofel2 ^(obsolete function^)?
 echo.
 echo All other choices: Go back to main menu?
 echo.

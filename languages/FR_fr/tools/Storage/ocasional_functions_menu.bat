@@ -11,23 +11,15 @@ echo Que souhaitez-vous faire?
 echo.
 echo 1: Récupérer les Biskey dans un fichier texte?
 echo.
-echo 2: Installer les drivers pour la Switch?
+echo 2: Utiliser le compagnon pour Hid-mitm?
 echo.
-echo 3: Vérifier si des numéros de série de consoles sont patchées ou non?
+echo 3: Lancer emuGUIibo?
 echo.
-echo 4: Vérifier un fichier de clés?
+echo 4: Extraire des sauvegardes de jeux?
 echo.
-echo 5: Utiliser le compagnon pour Hid-mitm?
+echo 5: Lancer Linux ^(fonctionnalité obsolète^)?
 echo.
-echo 6: Lancer emuGUIibo?
-echo.
-echo 7: Extraire des sauvegardes de jeux?
-echo.
-echo 8: Lancer Linux ^(fonctionnalité obsolète^)?
-echo.
-echo 9: Mettre à jour Shofel2 ^(fonctionnalité obsolète^)?
-echo.
-echo 10: Compresser/décompresser un jeu grâce à nsZip ^(fonctionnalité obsolète^)?
+echo 6: Mettre à jour Shofel2 ^(fonctionnalité obsolète^)?
 echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.

@@ -27,15 +27,11 @@ set action_choice=
 cls
 call "%associed_language_script%" "display_menu"
 IF "%action_choice%"=="1" goto:biskey_dump
-IF "%action_choice%"=="2" goto:install_drivers
-IF "%action_choice%"=="3" goto:verif_serials
-IF "%action_choice%"=="4" goto:test_keys
-IF "%action_choice%"=="5" goto:hid-mitm_compagnon
-IF "%action_choice%"=="6" goto:emuguiibo
-IF "%action_choice%"=="7" goto:game_saves_unpack
-IF "%action_choice%"=="8" goto:launch_linux
-IF "%action_choice%"=="9" goto:update_shofel2
-IF "%action_choice%"=="10" goto:nsZip
+IF "%action_choice%"=="2" goto:hid-mitm_compagnon
+IF "%action_choice%"=="3" goto:emuguiibo
+IF "%action_choice%"=="4" goto:game_saves_unpack
+IF "%action_choice%"=="5" goto:launch_linux
+IF "%action_choice%"=="6" goto:update_shofel2
 goto:end_script
 :biskey_dump
 set action_choice=
@@ -47,42 +43,6 @@ IF EXIST "tools\Storage\biskey_dump.bat" (
 	call tools\Storage\update_manager.bat "update_biskey_dump.bat" "force"
 )
 call TOOLS\Storage\biskey_dump.bat
-@echo off
-goto:define_action_choice
-:install_drivers
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\install_drivers.bat" (
-	call tools\Storage\update_manager.bat "update_install_drivers.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_install_drivers.bat" "force"
-)
-call TOOLS\Storage\install_drivers.bat
-@echo off
-goto:define_action_choice
-:verif_serials
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\serial_checker.bat" (
-	call tools\Storage\update_manager.bat "update_serial_checker.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_serial_checker.bat" "force"
-)
-call TOOLS\Storage\serial_checker.bat
-@echo off
-goto:define_action_choice
-:test_keys
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\test_keys.bat" (
-	call tools\Storage\update_manager.bat "update_test_keys.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_test_keys.bat" "force"
-)
-call TOOLS\Storage\test_keys.bat
 @echo off
 goto:define_action_choice
 :hid-mitm_compagnon
@@ -143,18 +103,6 @@ IF EXIST "tools\Storage\update_shofel2.bat" (
 	call tools\Storage\update_manager.bat "update_update_shofel2.bat" "force"
 )
 call TOOLS\Storage\update_shofel2.bat
-@echo off
-goto:define_action_choice
-:nsZip
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\nsZip.bat" (
-	call tools\Storage\update_manager.bat "update_nsZip.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_nsZip.bat" "force"
-)
-call TOOLS\Storage\nsZip.bat
 @echo off
 goto:define_action_choice
 :end_script

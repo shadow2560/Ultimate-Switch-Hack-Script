@@ -515,6 +515,25 @@ IF "!update_finded!"=="Y" (
 )
 exit /b
 
+:update_basic_functions_menu.bat
+call :verif_file_version "tools\Storage\basic_functions_menu.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\basic_functions_menu.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\basic_functions_menu.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+exit /b
+
 :update_biskey_dump.bat
 call :verif_file_version "tools\Storage\biskey_dump.bat"
 IF "!update_finded!"=="Y" (
@@ -2189,6 +2208,7 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 )
 call :update_starting_script
 call :update_about.bat
+call :update_basic_functions_menu.bat
 call :update_donate.bat
 call :update_language_selector.bat
 call :update_menu.bat
@@ -2220,6 +2240,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\megatools"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\listmanager"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

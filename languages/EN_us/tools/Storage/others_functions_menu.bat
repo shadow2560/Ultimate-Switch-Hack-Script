@@ -36,13 +36,13 @@ echo 8: Split NSPs/XCIs?
 echo.
 echo 9: Merge a XCI/NSP splited?
 echo.
-echo 10: Configure the emulator Nes Classic Edition?
+echo 10: Compress/uncompress a game with nsZip ^(obsolete function^)?
 echo.
-echo 11: Configure the emulator Snes Classic Edition?
+echo 11: Configure the emulator Nes Classic Edition?
 echo.
-echo 12: Install Android APPS ^(USB debugging  MODE REQUIRED^)?
+echo 12: Configure the emulator Snes Classic Edition?
 echo.
-echo 13: Modchips management?
+echo 13: Install Android APPS ^(USB debugging  MODE REQUIRED^)?
 echo.
 echo All other choices: Go back to main menu?
 echo.

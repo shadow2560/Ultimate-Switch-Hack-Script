@@ -27,13 +27,13 @@ echo 8: Découper un fichier NSP ou XCI en fichiers de 4 GO?
 echo.
 echo 9: Rassembler un XCI ou NSP découpé?
 echo.
-echo 10: Configurer l'émulateur Nes Classic Edition?
+echo 10: Compresser/décompresser un jeu grâce à nsZip ^(fonctionnalité obsolète^)?
 echo.
-echo 11: Configurer l'émulateur Snes Classic Edition?
+echo 11: Configurer l'émulateur Nes Classic Edition?
 echo.
-echo 12: Installer des applications Android ^(mode débogage USB requis^)?
+echo 12: Configurer l'émulateur Snes Classic Edition?
 echo.
-echo 13: Gestion des puces?
+echo 13: Installer des applications Android ^(mode débogage USB requis^)?
 echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.

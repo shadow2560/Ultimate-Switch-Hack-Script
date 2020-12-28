@@ -31,70 +31,26 @@ call "%associed_language_script%" "display_title"
 echo :::::::::::::::::::::::::::::::::::::
 call "%associed_language_script%" "display_menu"
 IF "%action_choice%"=="0" goto:launch_doc
-IF "%action_choice%"=="1" goto:launch_payload
-IF "%action_choice%"=="2" goto:pegaswitch
-IF "%action_choice%"=="3" goto:mount_discs
-IF "%action_choice%"=="4" goto:prepare_sd
-IF "%action_choice%"=="5" goto:updates_or_unbrick
-IF "%action_choice%"=="6" goto:nand_toolbox
-IF "%action_choice%"=="7" goto:launch_NSC_Builder
-IF "%action_choice%"=="8" goto:launch_toolbox
-IF "%action_choice%"=="9" goto:launch_nsusbloader
-IF "%action_choice%"=="10" goto:others_functions
-IF "%action_choice%"=="11" goto:ocasional_functions
-IF "%action_choice%"=="12" goto:settings
-IF "%action_choice%"=="13" goto:client_netplay
-IF "%action_choice%"=="14" goto:server_netplay
-IF "%action_choice%"=="15" goto:language_change
-IF "%action_choice%"=="16" goto:about
-IF "%action_choice%"=="17" goto:donate
+IF "%action_choice%"=="1" goto:basic_functions
+IF "%action_choice%"=="2" goto:updates_or_unbrick
+IF "%action_choice%"=="3" goto:nand_toolbox
+IF "%action_choice%"=="4" goto:launch_NSC_Builder
+IF "%action_choice%"=="5" goto:launch_toolbox
+IF "%action_choice%"=="6" goto:others_functions
+IF "%action_choice%"=="7" goto:ocasional_functions
+IF "%action_choice%"=="8" goto:settings
+IF "%action_choice%"=="9" goto:client_netplay
+IF "%action_choice%"=="10" goto:server_netplay
+IF "%action_choice%"=="11" goto:language_change
+IF "%action_choice%"=="12" goto:about
+IF "%action_choice%"=="13" goto:donate
 goto:end_script
-:launch_payload
+
+:basic_functions
 set action_choice=
 echo.
 cls
-IF EXIST "tools\Storage\launch_payload.bat" (
-	call tools\Storage\update_manager.bat "update_launch_payload.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_launch_payload.bat" "force"
-)
-call tools\Storage\launch_payload.bat
-@echo off
-goto:define_action_choice
-:pegaswitch
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\pegaswitch.bat" (
-	call tools\Storage\update_manager.bat "update_pegaswitch.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_pegaswitch.bat" "force"
-)
-call tools\Storage\pegaswitch.bat
-@echo off
-goto:define_action_choice
-:mount_discs
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\mount_discs.bat" (
-	call tools\Storage\update_manager.bat "update_mount_discs.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_mount_discs.bat" "force"
-)
-call tools\Storage\mount_discs.bat
-@echo off
-goto:define_action_choice
-:prepare_sd
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\prepare_sd_switch.bat" (
-	call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat" "force"
-)
-call tools\Storage\prepare_sd_switch.bat
+call tools\Storage\basic_functions_menu.bat
 @echo off
 goto:define_action_choice
 :updates_or_unbrick
@@ -138,18 +94,6 @@ IF EXIST "tools\Storage\toolbox.bat" (
 	call tools\Storage\update_manager.bat "update_toolbox.bat" "force"
 )
 call tools\Storage\toolbox.bat
-@echo off
-goto:define_action_choice
-:launch_nsusbloader
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\launch_nsusbloader.bat" (
-	call tools\Storage\update_manager.bat "update_launch_nsusbloader.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_launch_nsusbloader.bat" "force"
-)
-call tools\Storage\launch_nsusbloader.bat
 @echo off
 goto:define_action_choice
 :others_functions

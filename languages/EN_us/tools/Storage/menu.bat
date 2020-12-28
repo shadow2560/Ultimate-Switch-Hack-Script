@@ -21,39 +21,31 @@ echo Main menu
 echo.
 echo What do you want to do?
 echo.
-echo 1: Launch a payload via the RCM mode?
+echo 1: Basic functions ^(launch a payload, prepare the SD, verify infos, etc...^)?
 echo.
-echo 2: Launch a payload with PegaScape/PegaSwitch or prepare the SD with the necessary files?
+echo 2: Updates or unbrick the Switch?
 echo.
-echo 3: Mount the nand, the boot0 partition, the boot1 partition or the SD card like an HDD on your OS?
+echo 3: Nand toolbox?
 echo.
-echo 4: Prepare a SD card for the hack?
+echo 4: Launch NSC_Builder witch could display infos, to convert NSPs/XCIs, see the documentation for more infos?
 echo.
-echo 5: Updates or unbrick the Switch?
+echo 5: Launch or configure the software toolbox?
 echo.
-echo 6: Nand toolbox?
+echo 6: Other functions?
 echo.
-echo 7: Launch NSC_Builder witch could display infos, to convert NSPs/XCIs, see the documentation for more infos?
+echo 7: Ocasionnal functions?
 echo.
-echo 8: Launch or configure the software toolbox?
+echo 8: Save/restaure and script's settings?
 echo.
-echo 9: Launch Ns-usbloader to install content via NSA-Installer or Goldleaf on your Switch?
+echo 9: Launch or configure the network gaming client ^(Switch-Lan-Play client^)?
 echo.
-echo 10: Other functions?
+echo 10: Launch a network gaming server ^(Switch-Lan-Play server^)?
 echo.
-echo 11: Ocasionnal functions?
+echo 11: change language?
 echo.
-echo 12: Save/restaure and script's settings?
+echo 12: About the script?
 echo.
-echo 13: Launch or configure the network gaming client ^(Switch-Lan-Play client^)?
-echo.
-echo 14: Launch a network gaming server ^(Switch-Lan-Play server^)?
-echo.
-echo 15: change language?
-echo.
-echo 16: About the script?
-echo.
-echo 17: Donate to me?
+echo 13: Donate to me?
 echo.
 echo 0: Launch the documentation ^(recommanded^)?
 echo.

@@ -12,39 +12,31 @@ echo Menu principal
 echo.
 echo Que souhaitez-vous faire?
 echo.
-echo 1: Lancer un payload via le mode RCM?
+echo 1: Menu des fonctions basiques ^(lancer un payload, préparer la SD, vérifier des infos, etc...^)?
 echo.
-echo 2: Lancer un payload via PegaScape/PegaSwitch et/ou préparer le nécessaire sur la SD pour que cela fonctionne?
+echo 2: Mises à jour ou débrickage de la Switch?
 echo.
-echo 3: Monter la nand, la partition boot0, la partition boot1 ou la carte SD comme un disque dur sur votre système d'exploitation?
+echo 3: Nand toolbox?
 echo.
-echo 4: Préparer une carte SD pour le hack Switch?
+echo 4: Lancer NSC_Builder qui permet d'avoir des infos, de convertir et de nettoyer des NSPs et XCIs, voir la documentation pour plus d'infos?
 echo.
-echo 5: Mises à jour ou débrickage de la Switch?
+echo 5: Lancer ou configurer la boîte à outils?
 echo.
-echo 6: Nand toolbox?
+echo 6: Autres fonctions?
 echo.
-echo 7: Lancer NSC_Builder qui permet d'avoir des infos, de convertir et de nettoyer des NSPs et XCIs, voir la documentation pour plus d'infos?
+echo 7: Fonctions à utiliser occasionnellement?
 echo.
-echo 8: Lancer ou configurer la boîte à outils?
+echo 8: Sauvegarde/restauration et paramètres du script?
 echo.
-echo 9: Lancer Ns-usbloader pour installer du contenu sur la Switch via NSA-Installer ou Goldleaf?
+echo 9: Lancer ou configurer le client pour pouvoir jouer en réseau ^(serveur Switch-Lan-Play^)?
 echo.
-echo 10: Autres fonctions?
+echo 10: Lancer un serveur pour le jeu en réseau ^(serveur Switch-Lan-Play^)?
 echo.
-echo 11: Fonctions à utiliser occasionnellement?
+echo 11: Changer de langue?
 echo.
-echo 12: Sauvegarde/restauration et paramètres du script?
+echo 12: A propos du script?
 echo.
-echo 13: Lancer ou configurer le client pour pouvoir jouer en réseau ^(serveur Switch-Lan-Play^)?
-echo.
-echo 14: Lancer un serveur pour le jeu en réseau ^(serveur Switch-Lan-Play^)?
-echo.
-echo 15: Changer de langue?
-echo.
-echo 16: A propos du script?
-echo.
-echo 17: Me faire une donation?
+echo 13: Me faire une donation?
 echo.
 echo 0: Lancer la documentation ^(recommandé^)?
 echo.

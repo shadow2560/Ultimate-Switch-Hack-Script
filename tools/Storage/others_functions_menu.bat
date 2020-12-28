@@ -35,10 +35,10 @@ IF "%action_choice%"=="6" goto:extract_cert
 IF "%action_choice%"=="7" goto:verify_nsp
 IF "%action_choice%"=="8" goto:split_games
 IF "%action_choice%"=="9" goto:merge_games
-IF "%action_choice%"=="10" goto:config_nes_classic
-IF "%action_choice%"=="11" goto:config_snes_classic
-IF "%action_choice%"=="12" goto:install_android_apps
-IF "%action_choice%"=="13" goto:modchips_management
+IF "%action_choice%"=="10" goto:nsZip
+IF "%action_choice%"=="11" goto:config_nes_classic
+IF "%action_choice%"=="12" goto:config_snes_classic
+IF "%action_choice%"=="13" goto:install_android_apps
 goto:end_script
 
 :convert_game
@@ -149,6 +149,18 @@ IF EXIST "tools\Storage\merge_games.bat" (
 call TOOLS\Storage\merge_games.bat
 @echo off
 goto:define_action_choice
+:nsZip
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\nsZip.bat" (
+	call tools\Storage\update_manager.bat "update_nsZip.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_nsZip.bat" "force"
+)
+call TOOLS\Storage\nsZip.bat
+@echo off
+goto:define_action_choice
 :config_nes_classic
 set action_choice=
 echo.
@@ -183,18 +195,6 @@ IF EXIST "tools\Storage\android_installer.bat" (
 	call tools\Storage\update_manager.bat "update_android_installer.bat" "force"
 )
 call TOOLS\Storage\android_installer.bat
-@echo off
-goto:define_action_choice
-:modchips_management
-set action_choice=
-echo.
-cls
-IF EXIST "tools\Storage\modchips_management.bat" (
-	call tools\Storage\update_manager.bat "update_modchips_management.bat"
-) else (
-	call tools\Storage\update_manager.bat "update_modchips_management.bat" "force"
-)
-call TOOLS\Storage\modchips_management.bat
 @echo off
 goto:define_action_choice
 :end_script

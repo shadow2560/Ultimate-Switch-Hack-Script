@@ -79,9 +79,9 @@ IF NOT "%open_output_dir%"=="" set open_output_dir=%open_output_dir:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "open_output_dir" "o/n_choice"
 IF /I "%open_output_dir%"=="o" (
 	IF "%language_id%"=="FR_fr" (
-		"TOOLS\NSC_Builder\ztools\listmanager\listmanager.exe" -rl "TOOLS\NSC_Builder\zconfig\NSCB_fr_options.cmd" -ln "10" -nl "Output dir: " | TOOLS\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
+		"TOOLS\python3_scripts\listmanager\listmanager.exe" -rl "TOOLS\NSC_Builder\zconfig\NSCB_fr_options.cmd" -ln "10" -nl "Output dir: " | TOOLS\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 	) else (
-		"TOOLS\NSC_Builder\ztools\listmanager\listmanager.exe" -rl "TOOLS\NSC_Builder\zconfig\NSCB_options.cmd" -ln "10" -nl "Output dir: " | TOOLS\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
+		"TOOLS\python3_scripts\listmanager\listmanager.exe" -rl "TOOLS\NSC_Builder\zconfig\NSCB_options.cmd" -ln "10" -nl "Output dir: " | TOOLS\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 	)
 	set /p NSCB_output_dir=<templogs\tempvar.txt
 )
