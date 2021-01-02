@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V424</h2>
+<ul>
+<li>Update AIO-Switch-Updater to version 1.3.2.</li>
+</ul>
 <h2>V423</h2>
 <ul>
 <li>Add the homebrew and the overlay Cling-Wrap.</li>

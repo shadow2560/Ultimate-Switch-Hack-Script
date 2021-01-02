@@ -73,6 +73,18 @@ IF EXIST "tools\Storage\install_drivers.bat" (
 call TOOLS\Storage\install_drivers.bat
 @echo off
 goto:define_action_choice
+:prepare_sd
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\prepare_sd_switch.bat" (
+	call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat" "force"
+)
+call tools\Storage\prepare_sd_switch.bat
+@echo off
+goto:define_action_choice
 :verif_serials
 set action_choice=
 echo.

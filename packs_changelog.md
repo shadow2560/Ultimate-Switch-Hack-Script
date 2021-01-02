@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V424</h2>
+<ul>
+<li>Mise à jour de AIO-Switch-Updater en version 1.3.2.</li>
+</ul>
 <h2>V423</h2>
 <ul>
 <li>Ajout du homebrew et de l'overlay Cling-Wrap.</li>

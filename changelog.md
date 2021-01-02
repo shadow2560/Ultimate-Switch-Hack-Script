@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.92</h2>
+<ul>
+<li>Correction d'un bug dans le menu des fonctions basiques qui empêchait le lancement de la préparation de la SD.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 424.</li>
+</ul>
 <h2>V4.3.91</h2>
 <ul>
 <li>Refonte des menus.</li>

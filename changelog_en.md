@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.92</h2>
+<ul>
+<li>Fix a bug witch caused an impossibility to launch the SD preparation in the basic functions menu.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 424.</li>
+</ul>
 <h2>V4.3.91</h2>
 <ul>
 <li>Remake the menus.</li>
