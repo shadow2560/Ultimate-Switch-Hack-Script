@@ -264,7 +264,7 @@ echo An other warning, it is necessary to have chosen the key file linked to the
 echo Also note that in firmware 6.1.0 or lower, official boot will not work and the console will remain on a black screen, booting will only be possible in CFW. However, in firmware higher than 6.1.0, official boot will be possible again.
 echo.
 echo What do you want to do?
-echo 1: Don't modify the BOOT0 file and continue.
+echo 1: Don't modify the BOOT0 file and continue ^(recommanded^).
 echo 2: Modify the BOOT0 file and continue.
 echo 0: End this script.
 echo.

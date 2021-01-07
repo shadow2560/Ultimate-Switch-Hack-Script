@@ -259,7 +259,7 @@ echo Attention également, il est nécessaire d'avoir choisi le fichier de clés
 echo Notez également qu'en firmware 6.1.0 ou inférieur, le démarrage de manière officielle ne fonctionnera pas et la console restera sur un écran noir, le démarrage ne sera possible qu'en CFW. Cependant, en firmware supérieur au 6.1.0, le démarrage de manière officielle sera de nouveau possible.
 echo.
 echo Que souhaitez-vous faire?
-echo 1: Ne pas modifier le fichier BOOT0 et continuer.
+echo 1: Ne pas modifier le fichier BOOT0 et continuer $(recommandé^).
 echo 2: Modifier le fichier BOOT0 et continuer.
 echo 0: Terminer ce script.
 echo.

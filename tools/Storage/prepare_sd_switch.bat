@@ -448,6 +448,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\switch\atmosphere-updater\*.*" rmdir /s /q "%volume_letter%:\switch\atmosphere-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatch-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatch-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatches-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatches-updater"
+	IF EXIST "%volume_letter%:\switch\DeepSea-Toolbox\*.*" rmdir /s /q "%volume_letter%:\switch\DeepSea-Toolbox"
 	IF EXIST "%volume_letter%:\bootloader\patches.ini" rename "%volume_letter%:\bootloader\patches.ini" "patches.ini.bak" >nul
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
 	IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (

@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V425</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 0.17.0.</li>
+<li>Mise à jour de Hekate en version 5.5.2.</li>
+<li>Mise à jour de TegraExplorer en version 3.0.0, la version 2.0.5 sera tout de même gardée si besoin d'exécuter des scripts non mis à jour.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 1.4.1.</li>
+</ul>
 <h2>V424</h2>
 <ul>
 <li>Mise à jour de AIO-Switch-Updater en version 1.3.2.</li>
