@@ -137,7 +137,7 @@ if (@selection, ==, 6){
 		if (@RESULT){
 			setColor("RED")
 			printf("L'emunand n'a pas pu être initialisée!")
-			printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 			printf("")
 			setColor("WHITE")
@@ -146,6 +146,17 @@ if (@selection, ==, 6){
 			goto(@reloadMenuLoop)
 		}
 		@mmcAlreadyConnected = setInt(1)
+	}
+	printf("Montage de la partition SYSTEM...")
+	mmc_mount("SYSTEM")
+	if (@RESULT){
+		setColor("RED")
+		printf("La partition SYSTEM n'a pas pu être montée!")
+		printf("")
+		setColor("WHITE")
+		printf("Appuyez sur n'importe quelle touche pour revenir au menu.")
+		pause()
+		goto(@reloadMenuLoop)
 	}
 	printf("Suppression du contrôle parental")
 	fs_del("emmc:/save/8000000000000100")
@@ -176,7 +187,7 @@ if (@selection, ==, 7){
 		if (@RESULT){
 			setColor("RED")
 			printf("L'emunand n'a pas pu être initialisée!")
-			printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 			printf("")
 			setColor("WHITE")
@@ -188,11 +199,12 @@ if (@selection, ==, 7){
 	}
 	printf("Suppression des données")
 	printf("")
+	printf("Montage de la partition SYSTEM...")
 	mmc_mount("SYSTEM")
 	if (@RESULT){
 		setColor("RED")
 		printf("La partition SYSTEM n'a pas pu être montée!")
-		printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+		printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 		printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 		printf("")
 		setColor("WHITE")
@@ -229,11 +241,13 @@ if (@selection, ==, 7){
 		fs_del($path)
 		goto(@LOOP)
 	}
+	printf("")
+	printf("Montage de la partition USER...")
 	mmc_mount("USER")
 	if (@RESULT){
 		setColor("RED")
 		printf("La partition USER n'a pas pu être montée!")
-		printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+		printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 		printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 		printf("")
 		setColor("WHITE")
@@ -586,7 +600,7 @@ if (@checkInput, ==, 4){
 		if (@RESULT){
 			setColor("RED")
 			printf("L'emunand n'a pas pu être initialisée!")
-			printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 			printf("")
 			setColor("WHITE")
@@ -766,7 +780,7 @@ if (@mmcAlreadyConnected, ==, 0){
 	if (@RESULT){
 		setColor("RED")
 		printf("L'emunand n'a pas pu être initialisée!")
-		printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+		printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 		printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 		printf("")
 		setColor("WHITE")
@@ -781,7 +795,7 @@ if (@checkInput, <, 3){
 	if (@RESULT){
 		setColor("RED")
 		printf("La partition SYSTEM n'a pas pu être montée!")
-		printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+		printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 		printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 		printf("")
 		setColor("WHITE")
@@ -793,7 +807,7 @@ if (@checkInput, <, 3){
 	if (@RESULT){
 		setColor("RED")
 		printf("La partition USER n'a pas pu être montée!")
-		printf("Ceci peut être dû à une nand deffectueuse ou des Bis Keys incorrectes.")
+		printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
 		printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
 		printf("")
 		setColor("WHITE")

@@ -147,6 +147,17 @@ if (@selection, ==, 6){
 		}
 		@mmcAlreadyConnected = setInt(1)
 	}
+	printf("Mounting SYSTEM partition...")
+	mmc_mount("SYSTEM")
+	if (@RESULT){
+		setColor("RED")
+		printf("System partition failed to mount!")
+		printf("")
+		setColor("WHITE")
+		printf("Press any key to go back to menu.")
+		pause()
+		goto(@reloadMenuLoop)
+	}
 	printf("Deleting Parental Lock")
 	fs_del("emmc:/save/8000000000000100")
 	setColor("GREEN")
@@ -188,6 +199,7 @@ if (@selection, ==, 7){
 	}
 	printf("Deleting datas")
 	printf("")
+	printf("Mounting SYSTEM partition...")
 	mmc_mount("SYSTEM")
 	if (@RESULT){
 		setColor("RED")
@@ -229,6 +241,8 @@ if (@selection, ==, 7){
 		fs_del($path)
 		goto(@LOOP)
 	}
+	printf("")
+	printf("Mounting USER partition...")
 	mmc_mount("USER")
 	if (@RESULT){
 		setColor("RED")
