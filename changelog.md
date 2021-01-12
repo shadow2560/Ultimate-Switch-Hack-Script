@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.94</h2>
+<ul>
+<li>Début de la réécriture du script de débrickage pour TegraExplorer V3+, non utilisé pour l'instant.</li>
+<li>Mise à jour de TegraExplorer en version 3.0.1.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 426.</li>
+</ul>
 <h2>V4.3.93</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 0.17.0.</li>

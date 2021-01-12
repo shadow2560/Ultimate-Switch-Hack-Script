@@ -839,7 +839,7 @@ call "%associed_language_script%" "copying_end"
 :launch_tegraexplorer
 echo.
 call "%associed_language_script%" "tegraexplorer_launch_begin"
-tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer.bin"
+tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer_2.0.5.bin"
 call "%associed_language_script%" "tegraexplorer_launch_correctly_question"
 IF %errorlevel% EQU 2 goto:launch_tegraexplorer
 call "%associed_language_script%" "tegraexplorer_launch_end"
