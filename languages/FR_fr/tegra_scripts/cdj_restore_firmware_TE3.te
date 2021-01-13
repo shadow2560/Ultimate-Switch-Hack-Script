@@ -683,9 +683,24 @@ if (method_restore == 3){
 	println("Oppération terminée avec succès!")
 	println("")
 	color("WHITE")
-	println("Appuyez sur n'importe quelle touche pour revenir au menu.")
-	pause()
-	return()
+	if (fileExists("sd:/payloads/TegraExplorer.bin") \|\| fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+		println("Appuyez sur VOL+ pour redémarrer TegraExplorer ou sur n'importe quelle autre touche pour revenir au menu.")
+		verif_key = pause()
+		if ((verif_key & BtnVolPlus)) {
+			if (fileExists("sd:/payloads/TegraExplorer.bin")) {
+				rebootPayload("sd:/payloads/TegraExplorer.bin")
+			}
+			if (fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+				rebootPayload("sd:/bootloader/payloads/TegraExplorer.bin")
+			}
+		} else {
+			return()
+		}
+	} else {
+		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+		pause()
+		return()
+	}
 }
 
 println("Restauration de la partition SYSTEM...")
