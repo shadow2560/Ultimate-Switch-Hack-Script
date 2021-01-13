@@ -70,10 +70,23 @@ IF NOT "%erase_output_file%"=="" set erase_output_file=%erase_output_file:~0,1%
 IF /i "%erase_output_file%"=="o" del /q "%output_folder%\%boot0_output_file%" >nul
 "tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "%boot0_input_file%" -o "%output_folder%\%boot0_output_file%" -k "%prod_keys_file%" >nul
 IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "create_boot0_error"
-) else (
-	call "%associed_language_script%" "create_boot0_success"
+	call "%associed_language_script%" "create_boot0_first_error"
+	if !errorlevel! EQU 2 (
+		call "%associed_language_script%" "create_boot0_error"
+		goto:endscript
+	)
+	set /p common_prod_keys_file=<templogs\tempvar.txt
+	if "!common_prod_keys_file!"=="" (
+		call "%associed_language_script%" "create_boot0_error"
+		goto:endscript
+	)
+	"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "%boot0_input_file%" -o "%output_folder%\%boot0_output_file%" -k "%prod_keys_file%" -c "!common_prod_keys_file!" >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "create_boot0_error"
+		goto:endscript
+	)
 )
+call "%associed_language_script%" "create_boot0_success"
 goto:endscript
 
 :get_type_nand

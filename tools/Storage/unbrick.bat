@@ -27,6 +27,7 @@ IF EXIST "templogs" (
 	rmdir /s /q "templogs" 2>nul
 )
 mkdir "templogs"
+set keys_file_path=
 IF EXIST "update_packages\*.*" rmdir /s /q "update_packages"
 IF EXIST "firmware_temp\*.*" rmdir /s /q "firmware_temp" 2>nul
 call "%associed_language_script%" "intro"
@@ -137,6 +138,8 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	goto:endscript
 )
+
+if "%keys_file_path%"=="" set keys_file_path=tools\Hactool_based_programs\keys.txt
 :define_volume_letter
 %windir%\system32\wscript //Nologo //B TOOLS\Storage\functions\list_volumes.vbs
 TOOLS\gnuwin32\bin\grep.exe -c "" <templogs\volumes_list.txt >templogs\count.txt
@@ -743,16 +746,41 @@ IF %errorlevel% EQU 2 (
 			call "%associed_language_script%" "boot0_keyblobs_reparation_error"
 			pause
 		) else (
-			"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "tools\Hactool_based_programs\keys.txt" >nul
+			"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "%keys_file_path%" >nul
 			IF !errorlevel! NEQ 0 (
+				call "%associed_language_script%" "boot0_keyblobs_reparation_first_error"
+				if !errorlevel! EQU 2 (
 				IF EXIST "update_packages\NX-5.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin" >nul
-				rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
-				call "%associed_language_script%" "boot0_keyblobs_reparation_error"
-				pause
+					rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				)
+				set /p common_prod_keys_file=<templogs\tempvar.txt
+				if "!common_prod_keys_file!"=="" (
+					rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				)
+				"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\NX-5.1.0_exfat\BOOT0.bin" -o "update_packages\NX-5.1.0_exfat\BOOT0.bin" -k "%keys_file_path%" -c "!common_prod_keys_file!" >nul
+				IF !errorlevel! NEQ 0 (
+					IF EXIST "update_packages\NX-5.1.0_exfat\BOOT0.bin" del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin" >nul
+					rename "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				) else (
+					del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak"
+					call "%associed_language_script%" "boot0_keyblobs_reparation_success"
+					pause
+					goto:pass_boot0_creation
+				)
 			) else (
 				del /q "update_packages\NX-5.1.0_exfat\BOOT0.bin.bak"
 				call "%associed_language_script%" "boot0_keyblobs_reparation_success"
 				pause
+				goto:pass_boot0_creation
 			)
 		)
 	) else if "%method_creation_firmware_unbrick_choice%"=="2" (
@@ -763,18 +791,43 @@ IF %errorlevel% EQU 2 (
 		) else (
 			"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -o "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -k "%keys_file_path%" >nul
 			IF !errorlevel! NEQ 0 (
-				IF EXIST "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" >nul
-				rename "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" "BOOT0.bin" >nul
-				call "%associed_language_script%" "boot0_keyblobs_reparation_error"
-				pause
+				call "%associed_language_script%" "boot0_keyblobs_reparation_first_error"
+				if !errorlevel! EQU 2 (
+					rename "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				)
+				set /p common_prod_keys_file=<templogs\tempvar.txt
+				if "!common_prod_keys_file!"=="" (
+					rename "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				)
+				"tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe" -i "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -o "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" -k "%keys_file_path%" -c "!common_prod_keys_file!" >nul
+				IF !errorlevel! NEQ 0 (
+					IF EXIST "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin" >nul
+					rename "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak" "BOOT0.bin" >nul
+					call "%associed_language_script%" "boot0_keyblobs_reparation_error"
+					pause
+					goto:pass_boot0_creation
+				) else (
+					del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak"
+					call "%associed_language_script%" "boot0_keyblobs_reparation_success"
+					pause
+					goto:pass_boot0_creation
+				)
 			) else (
 				del /q "update_packages\%emmchaccgen_firmware_folder%\BOOT0.bin.bak"
 				call "%associed_language_script%" "boot0_keyblobs_reparation_success"
 				pause
+				goto:pass_boot0_creation
 			)
 		)
 	)
 )
+:pass_boot0_creation
 call "%associed_language_script%" "copy_begin_info"
 IF EXIST "%volume_letter%:\cdj_package_files" rmdir /s /q "%volume_letter%:\cdj_package_files"
 mkdir "%volume_letter%:\cdj_package_files"

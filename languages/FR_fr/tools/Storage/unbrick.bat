@@ -282,6 +282,16 @@ echo keyblob_key_00 à keyblob_key_05, keyblob_mac_key_00 à keyblob_mac_key_05
 echo.
 goto:eof
 
+:boot0_keyblobs_reparation_first_error
+echo Une erreur s'est produite durant la création du fichier BOOT0 à reconstruire.
+echo.
+echo Si vous possédez un fichier contenant les clés communes nécessaire ^(un fichier récupéré via une console fonctionnelle par exemple^) vous pouvez tenter de le renseigner.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous renseigner un fichier de clés complémentaire? ^(%lng_yes_choice%/%lng_no_choice%^): "
+if !errorlevel! EQU 1 (
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier complémentaire de clés" "templogs\tempvar.txt"
+)
+goto:eof
+
 :boot0_keyblobs_reparation_success
 echo Fichier BOOT0 modifié avec succès, souvenez-vous bien que celui-ci ne devra pas être utilisé sur une autre console que celle liée au clés utilisées durant ce script.
 goto:eof

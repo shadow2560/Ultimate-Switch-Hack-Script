@@ -12,6 +12,7 @@ import binascii
 import subprocess
 import os
 import struct
+import hashlib
 # import time
 
 # start_time = time.time()
@@ -21,6 +22,70 @@ if (sys.version_info[0] == 3):
 else:
 	print ('Python 3 est requis pour lancer ce script, pas Python ' + str(sys.version_info[0]) + '.')
 	sys.exit(103)
+
+def repair_common_keys(keys_file, common_keys_file):
+	keys_needed = [['keyblob_00', '820c0da78fc41341e8ca3a7deaa89e57136ae53fbecea5bc86d79f98926d83e5'], ['keyblob_01', '191e2d2097f39b0904f1c981c59d66e32c83c6f3338ee573eb268dc14d1813d5'], ['keyblob_02', '5842e09c38f602a3a96e4752b26bb9a315501f5ea382f85391d8da01a92ab7bc'], ['keyblob_03', '0179dfbf83428c638b7a3a0016a4091150fd43dba8eae7fca87500b3c6c2651a'], ['keyblob_04', 'ead90954126b68b0c7f44981aa35f8eabd6fe8e8c5e570c8d9e29260d7154873'], ['keyblob_05', '92354b760ab5761e55a749153d8c0d479af347751ee61446311ce2c47eb37c17'], ['keyblob_key_source_00', '8a06fe274ac491436791fdb388bcdd3ab9943bd4def8094418cdac150fd73786'], ['keyblob_key_source_01', '2d5caeb2521fef70b47e17d6d0f11f8ce2c1e442a979ad8035832c4e9fbccc4b'], ['keyblob_key_source_02', '61c5005e713bae780641683af43e5f5c0e03671117f702f401282847d2fc6064'], ['keyblob_key_source_03', '8e9795928e1c4428e1b78f0be724d7294d6934689c11b190943923b9d5b85903'], ['keyblob_key_source_04', '95fa33af95aff9d9b61d164655b32710ed8d615d46c7d6cc3cc70481b686b402'], ['keyblob_key_source_05', '3f5be7b3c8b1abd8c10b4b703d44766ba08730562c172a4fe0d6b866b3e2db3e'], ['keyblob_mac_key_source', 'b24bd293259dbc7ac5d63f88e60c59792498e6fc5443402c7ffe87ee8b61a3f0']]
+	unic_keys_needed = ['secure_boot_key', 'tsec_key']
+	unic_keys_prefered_1 = ['keyblob_key_00', 'keyblob_key_01', 'keyblob_key_02', 'keyblob_key_03', 'keyblob_key_04', 'keyblob_key_05']
+	unic_keys_prefered_2 = ['keyblob_mac_key_00', 'keyblob_mac_key_01', 'keyblob_mac_key_02', 'keyblob_mac_key_03', 'keyblob_mac_key_04', 'keyblob_mac_key_05']
+	try:
+		with open(keys_file, 'r', encoding='utf-8') as keys_source_file:
+			temp_keys_source_list = keys_source_file.readlines()
+			keys_source_file.close()
+	except:
+		print ('Le fichier "' + keys_file + '" n\'existe pas.')
+		return 0
+	try:
+		with open(common_keys_file, 'r', encoding='utf-8') as common_keys_source_file:
+			temp_common_keys_source_list = common_keys_source_file.readlines()
+			common_keys_source_file.close()
+	except:
+		print ('Le fichier "' + common_keys_file + '" n\'existe pas.')
+		return 0
+	common_keys_source_list = []
+	incorrect_common_keys_source_list = []
+	i = 0
+	for item in temp_common_keys_source_list:
+		if (len(item) == 1):
+			i +=1
+			continue
+		temp_common_keys_source_list[i] = item.split('=')
+		temp_common_keys_source_list[i][0] = temp_common_keys_source_list[i][0].strip()
+		temp_common_keys_source_list[i][1] = temp_common_keys_source_list[i][1][0:-1].strip()
+		for item in keys_needed:
+			if (item[0] == temp_common_keys_source_list[i][0]):
+				if (hashlib.sha256(binascii.a2b_hex(temp_common_keys_source_list[i][1].lower().encode('utf-8'))).hexdigest() == item[1].lower()):
+					common_keys_source_list.append(temp_common_keys_source_list[i])
+				else:
+					incorrect_common_keys_source_list.append(temp_common_keys_source_list[i])
+					print("La clé " + temp_common_keys_source_list[i][0] + " semble incorrecte.")
+		i +=1
+	del temp_common_keys_source_list
+	keys_source_list=[]
+	i = 0
+	for item in temp_keys_source_list:
+		if (len(item) == 1):
+			i +=1
+			continue
+		temp_keys_source_list[i] = item.split('=')
+		temp_keys_source_list[i][0] = temp_keys_source_list[i][0].strip()
+		temp_keys_source_list[i][1] = temp_keys_source_list[i][1][0:-1].strip()
+		keys_source_list.append(temp_keys_source_list[i])
+		i +=1
+	del temp_keys_source_list
+	i = 0
+	j = 0
+	for item in common_keys_source_list:
+		temp = item
+		k = 0
+		for item in keys_source_list:
+			k += 1
+			if (item[0] == common_keys_source_list[i][0]):
+				break
+			if (k == len(common_keys_source_list)):
+				keys_source_list.append(temp)
+		i +=1
+	return (keys_source_list)
 
 def create_linkle_keys_file(keys_file):
 	linkle_keys_needed = ['encrypted_keyblob_00']
@@ -83,12 +148,13 @@ def create_linkle_keys_file(keys_file):
 def help():
 	print ('Utilisation:')
 	print ()
-	print ('boot0_rewrite.py -k chemin_prod.keys -i chemin_fichier_source_BOOT0 -o chemin_fichier_destination_BOOT0')
+	print ('boot0_rewrite.py -k chemin_prod.keys_de_la_console -i chemin_fichier_source_BOOT0 -o chemin_fichier_destination_BOOT0 [-c chemin_fichier_prod.keys_contenant_des_clés_communes_manquantes_au_fichier_prod.keys_de_la_console')
 	return 1
 
 if (len(sys.argv) == 1):
 	help()
 	sys.exit(0)
+common_prod_keys_path = ''
 for i in range(1,len(sys.argv), 2):
 	currArg = sys.argv[i]
 	if currArg.startswith('-h'):
@@ -96,6 +162,8 @@ for i in range(1,len(sys.argv), 2):
 		sys.exit(0)
 	elif currArg.startswith('-k'):
 		prod_keys_path = os.path.abspath(sys.argv[i+1])
+	elif currArg.startswith('-c'):
+		common_prod_keys_path = os.path.abspath(sys.argv[i+1])
 	elif currArg.startswith('-i'):
 		boot0_file_src_path = os.path.abspath(sys.argv[i+1])
 	elif currArg.startswith('-o'):
@@ -107,6 +175,17 @@ for i in range(1,len(sys.argv), 2):
 
 linkle_keys_path = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'Linkle_keys.txt')
 linkle_program_path = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'Linkle.exe')
+key_file_rewrite_path = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'rewritten_prod.keys')
+if (common_prod_keys_path!= ''):
+	keys_source_list = repair_common_keys(prod_keys_path, common_prod_keys_path)
+	try:
+		with open(key_file_rewrite_path, 'w') as key_file_rewrite:
+			for item in keys_source_list:
+				key_file_rewrite.write(item[0] + ' = ' + item[1] + '\n')
+	except:
+		print('Erreur de réécriture du fichier de clés.')
+		sys.exit(100)
+	prod_keys_path = key_file_rewrite_path
 try:
 	with open(linkle_keys_path, 'w') as linkle_keys_file:
 		pipes = subprocess.Popen('\"' + linkle_program_path + '\" keygen -k \"' + prod_keys_path + '\"', stdout=linkle_keys_file, stderr=subprocess.PIPE)
@@ -122,6 +201,8 @@ if pipes.returncode != 0:
 
 keys_source_list = create_linkle_keys_file(linkle_keys_path)
 os.remove(linkle_keys_path)
+if (common_prod_keys_path != ''):
+	os.remove(key_file_rewrite_path)
 if (len(keys_source_list) == 0):
 	print("Aucune key_blob trouvé.")
 	sys.exit(201)

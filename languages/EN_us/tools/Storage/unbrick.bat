@@ -287,6 +287,16 @@ echo keyblob_key_00 to keyblob_key_05, keyblob_mac_key_00 to keyblob_mac_key_05
 echo.
 goto:eof
 
+:boot0_keyblobs_reparation_first_error
+echo An error occurred during the creation of the reconstructed BOOT0 file.
+echo.
+echo If you have a keys file containing the necessary common keys ^(a file retrieved via a functional console for example^) you can try to fill it in.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to use a complementary keys file? ^(%lng_yes_choice%/%lng_no_choice%^): "
+if !errorlevel! EQU 1 (
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "Selection of the complementary keys file" "templogs\tempvar.txt"
+)
+goto:eof
+
 :boot0_keyblobs_reparation_success
 echo BOOT0 file successfully modified, remember that it should not be used on any other console than the one related to the keys used during this script.
 goto:eof

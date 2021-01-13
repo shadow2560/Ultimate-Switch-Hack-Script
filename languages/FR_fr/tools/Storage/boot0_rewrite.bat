@@ -34,7 +34,7 @@ goto:eof
 :prod_keys_file_select_choice
 echo Sélectionnez le fichier contenant les clés dumpée sur la console via Lockpick-RCM.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier clés de la console" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés de la console" "templogs\tempvar.txt"
 goto:eof
 
 :prod_keys_file_empty_error
@@ -53,6 +53,16 @@ goto:eof
 
 :erase_existing_file_choice
 set /p erase_output_file=Ce dossier contient déjà un fichier "%boot0_output_file%", souhaitez-vous vraiment continuer en écrasant le fichier existant ^(si oui, le fichier sera supprimé juste après ce choix^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:create_boot0_first_error
+echo Une erreur s'est produite durant la création du fichier BOOT0 à reconstruire.
+echo.
+echo Si vous possédez un fichier contenant les clés communes nécessaire ^(un fichier récupéré via une console fonctionnelle par exemple^) vous pouvez tenter de le renseigner.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous renseigner un fichier de clés complémentaire? ^(%lng_yes_choice%/%lng_no_choice%^): "
+if !errorlevel! EQU 1 (
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier complémentaire de clés" "templogs\tempvar.txt"
+)
 goto:eof
 
 :create_boot0_error

@@ -64,6 +64,16 @@ goto:eof
 set /p erase_output_file=This folder already contains a "%boot0_output_file%", file, do you really want to continue overwriting the existing file ^(if so, the file will be deleted just after this choice^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:create_boot0_first_error
+echo An error occurred during the creation of the reconstructed BOOT0 file.
+echo.
+echo If you have a keys file containing the necessary common keys ^(a file retrieved via a functional console for example^) you can try to fill it in.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to use a complementary keys file? ^(%lng_yes_choice%/%lng_no_choice%^): "
+if !errorlevel! EQU 1 (
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "Selection of the complementary keys file" "templogs\tempvar.txt"
+)
+goto:eof
+
 :create_boot0_error
 echo An error occurred during the creation of the reconstructed BOOT0 file.
 echo.

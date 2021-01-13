@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.95</h2>
+<ul>
+<li>Ameliorate the BOOT0 rebuild functions.</li>
+</ul>
 <h2>V4.3.94</h2>
 <ul>
 <li>Start to rewrite the unbrick script for TegraExplorer V3+, unused for now.</li>
