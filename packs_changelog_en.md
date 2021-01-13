@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V427</h2>
+<ul>
+<li>Update Atmosphere to version 0.17.1.</li>
+</ul>
 <h2>V426</h2>
 <ul>
 <li>Add some missing configs in the Hekate's files.</li>

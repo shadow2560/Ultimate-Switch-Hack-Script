@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.96</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 427.</li>
+</ul>
 <h2>V4.3.95</h2>
 <ul>
 <li>Ameliorate the BOOT0 rebuild functions.</li>
