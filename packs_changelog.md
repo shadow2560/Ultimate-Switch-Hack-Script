@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V429</h2>
+<ul>
+<li>Ajout du homebrew Tinwoo-Installer.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 1.4.3.</li>
+<li>Mise à jour de Edizon-SE en version 3.8.08.</li>
+<li>Mise à jour de DBI en version 219.</li>
+</ul>
 <h2>V428</h2>
 <ul>
 <li>Mise à jour de Hekate en version 5.5.3.</li>
