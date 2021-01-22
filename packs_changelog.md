@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V430</h2>
+<ul>
+<li>Mise à jour de Pplay en version 3.3.</li>
+</ul>
 <h2>V429</h2>
 <ul>
 <li>Ajout du homebrew Tinwoo-Installer.</li>
