@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.100</h2>
+<ul>
+<li>Le script de vérification d'un fichier de clés affichera correctement le nom de toutes les clés.</li>
+</ul>
 <h2>V4.3.99</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 430.</li>

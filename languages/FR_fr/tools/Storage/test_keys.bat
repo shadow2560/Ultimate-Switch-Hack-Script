@@ -24,9 +24,9 @@ goto:eof
 IF "%correct_keys_state%"=="0" (
 	echo Aucune clé correcte vérifiable trouvée.
 ) else IF "%correct_keys_state%"=="1" (
-	echo clé correcte vérifiable trouvée: %unknown_keys%
+	echo clé correcte vérifiable trouvée: & type templogs\correct_keys.txt
 ) else IF "%correct_keys_state%"=="2" (
-	echo %count_correct_keys% clés correctes vérifiables trouvées: %correct_keys%
+	echo %count_correct_keys% clés correctes vérifiables trouvées: & type templogs\correct_keys.txt
 )
 goto:eof
 
@@ -34,9 +34,9 @@ goto:eof
 IF "%unknown_keys_state%"=="0" (
 	echo Aucune clé inconnue ou unique à la console trouvée.
 ) else IF "%unknown_keys_state%"=="1" (
-	echo clé inconnue ou unique à la console trouvée: %unknown_keys%
+	echo clé inconnue ou unique à la console trouvée: & type templogs\unknown_keys.txt
 ) else IF "%unknown_keys_state%"=="2" (
-	echo %count_unknown_keys% clés inconnues ou uniques à la console trouvées: %unknown_keys%
+	echo %count_unknown_keys% clés inconnues ou uniques à la console trouvées: & type templogs\unknown_keys.txt
 )
 goto:eof
 
@@ -44,9 +44,9 @@ goto:eof
 IF "%possible_missing_keys_state%"=="0" (
 	echo Aucune clé manquante vérifiable trouvée.
 ) else IF "%possible_missing_keys_state%"=="1" (
-	echo Clés manquante vérifiable trouvée: %possible_missing_keys%
+	echo Clés manquante vérifiable trouvée: & type templogs\possible_missing_keys.txt
 ) else IF "%possible_missing_keys_state%"=="2" (
-	echo %count_possible_missing_keys% clés manquantes vérifiables trouvées: %possible_missing_keys%
+	echo %count_possible_missing_keys% clés manquantes vérifiables trouvées: & type templogs\possible_missing_keys.txt
 )
 goto:eof
 
@@ -54,8 +54,8 @@ goto:eof
 IF "%missing_keys_state%"=="0" (
 	echo Aucune clé incorrecte trouvée.
 ) else IF "%missing_keys_state%"=="1" (
-	echo Clé incorrecte trouvée: %missing_keys%
+	echo Clé incorrecte trouvée: & type templogs\missing_keys.txt
 ) else IF "%missing_keys_state%"=="2" (
-	echo %count_missing_keys% clés incorrectes trouvées: %missing_keys%
+	echo %count_missing_keys% clés incorrectes trouvées: & type templogs\missing_keys.txt
 )
 goto:eof

@@ -33,9 +33,9 @@ goto:eof
 IF "%correct_keys_state%"=="0" (
 	echo No correct verifiable key found.
 ) else IF "%correct_keys_state%"=="1" (
-	echo Correct verifiable key found: %unknown_keys%
+	echo Correct verifiable key found: & type templogs\correct_keys.txt
 ) else IF "%correct_keys_state%"=="2" (
-	echo %count_correct_keys% correct verifiable keys found: %correct_keys%
+	echo %count_correct_keys% correct verifiable keys found: & type templogs\correct_keys.txt
 )
 goto:eof
 
@@ -43,9 +43,9 @@ goto:eof
 IF "%unknown_keys_state%"=="0" (
 	echo No unknown or unic key found.
 ) else IF "%unknown_keys_state%"=="1" (
-	echo Unknown or unic key found: %unknown_keys%
+	echo Unknown or unic key found: & type templogs\unknown_keys.txt
 ) else IF "%unknown_keys_state%"=="2" (
-	echo %count_unknown_keys% unknown or unic keys founded: %unknown_keys%
+	echo %count_unknown_keys% unknown or unic keys founded: & type templogs\unknown_keys.txt
 )
 goto:eof
 
@@ -53,9 +53,9 @@ goto:eof
 IF "%possible_missing_keys_state%"=="0" (
 	echo No verifiable missing key found.
 ) else IF "%possible_missing_keys_state%"=="1" (
-	echo Verifiable missing key found: %possible_missing_keys%
+	echo Verifiable missing key found: & type templogs\possible_missing_keys.txt
 ) else IF "%possible_missing_keys_state%"=="2" (
-	echo %count_possible_missing_keys% verifiable missing keys found: %possible_missing_keys%
+	echo %count_possible_missing_keys% verifiable missing keys found: & type templogs\possible_missing_keys.txt
 )
 goto:eof
 
@@ -63,8 +63,8 @@ goto:eof
 IF "%missing_keys_state%"=="0" (
 	echo No incorrect key found.
 ) else IF "%missing_keys_state%"=="1" (
-	echo Incorrect key found: %missing_keys%
+	echo Incorrect key found: & type templogs\missing_keys.txt
 ) else IF "%missing_keys_state%"=="2" (
-	echo %count_missing_keys% incorrect keys found: %missing_keys%
+	echo %count_missing_keys% incorrect keys found: & type templogs\missing_keys.txt
 )
 goto:eof
