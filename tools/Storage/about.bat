@@ -41,7 +41,7 @@ IF "%action_choice%"=="4" goto:check_update
 IF "%action_choice%"=="5" goto:full_update
 IF "%action_choice%"=="6" goto:donate
 IF "%action_choice%"=="7" (
-	start https://somsubhra.com/github-release-stats/?username=shadow2560^&repository=ultimate-switch-hack-script^&page=1^&per_page=5
+	start https://tooomm.github.io/github-release-stats/?username=shadow2560^&repository=Ultimate-Switch-Hack-Script
 	goto:define_action_choice
 )
 goto:end_script

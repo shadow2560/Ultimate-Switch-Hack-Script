@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.101</h2>
+<ul>
+<li>Mise à jour de l'url permettant d'afficher les stats du projet Github.</li>
+</ul>
 <h2>V4.3.100</h2>
 <ul>
 <li>Le script de vérification d'un fichier de clés affichera correctement le nom de toutes les clés.</li>
