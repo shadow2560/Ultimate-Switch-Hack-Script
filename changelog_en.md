@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.102</h2>
+<ul>
+<li>Update Rekado to version 4.1.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 431.</li>
+</ul>
 <h2>V4.3.101</h2>
 <ul>
 <li>Update the url witch display the stats for the Github's project.</li>

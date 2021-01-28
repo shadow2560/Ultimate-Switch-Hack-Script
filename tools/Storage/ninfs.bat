@@ -81,12 +81,13 @@ IF "%biskeys_file_type%"=="0" (
 )
 echo.
 :skip_ninfs_biskeys_file_choice
+::runas /trustlevel:0x20000 "\"%windir%\system32\cmd.exe\" /c \"\"%ushs_base_path%\tools\ninfs\ninfs.exe\" nandhac %biskeys_param:"=\"% \"%input_path%\" *\""
+::runas /user:%computername%\%username% "\"%windir%\system32\cmd.exe\" /c \"\"%ushs_base_path%\tools\ninfs\ninfs.exe\" nandhac %biskeys_param:"=\"% \"%input_path%\" *\""
+::runas /user:%username%@%userdomain% "\"%windir%\system32\cmd.exe\" /c \"\"%ushs_base_path%\tools\ninfs\ninfs.exe\" nandhac %biskeys_param:"=\"% \"%input_path%\" *\""
 start /i "Ninfs" "%windir%\system32\cmd.exe" /c tools\ninfs\ninfs.exe nandhac %biskeys_param% "%input_path%" *
 goto:define_action_choice
 
 :install_winfsp
-call "%associed_language_script%" "install_winfsp_infos"
-pause
 tools\ninfs\winfsp.msi
 goto:define_action_choice
 
