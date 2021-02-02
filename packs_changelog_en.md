@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V432</h2>
+<ul>
+<li>Update TegraExplorer to version 3.0.2.</li>
+<li>Update AIO-Switch-Updater to version 1.5.2.</li>
+</ul>
 <h2>V431</h2>
 <ul>
 <li>Update Pplay to version 4.3.</li>

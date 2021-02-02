@@ -774,6 +774,7 @@ IF /i NOT "%nand_type%"=="RAWNAND" (
 )
 IF /i "%nand_type%"=="RAWNAND" (
 	IF "%partition%"=="" (
+		::tools\NxNandManager\NxNandManager.exe -part=PRODINFO,PRODINFOF,SAFE,SYSTEM,USER -i "%input_path%" -o "%output_path%" -d %biskeys_param% %params%%lflags%
 		tools\NxNandManager\NxNandManager_old.exe -i "%input_path%" -o "%output_path%" -d %biskeys_param% %params%%lflags%
 		goto:skip_decrypt_nxnandmanager_command
 	)
@@ -907,6 +908,7 @@ IF /i NOT "%nand_type%"=="RAWNAND" (
 )
 IF /i "%nand_type%"=="RAWNAND" (
 	IF "%partition%"=="" (
+		::tools\NxNandManager\NxNandManager.exe -part=PRODINFO,PRODINFOF,SAFE,SYSTEM,USER -i "%input_path%" -o "%output_path%" -e %biskeys_param% %params%%lflags%
 		tools\NxNandManager\NxNandManager_old.exe -i "%input_path%" -o "%output_path%" -e %biskeys_param% %params%%lflags%
 		goto:skip_encrypt_nxnandmanager_command
 	)
@@ -1247,6 +1249,7 @@ goto:define_action_choice
 set nand_type=
 set nand_file_or_disk=
 set nand_encrypted=
+set nand_decrypt_OK=
 set nand_size=
 set nand_autorcm=
 set nand_soc_rev=
@@ -1279,7 +1282,15 @@ IF /i "%nand_type%"=="FULL NAND" (
 )
 tools\gnuwin32\bin\grep.exe "Encrypted " <"templogs\infos_nand.txt" | tools\gnuwin32\bin\cut.exe -d : -f 2 >templogs\tempvar.txt
 set /p nand_encrypted=<templogs\tempvar.txt
-set nand_encrypted=%nand_encrypted:~1%
+set nand_encrypted=!nand_encrypted:~1!
+IF "%nand_encrypted%"=="Yes" (
+	set nand_decrypt_OK=1
+) else IF "%nand_encrypted%"=="No" (
+	set nand_decrypt_OK=1
+) else (
+	set nand_decrypt_OK=0
+	set nand_encrypted=Yes
+)
 tools\gnuwin32\bin\grep.exe "Size " <"templogs\infos_nand.txt" | tools\gnuwin32\bin\cut.exe -d : -f 2 >templogs\tempvar.txt
 set /p nand_size=<templogs\tempvar.txt
 set nand_size=%nand_size:~1%

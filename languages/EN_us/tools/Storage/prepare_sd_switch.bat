@@ -198,5 +198,29 @@ echo The uLaunch module isn't officialy compatible with SX OS for now, the modul
 goto:eof
 
 :choidujournx_alert_message
-echo Warning, don't use ChoiDuJour-NX on the sysnand on a Mariko console equiped with a SX Core or SX Lite modchip cause it will brick your console.
+echo Warning, don't use ChoiDuJour-NX on a Mariko console cause it will brick it.
+goto:eof
+
+:module_not_exist_warning
+echo Module "!temp_module!" not copied and deleted in the profile.
+goto:eof
+
+:homebrew_not_exist_warning
+echo Homebrew "!temp_homebrew!" not copied and deleted in the profile.
+goto:eof
+
+:overlay_not_exist_warning
+echo Overlay "!temp_overlay!" not copied and deleted in the profile.
+goto:eof
+
+:salty-nx_not_exist_warning
+echo Salty-NX module "!temp_salty-nx!" not copied and deleted in the profile.
+goto:eof
+
+:emulator_not_exist_warning
+echo Emulator "!temp_emulator!" not copied and deleted in the profile.
+goto:eof
+
+:cheat_not_exist_warning
+echo Cheat "!temp_cheat!" not copied and deleted in the profile.
 goto:eof

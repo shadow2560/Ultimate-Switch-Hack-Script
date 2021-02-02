@@ -440,8 +440,12 @@ IF "%nand_sectors_interval%"=="" (
 		echo Support: physical drive ^(%nand_sectors_interval%^)
 	)
 )
-IF /i "%nand_encrypted:~0,3%"=="Yes" (
-	echo Nand encrypted.
+IF /i "%nand_encrypted%"=="Yes" (
+	IF "%nand_decrypt_OK%"=="1" (
+		echo Nand encrypted.
+	) else (
+		echo Nand encrypted - decryption failed.
+	)
 ) else (
 	echo Nand decrypted.
 )
@@ -504,7 +508,9 @@ IF /i "%nand_type%"=="RAWNAND" (
 		echo !temp_partition_line_content!|tools\gnuwin32\bin\grep.exe -c "encrypted" >templogs\tempvar.txt
 		set /p temp_partition_is_encrypted=<templogs\tempvar.txt
 		IF "!temp_partition_is_encrypted!"=="1" (
-			echo !temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:DECRYPTION FAILED=decryption failed!
+			echo !temp_partition_line_content!
 		) else (
 			echo !temp_partition_line_content!
 		)
@@ -556,7 +562,9 @@ IF /i "%nand_type%"=="RAWNAND - splitted dump" (
 		echo !temp_partition_line_content!|tools\gnuwin32\bin\grep.exe -c "encrypted" >templogs\tempvar.txt
 		set /p temp_partition_is_encrypted=<templogs\tempvar.txt
 		IF "!temp_partition_is_encrypted!"=="1" (
-			echo !temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:DECRYPTION FAILED=decryption failed!
+			echo !temp_partition_line_content!
 		) else (
 			echo !temp_partition_line_content!
 		)
@@ -619,7 +627,9 @@ IF /i "%nand_type%"=="FULL NAND" (
 		echo !temp_partition_line_content!|tools\gnuwin32\bin\grep.exe -c "encrypted" >templogs\tempvar.txt
 		set /p temp_partition_is_encrypted=<templogs\tempvar.txt
 		IF "!temp_partition_is_encrypted!"=="1" (
-			echo !temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:encrypted=encrypted!
+			set temp_partition_line_content=!temp_partition_line_content:DECRYPTION FAILED=decryption failed!
+			echo !temp_partition_line_content!
 		) else (
 			echo !temp_partition_line_content!
 		)

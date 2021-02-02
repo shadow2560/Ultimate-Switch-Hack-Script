@@ -621,60 +621,68 @@ IF "%~1"=="sxos" (
 )
 tools\gnuwin32\bin\grep.exe -c "" <"%temp_modules_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
 	set temp_special_module=N
 	set one_cfw_chosen=n
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%temp_modules_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%temp_modules_profile_path%" >templogs\tempvar.txt
 	set /p temp_module=<templogs\tempvar.txt
-		IF "%~1"=="sxos" (
-		IF "!temp_module!"=="uLaunch" (
-			set temp_special_module=Y
-			call "%associed_language_script%" "sxos_force_disable_stealth_mode_for_uLaunch"
-			rem IF EXIST "%volume_letter%:\sxos\config\stealth_enable" rename "%volume_letter%:\sxos\config\stealth_enable" "stealth_disable"
+	IF EXIST "tools\sd_switch\modules\pack\!temp_module!\folder_version.txt" (
+			IF "%~1"=="sxos" (
+			IF "!temp_module!"=="uLaunch" (
+				set temp_special_module=Y
+				call "%associed_language_script%" "sxos_force_disable_stealth_mode_for_uLaunch"
+				rem IF EXIST "%volume_letter%:\sxos\config\stealth_enable" rename "%volume_letter%:\sxos\config\stealth_enable" "stealth_disable"
+			)
 		)
-	)
-	IF "!temp_module!"=="Ovl-menu" (
-		IF EXIST "%temp_modules_copy_path%\010000000007E51A\exefs.nsp" rmdir /s /q "%temp_modules_copy_path%\010000000007E51A"
-	)
-	IF NOT "!temp_special_module!"=="Y" (
-		dir /b "tools\sd_switch\modules\pack\!temp_module!\titles">templogs\tempvar.txt
-		set /p temp_module_title_id=<templogs\tempvar.txt
-		"%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\titles %temp_modules_copy_path% /e >nul
-		IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\others %volume_letter%:\ /e >nul
-		IF "!temp_module!"=="MissionControl" (
-			IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\atmosphere\ /e >nul
-			IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\sxos\ /e >nul
+		IF "!temp_module!"=="Ovl-menu" (
+			IF EXIST "%temp_modules_copy_path%\010000000007E51A\exefs.nsp" rmdir /s /q "%temp_modules_copy_path%\010000000007E51A"
 		)
-			rem IF "%~1"=="sxos" (
-			rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
-		rem )
-	)
-	IF "!temp_module!"=="Emuiibo" (
-		call :force_copy_overlays_base_files "%~1"
-		IF EXIST "%volume_letter%:\switch\AmiiSwap\*.*" rmdir /s /q "%volume_letter%:\switch\AmiiSwap"
-	)
-	IF "!temp_module!"=="Sys-clk" (
-		call :force_copy_overlays_base_files "%~1"
-		IF EXIST "%volume_letter%:\switch\sys-clk-Editor\*.*" rmdir /s /q "%volume_letter%:\switch\sys-clk-Editor"
-	)
+		IF NOT "!temp_special_module!"=="Y" (
+			dir /b "tools\sd_switch\modules\pack\!temp_module!\titles">templogs\tempvar.txt
+			set /p temp_module_title_id=<templogs\tempvar.txt
+			"%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\titles %temp_modules_copy_path% /e >nul
+			IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\others %volume_letter%:\ /e >nul
+			IF "!temp_module!"=="MissionControl" (
+				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\atmosphere\ /e >nul
+				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\sxos\ /e >nul
+			)
+				rem IF "%~1"=="sxos" (
+				rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
+			rem )
+		)
+		IF "!temp_module!"=="Emuiibo" (
+			call :force_copy_overlays_base_files "%~1"
+			IF EXIST "%volume_letter%:\switch\AmiiSwap\*.*" rmdir /s /q "%volume_letter%:\switch\AmiiSwap"
+		)
+		IF "!temp_module!"=="Sys-clk" (
+			call :force_copy_overlays_base_files "%~1"
+			IF EXIST "%volume_letter%:\switch\sys-clk-Editor\*.*" rmdir /s /q "%volume_letter%:\switch\sys-clk-Editor"
+		)
+			IF "!temp_module!"=="Sys-tune" (
+			call :force_copy_overlays_base_files "%~1"
+		)
+		IF "!temp_module!"=="Slidenx" (
+			IF EXIST "%volume_letter%:\SlideNX\attach.mp3" del /q "%volume_letter%:\SlideNX\attach.mp3"
+			IF EXIST "%volume_letter%:\SlideNX\detach.mp3" del /q "%volume_letter%:\SlideNX\detach.mp3"
+		)
+		IF "!temp_module!"=="Sys-FTPD" (
+			IF EXIST "%volume_letter%:\config\sys-ftpd\*.mp3" del /q "%volume_letter%:\config\sys-ftpd\*.mp3"
+		)
+		IF "!temp_module!"=="BootSoundNX" (
+			IF EXIST "%volume_letter%:\bootloader\sound\bootsound.mp3" rmdir /s /q "%volume_letter%:\bootloader\sound"
+			IF EXIST "%volume_letter%:\config\BootSoundNX\bootsound.mp3" del /q "%volume_letter%:\config\BootSoundNX\bootsound.mp3" >nul
+			IF EXIST "%temp_modules_copy_path%\AA200000000002AA\exefs.nsp" rmdir /s /q ""%temp_modules_copy_path%\AA200000000002AA""
+		)
 		IF "!temp_module!"=="Sys-tune" (
-		call :force_copy_overlays_base_files "%~1"
+			call :force_copy_overlays_base_files "%~1"
+		)
+	) else (
+		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%temp_modules_profile_path%"
+		set /a temp_line=!temp_line! - 1
+		call "%associed_language_script%" "module_not_exist_warning"
 	)
-	IF "!temp_module!"=="Slidenx" (
-		IF EXIST "%volume_letter%:\SlideNX\attach.mp3" del /q "%volume_letter%:\SlideNX\attach.mp3"
-		IF EXIST "%volume_letter%:\SlideNX\detach.mp3" del /q "%volume_letter%:\SlideNX\detach.mp3"
-	)
-	IF "!temp_module!"=="Sys-FTPD" (
-		IF EXIST "%volume_letter%:\config\sys-ftpd\*.mp3" del /q "%volume_letter%:\config\sys-ftpd\*.mp3"
-	)
-	IF "!temp_module!"=="BootSoundNX" (
-		IF EXIST "%volume_letter%:\bootloader\sound\bootsound.mp3" rmdir /s /q "%volume_letter%:\bootloader\sound"
-		IF EXIST "%volume_letter%:\config\BootSoundNX\bootsound.mp3" del /q "%volume_letter%:\config\BootSoundNX\bootsound.mp3" >nul
-		IF EXIST "%temp_modules_copy_path%\AA200000000002AA\exefs.nsp" rmdir /s /q ""%temp_modules_copy_path%\AA200000000002AA""
-	)
-	IF "!temp_module!"=="Sys-tune" (
-		call :force_copy_overlays_base_files "%~1"
-	)
+	set /a temp_line=!temp_line! + 1
 )
 :skip_copy_modules_pack
 exit /b
@@ -713,157 +721,165 @@ exit /b
 IF "%pass_copy_mixed_pack%"=="Y" goto:skip_copy_mixed_pack
 tools\gnuwin32\bin\grep.exe -c "" <"%mixed_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
 	set temp_special_homebrew=N
 	set one_cfw_chosen=n
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%mixed_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%mixed_profile_path%" >templogs\tempvar.txt
 	set /p temp_homebrew=<templogs\tempvar.txt
-	IF "!temp_homebrew!"=="EdiZon" (
-		IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
-		IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
-		IF EXIST "%volume_letter%:\atmosphere\contents" (
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF EXIST "%volume_letter%:\ReiNX\contents" (
-			call :force_copy_overlays_base_files "reinx"
-		)
-		IF EXIST "%volume_letter%:\sxos\titles" (
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF EXIST "%volume_letter%:\boot.dat" (
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+	IF EXIST "tools\sd_switch\mixed\modular\!temp_homebrew!\folder_version.txt" (
+		IF "!temp_homebrew!"=="EdiZon" (
+			IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
+			IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
+			IF EXIST "%volume_letter%:\atmosphere\contents" (
+				call :force_copy_overlays_base_files "atmosphere"
 			)
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF /i "%copy_atmosphere_pack%"=="o" (
-			IF NOT EXIST "%volume_letter%:\atmosphere" (
-				mkdir "%volume_letter%:\atmosphere"
-				mkdir "%volume_letter%:\contents
+			IF EXIST "%volume_letter%:\ReiNX\contents" (
+				call :force_copy_overlays_base_files "reinx"
 			)
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF /i "%copy_reinx_pack%"=="o" (
-			IF NOT EXIST "%volume_letter%:\ReiNX" (
-				mkdir "%volume_letter%:\ReiNX"
-				mkdir "%volume_letter%:\ReiNX\contents"
+			IF EXIST "%volume_letter%:\sxos\titles" (
+				call :force_copy_overlays_base_files "sxos"
 			)
-			call :force_copy_overlays_base_files "reinx"
-		)
-		IF /i "%copy_sxos_pack%"=="o" (
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+			IF EXIST "%volume_letter%:\boot.dat" (
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				call :force_copy_overlays_base_files "sxos"
 			)
-			call :force_copy_overlays_base_files "sxos"
-		)
-	)
-	IF "!temp_homebrew!"=="Switch-cheats-updater" (
-		IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt" rename "%volume_letter%:\config\cheats-updater\exclude.txt" "exclude.txt.bak" >nul
-	)
-	IF "!temp_homebrew!"=="ChoiDuJourNX" (
-		call "%associed_language_script%" "choidujournx_alert_message"
-	)
-		IF "!temp_homebrew!"=="Fizeau" (
-		set temp_special_homebrew=Y
-		IF EXIST "%volume_letter%:\atmosphere\contents" (
-			set one_cfw_chosen=Y
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\special_atmosphere %volume_letter%: /e >nul
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF EXIST "%volume_letter%:\ReiNX\contents" (
-			set one_cfw_chosen=Y
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-			call :force_copy_overlays_base_files "reinx"
-		)
-		IF EXIST "%volume_letter%:\sxos\titles" (
-			set one_cfw_chosen=Y
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF EXIST "%volume_letter%:\boot.dat" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				IF NOT EXIST "%volume_letter%:\atmosphere" (
+					mkdir "%volume_letter%:\atmosphere"
+					mkdir "%volume_letter%:\contents
+				)
+				call :force_copy_overlays_base_files "atmosphere"
 			)
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF /i "%copy_atmosphere_pack%"=="o" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\atmosphere" (
-				mkdir "%volume_letter%:\atmosphere"
-				mkdir "%volume_letter%:\contents
+			IF /i "%copy_reinx_pack%"=="o" (
+				IF NOT EXIST "%volume_letter%:\ReiNX" (
+					mkdir "%volume_letter%:\ReiNX"
+					mkdir "%volume_letter%:\ReiNX\contents"
+				)
+				call :force_copy_overlays_base_files "reinx"
 			)
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF /i "%copy_reinx_pack%"=="o" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\ReiNX" (
-				mkdir "%volume_letter%:\ReiNX"
-				mkdir "%volume_letter%:\ReiNX\contents"
+			IF /i "%copy_sxos_pack%"=="o" (
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				call :force_copy_overlays_base_files "sxos"
 			)
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-			call :force_copy_overlays_base_files "reinx"
 		)
-		IF /i "%copy_sxos_pack%"=="o" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+		IF "!temp_homebrew!"=="Switch-cheats-updater" (
+			IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt" rename "%volume_letter%:\config\cheats-updater\exclude.txt" "exclude.txt.bak" >nul
+		)
+		IF "!temp_homebrew!"=="ChoiDuJourNX" (
+			call "%associed_language_script%" "choidujournx_alert_message"
+		)
+			IF "!temp_homebrew!"=="Fizeau" (
+			set temp_special_homebrew=Y
+			IF EXIST "%volume_letter%:\atmosphere\contents" (
+				set one_cfw_chosen=Y
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\special_atmosphere %volume_letter%: /e >nul
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
+				call :force_copy_overlays_base_files "atmosphere"
 			)
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
-			call :force_copy_overlays_base_files "sxos"
+			IF EXIST "%volume_letter%:\ReiNX\contents" (
+				set one_cfw_chosen=Y
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+				call :force_copy_overlays_base_files "reinx"
+			)
+			IF EXIST "%volume_letter%:\sxos\titles" (
+				set one_cfw_chosen=Y
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
+				call :force_copy_overlays_base_files "sxos"
+			)
+			IF EXIST "%volume_letter%:\boot.dat" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
+				call :force_copy_overlays_base_files "sxos"
+			)
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\atmosphere" (
+					mkdir "%volume_letter%:\atmosphere"
+					mkdir "%volume_letter%:\contents
+				)
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
+				call :force_copy_overlays_base_files "atmosphere"
+			)
+			IF /i "%copy_reinx_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\ReiNX" (
+					mkdir "%volume_letter%:\ReiNX"
+					mkdir "%volume_letter%:\ReiNX\contents"
+				)
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+				call :force_copy_overlays_base_files "reinx"
+			)
+			IF /i "%copy_sxos_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
+				call :force_copy_overlays_base_files "sxos"
+			)
+			IF "!one_cfw_chosen!"=="Y" (
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\homebrew %volume_letter%:\ /e >nul
+			) else (
+				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+			)
 		)
-		IF "!one_cfw_chosen!"=="Y" (
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\homebrew %volume_letter%:\ /e >nul
-		) else (
-			call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+		IF "!temp_special_homebrew!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew! %volume_letter%:\ /e >nul
+		IF "!temp_homebrew!"=="Switch-cheats-updater" (
+			IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt.bak" (
+				del /q "%volume_letter%:\config\cheats-updater\exclude.txt" >nul
+				rename "%volume_letter%:\config\cheats-updater\exclude.txt.bak" "exclude.txt" >nul
+			)
 		)
-	)
-	IF "!temp_special_homebrew!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew! %volume_letter%:\ /e >nul
-	IF "!temp_homebrew!"=="Switch-cheats-updater" (
-		IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt.bak" (
-			del /q "%volume_letter%:\config\cheats-updater\exclude.txt" >nul
-			rename "%volume_letter%:\config\cheats-updater\exclude.txt.bak" "exclude.txt" >nul
+		IF "!temp_homebrew!"=="Nxdumptool" (
+			IF EXIST "%volume_letter%:\switch\gcdumptool\*.*" rmdir /s /q "%volume_letter%:\switch\gcdumptool"
+			IF EXIST "%volume_letter%:\switch\gcdumptool.nro" del /q "%volume_letter%:\switch\gcdumptool.nro"
 		)
-	)
-	IF "!temp_homebrew!"=="Nxdumptool" (
-		IF EXIST "%volume_letter%:\switch\gcdumptool\*.*" rmdir /s /q "%volume_letter%:\switch\gcdumptool"
-		IF EXIST "%volume_letter%:\switch\gcdumptool.nro" del /q "%volume_letter%:\switch\gcdumptool.nro"
-	)
-	IF "!temp_homebrew!"=="Payload_Launcher" (
-		IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
-		copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
-		IF /i "%copy_atmosphere_pack%"=="o" (
-			copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
-			copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
-			IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
+		IF "!temp_homebrew!"=="Payload_Launcher" (
+			IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
+			copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
+			copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
+			copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+				copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
+				IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
+			)
+			IF /i "%copy_reinx_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
+			IF /i "%copy_sxos_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
+			IF /i "%copy_memloader%"=="o" copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
 		)
-		IF /i "%copy_reinx_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
-		IF /i "%copy_sxos_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
-		IF /i "%copy_memloader%"=="o" copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
-	)
-	IF "!temp_homebrew!"=="Aio-switch-updater" (
-		IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
-		copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
-		IF /i "%copy_atmosphere_pack%"=="o" (
-			copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
-			copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
-			IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
+		IF "!temp_homebrew!"=="Aio-switch-updater" (
+			IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
+			copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
+			copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
+			copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+				copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
+				IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
+			)
+			IF /i "%copy_reinx_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
+			IF /i "%copy_sxos_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
+			IF /i "%copy_memloader%"=="o" copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
 		)
-		IF /i "%copy_reinx_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
-		IF /i "%copy_sxos_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
-		IF /i "%copy_memloader%"=="o" copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
+	) else (
+	tools\gnuwin32\bin\sed.exe -i !temp_line!d "%mixed_profile_path%"
+	set /a temp_line=!temp_line! - 1
+	call "%associed_language_script%" "homebrew_not_exist_warning"
 	)
+	set /a temp_line=!temp_line! + 1
 )
 :skip_copy_mixed_pack
 exit /b
@@ -872,106 +888,114 @@ exit /b
 IF "%pass_copy_overlays_pack%"=="Y" goto:skip_copy_overlays_pack
 tools\gnuwin32\bin\grep.exe -c "" <"%overlays_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
 	set temp_special_overlay=N
 	set one_cfw_chosen=n
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%overlays_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%overlays_profile_path%" >templogs\tempvar.txt
 	set /p temp_overlay=<templogs\tempvar.txt
-	IF "!temp_special_overlay!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\overlays\pack\!temp_overlay! %volume_letter%:\ /e >nul
-	IF "!temp_overlay!"=="FastCFWswitch" (
-		IF /i "%erase_fastcfwswitch_config%"=="o" (
-			IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
-			echo [payloads]>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo name=Payloads>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
-			echo [Lockpick-RCM]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo name=Lockpick-RCM>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo path=/payloads/Lockpick_RCM.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
-			echo [Incognito-RCM]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo name=Incognito-RCM>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo path=/payloads/Incognito_RCM.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
-			echo [TegraExplorer]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo name=TegraExplorer>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo path=/payloads/TegraExplorer.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			IF /i "%copy_memloader%"=="o" (
-				copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
-				echo [Memloader]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=Memloader>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/memloader.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			)
-			IF /i "%copy_atmosphere_pack%"=="o" (
-				set one_cfw_chosen=Y
-				copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
-				copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
-				echo [Hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=Hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo [CFWs]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+	IF EXIST "tools\sd_switch\overlays\pack\!temp_overlay!\folder_version.txt" (
+		IF "!temp_special_overlay!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\overlays\pack\!temp_overlay! %volume_letter%:\ /e >nul
+		IF "!temp_overlay!"=="FastCFWswitch" (
+			IF /i "%erase_fastcfwswitch_config%"=="o" (
+				IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
+				echo [payloads]>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=CFWs>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo name=Payloads>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo [Atmosphere_Fusee_Primary]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=Atmosphere_Fusee_Primary>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/Atmosphere_fusee-primary.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
+				echo [Lockpick-RCM]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo name=Lockpick-RCM>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo path=/payloads/Lockpick_RCM.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo [sysnand_Atmosphere_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=sysnand_Atmosphere_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo bootId=AmsS>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				rem echo bootPos=^4>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
+				echo [Incognito-RCM]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo name=Incognito-RCM>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo path=/payloads/Incognito_RCM.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo [emunand_Atmosphere_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=emunand_Atmosphere_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo bootId=AmsE>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				rem echo bootPos=^2>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
+				echo [TegraExplorer]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo name=TegraExplorer>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				echo path=/payloads/TegraExplorer.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo [OFW_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=OFW_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo bootId=Ofw>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				rem echo bootPos=^5>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			)
-			IF /i "%copy_reinx_pack%"=="o" (
-				copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
-				IF NOT "!one_cfw_chosen!"=="Y" (
+				IF /i "%copy_memloader%"=="o" (
+					copy /V /B TOOLS\sd_switch\payloads\memloader.bin %volume_letter%:\payloads\memloader.bin >nul
+					echo [Memloader]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=Memloader>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/memloader.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				)
+				IF /i "%copy_atmosphere_pack%"=="o" (
+					set one_cfw_chosen=Y
+					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+					copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
+					echo [Hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=Hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo [CFWs]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo name=CFWs>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo [Atmosphere_Fusee_Primary]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=Atmosphere_Fusee_Primary>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/Atmosphere_fusee-primary.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo [sysnand_Atmosphere_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=sysnand_Atmosphere_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo bootId=AmsS>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					rem echo bootPos=^4>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo [emunand_Atmosphere_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=emunand_Atmosphere_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo bootId=AmsE>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					rem echo bootPos=^2>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo [OFW_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=OFW_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/hekate.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo bootId=Ofw>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					rem echo bootPos=^5>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				)
-				echo [ReiNX]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=ReiNX>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/ReiNX.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+				IF /i "%copy_reinx_pack%"=="o" (
+					copy /V /B TOOLS\sd_switch\payloads\ReiNX.bin %volume_letter%:\payloads\ReiNX.bin >nul
+					IF NOT "!one_cfw_chosen!"=="Y" (
+						echo [CFWs]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo name=CFWs>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					)
+					echo [ReiNX]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=ReiNX>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/ReiNX.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					set one_cfw_chosen=Y
+				)
+				IF /i "%copy_sxos_pack%"=="o" (
+					copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
+					IF NOT "!one_cfw_chosen!"=="Y" (
+						echo [CFWs]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo name=CFWs>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					)
+								echo [SXOS]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=SXOS>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/SXOS.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				set one_cfw_chosen=Y
-			)
-			IF /i "%copy_sxos_pack%"=="o" (
-				copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payloads\SXOS.bin >nul
-				IF NOT "!one_cfw_chosen!"=="Y" (
-					echo [CFWs]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-					echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-					echo name=CFWs>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 				)
-							echo [SXOS]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo name=SXOS>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo path=/payloads/SXOS.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-				echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-			set one_cfw_chosen=Y
 			)
 		)
+	) else (
+		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%overlays_profile_path%"
+		set /a temp_line=!temp_line! - 1
+		call "%associed_language_script%" "overlay_not_exist_warning"
 	)
+	set /a temp_line=!temp_line! + 1
 )
 :skip_copy_overlays_pack
 exit /b
@@ -980,52 +1004,60 @@ exit /b
 IF "%pass_copy_salty-nx_pack%"=="Y" goto:skip_copy_salty-nx_pack
 tools\gnuwin32\bin\grep.exe -c "" <"%salty-nx_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
 	set temp_special_salty-nx=N
 	set one_cfw_chosen=n
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%salty-nx_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%salty-nx_profile_path%" >templogs\tempvar.txt
 	set /p temp_salty-nx=<templogs\tempvar.txt
-	IF "!temp_salty-nx!"=="UnityGraphics" (
-		set temp_special_salty-nx=Y
-		IF EXIST "%volume_letter%:\atmosphere\contents" (
-			set one_cfw_chosen=Y
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF EXIST "%volume_letter%:\sxos\titles" (
-			set one_cfw_chosen=Y
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF EXIST "%volume_letter%:\boot.dat" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+	IF EXIST "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\folder_version.txt" (
+		IF "!temp_salty-nx!"=="UnityGraphics" (
+			set temp_special_salty-nx=Y
+			IF EXIST "%volume_letter%:\atmosphere\contents" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "atmosphere"
 			)
-			call :force_copy_overlays_base_files "sxos"
-		)
-		IF /i "%copy_atmosphere_pack%"=="o" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\atmosphere" (
-				mkdir "%volume_letter%:\atmosphere"
-				mkdir "%volume_letter%:\contents
+			IF EXIST "%volume_letter%:\sxos\titles" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "sxos"
 			)
-			call :force_copy_overlays_base_files "atmosphere"
-		)
-		IF /i "%copy_sxos_pack%"=="o" (
-			set one_cfw_chosen=Y
-			IF NOT EXIST "%volume_letter%:\sxos" (
-				mkdir "%volume_letter%:\sxos"
-				mkdir "%volume_letter%:\sxos\titles"
+			IF EXIST "%volume_letter%:\boot.dat" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				call :force_copy_overlays_base_files "sxos"
 			)
-			call :force_copy_overlays_base_files "sxos"
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\atmosphere" (
+					mkdir "%volume_letter%:\atmosphere"
+					mkdir "%volume_letter%:\contents
+				)
+				call :force_copy_overlays_base_files "atmosphere"
+			)
+			IF /i "%copy_sxos_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%:\sxos" (
+					mkdir "%volume_letter%:\sxos"
+					mkdir "%volume_letter%:\sxos\titles"
+				)
+				call :force_copy_overlays_base_files "sxos"
+			)
+			IF "!one_cfw_chosen!"=="Y" (
+				%windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
+			) else (
+				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+			)
 		)
-		IF "!one_cfw_chosen!"=="Y" (
-			%windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
-		) else (
-			call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
-		)
+		IF "!temp_special_salty-nx!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
+	) else (
+		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%salty-nx_profile_path%"
+		set /a temp_line=!temp_line! - 1
+		call "%associed_language_script%" "salty-nx_not_exist_warning"
 	)
-	IF "!temp_special_salty-nx!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\salty-nx\pack\!temp_salty-nx! %volume_letter%:\ /e >nul
+	set /a temp_line=!temp_line! + 1
 )
 :skip_copy_salty-nx_pack
 exit /b
@@ -1041,65 +1073,73 @@ IF EXIST "%volume_letter%:\switch\pnes\skin\config.cfg" move "%volume_letter%:\s
 IF EXIST "%volume_letter%:\switch\psnes\skin\config.cfg" move "%volume_letter%:\switch\psnes\skin\config.cfg" "%volume_letter%:\switch\psnes\skin\config.cfg.bak" >nul
 tools\gnuwin32\bin\grep.exe -c "" <"%emu_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
 	set temp_special_emulator=N
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%emu_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%emu_profile_path%" >templogs\tempvar.txt
 	set /p temp_emulator=<templogs\tempvar.txt
-	IF "!temp_emulator!"=="Nes_Classic_Edition" (
-		IF NOT EXIST "tools\sd_switch\emulators\pack\Nes_Classic_Edition\switch\clover\user\data.json" (
-			set config_nes_classic=
-			call "%associed_language_script%" "config_nes_classic_choice"
-			IF NOT "!config_nes_classic!"=="" set config_nes_classic=!config_nes_classic:~0,1!
-			call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "config_nes_classic" "o/n_choice"
-			IF /i "!config_nes_classic!"=="o" (
-				call tools\NES_Injector\NES_Injector.bat
-				call "%associed_language_script%" "display_title"
+	IF EXIST "tools\sd_switch\emulators\pack\!temp_emulator!\folder_version.txt" (
+		IF "!temp_emulator!"=="Nes_Classic_Edition" (
+			IF NOT EXIST "tools\sd_switch\emulators\pack\Nes_Classic_Edition\switch\clover\user\data.json" (
+				set config_nes_classic=
+				call "%associed_language_script%" "config_nes_classic_choice"
+				IF NOT "!config_nes_classic!"=="" set config_nes_classic=!config_nes_classic:~0,1!
+				call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "config_nes_classic" "o/n_choice"
+				IF /i "!config_nes_classic!"=="o" (
+					call tools\NES_Injector\NES_Injector.bat
+					call "%associed_language_script%" "display_title"
+				)
+			)
+			IF NOT EXIST "tools\sd_switch\emulators\pack\Nes_Classic_Edition\switch\clover\user\data.json" (
+				call "%associed_language_script%" "config_nes_classic_error"
+				set temp_special_emulator=Y
+			)
+			IF NOT "!temp_special_emulator!"=="Y" (
+				IF EXIST "%volume_letter%:\switch\clover\user\boxart" rmdir /s /q "%volume_letter%:\switch\clover\user\boxart"
+				IF EXIST "%volume_letter%:\switch\clover\user\rom" rmdir /s /q "%volume_letter%:\switch\clover\user\rom"
+				IF EXIST "%volume_letter%:\switch\clover\user\thumbnail" rmdir /s /q "%volume_letter%:\switch\clover\user\thumbnail"
+				IF EXIST "%volume_letter%:\switch\clover\user\data.json" del /q "%volume_letter%:\switch\clover\user\data.json"
 			)
 		)
-		IF NOT EXIST "tools\sd_switch\emulators\pack\Nes_Classic_Edition\switch\clover\user\data.json" (
-			call "%associed_language_script%" "config_nes_classic_error"
-			set temp_special_emulator=Y
-		)
-		IF NOT "!temp_special_emulator!"=="Y" (
-			IF EXIST "%volume_letter%:\switch\clover\user\boxart" rmdir /s /q "%volume_letter%:\switch\clover\user\boxart"
-			IF EXIST "%volume_letter%:\switch\clover\user\rom" rmdir /s /q "%volume_letter%:\switch\clover\user\rom"
-			IF EXIST "%volume_letter%:\switch\clover\user\thumbnail" rmdir /s /q "%volume_letter%:\switch\clover\user\thumbnail"
-			IF EXIST "%volume_letter%:\switch\clover\user\data.json" del /q "%volume_letter%:\switch\clover\user\data.json"
-		)
-	)
-	IF "!temp_emulator!"=="Snes_Classic_Edition" (
-		IF NOT EXIST "tools\sd_switch\emulators\pack\Snes_Classic_Edition\switch\snes_classic\game\database.json" (
-			set config_snes_classic=
-			call "%associed_language_script%" "config_snes_classic_choice"
-			IF NOT "!config_snes_classic!"=="" set config_snes_classic=!config_snes_classic:~0,1!
-			call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "config_snes_classic" "o/n_choice"
-			IF /i "!config_snes_classic!"=="o" (
-				call tools\SNES_Injector\SNES_Injector.bat
-				call "%associed_language_script%" "display_title"
+		IF "!temp_emulator!"=="Snes_Classic_Edition" (
+			IF NOT EXIST "tools\sd_switch\emulators\pack\Snes_Classic_Edition\switch\snes_classic\game\database.json" (
+				set config_snes_classic=
+				call "%associed_language_script%" "config_snes_classic_choice"
+				IF NOT "!config_snes_classic!"=="" set config_snes_classic=!config_snes_classic:~0,1!
+				call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "config_snes_classic" "o/n_choice"
+				IF /i "!config_snes_classic!"=="o" (
+					call tools\SNES_Injector\SNES_Injector.bat
+					call "%associed_language_script%" "display_title"
+				)
+			)
+			IF NOT EXIST "tools\sd_switch\emulators\pack\Snes_Classic_Edition\switch\snes_classic\game\database.json" (
+				call "%associed_language_script%" "config_snes_classic_error"
+				set temp_special_emulator=Y
+			)
+			IF NOT "!temp_special_emulator!"=="Y" (
+				IF EXIST "%volume_letter%:\switch\snes_classic\game\boxart" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\boxart"
+				IF EXIST "%volume_letter%:\switch\snes_classic\game\rom" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\rom"
+				IF EXIST "%volume_letter%:\switch\snes_classic\game\thumbnail" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\thumbnail"
+				IF EXIST "%volume_letter%:\switch\snes_classic\game\database.json" del /q "%volume_letter%:\switch\snes_classic\game\database.json"
 			)
 		)
-		IF NOT EXIST "tools\sd_switch\emulators\pack\Snes_Classic_Edition\switch\snes_classic\game\database.json" (
-			call "%associed_language_script%" "config_snes_classic_error"
+		IF "!temp_emulator!"=="RetroArch" (
 			set temp_special_emulator=Y
+			IF NOT EXIST "tools\sd_switch\emulators\pack\!temp_emulator!" (
+				call "%associed_language_script%" "retroarch_not_exist_error"
+			) else (
+				tools\7zip\7za.exe x -y -sccUTF-8 "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" -o"%volume_letter%:\" -r
+				IF NOT EXIST "%volume_letter%:\switch\retroarch_switch" mkdir "%volume_letter%:\switch\retroarch_switch"
+				move "%volume_letter%:\switch\retroarch_switch.nro" "%volume_letter%:\switch\retroarch_switch\retroarch_switch.nro" >nul
+			)
 		)
-		IF NOT "!temp_special_emulator!"=="Y" (
-			IF EXIST "%volume_letter%:\switch\snes_classic\game\boxart" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\boxart"
-			IF EXIST "%volume_letter%:\switch\snes_classic\game\rom" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\rom"
-			IF EXIST "%volume_letter%:\switch\snes_classic\game\thumbnail" rmdir /s /q "%volume_letter%:\switch\snes_classic\game\thumbnail"
-			IF EXIST "%volume_letter%:\switch\snes_classic\game\database.json" del /q "%volume_letter%:\switch\snes_classic\game\database.json"
-		)
+		IF NOT "!temp_special_emulator!"=="Y" %windir%\System32\Robocopy.exe tools\sd_switch\emulators\pack\!temp_emulator! %volume_letter%:\ /e >nul
+	) else (
+		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%emu_profile_path%"
+		set /a temp_line=!temp_line! - 1
+		call "%associed_language_script%" "emulator_not_exist_warning"
 	)
-	IF "!temp_emulator!"=="RetroArch" (
-		set temp_special_emulator=Y
-		IF NOT EXIST "tools\sd_switch\emulators\pack\!temp_emulator!" (
-			call "%associed_language_script%" "retroarch_not_exist_error"
-		) else (
-			tools\7zip\7za.exe x -y -sccUTF-8 "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" -o"%volume_letter%:\" -r
-			IF NOT EXIST "%volume_letter%:\switch\retroarch_switch" mkdir "%volume_letter%:\switch\retroarch_switch"
-			move "%volume_letter%:\switch\retroarch_switch.nro" "%volume_letter%:\switch\retroarch_switch\retroarch_switch.nro" >nul
-		)
-	)
-	IF NOT "!temp_special_emulator!"=="Y" %windir%\System32\Robocopy.exe tools\sd_switch\emulators\pack\!temp_emulator! %volume_letter%:\ /e >nul
+	set /a temp_line=!temp_line! + 1
 )
 IF /i "%keep_emu_configs%"=="o" (
 	del /q "%volume_letter%:\switch\pfba\skin\config.cfg" >nul
@@ -1121,11 +1161,19 @@ IF "%~1"=="atmosphere" set temp_cheats_copy_path=%volume_letter%:\atmosphere\con
 IF "%~1"=="sxos" set temp_cheats_copy_path=%volume_letter%:\sxos\titles
 tools\gnuwin32\bin\grep.exe -c "" <"%cheats_profile_path%" > templogs\tempvar.txt
 set /p temp_count=<templogs\tempvar.txt
+set /a temp_line=1
 for /l %%i in (1,1,%temp_count%) do (
-	TOOLS\gnuwin32\bin\sed.exe -n %%ip <"%cheats_profile_path%" >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%cheats_profile_path%" >templogs\tempvar.txt
 	set /p temp_cheat=<templogs\tempvar.txt
-	IF NOT EXIST "%temp_cheats_copy_path%\!temp_cheat!" mkdir "%temp_cheats_copy_path%\!temp_cheat!"
-	%windir%\System32\Robocopy.exe tools\sd_switch\cheats\titles\!temp_cheat! %temp_cheats_copy_path%\!temp_cheat! /e >nul
+	IF EXIST "tools\sd_switch\cheats\titles\!temp_cheat!\*.*" (
+		IF NOT EXIST "%temp_cheats_copy_path%\!temp_cheat!" mkdir "%temp_cheats_copy_path%\!temp_cheat!"
+		%windir%\System32\Robocopy.exe tools\sd_switch\cheats\titles\!temp_cheat! %temp_cheats_copy_path%\!temp_cheat! /e >nul
+	) else (
+		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%cheats_profile_path%"
+		set /a temp_line=!temp_line! - 1
+		call "%associed_language_script%" "cheat_not_exist_warning"
+	)
+	set /a temp_line=!temp_line! + 1
 )
 exit /b
 

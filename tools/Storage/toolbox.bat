@@ -353,6 +353,7 @@ rename tools\toolbox\user_tools_new.txt user_tools.txt
 call "%associed_language_script%" "modify_software_success"
 pause
 goto:config_softwares_list
+
 :del_software
 set launch_software_choice=
 TOOLS\gnuwin32\bin\grep.exe -c "" <tools\toolbox\user_tools.txt > templogs\tempvar.txt
@@ -409,9 +410,7 @@ TOOLS\gnuwin32\bin\sed.exe -n %launch_software_choice%p <tools\toolbox\user_tool
 set /p software_name=<templogs\tempvar.txt
 rmdir /s /q tools\toolbox\%software_name% 2>nul
 :del_from_list
-TOOLS\gnuwin32\bin\sed.exe "%launch_software_choice%d" tools\toolbox\user_tools.txt > tools\toolbox\user_tools_new.txt
-del tools\toolbox\user_tools.txt
-rename tools\toolbox\user_tools_new.txt user_tools.txt
+TOOLS\gnuwin32\bin\sed.exe -i %launch_software_choice%d "tools\toolbox\user_tools.txt"
 call "%associed_language_script%" "del_software_success"
 pause
 goto:config_softwares_list

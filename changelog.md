@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.103</h2>
+<ul>
+<li>Vérifications et traitements ajoutés dans la préparation d'une SD.</li>
+<li>Modification de l'utilisation de la commande "sed" lorsqu'un programme est supprimé de la liste dans la boîte à outils.</li>
+<li>Améliorations et corrections de bugs dans la fonction d'infos de la Nand Toolbox.</li>
+<li>Mise à jour de TegraExplorer en version 3.0.2.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 432.</li>
+</ul>
 <h2>V4.3.102</h2>
 <ul>
 <li>Mise à jour de Rekado en version 4.1.1.</li>
