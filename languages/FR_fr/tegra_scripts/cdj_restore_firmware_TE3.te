@@ -30,11 +30,12 @@ BtnPower = 0x1000000
 BtnVolPlus = 0x2000000
 BtnVolMinus = 0x4000000
 
-main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console"]
+main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Switcher le travail du script entre SYSNAND et EMUNAND"]
 explorer_menu_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
 clearLine = "                                                                              "
 mmcAlreadyConnected = 0
+mmcTypeWork = 0
 return_code = 0
 
 prepare_paths = {
@@ -73,20 +74,39 @@ mount_mmc = {
 		return_code = 0
 		return()
 	}
-	println("Montage de SYSMMC...")
-	RESULT = mmcConnect("SYSMMC")
-	if (RESULT) {
-		color("RED")
-		println("La sysnand n'a pas pu être initialisée!")
-		println("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
-		println("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.\n")
-		color("WHITE")
-		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
-		pause()
-		return_code = 1
-	} else() {
-		mmcAlreadyConnected = 1
-		return_code = 0
+	if (mmcTypeWork == 0){
+		println("Montage de SYSMMC...")
+		RESULT = mmcConnect("SYSMMC")
+		if (RESULT) {
+			color("RED")
+			println("La sysnand n'a pas pu être initialisée!")
+			println("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			println("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.\n")
+			color("WHITE")
+			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			return_code = 1
+		} else() {
+			mmcAlreadyConnected = 1
+			return_code = 0
+		}
+	}
+	if (mmcTypeWork == 1){
+		println("Montage de EMUMMC...")
+		RESULT = mmcConnect("EMUMMC")
+		if (RESULT) {
+			color("RED")
+			println("L'emunand n'a pas pu être initialisée!")
+			println("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			println("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.\n")
+			color("WHITE")
+			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			return_code = 1
+		} else() {
+			mmcAlreadyConnected = 1
+			return_code = 0
+		}
 	}
 	return()
 }
@@ -129,8 +149,15 @@ mount_user = {
 
 main_menu = {
 	clearscreen()
-	color("WHITE")
-	println("TegraScript ChoiDuJour  package restoration - SYSMMC")
+	if (mmcTypeWork == 0){
+		color("WHITE")
+		println("TegraScript ChoiDuJour  package restoration - SYSMMC")
+	}
+	if (mmcTypeWork == 1){
+		color("GREEN")
+		println("TegraScript ChoiDuJour  package restoration - SYSMMC")
+		color("WHITE")
+	}
 	println("Par shadow256")
 	println("")
 	println("Sélectionner quoi faire.")
@@ -138,6 +165,12 @@ main_menu = {
 	println("")
 	printPos(0, 39)
 	println("HAUT/BAS/VOL+/VOL- : se déplacer | A/POWER : Valider")
+if (mmcTypeWork == 0){
+	println("X : Travailler sur l'EMUNAND")
+}
+if (mmcTypeWork == 1){
+	println("X : Travailler sur la SYSNAND")
+}
 
 	selection = 1
 	maxSelection = len(main_menu_options)
@@ -164,11 +197,33 @@ main_menu = {
 			selection = selection - 1
 			}
 		}
+		if ((verif_key & JoyX) {
+			selection = 8
+			y = 1
+		}
 		if ((verif_key & JoyA) \|\| (verif_key & BtnPower)) {
 			y = 1
 		}
 	}
 	main_action = selection
+	return()
+}
+
+switch_working_nand = {
+	if (mmcTypeWork == 0){
+		if (EMUMMC == 0){
+		clearscreen()
+		printlnAucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
+		printlnAppuyez sur une touche pour revenir au menu.")
+		pause()
+	}
+		mmcTypeWork = 1
+		mmcAlreadyConnected = 0
+	}
+	if (mmcTypeWork == 1){
+		mmcTypeWork = 0
+		mmcAlreadyConnected = 0
+	}
 	return()
 }
 
@@ -807,5 +862,8 @@ while (z == 0) {
 	}
 	if (main_action == 7){
 		wip_console_data()
+	}
+	if (main_action == 8){
+		switch_working_nand()
 	}
 }

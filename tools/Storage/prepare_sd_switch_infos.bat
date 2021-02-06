@@ -53,6 +53,15 @@ IF /i NOT "%atmo_enable_deprecated_hid_mitm%"=="o" (
 IF /i NOT "%atmo_enable_am_debug_mode%"=="o" (
 	set atmo_enable_am_debug_mode=n
 )
+IF /i NOT "%atmo_enable_dns_mitm%"=="o" (
+	set atmo_enable_dns_mitm=n
+)
+IF /i NOT "%atmo_add_defaults_to_dns_hosts%"=="o" (
+	set atmo_add_defaults_to_dns_hosts=n
+)
+IF /i NOT "%atmo_enable_dns_mitm_debug_log%"=="o" (
+	set atmo_enable_dns_mitm_debug_log=n
+)
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0
 )

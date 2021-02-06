@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V433</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 0.18.0.</li>
+<li>Mise à jour de Emuiibo en version 0.6.2.</li>
+<li>Mise à jour de Fizeau en version 2.1.3.</li>
+<li>Suppression de NSA-Installer.</li>
+</ul>
 <h2>V432</h2>
 <ul>
 <li>Mise à jour de TegraExplorer en version 3.0.2.</li>

@@ -1259,6 +1259,21 @@ IF /i "%atmo_enable_am_debug_mode%"=="o" (
 ) else (
 	set atmo_enable_am_debug_mode=0x0
 )
+IF /i "%atmo_enable_dns_mitm%"=="o" (
+	set atmo_enable_dns_mitm=0x1
+) else (
+	set atmo_enable_dns_mitm=0x0
+)
+IF /i "%atmo_add_defaults_to_dns_hosts%"=="o" (
+	set atmo_add_defaults_to_dns_hosts=0x1
+) else (
+	set atmo_add_defaults_to_dns_hosts=0x0
+)
+IF /i "%atmo_enable_dns_mitm_debug_log%"=="o" (
+	set atmo_enable_dns_mitm_debug_log=0x1
+) else (
+	set atmo_enable_dns_mitm_debug_log=0x0
+)
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0x0
 ) else (
@@ -1360,6 +1375,16 @@ echo ; Controls whether am sees system settings "DebugModeFlag" as>>%volume_lett
 echo ; enabled or disabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; 0 = Disabled (not debug mode), 1 = Enabled (debug mode)>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_am_debug_mode = u8!%atmo_enable_am_debug_mode%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Controls whether dns.mitm is enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo enable_dns_mitm = u8!%atmo_enable_dns_mitm%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Controls whether dns.mitm uses the default redirections in addition to>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; whatever is specified in the user's hosts file.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled (use hosts file contents), 1 = Enabled (use defaults and hosts file contents)>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo add_defaults_to_dns_hosts = u8!%atmo_add_defaults_to_dns_hosts%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Controls whether dns.mitm logs to the sd card for debugging>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo enable_dns_mitm_debug_log = u8!%atmo_enable_dns_mitm_debug_log%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [hbloader]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls the size of the homebrew heap when running as applet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If set to zero, all available applet memory is used as heap.>>%volume_letter%:\atmosphere\config\system_settings.ini

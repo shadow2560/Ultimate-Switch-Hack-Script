@@ -693,6 +693,25 @@ set atmo_enable_am_debug_mode=
 call "%associed_language_script2%" "atmosphere_manual_enable_am_debug_mode_param_choice"
 IF NOT "%atmo_enable_am_debug_mode%"=="" set atmo_enable_am_debug_mode=%atmo_enable_am_debug_mode:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_am_debug_mode" "o/n_choice"
+set atmo_enable_dns_mitm=o
+call "%associed_language_script2%" "atmosphere_manual_enable_dns_mitm_param_choice"
+IF NOT "%atmo_enable_dns_mitm%"=="" set atmo_enable_dns_mitm=%atmo_enable_dns_mitm:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_dns_mitm" "o/n_choice"
+IF /i NOT "%atmo_enable_dns_mitm%"=="o" (
+	set atmo_enable_dns_mitm=n
+	set atmo_add_defaults_to_dns_hosts=n
+	set atmo_enable_dns_mitm_debug_log=n
+	goto:skip_atmo_dns_mitm_config
+)
+set atmo_add_defaults_to_dns_hosts=o
+call "%associed_language_script2%" "atmosphere_manual_add_defaults_to_dns_hosts_param_choice"
+IF NOT "%atmo_add_defaults_to_dns_hosts%"=="" set atmo_add_defaults_to_dns_hosts=%atmo_add_defaults_to_dns_hosts:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_add_defaults_to_dns_hosts" "o/n_choice"
+set atmo_enable_dns_mitm_debug_log=
+call "%associed_language_script2%" "atmosphere_manual_enable_dns_mitm_debug_log_param_choice"
+IF NOT "%atmo_enable_dns_mitm_debug_log%"=="" set atmo_enable_dns_mitm_debug_log=%atmo_enable_dns_mitm_debug_log:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_dns_mitm_debug_log" "o/n_choice"
+:skip_atmo_dns_mitm_config
 :define_atmo_applet_heap_size
 set atmo_applet_heap_size=
 call "%associed_language_script2%" "atmosphere_manual_config_applet-heap-size_param_choice"

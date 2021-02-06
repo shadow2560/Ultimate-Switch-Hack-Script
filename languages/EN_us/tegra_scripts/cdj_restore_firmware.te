@@ -5,33 +5,48 @@ setString("Restore without datas wip", $menuoption4)
 setString("Only restore the  BOOT0, BOOT1 and BCPKG2-* partitions", $menuoption5)
 setString("Remove parental lock", $menuoption6)
 setString("Factory reset", $menuoption7)
+setString("Switch between working on SYSNAND or EMUNAND", $menuoption8)
 
-setString("Back to main menu", $menuoption8)
-setString("Use this folder", $menuoption9)
-setString("Go back to SD root", $menuoption10)
-setString("Parent folder", $menuoption11)
+setString("Back to main menu", $menuoption9)
+setString("Use this folder", $menuoption10)
+setString("Go back to SD root", $menuoption11)
+setString("Parent folder", $menuoption12)
 
 setString("                                                                              ", $clearLine)
 
 @mmcAlreadyConnected = setInt(0);
+@mmcTypeWork = setInt(0);
 
 @reloadMenuLoop = getPosition()
 clearscreen()
 @explorerIsCalled = setInt(0);
 setString("sd:/cdj_package_files", $restoreFolderPath)
 setString("sd:/dump", $dumpFolderPath)
-setColor("WHITE")
-printf("TegraScript ChoiDuJour  package restoration - SYSMMC")
+if (@mmcTypeWork, ==, 0){
+	setColor("WHITE")
+	printf("TegraScript ChoiDuJour  package restoration - SYSMMC")
+}
+if (@mmcTypeWork, ==, 1){
+	setColor("GREEN")
+	printf("TegraScript ChoiDuJour  package restoration - EMUMMC")
+	setColor("WHITE")
+}
 printf("By shadow256")
 printf("")
 printf("Select what you want to do:")
 printf("")
 printf("")
 
-	setPrintPos(0, 35)
-	printf("Up/Down/VOL+/VOL- : move in menu | A/POWER : validate")
+setPrintPos(0, 35)
+printf("Up/Down/VOL+/VOL- : move in menu | A/POWER : validate")
+if (@mmcTypeWork, ==, 0){
+	printf("X : Work on the EMUNAND")
+}
+if (@mmcTypeWork, ==, 1){
+	printf("X : Work on the SYSNAND")
+}
 @selection = setInt(1)
-@maxSelection = setInt(7)
+@maxSelection = setInt(8)
 
 @optionLoop = getPosition()
 setPrintPos(0, 10)
@@ -49,15 +64,29 @@ if (@current, <=, @maxSelection){
 	goto(@drawLoop)
 }
 pause()
+if (@BTN_VOL-){
+	if (@selection, <, @maxSelection){
+		@selection = math(@selection, +, 1)
+	}
+}
 if (@BTN_DOWN){
 	if (@selection, <, @maxSelection){
 		@selection = math(@selection, +, 1)
+	}
+}
+if (@BTN_VOL+){
+	if (@selection, >, 1){
+		@selection = math(@selection, -, 1)
 	}
 }
 if (@BTN_UP){
 	if (@selection, >, 1){
 		@selection = math(@selection, -, 1)
 	}
+}
+if (@BTN_X){
+	@BTN_A=setInt(1)
+	@selection=setInt(8)
 }
 if (@BTN_A, ==, 0){
 	goto(@optionLoop)
@@ -124,21 +153,41 @@ if (@selection, ==, 6){
 	if (@checkInput, == , 0){
 		goto(@reloadMenuLoop)
 	}
-	if (@mmcAlreadyConnected, ==, 0){
-		printf("Mounting SYSMMC...") 
-		mmc_connect("SYSMMC")
-		if (@RESULT){
-			setColor("RED")
-			printf("The sysnand couldn't be initialized!")
-			printf("This may be due to faulty nand or incorrect Bis Keys.")
-			printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
-			printf("")
-			setColor("WHITE")
-			printf("Press any key to go back to menu.")
-			pause()
-			goto(@reloadMenuLoop)
+	if (@mmcTypeWork, ==, 0){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting SYSMMC...") 
+			mmc_connect("SYSMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The sysnand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
 		}
-		@mmcAlreadyConnected = setInt(1)
+	}
+	if (@mmcTypeWork, ==, 1){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting EMUMMC...") 
+			mmc_connect("EMUMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The emunand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
+		}
 	}
 	printf("Mounting SYSTEM partition...")
 	mmc_mount("SYSTEM")
@@ -174,21 +223,41 @@ if (@selection, ==, 7){
 	if (@checkInput, == , 0){
 		goto(@reloadMenuLoop)
 	}
-	if (@mmcAlreadyConnected, ==, 0){
-		printf("Mounting SYSMMC...") 
-		mmc_connect("SYSMMC")
-		if (@RESULT){
-			setColor("RED")
-			printf("The sysnand couldn't be initialized!")
-			printf("This may be due to faulty nand or incorrect Bis Keys.")
-			printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
-			printf("")
-			setColor("WHITE")
-			printf("Press any key to go back to menu.")
-			pause()
-			goto(@reloadMenuLoop)
+	if (@mmcTypeWork, ==, 0){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting SYSMMC...") 
+			mmc_connect("SYSMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The sysnand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
 		}
-		@mmcAlreadyConnected = setInt(1)
+	}
+	if (@mmcTypeWork, ==, 1){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting EMUMMC...") 
+			mmc_connect("EMUMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The emunand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
+		}
 	}
 	printf("Deleting datas")
 	printf("")
@@ -272,6 +341,25 @@ if (@selection, ==, 7){
 	pause()
 	goto(@reloadMenuLoop)
 }
+if (@selection, ==, 8){
+	if (@mmcTypeWork, ==, 0){
+		if (@EMUMMC, == , 0){
+		clearscreen()
+		printf("No EMUNAND configured on the SD, the SYSNAND will continue to be usedd.")
+		printf("Press any keys to go back to menu.")
+		pause()
+		goto(@reloadMenuLoop)
+	}
+		@mmcTypeWork = setInt(1);
+		@mmcAlreadyConnected = setInt(0);
+		goto(@reloadMenuLoop)
+	}
+	if (@mmcTypeWork, ==, 1){
+		@mmcTypeWork = setInt(0);
+		@mmcAlreadyConnected = setInt(0);
+		goto(@reloadMenuLoop)
+	}
+}
 
 @explorerCall = getPosition()
 if (@explorerIsCalled, ==, 1){
@@ -348,8 +436,8 @@ if (@explorerIsCalled, ==, 1){
 	}
 	fs_closeDir()
 	setString("", $selectedFolder)
-	@minIndexToPrint = setInt(8)
-	@maxIndexToPrint = setInt(11)
+	@minIndexToPrint = setInt(9)
+	@maxIndexToPrint = setInt(12)
 	@firstLineDisplay = setInt(3)
 	@middleLineDisplay = setInt(14)
 	@lastLineDisplay = setInt(28)
@@ -588,21 +676,41 @@ combineStrings($dumpFolderPath, "/PRODINFOF.bin", $PRODINFOFDumpPath)
 clearscreen()
 setColor("WHITE")
 if (@checkInput, ==, 4){
-	if (@mmcAlreadyConnected, ==, 0){
-		printf("Mounting  SYSMMC...") 
-		mmc_connect("SYSMMC")
-		if (@RESULT){
-			setColor("RED")
-			printf("The sysnand couldn't be initialized!")
-			printf("This may be due to faulty nand or incorrect Bis Keys.")
-			printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
-			printf("")
-			setColor("WHITE")
-			printf("Press any key to go back to menu.")
-			pause()
-			goto(@reloadMenuLoop)
+	if (@mmcTypeWork, ==, 0){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting SYSMMC...") 
+			mmc_connect("SYSMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The sysnand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
 		}
-		@mmcAlreadyConnected = setInt(1);
+	}
+	if (@mmcTypeWork, ==, 1){
+		if (@mmcAlreadyConnected, ==, 0){
+			printf("Mounting EMUMMC...") 
+			mmc_connect("EMUMMC")
+			if (@RESULT){
+				setColor("RED")
+				printf("The emunand couldn't be initialized!")
+				printf("This may be due to faulty nand or incorrect Bis Keys.")
+				printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+				printf("")
+				setColor("WHITE")
+				printf("Press any key to go back to menu.")
+				pause()
+				goto(@reloadMenuLoop)
+			}
+			@mmcAlreadyConnected = setInt(1)
+		}
 	}
 	printf("Begining of save files on SD")
 	@dumpFileExist = setInt(0);
@@ -768,21 +876,41 @@ if (@checkInput, ==, 1){
 	}
 }
 
-if (@mmcAlreadyConnected, ==, 0){
-	printf("Mounting SYSMMC...") 
-	mmc_connect("SYSMMC")
-	if (@RESULT){
-		setColor("RED")
-		printf("The sysnand couldn't be initialized!")
-		printf("This may be due to faulty nand or incorrect Bis Keys.")
-		printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
-		printf("")
-		setColor("WHITE")
-		printf("Press any key to go back to menu.")
-		pause()
-		goto(@reloadMenuLoop)
+if (@mmcTypeWork, ==, 0){
+	if (@mmcAlreadyConnected, ==, 0){
+		printf("Mounting SYSMMC...") 
+		mmc_connect("SYSMMC")
+		if (@RESULT){
+			setColor("RED")
+			printf("The sysnand couldn't be initialized!")
+			printf("This may be due to faulty nand or incorrect Bis Keys.")
+			printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+			printf("")
+			setColor("WHITE")
+			printf("Press any key to go back to menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		@mmcAlreadyConnected = setInt(1)
 	}
-	@mmcAlreadyConnected = setInt(1)
+}
+if (@mmcTypeWork, ==, 1){
+	if (@mmcAlreadyConnected, ==, 0){
+		printf("Mounting EMUMMC...") 
+		mmc_connect("EMUMMC")
+		if (@RESULT){
+			setColor("RED")
+			printf("The emunand couldn't be initialized!")
+			printf("This may be due to faulty nand or incorrect Bis Keys.")
+			printf("If you run this script on a console but the nand doesn't match it, this script can't work either.")
+			printf("")
+			setColor("WHITE")
+			printf("Press any key to go back to menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		@mmcAlreadyConnected = setInt(1)
+	}
 }
 if (@checkInput, <, 3){
 	mmc_mount("SYSTEM")

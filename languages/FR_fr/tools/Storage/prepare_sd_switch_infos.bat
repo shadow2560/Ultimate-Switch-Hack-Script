@@ -79,6 +79,21 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Mode débogage d'Atmosphere: désactivée.
 		)
+						IF /i "%atmo_enable_dns_mitm%"=="o" (
+			echo Redirrection DNS_mitm: activée.
+		) else (
+			echo Redirrection DNS_mitm: désactivée.
+		)
+						IF /i "%atmo_add_defaults_to_dns_hosts%"=="o" (
+			echo Redirrection par défaut utilisé en plus des fichiers de configuration pour DNS_mitm: activée.
+		) else (
+			echo Redirrection par défaut utilisé en plus des fichiers de configuration pour DNS_mitm: désactivée.
+		)
+						IF /i "%atmo_enable_dns_mitm_debug_log%"=="o" (
+			echo Mode débogage de DNS_mitm: activée.
+		) else (
+			echo Mode débogage de DNS_mitm: désactivée.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Temps avant de redémarrer en cas de crash: jusqu'à l'appui d'une touche par l'utilisateur
 		) else (

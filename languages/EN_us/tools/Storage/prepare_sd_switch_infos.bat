@@ -88,6 +88,21 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Debug mode: disabled.
 		)
+						IF /i "%atmo_enable_dns_mitm%"=="o" (
+			echo DNS_mitm redirection: enabled.
+		) else (
+			echo DNS_mitm redirection: disabled.
+		)
+						IF /i "%atmo_add_defaults_to_dns_hosts%"=="o" (
+			echo DNS_mitm default redirection used with the config files of the service: enabled.
+		) else (
+			echo DNS_mitm default redirection used with the config files of the service: disabled ^(not recommanded^).
+		)
+						IF /i "%atmo_enable_dns_mitm_debug_log%"=="o" (
+			echo DNS_mitm debug mode: enabled.
+		) else (
+			echo DNS_mitm debug mode: disabled.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Time before reboot if a crash occure: if the user press a button
 		) else (

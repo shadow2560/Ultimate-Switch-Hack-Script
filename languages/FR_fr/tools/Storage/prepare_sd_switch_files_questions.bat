@@ -265,6 +265,18 @@ goto:eof
 set /p atmo_enable_am_debug_mode=Activer le mode débogage ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_enable_dns_mitm_param_choice
+set /p atmo_enable_dns_mitm=Activer le service DNS_mitm ^(recommandé, activé par défaut^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_add_defaults_to_dns_hosts_param_choice
+set /p atmo_add_defaults_to_dns_hosts=Activer les redirections par défaut en plus des fichiers de configuration du service DNS_mitm ^(recommandé, activé par défaut^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_enable_dns_mitm_debug_log_param_choice
+set /p atmo_enable_dns_mitm_debug_log=Activer le mode débogage du service DNS_mitm ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_config_applet-heap-size_param_choice
 set /p atmo_applet_heap_size=Taille réservée au Homebrew Loader en mode applet, mettre à 0 pour utiliser la taille maximum est fortement recommandé ^(valeur réglée à 0 si laissé vide^): 
 goto:eof
