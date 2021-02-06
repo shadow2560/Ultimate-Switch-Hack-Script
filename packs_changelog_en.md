@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V434</h2>
+<ul>
+<li>Update Hekate to version 5.5.4.</li>
+</ul>
 <h2>V433</h2>
 <ul>
 <li>Update Atmosphere to version 0.18.0.</li>

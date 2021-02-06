@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.105</h2>
+<ul>
+<li>Fix bugs in the unbrick script for  TegraExplorer V3.</li>
+<li>Update Hekate to version 5.5.4.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 434.</li>
+</ul>
 <h2>V4.3.104</h2>
 <ul>
 <li>Add the possibility to switch between  the sysnand and the emunand in the TegraExplorer unbrick script.</li>

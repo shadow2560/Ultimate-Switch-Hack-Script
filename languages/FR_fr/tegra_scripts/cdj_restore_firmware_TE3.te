@@ -155,7 +155,7 @@ main_menu = {
 	}
 	if (mmcTypeWork == 1){
 		color("GREEN")
-		println("TegraScript ChoiDuJour  package restoration - SYSMMC")
+		println("TegraScript ChoiDuJour  package restoration - EMUMMC")
 		color("WHITE")
 	}
 	println("Par shadow256")
@@ -197,7 +197,7 @@ if (mmcTypeWork == 1){
 			selection = selection - 1
 			}
 		}
-		if ((verif_key & JoyX) {
+		if ((verif_key & JoyX)) {
 			selection = 8
 			y = 1
 		}
@@ -211,18 +211,21 @@ if (mmcTypeWork == 1){
 
 switch_working_nand = {
 	if (mmcTypeWork == 0){
-		if (EMUMMC == 0){
+		if (_EMU == 0){
 		clearscreen()
 		printlnAucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
 		printlnAppuyez sur une touche pour revenir au menu.")
 		pause()
+		return()
 	}
 		mmcTypeWork = 1
 		mmcAlreadyConnected = 0
+		return()
 	}
 	if (mmcTypeWork == 1){
 		mmcTypeWork = 0
 		mmcAlreadyConnected = 0
+		return()
 	}
 	return()
 }
