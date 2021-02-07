@@ -16,11 +16,13 @@ echo.
 echo 1: Passer la puce en mode UF2 grâce au lancement d'un payload ^(vous devrez appuyer sur le bouton "reset" de la puce deux fois une fois le payload lancé^)?
 echo 2: Lancer le payload de Switchboot?
 echo 3: Flasher un fichier UF2 sur la puce ou sur certains dongles?
-echo 4: Flasher Switchboot sur la puce ou sur certains dongles?
-echo 5: Préparer les fichiers de base sur la SD pour Switchboot?
-echo 6: Organiser les payloads de la SD pour Switchboot?
-echo 7: Flasher une puce SX_Core ou SX_Lite?
-echo 0: Voir le sujet consacré à Switchboot sur Gbatemp?
+echo 4: Flasher Fusee_Suite sur la puce?
+echo 5: Organiser les payloads de la SD pour Switchboot ou Fusee_Suite?
+echo 6: Flasher une puce SX_Core ou SX_Lite?
+echo 7: Flasher Switchboot sur la puce ou sur certains dongles?
+echo 8: Préparer les fichiers de base sur la SD pour Switchboot?
+echo 0: Voir le sujet consacré à Fusee_Suite sur Gbatemp?
+echo 00: Voir le sujet consacré à Switchboot sur Gbatemp?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.
@@ -51,9 +53,11 @@ echo 3: Itsybitsy M0 modchip?
 echo 4: RCM-X86 modchip?
 echo 5: Rebug SwitchME modchip?
 echo 6: Trinket M0 modchip?
+IF "%~2"=="fusee_suite" goto:skip_dongle_choice
 echo 7: Generic Gemma dongle?
 echo 8: Generic Trinket dongle?
 echo 9: RCMX86 dongle?
+:skip_dongle_choice
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
 echo.
@@ -136,10 +140,31 @@ goto:eof
 :sx_flasher_launch_intro
 echo Ceci permet de flasher une puce SX Core ou SX Lite.
 echo Pour cela, vous devez connecter votre console en USB.
+echo.
+echo Que souhaitez-vous faire:
+echo.
+echo 1: Utiliser SX_Flasher pour flasher un firmware officiel?
+echo 2: Flasher Spacecraft?
+echo N'importe quel autre choix: Revenir aux actions principales?
+echo.
+set /p sx_core_lite_action_choice=Faites votre choix: 
+goto:eof
+
+:sx_flasher_launch_infos
 echo Dans le programme qui va se lancer, choisissez un firmware puis cliquez sur le bouton "Update".
 echo Vous pourez trouver les firmwares disponibles dans le dossier "tools\SX_Core_Lite\firmwares" à partir de la racine de ce script.
-echo.
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous lancer le programme pour flasher votre puce? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:spacecraft_begin_flash
+echo Flash de la puce avec Spacecraft en cours...
+goto:eof
+
+:spacecraft_error_flash
+echo Erreur durant le flash de la puce avec Spacecraft.
+goto:eof
+
+:spacecraft_end_flash
+echo Flash de la puce avec Spacecraft terminé avec succès.
 goto:eof
 
 :no_compatible_disk_found_error

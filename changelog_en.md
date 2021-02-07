@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.106</h2>
+<ul>
+<li>Suport of the Fusee_Suite project in the modships management added.</li>
+<li>Suport flashing of Spacecraft for the  SX Core/Lite modships in the modships management added.</li>
+</ul>
 <h2>V4.3.105</h2>
 <ul>
 <li>Fix bugs in the unbrick script for  TegraExplorer V3.</li>

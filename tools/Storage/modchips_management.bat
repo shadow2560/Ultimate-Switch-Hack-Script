@@ -37,11 +37,16 @@ call "%associed_language_script%" "main_action_choice"
 IF "%action_choice%"=="1" call "tools\Storage\launch_payload.bat" "tools\Switchboot\tegrarcm\Samd21_Update.bin"
 IF "%action_choice%"=="2" call "tools\Storage\launch_payload.bat" "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin"
 IF "%action_choice%"=="3" goto:flash_UF2_file
-IF "%action_choice%"=="4" goto:flash_switchboot
-IF "%action_choice%"=="5" goto:prepare_base_switchboot
-IF "%action_choice%"=="6" goto:manage_payloads_switchboot
-IF "%action_choice%"=="7" goto:sx_core_lite_flash
+IF "%action_choice%"=="4" goto:flash_fusee_suite
+IF "%action_choice%"=="5" goto:manage_payloads_switchboot
+IF "%action_choice%"=="6" goto:sx_core_lite_flash
+IF "%action_choice%"=="7" goto:flash_switchboot
+IF "%action_choice%"=="8" goto:prepare_base_switchboot
 IF "%action_choice%"=="0" (
+	start https://gbatemp.net/threads/trinket-rebug-others-modchip-software-new-fusee_suite-uf2-packages.553998/
+	goto:define_action_type
+)
+IF "%action_choice%"=="00" (
 	start https://gbatemp.net/threads/trinket-rebug-others-switchboot_uf2-fusee_uf2-modchip-software.526607/
 	goto:define_action_type
 )
@@ -84,8 +89,7 @@ IF "%modchip_choice%"=="1" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="2" (
+) ELSE IF "%modchip_choice%"=="2" (
 	set switchboot_part1_type=
 	call "%associed_language_script%" "switchboot_part1_type"
 	IF "!switchboot_part1_type!"=="1" (
@@ -104,8 +108,7 @@ IF "%modchip_choice%"=="2" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="3" (
+) ELSE IF "%modchip_choice%"=="3" (
 	set switchboot_part1_type=
 	call "%associed_language_script%" "switchboot_part1_type"
 	IF "!switchboot_part1_type!"=="1" (
@@ -124,8 +127,7 @@ IF "%modchip_choice%"=="3" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="4" (
+) ELSE IF "%modchip_choice%"=="4" (
 	set switchboot_part1_type=
 	call "%associed_language_script%" "switchboot_part1_type"
 	IF "!switchboot_part1_type!"=="1" (
@@ -144,8 +146,7 @@ IF "%modchip_choice%"=="4" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="5" (
+) ELSE IF "%modchip_choice%"=="5" (
 	set switchboot_part1_type=
 	call "%associed_language_script%" "switchboot_part1_type"
 	IF "!switchboot_part1_type!"=="1" (
@@ -164,8 +165,7 @@ IF "%modchip_choice%"=="5" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="6" (
+) ELSE IF "%modchip_choice%"=="6" (
 	set switchboot_part1_type=
 	call "%associed_language_script%" "switchboot_part1_type"
 	IF "!switchboot_part1_type!"=="1" (
@@ -184,18 +184,17 @@ IF "%modchip_choice%"=="6" (
 	) else (
 		goto:define_action_type
 	)
-)
-IF "%modchip_choice%"=="7" (
+) ELSE IF "%modchip_choice%"=="7" (
 	set uf2_part1=tools\Switchboot\dongles\GENERIC_GEMMA_DONGLE.UF2
 	set uf2_part2=
-)
-IF "%modchip_choice%"=="8" (
+) ELSE IF "%modchip_choice%"=="8" (
 	set uf2_part1=tools\Switchboot\dongles\GENERIC_TRINKET_DONGLE.UF2
 	set uf2_part2=
-)
-IF "%modchip_choice%"=="9" (
+) ELSE IF "%modchip_choice%"=="9" (
 	set uf2_part1=tools\Switchboot\dongles\RCMX86.UF2
 	set uf2_part2=
+) ELSE (
+	goto:define_action_type
 )
 call "%associed_language_script%" "select_uf2_device"
 call :define_volume_letter "uf2"
@@ -209,6 +208,45 @@ IF "%uf2_volume_letter%"=="" goto:define_action_type
 set uf2_file=%uf2_part2%
 call :copy_uf2_file_on_uf2_device
 :end_flash_switchboot
+call "%associed_language_script%" "switchboot_flash_end"
+pause
+goto:define_action_type
+
+:flash_fusee_suite
+:fusee_suite_part2_choice
+set modchip_choice=
+call "%associed_language_script%" "select_modchip_device" "fusee_suite"
+IF "%modchip_choice%"=="1" (
+	set uf2_part1=tools\Fusee_Suite\part1\Feather M0 Express\FUSEE_SUITE_FEATHER.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\Feather M0 Express\\FEATHER.UF2
+) ELSE IF "%modchip_choice%"=="2" (
+	set uf2_part1=tools\Fusee_Suite\part1\Gemma M0\FUSEE_SUITE_GEMMA.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\Gemma M0\GEMMAM0.UF2
+) ELSE IF "%modchip_choice%"=="3" (
+	set uf2_part1=tools\Fusee_Suite\part1\Itsybitsy M0\FUSEE_SUITE_ITSYBITSY.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\Itsybitsy M0\ITSYBIT.UF2
+) ELSE IF "%modchip_choice%"=="4" (
+	set uf2_part1=tools\Fusee_Suite\part1\RCM-X86\FUSEE_SUITE_RCMX86.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\RCM-X86\RCM_X86.UF2
+) ELSE IF "%modchip_choice%"=="5" (
+	set uf2_part1=tools\Fusee_Suite\part1\Rebug SwitchME\FUSEE_SUITE_REBUG.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\Rebug SwitchME\REBUG_S.UF2
+) ELSE IF "%modchip_choice%"=="6" (
+	set uf2_part1=tools\Fusee_Suite\part1\Trinket M0\FUSEE_SUITE_TRINKET.uf2
+	set uf2_part2=tools\Fusee_Suite\part2\Trinket M0\TRINKET.UF2
+) ELSE (
+	goto:define_action_type
+)
+call "%associed_language_script%" "select_uf2_device"
+call :define_volume_letter "uf2"
+IF "%uf2_volume_letter%"=="" goto:define_action_type
+set uf2_file=%uf2_part1%
+call :copy_uf2_file_on_uf2_device
+call "%associed_language_script%" "select_uf2_device_again"
+call :define_volume_letter "uf2"
+IF "%uf2_volume_letter%"=="" goto:define_action_type
+set uf2_file=%uf2_part2%
+call :copy_uf2_file_on_uf2_device
 call "%associed_language_script%" "switchboot_flash_end"
 pause
 goto:define_action_type
@@ -278,9 +316,29 @@ set sd_volume_letter=
 goto:define_action_type
 
 :sx_core_lite_flash
+set sx_core_lite_action_choice=
 call "%associed_language_script%" "sx_flasher_launch_intro"
-IF %errorlevel% equ 1 (
+IF "%sx_core_lite_action_choice%"=="1" (
+	call "%associed_language_script%" "sx_flasher_launch_infos"
+	pause
 	start tools\sx_core_lite\sx_flasher\sxflasher.exe
+)
+IF "%sx_core_lite_action_choice%"=="2" (
+	call "%associed_language_script%" "spacecraft_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\BootloaderUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\bootloader.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "spacecraft_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	timeout /t 15 /nobreak > NUL
+	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin	IF !errorlevel! NEQ 0 (
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "spacecraft_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "spacecraft_end_flash"
 )
 goto:define_action_type
 

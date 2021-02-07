@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.106</h2>
+<ul>
+<li>Ajout du support du projet Fusee_Suite dans la gestion des puces.</li>
+<li>Ajout du support du flash de Spacecraft pour les puces SX Core/Lite dans la gestion des puces.</li>
+</ul>
 <h2>V4.3.105</h2>
 <ul>
 <li>Correction de bugs dans le script de débrickage pour TegraExplorer V3.</li>

@@ -25,11 +25,13 @@ echo.
 echo 1: Switch the modchip in  UF2 mod using a payload ^(you will have to press twice the   "reset" buton of the modchip after the payload launch^)?
 echo 2: Launch the Switchboot payload?
 echo 3: Flash an UF2 file on a modchip or on some dongles?
-echo 4: Flash Switchboot on a modchip or for some dongles?
-echo 5: Prepare the base files on the SD for Switchboot?
-echo 6: Organize the payloads on the SD for Switchboot?
-echo 7: Flash a SX Core or SX Lite modchip?
-echo 0: Go to the  Gbatemp subject of Switchboot?
+echo 7: Flash Fusee_Suite on a modchip?
+echo 5: Organize the payloads on the SD for Switchboot or Fusee_Suite?
+echo 6: Flash a SX Core or SX Lite modchip?
+echo 7: Flash Switchboot on a modchip or on some dongles?
+echo 8: Prepare the base files on the SD for Switchboot?
+echo 0: Go to the  Gbatemp subject of Fusee_Suite?
+echo 00: Go to the  Gbatemp subject of Switchboot?
 echo All other choices: Go back to previous menu.
 echo.
 echo.
@@ -60,10 +62,12 @@ echo 3: Itsybitsy M0 modchip?
 echo 4: RCM-X86 modchip?
 echo 5: Rebug SwitchME modchip?
 echo 6: Trinket M0 modchip?
+IF "%~2"=="fusee_suite" goto:skip_dongle_choice
 echo 7: Generic Gemma dongle?
 echo 8: Generic Trinket dongle?
 echo 9: RCMX86 dongle?
-echo All other choices: Go back to main actions choice of this script.
+:skip_dongle_choice
+echo All other choices: Go back to main actions choice of this script?
 echo.
 echo.
 set /p modchip_choice=Make your choice: 
@@ -144,11 +148,32 @@ goto:eof
 
 :sx_flasher_launch_intro
 echo This allows you to flash an SX Core or SX Lite modchip.
-echo To do this, you need to connect your console via USB..
+echo To do this, you need to connect your console via USB.
+echo.
+echo What do you want to do:
+echo.
+echo 1: Use SX_Flasher to flash an opfficial firmware?
+echo 2: Flash Spacecraft?
+echo All other choices: Go back to main actions choice of this script?
+echo.
+set /p sx_core_lite_action_choice=Make your choice: 
+goto:eof
+
+:sx_flasher_launch_infos
 echo In the program that will launch, choose a firmware then click on the "Update" button.
 echo You can find the available firmwares in the "tools\SX_Core_Lite\firmwares" folder from the root of this script.
-echo.
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to launch the program to flash your modchip? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:spacecraft_begin_flash
+echo Modship flashing with Spacecraft...
+goto:eof
+
+:spacecraft_error_flash
+echo Error during the modship flash  with Spacecraft.
+goto:eof
+
+:spacecraft_end_flash
+echo Modship flash with Spacecraft success.
 goto:eof
 
 :no_compatible_disk_found_error

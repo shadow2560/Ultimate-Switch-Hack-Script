@@ -26,6 +26,7 @@
 <li><a target="_blank" href="https://github.com/suchmememanyskill/EmmcHaccGen">EmmcHaccGen</a></li>
 <li><a target="_blank" href="https://github.com/CTCaer/hekate">Hekate</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/trinket-rebug-others-switchboot_uf2-fusee_uf2-modchip-software.526607/">Switchboot</a></li>
+<li><a target="_blank" href="https://gbatemp.net/threads/trinket-rebug-others-modchip-software-new-fusee_suite-uf2-packages.553998/">Fusee_Suite</a></li>
 <li><a target="_blank" href="https://github.com/bemardev/HekateBrew/">HekateBrew</a></li>
 <li><a target="_blank" href="https://github.com/motezazer/pk1decryptor">Pk1decryptor</a></li>
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick_RCM">Lockpick-RCM</a></li>
