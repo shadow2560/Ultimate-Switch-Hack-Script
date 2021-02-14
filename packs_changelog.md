@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V436</h2>
+<ul>
+<li>Retrait du fichier hosts d'Atmosphere pour l'instant car souci.</li>
+</ul>
 <h2>V435</h2>
 <ul>
 <li>Mise à jour de Hekate en version 5.5.4 V2.</li>
