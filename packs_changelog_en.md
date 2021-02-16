@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V438</h2>
+<ul>
+<li>Update Atmosphere to version 0.18.1.</li>
+</ul>
 <h2>V437</h2>
 <ul>
 <li>Host file of Atmosphere reintegrated.</li>
