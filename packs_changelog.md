@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V437</h2>
+<ul>
+<li>Remise en place du fichier hosts d'Atmosphere.</li>
+<li>Mise à jour de DBI en version 228.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.2.1.</li>
+</ul>
 <h2>V436</h2>
 <ul>
 <li>Retrait du fichier hosts d'Atmosphere pour l'instant car souci.</li>
