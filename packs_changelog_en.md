@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V440</h2>
+<ul>
+<li>Update hosts for Atmosphere.</li>
+<li>Update AIO-Switch-Updater to version 2.3.3.</li>
+</ul>
+<h2>V439</h2>
+<ul>
+<li>Update DBI to version 229.</li>
+<li>Update AIO-Switch-Updater to version 2.3.2.</li>
+</ul>
 <h2>V438</h2>
 <ul>
 <li>Update Atmosphere to version 0.18.1.</li>

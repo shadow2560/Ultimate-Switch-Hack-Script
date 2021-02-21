@@ -415,6 +415,7 @@ call "%associed_language_script%" "languages_update_end"
 call :update_about.bat
 call :update_android_installer.bat
 call :update_biskey_dump.bat
+call ::update_auto_ips_menu.bat
 call :update_boot0_rewrite.bat
 call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
@@ -510,6 +511,29 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\android_apps"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_auto_ips_menu.bat
+call :verif_file_version "tools\Storage\auto_ips_menu.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\auto_ips_menu.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\auto_ips_menu.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\python3_scripts\AutoIPS-Patcher"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

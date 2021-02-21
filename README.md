@@ -26,6 +26,7 @@ La licence GPL V3 s'applique sur les scripts batch se trouvant à la racine de c
 * Création de packages de mise à jour via ChoiDuJour avec tous les paramètres.
 * Téléchargement d'un firmware et préparation de la SD avec celui-ci pour ChoiDuJourNX ou Daybreak, le homebrew est également copié durant ce script. Ce script permet également d'éventuellement  créé le package de mise à jour via ChoiDuJour dans la foulée.
 * Préparation d'une SD, du formatage (FAT32 ou EXFAT) à la mise en place de différentes solutions, voir la documentation pour plus d'informations sur le contenu des packs.
+* Création des sig_patches pour Atmosphere.
 * Fonctions de débrickage simplifié.
 * Réparation d'un fichier BOOT0 dont les keyblobs seraient corrompues (les clés de la console visée sont nécessaire).
 * Lancement de NSC_Builder. Ce script est utile pour convertir des XCIs ou NSPs en XCIs ou NSPs. Les fichiers convertis via ce script sont nettoyé et rendus, en théorie, indétectable par Nintendo, surtout pour les NSPs. Enfin, ce script permet aussi de créé des NSPs ou XCIs contenant le jeu, ses mises à jour et DLCs dans un seul fichier. Pour plus d'infos, voir [cette page](https://github.com/julesontheroad/NSC_BUILDER).

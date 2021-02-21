@@ -35,6 +35,7 @@ echo.
 echo 8: Launch Ns-usbloader to install content via NSA-Installer or Goldleaf on your Switch?
 echo.
 echo 9: Modchips management?
+echo 10: Create the Atmosphere's sig_patches?
 echo.
 echo All other choices: Go back to main menu?
 echo.

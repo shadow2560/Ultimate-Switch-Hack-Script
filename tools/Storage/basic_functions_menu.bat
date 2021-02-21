@@ -35,6 +35,7 @@ IF "%action_choice%"=="6" goto:test_keys
 IF "%action_choice%"=="7" goto:mount_discs
 IF "%action_choice%"=="8" goto:launch_nsusbloader
 IF "%action_choice%"=="9" goto:modchips_management
+IF "%action_choice%"=="10" goto:create_sig_patches
 goto:end_script
 
 :launch_payload
@@ -143,6 +144,18 @@ IF EXIST "tools\Storage\modchips_management.bat" (
 	call tools\Storage\update_manager.bat "update_modchips_management.bat" "force"
 )
 call TOOLS\Storage\modchips_management.bat
+@echo off
+goto:define_action_choice
+:create_sig_patches
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\auto_ips_menu.bat" (
+	call tools\Storage\update_manager.bat "update_auto_ips_menu.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_auto_ips_menu.bat" "force"
+)
+call TOOLS\Storage\auto_ips_menu.bat
 @echo off
 goto:define_action_choice
 :end_script

@@ -17,6 +17,7 @@ echo 3: Créer un package de mise à jour de la Switch via ChoiDuJour via un fic
 echo 4: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(fonction en beta^)?
 echo 5: Débrickage sur PRODINFO ^(fonction en beta^)?
 echo 6: Créer un package de mise à jour de la Switch via EmmcHaccGen via un  dossier déjà téléchargé??
+echo 7: Créer les sig_patches pour Atmosphere?
 echo 0: Obtenir une assistance sur le débrickage?
 echo.
 echo N'importe quel autre choix: Quitter sans rien faire?

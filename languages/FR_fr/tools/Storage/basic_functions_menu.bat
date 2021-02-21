@@ -26,6 +26,7 @@ echo.
 echo 8: Lancer Ns-usbloader pour installer du contenu sur la Switch via NSA-Installer ou Goldleaf?
 echo.
 echo 9: Gestion des puces?
+echo 10: Créer les sig_patches pour Atmosphere?
 echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.

@@ -1,5 +1,15 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.112</h2>
+<ul>
+<li>Add a function to create the sig_patches for Atmosphere.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 440.</li>
+</ul>
+<h2>V4.3.111</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 439.</li>
+</ul>
 <h2>V4.3.110</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 438.</li>

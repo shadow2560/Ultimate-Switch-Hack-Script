@@ -28,6 +28,7 @@ The GPL V3 license applies to the batch scripts at the root of this project, the
 <li>Downloading a firmware and preparing the SD with it for ChoiDuJourNX or Daybreak, the homebrew is also copied during this script. This script also allows you to create the update package via ChoiDuJour in the process. To know how to use ChoiDuJourNX, you can refer to the documentation.</li>
 <li>Checking a key file ( "prod.keys", "keys.txt", "keys.dat", etc.).</li>
 <li>Preparation of an SD, from formatting (FAT32 or EXFAT) to the implementation of different solutions, see the documentation for more informations on the content of the packs.</li>
+<li>Creating sig_patches for Atmosphere.</li>
 <li>Simplified unbricking functions.</li>
 <li>Repairing a BOOT0 file witch have corrupted keyblobs (the concerned console keys mendatory).</li>
 <li>Launch of NSC_Builder. This script is useful for converting XCIs or NSPs to XCIs or NSPs. Files converted via this script are cleaned and made, in theory, undetectable by Nintendo, especially for NSPs. Finally, this script also allows you to create NSPs or XCIs containing the game, its updates and DLCs in a single file. For more information, see <a target="_new" href="https://github.com/julesontheroad/NSC_BUILDER">this page</a>.</li>

@@ -34,6 +34,7 @@ IF "%action_choice%"=="3" goto:create_update
 IF "%action_choice%"=="4" goto:boot0_rewrite
 IF "%action_choice%"=="5" goto:prodinfo_rewrite
 IF "%action_choice%"=="6" goto:create_update_2
+IF "%action_choice%"=="7" goto:create_sig_patches
 IF "%action_choice%"=="0" (
 	set action_choice=
 	start "" "http://rover.ebay.com/rover/1/709-53476-19255-0/1?icep_ff3=2&pub=5575378759&campid=5338273189&customid=&icep_item=114242698090&ipn=psmain&icep_vectorid=229480&kwid=902099&mtid=824&kw=lg&toolid=11111"
@@ -111,6 +112,18 @@ IF EXIST "tools\Storage\create_update_2.bat" (
 	call tools\Storage\update_manager.bat "update_create_update_2.bat" "force"
 )
 call TOOLS\Storage\create_update_2.bat
+@echo off
+goto:define_action_choice
+:create_sig_patches
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\auto_ips_menu.bat" (
+	call tools\Storage\update_manager.bat "update_auto_ips_menu.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_auto_ips_menu.bat" "force"
+)
+call TOOLS\Storage\auto_ips_menu.bat
 @echo off
 goto:define_action_choice
 :end_script
