@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.113</h2>
+<ul>
+<li>Update NxFileViewer to version 2.2.0.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 441.</li>
+</ul>
 <h2>V4.3.112</h2>
 <ul>
 <li>Add a function to create the sig_patches for Atmosphere.</li>
