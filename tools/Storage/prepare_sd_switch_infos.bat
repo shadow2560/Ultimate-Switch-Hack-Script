@@ -47,9 +47,6 @@ IF /i NOT "%atmo_enable_hbl_cal_read%"=="o" (
 IF /i NOT "%atmo_fsmitm_redirect_saves_to_sd%"=="o" (
 	set atmo_fsmitm_redirect_saves_to_sd=n
 )
-IF /i NOT "%atmo_enable_deprecated_hid_mitm%"=="o" (
-	set atmo_enable_deprecated_hid_mitm=n
-)
 IF /i NOT "%atmo_enable_am_debug_mode%"=="o" (
 	set atmo_enable_am_debug_mode=n
 )
@@ -61,6 +58,9 @@ IF /i NOT "%atmo_add_defaults_to_dns_hosts%"=="o" (
 )
 IF /i NOT "%atmo_enable_dns_mitm_debug_log%"=="o" (
 	set atmo_enable_dns_mitm_debug_log=n
+)
+IF /i NOT "%atmo_enable_htc%"=="o" (
+	set atmo_enable_htc=n
 )
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0

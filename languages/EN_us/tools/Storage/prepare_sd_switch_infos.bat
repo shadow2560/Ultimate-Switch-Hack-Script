@@ -78,11 +78,6 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Game save redirecting to SD disabled.
 		)
-						IF /i "%atmo_enable_deprecated_hid_mitm%"=="o" (
-			echo Force old method of buttons detections for homebrews: enabled.
-		) else (
-			echo Force old method of buttons detections for homebrews: disabled.
-		)
 						IF /i "%atmo_enable_am_debug_mode%"=="o" (
 			echo Debug mode: enabled.
 		) else (
@@ -103,6 +98,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo DNS_mitm debug mode: disabled.
 		)
+						::IF /i "%atmo_enable_htc%"=="o" (
+			::echo HTC service: enabled.
+		::) else (
+			::echo HTC service: disabled.
+		::)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Time before reboot if a crash occure: if the user press a button
 		) else (

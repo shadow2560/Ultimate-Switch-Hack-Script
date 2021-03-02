@@ -1249,11 +1249,6 @@ IF /i "%atmo_fsmitm_redirect_saves_to_sd%"=="o" (
 ) else (
 	set atmo_fsmitm_redirect_saves_to_sd=0x0
 )
-IF /i "%atmo_enable_deprecated_hid_mitm%"=="o" (
-	set atmo_enable_deprecated_hid_mitm=0x1
-) else (
-	set atmo_enable_deprecated_hid_mitm=0x0
-)
 IF /i "%atmo_enable_am_debug_mode%"=="o" (
 	set atmo_enable_am_debug_mode=0x1
 ) else (
@@ -1273,6 +1268,11 @@ IF /i "%atmo_enable_dns_mitm_debug_log%"=="o" (
 	set atmo_enable_dns_mitm_debug_log=0x1
 ) else (
 	set atmo_enable_dns_mitm_debug_log=0x0
+)
+IF /i "%atmo_enable_htc%"=="o" (
+	set atmo_enable_htc=0x1
+) else (
+	set atmo_enable_htc=0x0
 )
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0x0
@@ -1365,12 +1365,6 @@ echo ; 0 = Do not redirect, 1 = Redirect.>>%volume_letter%:\atmosphere\config\sy
 echo ; NOTE: EXPERIMENTAL>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If you do not know what you are doing, do not touch this yet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo fsmitm_redirect_saves_to_sd = u8!%atmo_fsmitm_redirect_saves_to_sd%>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; Controls whether to enable the deprecated hid mitm>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; to fix compatibility with old homebrew.>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; 0 = Do not enable, 1 = Enable.>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; Please note this setting may be removed in a>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; future release of Atmosphere.>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo enable_deprecated_hid_mitm = u8!%atmo_enable_deprecated_hid_mitm%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls whether am sees system settings "DebugModeFlag" as>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; enabled or disabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; 0 = Disabled (not debug mode), 1 = Enabled (debug mode)>>%volume_letter%:\atmosphere\config\system_settings.ini
@@ -1385,6 +1379,9 @@ echo add_defaults_to_dns_hosts = u8!%atmo_add_defaults_to_dns_hosts%>>%volume_le
 echo ; Controls whether dns.mitm logs to the sd card for debugging>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_dns_mitm_debug_log = u8!%atmo_enable_dns_mitm_debug_log%>>%volume_letter%:\atmosphere\config\system_settings.ini
+::echo ; ; Controls whether htc is enabled
+::echo ; 0 = Disabled, 1 = Enabled
+::echo enable_htc = u8!%atmo_enable_htc%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [hbloader]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls the size of the homebrew heap when running as applet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If set to zero, all available applet memory is used as heap.>>%volume_letter%:\atmosphere\config\system_settings.ini

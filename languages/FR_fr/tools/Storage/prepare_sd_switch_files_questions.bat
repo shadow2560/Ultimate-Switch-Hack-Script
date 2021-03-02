@@ -257,10 +257,6 @@ goto:eof
 set /p atmo_fsmitm_redirect_saves_to_sd=Activer la redirrection des sauvegardes vers la SD ^(expérimental donc non recommandé^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
-:atmosphere_manual_enable_deprecated_hid_mitm_param_choice
-set /p atmo_enable_deprecated_hid_mitm=Activer l'ancienne méthode de détection des boutons pour les homebrews ^(non recommandé sauf si vous utilisez encore des vieux homebrews^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
-goto:eof
-
 :atmosphere_manual_enable_am_debug_mode_param_choice
 set /p atmo_enable_am_debug_mode=Activer le mode débogage ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
@@ -275,6 +271,10 @@ goto:eof
 
 :atmosphere_manual_enable_dns_mitm_debug_log_param_choice
 set /p atmo_enable_dns_mitm_debug_log=Activer le mode débogage du service DNS_mitm ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_enable_htc_param_choice
+set /p atmo_enable_htc=Activer le service HTC? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :atmosphere_manual_config_applet-heap-size_param_choice

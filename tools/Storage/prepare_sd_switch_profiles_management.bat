@@ -181,11 +181,11 @@ echo set "atmo_dmnt_always_save_cheat_toggles=%atmo_dmnt_always_save_cheat_toggl
 echo set "atmo_enable_hbl_bis_write=%atmo_enable_hbl_bis_write%">>"%profile_path%"
 echo set "atmo_enable_hbl_cal_read=%atmo_enable_hbl_cal_read%">>"%profile_path%"
 echo set "atmo_fsmitm_redirect_saves_to_sd=%atmo_fsmitm_redirect_saves_to_sd%">>"%profile_path%"
-echo set "atmo_enable_deprecated_hid_mitm=%atmo_enable_deprecated_hid_mitm%">>"%profile_path%"
 echo set "atmo_enable_am_debug_mode=%atmo_enable_am_debug_mode%">>"%profile_path%"
 echo set "atmo_enable_dns_mitm=%atmo_enable_dns_mitm%">>"%profile_path%"
 echo set "atmo_add_defaults_to_dns_hosts=%atmo_add_defaults_to_dns_hosts%">>"%profile_path%"
 echo set "atmo_enable_dns_mitm_debug_log=%atmo_enable_dns_mitm_debug_log%">>"%profile_path%"
+::echo set "atmo_enable_htc=%atmo_enable_htc%">>"%profile_path%"
 echo set "atmo_applet_heap_size=%atmo_applet_heap_size%">>"%profile_path%"
 echo set "atmo_applet_heap_reservation_size=%atmo_applet_heap_reservation_size%">>"%profile_path%"
 

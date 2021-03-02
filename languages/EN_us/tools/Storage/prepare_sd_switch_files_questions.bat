@@ -266,10 +266,6 @@ goto:eof
 set /p atmo_fsmitm_redirect_saves_to_sd=Enable the game save SD  redirection ^(experimental so not recommanded^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
-:atmosphere_manual_enable_deprecated_hid_mitm_param_choice
-set /p atmo_enable_deprecated_hid_mitm=Enable the old buttons detection for homebrews ^(not recommanded except if you use old homebrews^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
-goto:eof
-
 :atmosphere_manual_enable_am_debug_mode_param_choice
 set /p atmo_enable_am_debug_mode=Enable the debug mode ^(not recommanded except if you are a developer^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
@@ -284,6 +280,10 @@ goto:eof
 
 :atmosphere_manual_enable_dns_mitm_debug_log_param_choice
 set /p atmo_enable_dns_mitm_debug_log=Enable the debug mode for DNS_mitm ^(not recommanded except if you are a developer^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_enable_htc_param_choice
+set /p atmo_enable_htc=Enable the HTC service? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :atmosphere_manual_config_applet-heap-size_param_choice

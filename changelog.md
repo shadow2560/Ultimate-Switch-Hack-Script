@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.114</h2>
+<ul>
+<li>Adaptation des fichiers pour les nouveaux paramètres d'Atmosphere pour les réglages manuels et automatiques et préparation pour l'introduction du paramètre pour le service HTC.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 442.</li>
+</ul>
 <h2>V4.3.113</h2>
 <ul>
 <li>Mise à jour de NxFileViewer en version 2.2.0.</li>

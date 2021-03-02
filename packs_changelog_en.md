@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V442</h2>
+<ul>
+<li>Update Uae4all2 to version 2.00.</li>
+</ul>
 <h2>V441</h2>
 <ul>
 <li>Update fastCFWswitch to version 1.1.1.</li>
