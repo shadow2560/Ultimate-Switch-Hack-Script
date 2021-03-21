@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V443</h2>
+<ul>
+<li>Update Switch_90DNS_tester to version 1.0.3.</li>
+<li>Update AIO-Switch-Updater to version 2.4.3.</li>
+<li>Update Pplay to version 3.5.</li>
+<li>Update DBI to version 253.</li>
+<li>Update Linkalho to version 1.0.5.</li>
+<li>Update Edizon-se to version 3.8.12.</li>
+</ul>
 <h2>V442</h2>
 <ul>
 <li>Update Uae4all2 to version 2.00.</li>

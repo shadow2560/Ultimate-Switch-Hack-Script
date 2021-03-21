@@ -6,11 +6,12 @@ setString("Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", $menuop
 setString("Supprimer le contrôle parental", $menuoption6)
 setString("Réinitialiser la console", $menuoption7)
 setString("Switcher le travail du script entre SYSNAND et EMUNAND", $menuoption8)
+setString("Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", $menuoption9)
 
-setString("Revenir au menu principal", $menuoption9)
-setString("Utiliser ce répertoire", $menuoption10)
-setString("Revenir à la racine de la SD", $menuoption11)
-setString("Remonter d'un répertoire", $menuoption12)
+setString("Revenir au menu principal", $menuoption10)
+setString("Utiliser ce répertoire", $menuoption11)
+setString("Revenir à la racine de la SD", $menuoption12)
+setString("Remonter d'un répertoire", $menuoption13)
 
 setString("                                                                              ", $clearLine)
 
@@ -46,7 +47,7 @@ if (@mmcTypeWork, ==, 1){
 	printf("X : Travailler sur la SYSNAND")
 }
 @selection = setInt(1)
-@maxSelection = setInt(8)
+@maxSelection = setInt(9)
 
 @optionLoop = getPosition()
 setPrintPos(0, 10)
@@ -360,6 +361,148 @@ if (@selection, ==, 8){
 		goto(@reloadMenuLoop)
 	}
 }
+if (@selection, ==, 9){
+	clearscreen()
+	if (@EMUMMC, == , 0){
+	printf("Aucune EMUNAND configurée sur la SD, impossible de continuer.")
+	printf("Appuyez sur une touche pour revenir au menu.")
+	pause()
+	goto(@reloadMenuLoop)
+	}
+	setColor("BLUE")
+	printf("TegraScript Syncfixby MezBar, modified by shadow256")
+	printf("")
+	setColor("YELLOW")
+	printf("Ce script va corriger les problèmes de synchronisation de manettes entre la SYSMMC et l'EMUMMC")
+	printf("Avant d'utiliser ce script, connectez toutes vos manettes à la SYSMMC")
+	printf("")
+	setColor("RED")
+	printf("Si vous utilisez 90DNS ou tout autre paramètre DNS,")
+	printf("veuillez passer en mode avion sur la SYSMMC")
+	printf("et l'EMUMMC car ce script copiera")
+	printf("également les paramètres wifi de votre SYSMMC vers l'EMUMMC.")
+	printf("")
+	printf("Notez aussi que certains paramètres de votre emunand seront remplacés,")
+	printf("comme par exemple le thème donc vérifiez les paramètres de l'emunand")
+	printf("après l'exécution de ce script.")
+	printf("")
+	setColor("GREEN")
+	printf("Si vous utilisez incognito ou le Stealth Mode de SXOS")
+	printf("vous pouvez procéder sans utiliser le mode avion.")
+	printf("")
+	setColor("WHITE")
+	wait(5)
+	printf("")
+	printf("Appuyez sur 'VOL+' pour démarrer la synchronisation de la SYSMMC vers l'EMUMMC")
+	printf("")
+	pause()
+	if (@BTN_VOL+){
+		@mmcAlreadyConnected = setInt(0);
+		printf("Montage de  SYSMMC...") 
+		mmc_connect("SYSMMC")
+		if (@RESULT){
+			setColor("RED")
+			printf("La sysnand n'a pas pu être initialisée!")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("")
+		printf("Montage de la partition SYSTEM...")
+		mmc_mount("SYSTEM")
+		if (@RESULT){
+			setColor("RED")
+			printf("La partition SYSTEM n'a pas pu être montée!")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("Sauvegarde du fichier '8000000000000050' de la SYSMMC vers le dossier 'sd:/tegraexplorer/syncfix'")
+		printf("")
+		fs_mkdir("sd:/tegraexplorer")
+		fs_mkdir("sd:/tegraexplorer/syncfix")
+		fs_copy("emmc:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup")
+		if (@RESULT){
+			setColor("RED")
+			printf("Une erreur s'est produite durant la sauvegarde, le script ne peut continuer.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur une touche pour revenir au menu")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("Montage de  EMUMMC...") 
+		mmc_connect("EMUMMC")
+		if (@RESULT){
+			setColor("RED")
+			printf("L'emunand n'a pas pu être initialisée!")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("")
+		printf("Montage de la partition SYSTEM...")
+		mmc_mount("SYSTEM")
+		if (@RESULT){
+			setColor("RED")
+			printf("La partition SYSTEM n'a pas pu être montée!")
+			printf("Ceci peut être dû à une nand défectueuse ou des Bis Keys incorrectes.")
+			printf("Si vous exécutez ce script sur une console mais que la nand ne lui correspond pas, ce script ne peut pas fonctionner non plus.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("")
+		printf("Sauvegarde du fichier '8000000000000050' de l'EMUMMC vers le dossier 'sd:/tegraexplorer/syncfix'")
+		printf("")
+		fs_copy("emmc:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_emummc_backup");
+		if (@RESULT){
+			setColor("RED")
+			printf("Une erreur s'est produite durant la sauvegarde, le script ne peut continuer.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur une touche pour revenir au menu")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		printf("Copie du fichier '8000000000000050' de la SYSMMC vers l'EMUMMC")
+		printf("")
+		fs_copy("sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup", "emmc:/save/8000000000000050")
+		if (@RESULT){
+			setColor("RED")
+			printf("Une erreur s'est produite durant la copie, le script ne peut continuer.")
+			printf("")
+			setColor("WHITE")
+			printf("Appuyez sur une touche pour revenir au menu")
+			pause()
+			goto(@reloadMenuLoop)
+		}
+		setColor("GREEN")
+		printf("Opération effectuée!")
+		printf("")
+		printf("Maintenant vos manettes devraient être synchronisées entre la SYSMMC et l'EMUMMC")
+		printf("")
+		setColor("WHITE")
+		printf("Appuyez sur une touche pour revenir au menu")
+		pause
+		goto(@reloadMenuLoop)
+	}
+	goto(@reloadMenuLoop)
+}
 
 @explorerCall = getPosition()
 if (@explorerIsCalled, ==, 1){
@@ -435,8 +578,8 @@ if (@explorerIsCalled, ==, 1){
 	}
 	fs_closeDir()
 	setString("", $selectedFolder)
-	@minIndexToPrint = setInt(9)
-	@maxIndexToPrint = setInt(12)
+	@minIndexToPrint = setInt(10)
+	@maxIndexToPrint = setInt(13)
 	@firstLineDisplay = setInt(3)
 	@middleLineDisplay = setInt(14)
 	@lastLineDisplay = setInt(28)

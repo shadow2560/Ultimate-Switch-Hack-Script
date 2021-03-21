@@ -257,6 +257,28 @@ echo A problem occurred during firmware creation.
 echo Check that you have all the required keys in the "keys.txt" file.
 goto:eof
 
+:emmchaccgen_package_creation_first_error
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+echo.
+echo However, it is also possible that .net Framework 3 is not activated on your system.
+echo If you wish to activate it, an internet connection will be required.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to activate .net Framework 3 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:netfx3_install_error
+echo Error during the activation of .net Framework 3, check your internet connection.
+goto:eof
+
+:emmchaccgen_package_creation_second_error
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+echo.
+echo However, it is also possible that your system requires a reboot.
+echo You can try to quit the script, reboot your system and retry the procedure.
+goto:eof
+
 :boot0_keyblobs_reparation_choice
 echo You can repair the keyblobs in the BOOT0 file if you have errors related to them during the key dump via Lockpick-RCM.
 echo Be careful, this is an advanced and rarely necessary operation, do it only if you know what you are doing.

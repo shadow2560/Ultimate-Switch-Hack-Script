@@ -30,7 +30,8 @@ BtnPower = 0x1000000
 BtnVolPlus = 0x2000000
 BtnVolMinus = 0x4000000
 
-main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Switcher le travail du script entre SYSNAND et EMUNAND"]
+main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Switcher le travail du script entre SYSNAND et EMUNAND", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)"]
+migrate_emunand_menu_options = ["Revenir au menu principal", "Rendre compatible l'emunand via partition de SXOS avec Atmosphere", "Convertir l'emunand via fichiers de SXOS pour Atmosphere", "Inverser la convertion de l'emunand via fichiers de SXOS pour Atmosphere"]
 explorer_menu_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
 clearLine = "                                                                              "
@@ -165,12 +166,12 @@ main_menu = {
 	println("")
 	printPos(0, 39)
 	println("HAUT/BAS/VOL+/VOL- : se déplacer | A/POWER : Valider")
-if (mmcTypeWork == 0){
-	println("X : Travailler sur l'EMUNAND")
-}
-if (mmcTypeWork == 1){
-	println("X : Travailler sur la SYSNAND")
-}
+	if (mmcTypeWork == 0){
+		println("X : Travailler sur l'EMUNAND")
+	}
+	if (mmcTypeWork == 1){
+		println("X : Travailler sur la SYSNAND")
+	}
 
 	selection = 1
 	maxSelection = len(main_menu_options)
@@ -209,6 +210,221 @@ if (mmcTypeWork == 1){
 	return()
 }
 
+migrate_emunand_menu_choice = {
+	clearscreen()
+	println("Migration d'emunand")
+	println("")
+	println("Sélectionner quoi faire.")
+	println("")
+	println("")
+	printPos(0, 39)
+	println("HAUT/BAS/VOL+/VOL- : se déplacer | A/POWER : Valider")
+
+	selection = 1
+	maxSelection = len(migrate_emunand_menu_options)
+	v = 0
+	while (v == 0) {
+		printPos(0, 10)
+		i = 0
+		while (i < maxSelection) {
+			color("WHITE")
+			if (i + 1 == selection){
+				color("RED")
+			}
+			println(migrate_emunand_menu_options[i])
+			i = i + 1
+		}
+		verif_key = pause()
+		if ((verif_key & LeftJoyDown) \|\| (verif_key & BtnVolMinus)) {
+			if (selection < maxSelection){
+			selection = selection + 1
+			}
+		}
+		if ((verif_key & LeftJoyUp) \|\| (verif_key & BtnVolPlus)) {
+			if (selection > 1){
+			selection = selection - 1
+			}
+		}
+		if ((verif_key & JoyA) \|\| (verif_key & BtnPower)) {
+			v = 1
+		}
+	}
+	return()
+}
+
+migrate_emunand_menu = {
+	u = 0
+	while (u == 0) {
+		migrate_emunand_menu_choice()
+		if (selection == 1){
+			u = 1
+		}
+		if (selection == 2){
+			u = 1
+			prepare_sxos_emunand_partition_for_atmosphere()
+		}
+		if (selection == 3){
+			u = 1
+			convert_emunand_files_sxos_for_atmosphere()
+		}
+		if (selection == 4){
+			u = 1
+			invert_emunand_files_sxos_for_atmosphere()
+		}
+	}
+	return()
+}
+
+prepare_sxos_emunand_partition_for_atmosphere = {
+	clearscreen()
+	if (fileExists("sd:/emummc/emummc.ini")){
+		fileDel("sd:/emummc/emummc.ini")
+	}
+	fileWrite("sd:/emummc/emummc.ini", [[5B], [65], [6D], [75], [6D], [6D], [63], [5D], [0D], [0A], [65], [6E], [61], [62], [6C], [65], [64], [3D], [31], [0D], [0A], [73], [65], [63], [74], [6F], [72], [3D], [30], [78], [32], [0D], [0A], [70], [61], [74], [68], [3D], [65], [6D], [75], [4D], [4D], [43], [2F], [45], [52], [30], [30], [0D], [0A], [69], [64], [3D], [30], [78], [30], [30], [30], [30], [0D], [0A], [6E], [69], [6E], [74], [65], [6E], [64], [6F], [5F], [70], [61], [74], [68], [3D], [45], [6D], [75], [74], [65], [6E], [64], [6F], [0D], [0A]]")
+	if (fileExists("sd:/emummc/ER00")) {
+		dirDel("sd:/emummc/ER00")
+	}
+	mkdir("sd:/emummc/ER00")
+	fileWrite("sd:/emummc/ER00/raw_based", [])
+	color("GREEN")
+	println("Opération effectuée avec succès.")
+	color("WHITE")
+	println("")
+	println("Appuyer sur une touche pour fermer le script.")
+	pause()
+	exit()
+}
+
+convert_emunand_files_sxos_for_atmosphere = {
+	clearscreen()
+	emunand_file_check = 0
+	if (fileExists("sd:/sxos/emunand/boot0.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/boot1.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.00.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.01.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.02.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.03.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.04.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.05.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.06.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.07.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (emunand_file_check == 1) {
+		println("Impossible d'effectuer la convertion, un ou plusieurs fichiers de l'emunand de SXOS semblent être manquants.")
+		println("")
+		println("Appuyer sur une touche pour revenir au menu principal.")
+		pause()
+		return()
+	}
+	if (fileExists("sd:/sxos/eMMC") == 0) {
+		mkdir("sd:/sxos/eMMC")
+	}
+	fileMove("sd:/sxos/emunand/boot0.bin", "sd:/sxos/eMMC/boot0")
+	fileMove("sd:/sxos/emunand/boot1.bin", "sd:/sxos/eMMC/boot1")
+	fileMove("sd:/sxos/emunand/full.00.bin", "sd:/sxos/eMMC/00")
+	fileMove("sd:/sxos/emunand/full.01.bin", "sd:/sxos/eMMC/01")
+	fileMove("sd:/sxos/emunand/full.02.bin", "sd:/sxos/eMMC/02")
+	fileMove("sd:/sxos/emunand/full.03.bin", "sd:/sxos/eMMC/03")
+	fileMove("sd:/sxos/emunand/full.04.bin", "sd:/sxos/eMMC/04")
+	fileMove("sd:/sxos/emunand/full.05.bin", "sd:/sxos/eMMC/05")
+	fileMove("sd:/sxos/emunand/full.06.bin", "sd:/sxos/eMMC/06")
+	fileMove("sd:/sxos/emunand/full.07.bin", "sd:/sxos/eMMC/07")
+	if (fileExists("sd:/emummc/emummc.ini")){
+		fileDel("sd:/emummc/emummc.ini")
+	}
+	fileWrite("sd:/emummc/emummc.ini", [[5B], [65], [6D], [75], [6D], [6D], [63], [5D], [0D], [0A], [65], [6E], [61], [62], [6C], [65], [64], [3D], [31], [0D], [0A], [73], [65], [63], [74], [6F], [72], [3D], [30], [78], [30], [0D], [0A], [70], [61], [74], [68], [3D], [73], [78], [6F], [73], [0D], [0A], [69], [64], [3D], [30], [78], [30], [30], [30], [30], [0D], [0A], [6E], [69], [6E], [74], [65], [6E], [64], [6F], [5F], [70], [61], [74], [68], [3D], [45], [6D], [75], [74], [65], [6E], [64], [6F], [0D], [0A]]
+	dirDel("sd:/sxos/emunand")
+	color("GREEN")
+	println("Opération effectuée avec succès.")
+	color("WHITE")
+	println("")
+	println("Appuyer sur une touche pour fermer le script.")
+	pause()
+	exit()
+}
+
+invert_emunand_files_sxos_for_atmosphere = {
+	clearscreen()
+	emunand_file_check = 0
+	if (fileExists("sd:/sxos/eMMC/boot0") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/boot1") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/00") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/01") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/02") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/03") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/04") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/05") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/06") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/07") == 0) {
+		emunand_file_check = 1
+	}
+	if (emunand_file_check == 1) {
+		println("Impossible d'effectuer la convertion, un ou plusieurs fichiers de l'emunand d'Atmosphere semblent être manquants.")
+		println("")
+		println("Appuyer sur une touche pour revenir au menu principal.")
+		pause()
+		return()
+	}
+	if (fileExists("sd:/sxos/emunand") == 0) {
+		mkdir("sd:/sxos/emunand")
+	}
+	fileMove("sd:/sxos/eMMC/boot0", "sd:/sxos/emunand/boot0.bin")
+	fileMove("sd:/sxos/eMMC/boot1", "sd:/sxos/emunand/boot1.bin")
+	fileMove("sd:/sxos/eMMC/00", "sd:/sxos/emunand/full.00.bin")
+	fileMove("sd:/sxos/eMMC/01", "sd:/sxos/emunand/full.01.bin")
+	fileMove("sd:/sxos/eMMC/02", "sd:/sxos/emunand/full.02.bin")
+	fileMove("sd:/sxos/eMMC/03", "sd:/sxos/emunand/full.03.bin")
+	fileMove("sd:/sxos/eMMC/04", "sd:/sxos/emunand/full.04.bin")
+	fileMove("sd:/sxos/eMMC/05", "sd:/sxos/emunand/full.05.bin")
+	fileMove("sd:/sxos/eMMC/06", "sd:/sxos/emunand/full.06.bin")
+	fileMove("sd:/sxos/eMMC/07", "sd:/sxos/emunand/full.07.bin")
+	dirDel("sd:/sxos/eMMC")
+	color("GREEN")
+	println("Opération effectuée avec succès.")
+	color("WHITE")
+	println("")
+	println("Appuyer sur une touche pour fermer le script.")
+	pause()
+	exit()
+}
+
 switch_working_nand = {
 	if (mmcTypeWork == 0){
 		if (_EMU == 0){
@@ -228,6 +444,89 @@ switch_working_nand = {
 		return()
 	}
 	return()
+}
+
+synch_joycons={
+	if (_EMU == 0){
+		color("RED")
+		println("Aucune EMUNAND configurée sur la SD, impossible de continuer.")
+		println("")
+		println("Appuyez sur une touche pour revenir au menu.")
+		pause()
+		return()
+	}
+	color("BLUE");
+	println("TegraScript Syncfixby MezBar")
+	println("Ported to TegraScript v2 by Neville_Shorttop")
+	# https://gbatemp.net/threads/guide-pairing-the-joy-con-on-emunand-and-sysnand.562519/
+	println("Modified by shadow256")
+	println("")
+	color("YELLOW")
+	println("Ce script va corriger les problèmes de synchronisation de manettes entre la SYSMMC et l'EMUMMC")
+	println("Avant d'utiliser ce script, connectez toutes vos manettes à la SYSMMC")
+	println("")
+	color("RED")
+	println("Si vous utilisez 90DNS ou tout autre paramètre DNS,")
+	println("veuillez passer en mode avion sur la SYSMMC")
+	println("et l'EMUMMC car ce script copiera")
+	println("également les paramètres wifi de votre SYSMMC vers l'EMUMMC.")
+	println("")
+	println("Notez aussi que certains paramètres de votre emunand seront remplacés,")
+	println("comme par exemple le thème donc vérifiez les paramètres de l'emunand")
+	println("après l'exécution de ce script.")
+	println("")
+	color("GREEN")
+	println("Si vous utilisez incognito ou le Stealth Mode de SXOS")
+	println("")
+	color("WHITE")
+	wait(5000)
+	println("")
+	println("Appuyez sur 'VOL+' pour démarrer la synchronisation de la SYSMMC vers l'EMUMMC")
+	println("")
+	if (pause() & BtnVolPlus){
+		mmcAlreadyConnected = 0
+		temp_mmcTypeWork = mmcTypeWork
+		mmcTypeWork = 0
+		mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		mount_system()
+		if (return_code == 1) {
+			return()
+		}
+		mkdir("sd:/tegraexplorer")
+		mkdir("sd:/tegraexplorer/syncfix")
+		println("Sauvegarde du fichier '8000000000000050' de la SYSMMC vers le dossier 'sd:/tegraexplorer/syncfix'")
+		fileCopy("bis:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup")
+		mmcTypeWork = 1
+		mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		mount_system()
+		if (return_code == 1) {
+			return()
+		}
+		println("Sauvegarde du fichier '8000000000000050' de l'EMUMMC vers le dossier 'sd:/tegraexplorer/syncfix'")
+		println("")
+		fileCopy("bis:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_emummc_backup")
+		println("Copie du fichier '8000000000000050' de la SYSMMC vers l'EMUMMC")
+		println("")
+		fileCopy("sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup", "bis:/save/8000000000000050")
+		mmcTypeWork = temp_mmcTypeWork
+		color("GREEN")
+		println("Opération effectuée!")
+		println("")
+		println("Maintenant vos manettes devraient être synchronisées entre la SYSMMC et l'EMUMMC")
+		println("")
+		color("WHITE")
+		println("Appuyez sur une touche pour revenir au menu")
+		pause()
+		return()
+	} else() {
+		return()
+	}
 }
 
 del_parental_control = {
@@ -868,5 +1167,11 @@ while (z == 0) {
 	}
 	if (main_action == 8){
 		switch_working_nand()
+	}
+	if (main_action == 9){
+		synch_joycons()
+	}
+	if (main_action == 10){
+		migrate_emunand_menu_options()
 	}
 }

@@ -32,6 +32,8 @@
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick_RCM">Lockpick-RCM</a></li>
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick">Lockpick</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/TegraExplorer">TegraExplorer</a></li>
+<li><a target="_blank" href="https://github.com/suchmememanyskill/TegraScript">Some Tegraexplorer scripts</a></li>
+<li><a target="_blank" href="https://gbatemp.net/threads/guide-pairing-the-joy-con-on-emunand-and-sysnand.562519/">Tegraexplorer scripts to fix joycon synch between sysnand and emunand</a></li>
 <li><a target="_blank" href="https://github.com/KranKRival/BootSoundNX">BootSoundNX</a> </li>
 <li><a target="_blank" href="https://github.com/XorTroll/emuiibo">Emuiibo</a></li>
 <li><a target="_blank" href="https://github.com/FuryBaguette/AmiiSwap">AmiiSwap</a></li>

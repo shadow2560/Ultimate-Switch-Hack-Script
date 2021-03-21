@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.115</h2>
+<ul>
+<li>Add a function to synchronize the joysticks between the sysnand and the emunand to the TegraExplorer debrick script.</li>
+<li>Add the possibility to activate NetFx3 (old versions of .net Framework) if the debugging method using EmmcHaccGen doesn't work at first try.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 443.</li>
+</ul>
 <h2>V4.3.114</h2>
 <ul>
 <li>Adaptation of the files for the new Atmosphere parameters for manual and automatic settings and preparation for the introduction of the parameter for the HTC service.</li>

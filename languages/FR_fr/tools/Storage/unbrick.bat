@@ -252,6 +252,28 @@ echo Un problème est survenu pendant la création du firmware.
 echo Vérifiez que vous avez bien toutes les clés requises.
 goto:eof
 
+:emmchaccgen_package_creation_first_error
+echo Un problème est survenu pendant la création du firmware.
+echo Vérifiez que vous avez bien toutes les clés requises.
+echo.
+echo Cependant, il est aussi possible que .net Framework 3 ne soit pas activé sur votre système.
+echo Si vous souhaitez l'activer, une connexion à internet sera requise.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous activer .net Framework 3 sur votre système? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:netfx3_install_error
+echo Erreur durant l'activation de .net Framework 3, vérifiez que votre connexion internet fonctionne correctement.
+goto:eof
+
+:emmchaccgen_package_creation_second_error
+echo Un problème est survenu pendant la création du firmware.
+echo Vérifiez que vous avez bien toutes les clés requises.
+echo.
+echo Cependant, il est aussi possible que votre système nécessite un redémarrage.
+echo Vous pouvez essayer de quitter le script, redémarrer votre système et retenter la procédure.
+goto:eof
+
 :boot0_keyblobs_reparation_choice
 echo Vous pouvez réparer les keyblobs dans le fichier BOOT0 si vous avez des erreurs liées à celles-ci lors du dump des clés via Lockpick-RCM.
 echo Attention, ceci est une opération avancée et rarement nécessaire, ne l'effectuer que si vous savez se que vous faites.
@@ -259,7 +281,7 @@ echo Attention également, il est nécessaire d'avoir choisi le fichier de clés
 echo Notez également qu'en firmware 6.1.0 ou inférieur, le démarrage de manière officielle ne fonctionnera pas et la console restera sur un écran noir, le démarrage ne sera possible qu'en CFW. Cependant, en firmware supérieur au 6.1.0, le démarrage de manière officielle sera de nouveau possible.
 echo.
 echo Que souhaitez-vous faire?
-echo 1: Ne pas modifier le fichier BOOT0 et continuer $(recommandé^).
+echo 1: Ne pas modifier le fichier BOOT0 et continuer (recommandé^).
 echo 2: Modifier le fichier BOOT0 et continuer.
 echo 0: Terminer ce script.
 echo.

@@ -723,11 +723,33 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	IF !errorlevel! EQU 0 (
 		call "%associed_language_script%" "package_creation_success"
 	) else (
-		call "%associed_language_script%" "package_creation_error"
-		cd ..
-		rmdir /s /q "firmware_temp"
-		rmdir /s /q "update_packages"
-		goto:endscript
+		call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
+		if !errorlevel! EQU 1 (
+			Dism /online /NoRestart /Enable-Feature /FeatureName:"NetFx3"
+			if !error_level! NEQ 0 (
+				call "%associed_language_script%" "netfx3_install_error"
+				cd ..
+				rmdir /s /q "firmware_temp"
+				rmdir /s /q "update_packages"
+				goto:endscript
+			) else (
+				"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+				IF !errorlevel! EQU 0 (
+					call "%associed_language_script%" "package_creation_success"
+				) else (
+					call "%associed_language_script%" "emmchaccgen_package_creation_second_error"
+					cd ..
+					rmdir /s /q "firmware_temp"
+					rmdir /s /q "update_packages"
+					goto:endscript
+				)
+			)
+		) else (
+			cd ..
+			rmdir /s /q "firmware_temp"
+			rmdir /s /q "update_packages"
+			goto:endscript2
+		)
 	)
 	del /q save.stub >nul
 	cd ..

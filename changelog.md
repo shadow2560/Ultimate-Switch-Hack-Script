@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.115</h2>
+<ul>
+<li>Ajout d'une fonction permettant de synchroniser les manettes entre la sysnand et l'emunand au script de débrickage de TegraExplorer.</li>
+<li>Ajout de la possibilité d'activer NetFx3 (anciennes versions de .net Framework) si la méthode de débrickage utilisant EmmcHaccGen ne fonctionne pas au premier essaie.</li>
+<li>Mise à jour des crédits.</li>
+^<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 443.</li>
+</ul>
 <h2>V4.3.114</h2>
 <ul>
 <li>Adaptation des fichiers pour les nouveaux paramètres d'Atmosphere pour les réglages manuels et automatiques et préparation pour l'introduction du paramètre pour le service HTC.</li>
