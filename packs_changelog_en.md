@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V444</h2>
+<ul>
+<li>Inclusion of files allowing to launch Atmosphere on a SX Core/Lite chip not flashed with Spacecraft firmware.</li>
+<li>Update FastCFWswitch to version 1.2.0.</li>
+<li>Update  Retroarch download link for the version 1.9.1.</li>
+<li>Update AIO-Switch-Updater to version 2.4.4.</li>
+<li>Update DBI to version 255.</li>
+<li>Update Edizon-se to version 3.8.14.</li>
+<li>Update Sys-clk to version 1.0.1.</li>
+</ul>
 <h2>V443</h2>
 <ul>
 <li>Update Switch_90DNS_tester to version 1.0.3.</li>

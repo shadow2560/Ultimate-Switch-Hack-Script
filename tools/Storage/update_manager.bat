@@ -444,6 +444,7 @@ call :update_prodinfo_rewrite.bat
 call :update_renxpack.bat
 call :update_serial_checker.bat
 call :update_split_games.bat
+call :update_spoof_sxos_licence.bat
 call :update_test_keys.bat
 call :update_toolbox.bat
 call :update_unbrick.bat
@@ -1605,6 +1606,10 @@ call :verif_folder_version "tools\sd_switch\atmosphere"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\sd_switch\atmosphere_mariko_special_files"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\sd_switch\atmosphere_patches_nogc"
 IF "!update_finded!"=="Y" (
 	call :update_folder
@@ -1931,6 +1936,29 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\XCI-Cutter"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_spoof_sxos_licence.bat
+call :verif_file_version "tools\Storage\spoof_sxos_licence.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\spoof_sxos_licence.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\spoof_sxos_licence.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\python3_scripts\TX_SX_spoof_ID_unpacker"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
