@@ -23,7 +23,7 @@ echo Aucun fichier SXOS renseigné, le script va s'arrêter.
 goto:eof
 
 :fingerprint_set
-set /p fingerprint=Entrez le fingerprint de la console à spoofer ^(32 caractères hexadécimaux^) ^(laissez vide pour quitter le script^): 
+set /p fingerprint=Entrez le fingerprint de la console à spoofer ^(32 caractères hexadécimaux^) ^(laissez vide pour créer une licence préconfigurée ou entrez "0" pour quitter le script^): 
 goto:eof
 
 :fingerprint_error_number_chars

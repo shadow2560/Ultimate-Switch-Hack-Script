@@ -32,7 +32,7 @@ echo No SXOS file selected, the script will stop.
 goto:eof
 
 :fingerprint_set
-set /p fingerprint=Enter the fingerprint of the console to spoof ^(32 hexadecimal characters^) ^(leave empty to exit the script^): 
+set /p fingerprint=Enter the fingerprint of the console to spoof ^(32 hexadecimal characters^) ^(leave empty to create a pre-configured licence or enter "0" to exit the script^): 
 goto:eof
 
 :fingerprint_error_number_chars

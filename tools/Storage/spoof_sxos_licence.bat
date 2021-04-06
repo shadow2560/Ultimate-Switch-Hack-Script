@@ -42,7 +42,8 @@ IF "%boot_file_path%"=="" (
 echo.
 set fingerprint=
 call "%associed_language_script%" "fingerprint_set"
-IF "%fingerprint%"=="" goto:end_script
+IF "%fingerprint%"=="0" goto:end_script
+IF "%fingerprint%"=="" goto:licence_creation
 call TOOLS\Storage\functions\CONV_VAR_to_MAJ.bat fingerprint
 call TOOLS\Storage\functions\strlen.bat nb "%fingerprint%"
 IF NOT "%nb%"=="32" (
@@ -67,14 +68,29 @@ IF %i% LEQ 31 (
 		goto:set_fingerprint
 	)
 )
-tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -i "!boot_file_path:\=\\!" -f "!fingerprint!" >nul 2>&1
+:licence_creation
+IF "%fingerprint%"=="" (
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -i "!boot_file_path:\=\\!" >nul 2>&1
+) else (
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -i "!boot_file_path:\=\\!" -f "!fingerprint!" >nul 2>&1
+)
 IF !errorlevel! EQU 0 (
+	IF "%fingerprint%"=="" (
+		call :move_preconfig_sxos_license "%boot_file_path%"
+	)
 	call "%associed_language_script%" "boot_creation_success"
 	pause
 ) else (
 	call "%associed_language_script%" "boot_creation_error"
 	pause
 )
+
+:move_preconfig_sxos_license
+IF EXIST "license.dat" (
+	move "license.dat" "%~dp1" >nul
+)
+exit /b
+
 :end_script
 IF EXIST templogs (
 	del /q templogs 2>nul

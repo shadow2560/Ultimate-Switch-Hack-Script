@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.117</h2>
+<ul>
+<li>Mise à jour des scripts de spoof de la licence SXOS.</li>
+</ul>
 <h2>V4.3.116</h2>
 <ul>
 <li>Ajout des configs UMS dans la configuration de FastCFWswitch si le pack Atmosphere et ce module sont copiés.</li>
