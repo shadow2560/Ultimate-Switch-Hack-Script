@@ -1,8 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
-<h2>V4.3.116</h2>
+<h2>V4.3.117</h2>
 <ul>
 <li>Update the SXOS spoof license scripts.</li>
+<li>Update NXNandManager to version 4.1.2.</li>
 </ul>
 <h2>V4.3.116</h2>
 <ul>

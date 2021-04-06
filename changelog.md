@@ -3,6 +3,7 @@
 <h2>V4.3.117</h2>
 <ul>
 <li>Mise à jour des scripts de spoof de la licence SXOS.</li>
+<li>Mise à jour de NXNandManager en version 4.1.2.</li>
 </ul>
 <h2>V4.3.116</h2>
 <ul>
