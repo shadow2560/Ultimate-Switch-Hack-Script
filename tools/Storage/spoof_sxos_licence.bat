@@ -84,6 +84,7 @@ IF !errorlevel! EQU 0 (
 	call "%associed_language_script%" "boot_creation_error"
 	pause
 )
+goto:end_script
 
 :move_preconfig_sxos_license
 IF EXIST "license.dat" (
