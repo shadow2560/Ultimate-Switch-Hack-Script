@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.118</h2>
+<ul>
+<li>Updates for the unbrick script, the script for TegraExplorer has been slightly improved for reinstalling firmware without deleting data and TegraExplorer version 3.X will now be used (the script for TegraExplorer still needs to be translated into English).</li>
+<li>Update TegraExplorer to version 3.0.4.</li>
+<li>Update Lockpick-RCM to version 1.9.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 445.</li>
+</ul>
 <h2>V4.3.117</h2>
 <ul>
 <li>Update the SXOS spoof license scripts.</li>

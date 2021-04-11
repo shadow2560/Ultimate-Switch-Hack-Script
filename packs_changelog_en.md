@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V445</h2>
+<ul>
+<li>Update TegraExplorer to version 3.0.4.</li>
+<li>Update Lockpick-RCM to version 1.9.1.</li>
+</ul>
 <h2>V444</h2>
 <ul>
 <li>Inclusion of files allowing to launch Atmosphere on a SX Core/Lite chip not flashed with Spacecraft firmware.</li>
