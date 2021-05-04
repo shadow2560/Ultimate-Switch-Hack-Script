@@ -36,18 +36,19 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to install the driv
 goto:eof
 
 :dump_keys_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to dump your console keys ^(highly recommended to check if the console can possibly be debricked using this method or necessary if the method via EmmcHaccGen is used^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to dump your unpatched console keys ^(highly recommended to check if the console can possibly be debricked using this method or necessary if the method via EmmcHaccGen is used^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :dump_keys_instructions_begin
 echo.
 echo Insert your SD into the switch and turn it on in RCM mode.
 echo WARNING: If your current firmware is equal or higher than firmware 7.0.0, the folder "sept" of Atmosphere is necessary to be able to dump the keys so please copy this one to the root of your SD.
+echo Warning: If your Switch is a patched model, you will have to launch the Lockpick-RCM payload via a method witch is not supported on this script.
 goto:eof
 
 :dump_keys_instructions_end
 echo The payload should be launched on your console.
-echo Press the "Power" button to launch teh keys dump.
+echo Press the "Power" button to launch the keys dump.
 echo.
 echo If the dump didn't work, please specify this in the following choice to stop the script.
 echo If you have not copied the Atmosphere's "sept" folder to the root of your SD, do so and restart the script.
@@ -56,6 +57,14 @@ echo.
 echo If the dump worked well or if you want to try this procedure, you should put your SD in the PC. The keys file is the file "switch\prod.keys" on your SD.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Did the key dump go well? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:patched_console_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to unbrick a patched console? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:mariko_console_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to unbrick a Mariko console? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :method_creation_firmware_unbrick_choice
@@ -347,6 +356,8 @@ echo.
 echo Now, with the help of TegraExplorer, we will restore the nand.
 echo.
 echo Boot the console to RCM.
+echo.
+echo Warning: For the patched consoles, the payload launch should be made with a method not supported by this script.
 goto:eof
 
 :tegraexplorer_launch_correctly_question

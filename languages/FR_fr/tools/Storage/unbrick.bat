@@ -27,13 +27,14 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous installer les dr
 goto:eof
 
 :dump_keys_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous dumper les clés de votre console ^(très vivement recommandé pour vérifier si la console peut éventuellement être débricker via cette méthode ou nécessaire si la méthode via EmmcHaccGen est utilisée^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous dumper les clés de votre console non patchée ^(très vivement recommandé pour vérifier si la console peut éventuellement être débricker via cette méthode ou nécessaire si la méthode via EmmcHaccGen est utilisée^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :dump_keys_instructions_begin
 echo.
 echo Insérez votre SD dans la Switch et allumez-là en mode RCM.
 echo ATTENTION: Si votre firmware actuel est supérieur au firmware 7.0.0, le dossier "sept" d'Atmosphere est nécessaire pour pouvoir dumper les clés donc veuillez copier celui-ci à la racine de votre SD.
+echo Attention: Si votre console est un modèle patché, vous devrez lancer le payload Lockpick-RCM via une méthode non prise en charge via ce script.
 goto:eof
 
 :dump_keys_instructions_end
@@ -47,6 +48,14 @@ echo.
 echo Si le dump a fonctionné ou que vous souhaitez tout de même continuer la procédure, vous pouvez remettre la SD dans le PC pour la suite, le fichier de clés sera le fichier "switch\prod.keys" situé sur la SD.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Le dump des clés s'est-il bien passé? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:patched_console_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous débricker une console patchée? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:mariko_console_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous débricker une console Mariko? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :method_creation_firmware_unbrick_choice
@@ -278,7 +287,6 @@ goto:eof
 echo Vous pouvez réparer les keyblobs dans le fichier BOOT0 si vous avez des erreurs liées à celles-ci lors du dump des clés via Lockpick-RCM.
 echo Attention, ceci est une opération avancée et rarement nécessaire, ne l'effectuer que si vous savez se que vous faites.
 echo Attention également, il est nécessaire d'avoir choisi le fichier de clés lié à la console et dumpé avec Lockpick-RCM sur celle-ci lors de votre choix du fichier de clés durant ce script.
-echo Notez également qu'en firmware 6.1.0 ou inférieur, le démarrage de manière officielle ne fonctionnera pas et la console restera sur un écran noir, le démarrage ne sera possible qu'en CFW. Cependant, en firmware supérieur au 6.1.0, le démarrage de manière officielle sera de nouveau possible.
 echo.
 echo Que souhaitez-vous faire?
 echo 1: Ne pas modifier le fichier BOOT0 et continuer (recommandé^).
@@ -342,6 +350,8 @@ echo.
 echo Maintenant, avec l'aide de TegraExplorer, nous allons restaurer la nand.
 echo.
 echo Passer la console en RCM.
+echo.
+echo Attention: Pour les consoles patchées, le lancement des payloads doit se faire via une méthode non traitée par ce script.
 goto:eof
 
 :tegraexplorer_launch_correctly_question

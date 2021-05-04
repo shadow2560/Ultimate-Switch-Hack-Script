@@ -157,6 +157,16 @@ IF "%ERRORLEVEL%"=="0" (
 	call "%associed_language_script%" "disk_formating_success"
 )
 :copy_to_sd
+set sx_core_lite_chip=
+::call "%associed_language_script%" "sx_core_lite_chip_choice"
+IF NOT "%sx_core_lite_chip%"=="" set sx_core_lite_chip=%sx_core_lite_chip:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_core_lite_chip" "o/n_choice"
+IF /i "%sx_core_lite_chip%"=="o" (
+	set mariko_console=
+	call "%associed_language_script%" "mariko_console_choice"
+	IF NOT "!mariko_console!"=="" set mariko_console=!mariko_console:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
+)
 :define_general_select_profile
 echo.
 call "%associed_language_script%" "general_profile_select_begin"
@@ -436,6 +446,15 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 			move "%volume_letter%:\atmosphere\titles" "%volume_letter%:\atmosphere\contents" >nul
 		)
 	)
+	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000000D"
+	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000002B\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000002B"
+	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000003C\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000003C"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000008\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000008"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000032\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000032"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000034\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000034"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000036\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000036"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000037\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000037"
+	IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000042\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000042"
 	IF EXIST "%volume_letter%:\atmosphere\BCT.ini" del /q "%volume_letter%:\atmosphere\BCT.ini"
 	IF EXIST "%volume_letter%:\atmosphere\loader.ini" del /q "%volume_letter%:\atmosphere\loader.ini"
 	IF EXIST "%volume_letter%:\atmosphere\system_settings.ini" del /q "%volume_letter%:\atmosphere\system_settings.ini"
@@ -643,6 +662,11 @@ for /l %%i in (1,1,%temp_count%) do (
 			set /p temp_module_title_id=<templogs\tempvar.txt
 			"%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\titles %temp_modules_copy_path% /e >nul
 			IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\others %volume_letter%:\ /e >nul
+			IF "!temp_module!"=="Nx-btred" (
+				set temp_module=MissionControl
+				"%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\titles %temp_modules_copy_path% /e >nul
+				IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\others %volume_letter%:\ /e >nul
+			)
 			IF "!temp_module!"=="MissionControl" (
 				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\atmosphere\ /e >nul
 				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\sxos\ /e >nul
@@ -728,17 +752,29 @@ for /l %%i in (1,1,%temp_count%) do (
 	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%mixed_profile_path%" >templogs\tempvar.txt
 	set /p temp_homebrew=<templogs\tempvar.txt
 	IF EXIST "tools\sd_switch\mixed\modular\!temp_homebrew!\folder_version.txt" (
+		IF "!temp_homebrew!"=="Haku33" (
+			set temp_special_homebrew=Y
+		IF /i NOT "%mariko_console%"=="O" (
+			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_erista %volume_letter%:\ /e >nul
+		) else (
+			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_mariko %volume_letter%:\ /e >nul
+		)
 		IF "!temp_homebrew!"=="EdiZon" (
+			set temp_special_homebrew=Y
 			IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
 			IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
+			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\switch %volume_letter%:\switch /e >nul
 			IF EXIST "%volume_letter%:\atmosphere\contents" (
 				call :force_copy_overlays_base_files "atmosphere"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
 			)
 			IF EXIST "%volume_letter%:\ReiNX\contents" (
 				call :force_copy_overlays_base_files "reinx"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
 			)
 			IF EXIST "%volume_letter%:\sxos\titles" (
 				call :force_copy_overlays_base_files "sxos"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 			IF EXIST "%volume_letter%:\boot.dat" (
 				IF NOT EXIST "%volume_letter%:\sxos" (
@@ -746,6 +782,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\sxos\titles"
 				)
 				call :force_copy_overlays_base_files "sxos"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 			IF /i "%copy_atmosphere_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\atmosphere" (
@@ -753,6 +790,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\contents
 				)
 				call :force_copy_overlays_base_files "atmosphere"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
 			)
 			IF /i "%copy_reinx_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\ReiNX" (
@@ -760,6 +798,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\ReiNX\contents"
 				)
 				call :force_copy_overlays_base_files "reinx"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
 			)
 			IF /i "%copy_sxos_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\sxos" (
@@ -767,6 +806,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\sxos\titles"
 				)
 				call :force_copy_overlays_base_files "sxos"
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 		)
 		IF "!temp_homebrew!"=="Switch-cheats-updater" (

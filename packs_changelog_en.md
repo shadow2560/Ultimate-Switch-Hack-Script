@@ -1,5 +1,31 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V446</h2>
+<ul>
+<li>Add the Off_switch homebrew.</li>
+<li>Update MissionControl to version 0.5.0-alpha.2.</li>
+<li>Add the Nx-btred module.</li>
+<li>Update files for Mariko console or equiped with SX Core/Lite chip.</li>
+<li>Update Atmosphere to version 0.19.2.</li>
+<li>Update Hekate to version 5.5.5.</li>
+<li>Update Nx-hbloader to version 2.4.1.</li>
+<li>Update DBI to version 267.</li>
+<li>Update Edizon-SE to version 3.8.17.</li>
+<li>Update Fizeau to version 2.1.6.</li>
+<li>Update Tinfoil to version 12.00.</li>
+<li>Update Payload_Launcher to version 3.0.1.</li>
+<li>Update Ldn_mitm to version 1.8.0.</li>
+<li>Update Haku33 to version 3.3.</li>
+<li>Update SaltyNX to version 0.4.0a-hotfix.</li>
+<li>Update AIO-Switch-Updater to version 2.4.9.</li>
+<li>Update MGBA to version 0.9.1.</li>
+<li>Update Sys-con to version 0.6.3.</li>
+<li>Update Emuiibo to version 0.6.3.</li>
+<li>Update Sys-botebase to version 1.8.</li>
+<li>Update Nxdumptool to version 1.1.14.</li>
+<li>Update  Retroarch download link for the version 1.9.2.</li>
+<li>Update Checkpoint with <a target="_blank" href="https://github.com/SciresM/Checkpoint/releases/tag/ams-19-compat">this version for Atmosphere 0.19.0+</a>.</li>
+</ul>
 <h2>V445</h2>
 <ul>
 <li>Update TegraExplorer to version 3.0.4.</li>

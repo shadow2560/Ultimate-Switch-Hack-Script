@@ -36,6 +36,7 @@ call "%associed_language_script%" "main_action_choice"
 IF "%action_choice%"=="1" goto:file_unpack_config
 IF "%action_choice%"=="2" goto:folder_unpack_config
 goto:end_script
+
 :file_unpack_config
 set input_file=
 call "%associed_language_script%" "input_file_choice"

@@ -11,12 +11,12 @@ echo Attention: N'utilisez surtout aucune de ces fonctions sur une console équi
 echo.
 echo Que souhaitez-vous faire?
 echo.
-echo 1: Préparer une mise à jour via ChoiDuJour-NX sur la SD et/ou un package de mise à jour via ChoiDuJour en téléchargeant le firmware via internet?
-echo 2: Débricker une console ^(fonction en beta^)?
+echo 1: Préparer une mise à jour via ChoiDuJour-NX ou Daybreak sur la SD et/ou un package de mise à jour via ChoiDuJour en téléchargeant le firmware via internet?
+echo 2: Débricker une console ^(fonction en beta pour les consoles patchées/Mariko^)?
 echo 3: Créer un package de mise à jour de la Switch via ChoiDuJour via un fichier ou un dossier déjà téléchargé??
-echo 4: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(fonction en beta^)?
+echo 4: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs?
 echo 5: Débrickage sur PRODINFO ^(fonction en beta^)?
-echo 6: Créer un package de mise à jour de la Switch via EmmcHaccGen via un  dossier déjà téléchargé??
+echo 6: Créer un package de mise à jour de la Switch via EmmcHaccGen via un  dossier déjà téléchargé ^(fonction en beta pour les consoles Mariko^)?
 echo 7: Créer les sig_patches pour Atmosphere?
 echo 0: Obtenir une assistance sur le débrickage?
 echo.

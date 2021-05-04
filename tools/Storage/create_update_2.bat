@@ -70,6 +70,11 @@ call "%associed_language_script%" "noexfat_param_choice"
 IF NOT "%no_exfat%"=="" set no_exfat=%no_exfat:~0,1%
 call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "no_exfat" "o/n_choice"
 IF /i "%no_exfat%"=="o" set no_exfat_param=--no-exfat
+set mariko_console=
+call "%associed_language_script%" "mariko_console_param_choice"
+IF NOT "%mariko_console%"=="" set mariko_console=%mariko_console:~0,1%
+call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
+IF /i "%mariko_console%"=="o" set mariko_console_param=--mariko --no-autorcm
 :start_update_creation
 IF NOT EXIST "%calling_script_dir%\update_packages\*.*" (
 	del /q "%calling_script_dir%\update_packages" 2>nul
@@ -77,14 +82,20 @@ IF NOT EXIST "%calling_script_dir%\update_packages\*.*" (
 )
 %calling_script_dir:~0,1%:
 cd "%calling_script_dir%\update_packages"
-copy /v "%this_script_dir%\..\EmmcHaccGen\save.stub" save.stub >nul
-"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% --fw "%update_file_path%"
+copy /v "%this_script_dir%\..\EmmcHaccGen\save.stub.v4" save.stub.v4 >nul
+copy /v "%this_script_dir%\..\EmmcHaccGen\save.stub.v5" save.stub.v5 >nul
+IF /i NOT "%mariko_console%"=="o" (
+	"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% --fw "%update_file_path%"
+) else (
+	"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
+)
 IF %errorlevel% EQU 0 (
 	call "%associed_language_script%" "package_creation_success"
 ) else (
 	call "%associed_language_script%" "package_creation_error"
 )
-del /q save.stub >nul
+del /q save.stub.v4 >nul
+del /q save.stub.v5 >nul
 :endscript
 pause
 %calling_script_dir:~0,1%:

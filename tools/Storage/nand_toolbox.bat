@@ -111,6 +111,7 @@ IF "%action_choice%"=="15" (
 	goto:define_action_choice
 )
 IF "%action_choice%"=="16" cls & goto:brute_force
+IF "%action_choice%"=="17" cls & goto:pass_first_config_screen
 IF "%action_choice%"=="0" (
 	cls
 	call tools\storage\mount_discs.bat "auto_close"
@@ -119,6 +120,11 @@ IF "%action_choice%"=="0" (
 		rmdir /s /q templogs 2>nul
 	)
 	mkdir templogs
+	goto:define_action_choice
+)
+IF "%action_choice%"=="00" (
+	cls
+	tools\NxNandManager\NxNandManager_new.exe --install_dokan
 	goto:define_action_choice
 )
 goto:end_script
@@ -323,7 +329,9 @@ IF "%output_nand_type%"=="FULL NAND" set output_nand_soc_rev=%nand_soc_rev%
 call :get_type_nand "%input_path%"
 set input_nand_type=%nand_type%
 IF "%input_nand_type%"=="BOOT0" set input_nand_soc_rev=%nand_soc_rev%
-IF "%input_nand_type%"=="FULL NAND" set input_nand_soc_rev=%nand_soc_rev%
+IF "%input_nand_type%"=="FULL NAND" (
+	set input_nand_soc_rev=%nand_soc_rev%
+)
 IF "%input_nand_type%"=="UNKNOWN" (
 	call "%associed_language_script%" "restaure_input_dump_invalid_error"
 	goto:restaure_nand
@@ -350,6 +358,13 @@ IF "%partition%"=="" (
 			call "%associed_language_script%" "restaure_partitions_not_match_error"
 			goto:restaure_nand
 		)
+	)
+)
+IF NOT "%partition%"=="" (
+	IF "%input_nand_type%"=="RAWNAND" (
+		set input_nand_type=%partition%
+	) else IF "%input_nand_type%"=="FULL NAND" (
+		set input_nand_type=%partition%
 	)
 )
 IF NOT "%partition%"=="" (
@@ -1245,6 +1260,78 @@ echo.
 pause
 goto:define_action_choice
 
+:pass_first_config_screen
+set input_path=
+set biskeys_file_path=
+set action_choice=
+call "%associed_language_script%" "pass_first_config_screen__begin"
+pause
+echo.
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:define_action_choice
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:pass_first_config_screen
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_input_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p input_path=<templogs\tempvar.txt
+	)
+)
+IF "%input_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:pass_first_config_screen
+)
+set partition=
+call :get_type_nand "%input_path%"
+IF /i "%nand_type%"=="RAWNAND" set partition=SYSTEM
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set partition=SYSTEM
+IF /i "%nand_type%"=="FULL NAND" set partition=SYSTEM
+IF /i "%nand_type%"=="SYSTEM" set partition=SYSTEM
+IF /i NOT "%partition%"=="SYSTEM" (
+	call "%associed_language_script%" "partition_should_be_system_error"
+	goto:pass_first_config_screen
+)
+echo.
+call :select_biskeys_file
+IF "%biskeys_file_path%"=="" (
+	call "%associed_language_script%" "biskeys_file_not_selected_error"
+	goto:pass_first_config_screen
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=SYSTEM>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:pass_first_config_screen
+)
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:pass_first_config_screen
+)
+"tools\python3_scripts\pass_first_configuration_screen_save_rewrite\pass_first_configuration_screen_save_rewrite.exe" -i "%mounted_partition_letter%:\save\8000000000000050" -k "%biskeys_file_path%" >nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "pass_first_config_screen_save_modif_error"
+	call :unmount_nand_partition
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "unmounting_partition_error"
+	)
+	goto:pass_first_config_screen
+)
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+call "%associed_language_script%" "pass_first_config_screen_save_modif_sucess"
+pause
+goto:define_action_choice
+
 :get_type_nand
 set nand_type=
 set nand_file_or_disk=
@@ -1910,6 +1997,57 @@ exit /b
 set base_folder_path_of_a_file_path=
 set base_folder_path_of_a_file_path=%~dp1
 exit /b
+
+:mount_nand_partition
+::set mounted_partition_process_id=
+IF NOT "%mounted_partition_letter%"=="" (
+	tools\NxNandManager\dokan_x86\dokanctl.exe /u %mounted_partition_letter%
+	IF !errorlevel! NEQ 0 exit /b 400
+)
+call :find_not_used_disk_letter
+start %windir%\system32\wscript.exe //Nologo tools\NxNandManager\mount_nand.vbs "%input_path%" "%biskeys_file_path%" "%mounted_partition_letter%" "%~1" "templogs\mounted_partition.txt" "templogs\mounted_partition_process_id.txt"
+"%windir%\system32\timeout.exe" /t 5 /nobreak >nul
+:test_mount_launch
+IF NOT EXIST "%mounted_partition_letter%:\" (
+	IF EXIST "templogs\mounted_partition.txt" (
+		"%windir%\system32\timeout.exe" /t 3 /nobreak >nul
+		::tools\gnuwin32\bin\tail.exe -n-1 <templogs\mounted_partition.txt >templogs\tempvar.txt
+		::set /p temp_line=<templogs\tempvar.txt
+		::IF "!temp_line:~0,10!"=="Partition " exit /b
+		goto:test_mount_launch
+	) else (
+		exit /b 401
+	)
+)
+::set /p mounted_partition_process_id=<templogs\mounted_partition_process_id.txt
+::IF "%mounted_partition_process_id%"=="" (
+	::exit /b 402
+::)
+exit /b
+
+:unmount_nand_partition
+IF "%mounted_partition_letter%"=="" (
+	exit /b 400
+)
+tools\NxNandManager\dokan_x86\dokanctl.exe /u %mounted_partition_letter% >nul 2>&1
+::start tools\NxNandManager\windows-kill.exe -SIGBREAK %mounted_partition_process_id%
+::"%windir%\system32\timeout.exe" /t 5 /nobreak >nul
+IF NOT EXIST "%mounted_partition_letter%:\" (
+	set mounted_partition_letter=
+	set mounted_partition_process_id=
+) else (
+	exit /b 401
+)
+exit /b
+
+:find_not_used_disk_letter
+FOR %%z IN (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) DO (
+	IF NOT EXIST "%%z:\" (
+		set mounted_partition_letter=%%z
+		exit /b
+	)
+)
+exit /b 400
 
 :end_script
 IF EXIST templogs (

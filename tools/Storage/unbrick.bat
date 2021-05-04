@@ -35,13 +35,35 @@ IF %errorlevel% EQU 2 goto:endscript2
 call "%associed_language_script%" "intro_2"
 IF %errorlevel% EQU 1 start tools\drivers\automatic_install\drivers.exe
 echo.
+call "%associed_language_script%" "patched_console_choice"
+IF %errorlevel% EQU 1 (
+	set patched_console=O
+	set method_creation_firmware_unbrick_choice=2
+)
+IF %errorlevel% EQU 2 (
+	set patched_console=N
+	set mariko_console=N
+)
+IF /i "%patched_console%"=="O" (
+	call "%associed_language_script%" "mariko_console_choice"
+	IF !errorlevel! EQU 1 (
+		set mariko_console=O
+		goto:keys_file_creation
+	) else (
+		set mariko_console=N
+	)
+)
+
+echo.
 call "%associed_language_script%" "dump_keys_choice"
 IF %errorlevel% EQU 1 (
 	call "%associed_language_script%" "dump_keys_instructions_begin"
-	tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\Lockpick_RCM.bin"
+	IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\Lockpick_RCM.bin"
 	call "%associed_language_script%" "dump_keys_instructions_end"
 	IF !errorlevel! EQU 2 goto:endscript2
 )
+
+	IF /i "%mariko_console%"=="O" goto:keys_file_creation
 
 call "%associed_language_script%" "method_creation_firmware_unbrick_choice"
 if "%errorlevel%"=="1" (
@@ -367,6 +389,8 @@ echo 10.1.0?
 echo 10.2.0?
 echo 11.0.0?
 echo 11.0.1?
+echo 12.0.0?
+echo 12.0.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -628,6 +652,20 @@ IF "%firmware_choice%"=="11.0.1" (
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="12.0.0" (
+	set expected_md5=d297bdb5a6d0341df6cc24195f604abe
+	set "firmware_link=https://mega.nz/file/pJBCBLaC#rwCiDG9-ASH8K8cZYUUsg-UxHNqcmgsqcsmlRyyWmsY"
+	set firmware_file_name=Firmware 12.0.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="12.0.1" (
+	set expected_md5=12040ddd1533cf58ff2fb690d7bec3ee
+	set "firmware_link=https://mega.nz/file/9UoUTYaY#l-rfPBQXpNIQ6I4UBeNRNHJhOE5zb5a7CPA4FAF_qJM"
+	set firmware_file_name=Firmware 12.0.1.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
 goto:endscript2
 
 :download_firmware
@@ -718,8 +756,13 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	)
 	cd ..
 ) else if "%method_creation_firmware_unbrick_choice%"=="2" (
-	copy /v "..\tools\EmmcHaccGen\save.stub" save.stub >nul
-	"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+	copy /v "..\tools\EmmcHaccGen\save.stub.v4" save.stub.v4 >nul
+	copy /v "..\tools\EmmcHaccGen\save.stub.v5" save.stub.v5 >nul
+	IF /i NOT "%mariko_console%"=="O" (
+		"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+	) else (
+		"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --mariko --no-autorcm --fw "..\firmware_temp"
+	)
 	IF !errorlevel! EQU 0 (
 		call "%associed_language_script%" "package_creation_success"
 	) else (
@@ -733,7 +776,11 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 				rmdir /s /q "update_packages"
 				goto:endscript
 			) else (
-				"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+				IF /i NOT "%mariko_console%"=="O" (
+					"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp"
+				) else (
+					"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp" --mariko --no-autorcm
+				)
 				IF !errorlevel! EQU 0 (
 					call "%associed_language_script%" "package_creation_success"
 				) else (
@@ -751,7 +798,8 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 			goto:endscript2
 		)
 	)
-	del /q save.stub >nul
+	del /q save.stub.v4 >nul
+	del /q save.stub.v5 >nul
 	cd ..
 	dir /A:D /B update_packages >templogs\tempvar.txt
 	set /p emmchaccgen_firmware_folder=<templogs\tempvar.txt
@@ -759,6 +807,7 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 :copy_all_to_sd
 rmdir /s /q firmware_temp
 echo.
+IF /i "%mariko_console%"=="O" goto:pass_boot0_creation
 call "%associed_language_script%" "boot0_keyblobs_reparation_choice"
 IF %errorlevel% EQU 3 goto:endscript2
 IF %errorlevel% EQU 2 (
@@ -893,11 +942,29 @@ IF !errorlevel! NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript
 )
+IF EXIST "%volume_letter%:\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000000D"
+IF EXIST "%volume_letter%:\atmosphere\contents\010000000000002B\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000002B"
+IF EXIST "%volume_letter%:\atmosphere\contents\010000000000003C\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000003C"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000008\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000008"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000032\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000032"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000034\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000034"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000036\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000036"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000037\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000037"
+IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000042\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000042"
 del /Q /S "%volume_letter%:\atmosphere\.emptydir" >nul
 del /Q /S "%volume_letter%:\bootloader\.emptydir" >nul
 del /q "%volume_letter%:\folder_version.txt" >nul
+IF /i "%mariko_console%"=="O" (
+	rmdir /s /q "%volume_letter%:\payloads >nul
+	rmdir /s /q "%volume_letter%:\switch\ChoiDuJourNX >nul
+	rmdir /s /q "%volume_letter%:\switch\Payload_Launcher >nul
+)
 echo.
 set restore_method=
+IF /i "%patched_console%"=="O" (
+	set restore_method=1
+	goto:end_copy_to_sd
+)
 call "%associed_language_script%" "restore_method_choice"
 IF %errorlevel% equ 1 (
 	set restore_method=1
@@ -914,7 +981,7 @@ call "%associed_language_script%" "copying_end"
 :launch_tegraexplorer
 echo.
 call "%associed_language_script%" "tegraexplorer_launch_begin"
-tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer.bin"
+IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer.bin"
 call "%associed_language_script%" "tegraexplorer_launch_correctly_question"
 IF %errorlevel% EQU 2 goto:launch_tegraexplorer
 call "%associed_language_script%" "tegraexplorer_launch_end"
@@ -923,7 +990,7 @@ IF NOT "%restore_method%"=="2" goto:launch_hekate
 :hacdiskmount_step
 echo.
 call "%associed_language_script%" "memloader_launch_begin"
-tools\TegraRcmSmash\TegraRcmSmash.exe -w tools\memloader\memloader_usb.bin --dataini="tools\memloader\mount_discs\ums_emmc.ini"
+IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w tools\memloader\memloader_usb.bin --dataini="tools\memloader\mount_discs\ums_emmc.ini"
 call "%associed_language_script%" "memloader_launch_correctly_question"
 IF %errorlevel% EQU 2 goto:hacdiskmount_step
 call "%associed_language_script%" "memloader_launch_end"
@@ -940,7 +1007,7 @@ call "%associed_language_script%" "hekate_launch_begin"
 IF %errorlevel% EQU 2 goto:launch_hekate_end
 :hekate_after_first_launch
 call "%associed_language_script%" "hekate_rcm_instruction"
-tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\hekate.bin"
+IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\hekate.bin"
 :launch_hekate_end
 call "%associed_language_script%" "hekate_launch_end"
 IF %errorlevel% EQU 1 goto:hekate_after_first_launch

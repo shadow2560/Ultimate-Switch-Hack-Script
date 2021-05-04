@@ -436,6 +436,7 @@ call :update_nand_toolbox.bat
 call :update_netplay.bat
 call :update_launch_nsusbloader.bat
 call :update_nsZip.bat
+call :update_partial_aes_mariko_keys_decrypt.bat
 call :update_pegaswitch.bat
 call :update_preload_NSC_Builder.bat
 call :update_prepare_sd_switch.bat
@@ -1349,6 +1350,10 @@ call :verif_folder_version "tools\NxNandManager"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\python3_scripts\pass_first_configuration_screen_save_rewrite"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :update_boot0_rewrite.bat
 call :update_emunand_partition_file_create.bat
 call :update_extract_nand_files_from_emunand_partition_file.bat
@@ -1525,6 +1530,29 @@ IF "!update_finded!"=="Y" (
 set /a temp_count+=1
 goto:listing_overlays
 :skip_listing_overlays
+exit /b
+
+:update_partial_aes_mariko_keys_decrypt.bat
+call :verif_file_version "tools\Storage\partial_aes_mariko_keys_decrypt.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\partial_aes_mariko_keys_decrypt.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\partial_aes_mariko_keys_decrypt.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\PartialAesKeyCrack"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 exit /b
 
 :update_pegaswitch.bat

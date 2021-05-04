@@ -20,15 +20,17 @@ echo What do you want to do?
 echo.
 echo 1: Get the Bis keys in a text file via RCM mode?
 echo.
-echo 2: Use the Hid-mitm Compagnon software?
+echo 2: Decrypt the partial keys for Mariko consoles?
 echo.
-echo 3: Launch the emuGUIibo software?
+echo 3: Use the Hid-mitm Compagnon software?
 echo.
-echo 4: Extract gamesaves?
+echo 4: Launch the emuGUIibo software?
 echo.
-echo 5: Launch Linux ^(obsolete function^)?
+echo 5: Extract gamesaves?
 echo.
-echo 6: Update Shofel2 ^(obsolete function^)?
+echo 6: Launch Linux ^(obsolete function^)?
+echo.
+echo 7: Update Shofel2 ^(obsolete function^)?
 echo.
 echo All other choices: Go back to main menu?
 echo.

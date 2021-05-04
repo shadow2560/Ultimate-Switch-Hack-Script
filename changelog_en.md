@@ -1,5 +1,19 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.119</h2>
+<ul>
+<li>Add a function to decrypt partial keys of a Mariko console retrieved via Lockpick-RCM on it ("partialaes.keys" file).</li>
+<li>In the SD preparation, Edizon-SE will be copied with his associed modules.</li>
+<li>Support of the firmwares 12.0.0 and 12.0.1 in the scripts witch can make actions on firmwares.</li>
+<li>Support unbrick and package creation via EmmcHaccGen for the Mariko console.</li>
+<li>In the Nand Toolbox, add a function to bypass the first configuration of a console (thanks to Eliboa for the new functionalities implemented in NXNandManager).</li>
+<li>Fix a bug in the nand restoration in some specific cases.</li>
+<li>Add the payload Prodinfo_gen.</li>
+<li>Update EmmcHaccGen to version 2.2.3.</li>
+<li>Update Hekate to version 5.5.5.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 446.</li>
+</ul>
 <h2>V4.3.118</h2>
 <ul>
 <li>Updates for the unbrick script, the script for TegraExplorer has been slightly improved for reinstalling firmware without deleting data and TegraExplorer version 3.X will now be used (the script for TegraExplorer still needs to be translated into English).</li>

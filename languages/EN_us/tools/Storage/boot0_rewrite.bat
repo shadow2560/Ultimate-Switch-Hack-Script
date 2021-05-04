@@ -43,7 +43,7 @@ goto:eof
 :prod_keys_file_select_choice
 echo Select the file containing the keys dumped on the console via Lockpick-RCM.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Console\'s keys file select" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "Console\'s keys file select" "templogs\tempvar.txt"
 goto:eof
 
 :prod_keys_file_empty_error

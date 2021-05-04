@@ -27,11 +27,12 @@ set action_choice=
 cls
 call "%associed_language_script%" "display_menu"
 IF "%action_choice%"=="1" goto:biskey_dump
-IF "%action_choice%"=="2" goto:hid-mitm_compagnon
-IF "%action_choice%"=="3" goto:emuguiibo
-IF "%action_choice%"=="4" goto:game_saves_unpack
-IF "%action_choice%"=="5" goto:launch_linux
-IF "%action_choice%"=="6" goto:update_shofel2
+IF "%action_choice%"=="2" goto:mariko_partial_keys_decrypt
+IF "%action_choice%"=="3" goto:hid-mitm_compagnon
+IF "%action_choice%"=="4" goto:emuguiibo
+IF "%action_choice%"=="5" goto:game_saves_unpack
+IF "%action_choice%"=="6" goto:launch_linux
+IF "%action_choice%"=="7" goto:update_shofel2
 goto:end_script
 :biskey_dump
 set action_choice=
@@ -43,6 +44,18 @@ IF EXIST "tools\Storage\biskey_dump.bat" (
 	call tools\Storage\update_manager.bat "update_biskey_dump.bat" "force"
 )
 call TOOLS\Storage\biskey_dump.bat
+@echo off
+goto:define_action_choice
+:mariko_partial_keys_decrypt
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\partial_aes_mariko_keys_decrypt.bat" (
+	call tools\Storage\update_manager.bat "update_partial_aes_mariko_keys_decrypt.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_partial_aes_mariko_keys_decrypt.bat" "force"
+)
+call TOOLS\Storage\partial_aes_mariko_keys_decrypt.bat
 @echo off
 goto:define_action_choice
 :hid-mitm_compagnon

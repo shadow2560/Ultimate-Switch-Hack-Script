@@ -24,8 +24,8 @@ echo 1: obtenir des infos sur un fichier de dump ou sur une partie de la nand de
 echo 2: Dumper la nand ou une partition de la nand de la console, copier un fichier ou extraire une partition d'un fichier de dump?
 echo 3: Restaurer la nand ou une partition de la nand de la console sur la console ou dans un fichier de dump?
 echo 4: Créer une emunand sur une SD?
-echo 5: Activer/désactiver l'auto-RCM d'une partition BOOT0 ?
-echo 6: Supprimer les informations d'identification de la console dans PRODINFO (fonction identique à Incognito)?
+echo 5: Activer/désactiver l'auto-RCM d'une partition BOOT0 ^(ne pas utiliser sur les consoles Erista patchées ou Mariko^)?
+echo 6: Supprimer les informations d'identification de la console dans PRODINFO ^(fonction identique à Incognito^) ^(ne pas utiliser sur les consoles Mariko^)?
 echo 7: Joindre un dump de la rawnand fait en plusieurs parties, par exemple un dump fait via Hekate sur une SD formatée en FAT32?
 echo 8: Spliter un dump de la rawnand?
 echo 9: Créer un fichier à partir d'un dump complet de la nand qui pourra ensuite être utilisé pour la création d'une Emunand via une partition dédiée de la SD?
@@ -34,9 +34,11 @@ echo 11: Déchiffrer un dump ou une partition d'une rawnand?
 echo 12: Chiffrer un dump ou une partition d'une rawnand?
 echo 13: Utiliser Ninfs pour monter un fichier de dump de la rawnand?
 echo 14: Changer la taille de la partition USER d'une RAWNAND ou d'une FULL NAND?
-echo 15: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(fonction en beta^)?
+echo 15: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(ne pas utiliser sur les consoles Mariko^)?
 echo 16: Brute forcer les bis_keys?
+echo 17: Forcer le passage de l'écran de la première configuration de la console ^(nécessite l'installation du driver Dokan^) ^(fonction en alpha^ test)?
 echo 0: Charger une partie de la nand d'une console via USB avec Memloader?
+echo 00: Installer le driver Dokan?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 set /p action_choice=Faites votre choix: 
@@ -335,6 +337,37 @@ goto:eof
 
 :brute_force_erase_existing_file_choice
 set /p erase_output_file=Ce dossier contient déjà un fichier de ce type de clé, souhaitez-vous vraiment continuer en écrasant le fichier existant ^(si oui, le fichier sera supprimé juste après ce choix^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:pass_first_config_screen__begin
+echo Cette fonction permet de forcer le passage de la première configuration de la Switch, surtout utile pour ceux ayant un problème pour connecter les joycons à la console.
+goto:eof
+
+:partition_should_be_system_error
+echo La nand doit inclure la partition SYSTEM.
+goto:eof
+
+:mounting_partition_error
+echo Le montage de la partition a échoué, l'action va être annulée.
+echo Ceci peut être dû au driver Dokan non installé sur le système.
+echo Si le problème persiste, essayez de redémarrer l'ordinateur puis réexécuter cette action.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous installer le driver Dokan? ^(%lng_yes_choice%/%lng_no_choice%^): "
+IF %errorlevel% EQU 1 (
+	tools\NxNandManager\NxNandManager.exe --install_dokan
+)
+goto:eof
+
+:pass_first_config_screen_save_modif_error
+echo Une erreur s'est produite durant la modification du fichier permettant de passer le premier écran de configuration, l'action va être annulée.
+goto:eof
+
+:unmounting_partition_error
+echo Une erreur s'est produite durant le démontage de la partition.
+goto:eof
+
+:pass_first_config_screen_save_modif_sucess
+echo Le passage du premier écran de configuration a été effectué avec succès.
 goto:eof
 
 :bad_char_error

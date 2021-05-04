@@ -39,6 +39,10 @@ goto:eof
 set /p no_exfat=Souhaitez-vous désactiver le support pour le format EXFAT des cartes SD? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:mariko_console_param_choice
+set /p mariko_console=Souhaitez-vous créer un package pour une console Mariko? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :package_creation_success
 echo Firmware créé avec succès dans le répertoire "update_packages" du script.
 goto:eof
