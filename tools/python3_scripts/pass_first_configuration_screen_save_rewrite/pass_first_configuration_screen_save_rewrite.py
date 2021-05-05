@@ -74,6 +74,7 @@ if pipes.returncode != 0:
 	raise Exception(err_msg)
 	sys.exit(100)
 	os.remove(extracted_file_path)
+os.remove(extracted_file_path)
 print('Fichier de la sauvegarde modifié avec succès.')
 
 # print("Temps d execution : %s secondes ---" % (time.time() - start_time))
