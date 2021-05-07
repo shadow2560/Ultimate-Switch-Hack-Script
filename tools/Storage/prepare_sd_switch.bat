@@ -754,10 +754,11 @@ for /l %%i in (1,1,%temp_count%) do (
 	IF EXIST "tools\sd_switch\mixed\modular\!temp_homebrew!\folder_version.txt" (
 		IF "!temp_homebrew!"=="Haku33" (
 			set temp_special_homebrew=Y
-		IF /i NOT "%mariko_console%"=="O" (
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_erista %volume_letter%:\ /e >nul
-		) else (
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_mariko %volume_letter%:\ /e >nul
+			IF /i NOT "%mariko_console%"=="O" (
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_erista %volume_letter%:\ /e >nul
+			) else (
+				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\for_mariko %volume_letter%:\ /e >nul
+			)
 		)
 		IF "!temp_homebrew!"=="EdiZon" (
 			set temp_special_homebrew=Y
