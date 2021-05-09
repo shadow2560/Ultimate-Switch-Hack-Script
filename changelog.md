@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.120</h2>
+<ul>
+<li>Correction d'un bug important introduit dans la version 4.3.119 qui empêchait la copie de homebrews durant la préparation d'une SD.</li>
+</ul>
 <h2>V4.3.119</h2>
 <ul>
 <li>Ajout d'une fonction permettant de déchiffrer les clés partielles d'une console Mariko récupérées via Lockpick-RCM sur celle-ci (fichier "partialaes.keys").</li>
