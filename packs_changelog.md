@@ -1,5 +1,18 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V447</h2>
+<ul>
+<li>Dans le pack Atmosphere, l'application temporaire et automatique de Incognito est maintenant automatiquement configurée via Exosphere. Pour les consoles Erista, il reste important d'appliquer tout de même Incognito-RCM sur la nand sur laquelle vous exécutez le CFW.</li>
+<li>Mise à jour d'Atmosphere en version 0.19.3.</li>
+<li>Mise à jour de Hekate en version 5.5.6.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.2.</li>
+<li>Mise à jour de TegraExplorer en version 3.0.5.</li>
+<li>Mise à jour de Haku33 en version 3.5.</li>
+<li>Mise à jour de MissionControl en version 0.5.0-alpha.3.</li>
+<li>Mise à jour de DBI en version 269.</li>
+<li>Mise à jour de Fizeau en version 2.1.7.</li>
+<li>Mise à jour de Incognito-RCM en version 0.6.9 venant du projet NeXT.</li>
+</ul>
 <h2>V446</h2>
 <ul>
 <li>Ajout du homebrew Off_switch.</li>

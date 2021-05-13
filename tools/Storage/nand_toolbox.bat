@@ -2006,14 +2006,14 @@ IF NOT "%mounted_partition_letter%"=="" (
 )
 call :find_not_used_disk_letter
 start %windir%\system32\wscript.exe //Nologo tools\NxNandManager\mount_nand.vbs "%input_path%" "%biskeys_file_path%" "%mounted_partition_letter%" "%~1" "templogs\mounted_partition.txt" "templogs\mounted_partition_process_id.txt"
-"%windir%\system32\timeout.exe" /t 5 /nobreak >nul
+"%windir%\system32\timeout.exe" /t 2 /nobreak >nul
 :test_mount_launch
 IF NOT EXIST "%mounted_partition_letter%:\" (
-	IF EXIST "templogs\mounted_partition.txt" (
-		"%windir%\system32\timeout.exe" /t 3 /nobreak >nul
-		::tools\gnuwin32\bin\tail.exe -n-1 <templogs\mounted_partition.txt >templogs\tempvar.txt
-		::set /p temp_line=<templogs\tempvar.txt
-		::IF "!temp_line:~0,10!"=="Partition " exit /b
+	IF EXIST "templogs\mounted_partition_process_id.txt" (
+		"%windir%\system32\timeout.exe" /t 1 /nobreak >nul
+		tools\gnuwin32\bin\tail.exe -n-1 <templogs\mounted_partition.txt >templogs\tempvar.txt
+		set /p temp_line=<templogs\tempvar.txt
+		IF "!temp_line:~0,10!"=="Partition " exit /b
 		goto:test_mount_launch
 	) else (
 		exit /b 401

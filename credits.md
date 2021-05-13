@@ -7,7 +7,8 @@
 <li><a target="_blank" href="https://github.com/Reisyukaku/ReiNX">ReiNX</a></li>
 <li><a target="_blank" href="https://sx.xecuter.com/">SX OS and Xecuter's team</a>, also see <a target="_blank" href="https://team-xecuter.com/community/resources/sx-autoloader.25/">SX Autoloader module page</a></li>
 <li>AtlasNX team for the <a target="_blank" href="https://github.com/AtlasNX/Kosmos/">Kosmos project</a>, replaced by <a target="_blank" href="https://github.com/Team-Neptune/DeepSea">this project</a>.</li>
-<li><a target="_blank" href="https://github.com/RetroGamer74/RR_RetroReloaded">Retroreloaded for the Hekate release for launching Atmosphere with Mariko unit that don't use Spacecraft firmware on SX Core/Lite modchips</a> (replace by <a target="_blank" href="https://discord.gg/EYzmVca">Deejay87 pack Hekate version</a>), also see <a target="_blank" href="https://team-xecuter.com/community/resources/sx-autoloader.25/">SX Autoloader module page</a></li>
+<li><a target="_blank" href="https://github.com/RetroGamer74/RR_RetroReloaded">Retroreloaded for the Hekate release for launching Atmosphere with Mariko unit that don't use Spacecraft firmware on SX Core/Lite modchips</a> (replaced by <a target="_blank" href="https://discord.gg/EYzmVca">Deejay87 pack Hekate version</a>), also see <a target="_blank" href="https://team-xecuter.com/community/resources/sx-autoloader.25/">SX Autoloader module page</a></li>
+<li><a target="_blank" href="https://github.com/mistervampi/NeXT">NeXT project for his Incognito-RCM version</a></li>
 </ul>
 <h2>Modules/homebrews/payloads</h2>
 <ul>

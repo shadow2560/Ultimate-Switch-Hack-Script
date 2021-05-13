@@ -1,5 +1,15 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.121</h2>
+<ul>
+<li>Ameliorate the function witch bypass the first configuration screen  of a console.</li>
+<li>Update Atmosphere to version 0.19.3.</li>
+<li>Update Hekate to version 5.5.6.</li>
+<li>Update Lockpick-RCM to version 1.9.2.</li>
+<li>Update TegraExplorer to version 3.0.5.</li>
+<li>Update Incognito-RCM to version 0.6.9 from the NeXT project.</li>
+<li>Update credits.</li>
+</ul>
 <h2>V4.3.120</h2>
 <ul>
 <li>Fixed an important bug introduced in version 4.3.119 that prevented the copy of homebrews during the preparation of an SD.</li>
