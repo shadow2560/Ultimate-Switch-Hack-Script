@@ -124,7 +124,7 @@ IF "%action_choice%"=="0" (
 )
 IF "%action_choice%"=="00" (
 	cls
-	tools\NxNandManager\NxNandManager_new.exe --install_dokan
+	tools\NxNandManager\NxNandManager.exe --install_dokan
 	goto:define_action_choice
 )
 goto:end_script

@@ -97,6 +97,7 @@ echo 11.0.0?
 echo 11.0.1?
 echo 12.0.0?
 echo 12.0.1?
+echo 12.0.2?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT EXIST "downloads" mkdir "downloads"
@@ -421,6 +422,15 @@ IF "%firmware_choice%"=="12.0.1" (
 	set expected_md5=12040ddd1533cf58ff2fb690d7bec3ee
 	set "firmware_link=https://mega.nz/file/9UoUTYaY#l-rfPBQXpNIQ6I4UBeNRNHJhOE5zb5a7CPA4FAF_qJM"
 	set firmware_file_name=Firmware 12.0.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="12.0.2" (
+	set expected_md5=939ec032227741b60aafacbedc4e476f
+	set "firmware_link=https://mega.nz/file/5IoTzABQ#Sjzs-_kOViyu1leE44Ae_YcloSa_FmgYRvUn9cXXcfk"
+	set firmware_file_name=Firmware 12.0.2.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

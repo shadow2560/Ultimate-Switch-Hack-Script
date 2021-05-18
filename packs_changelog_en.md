@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V448</h2>
+<ul>
+<li>Update  Retroarch download link for the version 1.9.3.</li>
+<li>Update JKSV to version 05.17.2021.</li>
+</ul>
 <h2>V447</h2>
 <ul>
 <li>In the Atmosphere pack, the temporary and automatic application of Incognito is now automatically configured via Exosphere. For Erista consoles, it is still important to apply Incognito-RCM on the nand on which you run the CFW.</li>

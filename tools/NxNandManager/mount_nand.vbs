@@ -13,8 +13,8 @@ sPartition = Wscript.Arguments.Item(3)
 Set objShell = wscript.createobject("wscript.shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 Set fichier = fso.OpenTextFile(Wscript.Arguments.Item(5), ForWriting,true)
-oExec = objShell.Run(sIniDir & "\NxNandManager_new.exe -i """ & sNandInput & """ -keyset """ & sKeysFile & """ --mount -driveLetter=" & sLetter & " -part=" & sPartition & " -stdout_redirect """ & Wscript.Arguments.Item(4) & """ FORCE", 0, True)
-'Set oExec = objShell.Exec(sIniDir & "\NxNandManager_new.exe -i """ & sNandInput & """ -keyset """ & sKeysFile & """ --mount -driveLetter=" & sLetter & " -part=" & sPartition & " -stdout_redirect """ & Wscript.Arguments.Item(4) & """ FORCE")
+oExec = objShell.Run(sIniDir & "\NxNandManager.exe -i """ & sNandInput & """ -keyset """ & sKeysFile & """ --mount -driveLetter=" & sLetter & " -part=" & sPartition & " -stdout_redirect """ & Wscript.Arguments.Item(4) & """ FORCE", 0, True)
+'Set oExec = objShell.Exec(sIniDir & "\NxNandManager.exe -i """ & sNandInput & """ -keyset """ & sKeysFile & """ --mount -driveLetter=" & sLetter & " -part=" & sPartition & " -stdout_redirect """ & Wscript.Arguments.Item(4) & """ FORCE")
 
 'fichier.WriteLine oExec.ProcessID
 'Do While Not oExec.Stdout.atEndOfStream
