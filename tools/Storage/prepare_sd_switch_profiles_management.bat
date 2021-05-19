@@ -185,7 +185,7 @@ echo set "atmo_enable_am_debug_mode=%atmo_enable_am_debug_mode%">>"%profile_path
 echo set "atmo_enable_dns_mitm=%atmo_enable_dns_mitm%">>"%profile_path%"
 echo set "atmo_add_defaults_to_dns_hosts=%atmo_add_defaults_to_dns_hosts%">>"%profile_path%"
 echo set "atmo_enable_dns_mitm_debug_log=%atmo_enable_dns_mitm_debug_log%">>"%profile_path%"
-::echo set "atmo_enable_htc=%atmo_enable_htc%">>"%profile_path%"
+echo set "atmo_enable_htc=%atmo_enable_htc%">>"%profile_path%"
 echo set "atmo_applet_heap_size=%atmo_applet_heap_size%">>"%profile_path%"
 echo set "atmo_applet_heap_reservation_size=%atmo_applet_heap_reservation_size%">>"%profile_path%"
 

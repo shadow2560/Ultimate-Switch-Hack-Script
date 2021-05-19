@@ -89,11 +89,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Mode débogage de DNS_mitm: désactivée.
 		)
-						::IF /i "%atmo_enable_htc%"=="o" (
-			::echo Service HTC: activée.
-		::) else (
-			::echo Service HTC: désactivée.
-		::)
+						IF /i "%atmo_enable_htc%"=="o" (
+			echo Service HTC: activée.
+		) else (
+			echo Service HTC: désactivée.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Temps avant de redémarrer en cas de crash: jusqu'à l'appui d'une touche par l'utilisateur
 		) else (

@@ -3,6 +3,7 @@
 <h2>V4.3.122</h2>
 <ul>
 <li>Support of the firmware 12.0.2 in the scripts witch can make actions on firmwares.</li>
+<li>Add the "enable_htc"  setting in the manual configuration of Atmosphere in the SD preparation.</li>
 <li>Update NXNandManager to the Github's master version, compiled by myself.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 448.</li>
 </ul>

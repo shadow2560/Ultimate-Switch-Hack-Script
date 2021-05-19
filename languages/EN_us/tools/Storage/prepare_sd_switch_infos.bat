@@ -98,11 +98,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo DNS_mitm debug mode: disabled.
 		)
-						::IF /i "%atmo_enable_htc%"=="o" (
-			::echo HTC service: enabled.
-		::) else (
-			::echo HTC service: disabled.
-		::)
+						IF /i "%atmo_enable_htc%"=="o" (
+			echo HTC service: enabled.
+		) else (
+			echo HTC service: disabled.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Time before reboot if a crash occure: if the user press a button
 		) else (

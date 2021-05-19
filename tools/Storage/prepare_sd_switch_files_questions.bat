@@ -708,10 +708,10 @@ call "%associed_language_script2%" "atmosphere_manual_enable_dns_mitm_debug_log_
 IF NOT "%atmo_enable_dns_mitm_debug_log%"=="" set atmo_enable_dns_mitm_debug_log=%atmo_enable_dns_mitm_debug_log:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_dns_mitm_debug_log" "o/n_choice"
 :skip_atmo_dns_mitm_config
-::set atmo_enable_htc=
-::call "%associed_language_script2%" "atmosphere_manual_enable_htc_param_choice"
-::IF NOT "%atmo_enable_htc%"=="" set atmo_enable_htc=%atmo_enable_htc:~0,1%
-::call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_htc" "o/n_choice"
+set atmo_enable_htc=
+call "%associed_language_script2%" "atmosphere_manual_enable_htc_param_choice"
+IF NOT "%atmo_enable_htc%"=="" set atmo_enable_htc=%atmo_enable_htc:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_htc" "o/n_choice"
 :define_atmo_applet_heap_size
 set atmo_applet_heap_size=
 call "%associed_language_script2%" "atmosphere_manual_config_applet-heap-size_param_choice"

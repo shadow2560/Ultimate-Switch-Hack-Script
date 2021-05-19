@@ -1459,9 +1459,9 @@ echo add_defaults_to_dns_hosts = u8!%atmo_add_defaults_to_dns_hosts%>>%volume_le
 echo ; Controls whether dns.mitm logs to the sd card for debugging>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_dns_mitm_debug_log = u8!%atmo_enable_dns_mitm_debug_log%>>%volume_letter%:\atmosphere\config\system_settings.ini
-::echo ; ; Controls whether htc is enabled
-::echo ; 0 = Disabled, 1 = Enabled
-::echo enable_htc = u8!%atmo_enable_htc%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; ; Controls whether htc is enabled
+echo ; 0 = Disabled, 1 = Enabled
+echo enable_htc = u8!%atmo_enable_htc%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [hbloader]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls the size of the homebrew heap when running as applet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If set to zero, all available applet memory is used as heap.>>%volume_letter%:\atmosphere\config\system_settings.ini
