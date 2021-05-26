@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V449</h2>
+<ul>
+<li>Add MiiPort homebrew.</li>
+<li>Update DBI to version 272.</li>
+<li>Update AIO-Switch-Updater to version 2.5.1.</li>
+</ul>
 <h2>V448</h2>
 <ul>
 <li>Update  Retroarch download link for the version 1.9.3.</li>

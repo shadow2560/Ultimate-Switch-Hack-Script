@@ -22,6 +22,11 @@ IF EXIST "%~0.version" (
 	set this_script_version=1.00.00
 )
 call "%associed_language_script%" "display_title"
+IF "%~1"=="rawnand_force" (
+	set ini_path=tools\memloader\mount_discs\ums_emmc.ini
+	set disc_mounted=1
+	goto:mounting
+)
 call "%associed_language_script%" "intro"
 pause
 :define_disc_mounted
@@ -43,6 +48,9 @@ set ini_path=tools\memloader\mount_discs\ums_boot1.ini
 :mounting
 call "%associed_language_script%" "rcm_instructions"
 tools\TegraRcmSmash\TegraRcmSmash.exe -w tools\memloader\memloader_usb.bin --dataini="%ini_path%"
+IF "%~1"=="rawnand_force" (
+	goto:end_script
+)
 echo.
 IF %disc_mounted% EQU 1 (
 	set launch_hacdiskmount=

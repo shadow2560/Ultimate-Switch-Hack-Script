@@ -36,9 +36,25 @@ echo 13: Utiliser Ninfs pour monter un fichier de dump de la rawnand?
 echo 14: Changer la taille de la partition USER d'une RAWNAND ou d'une FULL NAND?
 echo 15: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(ne pas utiliser sur les consoles Mariko^)?
 echo 16: Brute forcer les bis_keys?
-echo 17: Forcer le passage de l'écran de la première configuration de la console ^(nécessite l'installation du driver Dokan^) ^(fonction en alpha^ test)?
+echo 17: Fonctions de débrickage de la RAWNAND?
 echo 0: Charger une partie de la nand d'une console via USB avec Memloader?
-echo 00: Installer le driver Dokan?
+echo N'importe quel autre choix: Revenir au menu précédent?
+echo.
+set /p action_choice=Faites votre choix: 
+goto:eof
+
+:unbrick_menu_choice
+echo Menu de débrickage de la RAWNAND
+echo.
+echo Vous devez installer le driver Dokan avant d'effectuer les actions de ce menu, ceci ne sera à faire qu'une seule fois.
+echo.
+echo Que souhaitez-vous faire?
+echo.
+echo 1: Charger la rawnand d'une console via USB avec Memloader?
+echo 2: Forcer le passage de l'écran de la première configuration de la console?
+echo 3: Supprimer le contrôle parental?
+echo 4: Réinitialiser la RAWNAND?
+echo 0: Installer le driver Dokan?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 set /p action_choice=Faites votre choix: 
@@ -368,6 +384,32 @@ goto:eof
 
 :pass_first_config_screen_save_modif_sucess
 echo Le passage du premier écran de configuration a été effectué avec succès.
+goto:eof
+
+:del_parental_control_begin
+echo Cette fonction permet de supprimer le contrôle parental.
+goto:eof
+
+:del_parental_control_error
+echo Une erreur s'est produite durant la modification du fichier permettant de supprimer le contrôle parental, l'action va être annulée.
+goto:eof
+
+:del_parental_control_sucess
+echo La suppression du contrôle parental a été effectué avec succès.
+goto:eof
+
+:reset_rawnand_begin
+echo Cette fonction permet de réinitialiser une RAWNAND.
+goto:eof
+
+:nand_type_must_be_rawnand_error
+echo La nand doit être un dump de nand complet.
+goto:eof
+
+:reset_rawnand_sucess
+echo La réinitialisation de la RAWNAND a été effectué avec succès.
+echo.
+echo Pensez également a supprimer de la SD le dossier nintendo associé à la nand (par exemple si emunand SXOS le dossier sera le dossier "emutendo").
 goto:eof
 
 :bad_char_error

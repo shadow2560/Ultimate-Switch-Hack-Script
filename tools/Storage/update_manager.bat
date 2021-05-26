@@ -1630,6 +1630,10 @@ call :verif_folder_version "tools\fat32format"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\python3_scripts\Keys_management"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\sd_switch\atmosphere"
 IF "!update_finded!"=="Y" (
 	call :update_folder

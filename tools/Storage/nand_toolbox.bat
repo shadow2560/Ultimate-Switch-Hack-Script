@@ -111,7 +111,7 @@ IF "%action_choice%"=="15" (
 	goto:define_action_choice
 )
 IF "%action_choice%"=="16" cls & goto:brute_force
-IF "%action_choice%"=="17" cls & goto:pass_first_config_screen
+IF "%action_choice%"=="17" cls & goto:unbrick_menu
 IF "%action_choice%"=="0" (
 	cls
 	call tools\storage\mount_discs.bat "auto_close"
@@ -122,12 +122,35 @@ IF "%action_choice%"=="0" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="00" (
+goto:end_script
+
+:unbrick_menu
+cls
+set biskeys_param=
+set biskeys_file_path=
+set partition=
+set action_choice=
+call "%associed_language_script%" "display_title"
+call "%associed_language_script%" "unbrick_menu_choice"
+IF "%action_choice%"=="0" (
+	cls
+	call tools\storage\mount_discs.bat "rawnand_force"
+	IF EXIST templogs (
+		del /q templogs 2>nul
+		rmdir /s /q templogs 2>nul
+	)
+	mkdir templogs
+	goto:unbrick_menu
+)
+IF "%action_choice%"=="2" cls & goto:pass_first_config_screen
+IF "%action_choice%"=="3" cls & goto:del_parental_control
+IF "%action_choice%"=="4" cls & goto:reset_rawnand
+IF "%action_choice%"=="0" (
 	cls
 	tools\NxNandManager\NxNandManager.exe --install_dokan
-	goto:define_action_choice
+	goto:unbrick_menu
 )
-goto:end_script
+goto:define_action_choice
 
 :info_nand
 set input_path=
@@ -1270,7 +1293,7 @@ echo.
 call :list_disk
 call "%associed_language_script%" "nand_choice"
 IF "%action_choice%" == "" (
-	goto:define_action_choice
+	goto:unbrick_menu
 )
 call :verif_disk_choice %action_choice%
 IF %errorlevel% EQU 3000 (
@@ -1330,7 +1353,178 @@ IF %errorlevel% NEQ 0 (
 )
 call "%associed_language_script%" "pass_first_config_screen_save_modif_sucess"
 pause
-goto:define_action_choice
+goto:unbrick_menu
+
+:del_parental_control
+set input_path=
+set biskeys_file_path=
+set action_choice=
+call "%associed_language_script%" "del_parental_control_begin"
+pause
+echo.
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:unbrick_menu
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:del_parental_control
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_input_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p input_path=<templogs\tempvar.txt
+	)
+)
+IF "%input_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:del_parental_control
+)
+set partition=
+call :get_type_nand "%input_path%"
+IF /i "%nand_type%"=="RAWNAND" set partition=SYSTEM
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set partition=SYSTEM
+IF /i "%nand_type%"=="FULL NAND" set partition=SYSTEM
+IF /i "%nand_type%"=="SYSTEM" set partition=SYSTEM
+IF /i NOT "%partition%"=="SYSTEM" (
+	call "%associed_language_script%" "partition_should_be_system_error"
+	goto:del_parental_control
+)
+echo.
+call :select_biskeys_file
+IF "%biskeys_file_path%"=="" (
+	call "%associed_language_script%" "biskeys_file_not_selected_error"
+	goto:del_parental_control
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=SYSTEM>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:del_parental_control
+)
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:del_parental_control
+)
+del /q "%mounted_partition_letter%:\save/8000000000000100" >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "del_parental_control_error"
+	call :unmount_nand_partition
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "unmounting_partition_error"
+	)
+	goto:del_parental_control
+)
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+call "%associed_language_script%" "del_parental_control_sucess"
+pause
+goto:unbrick_menu
+
+:reset_rawnand
+set input_path=
+set biskeys_file_path=
+set action_choice=
+call "%associed_language_script%" "reset_rawnand_begin"
+pause
+echo.
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:unbrick_menu
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:reset_rawnand
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_input_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p input_path=<templogs\tempvar.txt
+	)
+)
+IF "%input_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:reset_rawnand
+)
+set partition=
+call :get_type_nand "%input_path%"
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
+IF /i "%nand_type%"=="FULL NAND" set nand_type=RAWNAND
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	call "%associed_language_script%" "nand_type_must_be_rawnand_error"
+	pause
+	goto:reset_rawnand
+)
+echo.
+call :select_biskeys_file
+IF "%biskeys_file_path%"=="" (
+	call "%associed_language_script%" "biskeys_file_not_selected_error"
+	goto:reset_rawnand
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=SYSTEM>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:reset_rawnand
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=USER>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:reset_rawnand
+)
+set partition=SYSTEM
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:reset_rawnand
+)
+IF EXIST "%mounted_partition_letter%:\save\8000000000000120" move "%mounted_partition_letter%:\save\8000000000000120" "templogs" >nul
+IF EXIST "%mounted_partition_letter%:\save\80000000000000d1" move "%mounted_partition_letter%:\save\80000000000000d1" "templogs" >nul
+IF EXIST "%mounted_partition_letter%:\save\8000000000000047" move "%mounted_partition_letter%:\save\8000000000000047" "templogs" >nul
+del /q "%mounted_partition_letter%:\save\*" >nul
+IF EXIST "templogs\8000000000000120" move "templogs\8000000000000120" ""%mounted_partition_letter%:\save" >nul
+IF EXIST "templogs\80000000000000d1" move "templogs\80000000000000d1" "%mounted_partition_letter%:\save" >nul
+IF EXIST "templogs\8000000000000047" move "templogs\8000000000000047" "%mounted_partition_letter%:\save" >nul
+rmdir /s /q "%mounted_partition_letter%:\saveMeta" >nul
+mkdir "%mounted_partition_letter%:\saveMeta" >nul
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+set partition=USER
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:reset_rawnand
+)
+rmdir /s /q "%mounted_partition_letter%:\Album" >nul
+mkdir "%mounted_partition_letter%:\Album" >nul
+rmdir /s /q "%mounted_partition_letter%:\Contents" >nul
+mkdir "%mounted_partition_letter%:\Contents" >nul
+mkdir "%mounted_partition_letter%:\Contents\placehld" >nul
+mkdir "%mounted_partition_letter%:\Contents\registered" >nul
+rmdir /s /q "%mounted_partition_letter%:\save" >nul
+mkdir "%mounted_partition_letter%:\save" >nul
+rmdir /s /q "%mounted_partition_letter%:\saveMeta" >nul
+mkdir "%mounted_partition_letter%:\saveMeta" >nul
+rmdir /s /q "%mounted_partition_letter%:\temp" >nul
+mkdir "%mounted_partition_letter%:\temp" >nul
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+call "%associed_language_script%" "reset_rawnand_sucess"
+pause
+goto:unbrick_menu
 
 :get_type_nand
 set nand_type=

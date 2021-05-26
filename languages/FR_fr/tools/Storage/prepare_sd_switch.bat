@@ -194,6 +194,10 @@ goto:eof
 echo Attention, veuillez ne pas utiliser ChoiDuJour-NX avec une console Mariko sous peine de brick.
 goto:eof
 
+:miiport_alert_message
+echo N'oubliez pas de remplacer le texte du fichier "%volume_letter%:\MiiPort\qrkey.txt" par la clé "Mii QR key".
+goto:eof
+
 :module_not_exist_warning
 echo Module "!temp_module!" non copié et supprimé du profile.
 goto:eof

@@ -876,7 +876,27 @@ for /l %%i in (1,1,%temp_count%) do (
 				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
 			)
 		)
+		IF "!temp_homebrew!"=="MiiPort" (
+			IF EXIST "%volume_letter%:\MiiPort\qrkey.txt" (
+				"tools\python3_scripts\Keys_management\Keys_management.exe" test_mii_qr_key_file "%volume_letter%:\MiiPort\qrkey.txt" >nul
+				IF !errorlevel! NEQ 0 rename "%volume_letter%:\MiiPort\qrkey.txt" "qrkey.txt.bak" >nul
+			)
 		IF "!temp_special_homebrew!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew! %volume_letter%:\ /e >nul
+		IF "!temp_homebrew!"=="MiiPort" (
+			IF EXIST "%volume_letter%:\MiiPort\qrkey.txt.bak" (
+				del "%volume_letter%:\MiiPort\qrkey.txt" >nul
+				rename "%volume_letter%:\MiiPort\qrkey.txt.bak" "qrkey.txt" >nul
+			) else (
+				call "%associed_language_script%" "miiport_alert_message"
+			)
+			IF EXIST "%volume_letter%:\atmosphere\config\system_settings.ini" (
+				echo.>>"%volume_letter%:\atmosphere\config\system_settings.ini"
+				echo [mii]>>"%volume_letter%:\atmosphere\config\system_settings.ini"
+			) else (
+				echo [mii]>"%volume_letter%:\atmosphere\config\system_settings.ini"
+			)
+			echo is_db_test_mode_enabled=u8!0x1 >>"%volume_letter%:\atmosphere\config\system_settings.ini"
+		)
 		IF "!temp_homebrew!"=="Switch-cheats-updater" (
 			IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt.bak" (
 				del /q "%volume_letter%:\config\cheats-updater\exclude.txt" >nul

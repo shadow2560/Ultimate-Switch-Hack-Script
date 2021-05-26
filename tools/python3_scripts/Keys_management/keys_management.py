@@ -65,10 +65,12 @@ def create_sha256_file(keys_file):
 		with open(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'sha256_sources.txt'), 'w', encoding='utf-8') as sha256_output_file:
 			for item in keys_source_list:
 				sha256_list[i][1] = hashlib.sha256(binascii.a2b_hex(item[1].lower().encode('utf-8'))).hexdigest()
+				# sha256_list[i][1] = hashlib.sha256(item[1].lower().encode('utf-8')).hexdigest()
 				sha256_output_file.write(sha256_list[i][0] + ' = ' + sha256_list[i][1] + '\n')
 				i +=1
 			sha256_output_file.close()
 	except:
+		raise
 		print('Impossible de créé le fichier sha256.')
 		return 0
 	return 1
@@ -246,6 +248,26 @@ def create_choidujour_keys_file(keys_file):
 		print ('Le fichier "ChoiDuJour_keys.txt" n\'a pas pu être créé ou une erreur d\'écriture s\'est produite.')
 		return 0
 
+def test_mii_qr_key_file(keys_file):
+	sha256_miiqrkey = ['2ad59d904e666fd19e8d85aeac5deef3903f55988380ee800d6bc1ddd4c2d7ef', 'ba4d8e70ab19ccc7037f34eb5adc957ef51a471be9d223342038935d63fa48ef']
+	try:
+		with open(keys_file, 'r', encoding='utf-8') as keys_source_file:
+			temp_keys_source_list = keys_source_file.readlines()
+			keys_source_file.close()
+	except:
+		print ('Le fichier "' + keys_file + '" n\'existe pas.')
+		return 0
+	if (len(temp_keys_source_list) == 0 or len(temp_keys_source_list) > 1) or (len(temp_keys_source_list) == 2 and len(temp_keys_source_list[1]) > 1):
+		print ('Erreur dans le fichier "' + keys_file + '", la clé ne sera pas vérifiée.')
+		return 0
+	sha256_test = hashlib.sha256(temp_keys_source_list[0].strip().lower().encode('utf-8')).hexdigest()
+	for item in sha256_miiqrkey:
+		if (item == sha256_test):
+			print ('Clé trouvée.')
+			return 1
+	print ('clé non trouvée.')
+	return 0
+
 def help():
 	print ('Utilisation:')
 	print ()
@@ -256,6 +278,7 @@ def help():
 	print ('test_keys_file : Test un fichier de clés en le comparant au fichier contenant les sha256 des clés connues et affiche le nombre de clés analysées, les clés inconnues ou uniques à la console trouvées ainsi que les clés incorrectes trouvées.')
 	print ('create_choidujour_keys_file : Permet de créé un fichier de clés ne contenant que les clés nécessaire à ChoiDuJour pour créer un package de mise à jour. Le fichier sera nommé "ChoiDuJour_keys.txt" et se trouvera dans le dossier à partir duquel le script a été exécuté.')
 	print ('test_file : Test seulement si le fichier passé en argument est un fichier texte. Si c\'est le cas, le script se terminera sans rien afficher.')
+	print ('test_mii_qr_key_file : Test le fichier contenant la clé "Mii QR key" pour le homebrew MiiPort.')
 	return 1
 
 if (len(sys.argv) != 3):
@@ -277,6 +300,9 @@ elif (sys.argv[1] == 'test_keys_file'):
 elif (sys.argv[1] == 'create_choidujour_keys_file'):
 	create_choidujour_keys_file(sys.argv[2])
 	sys.exit(0)
+elif (sys.argv[1] == 'test_mii_qr_key_file'):
+	exit_code = test_mii_qr_key_file(sys.argv[2])
+	sys.exit(exit_code)
 elif (sys.argv[1] == 'test_file'):
 	pass
 else:

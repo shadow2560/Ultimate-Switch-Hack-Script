@@ -45,9 +45,22 @@ echo 13: Use Ninfs to mount a rawnand dump file?
 echo 14: Resize the USER partition of a RAWNAND or a FULL NAND?
 echo 15: Create a BOOT0 file with keyblobs repaired ^(don't use on Mariko consoles^)?
 echo 16: Brute force the bis_keys?
-echo 17: Bypass the first configuration screen  of the console ^(requires the installation of the Dokan driver^) ^(alpha test function^)?
+echo 17: RAWNAND unbrick menu?
 echo 0: Mount a console's nand partition via USB and Memloader?
-echo 00: Install the Dokan driver?
+goto:eof
+
+:unbrick_menu_choice
+echo RAWNAND unbrick menu
+echo.
+echo You need to install the Dokan driver before using a function of this menu, this only need to be done one time.
+echo.
+echo What do you want to do?
+echo.
+echo 1: Mount a console's rawnand partition via USB and Memloader?
+echo 2: Bypass the first configuration screen  of the console?
+echo 3: Remove the parental control?
+echo 4: Wip a RAWNAND?
+echo 0: Install the Dokan driver?
 echo All other choices: Go back to previous menu?
 echo.
 set /p action_choice=Make your choice: 
@@ -377,6 +390,32 @@ goto:eof
 
 :pass_first_config_screen_save_modif_sucess
 echo The bypass of the first configuration screen has been successfully completed.
+goto:eof
+
+:del_parental_control_begin
+echo This function allows you to remove the parental control.
+goto:eof
+
+:del_parental_control_error
+echo An error occurred during the modification of the file allowing to remove the parental control, the action will be cancelled.
+goto:eof
+
+:del_parental_control_sucess
+echo The remove of the parental control has been successfully completed.
+goto:eof
+
+:reset_rawnand_begin
+echo This function allows you to wip a RAWNAND.
+goto:eof
+
+:nand_type_must_be_rawnand_error
+echo The nand must be a full dump of the nand.
+goto:eof
+
+:reset_rawnand_sucess
+echo The wip of the RAWNAND has been successfully completed.
+echo.
+echo Also remember to delete from the SD the nintendo folder associated with the nand (for example if SXOS emunand the folder will be the "emutendo" folder).
 goto:eof
 
 :bad_char_error
