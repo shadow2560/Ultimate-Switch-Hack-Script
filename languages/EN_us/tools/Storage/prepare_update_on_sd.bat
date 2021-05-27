@@ -18,10 +18,12 @@ echo No internet connexion, the script couldn't continue.
 goto:eof
 
 :intro
-echo This script will download and prepare a SD with a firmware that you could use with ChoiDuJourNX. Note that you'll need a CFW to launch ChoiDuJourNX so if you haven't prepared an SD, you must do it before or after this script ^(if after, don't erase data or format the volume because you'll need to execute again this script^).
-echo Be careful, you should select the good letter for your SD because no verification will be done for this point.
-echo.
-echo For advanced users, this script could also prepare a package for ChoiDuJour with the selected firmware.
+IF NOT "%special_launch%" == "unbrick_package_creation" (
+	echo This script will download and prepare a SD with a firmware that you could use with ChoiDuJourNX or Daybreak. Note that you'll need a CFW to launch ChoiDuJourNX or Daybreak so if you haven't prepared an SD, you must do it before or after this script ^(if after, don't erase data or format the volume because you'll need to execute again this script^).
+	echo Be careful, you should select the good letter for your SD because no verification will be done for this point.
+	echo.
+)
+echo For advanced users, this script could prepare a package with ChoiDuJour or EmmcHaccGen with the selected firmware.
 echo.
 echo Be careful: No verification will be done on disk space, you'll need at least 1 GO of free space on the disk where this script is installed and 400 MO on the SD.
 echo Note that the MD5 of the downloaded file will be verified but not after extraction so realy, be careful with disk space and pay attention to error messages during the script.
@@ -34,15 +36,23 @@ echo Firmware update preparation
 echo.
 Echo What do you want to do?
 echo.
-echo 1: Prepare a firmware witch will be copied on the SD for ChoiDuJourNX?
-echo 2: Prepare a firmware for the manual installation via ChoiDuJour ^(firmware 6.1.0 max^)?
-echo 3: Make the two actions?
-echo 4: Prepare an SD for the different CFWs ans go back to this menu after the SD preparation?
-echo 5: Only download the firmware?
-echo 6: Prepare a firmware for the manual installation via EmmcHaccGen ^(prod.keys of the console required^)?
-echo All other choices: Go back to previous menu?
-echo.
-set /p action_type=Make your choice: 
+IF "%special_launch%" == "unbrick_package_creation" (
+	echo 1: Prepare a firmware for the manual installation via ChoiDuJour ^(firmware 6.1.0 max^)?
+	echo 2: Prepare a firmware for the manual installation via EmmcHaccGen ^(prod.keys of the console required^)?
+	echo All other choices: Go back to previous menu?
+	echo.
+	set /p action_type=Make your choice: 
+) else (
+	echo 1: Prepare a firmware witch will be copied on the SD for ChoiDuJourNX?
+	echo 2: Prepare a firmware for the manual installation via ChoiDuJour ^(firmware 6.1.0 max^)?
+	echo 3: Make the two actions?
+	echo 4: Prepare an SD for the different CFWs ans go back to this menu after the SD preparation?
+	echo 5: Only download the firmware?
+	echo 6: Prepare a firmware for the manual installation via EmmcHaccGen ^(prod.keys of the console required^)?
+	echo All other choices: Go back to previous menu?
+	echo.
+	set /p action_type=Make your choice: 
+)
 goto:eof
 
 :firmware_choice_begin

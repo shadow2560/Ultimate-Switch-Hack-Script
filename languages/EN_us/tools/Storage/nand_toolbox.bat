@@ -60,6 +60,8 @@ echo 1: Mount a console's rawnand partition via USB and Memloader?
 echo 2: Bypass the first configuration screen  of the console?
 echo 3: Remove the parental control?
 echo 4: Wip a RAWNAND?
+echo 5: Create a firmware package with ChoiDuJour or EmmcHaccGen?
+echo 6: Flash a firmware package created with ChoiDuJour or EmmcHaccGen on a RAWNAND?
 echo 0: Install the Dokan driver?
 echo All other choices: Go back to previous menu?
 echo.
@@ -415,7 +417,53 @@ goto:eof
 :reset_rawnand_sucess
 echo The wip of the RAWNAND has been successfully completed.
 echo.
-echo Also remember to delete from the SD the nintendo folder associated with the nand (for example if SXOS emunand the folder will be the "emutendo" folder).
+echo Also remember to delete from the SD the nintendo folder associated with the nand ^(for example if SXOS emunand the folder will be the "emutendo" folder^).
+goto:eof
+
+:apply_fw_package_on_rawnand_begin
+echo This function allows to flash a package created via ChoiDuJour or EmmcHaccGen on a RAWNAND.
+goto:eof
+
+:package_folder_choice
+echo You will have to select the package folder created by ChoiDuJour or EmmcHaccGen.
+pause
+%windir%\system32\wscript.exe //Nologo tools\Storage\functions\select_dir.vbs "templogs\tempvar.txt" "Select the package folder created by ChoiDuJour or EmmcHaccGen"
+goto:eof
+
+:package_folder_empty_error
+echo The package folder couldn't be empty.
+goto:eof
+
+:bad_package_folder_error
+echo The selected folder does not appear to be a valid ChoiDuJour or EmmcHaccGen package.
+goto:eof
+
+:package_flash_type_choice
+echo How do you want to flash the package:
+echo 1: Flash the package and wip the nand?
+echo 2: Flash the package without wipping the nand?
+echo 3: Flash only the BCPKG* files?
+echo All other choices: Go back to previous menu?
+echo.
+set /p package_flash_type=Make your choice: 
+goto:eof
+
+:decrypt_biskeys_not_valid_warning
+echo Warning: An error occurred during the nand decryption test, some Bis keys may be incorrect or the nand has a problem. So, it is not recommended to flash this RAWNAND on the console before solving this problem.
+goto:eof
+
+:apply_fw_package_on_rawnand_sucess
+echo The RAWNAND flash has been done succesfuly.
+echo.
+IF "%package_type%"=="CDJ" (
+	echo Warning: For the first launch of the firmware, it will probably be necessary to apply the nocmac patch via Hekate. If the Nintendo Switch logo does not appear, applying this patch may fix the problem.
+	echo.
+)
+IF "%package_flash_type%"=="1" (
+	echo Also remember to delete from the SD the nintendo folder associated with the nand ^(for example if SXOS emunand the folder will be the "emutendo" folder^).
+	echo.
+)
+echo Also note that if you have flashed a different firmware than the one present on the RAWNAND, you will need to manually flash the BOOT0 and BOOT1 partitions associated with this RAWNAND using the BOOT0.bin and BOOT1.bin files contained in your ChoiDuJour or EmmcHaccGen package, e.g. by using the nand restore function in the main menu of the Nand Toolbox.
 goto:eof
 
 :bad_char_error

@@ -416,7 +416,6 @@ call :update_about.bat
 call :update_android_installer.bat
 call :update_biskey_dump.bat
 call ::update_auto_ips_menu.bat
-call :update_boot0_rewrite.bat
 call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
 call :update_donate.bat
@@ -440,7 +439,6 @@ call :update_partial_aes_mariko_keys_decrypt.bat
 call :update_pegaswitch.bat
 call :update_preload_NSC_Builder.bat
 call :update_prepare_sd_switch.bat
-call :update_prepare_update_on_sd.bat
 call :update_prodinfo_rewrite.bat
 call :update_renxpack.bat
 call :update_serial_checker.bat
@@ -1361,6 +1359,7 @@ call :update_mount_discs.bat
 call :update_nand_joiner.bat
 call :update_nand_spliter.bat
 call :update_ninfs.bat
+call :update_prepare_update_on_sd.bat
 IF EXIST "tools\Storage\nand_firmware_detect.bat" del /q "tools\Storage\nand_firmware_detect.bat" >nul
 IF EXIST "tools\Storage\nand_firmware_detect.bat.version" del /q "tools\Storage\nand_firmware_detect.bat.version" >nul
 IF EXIST "%language_path%\tools\Storage\nand_firmware_detect.bat" del /q "%language_path%\tools\Storage\nand_firmware_detect.bat"

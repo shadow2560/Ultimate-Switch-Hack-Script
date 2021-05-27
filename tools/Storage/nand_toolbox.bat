@@ -145,6 +145,17 @@ IF "%action_choice%"=="0" (
 IF "%action_choice%"=="2" cls & goto:pass_first_config_screen
 IF "%action_choice%"=="3" cls & goto:del_parental_control
 IF "%action_choice%"=="4" cls & goto:reset_rawnand
+IF "%action_choice%"=="5" (
+	cls
+	call tools\storage\prepare_update_on_sd.bat "unbrick_package_creation"
+	IF EXIST templogs (
+		del /q templogs 2>nul
+		rmdir /s /q templogs 2>nul
+	)
+	mkdir templogs
+	goto:unbrick_menu
+)
+IF "%action_choice%"=="6" cls & goto:apply_fw_package_on_rawnand
 IF "%action_choice%"=="0" (
 	cls
 	tools\NxNandManager\NxNandManager.exe --install_dokan
@@ -1410,7 +1421,7 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "mounting_partition_error"
 	goto:del_parental_control
 )
-del /q "%mounted_partition_letter%:\save/8000000000000100" >nul
+IF EXIST "%mounted_partition_letter%:\save\8000000000000100" del /q "%mounted_partition_letter%:\save\8000000000000100" >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "del_parental_control_error"
 	call :unmount_nand_partition
@@ -1490,7 +1501,8 @@ IF %errorlevel% NEQ 0 (
 IF EXIST "%mounted_partition_letter%:\save\8000000000000120" move "%mounted_partition_letter%:\save\8000000000000120" "templogs" >nul
 IF EXIST "%mounted_partition_letter%:\save\80000000000000d1" move "%mounted_partition_letter%:\save\80000000000000d1" "templogs" >nul
 IF EXIST "%mounted_partition_letter%:\save\8000000000000047" move "%mounted_partition_letter%:\save\8000000000000047" "templogs" >nul
-del /q "%mounted_partition_letter%:\save\*" >nul
+rmdir /s /q "%mounted_partition_letter%:\save" >nul
+mkdir "%mounted_partition_letter%:\save" >nul
 IF EXIST "templogs\8000000000000120" move "templogs\8000000000000120" ""%mounted_partition_letter%:\save" >nul
 IF EXIST "templogs\80000000000000d1" move "templogs\80000000000000d1" "%mounted_partition_letter%:\save" >nul
 IF EXIST "templogs\8000000000000047" move "templogs\8000000000000047" "%mounted_partition_letter%:\save" >nul
@@ -1523,6 +1535,163 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "unmounting_partition_error"
 )
 call "%associed_language_script%" "reset_rawnand_sucess"
+pause
+goto:unbrick_menu
+
+:apply_fw_package_on_rawnand
+set input_path=
+set biskeys_file_path=
+set action_choice=
+call "%associed_language_script%" "apply_fw_package_on_rawnand_begin"
+pause
+echo.
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:unbrick_menu
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:apply_fw_package_on_rawnand
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_input_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p input_path=<templogs\tempvar.txt
+	)
+)
+IF "%input_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:apply_fw_package_on_rawnand
+)
+set partition=
+call :get_type_nand "%input_path%"
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set nand_type=RAWNAND
+IF /i "%nand_type%"=="FULL NAND" set nand_type=RAWNAND
+IF /i NOT "%nand_type%"=="RAWNAND" (
+	call "%associed_language_script%" "nand_type_must_be_rawnand_error"
+	pause
+	goto:apply_fw_package_on_rawnand
+)
+echo.
+set package_folder_path=
+call "%associed_language_script%" "package_folder_choice"
+set /p package_folder_path=<templogs\tempvar.txt
+IF "%package_folder_path%"=="" (
+	call "%associed_language_script%" "package_folder_empty_error"
+	pause
+	goto:apply_fw_package_on_rawnand
+)
+IF NOT "%package_folder_path%"=="" set package_folder_path=%package_folder_path%\
+IF NOT "%package_folder_path%"=="" set package_folder_path=%package_folder_path:\\=\%
+set /a verif_package_folder=0
+IF NOT EXIST "%package_folder_path%BOOT0.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%BOOT1.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%BCPKG2-1-Normal-Main.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%BCPKG2-2-Normal-Sub.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%BCPKG2-3-SafeMode-Main.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%BCPKG2-4-SafeMode-Sub.bin" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%SYSTEM\Contents\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%SYSTEM\save\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%USER\Album\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%USER\Contents\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%USER\save\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%USER\saveMeta\*.*" set /a verif_package_folder=1
+IF NOT EXIST "%package_folder_path%USER\temp\*.*" set /a verif_package_folder=1
+IF %verif_package_folder% NEQ 0 (
+	call "%associed_language_script%" "bad_package_folder_error"
+	pause
+	goto:apply_fw_package_on_rawnand
+)
+set package_type=
+IF EXIST "%package_folder_path%boot.bis" (
+	set package_type=CDJ
+) else (
+	set package_type=EHG
+)
+set package_flash_type=
+call "%associed_language_script%" "package_flash_type_choice"
+IF "%package_flash_type%"=="1" goto:package_flash_verif_nand
+IF "%package_flash_type%"=="2" goto:package_flash_verif_nand
+IF "%package_flash_type%"=="3" goto:package_flash_bcpkg_files
+goto:unbrick_menu
+:package_flash_verif_nand
+call :select_biskeys_file
+IF "%biskeys_file_path%"=="" (
+	call "%associed_language_script%" "biskeys_file_not_selected_error"
+	goto:apply_fw_package_on_rawnand
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=SYSTEM>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:apply_fw_package_on_rawnand
+)
+IF "%package_flash_type%"=="1" (
+	tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=USER>nul 2>&1
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+		goto:apply_fw_package_on_rawnand
+	)
+)
+:package_flash_bcpkg_files
+"tools\NxNandManager\NxNandManager.exe" -i "%input_path%" -o "%package_folder_path%BCPKG2-1-Normal-Main.bin" -part=BCPKG2-1-Normal-Main FORCE>nul 2>&1
+"tools\NxNandManager\NxNandManager.exe" -i "%input_path%" -o "%package_folder_path%BCPKG2-2-Normal-Sub.bin" -part=BCPKG2-2-Normal-Sub FORCE>nul 2>&1
+"tools\NxNandManager\NxNandManager.exe" -i "%input_path%" -o "%package_folder_path%BCPKG2-3-SafeMode-Main.bin" -part=BCPKG2-3-SafeMode-Main FORCE>nul 2>&1
+"tools\NxNandManager\NxNandManager.exe" -i "%input_path%" -o "%package_folder_path%BCPKG2-4-SafeMode-Sub.bin" -part=BCPKG2-4-SafeMode-Sub FORCE>nul 2>&1
+IF "%package_flash_type%"=="3" goto:package_flash_end
+set partition=SYSTEM
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:apply_fw_package_on_rawnand
+)
+rmdir /s /q "%mounted_partition_letter%:\Contents" >nul
+IF "%package_flash_type%"=="1" (
+	rmdir /s /q "%mounted_partition_letter%:\save" >nul
+	mkdir "%mounted_partition_letter%:\save" >nul
+	rmdir /s /q "%mounted_partition_letter%:\saveMeta" >nul
+	mkdir "%mounted_partition_letter%:\saveMeta" >nul
+)
+%windir%\System32\Robocopy.exe "%package_folder_path%SYSTEM\ " "%mounted_partition_letter%:\ " /e >nul
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+IF "%package_flash_type%"=="2" goto:package_flash_end
+	set partition=USER
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:apply_fw_package_on_rawnand
+)
+rmdir /s /q "%mounted_partition_letter%:\Album" >nul
+mkdir "%mounted_partition_letter%:\Album" >nul
+rmdir /s /q "%mounted_partition_letter%:\Contents" >nul
+mkdir "%mounted_partition_letter%:\Contents" >nul
+mkdir "%mounted_partition_letter%:\Contents\placehld" >nul
+mkdir "%mounted_partition_letter%:\Contents\registered" >nul
+rmdir /s /q "%mounted_partition_letter%:\save" >nul
+mkdir "%mounted_partition_letter%:\save" >nul
+rmdir /s /q "%mounted_partition_letter%:\saveMeta" >nul
+mkdir "%mounted_partition_letter%:\saveMeta" >nul
+rmdir /s /q "%mounted_partition_letter%:\temp" >nul
+mkdir "%mounted_partition_letter%:\temp" >nul
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+:package_flash_end
+IF NOT "%package_flash_type%"=="3" (
+	tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" >nul 2>&1
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "decrypt_biskeys_not_valid_warning"
+	)
+)
+echo.
+call "%associed_language_script%" "apply_fw_package_on_rawnand_sucess"
 pause
 goto:unbrick_menu
 
@@ -2196,7 +2365,10 @@ exit /b
 ::set mounted_partition_process_id=
 IF NOT "%mounted_partition_letter%"=="" (
 	tools\NxNandManager\dokan_x86\dokanctl.exe /u %mounted_partition_letter%
-	IF !errorlevel! NEQ 0 exit /b 400
+	IF !errorlevel! NEQ 0 (
+		set mounted_partition_letter=
+		exit /b 400
+	)
 )
 call :find_not_used_disk_letter
 start %windir%\system32\wscript.exe //Nologo tools\NxNandManager\mount_nand.vbs "%input_path%" "%biskeys_file_path%" "%mounted_partition_letter%" "%~1" "templogs\mounted_partition.txt" "templogs\mounted_partition_process_id.txt"
@@ -2225,7 +2397,7 @@ IF "%mounted_partition_letter%"=="" (
 )
 tools\NxNandManager\dokan_x86\dokanctl.exe /u %mounted_partition_letter% >nul 2>&1
 ::start tools\NxNandManager\windows-kill.exe -SIGBREAK %mounted_partition_process_id%
-::"%windir%\system32\timeout.exe" /t 5 /nobreak >nul
+"%windir%\system32\timeout.exe" /t 5 /nobreak >nul
 IF NOT EXIST "%mounted_partition_letter%:\" (
 	set mounted_partition_letter=
 	set mounted_partition_process_id=

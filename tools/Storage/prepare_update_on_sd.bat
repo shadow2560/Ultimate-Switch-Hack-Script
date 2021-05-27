@@ -33,6 +33,7 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	goto:end_script
 )
+IF "%~1" == "unbrick_package_creation" set special_launch=unbrick_package_creation
 set md5_try=0
 call "%associed_language_script%" "intro"
 pause 
@@ -42,18 +43,31 @@ cls
 set action_type=
 call "%associed_language_script%" "action_choice"
 IF NOT "%action_type%"=="" set action_type=%action_type:~0,1%
-IF "%action_type%"=="4" (
-	cls
-	call tools\storage\prepare_sd_switch.bat
-	call "%associed_language_script%" "display_title"
-	@echo off
-	goto:define_action_type
+IF "%special_launch%" == "unbrick_package_creation" (
+	IF "%action_type%"=="1" (
+		set action_type=2
+		cls
+		goto:define_firmware_choice
+	)
+	IF "%action_type%"=="2" (
+		set action_type=6
+		cls
+		goto:define_firmware_choice
+	)
+) else (
+	IF "%action_type%"=="4" (
+		cls
+		call tools\storage\prepare_sd_switch.bat
+		call "%associed_language_script%" "display_title"
+		@echo off
+		goto:define_action_type
+	)
+	IF "%action_type%"=="1" cls & goto:define_firmware_choice
+	IF "%action_type%"=="2" cls & goto:define_firmware_choice
+	IF "%action_type%"=="3" cls & goto:define_firmware_choice
+	IF "%action_type%"=="5" cls & goto:define_firmware_choice
+	IF "%action_type%"=="6" cls & goto:define_firmware_choice
 )
-IF "%action_type%"=="1" cls & goto:define_firmware_choice
-IF "%action_type%"=="2" cls & goto:define_firmware_choice
-IF "%action_type%"=="3" cls & goto:define_firmware_choice
-IF "%action_type%"=="5" cls & goto:define_firmware_choice
-IF "%action_type%"=="6" cls & goto:define_firmware_choice
 goto:end_script_2
 :define_firmware_choice
 set firmware_choice=

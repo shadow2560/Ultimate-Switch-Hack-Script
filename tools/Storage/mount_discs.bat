@@ -27,6 +27,21 @@ IF "%~1"=="rawnand_force" (
 	set disc_mounted=1
 	goto:mounting
 )
+IF "%~1"=="sd_force" (
+	set ini_path=tools\memloader\mount_discs\ums_sd.ini
+	set disc_mounted=2
+	goto:mounting
+)
+IF "%~1"=="boot0_force" (
+	set ini_path=tools\memloader\mount_discs\ums_boot0.ini
+	set disc_mounted=3
+	goto:mounting
+)
+IF "%~1"=="boot1_force" (
+	set ini_path=tools\memloader\mount_discs\ums_boot1.ini
+	set disc_mounted=4
+	goto:mounting
+)
 call "%associed_language_script%" "intro"
 pause
 :define_disc_mounted
@@ -49,6 +64,15 @@ set ini_path=tools\memloader\mount_discs\ums_boot1.ini
 call "%associed_language_script%" "rcm_instructions"
 tools\TegraRcmSmash\TegraRcmSmash.exe -w tools\memloader\memloader_usb.bin --dataini="%ini_path%"
 IF "%~1"=="rawnand_force" (
+	goto:end_script
+)
+IF "%~1"=="boot0_force" (
+	goto:end_script
+)
+IF "%~1"=="boot1_force" (
+	goto:end_script
+)
+IF "%~1"=="sd_force" (
 	goto:end_script
 )
 echo.

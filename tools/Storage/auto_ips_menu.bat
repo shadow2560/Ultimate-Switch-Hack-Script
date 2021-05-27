@@ -243,8 +243,7 @@ IF /i "%firmware_choice%"=="C" (
 	IF %errorlevel% NEQ 0 (
 		exit /b 400
 	)
-	
-	goto:daybrick_convert
+	goto:daybreak_convert
 )
 IF NOT EXIST "downloads" mkdir "downloads"
 IF NOT EXIST "downloads\firmwares" mkdir "downloads\firmwares"
@@ -551,7 +550,7 @@ IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
 		IF %md5_try% EQU 3 (
 			call "%associed_language_script%" "firmware_downloading_md5_error"
 			pause
-			goto:define_action_type
+			exit /b 400
 		) else (
 			call "%associed_language_script%" "firmware_downloading_md5_retry"
 			set /a md5_try+=1
@@ -574,11 +573,11 @@ IF NOT "%md5_verif%"=="%expected_md5%" (
 call "%associed_language_script%" "firmware_downloading_end"
 call "%associed_language_script%" "extract_firmware_begin"
 TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\%firmware_file_name%" -o"firmware_temp" -r
-:daybrick_convert
-call :daybreak_convert "firmware_temp"
+:daybreak_convert
+call :daybreak_convertion "firmware_temp"
 exit /b 0
 
-:daybreak_convert
+:daybreak_convertion
 call "%associed_language_script%" "daybreak_convert_begin"
 rem set /a count_loop = 0
 for /d %%f in ("%~1\*.nca") do (

@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.124</h2>
+<ul>
+<li>In the Nand Toolbox, added a function to flash a RAWNAND with a package created via ChoiDuJour or EmmcHaccGen.</li>
+<li>Fix some bugs.</li>
+</ul>
 <h2>V4.3.123</h2>
 <ul>
 <li>Added a new menu in the Nand Toolbox and reorganized its menu.</li>
