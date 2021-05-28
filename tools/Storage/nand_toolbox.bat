@@ -132,7 +132,7 @@ set partition=
 set action_choice=
 call "%associed_language_script%" "display_title"
 call "%associed_language_script%" "unbrick_menu_choice"
-IF "%action_choice%"=="0" (
+IF "%action_choice%"=="1" (
 	cls
 	call tools\storage\mount_discs.bat "rawnand_force"
 	IF EXIST templogs (
