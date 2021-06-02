@@ -37,7 +37,7 @@ IF "%action_choice%"=="6" goto:create_update_2
 IF "%action_choice%"=="7" goto:create_sig_patches
 IF "%action_choice%"=="0" (
 	set action_choice=
-	start "" "http://rover.ebay.com/rover/1/709-53476-19255-0/1?icep_ff3=2&pub=5575378759&campid=5338273189&customid=&icep_item=114242698090&ipn=psmain&icep_vectorid=229480&kwid=902099&mtid=824&kw=lg&toolid=11111"
+	start "" "hhttp://rover.ebay.com/rover/1/709-53476-19255-0/1?icep_ff3=2&pub=5575378759&campid=5338273189&customid=&icep_item=114781401313&ipn=psmain&icep_vectorid=229480&kwid=902099&mtid=824&kw=lg&toolid=11111"
 	goto:define_action_choice
 )
 goto:end_script
