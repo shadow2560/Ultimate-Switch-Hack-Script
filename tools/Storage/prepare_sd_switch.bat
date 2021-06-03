@@ -881,6 +881,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				"tools\python3_scripts\Keys_management\Keys_management.exe" test_mii_qr_key_file "%volume_letter%:\MiiPort\qrkey.txt" >nul
 				IF !errorlevel! NEQ 0 rename "%volume_letter%:\MiiPort\qrkey.txt" "qrkey.txt.bak" >nul
 			)
+		)
 		IF "!temp_special_homebrew!"=="N" %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew! %volume_letter%:\ /e >nul
 		IF "!temp_homebrew!"=="MiiPort" (
 			IF EXIST "%volume_letter%:\MiiPort\qrkey.txt.bak" (
