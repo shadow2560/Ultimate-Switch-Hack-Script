@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V451</h2>
+<ul>
+<li>Réintégration des sig_patches d'Atmosphere.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.5.3.</li>
+</ul>
 <h2>V450</h2>
 <ul>
 <li>Mise à jour du lien de Retroarch pour la version 1.9.4.</li>

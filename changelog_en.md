@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.126</h2>
+<ul>
+<li>Fixed a critical bug in the SD preparation that prevented the copy of homebrews.</li>
+<li>Reintegrate Atmosphere's sig_patches.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 451.</li>
+</ul>
 <h2>V4.3.125</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 450.</li>

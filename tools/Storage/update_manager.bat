@@ -14,6 +14,8 @@ Setlocal enabledelayedexpansion
 set base_script_path="%~dp0\..\.."
 set folders_url_project_base=https://github.com/shadow2560/Ultimate-Switch-Hack-Script/trunk
 set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
+set atmo_folders_sigpatches_url_project_base=https://github.com/THZoria/patches/trunk
+set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/THZoria/patches/master
 set what_to_update=%~1
 IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	ping /n 2 www.github.com >nul 2>&1
@@ -1636,6 +1638,10 @@ IF "!update_finded!"=="Y" (
 call :verif_folder_version "tools\sd_switch\atmosphere"
 IF "!update_finded!"=="Y" (
 	call :update_folder
+	set temp_folder_path=tools\sd_switch\atmosphere_fs_and_es_patches
+	set temp_folder_slash_path=!temp_folder_path:\=/!
+	call :update_folder
+	
 )
 call :verif_folder_version "tools\sd_switch\atmosphere_mariko_special_files"
 IF "!update_finded!"=="Y" (
@@ -2459,7 +2465,33 @@ call "%associed_language_script%" "update_file_success"
 exit /b
 
 :update_folder
-echo %temp_folder_path%>"failed_updates\%temp_folder_path:\=;%.fold.failed"
+echo !temp_folder_path!>"failed_updates\!temp_folder_path:\=;!.fold.failed"
+IF "!temp_folder_path!"=="tools\sd_switch\atmosphere\atmosphere_fs_and_es_patches" (
+	rmdir /s /q "!temp_folder_path!" >nul 2>&1
+	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	)
+	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/bootloader !temp_folder_path!\bootloader --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	) else (
+		IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
+		del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
+		call "%associed_language_script%" "update_folder_success"
+		exit /b
+	)
+)
 IF "%temp_folder_path%"=="Payloads" (
 	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\Payloads --force >nul
 	IF !errorlevel! NEQ 0 (
@@ -2492,6 +2524,7 @@ IF "%temp_folder_path%"=="tools\gitget" (
 	) else (
 		rmdir /s /q "%temp_folder_path%" >nul 2>&1
 		move "templogs\gitget" "%temp_folder_path%" >nul 2>&1
+		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
 		exit /b
 	)
 )
@@ -2543,6 +2576,39 @@ IF %temp_folder_download_error% NEQ 0 (
 	)
 	pause
 	exit
+)
+IF "%temp_folder_path%"=="tools\sd_switch\atmosphere_mariko_special_files" (
+	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!temp_folder_path!\bootloader\patches_file.ini" "%atmo_files_sigpatches_url_project_base%/bootloader/patches.ini"
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	)
+)
+IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
+	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	)
+	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!temp_folder_path!\bootloader\patches.ini" "%atmo_files_sigpatches_url_project_base%/bootloader/patches.ini"
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	) else (
+		copy "!temp_folder_path!\bootloader\patches.ini" ""!temp_folder_path!\bootloader\patches_file.ini" >nul
+	)
 )
 del /q "failed_updates\%temp_folder_path:\=;%.fold.failed"
 call "%associed_language_script%" "update_folder_success"
