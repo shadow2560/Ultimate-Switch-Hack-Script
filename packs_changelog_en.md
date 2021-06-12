@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V452</h2>
+<ul>
+<li>Update Atmosphere to version 0.19.4.</li>
+<li>Update Hekate to version 5.5.7.</li>
+<li>Update MissionControl to version 0.5.0-alpha.4.</li>
+<li>Update DBI to version 286.</li>
+<li>Update Fizeau to version 2.1.8.</li>
+<li>Update AIO-Switch-Updater to version 2.6.0.</li>
+<li>Update OvlSysmodules to the version of the NeXT pack.</li>
+</ul>
 <h2>V451</h2>
 <ul>
 <li>Reintegrate Atmosphere's sig_patches.</li>
