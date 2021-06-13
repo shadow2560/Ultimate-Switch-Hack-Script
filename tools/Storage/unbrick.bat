@@ -784,7 +784,12 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	) else (
 		call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
 		if !errorlevel! EQU 1 (
-			Dism /online /NoRestart /Enable-Feature /FeatureName:"NetFx3"
+			::Dism /online /NoRestart /Enable-Feature /FeatureName:"NetFx3"
+			IF /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+				"..\tools\EmmcHaccGen\dotnet-runtime-3.1.12-win-x64.exe" /install /passive
+			) else (
+				"..\tools\EmmcHaccGen\dotnet-runtime-3.1.12-win-x86.exe" /install /passive
+			)
 			if !error_level! NEQ 0 (
 				call "%associed_language_script%" "netfx3_install_error"
 				cd ..

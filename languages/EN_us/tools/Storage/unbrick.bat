@@ -270,14 +270,13 @@ goto:eof
 echo A problem occurred during firmware creation.
 echo Check that you have all the required keys in the "keys.txt" file.
 echo.
-echo However, it is also possible that .net Framework 3 is not activated on your system.
-echo If you wish to activate it, an internet connection will be required.
+echo However, it is also possible that .net Framework 3 is not installed on your system.
 echo.
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to activate .net Framework 3 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to install .net Framework 3 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :netfx3_install_error
-echo Error during the activation of .net Framework 3, check your internet connection.
+echo Error during the installation of .net Framework 3.
 goto:eof
 
 :emmchaccgen_package_creation_second_error

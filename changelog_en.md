@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.128</h2>
+<ul>
+<li>Integration of .net Framework 3 installation files for EmmcHaccGen and possibility to install it in case of problems with firmware creation. This replaces the old method of activating NetFx3 which did not work.</li>
+</ul>
 <h2>V4.3.127</h2>
 <ul>
 <li>Support of the firmware 12.0.3 in the scripts witch can make actions on firmwares.</li>

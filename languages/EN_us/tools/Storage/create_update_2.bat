@@ -53,9 +53,31 @@ set /p mariko_console=Do you want to create a package for a Mariko console? ^(%l
 goto:eof
 
 :package_creation_success
-echo Created firmware package file success, you can find it in the "update_packages" folder of the script.
+echo Firmware creation success.
 goto:eof
 
 :package_creation_error
-echo An error ocured during firmware package creation.
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+goto:eof
+
+:emmchaccgen_package_creation_first_error
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+echo.
+echo However, it is also possible that .net Framework 3 is not installed on your system.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to install .net Framework 3 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:netfx3_install_error
+echo Error during the installation of .net Framework 3.
+goto:eof
+
+:emmchaccgen_package_creation_second_error
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+echo.
+echo However, it is also possible that your system requires a reboot.
+echo You can try to quit the script, reboot your system and retry the procedure.
 goto:eof

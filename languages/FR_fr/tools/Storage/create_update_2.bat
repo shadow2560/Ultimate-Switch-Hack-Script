@@ -44,11 +44,31 @@ set /p mariko_console=Souhaitez-vous créer un package pour une console Mariko? 
 goto:eof
 
 :package_creation_success
-echo Firmware créé avec succès dans le répertoire "update_packages" du script.
+echo Firmware créé avec succès.
 goto:eof
 
 :package_creation_error
 echo Un problème est survenu pendant la création du firmware.
-echo Vérifiez que le fichier de clés fournis soit bien lié à la console et qu'il soit bien complet.
-echo Vérifiez également l'espace libre sur le disque dur contenant ce script.
+echo Vérifiez que vous avez bien toutes les clés requises.
+goto:eof
+
+:emmchaccgen_package_creation_first_error
+echo Un problème est survenu pendant la création du firmware.
+echo Vérifiez que vous avez bien toutes les clés requises.
+echo.
+echo Cependant, il est aussi possible que .net Framework 3 ne soit pas installé sur votre système.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous installer .net Framework 3 sur votre système? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:netfx3_install_error
+echo Erreur durant l'installation de .net Framework 3.
+goto:eof
+
+:emmchaccgen_package_creation_second_error
+echo Un problème est survenu pendant la création du firmware.
+echo Vérifiez que vous avez bien toutes les clés requises.
+echo.
+echo Cependant, il est aussi possible que votre système nécessite un redémarrage.
+echo Vous pouvez essayer de quitter le script, redémarrer votre système et retenter la procédure.
 goto:eof

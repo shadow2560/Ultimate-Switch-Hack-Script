@@ -265,14 +265,13 @@ goto:eof
 echo Un problème est survenu pendant la création du firmware.
 echo Vérifiez que vous avez bien toutes les clés requises.
 echo.
-echo Cependant, il est aussi possible que .net Framework 3 ne soit pas activé sur votre système.
-echo Si vous souhaitez l'activer, une connexion à internet sera requise.
+echo Cependant, il est aussi possible que .net Framework 3 ne soit pas installé sur votre système.
 echo.
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous activer .net Framework 3 sur votre système? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous installer .net Framework 3 sur votre système? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :netfx3_install_error
-echo Erreur durant l'activation de .net Framework 3, vérifiez que votre connexion internet fonctionne correctement.
+echo Erreur durant l'installation de .net Framework 3.
 goto:eof
 
 :emmchaccgen_package_creation_second_error
