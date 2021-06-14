@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.129</h2>
+<ul>
+<li>Quelques corrections mineurs dans le script TegraExplorer V3.</li>
+<li>Traduction du script TegraExplorer v3 en anglais.</li>
+</ul>
 <h2>V4.3.128</h2>
 <ul>
 <li>Intégration des fichiers d'installation de .net Framework 3 pour EmmcHaccGen et possibilité d'installer celui-ci en cas de problème avec la création du firmware. Ceci remplace l'ancienne méthode d'activation de NetFx3 qui ne fonctionnait pas.</li>

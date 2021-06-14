@@ -429,8 +429,8 @@ switch_working_nand = {
 	if (mmcTypeWork == 0){
 		if (_EMU == 0){
 		clearscreen()
-		printlnAucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
-		printlnAppuyez sur une touche pour revenir au menu.")
+		println("Aucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
+		println("Appuyez sur une touche pour revenir au menu.")
 		pause()
 		return()
 	}
@@ -474,11 +474,6 @@ synch_joycons={
 	println("Notez aussi que certains paramètres de votre emunand seront remplacés,")
 	println("comme par exemple le thème donc vérifiez les paramètres de l'emunand")
 	println("après l'exécution de ce script.")
-	println("")
-	color("GREEN")
-	println("Si vous utilisez incognito ou le Stealth Mode de SXOS")
-	println("")
-	color("WHITE")
 	wait(5000)
 	println("")
 	println("Appuyez sur 'VOL+' pour démarrer la synchronisation de la SYSMMC vers l'EMUMMC")
@@ -521,7 +516,7 @@ synch_joycons={
 		println("Maintenant vos manettes devraient être synchronisées entre la SYSMMC et l'EMUMMC")
 		println("")
 		color("WHITE")
-		println("Appuyez sur une touche pour revenir au menu")
+		println("Appuyez sur une touche pour revenir au menu.")
 		pause()
 		return()
 	} else() {
@@ -830,7 +825,7 @@ explorer_menu = {
 dump_important_partitions = {
 	clearscreen()
 	# println("Appuyez sur le bouton VOL+ pour sauvegarder les fichiers dans le dossier de votre choix")
-	# println("Appuyez sur n'importe quel autre bouton pour sauvegarder les fichiers dans le dossier", dumpFolderPath)
+	# println("Appuyez sur n'importe quel autre bouton pour sauvegarder les fichiers dans le dossier ", dumpFolderPath)
 	# if (pause() & BtnVolPlus){
 		# explorerTitle = "Sélection du dossier de sauvegarde"
 		# explorerIsCalled = 1
@@ -865,7 +860,7 @@ dump_important_partitions = {
 	if (dumpFileExist == 1){
 		color("RED")
 		println("")
-		println("Des fichiers de dump existent déjà dans le dossier", dumpFolderPath, ", souhaitez-vous les remplacer?")
+		println("Des fichiers de dump existent déjà dans le dossier ", dumpFolderPath, ", souhaitez-vous les remplacer?")
 		println("")
 		color("WHITE")
 		println("Appuyez sur VOL+ pour confirmer la suppression ou sur n'importe quelle autre touche pour revenir au menu.")
@@ -909,7 +904,7 @@ PRODINFOFDumpFileExist = 0
 		color("GREEN")
 		println("")
 		println("")
-		println("Sauvegarde terminée, les fichiers se trouvent dans le dossier", dumpFolderPath, ", pensez à les garder de côté.")
+		println("Sauvegarde terminée, les fichiers se trouvent dans le dossier ", dumpFolderPath, ", pensez à les garder de côté.")
 		println("")
 		color("WHITE")
 		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
@@ -930,7 +925,7 @@ PRODINFOFDumpFileExist = 0
 choidujour_package_restore = {
 	clearscreen()
 	# println("Appuyez sur le bouton VOL+ pour sélectionner le dossier contenant le   package de ChoiDuJour")
-	# println("Appuyez sur n'importe quel autre bouton pour  utiliser le package de ChoiDuJour situé dans le dossier", restoreFolderPath)
+	# println("Appuyez sur n'importe quel autre bouton pour  utiliser le package de ChoiDuJour situé dans le dossier ", restoreFolderPath)
 	# if (pause() & BtnVolPlus){
 		# explorerTitle = "Sélection du dossier du package de ChoiDuJour"
 		# explorerIsCalled = 1
@@ -992,7 +987,7 @@ if (restoreFileExist == 1){
 if (restoreFileExist == 0){
 	color("RED")
 	println("")
-	println("Certains fichiers ou dossiers sont manquants dans le dossier", restoreFolderPath, ", le script ne peut continuer.")
+	println("Certains fichiers ou dossiers sont manquants dans le dossier ", restoreFolderPath, ", le script ne peut continuer.")
 	println("")
 	color("WHITE")
 	println("Appuyez sur n'importe quelle touche pour revenir au menu.")
