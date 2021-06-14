@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V453</h2>
+<ul>
+<li>Mise à jour du lien de Retroarch pour la version 1.9.5.</li>
+</ul>
 <h2>V452</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 0.19.4.</li>

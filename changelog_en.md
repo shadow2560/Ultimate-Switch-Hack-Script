@@ -4,6 +4,7 @@
 <ul>
 <li>Some minor fixes in the TegraExplorer V3 script.</li>
 <li>English translation of the TegraExplorer V3 script.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 453.</li>
 </ul>
 <h2>V4.3.128</h2>
 <ul>
