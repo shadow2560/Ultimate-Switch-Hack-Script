@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.130</h2>
+<ul>
+<li>The Noexes module will not be copied anymore with EdiZon because it seems to cause some problems.</li>
+<li>Minor bugs fixed.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 454.</li>
+</ul>
 <h2>V4.3.129</h2>
 <ul>
 <li>Some minor fixes in the TegraExplorer V3 script.</li>

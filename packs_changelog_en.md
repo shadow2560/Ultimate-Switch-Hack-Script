@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V454</h2>
+<ul>
+<li>Update Edizon-SE to version 3.8.18.</li>
+<li>Update FTPD to version 3.1.0.</li>
+</ul>
 <h2>V453</h2>
 <ul>
 <li>Update  Retroarch download link for the version 1.9.5.</li>

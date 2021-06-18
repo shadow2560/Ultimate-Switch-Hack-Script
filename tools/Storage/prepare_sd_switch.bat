@@ -471,7 +471,6 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\bootloader\patches.ini" rename "%volume_letter%:\bootloader\patches.ini" "patches.ini.bak" >nul
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
 	IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
-		del /q "%volume_letter%:\bootloader\patches.ini" >nul
 		rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
 	)
 	IF /i "%copy_payloads%"=="o" (
@@ -503,7 +502,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			call :copy_cheats_profile "atmosphere"
 		)
-		%windir%\System32\Robocopy.exe TOOLS\sd_switch\mixed\modular\EdiZon %volume_letter%:\ /e >nul
+		%windir%\System32\Robocopy.exe TOOLS\sd_switch\mixed\modular\EdiZon\switch %volume_letter%:\switch /e >nul
 		call :force_copy_overlays_base_files "atmosphere"
 	)
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\atmosphere\reboot_payload.bin >nul
@@ -768,15 +767,15 @@ for /l %%i in (1,1,%temp_count%) do (
 			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\switch %volume_letter%:\switch /e >nul
 			IF EXIST "%volume_letter%:\atmosphere\contents" (
 				call :force_copy_overlays_base_files "atmosphere"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
 			)
 			IF EXIST "%volume_letter%:\ReiNX\contents" (
 				call :force_copy_overlays_base_files "reinx"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
 			)
 			IF EXIST "%volume_letter%:\sxos\titles" (
 				call :force_copy_overlays_base_files "sxos"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 			IF EXIST "%volume_letter%:\boot.dat" (
 				IF NOT EXIST "%volume_letter%:\sxos" (
@@ -784,7 +783,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\sxos\titles"
 				)
 				call :force_copy_overlays_base_files "sxos"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 			IF /i "%copy_atmosphere_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\atmosphere" (
@@ -792,7 +791,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\contents
 				)
 				call :force_copy_overlays_base_files "atmosphere"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
 			)
 			IF /i "%copy_reinx_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\ReiNX" (
@@ -800,7 +799,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\ReiNX\contents"
 				)
 				call :force_copy_overlays_base_files "reinx"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
 			)
 			IF /i "%copy_sxos_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\sxos" (
@@ -808,7 +807,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%:\sxos\titles"
 				)
 				call :force_copy_overlays_base_files "sxos"
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
+				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
 			)
 		)
 		IF "!temp_homebrew!"=="Switch-cheats-updater" (
