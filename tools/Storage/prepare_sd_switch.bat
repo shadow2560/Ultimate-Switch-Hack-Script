@@ -468,11 +468,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\switch\sigpatch-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatch-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatches-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatches-updater"
 	IF EXIST "%volume_letter%:\switch\DeepSea-Toolbox\*.*" rmdir /s /q "%volume_letter%:\switch\DeepSea-Toolbox"
-	IF EXIST "%volume_letter%:\bootloader\patches.ini" rename "%volume_letter%:\bootloader\patches.ini" "patches.ini.bak" >nul
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
-	IF EXIST "%volume_letter%:\bootloader\patches.ini.bak" (
-		rename "%volume_letter%:\bootloader\patches.ini.bak" "patches.ini" >nul
-	)
 	IF /i "%copy_payloads%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\Atmosphere_fusee-primary.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\Hekate.bin >nul
@@ -481,6 +477,8 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\bootloader\payloads\Atmosphere_fusee-primary.bin >nul
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\payloads\Hekate.bin >nul
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\update.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payload.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\start.bin >nul
 	IF EXIST "%volume_letter%:\switch\GagOrder.nro" del /q "%volume_letter%:\switch\GagOrder.nro" >nul
 	IF EXIST "%volume_letter%:\atmosphere\exefs_patches\Signature_Patches_by_br4z0rf_and_Jakibaki" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\Signature_Patches_by_br4z0rf_and_Jakibaki" >nul
 	IF EXIST "%volume_letter%:\switch\appstore\res" rmdir /s /q "%volume_letter%:\switch\appstore\res" >nul
@@ -565,7 +563,12 @@ IF /i "%copy_sxos_pack%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\Incognito_RCM.bin >nul
 		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\TegraExplorer.bin >nul
 	)
-	IF /i "%copy_atmosphere_pack%"=="o" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\bootloader\payloads\SXOS.bin >nul
+	IF /i "%copy_atmosphere_pack%"=="o" (
+		copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\bootloader\payloads\SXOS.bin >nul
+	) else (
+		IF NOT EXIST "%volume_letter%:\payload.bin" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\payload.bin >nul
+		IF NOT EXIST "%volume_letter%:\start.bin" copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\start.bin >nul
+	)
 	IF EXIST "%volume_letter%:\switch\GagOrder.nro" del /q "%volume_letter%:\switch\GagOrder.nro" >nul
 	IF EXIST "%volume_letter%:\switch\appstore\res" rmdir /s /q "%volume_letter%:\switch\appstore\res" >nul
 	IF /i "%sxos_enable_cheats%"=="o" (

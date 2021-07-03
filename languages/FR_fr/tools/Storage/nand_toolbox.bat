@@ -68,7 +68,7 @@ goto:eof
 
 :nand_choice
 echo 0: Fichier de dump?
-echo Aucune valeur: Revenir au choix du mode?
+echo Aucune valeur: Revenir au menu précédent?
 echo.
 set /p action_choice=Faites votre choix: 
 goto:eof
@@ -123,7 +123,7 @@ echo Vous allez devoir sélectionner le fichier depuis lequel restaurer, quitter
 goto:eof
 
 :restaure_input_empty_error
-echo Le fichier de dump n'a pas été indiqué, retour au choix du mode.
+echo Le fichier de dump n'a pas été indiqué, retour au menu précédent.
 goto:eof
 
 :restaure_output_begin
@@ -209,7 +209,7 @@ goto:eof
 
 :emunand_output_choice
 echo 0: Recharger la liste des périphériques?
-echo Aucune valeur: Revenir au choix du mode?
+echo Aucune valeur: Revenir au menu précédent?
 echo.
 set /p action_choice=Faites votre choix: 
 goto:eof

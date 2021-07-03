@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.131</h2>
+<ul>
+<li>Correction de bugs dans le script TegraExplorer de débrickage dans la fonction de migration de l'emunand.</li>
+<li>Mise à jour de Hactoolnet en version 0.13.1.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 455.</li>
+</ul>
 <h2>V4.3.130</h2>
 <ul>
 <li>Le module Noexes ne sera plus copié avec EdiZon car celui-ci semble causer pas mal de problèmes.</li>
