@@ -7,6 +7,7 @@
 <li>Update NightFall to version 1.1.3.</li>
 <li>Update MiiPort to version 0.1.0.</li>
 <li>Update DBI to version 300.</li>
+<li>Update  Retroarch download link for the version 1.9.6.</li>
 </ul>
 <h2>V454</h2>
 <ul>
