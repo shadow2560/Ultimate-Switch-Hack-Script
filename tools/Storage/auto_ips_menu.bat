@@ -231,6 +231,7 @@ echo 12.0.0?
 echo 12.0.1?
 echo 12.0.2?
 echo 12.0.3?
+echo 12.1.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF EXIST "firmware_temp" (
@@ -536,6 +537,13 @@ IF "%firmware_choice%"=="12.0.3" (
 	set expected_md5=26d79bde70476ab1c20ceefd8b0fd4c5
 	set "firmware_link=https://mega.nz/file/lB5UTIqB#YSUkChTrftWSPJH7ulH537s9OgFWqrNr2OCEx7eGgSw"
 	set firmware_file_name=Firmware 12.0.3.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="12.1.0" (
+	set expected_md5=6c8f353daccf73e1da7ee5dd532656f0
+	set "firmware_link=https://mega.nz/file/8cpWiR4K#Ina7VLZpVbfi53-9liXSYyes93VIga2BENiFqqAYYxU"
+	set firmware_file_name=Firmware 12.1.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )

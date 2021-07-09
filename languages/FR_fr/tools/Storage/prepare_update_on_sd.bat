@@ -10,12 +10,12 @@ goto:eof
 
 :intro
 IF NOT "%special_launch%" == "unbrick_package_creation" (
-	echo Ce script permet de préparer la carte SD avec un firmware spécifique à installer avec ChoiDuJourNX, le firmware sera téléchargé puis copié sur la SD et ChoiDuJour-NX sera également copié sur la SD. Notez que vous aurez besoin de lancer un CFW pour finaliser la mise à jour sur votre console donc si vous ne l'avez pas fait, veuillez préparer la SD pour le hack avant ou après l'exécution de ce script ^(si après, ne pas formater la carte ou supprimer les données s'y trouvant car sinon vous devrez exécuter de nouveau ce script^).
+	echo Ce script permet de préparer la carte SD avec un firmware spécifique à installer avec ChoiDuJourNX ou Daybreak, le firmware sera téléchargé puis copié sur la SD et ChoiDuJour-NX sera également copié sur la SD. Notez que vous aurez besoin de lancer un CFW pour finaliser la mise à jour sur votre console donc si vous ne l'avez pas fait, veuillez préparer la SD pour le hack avant ou après l'exécution de ce script ^(si après, ne pas formater la carte ou supprimer les données s'y trouvant car sinon vous devrez exécuter de nouveau ce script^).
 	echo.
 	echo ATTENTION: Choisissez bien la lettre du volume qui correspond à votre SD car aucune vérification ne pourra être faites à ce niveau là. 
 	echo.
 )
-echo Pour les utilisateurs avancés, ce script permet de créer un package de mise à jour via ChoiDuJour en se basant sur le firmware sélectionné pour mettre à jour manuellement la console via Memloader, Etcher et HacDiskMount.
+echo Pour les utilisateurs avancés, ce script permet de créer un package de mise à jour via ChoiDuJour ou EmmcHaccGen en se basant sur le firmware sélectionné pour mettre à jour manuellement la console via Memloader, Etcher et HacDiskMount.
 echo.
 echo Attention: Aucune vérification n'est faite sur l'espace disque sur lequel est exécuté ce script ni sur celui de la SD, vous aurez au moins besoin de 800 MO ^(1 GO si vous créez en plus un package via ChoiDuJour^) d'espace libre sur le disque sur lequel s'exécute ce script et d'environ 400 MO sur la SD de la Switch pour y copier le firmware. Notez que ces estimations sont un peu plus large que la réalité mais c'est à vous de faire ces vérifications pour le moment.
 echo Notez également qu'une vérification sera tout de même faite pour savoir si le firmware téléchargé n'est pas corrompu via son MD5, seulement l'extraction de celui-ci n'est pas vérifiée donc faites bien attention aux éventuels messages d'erreurs des différents programmes pendant ce script pour savoir si quelque chose s'est mal passé. En cas de problème, vérifiez en premier lieu que vous avez assez d'espace disque sur les périphériques utilisés.
@@ -37,7 +37,7 @@ IF "%special_launch%" == "unbrick_package_creation" (
 	echo.
 	set /p action_type=Faites votre choix: 
 ) else (
-	echo 1: Préparer un firmware qui sera copié sur la SD pour une installation via ChoiDuJour-NX?
+	echo 1: Préparer un firmware qui sera copié sur la SD pour une installation via ChoiDuJour-NX/Daybreak?
 	echo 2: Préparer un firmware pour la mise à jour manuel avec ChoiDuJour ^(firmware 6.1.0 maximum^)?
 	echo 3: Effectuer les deux actions.
 	echo 4: Préparer une SD avec les différents CFWs et homebrews utiles et revenir à ce menu ensuite?

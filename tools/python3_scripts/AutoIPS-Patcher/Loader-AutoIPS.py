@@ -160,8 +160,9 @@ def makeips():
         xxx = '0x{0:0{1}X}'.format(final, 8) #change int back to uppercase hex (make sure we also print leading zero)
         print("Offset patch address for ips file: %s" % xxx)
 
-        
-        if not os.path.exists(os.path.join(workingdir, "patches.ini")):
+        if not os.path.exists(os.path.join(workingdir, "bootloader")):
+            os.makedirs(os.path.join(root_dir, "bootloader"))
+        if not os.path.exists(os.path.join(workingdir, "bootloader/patches.ini")):
                 loader = ("[Loader:" + info[:-48] + "]")
         else:
                 loader = ("\n\n[Loader:" + info[:-48] + "]")         
@@ -170,7 +171,7 @@ def makeips():
         # print("\nAdd to Patches.ini")
         # print (loader)
         # print(patchnfo)
-        txt = open(workingdir +"/patches.ini", "a")
+        txt = open(os.path.join(workingdir, "bootloader/patches.ini"), "a")
         txt.write(loader + "\n" + patchnfo)
         txt.close()
 

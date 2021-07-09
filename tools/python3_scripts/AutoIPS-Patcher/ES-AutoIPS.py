@@ -27,7 +27,6 @@ if len(sys.argv) < 2:
     else:
         print('Usage Example: python ES-MakeIPS.py "firmware" "prod.keys" "output"')
         sys.exit(1)
-    
 else:
     FIRMWARE_DIR = sys.argv[1]
     keyset = sys.argv[2]
@@ -94,6 +93,7 @@ def movefiles():
 def extract():
     List_files() # create short list of files to process
     print("Checking files in " + FIRMWARE_DIR + " folder.")
+    print(shortlist)
     for filename in shortlist:
         if filename.endswith(".nca"):
 

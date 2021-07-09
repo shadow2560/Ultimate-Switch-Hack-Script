@@ -113,8 +113,9 @@ def makepatches():
                     filekip.close()
                     
                     outputdirs() # Create some directories so we can store our files...
-                    
-                    if not os.path.exists(os.path.join(root_dir, "patches.ini")):
+                    if not os.path.exists(os.path.join(root_dir, "bootloader")):
+                        os.makedirs(os.path.join(root_dir, "bootloader"))
+                    if not os.path.exists(os.path.join(root_dir, "bootloader/patches.ini")):
                             loader = ("[FS:" + info[:-48] + "]")
                     else:
                             loader = ("\n\n[FS:" + info[:-48] + "]")
@@ -125,7 +126,7 @@ def makepatches():
                     print ((loader + "\n" + patchnfo).replace("\n\n", ""))
                     print("")
                     # txt = open(info + ".txt", "w")
-                    txt = open(root_dir + "patches.ini", "a")
+                    txt = open(os.path.join(root_dir, "bootloader/patches.ini"), "a")
                     txt.write(loader + "\n" + patchnfo)
                     txt.close()
             

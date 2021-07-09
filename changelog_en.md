@@ -1,5 +1,15 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.132</h2>
+<ul>
+<li>Support of the firmware 12.1.0 in the scripts witch can make actions on firmwares.</li>
+<li>Fix bugs in the sig_patches creation script.</li>
+<li>Update Atmosphere to version 0.19.5.</li>
+<li>Update Hekate to version 5.5.8.</li>
+<li>Update Lockpick-rcm to version 1.9.3.</li>
+<li>Update TegraExplorer to version 3.0.6.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 456.</li>
+</ul>
 <h2>V4.3.131</h2>
 <ul>
 <li>Bugs fix in the TegraExplorer script for unbricking the console in the function to migrate emunand.</li>

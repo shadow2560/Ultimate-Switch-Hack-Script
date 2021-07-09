@@ -1,5 +1,21 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V456</h2>
+<ul>
+<li>Update Atmosphere to version 0.19.5.</li>
+<li>Update Hekate to version 5.5.8.</li>
+<li>Update Lockpick-rcm to version 1.9.3.</li>
+<li>Update TegraExplorer to version 3.0.6.</li>
+<li>Update Edizon-SE to version 3.8.20.</li>
+<li>Update DBI to version 308.</li>
+<li>Update Tesla-Menu to version 1.1.4.</li>
+<li>Update MiiPort to version 0.1.1.</li>
+<li>Update Ovl-sysmodules to version 1.2.2.</li>
+<li>Update AIO-Switch-Updater to version 2.10.1.</li>
+<li>Update Fizeau to version 2.1.9.</li>
+<li>Update Haku33 to version 3.6.</li>
+<li>Update MissionControl to version 0.5.0-alpha.4-develop-ff2cb79.</li>
+</ul>
 <h2>V455</h2>
 <ul>
 <li>Adding default files to manage some of the configurations via a Trinket or other such modchips (some of the files come from the Deejay87 pack).</li>
