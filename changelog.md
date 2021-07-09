@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.133</h2>
+<ul>
+<li>Ajout du fichier "nyx.ini" dans le script de débrickage pour permettre l'écriture sur la nandvia Hekate.</li>
+</ul>
 <h2>V4.3.132</h2>
 <ul>
 <li>Support du firmware 12.1.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
