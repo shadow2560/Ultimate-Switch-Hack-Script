@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V457</h2>
+<ul>
+<li>Update MissionControl to version 0.5.0-beta-develop-429cc06.</li>
+</ul>
 <h2>V456</h2>
 <ul>
 <li>Update Atmosphere to version 0.19.5.</li>

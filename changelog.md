@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.134</h2>
+<ul>
+<li>Mise à jour de Rekado en version 4.1.4.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 457.</li>
+</ul>
 <h2>V4.3.133</h2>
 <ul>
 <li>Ajout du fichier "nyx.ini" dans le script de débrickage pour permettre l'écriture sur la nandvia Hekate.</li>
