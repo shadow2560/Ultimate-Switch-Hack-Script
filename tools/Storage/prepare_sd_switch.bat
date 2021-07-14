@@ -673,6 +673,8 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF "!temp_module!"=="MissionControl" (
 				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\atmosphere\ /e >nul
 				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\patches %volume_letter%:\sxos\ /e >nul
+				IF EXIST "%volume_letter%:\atmosphere\config_templates\missioncontrol.ini" del /q "%volume_letter%:\atmosphere\config_templates\missioncontrol.ini"
+				IF EXIST "%volume_letter%:\atmosphere\config\missioncontrol.ini" del /q "%volume_letter%:\atmosphere\config\missioncontrol.ini"
 			)
 				rem IF "%~1"=="sxos" (
 				rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"

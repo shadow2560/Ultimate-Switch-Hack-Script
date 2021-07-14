@@ -59,6 +59,7 @@
 <li><a target="_blank" href="https://github.com/tallbl0nde/TriPlayer">Triplayer</a></li>
 <li><a target="_blank" href="https://github.com/XorTroll/uLaunch">uLaunch</a></li>
 <li><a target="_blank" href="https://github.com/khedoros/khedgb">Khedgb</a></li>
+<li><a target="_blank" href="https://github.com/RSDuck/melonDS">MelonDS</a></li>
 <li><a target="_blank" href="https://github.com/mgba-emu/mgba">Mgba</a></li>
 <li><a target="_blank" href="https://github.com/rsn8887/openbor">OpenBOR</a></li>
 <li><a target="_blank" href="https://github.com/Cpasjuste/pemu/tree/master/pfba">Pfba</a></li>
@@ -72,6 +73,8 @@
 <li><a target="_blank" href="https://gbatemp.net/threads/vba-next-for-switch-works-4-1.504947/">Vba-next</a></li>
 <li><a target="_blank" href="https://gitlab.com/4TU/hb-appstore">Homebrew App Store</a></li>
 <li><a target="_blank" href="https://github.com/HamletDuFromage/AIO-switch-updater">AIO-switch-updater</a></li>
+<li><a target="_blank" href="https://github.com/dezem/AtmoXL-Titel-Installer">AtmoXL-Titel-Installer</a></li>
+<li><a target="_blank" href="https://github.com/J-D-K/Avatool">Avatool</a></li>
 <li><a target="_blank" href="https://github.com/Huntereb/Awoo-Installer">Awoo-Installer</a></li>
 <li><a target="_blank" href="https://github.com/J-D-K/biggestDump">BiggestDump</a></li>
 <li><a target="_blank" href="https://github.com/FlagBrew/Checkpoint">Checkpoint</a></li>
@@ -141,9 +144,12 @@
 <li><a target="_blank" href="https://gist.github.com/cd40c3d1b5dfafbf1fe8f7e5cf13f91e">Gw_flash</a></li>
 <li><a target="_blank" href="https://github.com/Spacecraft-NX">Spacecraft-NX projects</a></li>
 <li><a target="_blank" href="https://github.com/SciresM/hactool">Hactool</a></li>
+<li><a target="_blank" href="https://github.com/The-4n/hacBrewPack">HacBrewPack</a></li>
+<li><a target="_blank" href="https://www.imagemagick.org">ImageMagick</a></li>
 <li><a target="_blank" href="https://github.com/Thealexbarney/LibHac">Hactoolnet</a></li>
 <li>Imx_load Windows binary: rajkosto</li>
 <li><a target="_blank" href="https://github.com/MegatonHammer/linkle">Linkle</a></li>
+<li><a target="_blank" href="https://gbatemp.net/threads/nsp-forwarder-tool-for-12.587936/">This project</a> and <a target="_blank" href="https://gbatemp.net/threads/gui-for-nsp-forwarder-tool-for-12.588018/">This project</a> to create NSP forwarders.</li>
 <li><a target="_blank" href="https://megatools.megous.com">Megatools</a></li>
 <li><a target="_blank" href="https://github.com/ihaveamac/ninfs">Ninfs</a> and <a target="_blank" href="https://github.com/billziss-gh/winfsp">WinFsp</a></li>
 <li><a target="_blank" href="https://github.com/garethflowers/nodejs-portable">NodeJS Portable</a>/</li>

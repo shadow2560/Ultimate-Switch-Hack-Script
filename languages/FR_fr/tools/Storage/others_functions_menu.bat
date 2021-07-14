@@ -35,6 +35,8 @@ echo 12: Configurer l'émulateur Snes Classic Edition?
 echo.
 echo 13: Installer des applications Android ^(mode débogage USB requis^)?
 echo.
+echo 14: Créer un forwarder?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

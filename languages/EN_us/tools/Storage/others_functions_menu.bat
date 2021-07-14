@@ -44,6 +44,8 @@ echo 12: Configure the emulator Snes Classic Edition?
 echo.
 echo 13: Install Android APPS ^(USB debugging  MODE REQUIRED^)?
 echo.
+echo 14: Create a forwarder?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.

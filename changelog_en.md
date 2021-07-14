@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.135</h2>
+<ul>
+<li>Added the ability to flash the SXOS bootloader on the SX Core/Lite chip.</li>
+<li>Added a feature to create forwarders.</li>
+<li>Fixed a bug preventing sig_patches from being downloaded in the update manager.</li>
+<li>Fixed a bug in chip management.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 458.</li>
+</ul>
 <h2>V4.3.134</h2>
 <ul>
 <li>Update Rekado to version 4.1.4.</li>

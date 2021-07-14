@@ -154,6 +154,7 @@ echo What do you want to do:
 echo.
 echo 1: Use SX_Flasher to flash an opfficial firmware?
 echo 2: Flash Spacecraft?
+echo 3: Flash SXOS bootloader?
 echo All other choices: Go back to main actions choice of this script?
 echo.
 set /p sx_core_lite_action_choice=Make your choice: 
@@ -174,6 +175,18 @@ goto:eof
 
 :spacecraft_end_flash
 echo Modship flash with Spacecraft success.
+goto:eof
+
+:sx_bootloader_begin_flash
+echo Modship flashing with SXOS bootloader...
+goto:eof
+
+:sx_bootloader_error_flash
+echo Error during the modship flash  with SXOS bootloader.
+goto:eof
+
+:sx_bootloader_end_flash
+echo Modship flash with SXOS bootloader success.
 goto:eof
 
 :no_compatible_disk_found_error

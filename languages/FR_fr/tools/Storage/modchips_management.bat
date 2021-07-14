@@ -145,6 +145,7 @@ echo Que souhaitez-vous faire:
 echo.
 echo 1: Utiliser SX_Flasher pour flasher un firmware officiel?
 echo 2: Flasher Spacecraft?
+echo 3: Flasher le bootloader de SXOS?
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
 set /p sx_core_lite_action_choice=Faites votre choix: 
@@ -165,6 +166,18 @@ goto:eof
 
 :spacecraft_end_flash
 echo Flash de la puce avec Spacecraft terminé avec succès.
+goto:eof
+
+:sx_bootloader_begin_flash
+echo Flash de la puce avec le bootloader de SXOS en cours...
+goto:eof
+
+:sx_bootloader_error_flash
+echo Erreur durant le flash de la puce avec le bootloader de SXOS.
+goto:eof
+
+:sx_bootloader_end_flash
+echo Flash de la puce avec le bootloader de SXOS terminé avec succès.
 goto:eof
 
 :no_compatible_disk_found_error

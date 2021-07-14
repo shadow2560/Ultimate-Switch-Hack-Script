@@ -332,13 +332,23 @@ IF "%sx_core_lite_action_choice%"=="2" (
 		goto:sx_core_lite_flash
 	)
 	timeout /t 15 /nobreak > NUL
-	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin	IF !errorlevel! NEQ 0 (
+	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "spacecraft_error_flash"
 		pause
 		goto:sx_core_lite_flash
 	)
 	call "%associed_language_script%" "spacecraft_end_flash"
+)
+IF "%sx_core_lite_action_choice%"=="3" (
+	call "%associed_language_script%" "sx_bootloader_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\BootloaderUpdater.exe tools\SX_Core_Lite\firmwares\bootloader.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "sx_bootloader_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "sx_bootloader_end_flash"
 )
 goto:define_action_type
 

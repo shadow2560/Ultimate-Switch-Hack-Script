@@ -30,7 +30,7 @@ set /p action_choice=Faites votre choix:
 goto:eof
 
 :keys_file_selection
-	echo Veuillez renseigner le fichier de clés lié à la console dans la fenêtre suivante.
+echo Veuillez renseigner le fichier de clés lié à la console dans la fenêtre suivante.
 pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichier de liste de clés Switch^(*.*^)|*.*|" "Sélection du fichier de clés pour Hactool" "templogs\tempvar.txt"
 goto:eof
@@ -40,7 +40,7 @@ echo Aucun fichier clés renseigné, le script va s'arrêter.
 goto:eof
 
 :fusee_file_selection
-	echo Veuillez renseigner le fichier "fusee-secondary.bin" de la version d'Atmosphere que vous utilisez dans la fenêtre suivante.
+echo Veuillez renseigner le fichier "fusee-secondary.bin" de la version d'Atmosphere que vous utilisez dans la fenêtre suivante.
 pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichier bin^(*.bin^)|*.bin|" "Sélection du fichier fusee-secondary.bin" "templogs\tempvar.txt"
 goto:eof

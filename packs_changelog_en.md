@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V458</h2>
+<ul>
+<li>Add MelonDS homebrew.</li>
+<li>Add AtmoXL-Titel-Installer homebrew.</li>
+<li>Add Avatool homebrew.</li>
+<li>Update MGBA to version 0.9.2.</li>
+<li>Update NX-Activity-Log to version 1.4.0.</li>
+<li>Update MissionControl to version 0.5.0.</li>
+<li>Update DBI to version 309.</li>
+</ul>
 <h2>V457</h2>
 <ul>
 <li>Update MissionControl to version 0.5.0-beta-develop-429cc06.</li>

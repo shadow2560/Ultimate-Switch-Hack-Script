@@ -435,6 +435,7 @@ call :update_merge_games.bat
 call :update_modchips_management.bat
 call :update_nand_toolbox.bat
 call :update_netplay.bat
+call :update_nsp_forwarder_creator.bat
 call :update_launch_nsusbloader.bat
 call :update_nsZip.bat
 call :update_partial_aes_mariko_keys_decrypt.bat
@@ -1439,6 +1440,37 @@ IF "!update_finded!"=="Y" (
 )
 exit /b
 
+:update_nsp_forwarder_creator.bat
+call :verif_file_version "tools\Storage\nsp_forwarder_creator.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\nsp_forwarder_creator.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\nsp_forwarder_creator.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\AutoIt3"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\ImageMagick"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\nsp_forwarder_creator"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
 :update_nsZip.bat
 call :verif_file_version "tools\Storage\nsZip.bat"
 IF "!update_finded!"=="Y" (
@@ -1638,10 +1670,10 @@ IF "!update_finded!"=="Y" (
 call :verif_folder_version "tools\sd_switch\atmosphere"
 IF "!update_finded!"=="Y" (
 	call :update_folder
-	set temp_folder_path=tools\sd_switch\atmosphere_fs_and_es_patches
-	set temp_folder_slash_path=!temp_folder_path:\=/!
+)
+call :verif_folder_version "tools\sd_switch\atmosphere_fs_and_es_patches"
+IF "!update_finded!"=="Y" (
 	call :update_folder
-	
 )
 call :verif_folder_version "tools\sd_switch\atmosphere_mariko_special_files"
 IF "!update_finded!"=="Y" (
@@ -2466,7 +2498,7 @@ exit /b
 
 :update_folder
 echo !temp_folder_path!>"failed_updates\!temp_folder_path:\=;!.fold.failed"
-IF "!temp_folder_path!"=="tools\sd_switch\atmosphere\atmosphere_fs_and_es_patches" (
+IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 	rmdir /s /q "!temp_folder_path!" >nul 2>&1
 	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
 	IF !errorlevel! NEQ 0 (

@@ -49,7 +49,7 @@ echo No keys file selected, the script will stop.
 goto:eof
 
 :fusee_file_selection
-	echo Please fill in the file "fusee-secondary.bin" of the version of Atmosphere you are using in the following window.
+echo Please fill in the file "fusee-secondary.bin" of the version of Atmosphere you are using in the following window.
 pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "bin files^(*.bin^)|*.bin|" "fusee-secondary.bin file selection" "templogs\tempvar.txt"
 goto:eof
