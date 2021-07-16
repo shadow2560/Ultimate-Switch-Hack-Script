@@ -74,14 +74,14 @@ goto:eof
 
 :set_nro_path
 IF "%nsp_type%"=="nro" (
-	set /p nro_path=Enter the path to the NRO to launch: 
+	set /p nro_path=Enter the path to the NRO to launch: sdmc:/
 ) else IF "%nsp_type%"=="rom" (
-	set /p nro_path=Enter the path to the NRO of the Retroarch core to use: 
+	set /p nro_path=Enter the path to the NRO of the Retroarch core to use: sdmc:/
 )
 goto:eof
 
 :set_rom_path
-set /p rom_path=Enter the path to the rom to launch: 
+set /p rom_path=Enter the path to the rom to launch: sdmc:/
 goto:eof
 
 :set_author
@@ -100,6 +100,10 @@ echo Please choose the folder where to create the forwarder in the following win
 echo If you close the window, the script will end without doing anything.
 pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Select the folder where to create the forwarder"
+goto:eof
+
+:set_confirm_nsp_duplicated_deletion
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "The file ^"%nsp_path%%name%_%id%.nsp^" already exist, do you want to erase the file ^(if yes the file will be deleted just after this choice, if no the script will finish without doing anything^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :set_confirm_nsp_creation

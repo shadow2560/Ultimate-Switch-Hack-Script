@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V459</h2>
+<ul>
+<li>Update Tinfoil to version 12.10 (Applet Version).</li>
+</ul>
 <h2>V458</h2>
 <ul>
 <li>Add MelonDS homebrew.</li>

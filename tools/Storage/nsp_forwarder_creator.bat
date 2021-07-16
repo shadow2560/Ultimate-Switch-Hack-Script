@@ -57,7 +57,7 @@ IF "%id%"=="" (
 	call :randomize_id
 	goto:pass_id_set
 )
-call tools\storage\functions\strlen.bat nb "%~6"
+call tools\storage\functions\strlen.bat nb "%id%"
 IF %nb% NEQ 16 (
 	call "%associed_language_script%" "id_length_error"
 	goto:id_set
@@ -156,6 +156,15 @@ IF "%nsp_path%"=="" (
 	set nsp_path=%nsp_path%\
 	set nsp_path=!nsp_path:\\=\!
 )
+IF EXIST "%nsp_path%%name%_%id%.nsp" (
+	echo.
+	call "%associed_language_script%" "set_confirm_nsp_duplicated_deletion"
+	IF !errorlevel! NEQ 1 (
+		goto:end_script2
+	) else (
+		del /q "%nsp_path%%name%_%id%.nsp" >nul
+	)
+)
 :confirm_nsp_creation
 echo.
 call "%associed_language_script%" "set_confirm_nsp_creation"
@@ -204,11 +213,11 @@ IF NOT "%logo_path%"=="" (
 	del /q "tools\nsp_forwarder_creator\logo\logo.bmp" >nul
 )
 IF "%nsp_type%"=="nro" (
-	echo sdmc:/%nro_path:\=/%> tools\nsp_forwarder_creator\romfs\nextArgv
+	echo|set /p="sdmc:/%nro_path:\=/%"> tools\nsp_forwarder_creator\romfs\nextArgv
 ) else IF "%nsp_type%"=="rom" (
-	echo sdmc:/%nro_path:\=/% "sdmc:%rom_path%"> tools\nsp_forwarder_creator\romfs\nextArgv
+	echo|set /p="sdmc:/%nro_path:\=/% ^"sdmc:/%rom_path%^""> tools\nsp_forwarder_creator\romfs\nextArgv
 )
-echo sdmc:/%nro_path:\=/%> tools\nsp_forwarder_creator\romfs\nextNroPath
+echo|set /p="sdmc:/%nro_path:\=/%"> tools\nsp_forwarder_creator\romfs\nextNroPath
 cd tools\nsp_forwarder_creator
 hacbrewpack.exe --titleid %id% --titlename "%name%" --titlepublisher "%author%" --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
 IF %errorlevel% NEQ 0 (
@@ -222,6 +231,7 @@ IF %errorlevel% NEQ 0 (
 rmdir /S/Q hacbrewpack_backup >nul
 del control\icon_AmericanEnglish.dat >nul
 cd ..\..
+
 rename "%nsp_path%%id%.nsp" "%name%_%id%.nsp" >nul
 echo.
 call "%associed_language_script%" "forwarder_build_success"

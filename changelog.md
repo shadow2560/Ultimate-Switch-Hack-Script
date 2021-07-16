@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.136</h2>
+<ul>
+<li>Correction de bugs importants dans la fonction de création de forwarders.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 459.</li>
+</ul>
 <h2>V4.3.135</h2>
 <ul>
 <li>Ajout de la possibilité de flasher le bootloader de SXOS sur la puce SX Core/Lite.</li>
