@@ -352,7 +352,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 			)
 		)
 	) else IF "%sx_core_lite_chip%"=="o" (
-	set copy_sxos_boot=Y
+		set copy_sxos_boot=Y
 	)
 )
 
