@@ -336,8 +336,9 @@ IF EXIST "%volume_letter%:\boot.dat" (
 	set sx_gear_present_on_sd=Y
 )
 set sx_gear_copy=
+set copy_sxos_boot=
 IF /i "%copy_atmosphere_pack%"=="o" (
-	IF /I NOT "%mariko_console%"=="o" (
+	IF /I "%mariko_console%"=="o" (
 		IF /i NOT "%copy_sxos_pack%"=="o" (
 			IF NOT EXIST "%volume_letter%:\boot.dat" (
 				set sx_gear_copy=Y
@@ -350,6 +351,8 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 				)
 			)
 		)
+	) else IF "%sx_core_lite_chip%"=="o" (
+	set copy_sxos_boot=Y
 	)
 )
 
@@ -496,6 +499,8 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
 	IF "%sx_gear_copy%"=="Y" (
 		%windir%\System32\Robocopy.exe TOOLS\sd_switch\sx_gear %volume_letter%:\ /e >nul
+	) else IF "%copy_sxos_boot%"=="Y" (
+		copy /V /B TOOLS\sd_switch\sxos\boot.dat %volume_letter%:\boot.dat >nul
 	)
 	IF /i "%copy_payloads%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\Atmosphere_fusee-primary.bin >nul
