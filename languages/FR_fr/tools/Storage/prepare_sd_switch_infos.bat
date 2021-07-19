@@ -326,6 +326,23 @@ IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
 ) else (
 	echo Le contenu du dossier "%sd_folder_structure_to_copy_path%" sera copié à la racine de la SD.
 )
+IF "%profile_selected%"=="" (
+	echo.
+	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /i "%mariko_console%"=="o" (
+			echo Puce SX Core/Lite présente sur console Mariko.
+		) else (
+			echo Puce SX Core/Lite présente sur console Erista.
+		)
+	) else (
+	echo Puce SX Core/Lite non présente.
+	)
+	IF "%sx_gear_copy%"=="Y" (
+	echo Les fichiers du SX Gear seront copiés pour lancer le payload nommé "payload.bin" situé à la racine de la SD.
+	) else (
+	echo Les fichiers du SX Gear ne seront pas copiés.
+	)
+)
 echo.
 IF /i "%del_files_dest_copy%"=="1" echo Attention: Les fichiers de tous les CFWs seront réinitialisé avant la copie, dossier "titles" de ceux-ci inclus.
 IF /i "%del_files_dest_copy%"=="2" echo Attention: Les fichiers de la SD seront intégralement supprimés avant la copie.

@@ -102,6 +102,23 @@ goto:eof
 echo Le formatage a été annulé par l'utilisateur.
 goto:eof
 
+:sx_core_lite_chip_choice
+set /p sx_core_lite_chip=La console est-elle équipée d'une puce SX Core/Lite? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:mariko_console_choice
+set /p mariko_console=La console est-elle un modèle Mariko ^(numéro de série commençant par "XKJ" ou Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:sx_gear_force_copy
+set /p sx_gear_copy=Souhaitez-vous copier les fichiers du SX Gear pour lancer Hekate au lieu de SXOS au démarrage de la console ^(SXOS ne sera plus utilisable^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:sx_chip_clean_up_warning
+echo Attention: Sur une console Erista équipée d'une puce SX Core utilisant SXOS, si vous souhaitez lancer un payload veuillez avant tout maintenir le bouton "vol+" de la console durant le démarrage de celle-ci jusqu'à l'apparition du menu de SXOS puis allez dans "Options", "SX Core", "Clean up" et confirmer l'action puis lancez le payload souhaité ^(Hekate recommandé pour ensuite lancer d'autres payloads^).
+echo Cette procédure est à refaire à chaque fois que la console a été éteinte et que la puce démarre celle-ci.
+goto:eof
+
 :general_profile_select_begin
 echo Sélection du profile général:
 goto:eof

@@ -335,6 +335,24 @@ IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
 ) else (
 	echo The content of the "%sd_folder_structure_to_copy_path%" folder will be copied on SD root.
 )
+IF "%profile_selected%"=="" (
+	echo.
+	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /i "%mariko_console%"=="o" (
+			echo SX Core/Lite modchip present on Mariko console.
+		) else (
+			echo SX Core/Lite modchip present on Erista console.
+		)
+	) else (
+	echo SX Core/Lite modchip not present.
+	)
+	IF "%sx_gear_copy%"=="Y" (
+	echo The SX Gear files will be copied to launch the payload named "payload.bin" located at the root of the SD.
+	) else (
+	echo The SX Gear files will not be copied.
+	)
+)
+echo.
 IF /i "%del_files_dest_copy%"=="1" echo Be careful: All CFWs folder will be cleaned, included the "titles" folder of them.
 IF /i "%del_files_dest_copy%"=="2" echo Be careful: All files on the SD will be removed.
 IF /i "%del_files_dest_copy%"=="0" echo The files on  the SD will be kept and  only the updated files will be copied.

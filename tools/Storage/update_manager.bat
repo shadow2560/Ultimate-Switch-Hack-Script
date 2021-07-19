@@ -1675,10 +1675,6 @@ call :verif_folder_version "tools\sd_switch\atmosphere_fs_and_es_patches"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-call :verif_folder_version "tools\sd_switch\atmosphere_mariko_special_files"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
 call :verif_folder_version "tools\sd_switch\atmosphere_patches_nogc"
 IF "!update_finded!"=="Y" (
 	call :update_folder
@@ -1688,6 +1684,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 rem call :verif_folder_version "tools\sd_switch\reinx"
+rem IF "!update_finded!"=="Y" (
+	rem call :update_folder
+rem )
+call :verif_folder_version "tools\sd_switch\sx_gear"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2609,17 +2609,6 @@ IF %temp_folder_download_error% NEQ 0 (
 	pause
 	exit
 )
-IF "%temp_folder_path%"=="tools\sd_switch\atmosphere_mariko_special_files" (
-	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!temp_folder_path!\bootloader\patches_file.ini" "%atmo_files_sigpatches_url_project_base%/bootloader/patches.ini"
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-)
 IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
 	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
 	IF !errorlevel! NEQ 0 (
@@ -2638,9 +2627,6 @@ IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
 		)
 		pause
 		exit
-	) else (
-		copy "!temp_folder_path!\bootloader\patches.ini" ""!temp_folder_path!\bootloader\patches_file.ini" >nul
-	)
 )
 del /q "failed_updates\%temp_folder_path:\=;%.fold.failed"
 call "%associed_language_script%" "update_folder_success"
@@ -2761,6 +2747,7 @@ IF EXIST "tools\sd_switch\mixed\modular\DZ" rmdir /s /q "tools\sd_switch\mixed\m
 IF EXIST "tools\sd_switch\mixed\modular\Zerotwoxci" rmdir /s /q "tools\sd_switch\mixed\modular\Zerotwoxci"
 IF EXIST "tools\sd_switch\modules\pack\Sys-Netcheat" rmdir /s /q "tools\sd_switch\modules\pack\Sys-Netcheat"
 IF EXIST "tools\sd_switch\modules\pack\Sys-audioplayer" rmdir /s /q "tools\sd_switch\modules\pack\Sys-audioplayer"
+IF EXIST "tools\sd_switch\atmosphere_mariko_special_files" rmdir /s /q "tools\sd_switch\atmosphere_mariko_special_files"
 call "%associed_language_script%" "del_hold_files_end"
 exit /b
 

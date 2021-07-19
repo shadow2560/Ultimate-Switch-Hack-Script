@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.137</h2>
+<ul>
+<li>Le script de préparation d'une SD prend maintenant en compte des paramètres concernant les consoles équipées de puces SX Core/Lite et des spécificités des consoles Mariko/Erista équipées avec ces puces.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 460.</li>
+</ul>
 <h2>V4.3.136</h2>
 <ul>
 <li>Correction de bugs importants dans la fonction de création de forwarders.</li>

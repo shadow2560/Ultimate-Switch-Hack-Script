@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V460</h2>
+<ul>
+<li>Mise à jour de Haku33 en version 3.8.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.11.2.</li>
+<li>Mise à jour de Edizon-SE en version 3.8.21.</li>
+<li>Quelques ajustements supplémentaires.</li>
+</ul>
 <h2>V459</h2>
 <ul>
 <li>Mise à jour du Homebrew Menu en version 3.4.1.</li>

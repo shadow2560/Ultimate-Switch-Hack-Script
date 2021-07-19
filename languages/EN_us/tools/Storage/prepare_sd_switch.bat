@@ -109,6 +109,23 @@ goto:eof
 echo The formating has been canceled by the user.
 goto:eof
 
+:sx_core_lite_chip_choice
+set /p sx_core_lite_chip=The console is equiped with a SX Core/Lite modchip? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:mariko_console_choice
+set /p mariko_console=The console is a Mariko model ^(serial number starting with "XKJ" or Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:sx_gear_force_copy
+set /p sx_gear_copy=Do you want to copy the SX Gear files to run Hekate instead of SXOS at console startup ^(SXOS will not be usable anymore^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:sx_chip_clean_up_warning
+echo Warning: On an Erista console equipped with an SX Core chip using SXOS, if you want to launch a payload, please hold down the "vol+" button on the console during startup until the SXOS menu appears, then go to "Options", "SX Core", "Clean up" and confirm the action, then launch the payload you want to launch (Hekate is recommended for launching other payloads).
+echo This procedure must be repeated each time the console has been switched off and the chip starts up the console.
+goto:eof
+
 :general_profile_select_begin
 echo Select the general profile:
 goto:eof
