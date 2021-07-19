@@ -659,6 +659,10 @@ IF /I "%mariko_console%"=="o" (
 	IF EXIST "%volume_letter%:\switch\ChoiDuJourNX" rmdir /s /q "%volume_letter%:\switch\ChoiDuJourNX"
 	IF EXIST "%volume_letter%:\switch\ChoiDuJourNX.nro" del /q "%volume_letter%:\switch\ChoiDuJourNX.nro" >nul
 )
+IF /i "%sx_core_lite_chip%"=="o" (
+	IF EXIST "%volume_letter%:\0" rmdir /s /q "%volume_letter%:\0"
+	IF EXIST "%volume_letter%:\start.bin" del  /q "%volume_letter%:\start.bin" >nul
+)
 set prepare_another_sd=
 call "%associed_language_script%" "copying_end"
 IF NOT "%prepare_another_sd%"=="" set prepare_another_sd=%prepare_another_sd:~0,1%
