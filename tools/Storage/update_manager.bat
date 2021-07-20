@@ -2627,6 +2627,7 @@ IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
 		)
 		pause
 		exit
+	)
 )
 del /q "failed_updates\%temp_folder_path:\=;%.fold.failed"
 call "%associed_language_script%" "update_folder_success"
