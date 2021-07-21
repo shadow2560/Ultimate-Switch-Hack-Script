@@ -333,7 +333,8 @@ IF EXIST "%volume_letter%:\boot.dat" (
 	TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
 	set /p md5_verif=<templogs\tempvar.txt
 	IF /i "!md5_verif!"=="20cf385a492fb0058f39f183ed1ed104" (
-	set sx_gear_present_on_sd=Y
+		set sx_gear_present_on_sd=Y
+	)
 )
 set sx_gear_copy=
 set copy_sxos_boot=
