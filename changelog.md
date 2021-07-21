@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.139</h2>
+<ul>
+<li>Mise à jour du script python permettant de créer les es_patches pour prendre en compte les dernières modifications apportées par son auteur d'origine.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 461.</li>
+</ul>
 <h2>V4.3.138</h2>
 <ul>
 <li>Correction d'un bug critique dans le gestionnaire de mises à jour, merci à @zemblar de Logic-sunrise pour m'avoir averti aussi rapidement.</li>

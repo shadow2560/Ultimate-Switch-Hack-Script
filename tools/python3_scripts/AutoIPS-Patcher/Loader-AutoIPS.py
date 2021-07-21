@@ -8,6 +8,7 @@ from bitstring import ConstBitStream
 import struct
 import subprocess
 import sys
+import time
 
 filename = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'fusee-secondary.bin'))
 hactool = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe'))
@@ -47,6 +48,7 @@ info = ""
 kipname = workingdir + "/Loader-dec.kip"
 find = ""
 find2 = ""
+start = time.time()
 
 def makedirs():
         try:
@@ -204,3 +206,7 @@ def patterncheck():
 
 patterncheck()
 os.remove(kipname)
+end = time.time()
+timetaken = (end - start)
+seconds = ("{:.2f}".format(round(timetaken, 2)))
+print("Time taken to extract the loader and make an ips patch: %s seconds\n" % seconds)

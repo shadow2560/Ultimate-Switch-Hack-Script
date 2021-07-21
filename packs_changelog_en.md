@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V461</h2>
+<ul>
+<li>Update sig_patches.</li>
+<li>Update DBI to version 312.</li>
+</ul>
 <h2>V460</h2>
 <ul>
 <li>Update Haku33 to version 3.8.</li>

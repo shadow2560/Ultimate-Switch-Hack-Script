@@ -63,7 +63,10 @@ value = 0
 
 patterns1 = ['0x1f90013128928052', '0xc07240f9e1930091', '0xf3031faa02000014']
 patterns2 = ['0x1f90013128928052', '0xc0fdff35a8c35838', '0xe023009145eeff97']
-    
+    #patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c35c38', '0xe023009168edff97']
+patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009168edff97'] #firmware 12.0.3
+patterns4 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009140edff97'] #firmware 12.1.0
+
 def List_files():
     directory = FIRMWARE_DIR
     files = os.listdir(directory)
@@ -126,6 +129,7 @@ def extract():
                     if line.startswith("SDKVersion:"):
                         f = open("sdk.txt", "w")
                         f.write((line).replace("SDKVersion:", "").replace(".", ""))
+                        print((line).replace("SDKVersion:", "SDKVersion: ").replace(".", ""))
                         f.close()
                 break
     
@@ -144,11 +148,20 @@ def checkfiles():
     
     global value
     global patterns
+    global buildid
     value = int(data)
+    build_id() # run this first so we can get our IPS name.
     if value < 11400:
-        patterns = patterns1 # sdk for firware under 11.0.0
+        patterns = patterns1 # sdk for firmware under 11.0.0
+    elif value < 12300:
+        patterns = patterns2 # sdk for firmware 11.0.0 or 11.0.1 under 12.0.0
+    elif value == 12300:
+        if buildid == "1114E9102F1EBCD1B0EAF19C927362CFCB8B5D2C": #id for firmware 12.1.0
+            patterns = patterns4 # for firmware 12.1.0
+        else:
+            patterns = patterns3 # for firmware under 12.1.0
     else:
-        patterns = patterns2 # sdk for firmware 11.0 and above    
+        patterns = patterns4
 
 def clean_sdk():
     if Path(sdk).exists():
