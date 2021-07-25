@@ -330,7 +330,7 @@ IF NOT EXIST "%sd_folder_structure_to_copy_path%\*.*" set sd_folder_structure_to
 
 set sx_gear_present_on_sd=
 IF EXIST "%volume_letter%:\boot.dat" (
-	TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\md5sum.exe "%volume_letter%:\boot.dat" | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
 	set /p md5_verif=<templogs\tempvar.txt
 	IF /i "!md5_verif!"=="20cf385a492fb0058f39f183ed1ed104" (
 		set sx_gear_present_on_sd=Y
@@ -631,7 +631,11 @@ IF /i "%copy_sxos_pack%"=="o" (
 			rmdir /s /q "%volume_letter%:\sxos\titles\00FF0012656180FF"
 		)
 	)
-	call "%associed_language_script%" "sx_chip_clean_up_warning"
+	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /i NOT "%mariko_console"=="o" (
+			call "%associed_language_script%" "sx_chip_clean_up_warning"
+		)
+	)
 )
 
 IF /i "%copy_memloader%"=="o" (
@@ -642,10 +646,11 @@ IF /i "%copy_memloader%"=="o" (
 
 set sx_gear_present_on_sd=
 IF EXIST "%volume_letter%:\boot.dat" (
-	TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
+	TOOLS\gnuwin32\bin\md5sum.exe "%volume_letter%:\boot.dat" | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
 	set /p md5_verif=<templogs\tempvar.txt
 	IF /i "!md5_verif!"=="20cf385a492fb0058f39f183ed1ed104" (
-	set sx_gear_present_on_sd=Y
+		set sx_gear_present_on_sd=Y
+	)
 )
 
 call :copy_mixed_pack
