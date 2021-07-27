@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.143</h2>
+<ul>
+<li>Fix bugs in the update manager and in the SD preparation scripts.</li>
+</ul>
 <h2>V4.3.142</h2>
 <ul>
 <li>Improve graphical interface for creating forwarders.</li>
