@@ -339,21 +339,30 @@ IF EXIST "%volume_letter%:\boot.dat" (
 set sx_gear_copy=
 set copy_sxos_boot=
 IF /i "%copy_atmosphere_pack%"=="o" (
-	IF /I "%mariko_console%"=="o" (
-		IF /i NOT "%copy_sxos_pack%"=="o" (
-			IF NOT EXIST "%volume_letter%:\boot.dat" (
-				set sx_gear_copy=Y
-			) else (
-				IF NOT "%sx_gear_present_on_sd%"=="Y" (
-					call "%associed_language_script%" "sx_gear_force_copy"
-					IF NOT "!sx_gear_copy!"=="" set sx_gear_copy=!sx_gear_copy:~0,1!
-					call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_gear_copy" "o/n_choice"
-					IF /i "!sx_gear_copy!"=="o" set sx_gear_copy=Y
+	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /I NOT "%mariko_console%"=="o" (
+			IF /i NOT "%copy_sxos_pack%"=="o" (
+				IF NOT EXIST "%volume_letter%:\boot.dat" (
+					set sx_gear_copy=Y
+				) else (
+					IF NOT "%sx_gear_present_on_sd%"=="Y" (
+						call "%associed_language_script%" "sx_gear_force_copy"
+						IF NOT "!sx_gear_copy!"=="" set sx_gear_copy=!sx_gear_copy:~0,1!
+						call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_gear_copy" "o/n_choice"
+						IF /i "!sx_gear_copy!"=="o" set sx_gear_copy=Y
+					)
 				)
 			)
 		)
-	) else IF "%sx_core_lite_chip%"=="o" (
-		set copy_sxos_boot=Y
+	)
+)
+IF /i "%copy_atmosphere_pack%"=="o" (
+	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /i NOT "%copy_sxos_pack%"=="o" (
+			IF NOT "%sx_gear_copy%"=="Y" (
+				set copy_sxos_boot=Y
+			)
+		)
 	)
 )
 
