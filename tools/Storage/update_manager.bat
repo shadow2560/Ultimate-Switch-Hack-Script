@@ -2500,7 +2500,7 @@ exit /b
 echo !temp_folder_path!>"failed_updates\!temp_folder_path:\=;!.fold.failed"
 IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 	rmdir /s /q "!temp_folder_path!" >nul 2>&1
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\Payloads --force >nul
+	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
