@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V462</h2>
+<ul>
+<li>Update Hekate's configuration file.</li>
+<li>Update  Retroarch download link to version 1.9.7.</li>
+</ul>
 <h2>V461</h2>
 <ul>
 <li>Update sig_patches.</li>

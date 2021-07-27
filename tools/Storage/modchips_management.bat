@@ -339,6 +339,7 @@ IF "%sx_core_lite_action_choice%"=="2" (
 		goto:sx_core_lite_flash
 	)
 	call "%associed_language_script%" "spacecraft_end_flash"
+	pause
 )
 IF "%sx_core_lite_action_choice%"=="3" (
 	call "%associed_language_script%" "sx_bootloader_begin_flash"
@@ -349,6 +350,7 @@ IF "%sx_core_lite_action_choice%"=="3" (
 		goto:sx_core_lite_flash
 	)
 	call "%associed_language_script%" "sx_bootloader_end_flash"
+	pause
 )
 goto:define_action_type
 

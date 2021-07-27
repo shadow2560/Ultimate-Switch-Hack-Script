@@ -1,17 +1,17 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Outfile=Menu_v0.8.exe
+#AutoIt3Wrapper_Outfile=Menu_v0.9B.exe
 #AutoIt3Wrapper_UseX64=n
 #AutoIt3Wrapper_Res_Comment=Gui for NSP Forwarder Tool for 12+ Firmwares
 #AutoIt3Wrapper_Res_Description=Gui for NSP Forwarder Tool for 12+ Firmwares
-#AutoIt3Wrapper_Res_Fileversion=0.8.0.0
-#AutoIt3Wrapper_Res_ProductVersion=0.8
+#AutoIt3Wrapper_Res_Fileversion=0.9.0.0
+#AutoIt3Wrapper_Res_ProductVersion=0.9
 #AutoIt3Wrapper_Res_CompanyName=EddCase
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #cs ----------------------------------------------------------------------------
 
  AutoIt Version: 3.3.14.5
  Author:         EddCase
- Script Version: 0.8
+ Script Version: 0.9Beta
 
  Script Function:
 	GUI for mpham's NSP Forwarder tool for 12+
@@ -53,12 +53,21 @@ Changelog
 	0.7
 		Diabled Diagnose Routine in standard, see notes in script to enable
 		Error in TitleID generation (hopefully fixed) TitleID will now start 02-09 then random and end 2000, this should fix NSP generation Thank you GBATemp Member @duckbill007 for pointing out my error
-	0.8
-		Reorganize GUI to be More usable with screen readers, tested with NVDA
+	0.8 Beta
+		Reorganize GUI to be More usable with screen readers, tested with NVDA Changes provided by GBATemp User Shadow256 (Thank You)
+		Removed Old Unused code
+	0.9 Beta
+		Change some path treatements, should fix some bugs like the bug of custom prod.keys path not always working
+		Path for files pointed by the forwarder doesn't require anymore the "/" at the beginning of them
+		Rewrite text of some labels
+		Other minor changes
 
 Known Issues
 	0.6
 		Adds " " around Title and Author names when using non english characters (Pokémon), needs investigation if this is an issue with the GUI or hacBrewPack, Also does this behavior effect standard or only RetroArch forwarders
+	0.8
+		Custom Prod.Keys Location not working 100% for now place your prod.keys in the same location as Menu.exe (root folder)
+
 
 #ce ----------------------------------------------------------------------------
 
@@ -76,7 +85,7 @@ Known Issues
 
 
 ;Global Declerations
-$version = "0.8"
+$version = "0.9 Beta"
 $Title = "NSP Forwarder Tool for 12+" & "                                -=Menu v" & $version & "=-"
 $Credits = "Thank You To" & @LF & @LF & "The-4n for hacBrewPack" & @LF & "mpham for NSP Forwarder tool for 12+" & @LF & @LF & "This Gui would not be possible without their work"
 $hacbrewpac = '"' & @ScriptDir & "\hacbrewpack.exe" & '"'
@@ -86,7 +95,7 @@ $titlepub = "Author"
 $nropath = "/switch/application/application.nro"
 $corepath = "/retroarch/core/corename.nro"
 $rompath = "/retroarch/roms/rom path"
-$prodkeys = '"' & @ScriptDir & "\prod.keys" & '"'
+$prodkeys = @ScriptDir & "\prod.keys"
 $icon = ""
 $logo = @ScriptDir & "\control\NintendoLogo.png"
 $key = ""
@@ -103,41 +112,35 @@ EndIf
 
 ;Create the Gui
 #Region ### START Koda GUI section ### Form=
-;$frmMain = GUICreate("NSP Forwarder Tool for 12+", 610, 438, 192, 124)
 $frmMain = GUICreate($Title, 610, 438, -1, -1)
 $grpMain = GUICtrlCreateGroup("Standard Options", 4, 12, 600, 256)
 $lblTitleName = GUICtrlCreateLabel("Application Name", 16, 32, 111, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpTitleName = GUICtrlCreateInput("Application Name", 144, 32, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-$lblAuthor = GUICtrlCreateLabel("Author Name", 16, 65, 122, 25, $SS_CENTERIMAGE)
+$lblAuthor = GUICtrlCreateLabel("Author Name:", 16, 65, 122, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpAuthor = GUICtrlCreateInput("Author Name", 144, 65, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-$lblTitleID = GUICtrlCreateLabel("Title ID", 16, 98, 46, 25, $SS_CENTERIMAGE)
+$lblTitleID = GUICtrlCreateLabel("Title ID:", 16, 98, 46, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpTitleID = GUICtrlCreateInput("Title ID", 144, 98, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $btnTitleID = GUICtrlCreateButton("Random", 521, 98, 75, 25)
-$lblIcon = GUICtrlCreateLabel("Icon Path", 16, 131, 59, 25, $SS_CENTERIMAGE)
+$lblIcon = GUICtrlCreateLabel("Icon Path:", 16, 131, 59, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-;GUICtrlSetTip(-1, "160 x 40 PNG")
 $inpIcon = GUICtrlCreateInput("Icon Path", 144, 131, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-;GUICtrlSetTip(-1, "256 x 256 JPEG")
 $btnIcon = GUICtrlCreateButton("Browse", 521, 131, 75, 25)
-;GUICtrlSetTip(-1, "256 x 256 JPEG")
-;GUICtrlSetTip(-1, "256 x 256 JPEG")
-$lblLogo = GUICtrlCreateLabel("Logo Path", 16, 164, 65, 25, $SS_CENTERIMAGE)
+$lblLogo = GUICtrlCreateLabel("Logo Path:", 16, 164, 65, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpLogo = GUICtrlCreateInput("Do not change for default", 145, 164, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 GUICtrlSetTip(-1, "160 x 40 PNG")
 $btnLogo = GUICtrlCreateButton("Browse", 521, 164, 75, 25)
-;GUICtrlSetTip(-1, "160 x 40 PNG")
 $chkProd = GUICtrlCreateCheckbox("Custom prod.key location", 240, 208, 153, 17)
 GUICtrlSetTip(-1, "By default it will use prod.keys in the same directory as Menu.exe")
-$lblProd = GUICtrlCreateLabel("Prod.keys", 16, 236, 65, 25, $SS_CENTERIMAGE)
+$lblProd = GUICtrlCreateLabel("Prod.keys path:", 16, 236, 65, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpProd = GUICtrlCreateInput("prod.keys Path", 144, 236, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
@@ -146,22 +149,22 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 $grpForwarder = GUICtrlCreateGroup("Forwarder Options", 4, 272, 600, 113)
 $chkStandard = GUICtrlCreateCheckbox("Standard Nro Forwarder", 160, 288, 137, 17)
 $chkRetroArch = GUICtrlCreateCheckbox("RetroArch Rom Forwarder", 336, 288, 145, 17)
-$lblNroPath = GUICtrlCreateLabel("Nro Path", 16, 320, 56, 20, $SS_CENTERIMAGE)
+$lblNroPath = GUICtrlCreateLabel("Nro Path: sdmc:/", 16, 320, 56, 20, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 GUICtrlSetState(-1, $GUI_HIDE)
-$inpNroPath = GUICtrlCreateInput("/switch/application.nro", 144, 318, 369, 25)
+$inpNroPath = GUICtrlCreateInput("switch/application.nro", 144, 318, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 GUICtrlSetState(-1, $GUI_HIDE)
-$lblRomPath = GUICtrlCreateLabel("Rom Path", 16, 355, 63, 25, $SS_CENTERIMAGE)
+$lblRomPath = GUICtrlCreateLabel("Rom Path: sdmc:/", 16, 355, 63, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-$inpRomPath = GUICtrlCreateInput("/roms/rom_name.ext", 144, 355, 369, 25)
+$inpRomPath = GUICtrlCreateInput("roms/rom_name.ext", 144, 355, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $cmbCore = GUICtrlCreateCombo("Pick a Core", 416, 318, 177, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 GUICtrlSetState(-1, $GUI_HIDE)
-$lblCorePath = GUICtrlCreateLabel("Core Path", 15, 318, 63, 25, $SS_CENTERIMAGE)
+$lblCorePath = GUICtrlCreateLabel("Core Path: sdmc:/", 15, 318, 63, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-$inpCorePath = GUICtrlCreateInput("/retroarch/cores/core.nro", 144, 318, 369, 25)
+$inpCorePath = GUICtrlCreateInput("retroarch/cores/core.nro", 144, 318, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $btnCreate = GUICtrlCreateButton("Create Forwarder", 4, 390, 600, 40)
@@ -237,16 +240,6 @@ Func idrandom()
 
 EndFunc
 
-Func idrandom_old()
-;Random 16 character HEX starting with 0
-		$key = ""
-		$Key = $Key & Hex(Random() * 10)
-		$titleid = "0" & $key
-		$titleid = StringTrimRight ( $titleid, 1 )
-
-		GUICtrlSetData ($inpTitleID, $titleid)
-
-EndFunc
 
 Func prodkeyscheck()
 ;Enable menu changes when the prod.keys checkbox is clicked
@@ -259,7 +252,7 @@ Func prodkeyscheck()
 			GUICtrlSetState($inpProd, $GUI_DISABLE)
 			GUICtrlSetState($btnProd, $GUI_DISABLE)
 			GUICtrlSetData ($inpProd, "prod.keys path")
-			$prodkeys = '"' & @ScriptDir & "\prod.keys" & '"'
+			$prodkeys = @ScriptDir & "\prod.keys"
 		EndIf
 EndFunc
 
@@ -327,11 +320,11 @@ EndFunc
 
 Func prodbrowse()
 ;Setup the browse for Prod.Keys dialog and copy resultant path
-;'"' & @ScriptDir & "\prod.keys" & '"'
+
 	$prodkeys = FileOpenDialog ("Select your Prod.keys file",@ScriptDir, "Prod.keys (*.keys)", $FD_FILEMUSTEXIST)
 	if @error Then
 		GUICtrlSetData ($inpProd, "prod.keys path")
-		$prodkeys = '"' & @ScriptDir & "\prod.keys" & '"'
+		$prodkeys = @ScriptDir & "\prod.keys"
 	Else
 		Local $PLength = StringLen ($prodkeys)
 			If $PLength > 256 Then
@@ -350,7 +343,7 @@ Func errorcheck()
 	If FileExists (@ScriptDir & "\prod.keys") = 0 And FileExists ($prodkeys) = 0 Then
 		MsgBox (0, "Error", "No prod.keys found")
 		$error = 1
-		$prodkeys = '"' & @ScriptDir & "\prod.keys" & '"'
+		$prodkeys = @ScriptDir & "\prod.keys"
 		Return
 	Else
 		$error = 0
@@ -391,7 +384,6 @@ EndFunc
 
 Func imagemoves()
 	;Move Images into the corect places
-	;FileCopy (GUICtrlRead ($inpIcon), @ScriptDir & "\control\icon_AmericanEnglish.dat",1)
 	FileCopy (@ScriptDir & "\TempIcon.jpg", @ScriptDir & "\control\icon_AmericanEnglish.dat",1)
 	If GUICtrlRead ($inpLogo) = "Do not change for default" Then
 		Return
@@ -404,14 +396,14 @@ EndFunc
 Func pathwrites()
 	If GUICtrlRead($chkStandard) = $GUI_CHECKED Then
 		FileDelete (@ScriptDir & "\romfs\nextArgv")
-		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:" & GUICtrlRead( $inpNroPath))
+		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpNroPath))
 		FileDelete (@ScriptDir & "\romfs\nextNroPath")
-		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:" & GUICtrlRead( $inpNroPath))
+		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:/" & GUICtrlRead( $inpNroPath))
 	Else
 		FileDelete (@ScriptDir & "\romfs\nextArgv")
-		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:" & GUICtrlRead( $inpCorePath) & ' "' & "sdmc:" & GUICtrlRead ($inpRomPath) & '"')
+		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpCorePath) & ' "' & "sdmc:/" & GUICtrlRead ($inpRomPath) & '"')
 		FileDelete (@ScriptDir & "\romfs\nextNroPath")
-		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:" & GUICtrlRead( $inpCorePath))
+		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:/" & GUICtrlRead( $inpCorePath))
 	EndIf
 EndFunc
 
@@ -425,10 +417,10 @@ Func newbuild()
 		$titlename = GUICtrlRead ($inpTitleName)
 		$titlepub = GUICtrlRead ($inpAuthor)
 
-		ShellExecuteWait ($hacbrewpac, '--titleid "' & $titleid & '" ' & '--titlename "' & $titlename & '" ' & '--titlepublisher "' & $titlepub & '" --nspdir NSP -k ' & $prodkeys, @ScriptDir)
+		ShellExecuteWait ($hacbrewpac, ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"', @ScriptDir)
 
 		FileMove (@ScriptDir & "\NSP\" & $titleid & ".nsp", @ScriptDir & "\NSP\" & $titlename & "_" & $titleid & ".nsp")
-		ShellExecute ("Explorer.exe",@ScriptDir & "\NSP\",@ScriptDir & "\NSP\")
+		ShellExecute ("Explorer.exe", '"' & @ScriptDir & '\NSP\"', '"' & @ScriptDir & '\NSP\"')
 
 
 EndFunc
@@ -439,16 +431,16 @@ Func nspbuild()
 		$titleid = GUICtrlRead ($inpTitleID)
 		$titlename = GUICtrlRead ($inpTitleName)
 		$titlepub = GUICtrlRead ($inpAuthor)
-		$build = $hacbrewpac & " --titleid " & '"' & $titleid & '"' & " --titlename " & '"' & $titlename& '"' & " --titlepublisher " & '"' & $titlepub& '"' & " --nspdir NSP" & " -k " & $prodkeys
+		$build = $hacbrewpac & ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"'
 
 
 ;Create the batch file
 		FileDelete (@ScriptDir & "\GUI_Build.bat")
 		FileWrite (@scriptDir & "\GUI_Build.bat", $build & @CRLF)
 		FileWrite (@scriptDir & "\GUI_Build.bat", "exit")
-		RunWait(@ComSpec & ' /k ' & '"' & @ScriptDir & '\GUI_Build.bat' & '"')
+		RunWait(@ComSpec & ' /k "' & @ScriptDir & '\GUI_Build.bat"')
 		FileMove (@ScriptDir & "\NSP\" & $titleid & ".nsp", @ScriptDir & "\NSP\" & $titlename & "_" & $titleid & ".nsp")
-		ShellExecute ("Explorer.exe",@ScriptDir & "\NSP\",@ScriptDir & "\NSP\")
+		ShellExecute ("Explorer.exe", '"' & @ScriptDir & '\NSP\"', '"' & @ScriptDir & '\NSP\"')
 
 ;Tidy Up
 
@@ -552,6 +544,6 @@ Func diagnose()
 	FileCopy (@ScriptDir & "\control\icon_AmericanEnglish.dat", @ScriptDir & "\Diagnose\")
 	FileCopy (@ScriptDir & "\romfs\nextNroPath", @ScriptDir & "\Diagnose\")
 	FileCopy (@ScriptDir & "\romfs\nextArgv", @ScriptDir & "\Diagnose\")
-	FileWriteLine (@ScriptDir & "\Diagnose\Out.txt", $hacbrewpac & ' --titleid "' & $titleid & '" ' & '--titlename "' & $titlename & '" ' & '--titlepublisher "' & $titlepub & '" --nspdir NSP -k ' & $prodkeys)
+	FileWriteLine (@ScriptDir & "\Diagnose\Out.txt", $hacbrewpac & ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"')
 
 EndFunc

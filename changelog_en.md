@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.142</h2>
+<ul>
+<li>Improve graphical interface for creating forwarders.</li>
+<li>Improve interface for flashing SX Core/Lite modchips.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 462.</li>
+</ul>
 <h2>V4.3.141</h2>
 <ul>
 <li>Fix a critical bug in the SD preparation script.</li>
