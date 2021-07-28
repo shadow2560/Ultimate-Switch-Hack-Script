@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.144</h2>
+<ul>
+<li>Fix a bug in the SD preparation script.</li>
+</ul>
 <h2>V4.3.143</h2>
 <ul>
 <li>Fix bugs in the update manager and in the SD preparation scripts.</li>

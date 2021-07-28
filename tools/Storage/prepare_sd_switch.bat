@@ -340,7 +340,7 @@ set sx_gear_copy=
 set copy_sxos_boot=
 IF /i "%copy_atmosphere_pack%"=="o" (
 	IF /i "%sx_core_lite_chip%"=="o" (
-		IF /I NOT "%mariko_console%"=="o" (
+		IF /I "%mariko_console%"=="o" (
 			IF /i NOT "%copy_sxos_pack%"=="o" (
 				IF NOT EXIST "%volume_letter%:\boot.dat" (
 					set sx_gear_copy=Y
@@ -358,9 +358,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 )
 IF /i "%copy_atmosphere_pack%"=="o" (
 	IF /i "%sx_core_lite_chip%"=="o" (
-		IF /i NOT "%copy_sxos_pack%"=="o" (
-			IF NOT "%sx_gear_copy%"=="Y" (
-				set copy_sxos_boot=Y
+		IF /I NOT "%mariko_console%"=="o" (
+			IF /i NOT "%copy_sxos_pack%"=="o" (
+				IF NOT "%sx_gear_copy%"=="Y" (
+					set copy_sxos_boot=Y
+				)
 			)
 		)
 	)
