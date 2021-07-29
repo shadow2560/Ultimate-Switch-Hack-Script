@@ -1,0 +1,1214 @@
+JoyY = 0x1
+JoyX = 0x2
+JoyB = 0x4
+JoyA = 0x8
+JoyL = 0x400000
+JoyR = 0x40
+JoyZL = 0x800000
+JoyZR = 0x80
+JoyL3 = 0x800
+JoyR3 = 0x400
+JoyPlus = 0x200
+JoyMinus = 0x100
+
+PovDown = 0x10000
+PovUp = 0x20000
+PovLeft = 0x80000
+PovRight = 0x40000
+
+LeftJoyDown = 0x10000
+LeftJoyUp = 0x20000
+LeftJoyLeft = 0x80000
+LeftJoyRight = 0x40000
+
+RightJoyDown = 0x8000000
+RightJoyUp = 0x10000000
+RightJoyRight = 0x20000000
+RightJoyLeft = 0x40000000
+
+BtnPower = 0x1000000
+BtnVolPlus = 0x2000000
+BtnVolMinus = 0x4000000
+
+main_menu_options = ["Quit without doing anything", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Reset console", "Switch script work between SYSNAND and EMUNAND", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Bypass the first configuration"]
+migrate_emunand_menu_options = ["Return to main menu", "Make SXOS partition emunand compatible with Atmosphere", "Convert SXOS files emunand  for Atmosphere", "Reverse the conversion of SXOS files emunand  for Atmosphere"]
+explorer_menu_options = ["Go back to main menu", "Use this directory", "Go back to the root of the SD", "Go to parent directory"]
+
+clearLine = "                                                                              "
+mmcAlreadyConnected = 0
+mmcTypeWork = 0
+return_code = 0
+
+prepare_paths = {
+	if (explorerIsCalled == 1){
+		restoreFolderPath = currentFolder
+		dumpFolderPath = currentFolder
+		currentFolder = "sd:/"
+	}
+	BOOT0Path = pathCombine(restoreFolderPath, "BOOT0.bin")
+	BOOT1Path = pathCombine(restoreFolderPath, "BOOT1.bin")
+	BCPKG1Path = pathCombine(restoreFolderPath, "BCPKG2-1-Normal-Main.bin")
+	BCPKG2Path = pathCombine(restoreFolderPath, "BCPKG2-2-Normal-Sub.bin")
+	BCPKG3Path = pathCombine(restoreFolderPath, "BCPKG2-3-SafeMode-Main.bin")
+	BCPKG4Path = pathCombine(restoreFolderPath, "BCPKG2-4-SafeMode-Sub.bin")
+	BOOT0DumpPath = pathCombine(dumpFolderPath, "BOOT0")
+	BOOT1DumpPath = pathCombine(dumpFolderPath, "BOOT1")
+	PRODINFODumpPath = pathCombine(dumpFolderPath, "PRODINFO.bin")
+	PRODINFOFDumpPath = pathCombine(dumpFolderPath, "PRODINFOF.bin")
+	return()
+}
+
+checkIfImportantSave = {
+	importantSaves = ["8000000000000120", "80000000000000d1", "8000000000000047"]
+	j = 0
+	important = 0
+	while (j < len(importantSaves)){
+		if (importantSaves[j] == save){
+			important = 1
+		}
+		j = j + 1
+	}
+}
+
+mount_mmc = {
+	if (mmcAlreadyConnected != 0) {
+		return_code = 0
+		return()
+	}
+	if (mmcTypeWork == 0){
+		println("Mounting SYSMMC...")
+		RESULT = mmcConnect("SYSMMC")
+		if (RESULT) {
+			color("RED")
+			println("The sysnand couldn't be initialized!")
+			println("This may be due to faulty nand or incorrect Bis Keys.")
+			println("If you run this script on a console but the nand doesn't match it, this script can't work either.\n")
+			color("WHITE")
+			println("Press any key to go back to menu.")
+			pause()
+			return_code = 1
+		} .else() {
+			mmcAlreadyConnected = 1
+			return_code = 0
+		}
+	}
+	if (mmcTypeWork == 1){
+		println("Mounting EMUMMC...")
+		RESULT = mmcConnect("EMUMMC")
+		if (RESULT) {
+			color("RED")
+			println("The emunand couldn't be initialized!")
+			println("This may be due to faulty nand or incorrect Bis Keys.")
+			println("If you run this script on a console but the nand doesn't match it, this script can't work either.\n")
+			color("WHITE")
+			println("Press any key to go back to menu.")
+			pause()
+			return_code = 1
+		} .else() {
+			mmcAlreadyConnected = 1
+			return_code = 0
+		}
+	}
+	return()
+}
+
+mount_system = {
+	println("Mounting SYSTEM partition...")
+	println("")
+	RESULT = mmcMount("SYSTEM")
+	if (RESULT) {
+		color("RED")
+		println("The SYSTEM partition couldn't be mounted!")
+		println("")
+		color("WHITE")
+		println("Press any key to go back to menu.")
+		pause()
+		return_code = 1
+	} .else() {
+		return_code = 0
+	}
+	return()
+}
+
+mount_user = {
+		println("Mounting USER partition...")
+	println("")
+	RESULT = mmcMount("USER")
+	if (RESULT) {
+		color("RED")
+		println("The USER partition couldn't be mounted!")
+		println("")
+		color("WHITE")
+		println("Press any key to go back to menu.")
+		pause()
+		return_code = 1
+	} .else() {
+		return_code = 0
+	}
+	return()
+}
+
+main_menu = {
+	clearscreen()
+	if (mmcTypeWork == 0){
+		color("WHITE")
+		println("TegraScript ChoiDuJour  package restoration - SYSMMC")
+	}
+	if (mmcTypeWork == 1){
+		color("GREEN")
+		println("TegraScript ChoiDuJour  package restoration - EMUMMC")
+		color("WHITE")
+	}
+	println("By shadow256")
+	println("")
+	println("Select what you want to do.")
+	println("")
+	println("")
+	printPos(0, 39)
+	println("Up/Down/VOL+/VOL- : move selection | A/POWER : validate")
+	if (mmcTypeWork == 0){
+		println("X : Work on the EMUNAND")
+	}
+	if (mmcTypeWork == 1){
+		println("X : Work on the SYSNAND")
+	}
+
+	selection = 1
+	maxSelection = len(main_menu_options)
+	y = 0
+	while (y == 0) {
+		printPos(0, 10)
+		i = 0
+		while (i < maxSelection) {
+			color("WHITE")
+			if (i + 1 == selection){
+				color("RED")
+			}
+			println(main_menu_options[i])
+			i = i + 1
+		}
+		verif_key = pause()
+		if ((verif_key & LeftJoyDown) \|\| (verif_key & BtnVolMinus)) {
+			if (selection < maxSelection){
+			selection = selection + 1
+			}
+		}
+		if ((verif_key & LeftJoyUp) \|\| (verif_key & BtnVolPlus)) {
+			if (selection > 1){
+			selection = selection - 1
+			}
+		}
+		if ((verif_key & JoyX)) {
+			selection = 8
+			y = 1
+		}
+		if ((verif_key & JoyA) \|\| (verif_key & BtnPower)) {
+			y = 1
+		}
+	}
+	main_action = selection
+	return()
+}
+
+migrate_emunand_menu_choice = {
+	clearscreen()
+	println("Migrate emunand")
+	println("")
+	println("Select what you want to do.")
+	println("")
+	println("")
+	printPos(0, 39)
+	println("Up/Down/VOL+/VOL- : move selection | A/POWER : validate")
+
+	selection = 1
+	maxSelection = len(migrate_emunand_menu_options)
+	v = 0
+	while (v == 0) {
+		printPos(0, 10)
+		i = 0
+		while (i < maxSelection) {
+			color("WHITE")
+			if (i + 1 == selection){
+				color("RED")
+			}
+			println(migrate_emunand_menu_options[i])
+			i = i + 1
+		}
+		verif_key = pause()
+		if ((verif_key & LeftJoyDown) \|\| (verif_key & BtnVolMinus)) {
+			if (selection < maxSelection){
+			selection = selection + 1
+			}
+		}
+		if ((verif_key & LeftJoyUp) \|\| (verif_key & BtnVolPlus)) {
+			if (selection > 1){
+			selection = selection - 1
+			}
+		}
+		if ((verif_key & JoyA) \|\| (verif_key & BtnPower)) {
+			v = 1
+		}
+	}
+	return()
+}
+
+migrate_emunand_menu = {
+	u = 0
+	while (u == 0) {
+		migrate_emunand_menu_choice()
+		if (selection == 1){
+			u = 1
+		}
+		if (selection == 2){
+			u = 1
+			prepare_sxos_emunand_partition_for_atmosphere()
+		}
+		if (selection == 3){
+			u = 1
+			convert_emunand_files_sxos_for_atmosphere()
+		}
+		if (selection == 4){
+			u = 1
+			invert_emunand_files_sxos_for_atmosphere()
+		}
+	}
+	return()
+}
+
+prepare_sxos_emunand_partition_for_atmosphere = {
+	clearscreen()
+	if (fileExists("sd:/emummc") == 0){
+		dirDel("sd:/emummc")
+	}
+	if (fileExists("sd:/emummc/emummc.ini")){
+		fileDel("sd:/emummc/emummc.ini")
+	}
+	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x32, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x65, 0x6D, 0x75, 0x4D, 0x4D, 0x43, 0x2F, 0x45, 0x52, 0x30, 0x30, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+	if (fileExists("sd:/emummc/ER00")) {
+		dirDel("sd:/emummc/ER00")
+	}
+	mkdir("sd:/emummc/ER00")
+	fileWrite("sd:/emummc/ER00/raw_based", byte([0x02]))
+	color("GREEN")
+	println("Operation successfully completed.")
+	color("WHITE")
+	println("")
+	println("Press any key to close the script.")
+	pause()
+	exit()
+}
+
+convert_emunand_files_sxos_for_atmosphere = {
+	clearscreen()
+	emunand_file_check = 0
+	if (fileExists("sd:/sxos/emunand/boot0.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/boot1.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.00.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.01.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.02.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.03.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.04.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.05.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.06.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/emunand/full.07.bin") == 0) {
+		emunand_file_check = 1
+	}
+	if (emunand_file_check == 1) {
+		println("Impossible to perform the conversion, one or more files of the SXOS emunand seem to be missing.")
+		println("")
+		println("Press any key to go back to main menu.")
+		pause()
+		return()
+	}
+	if (fileExists("sd:/sxos/eMMC") == 0) {
+		mkdir("sd:/sxos/eMMC")
+	}
+	fileMove("sd:/sxos/emunand/boot0.bin", "sd:/sxos/eMMC/boot0")
+	fileMove("sd:/sxos/emunand/boot1.bin", "sd:/sxos/eMMC/boot1")
+	fileMove("sd:/sxos/emunand/full.00.bin", "sd:/sxos/eMMC/00")
+	fileMove("sd:/sxos/emunand/full.01.bin", "sd:/sxos/eMMC/01")
+	fileMove("sd:/sxos/emunand/full.02.bin", "sd:/sxos/eMMC/02")
+	fileMove("sd:/sxos/emunand/full.03.bin", "sd:/sxos/eMMC/03")
+	fileMove("sd:/sxos/emunand/full.04.bin", "sd:/sxos/eMMC/04")
+	fileMove("sd:/sxos/emunand/full.05.bin", "sd:/sxos/eMMC/05")
+	fileMove("sd:/sxos/emunand/full.06.bin", "sd:/sxos/eMMC/06")
+	fileMove("sd:/sxos/emunand/full.07.bin", "sd:/sxos/eMMC/07")
+	if (fileExists("sd:/emummc") == 0){
+		dirDel("sd:/emummc")
+	}
+	if (fileExists("sd:/emummc/emummc.ini")){
+		fileDel("sd:/emummc/emummc.ini")
+	}
+	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x30, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x73, 0x78, 0x6F, 0x73, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+	dirDel("sd:/sxos/emunand")
+	color("GREEN")
+	println("Operation successfully completed.")
+	color("WHITE")
+	println("")
+	println("Press any key to close the script.")
+	pause()
+	exit()
+}
+
+invert_emunand_files_sxos_for_atmosphere = {
+	clearscreen()
+	emunand_file_check = 0
+	if (fileExists("sd:/sxos/eMMC/boot0") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/boot1") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/00") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/01") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/02") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/03") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/04") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/05") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/06") == 0) {
+		emunand_file_check = 1
+	}
+	if (fileExists("sd:/sxos/eMMC/07") == 0) {
+		emunand_file_check = 1
+	}
+	if (emunand_file_check == 1) {
+		println("Impossible to perform the conversion, one or more files of the Atmosphere emunand seem to be missing.")
+		println("")
+		println("Press any key to go back to main menu.")
+		pause()
+		return()
+	}
+	if (fileExists("sd:/sxos/emunand") == 0) {
+		mkdir("sd:/sxos/emunand")
+	}
+	fileMove("sd:/sxos/eMMC/boot0", "sd:/sxos/emunand/boot0.bin")
+	fileMove("sd:/sxos/eMMC/boot1", "sd:/sxos/emunand/boot1.bin")
+	fileMove("sd:/sxos/eMMC/00", "sd:/sxos/emunand/full.00.bin")
+	fileMove("sd:/sxos/eMMC/01", "sd:/sxos/emunand/full.01.bin")
+	fileMove("sd:/sxos/eMMC/02", "sd:/sxos/emunand/full.02.bin")
+	fileMove("sd:/sxos/eMMC/03", "sd:/sxos/emunand/full.03.bin")
+	fileMove("sd:/sxos/eMMC/04", "sd:/sxos/emunand/full.04.bin")
+	fileMove("sd:/sxos/eMMC/05", "sd:/sxos/emunand/full.05.bin")
+	fileMove("sd:/sxos/eMMC/06", "sd:/sxos/emunand/full.06.bin")
+	fileMove("sd:/sxos/eMMC/07", "sd:/sxos/emunand/full.07.bin")
+	dirDel("sd:/sxos/eMMC")
+	if (fileExists("sd:/emummc/emummc.ini")){
+		fileDel("sd:/emummc/emummc.ini")
+	}
+	color("GREEN")
+	println("Operation successfully completed.")
+	color("WHITE")
+	println("")
+	println("Press any key to close the script.")
+	pause()
+	exit()
+}
+
+switch_working_nand = {
+	if (mmcTypeWork == 0){
+		if (_EMU == 0){
+		clearscreen()
+		println("No EMUNAND configured on the SD, the SYSNAND will continue to be used.")
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	}
+		mmcTypeWork = 1
+		mmcAlreadyConnected = 0
+		return()
+	}
+	if (mmcTypeWork == 1){
+		mmcTypeWork = 0
+		mmcAlreadyConnected = 0
+		return()
+	}
+	return()
+}
+
+bypass_first_configuration={
+	mount_mmc()
+	if (return_code == 1) {
+	return()
+	}
+	mount_system()
+	if (return_code == 1) {
+		return()
+	}
+	save = readsave("bis:/save/8000000000000050")
+	save_file = save.read("file")
+	save_file[0x29484] = 1
+	save.write("file", save_file)
+	save.commit()
+	save = ""
+	save_file = ""
+	color("GREEN")
+	println("Operation successfully completed.")
+	color("WHITE")
+	println("")
+	println("Press any key to go back to menu.")
+	pause()
+	return()
+}
+
+synch_joycons={
+	if (_EMU == 0){
+		color("RED")
+		println("No emunand configured on the SD, it's not possible to continue.")
+		println("")
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	}
+	color("BLUE");
+	println("TegraScript Syncfixby MezBar")
+	println("Ported to TegraScript v2 by Neville_Shorttop")
+	# https://gbatemp.net/threads/guide-pairing-the-joy-con-on-emunand-and-sysnand.562519/
+	println("Modified by shadow256")
+	println("")
+	color("YELLOW")
+	println("This script will correct the joysticks synchronization problems between the SYSMMC and the EMUMMC")
+	println("Before using this script, connect all your controllers to the SYSMMC")
+	println("")
+	color("RED")
+	println("If you use 90DNS or any other DNS setting,")
+	println("please switch to airplane mode on the SYSMMC")
+	println("and the EMUMMC cause this script will copy")
+	println("also the wifi settings from your SYSMMC to the EMUMMC.")
+	println("")
+	println("Also note that some of your emunand settings will be overwritten,")
+	println("such as the theme, so check the parameters of the emunand")
+	println("after the execution of this script.")
+	wait(5000)
+	println("")
+	println("Press 'VOL+' to start the synchronization of the SYSMMC to the EMUMMC")
+	println("")
+	if (pause() & BtnVolPlus){
+		mmcAlreadyConnected = 0
+		temp_mmcTypeWork = mmcTypeWork
+		mmcTypeWork = 0
+		mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		mount_system()
+		if (return_code == 1) {
+			return()
+		}
+		mkdir("sd:/tegraexplorer")
+		mkdir("sd:/tegraexplorer/syncfix")
+		println("Saving the '8000000000000050' file from the SYSMMC to the 'sd:/tegraexplorer/syncfix' folder")
+		fileCopy("bis:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup")
+		mmcTypeWork = 1
+		mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		mount_system()
+		if (return_code == 1) {
+			return()
+		}
+		println("Saving the '8000000000000050' file from the EMUMMC to the 'sd:/tegraexplorer/syncfix' folder")
+		println("")
+		fileCopy("bis:/save/8000000000000050", "sd:/tegraexplorer/syncfix/8000000000000050_emummc_backup")
+		println("Copying the '8000000000000050' file from the SYSMMC to the EMUMMC")
+		println("")
+		fileCopy("sd:/tegraexplorer/syncfix/8000000000000050_sysmmc_backup", "bis:/save/8000000000000050")
+		mmcTypeWork = temp_mmcTypeWork
+		color("GREEN")
+		println("Operation completed!")
+		println("")
+		println("Now your controllers should be synchronized between the SYSMMC and the EMUMMC")
+		println("")
+		color("WHITE")
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	} .else() {
+		return()
+	}
+}
+
+del_parental_control = {
+	clearscreen()
+	println("Remove the parental control")
+	println("")
+	println("Press VOL+ to remove the parental control or press any other keys to go back to menu")
+	println("")
+	if (pause() & BtnVolPlus){
+	mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		mount_system()
+		if (return_code == 1) {
+			return()
+		} .else() {
+			println("Deleting parental control")
+			fileDel("bis:/save/8000000000000100")
+			color("GREEN")
+			println("")
+			println("")
+			println("Done! press any key to return to menu.")
+			pause()
+			return()
+		}
+	} .else() {
+		return()
+	}
+}
+
+wip_console_data = {
+	clearscreen()
+	println("Remove all datas")
+	println("")
+	println("Press VOL+ to remove all datas or press any other keys to go back to menu")
+	println("")
+	if (pause() & BtnVolPlus){
+		mount_mmc()
+		if (return_code == 1) {
+			return()
+		}
+		println("Deleting datas")
+		println("")
+		mount_system()
+		if (return_code == 1) {
+			return()
+		} .else() {
+			println("Deleting datas from SYSTEM partition")
+			println("")
+			dirDel("bis:/saveMeta")
+			mkdir("bis:/saveMeta")
+			files = dirRead("bis:/save")
+			i = 0
+			color("RED")
+			while (i < len(files)) {
+				if (!fileProperties[i]){ # checks if it's not a file
+					save = files[i]
+					checkIfImportantSave()
+					if (!important){
+						print("\rDeleting ", save)
+						res = fileDel(pathCombine("bis:/save", save))
+						if (res) {
+							println("\nThe file deletion has failed!")
+							pause()
+							return()
+						}
+					}
+				}
+				i = i + 1
+			}
+		}
+		color("WHITE")
+		mount_user()
+		if (return_code == 1) {
+			return()
+		} .else() {
+			println("Deleting datas from USER partition")
+			println("")
+			color("RED")
+			toDel = ["Album", "Contents", "save", "saveMeta", "temp"]
+			i = 0
+			while (i < len(toDel)){
+				dirDel(pathCombine("bis:/", toDel[i]))
+				mkdir(pathCombine("bis:/", toDel[i]))
+				i = i + 1
+			}
+			mkdir("bis:/Contents/placehld")
+			mkdir("bis:/Contents/registered")
+		}
+		color("GREEN")
+		println("")
+		println("")
+		println("Operation successfully completed, press any key to return to the menu.")
+		pause()
+		return()
+	} .else() {
+		return()
+	}
+}
+
+explorer_menu_init = {
+	clearscreen()
+	color("WHITE")
+	println(explorerTitle)
+	println("-------------------------------------------------------------------------------")
+	printPos(0, 40)
+	println("Up/Down/Left/Right/VOL+/VOL- : Move into menu | A/POWER : Validate")
+	println("B : Parent folder | X : Reload folder | Y : Back to SD root")
+	printPos(0, 3)
+	if (((currentFolder == "sd:/") == 0) \|\| ((currentFolder == "sd:") == 0)) {
+		parentDir = pathEscFolder(currentFolder)
+	} .else() {
+		noParentDir = 1
+		parentDir = "sd:"
+		currentFolder = "sd:"
+	}
+	file = dirRead(currentFolder)
+	folder_list = []
+	i = 0
+	while (i < len(file)) {
+		if (fileProperties[i]) {
+			folder_list = folder_list + file[i]
+		}
+		i = i + 1
+	}
+	foldersNumber = len(folder_list)
+	selectedFolder = ""
+	minIndexToPrint = 1
+	maxIndexToPrint = len(explorer_menu_options)
+	firstLineDisplay = 3
+	middleLineDisplay = 16
+	lastLineDisplay = 35
+	maxSelection = maxIndexToPrint + foldersNumber
+	firstLine = minIndexToPrint
+	middleLineDesc = middleLineDisplay + minIndexToPrint
+	middleLineAsc = maxSelection - middleLineDisplay
+	lastLine = lastLineDisplay + minIndexToPrint
+	firstLineLimit = firstLine
+	middleLineDescLimit = middleLineDesc
+	middleLineAscLimit = middleLineAsc
+	middleLineLimit = middleLineAsc - middleLineDesc
+	lastLineLimit = lastLine
+	selection = minIndexToPrint
+	return()
+}
+
+explorer_menu_choice = {
+	x = 0
+	while. (x == 0) {
+		printPos(0, firstLineDisplay)
+		printedLine = firstLineDisplay
+		i = firstLine - 1
+		while (i < maxIndexToPrint){
+			color("GREEN")
+			if (i + 1 == selection){
+				color("RED")
+			}
+			# println("")
+			# printPos(0, printedLine)
+			println(explorer_menu_options[i])
+			printedLine = printedLine + 1
+			i = i + 1
+		}
+		# if (i == maxIndexToPrint) {
+			# println("")
+			# printedLine = printedLine + 1
+		# }
+		count = maxIndexToPrint
+		j = 0
+		while ((i + j < lastLine) && (j < foldersNumber)) {
+			color("WHITE")
+			count = count + 1
+			if (count >= firstLine){
+				if (i + j + 1 == selection){
+					selectedFolder = folder_list[j]
+					printPos(0, 38)
+					print(clearLine)
+					printPos(0, 38)
+					color("GREEN")
+					println(folder_list[j])
+					printPos(0, printedLine)
+					color("RED")
+				}
+				# println("")
+				# printPos(0, printedLine)
+				println(folder_list[j])
+				printedLine = printedLine + 1
+				j = j + 1
+			}
+		}
+		println("-------------------------------------------------------------------------------")
+		println("")
+		color("GREEN")
+		println(currentFolder)
+		color("WHITE")
+		verif_key = pause()
+		if ((verif_key & LeftJoyDown) \|\| (verif_key & BtnVolMinus)) {
+			if (selection < maxSelection){
+				selection = selection + 1
+			}
+			if (selection > middleLineDesc){
+				if (selection <= middleLineAsc){
+					firstLine = firstLine + 1
+					lastLine = lastLine + 1
+				}
+			}
+		}
+		if ((verif_key & LeftJoyUp) \|\| (verif_key & BtnVolPlus)) {
+			if (selection > minIndexToPrint){
+				selection = selection - 1
+			}
+			if (selection < middleLineAsc){
+				if (selection >= middleLineDesc){
+					firstLine = firstLine - 1
+					lastLine = lastLine - 1
+				}
+			}
+		}
+		if ((verif_key & LeftJoyLeft)) {
+			if (selection > minIndexToPrint){
+				selection = selection - middleLineDisplay
+				if (selection < minIndexToPrint){
+					selection = minIndexToPrint
+				}
+			}
+			if (selection < middleLineAsc){
+				if (selection >= middleLineDesc){
+					firstLine = firstLine - middleLineDisplay
+					lastLine = lastLine - middleLineDisplay
+				}
+				if (selection < middleLineDesc){
+					firstLine = minIndexToPrint
+					lastLine = lastLineLimit
+				}
+			}
+		}
+		if ((verif_key & LeftJoyRight)) {
+			if (selection < maxSelection){
+				selection = selection + middleLineDisplay
+				if (selection > maxSelection){
+					selection = maxSelection
+				}
+			}
+			if (selection > middleLineDesc){
+				if (selection <= middleLineAsc){
+					firstLine = firstLine + middleLineDisplay
+					lastLine = lastLine + middleLineDisplay
+				}
+				if (selection > middleLineAsc){
+					firstLine = maxSelection - lastLineDisplay
+					lastLine = maxSelection
+				}
+			}
+		}
+		if ((verif_key & JoyB)) {
+			selection = 4
+			x = 1
+		}
+		if ((verif_key & JoyY)) {
+			selection = 3
+			x = 1
+		}
+		if ((verif_key & JoyX)) {
+			selection = 0
+			x = 1
+		}
+		if ((verif_key & JoyA) \|\| (verif_key & BtnPower)) {
+			x = 1
+		}
+	}
+	return()
+}
+
+explorer_menu = {
+	currentFolder = "sd:"
+	w = 0
+	while (w == 0) {
+		explorer_menu_init()
+		explorer_menu_choice()
+		if (selection == 1){
+			return_code = -1
+			return()
+		}
+		if (selection == 3){
+			currentFolder = "sd:"
+		}
+		if (selection == 4){
+			currentFolder = parentDir
+		}
+		if (selection > 4){
+			currentFolder = pathCombine(currentFolder, selectedFolder)
+		}
+		if (selection == 2){
+			w = 1
+		}
+	}
+	return()
+}
+
+dump_important_partitions = {
+	clearscreen()
+	# println("Press VOL+ key to save the files in a chosen folder")
+	# println("Press any other keys  to save the files in the folder ", dumpFolderPath)
+	# if (pause() & BtnVolPlus){
+		# explorerTitle = "select the save folder"
+		# explorerIsCalled = 1
+		# explorer_menu()
+		# if (return_code == -1){
+			# return()
+		# }
+	# }
+	prepare_paths()
+	mount_mmc()
+	if (return_code == 1) {
+		return()
+	}
+	println("Begining of the save on the SD card")
+	dumpFileExist = 0
+	RESULT = fileExists(BOOT0DumpPath)
+	if (RESULT){
+		dumpFileExist = 1
+	}
+	RESULT = fileExists(BOOT1DumpPath)
+	if (RESULT){
+		dumpFileExist = 1
+	}
+	RESULT = fileExists(PRODINFODumpPath)
+	if (RESULT){
+		dumpFileExist = 1
+	}
+	RESULT = fileExists(PRODINFOFDumpPath)
+	if (RESULT){
+		dumpFileExist = 1
+	}
+	if (dumpFileExist == 1){
+		color("RED")
+		println("")
+		println("Dump files already exist in the ", dumpFolderPath, " folder, do you want to replace them?")
+		println("")
+		color("WHITE")
+		println("Press VOL+ to confirm the deletion or any other key to return to the menu.")
+		if (pause() & BtnVolPlus){
+			fileDel(BOOT0DumpPath)
+			fileDel(BOOT1DumpPath)
+			fileDel(PRODINFODumpPath)
+			fileDel(PRODINFOFDumpPath)
+		} .else() {
+			return()
+		}
+	}
+	println("")
+	println("Backup in progress...")
+	mkdir(dumpFolderPath)
+	mmcDump(BOOT0DumpPath, "BOOT0")
+	mmcDump(BOOT1DumpPath, "BOOT1")
+	mmcDump(PRODINFODumpPath, "PRODINFO")
+	mmcDump(PRODINFOFDumpPath, "PRODINFOF")
+		BOOT0DumpFileExist = 0
+BOOT1DumpFileExist = 0
+PRODINFODumpFileExist = 0
+PRODINFOFDumpFileExist = 0
+	RESULT = fileExists(BOOT0DumpPath)
+	if (RESULT){
+		BOOT0DumpFileExist = 1
+	}
+	RESULT = fileExists(BOOT1DumpPath)
+	if (RESULT){
+		BOOT1DumpFileExist = 1
+	}
+	RESULT = fileExists(PRODINFODumpPath)
+	if (RESULT){
+		PRODINFODumpFileExist = 1
+	}
+	RESULT = fileExists(PRODINFOFDumpPath)
+	if (RESULT){
+		PRODINFOFDumpFileExist = 1
+	}
+	if (BOOT0DumpFileExist == 1 && BOOT1DumpFileExist == 1 && PRODINFODumpFileExist == 1 && PRODINFOFDumpFileExist == 1){
+		color("GREEN")
+		println("")
+		println("")
+		println("Backup finished, the files are in the ", dumpFolderPath, " folder, remember to keep them somewhere.")
+		println("")
+		color("WHITE")
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	} .else() {
+		color("RED")
+		println("")
+		println("An error occurred during the backup, check the available space on your SD.")
+		println("")
+		color("WHITE")
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	}
+}
+
+choidujour_package_restore = {
+	clearscreen()
+	# println("Press VOL+ key to select the folder containing ChoiDuJour package")
+	# println("Press any other keys to  use the  ChoiDuJour package in the folder ", restoreFolderPath)
+	# if (pause() & BtnVolPlus){
+		# explorerTitle = "Select the  ChoiDuJour package folder"
+		# explorerIsCalled = 1
+		# explorer_menu()
+		# if (return_code == -1){
+			# return()
+		# }
+	# }
+	prepare_paths()
+println("Begining of the restoration")
+println("")
+restoreFileExist = 1
+RESULT = fileExists(BOOT0Path)
+if (RESULT == 0){
+restoreFileExist = 0
+}
+RESULT = fileExists(BOOT1Path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+RESULT = fileExists(BCPKG1Path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+RESULT = fileExists(BCPKG2Path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+RESULT = fileExists(BCPKG3Path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+RESULT = fileExists(BCPKG4Path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+SYSTEM_Contents_path = pathCombine(restoreFolderPath, "SYSTEM/Contents")
+RESULT = fileExists(SYSTEM_Contents_path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+if (restoreFileExist == 1){
+	RESULT = dirRead(SYSTEM_Contents_path)
+	if (len(RESULT) == 0){
+		restoreFileExist = 0
+	}
+}
+SYSTEM_save_path = pathCombine(restoreFolderPath, "SYSTEM/save")
+RESULT = fileExists(SYSTEM_save_path)
+if (RESULT == 0){
+	restoreFileExist = 0
+}
+if (restoreFileExist == 1){
+	RESULT = dirRead(SYSTEM_save_path)
+	if (len(RESULT) == 0){
+		restoreFileExist = 0
+	}
+}
+if (restoreFileExist == 0){
+	color("RED")
+	println("")
+	println("Some files or folders are missing in the ", restoreFolderPath, " folder, the script couldn't continue.")
+	println("")
+	color("WHITE")
+	println("Press any key to go back to menu.")
+	pause()
+	return()
+}
+if (method_restore == 1){
+	color("RED")
+	println("Warning: All data in the nand will be lost")
+	color("WHITE")
+	println("")
+	println("Press VOL+ to confirm or any other key to return to the menu.")
+	RESULT = pause() & BtnVolPlus
+	if (!RESULT){
+		return()
+	}
+}
+
+mount_mmc()
+if (return_code == 1){
+	return()
+}
+if (method_restore < 3){
+	mount_system()
+	if (return_code == 1){
+		return()
+	}
+	mount_user()
+	if (return_code == 1){
+		return()
+	}
+}
+
+println("")
+println("Restauring BOOT0, BOOT1 and BCPKG2-* partitions...")
+println("")
+mmcRestore(BOOT0Path, "BOOT0", 1)
+mmcRestore(BOOT1Path, "BOOT1", 1)
+mmcRestore(BCPKG1Path, "BCPKG2-1-Normal-Main", 0)
+mmcRestore(BCPKG2Path, "BCPKG2-2-Normal-Sub", 0)
+mmcRestore(BCPKG3Path, "BCPKG2-3-SafeMode-Main", 0)
+mmcRestore(BCPKG4Path, "BCPKG2-4-SafeMode-Sub", 0)
+if (method_restore == 3){
+	color("GREEN")
+	println("")
+	println("")
+	println("Opperation successfully completed!")
+	println("")
+	color("WHITE")
+	if (fileExists("sd:/payloads/TegraExplorer.bin") \|\| fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+		println("Press VOL+ to restart TegraExplorer or any other key to return to the menu.")
+		verif_key = pause()
+		if ((verif_key & BtnVolPlus)) {
+			if (fileExists("sd:/payloads/TegraExplorer.bin")) {
+				launchPayload("sd:/payloads/TegraExplorer.bin")
+			}
+			if (fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+				launchPayload("sd:/bootloader/payloads/TegraExplorer.bin")
+			}
+		} else {
+			return()
+		}
+	} else {
+		println("Press any key to go back to menu.")
+		pause()
+		return()
+	}
+}
+
+println("Restauring SYSTEM partition...")
+mount_system()
+if (return_code == 1){
+	return()
+}
+if (method_restore == 1){
+	dirDel("bis:/Contents")
+	dirDel("bis:/save")
+	dirDel("bis:/saveMeta")
+	fileDel("bis:/PRF2SAFE.RCV")
+}
+if (method_restore == 2){
+	dirDel("bis:/Contents")
+}
+dirCopy(SYSTEM_Contents_path, "bis:/")
+dirCopy(SYSTEM_save_path, "bis:/")
+if (method_restore == 1){
+	println("")
+	println("Restauring USER partition...")
+	mount_user()
+	if (return_code == 1){
+		return()
+	}
+	dirDel("bis:/Album")
+	dirDel("bis:/Contents")
+	dirDel("bis:/save")
+	dirDel("bis:/saveMeta")
+	dirDel("bis:/temp")
+	fileDel("bis:/PRF2SAFE.RCV")
+	mkdir("bis:/Album")
+	mkdir("bis:/Contents")
+	mkdir("bis:/Contents/placehld")
+	mkdir("bis:/Contents/registered")
+	mkdir("bis:/save")
+	mkdir("bis:/saveMeta")
+	mkdir("bis:/temp")
+}
+microSD_restoreFolderPath = pathCombine(restoreFolderPath, "microSD")
+RESULT = fileExists(microSD_restoreFolderPath)
+if (RESULT){
+	file = dirRead(microSD_restoreFolderPath)
+	i = 0
+	while (i < len(file)){
+		temp_microSD_restore_file = ""
+		hekateConfigFileFounded = 0
+		temp_microSD_restore_file = pathCombine(temp_microSD_restore_file, file[i])
+		if (file[i] == "hekate_ipl.ini"){
+			hekateConfigFileFounded = 1
+		}
+		if (hekateConfigFileFounded == 1){
+			RESULT = fileExists("sd:/bootloader")
+			if (RESULT == 0){
+				mkdir("sd:/bootloader")
+			}
+			RESULT = fileExists("sd:/bootloader/hekate_ipl.ini")
+			if (RESULT == 1){
+				fileCopy("sd:/bootloader/hekate_ipl.ini", "sd:/bootloader/hekate_ipl.ini.bak")
+			}
+			fileCopy(temp_microSD_restore_file, "sd:/bootloader/hekate_ipl.ini")
+		}
+		if (hekateConfigFileFounded == 0){
+			tempKipFile = ""
+			tempKipFile = pathCombine("sd:/", file[i])
+			fileCopy(temp_microSD_restore_file, tempKipFile)
+		}
+		i = i + 1
+	}
+}
+
+color("GREEN")
+println("")
+println("")
+println("Opperation successfully completed!")
+println("")
+color("WHITE")
+println("Press any key to go back to menu.")
+	pause()
+	return()
+}
+
+z = 0
+while (z == 0) {
+	main_action = 0
+	explorerIsCalled = 0
+	restoreFolderPath = "sd:/cdj_package_files"
+	dumpFolderPath = "sd:/dump"
+	main_menu()
+	if (main_action == 1){
+		exit()
+	}
+	if (main_action == 2){
+		dump_important_partitions()
+	}
+	if (main_action == 3){
+		choidujour_package_restore(method_restore = 1)
+	}
+	if (main_action == 4){
+		choidujour_package_restore(method_restore = 2)
+	}
+	if (main_action == 5){
+		choidujour_package_restore(method_restore = 3)
+	}
+	if (main_action == 6){
+		del_parental_control()
+	}
+	if (main_action == 7){
+		wip_console_data()
+	}
+	if (main_action == 8){
+		switch_working_nand()
+	}
+	if (main_action == 9){
+		synch_joycons()
+	}
+	if (main_action == 10){
+		migrate_emunand_menu()
+	}
+	if (main_action == 11){
+		bypass_first_configuration
+	}
+}
