@@ -1,5 +1,15 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V464</h2>
+<ul>
+<li>Ajout du script permettant de renommer les fichiers problématique de Triplayer dans le dossier du homebrew, ce script est à copier et à exécuter dans le dossier contenant les musiques pour Triplayer.</li>
+<li>Mise à jour de DBI en version 316.</li>
+<li>Mise à jour de TegraExplorer en version 4.0.0.</li>
+<li>Mise à jour de JKSV en version 08.01.2021.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.11.5.</li>
+<li>Mise à jour de Haku33 en version 4.1.</li>
+<li>Mise à jour de Edizon-SE en version 3.8.22.</li>
+</ul>
 <h2>V463</h2>
 <ul>
 <li>Mise à jour de Haku33 en version 4.0.</li>

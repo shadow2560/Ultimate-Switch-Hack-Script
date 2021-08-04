@@ -87,7 +87,7 @@ mount_mmc = {
 			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
 			return_code = 1
-		} else() {
+		} else()() {
 			mmcAlreadyConnected = 1
 			return_code = 0
 		}
@@ -104,7 +104,7 @@ mount_mmc = {
 			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
 			return_code = 1
-		} else() {
+		} else()() {
 			mmcAlreadyConnected = 1
 			return_code = 0
 		}
@@ -124,7 +124,7 @@ mount_system = {
 		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
 		return_code = 1
-	} else() {
+	} else()() {
 		return_code = 0
 	}
 	return()
@@ -142,7 +142,7 @@ mount_user = {
 		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
 		return_code = 1
-	} else() {
+	} else()() {
 		return_code = 0
 	}
 	return()
@@ -437,12 +437,12 @@ invert_emunand_files_sxos_for_atmosphere = {
 switch_working_nand = {
 	if (mmcTypeWork == 0){
 		if (_EMU == 0){
-		clearscreen()
-		println("Aucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
-		println("Appuyez sur une touche pour revenir au menu.")
-		pause()
-		return()
-	}
+			clearscreen()
+			println("Aucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
+			println("Appuyez sur une touche pour revenir au menu.")
+			pause()
+			return()
+		}
 		mmcTypeWork = 1
 		mmcAlreadyConnected = 0
 		return()
@@ -528,7 +528,7 @@ synch_joycons={
 		println("Appuyez sur une touche pour revenir au menu.")
 		pause()
 		return()
-	} else() {
+	} else()() {
 		return()
 	}
 }
@@ -547,7 +547,7 @@ del_parental_control = {
 		mount_system()
 		if (return_code == 1) {
 			return()
-		} else() {
+		} else()() {
 			println("Suppression du contrôle parental")
 			fileDel("bis:/save/8000000000000100")
 			color("GREEN")
@@ -557,7 +557,7 @@ del_parental_control = {
 			pause()
 			return()
 		}
-	} else() {
+	} else()() {
 		return()
 	}
 }
@@ -578,7 +578,7 @@ wip_console_data = {
 		mount_system()
 		if (return_code == 1) {
 			return()
-		} else() {
+		} else()() {
 			println("Suppression de données de la partition SYSTEM")
 			println("")
 			dirDel("bis:/saveMeta")
@@ -607,7 +607,7 @@ wip_console_data = {
 		mount_user()
 		if (return_code == 1) {
 			return()
-		} else() {
+		} else()() {
 			println("Suppression de données de la partition USER")
 			println("")
 			color("RED")
@@ -627,7 +627,7 @@ wip_console_data = {
 		println("Opération terminée avec succès, Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
 		return()
-	} else() {
+	} else()() {
 		return()
 	}
 }
@@ -643,7 +643,7 @@ explorer_menu_init = {
 	printPos(0, 3)
 	if (((currentFolder == "sd:/") == 0) \|\| ((currentFolder == "sd:") == 0)) {
 		parentDir = pathEscFolder(currentFolder)
-	} else() {
+	} else()() {
 		noParentDir = 1
 		parentDir = "sd:"
 		currentFolder = "sd:"
@@ -680,7 +680,7 @@ explorer_menu_init = {
 
 explorer_menu_choice = {
 	x = 0
-	while. (x == 0) {
+	while (x == 0) {
 		printPos(0, firstLineDisplay)
 		printedLine = firstLineDisplay
 		i = firstLine - 1
@@ -878,7 +878,7 @@ dump_important_partitions = {
 			fileDel(BOOT1DumpPath)
 			fileDel(PRODINFODumpPath)
 			fileDel(PRODINFOFDumpPath)
-		} else() {
+		} else()() {
 			return()
 		}
 	}
@@ -919,7 +919,7 @@ PRODINFOFDumpFileExist = 0
 		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
 		return()
-	} else() {
+	} else()() {
 		color("RED")
 		println("")
 		println("Une erreur s'est produite durant la sauvegarde, vérifiez l'espace disponible sur votre SD.")
@@ -944,204 +944,204 @@ choidujour_package_restore = {
 		# }
 	# }
 	prepare_paths()
-println("Début de la restauration")
-println("")
-restoreFileExist = 1
-RESULT = fileExists(BOOT0Path)
-if (RESULT == 0){
-restoreFileExist = 0
-}
-RESULT = fileExists(BOOT1Path)
-if (RESULT == 0){
+	println("Début de la restauration")
+	println("")
+	restoreFileExist = 1
+	RESULT = fileExists(BOOT0Path)
+	if (RESULT == 0){
 	restoreFileExist = 0
-}
-RESULT = fileExists(BCPKG1Path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-RESULT = fileExists(BCPKG2Path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-RESULT = fileExists(BCPKG3Path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-RESULT = fileExists(BCPKG4Path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-SYSTEM_Contents_path = pathCombine(restoreFolderPath, "SYSTEM/Contents")
-RESULT = fileExists(SYSTEM_Contents_path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-if (restoreFileExist == 1){
-	RESULT = dirRead(SYSTEM_Contents_path)
-	if (len(RESULT) == 0){
+	}
+	RESULT = fileExists(BOOT1Path)
+	if (RESULT == 0){
 		restoreFileExist = 0
 	}
-}
-SYSTEM_save_path = pathCombine(restoreFolderPath, "SYSTEM/save")
-RESULT = fileExists(SYSTEM_save_path)
-if (RESULT == 0){
-	restoreFileExist = 0
-}
-if (restoreFileExist == 1){
-	RESULT = dirRead(SYSTEM_save_path)
-	if (len(RESULT) == 0){
+	RESULT = fileExists(BCPKG1Path)
+	if (RESULT == 0){
 		restoreFileExist = 0
 	}
-}
-if (restoreFileExist == 0){
-	color("RED")
-	println("")
-	println("Certains fichiers ou dossiers sont manquants dans le dossier ", restoreFolderPath, ", le script ne peut continuer.")
-	println("")
-	color("WHITE")
-	println("Appuyez sur n'importe quelle touche pour revenir au menu.")
-	pause()
-	return()
-}
-if (method_restore == 1){
-	color("RED")
-	println("Attention: Toutes les données de la nand seront perdues")
-	color("WHITE")
-	println("")
-	println("Appuyez sur VOL+ pour confirmer ou sur n'importe quelle autre touche pour revenir au menu.")
-	RESULT = pause() & BtnVolPlus
-	if (!RESULT){
-		return()
+	RESULT = fileExists(BCPKG2Path)
+	if (RESULT == 0){
+		restoreFileExist = 0
 	}
-}
-
-mount_mmc()
-if (return_code == 1){
-	return()
-}
-if (method_restore < 3){
-	mount_system()
-	if (return_code == 1){
-		return()
+	RESULT = fileExists(BCPKG3Path)
+	if (RESULT == 0){
+		restoreFileExist = 0
 	}
-	mount_user()
-	if (return_code == 1){
-		return()
+	RESULT = fileExists(BCPKG4Path)
+	if (RESULT == 0){
+		restoreFileExist = 0
 	}
-}
-
-println("")
-println("Restauration des partitions BOOT0, BOOT1 et BCPKG2-*...")
-println("")
-mmcRestore(BOOT0Path, "BOOT0", 1)
-mmcRestore(BOOT1Path, "BOOT1", 1)
-mmcRestore(BCPKG1Path, "BCPKG2-1-Normal-Main", 0)
-mmcRestore(BCPKG2Path, "BCPKG2-2-Normal-Sub", 0)
-mmcRestore(BCPKG3Path, "BCPKG2-3-SafeMode-Main", 0)
-mmcRestore(BCPKG4Path, "BCPKG2-4-SafeMode-Sub", 0)
-if (method_restore == 3){
-	color("GREEN")
-	println("")
-	println("")
-	println("Oppération terminée avec succès!")
-	println("")
-	color("WHITE")
-	if (fileExists("sd:/payloads/TegraExplorer.bin") \|\| fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
-		println("Appuyez sur VOL+ pour redémarrer TegraExplorer ou sur n'importe quelle autre touche pour revenir au menu.")
-		verif_key = pause()
-		if ((verif_key & BtnVolPlus)) {
-			if (fileExists("sd:/payloads/TegraExplorer.bin")) {
-				launchPayload("sd:/payloads/TegraExplorer.bin")
-			}
-			if (fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
-				launchPayload("sd:/bootloader/payloads/TegraExplorer.bin")
-			}
-		} else {
-			return()
+	SYSTEM_Contents_path = pathCombine(restoreFolderPath, "SYSTEM/Contents")
+	RESULT = fileExists(SYSTEM_Contents_path)
+	if (RESULT == 0){
+		restoreFileExist = 0
+	}
+	if (restoreFileExist == 1){
+		RESULT = dirRead(SYSTEM_Contents_path)
+		if (len(RESULT) == 0){
+			restoreFileExist = 0
 		}
-	} else {
+	}
+	SYSTEM_save_path = pathCombine(restoreFolderPath, "SYSTEM/save")
+	RESULT = fileExists(SYSTEM_save_path)
+	if (RESULT == 0){
+		restoreFileExist = 0
+	}
+	if (restoreFileExist == 1){
+		RESULT = dirRead(SYSTEM_save_path)
+		if (len(RESULT) == 0){
+			restoreFileExist = 0
+		}
+	}
+	if (restoreFileExist == 0){
+		color("RED")
+		println("")
+		println("Certains fichiers ou dossiers sont manquants dans le dossier ", restoreFolderPath, ", le script ne peut continuer.")
+		println("")
+		color("WHITE")
 		println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
 		return()
 	}
-}
+	if (method_restore == 1){
+		color("RED")
+		println("Attention: Toutes les données de la nand seront perdues")
+		color("WHITE")
+		println("")
+		println("Appuyez sur VOL+ pour confirmer ou sur n'importe quelle autre touche pour revenir au menu.")
+		RESULT = pause() & BtnVolPlus
+		if (!RESULT){
+			return()
+		}
+	}
 
-println("Restauration de la partition SYSTEM...")
-mount_system()
-if (return_code == 1){
-	return()
-}
-if (method_restore == 1){
-	dirDel("bis:/Contents")
-	dirDel("bis:/save")
-	dirDel("bis:/saveMeta")
-	fileDel("bis:/PRF2SAFE.RCV")
-}
-if (method_restore == 2){
-	dirDel("bis:/Contents")
-}
-dirCopy(SYSTEM_Contents_path, "bis:/")
-dirCopy(SYSTEM_save_path, "bis:/")
-if (method_restore == 1){
-	println("")
-	println("Restauration de la partition USER...")
-	mount_user()
+	mount_mmc()
 	if (return_code == 1){
 		return()
 	}
-	dirDel("bis:/Album")
-	dirDel("bis:/Contents")
-	dirDel("bis:/save")
-	dirDel("bis:/saveMeta")
-	dirDel("bis:/temp")
-	fileDel("bis:/PRF2SAFE.RCV")
-	mkdir("bis:/Album")
-	mkdir("bis:/Contents")
-	mkdir("bis:/Contents/placehld")
-	mkdir("bis:/Contents/registered")
-	mkdir("bis:/save")
-	mkdir("bis:/saveMeta")
-	mkdir("bis:/temp")
-}
-microSD_restoreFolderPath = pathCombine(restoreFolderPath, "microSD")
-RESULT = fileExists(microSD_restoreFolderPath)
-if (RESULT){
-	file = dirRead(microSD_restoreFolderPath)
-	i = 0
-	while (i < len(file)){
-		temp_microSD_restore_file = ""
-		hekateConfigFileFounded = 0
-		temp_microSD_restore_file = pathCombine(temp_microSD_restore_file, file[i])
-		if (file[i] == "hekate_ipl.ini"){
-			hekateConfigFileFounded = 1
+	if (method_restore < 3){
+		mount_system()
+		if (return_code == 1){
+			return()
 		}
-		if (hekateConfigFileFounded == 1){
-			RESULT = fileExists("sd:/bootloader")
-			if (RESULT == 0){
-				mkdir("sd:/bootloader")
-			}
-			RESULT = fileExists("sd:/bootloader/hekate_ipl.ini")
-			if (RESULT == 1){
-				fileCopy("sd:/bootloader/hekate_ipl.ini", "sd:/bootloader/hekate_ipl.ini.bak")
-			}
-			fileCopy(temp_microSD_restore_file, "sd:/bootloader/hekate_ipl.ini")
+		mount_user()
+		if (return_code == 1){
+			return()
 		}
-		if (hekateConfigFileFounded == 0){
-			tempKipFile = ""
-			tempKipFile = pathCombine("sd:/", file[i])
-			fileCopy(temp_microSD_restore_file, tempKipFile)
-		}
-		i = i + 1
 	}
-}
 
-color("GREEN")
-println("")
-println("")
-println("Opération terminée avec succès!")
-println("")
-color("WHITE")
-println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+	println("")
+	println("Restauration des partitions BOOT0, BOOT1 et BCPKG2-*...")
+	println("")
+	mmcRestore(BOOT0Path, "BOOT0", 1)
+	mmcRestore(BOOT1Path, "BOOT1", 1)
+	mmcRestore(BCPKG1Path, "BCPKG2-1-Normal-Main", 0)
+	mmcRestore(BCPKG2Path, "BCPKG2-2-Normal-Sub", 0)
+	mmcRestore(BCPKG3Path, "BCPKG2-3-SafeMode-Main", 0)
+	mmcRestore(BCPKG4Path, "BCPKG2-4-SafeMode-Sub", 0)
+	if (method_restore == 3){
+		color("GREEN")
+		println("")
+		println("")
+		println("Oppération terminée avec succès!")
+		println("")
+		color("WHITE")
+		if (fileExists("sd:/payloads/TegraExplorer.bin") \|\| fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+			println("Appuyez sur VOL+ pour redémarrer TegraExplorer ou sur n'importe quelle autre touche pour revenir au menu.")
+			verif_key = pause()
+			if ((verif_key & BtnVolPlus)) {
+				if (fileExists("sd:/payloads/TegraExplorer.bin")) {
+					launchPayload("sd:/payloads/TegraExplorer.bin")
+				}
+				if (fileExists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+					launchPayload("sd:/bootloader/payloads/TegraExplorer.bin")
+				}
+			} else() {
+				return()
+			}
+		} else() {
+			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
+			return()
+		}
+	}
+
+	println("Restauration de la partition SYSTEM...")
+	mount_system()
+	if (return_code == 1){
+		return()
+	}
+	if (method_restore == 1){
+		dirDel("bis:/Contents")
+		dirDel("bis:/save")
+		dirDel("bis:/saveMeta")
+		fileDel("bis:/PRF2SAFE.RCV")
+	}
+	if (method_restore == 2){
+		dirDel("bis:/Contents")
+	}
+	dirCopy(SYSTEM_Contents_path, "bis:/")
+	dirCopy(SYSTEM_save_path, "bis:/")
+	if (method_restore == 1){
+		println("")
+		println("Restauration de la partition USER...")
+		mount_user()
+		if (return_code == 1){
+			return()
+		}
+		dirDel("bis:/Album")
+		dirDel("bis:/Contents")
+		dirDel("bis:/save")
+		dirDel("bis:/saveMeta")
+		dirDel("bis:/temp")
+		fileDel("bis:/PRF2SAFE.RCV")
+		mkdir("bis:/Album")
+		mkdir("bis:/Contents")
+		mkdir("bis:/Contents/placehld")
+		mkdir("bis:/Contents/registered")
+		mkdir("bis:/save")
+		mkdir("bis:/saveMeta")
+		mkdir("bis:/temp")
+	}
+	microSD_restoreFolderPath = pathCombine(restoreFolderPath, "microSD")
+	RESULT = fileExists(microSD_restoreFolderPath)
+	if (RESULT){
+		file = dirRead(microSD_restoreFolderPath)
+		i = 0
+		while (i < len(file)){
+			temp_microSD_restore_file = ""
+			hekateConfigFileFounded = 0
+			temp_microSD_restore_file = pathCombine(temp_microSD_restore_file, file[i])
+			if (file[i] == "hekate_ipl.ini"){
+				hekateConfigFileFounded = 1
+			}
+			if (hekateConfigFileFounded == 1){
+				RESULT = fileExists("sd:/bootloader")
+				if (RESULT == 0){
+					mkdir("sd:/bootloader")
+				}
+				RESULT = fileExists("sd:/bootloader/hekate_ipl.ini")
+				if (RESULT == 1){
+					fileCopy("sd:/bootloader/hekate_ipl.ini", "sd:/bootloader/hekate_ipl.ini.bak")
+				}
+				fileCopy(temp_microSD_restore_file, "sd:/bootloader/hekate_ipl.ini")
+			}
+			if (hekateConfigFileFounded == 0){
+				tempKipFile = ""
+				tempKipFile = pathCombine("sd:/", file[i])
+				fileCopy(temp_microSD_restore_file, tempKipFile)
+			}
+			i = i + 1
+		}
+	}
+
+	color("GREEN")
+	println("")
+	println("")
+	println("Opération terminée avec succès!")
+	println("")
+	color("WHITE")
+	println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 	pause()
 	return()
 }

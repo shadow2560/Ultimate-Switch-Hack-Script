@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.146</h2>
+<ul>
+<li>Continuing to write the unbrick script for the next version of TegraExplorer.</li>
+<li>Some adjustments to the current TegraExplorer unbrick script.</li>
+<li>Update TegraExplorer to version 4.0.0, the version 3.0.6 will be kept.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 464.</li>
+</ul>
 <h2>V4.3.145</h2>
 <ul>
 <li>Started writing the unbrick script for the next version of TegraExplorer.</li>
