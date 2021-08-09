@@ -3,6 +3,7 @@
 <h2>V4.3.147</h2>
 <ul>
 <li>Continuation de l'écriture du script de débrickage pour la  version 4.0.0 de TegraExplorer.</li>
+<li>Mise à jour des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 465.</li>
 </ul>
 <h2>V4.3.146</h2>
