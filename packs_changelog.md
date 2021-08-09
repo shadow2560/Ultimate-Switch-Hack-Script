@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V465</h2>
+<ul>
+<li>Mise à jour de Fizeau en version 2.2.0.</li>
+<li>Mise à jour de Edizon-SE en version 3.8.23.</li>
+</ul>
 <h2>V464</h2>
 <ul>
 <li>Ajout du script permettant de renommer les fichiers problématique de Triplayer dans le dossier du homebrew, ce script est à copier et à exécuter dans le dossier contenant les musiques pour Triplayer.</li>

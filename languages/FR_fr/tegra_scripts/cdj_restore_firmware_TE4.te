@@ -5,9 +5,9 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Switcher le travail du script entre SYSNAND et EMUNAND", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Passer   la première configuration"]
+main_menu_options = ["Quitter sans rien faire", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Passer   la première configuration (non fonctionnel pour l'instant)", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Switcher le travail du script entre SYSNAND et EMUNAND"]
 migrate_emunand_menu_options = ["Revenir au menu principal", "Rendre compatible l'emunand via partition de SXOS avec Atmosphere", "Convertir l'emunand via fichiers de SXOS pour Atmosphere", "Inverser la convertion de l'emunand via fichiers de SXOS pour Atmosphere"]
-explorer_menu_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
+explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
 clearLine = "                                                                              "
 mmcTypeWork = 0
@@ -111,47 +111,49 @@ main_menu = {
 	println("")
 	printpos(0, 39)
 	println("HAUT/BAS/VOL+/VOL- : se déplacer | A/POWER : Valider")
-	if (mmcTypeWork == 0){
-		println("X : Travailler sur l'EMUNAND")
-	}
-	if (mmcTypeWork == 1){
-		println("X : Travailler sur la SYSNAND")
-	}
+	# if (mmcTypeWork == 0){
+		# println("X : Travailler sur l'EMUNAND")
+	# }
+	# if (mmcTypeWork == 1){
+		# println("X : Travailler sur la SYSNAND")
+	# }
 
-	selection = 1
-	maxSelection = main_menu_options.len()
-	while (1) {
-		printpos(0, 10)
-		i = 0
-		while (i < maxSelection) {
-			color(0xFFFFFF)
-			if (i + 1 == selection){
-				color(0xFF0000)
-			}
-			println(main_menu_options[i])
-			i = i + 1
-		}
-		verif_key = pause()
-		if (verif_key.down || verif_key.volminus) {
-			if (selection < maxSelection){
-			selection = selection + 1
-			}
-		}
-		if (verif_key.up || verif_key.volplus) {
-			if (selection > 1){
-			selection = selection - 1
-			}
-		}
-		if (verif_key.x) {
-			selection = 8
-			break()
-		}
-		if (verif_key.a || verif_key.power) {
-			break()
-		}
-	}
-	main_action = selection
-	# return()
+	# selection = 1
+	# maxSelection = main_menu_options.len()
+	# while (1) {
+		# printpos(0, 10)
+		# i = 0
+		# while (i < maxSelection) {
+			# color(0xFFFFFF)
+			# if (i + 1 == selection){
+				# color(0xFF0000)
+			# }
+			# println(main_menu_options[i])
+			# i = i + 1
+		# }
+		# verif_key = pause()
+		# if (verif_key.down || verif_key.volminus) {
+			# if (selection < maxSelection){
+			# selection = selection + 1
+			# }
+		# }
+		# if (verif_key.up || verif_key.volplus) {
+			# if (selection > 1){
+			# selection = selection - 1
+			# }
+		# }
+		# if (verif_key.x) {
+			# selection = 8
+			# break()
+		# }
+		# if (verif_key.a || verif_key.power) {
+			# break()
+		# }
+	# }
+	# main_action = selection
+	printpos(0, 10)
+	selection = menu(main_menu_options, 0)
+	main_action = selection + 1
 }
 
 migrate_emunand_menu_choice = {
@@ -164,35 +166,37 @@ migrate_emunand_menu_choice = {
 	printpos(0, 39)
 	println("HAUT/BAS/VOL+/VOL- : se déplacer | A/POWER : Valider")
 
-	selection = 1
-	maxSelection = migrate_emunand_menu_options.len()
-	while (1) {
-		printpos(0, 10)
-		i = 0
-		while (i < maxSelection) {
-			color(0xFFFFFF)
-			if (i + 1 == selection){
-				color(0xFF0000)
-			}
-			println(migrate_emunand_menu_options[i])
-			i = i + 1
-		}
-		verif_key = pause()
-		if (verif_key.down || verif_key.volminus) {
-			if (selection < maxSelection){
-			selection = selection + 1
-			}
-		}
-		if (verif_key.up || verif_key.volplus) {
-			if (selection > 1){
-			selection = selection - 1
-			}
-		}
-		if (verif_key.a || verif_key.power) {
-			break()
-		}
-	}
-	# return()
+	# selection = 1
+	# maxSelection = migrate_emunand_menu_options.len()
+	# while (1) {
+		# printpos(0, 10)
+		# i = 0
+		# while (i < maxSelection) {
+			# color(0xFFFFFF)
+			# if (i + 1 == selection){
+				# color(0xFF0000)
+			# }
+			# println(migrate_emunand_menu_options[i])
+			# i = i + 1
+		# }
+		# verif_key = pause()
+		# if (verif_key.down || verif_key.volminus) {
+			# if (selection < maxSelection){
+			# selection = selection + 1
+			# }
+		# }
+		# if (verif_key.up || verif_key.volplus) {
+			# if (selection > 1){
+			# selection = selection - 1
+			# }
+		# }
+		# if (verif_key.a || verif_key.power) {
+			# break()
+		# }
+	# }
+	printpos(0, 10)
+	selection = menu(migrate_emunand_menu_options, 0)
+	selection = selection + 1
 }
 
 migrate_emunand_menu = {
@@ -202,19 +206,18 @@ migrate_emunand_menu = {
 			break()
 		}
 		if (selection == 2){
-			break()
 			prepare_sxos_emunand_partition_for_atmosphere()
+			break()
 		}
 		if (selection == 3){
-			break()
 			convert_emunand_files_sxos_for_atmosphere()
+			break()
 		}
 		if (selection == 4){
-			break()
 			invert_emunand_files_sxos_for_atmosphere()
+			break()
 		}
 	}
-	# return()
 }
 
 prepare_sxos_emunand_partition_for_atmosphere = {
@@ -225,12 +228,12 @@ prepare_sxos_emunand_partition_for_atmosphere = {
 	if (fsexists("sd:/emummc/emummc.ini")){
 		delfile("sd:/emummc/emummc.ini")
 	}
-	writefile("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x32, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x65, 0x6D, 0x75, 0x4D, 0x4D, 0x43, 0x2F, 0x45, 0x52, 0x30, 0x30, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+	writefile("sd:/emummc/emummc.ini", ["BYTE[]",0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x32, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x65, 0x6D, 0x75, 0x4D, 0x4D, 0x43, 0x2F, 0x45, 0x52, 0x30, 0x30, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A])
 	if (fsexists("sd:/emummc/ER00")) {
 		deldir("sd:/emummc/ER00")
 	}
 	mkdir("sd:/emummc/ER00")
-	writefile("sd:/emummc/ER00/raw_based", byte([0x02]))
+	writefile("sd:/emummc/ER00/raw_based", ["BYTE[]",0x02])
 	color(0x00FF00)
 	println("Opération effectuée avec succès.")
 	color(0xFFFFFF)
@@ -278,7 +281,6 @@ convert_emunand_files_sxos_for_atmosphere = {
 		println("")
 		println("Appuyer sur une touche pour revenir au menu principal.")
 		pause()
-		# return()
 	} .else() {
 		if (fsexists("sd:/sxos/eMMC") == 0) {
 			mkdir("sd:/sxos/eMMC")
@@ -299,7 +301,7 @@ convert_emunand_files_sxos_for_atmosphere = {
 		if (fsexists("sd:/emummc/emummc.ini")){
 			delfile("sd:/emummc/emummc.ini")
 		}
-		writefile("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x30, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x73, 0x78, 0x6F, 0x73, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+		writefile("sd:/emummc/emummc.ini", ["BYTE[]",0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x30, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x73, 0x78, 0x6F, 0x73, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A])
 		deldir("sd:/sxos/emunand")
 		color(0x00FF00)
 		println("Opération effectuée avec succès.")
@@ -349,7 +351,6 @@ invert_emunand_files_sxos_for_atmosphere = {
 		println("")
 		println("Appuyer sur une touche pour revenir au menu principal.")
 		pause()
-		# return()
 	} .else() {
 		if (fsexists("sd:/sxos/emunand") == 0) {
 			mkdir("sd:/sxos/emunand")
@@ -385,37 +386,43 @@ switch_working_nand = {
 		println("Aucune EMUNAND configurée sur la SD, la SYSNAND continuera à être utilisée.")
 		println("Appuyez sur une touche pour revenir au menu.")
 		pause()
-		# return()
 	} .else() {
 			mmcTypeWork = 1
-			# return()
 		}
 	} .else() {
 		if (mmcTypeWork == 1){
 			mmcTypeWork = 0
-			# return()
 		}
 	}
-	# return()
 }
 
 bypass_first_configuration={
+	clear()
 	mount_system()
 	if (return_code != 1) {
-		save = readsave("bis:/save/8000000000000050")
-		save_file = save.read("file")
-		save_file[0x29484] = 1
-		save.write("file", save_file)
-		save.commit()
-		save = ""
-		save_file = ""
-		color(0x00FF00)
-		println("Opération effectuée avec succès.")
-		color(0xFFFFFF)
-		println("")
-		println("Appuyez sur une touche pour revenir au menu.")
-		pause()
-		# return()
+		if (fsexists("bis:/save/8000000000000050")){
+			save = readsave("bis:/save/8000000000000050")
+			save_file = save.read("/file")
+			byte_to_write = ["BYTE[]",0x01]
+			save_file[0x29484] = byte_to_write[0]
+			# save.write("/file", save_file)
+			save.commit()
+			save = 0
+			save_file = 0
+			color(0x00FF00)
+			println("Opération effectuée avec succès.")
+			color(0xFFFFFF)
+			println("")
+			println("Appuyez sur une touche pour revenir au menu.")
+			pause()
+		} .else() {
+						color(0x00FF00)
+			println("Le fichier à modifier n'existe pas, veuillez démarrer au moins une fois le firmware jusqu'à l'écran de première configuration.")
+			color(0xFFFFFF)
+			println("")
+			println("Appuyez sur une touche pour revenir au menu.")
+			pause()
+		}
 	}
 }
 
@@ -426,7 +433,6 @@ synch_joycons={
 		println("")
 		println("Appuyez sur une touche pour revenir au menu.")
 		pause()
-		# return()
 	} .else() {
 		color(0x0000FF)
 		println("TegraScript Syncfixby MezBar")
@@ -479,7 +485,6 @@ synch_joycons={
 					color(0xFFFFFF)
 					println("Appuyez sur une touche pour revenir au menu.")
 					pause()
-					# return()
 				}
 			}
 		}
@@ -503,7 +508,6 @@ del_parental_control = {
 			println("")
 			println("Opération terminée avec succès, Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
-			# return()
 		}
 	}
 }
@@ -535,8 +539,6 @@ wip_console_data = {
 					res = delfile(combinepath("bis:/save", save))
 					if (res) {
 						println("\nLa suppression du fichier ", save, " a échoué!")
-						# pause()
-						# return()
 					}
 				}
 				i = i + 1
@@ -563,7 +565,6 @@ wip_console_data = {
 		println("")
 		println("Opération terminée avec succès, Appuyez sur n'importe quelle touche pour revenir au menu.")
 		pause()
-		# return()
 	}
 }
 
@@ -571,11 +572,14 @@ explorer_menu_init = {
 	clear()
 	color(0xFFFFFF)
 	println(explorerTitle)
+	color(0x00FF00)
+	println("Current folder: ", currentFolder)
+	color(0xFFFFFF)
 	println("-------------------------------------------------------------------------------")
-	printpos(0, 40)
-	println("HAUT/BAS/Gauche/Droite/VOL+/VOL- : se déplacer | A/POWER : Valider")
-	println("B : Dossier parent | X : Recharger dossier | Y : retour Racine SD")
-	printpos(0, 3)
+	# printpos(0, 40)
+	# println("HAUT/BAS/Gauche/Droite/VOL+/VOL- : se déplacer | A/POWER : Valider")
+	# println("B : Dossier parent | X : Recharger dossier | Y : retour Racine SD")
+	# printpos(0, 3)
 	if (((currentFolder == "sd:/") == 0) || ((currentFolder == "sd:") == 0)) {
 		parentDir = escapepath(currentFolder)
 	} .else() {
@@ -587,164 +591,38 @@ explorer_menu_init = {
 	folder_list = []
 	i = 0
 	while (i < file.folders.len()) {
-		folder_list = folder_list + file.folders[i]
+		folder_list.add(file.folders[i])
 		i = i + 1
 	}
 	foldersNumber = folder_list.len()
-	selectedFolder = ""
-	minIndexToPrint = 1
-	maxIndexToPrint = explorer_menu_options.len()
-	firstLineDisplay = 3
-	middleLineDisplabreak()6
-	lastLineDisplay = 35
-	maxSelection = maxIndexToPrint + foldersNumber
-	firstLine = minIndexToPrint
-	middleLineDesc = middleLineDisplay + minIndexToPrint
-	middleLineAsc = maxSelection - middleLineDisplay
-	lastLine = lastLineDisplay + minIndexToPrint
-	firstLineLimit = firstLine
-	middleLineDescLimit = middleLineDesc
-	middleLineAscLimit = middleLineAsc
-	middleLineLimit = middleLineAsc - middleLineDesc
-	lastLineLimit = lastLine
-	selection = minIndexToPrint
-	# return()
 }
 
 explorer_menu_choice = {
-	while (1) {
-		printpos(0, firstLineDisplay)
-		printedLine = firstLineDisplay
-		i = firstLine - 1
-		while (i < maxIndexToPrint){
-			color(0x00FF00)
-			if (i + 1 == selection){
-				color(0xFF0000)
-			}
-			# println("")
-			# printpos(0, printedLine)
-			println(explorer_menu_options[i])
-			printedLine = printedLine + 1
+	explorer_menu_options = []
+	i = 0
+	explorer_menu_static_options.foreach(a) {
+		explorer_menu_options[i] = a
+		i = i + 1
+	}
+	if (foldersNumber > 0) {
+		folder_list.foreach(a) {
+			explorer_menu_options[i] = a
 			i = i + 1
 		}
-		# if (i == maxIndexToPrint) {
-			# println("")
-			# printedLine = printedLine + 1
-		# }
-		count = maxIndexToPrint
-		j = 0
-		while ((i + j < lastLine) && (j < foldersNumber)) {
-			color(0xFFFFFF)
-			count = count + 1
-			if (count >= firstLine){
-				if (i + j + 1 == selection){
-					selectedFolder = folder_list[j]
-					printpos(0, 38)
-					print(clearLine)
-					printpos(0, 38)
-					color(0x00FF00)
-					println(folder_list[j])
-					printpos(0, printedLine)
-					color(0xFF0000)
-				}
-				# println("")
-				# printpos(0, printedLine)
-				println(folder_list[j])
-				printedLine = printedLine + 1
-				j = j + 1
-			}
-		}
-		println("-------------------------------------------------------------------------------")
-		println("")
-		color(0x00FF00)
-		println(currentFolder)
-		color(0xFFFFFF)
-		verif_key = pause()
-		if (verif_key.down || verif_key.volminus) {
-			if (selection < maxSelection){
-				selection = selection + 1
-			}
-			if (selection > middleLineDesc){
-				if (selection <= middleLineAsc){
-					firstLine = firstLine + 1
-					lastLine = lastLine + 1
-				}
-			}
-		}
-		if (verif_key.up || verif_key.volplus) {
-			if (selection > minIndexToPrint){
-				selection = selection - 1
-			}
-			if (selection < middleLineAsc){
-				if (selection >= middleLineDesc){
-					firstLine = firstLine - 1
-					lastLine = lastLine - 1
-				}
-			}
-		}
-		if (verif_key.left) {
-			if (selection > minIndexToPrint){
-				selection = selection - middleLineDisplay
-				if (selection < minIndexToPrint){
-					selection = minIndexToPrint
-				}
-			}
-			if (selection < middleLineAsc){
-				if (selection >= middleLineDesc){
-					firstLine = firstLine - middleLineDisplay
-					lastLine = lastLine - middleLineDisplay
-				}
-				if (selection < middleLineDesc){
-					firstLine = minIndexToPrint
-					lastLine = lastLineLimit
-				}
-			}
-		}
-		if (verif_key.right) {
-			if (selection < maxSelection){
-				selection = selection + middleLineDisplay
-				if (selection > maxSelection){
-					selection = maxSelection
-				}
-			}
-			if (selection > middleLineDesc){
-				if (selection <= middleLineAsc){
-					firstLine = firstLine + middleLineDisplay
-					lastLine = lastLine + middleLineDisplay
-				}
-				if (selection > middleLineAsc){
-					firstLine = maxSelection - lastLineDisplay
-					lastLine = maxSelection
-				}
-			}
-		}
-		if (verif_key.b) {
-			selection = 4
-			break()
-		}
-		if (verif_key.y) {
-			selection = 3
-			break()
-		}
-		if (verif_key.x) {
-			selection = 0
-			break()
-		}
-		if (verif_key.a || verif_key.power) {
-			break()
-		}
 	}
-	# return()
+	selection = menu(explorer_menu_options, 0)
+	selection = selection + 1
 }
 
 explorer_menu = {
+	return_code = 0
 	currentFolder = "sd:/"
 	while (1) {
 		explorer_menu_init()
 		explorer_menu_choice()
 		if (selection == 1){
 			return_code = -1
-			# return()
+			break()
 		}
 		if (selection == 3){
 			currentFolder = "sd:/"
@@ -753,13 +631,12 @@ explorer_menu = {
 			currentFolder = parentDir
 		}
 		if (selection > 4){
-			currentFolder = combinepath(currentFolder, selectedFolder)
+			currentFolder = combinepath(currentFolder, explorer_menu_options[selection])
 		}
 		if (selection == 2){
 			break()
 		}
 	}
-	# return()
 }
 
 dump_important_partitions = {
@@ -809,7 +686,7 @@ dump_important_partitions = {
 			delfile(PRODINFODumpPath)
 			delfile(PRODINFOFDumpPath)
 		} .else() {
-			return_code = 0
+			return_code = 1
 		}
 	}
 	if (return_code == 0) {
@@ -857,7 +734,6 @@ dump_important_partitions = {
 			color(0xFFFFFF)
 			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
-			# return()
 		} .else() {
 			color(0xFF0000)
 			println("")
@@ -866,7 +742,6 @@ dump_important_partitions = {
 			color(0xFFFFFF)
 			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
-			# return()
 		}
 	}
 }
@@ -903,24 +778,20 @@ restore_file_verif= {
 	if (RESULT == 0){
 		restoreFileExist = 0
 	}
-	if (restoreFileExist == 1){
-		RESULT = readdir(SYSTEM_Contents_path)
-		if (RESULT.files.len() == 0){
-			restoreFileExist = 0
-		}
+	RESULT = readdir(SYSTEM_Contents_path)
+	if (RESULT.files.len() == 0){
+		restoreFileExist = 0
 	}
 	SYSTEM_save_path = combinepath(restoreFolderPath, "SYSTEM/save")
 	RESULT = fsexists(SYSTEM_save_path)
 	if (RESULT == 0){
 		restoreFileExist = 0
 	}
-	if (restoreFileExist == 1){
-		RESULT = readdir(SYSTEM_save_path)
-		if (RESULT.files.len() == 0){
-			restoreFileExist = 0
-		}
+	RESULT = readdir(SYSTEM_save_path)
+	if (RESULT.files.len() == 0){
+		restoreFileExist = 0
 	}
-	if (restoreFileExist == 0){
+	if (restoreFileExist == 1){
 		color(0xFF0000)
 		println("")
 		println("Certains fichiers ou dossiers sont manquants dans le dossier ", restoreFolderPath, ", le script ne peut continuer.")
@@ -968,6 +839,7 @@ restore_system_partition = {
 
 restore_user_partition = {
 	println("Restauration de la partition USER...")
+	mount_user()
 	deldir("bis:/Album")
 	deldir("bis:/Contents")
 	deldir("bis:/save")
@@ -1001,11 +873,11 @@ restore_choidujour_special_files = {
 				if (RESULT == 0){
 					mkdir("sd:/bootloader")
 				}
-				RESULT = fsexists("sd:/bootloader/hekate_ipl.ini")
-				if (RESULT == 1){
-					copyfile("sd:/bootloader/hekate_ipl.ini", "sd:/bootloader/hekate_ipl.ini.bak")
+				RESULT = fsexists("sd:/bootloader/ini")
+				if (RESULT == 0){
+					mkdir("sd:/bootloader/ini")
 				}
-				copyfile(temp_microSD_restore_file, "sd:/bootloader/hekate_ipl.ini")
+				copyfile(temp_microSD_restore_file, "sd:/bootloader/ini/cdj_first_launch.ini")
 			}
 			if (hekateConfigFileFounded == 0){
 				tempKipFile = ""
@@ -1047,6 +919,7 @@ choidujour_package_restore = {
 					println("Appuyez sur VOL+ pour confirmer ou sur n'importe quelle autre touche pour revenir au menu.")
 					verif_key = pause()
 					if (verif_key.volplus){
+						restore_accepted = 1
 						println("")
 						restore_boot_and_bcpkg_partitions()
 						println("")
@@ -1061,6 +934,7 @@ choidujour_package_restore = {
 		}
 
 		if (method_restore == 2){
+			restore_accepted = 1
 			mount_system()
 			if (return_code != 1){
 				println("")
@@ -1071,34 +945,37 @@ choidujour_package_restore = {
 		}
 
 		if (method_restore == 3){
+			restore_accepted = 1
 			restore_boot_and_bcpkg_partitions()
 		}
 
-		color(0x00FF00)
-		println("")
-		println("")
-		println("Opération terminée avec succès!")
-		println("")
-		color(0xFFFFFF)
-		if (method_restore == 3){
-			if (fsexists("sd:/payloads/TegraExplorer.bin") || fsexists("sd:/bootloader/payloads/TegraExplorer.bin")) {
-				println("Appuyez sur VOL+ pour redémarrer TegraExplorer ou sur n'importe quelle autre touche pour revenir au menu.")
-				verif_key = pause()
-				if (verif_key.volplus){
-					if (fsexists("sd:/payloads/TegraExplorer.bin")) {
-						payload("sd:/payloads/TegraExplorer.bin")
+if (restore_accepted == 1) {
+			color(0x00FF00)
+			println("")
+			println("")
+			println("Opération terminée avec succès!")
+			println("")
+			color(0xFFFFFF)
+			if (method_restore == 3){
+				if (fsexists("sd:/payloads/TegraExplorer.bin") || fsexists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+					println("Appuyez sur VOL+ pour redémarrer TegraExplorer ou sur n'importe quelle autre touche pour revenir au menu.")
+					verif_key = pause()
+					if (verif_key.volplus){
+						if (fsexists("sd:/payloads/TegraExplorer.bin")) {
+							payload("sd:/payloads/TegraExplorer.bin")
+						}
+						if (fsexists("sd:/bootloader/payloads/TegraExplorer.bin")) {
+							payload("sd:/bootloader/payloads/TegraExplorer.bin")
+						}
 					}
-					if (fsexists("sd:/bootloader/payloads/TegraExplorer.bin")) {
-						payload("sd:/bootloader/payloads/TegraExplorer.bin")
-					}
+				} .else() {
+					println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 				}
 			} .else() {
 				println("Appuyez sur n'importe quelle touche pour revenir au menu.")
 			}
-		} .else() {
-			println("Appuyez sur n'importe quelle touche pour revenir au menu.")
+			pause()
 		}
-		pause()
 	}
 }
 
@@ -1130,7 +1007,7 @@ while (1) {
 		wip_console_data()
 	}
 	if (main_action == 8){
-		switch_working_nand()
+		bypass_first_configuration()
 	}
 	if (main_action == 9){
 		synch_joycons()
@@ -1139,7 +1016,7 @@ while (1) {
 		migrate_emunand_menu()
 	}
 	if (main_action == 11){
-		bypass_first_configuration
+		switch_working_nand()
 	}
 }
 exit()
