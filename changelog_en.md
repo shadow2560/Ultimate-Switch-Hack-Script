@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.148</h2>
+<ul>
+<li>Add uViewer in the default tools of the toolbox.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 466.</li>
+</ul>
 <h2>V4.3.147</h2>
 <ul>
 <li>Continuing to write the unbrick script for the next version of TegraExplorer.</li>

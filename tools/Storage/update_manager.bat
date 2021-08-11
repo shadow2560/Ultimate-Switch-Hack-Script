@@ -2188,6 +2188,10 @@ call :verif_folder_version "tools\NxFileViewer"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\uViewer"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 exit /b
 
 :update_update_shofel2.bat

@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V466</h2>
+<ul>
+<li>Mise à jour de uLaunch en version 0.3.</li>
+<li>Mise à jour de BootSoundNX en version 1.2.5, version de <a target="_blank" href="https://github.com/TheModdersDen/BootSoundNX/releases">TheModdersDen</a>.</li>
+</ul>
 <h2>V465</h2>
 <ul>
 <li>Mise à jour de Fizeau en version 2.2.0.</li>

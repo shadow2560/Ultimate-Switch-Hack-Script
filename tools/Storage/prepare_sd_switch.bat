@@ -721,12 +721,16 @@ for /l %%i in (1,1,%temp_count%) do (
 	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%temp_modules_profile_path%" >templogs\tempvar.txt
 	set /p temp_module=<templogs\tempvar.txt
 	IF EXIST "tools\sd_switch\modules\pack\!temp_module!\folder_version.txt" (
-			IF "%~1"=="sxos" (
 			IF "!temp_module!"=="uLaunch" (
-				set temp_special_module=Y
-				call "%associed_language_script%" "sxos_force_disable_stealth_mode_for_uLaunch"
+				rem IF "%~1"=="sxos" (
+				rem set temp_special_module=Y
+				rem call "%associed_language_script%" "sxos_force_disable_stealth_mode_for_uLaunch"
 				rem IF EXIST "%volume_letter%:\sxos\config\stealth_enable" rename "%volume_letter%:\sxos\config\stealth_enable" "stealth_disable"
 			)
+			IF EXIST "%temp_modules_copy_path%\01008BB00013C000" rmdir /s /q "%temp_modules_copy_path%\01008BB00013C000"
+			IF EXIST "%temp_modules_copy_path%\010000000000100B" rmdir /s /q "%temp_modules_copy_path%\010000000000100B"
+			IF EXIST "%temp_modules_copy_path%\0100000000001001" rmdir /s /q "%temp_modules_copy_path%\0100000000001001"
+			IF EXIST "%volume_letter%:\ulaunch\bin\QMenu" rmdir /s /q "%volume_letter%:\ulaunch\bin\QMenu"
 		)
 		IF "!temp_module!"=="Ovl-menu" (
 			IF EXIST "%temp_modules_copy_path%\010000000007E51A\exefs.nsp" rmdir /s /q "%temp_modules_copy_path%\010000000007E51A"

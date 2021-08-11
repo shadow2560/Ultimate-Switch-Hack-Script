@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V466</h2>
+<ul>
+<li>Update uLaunch  to version 0.3.</li>
+<li>Update BootSoundNX to version 1.2.5, version from <a target="_blank" href="https://github.com/TheModdersDen/BootSoundNX/releases">TheModdersDen</a>.</li>
+</ul>
 <h2>V465</h2>
 <ul>
 <li>Update Fizeau to version 2.2.0.</li>
