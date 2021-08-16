@@ -34,6 +34,10 @@ echo Enter the content ID ^(must be unique on the console it is installed on and
 set /p id=ID: 
 goto:eof
 
+:id_too_small_error
+echo Error, the ID must start from "01".
+goto:eof
+
 :id_length_error
 echo Error, the ID must be 16 chars long.
 goto:eof
@@ -54,7 +58,7 @@ goto:eof
 echo Please choose the forwarder icon file in the following window, a square image of 255X255 is prefered.
 echo If you close the window, the script will end without doing anything.
 pause
-%windir%\system32\wscript.exe //Nologo tools\storage\functions\open_file.vbs "" "Image files (*.png;*.jpg;*.jpeg;*.bmp;*.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All files (*.*)|*.*|" "Select the forwarder icon" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo tools\storage\functions\open_file.vbs "" "Image files ^(*.png;*.jpg;*.jpeg;*.bmp;*.gif^)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All files (*.*)|*.*|" "Select the forwarder icon" "templogs\tempvar.txt"
 goto:eof
 
 :set_resize_icon_image
@@ -86,6 +90,10 @@ goto:eof
 
 :set_author
 set /p author=Enter the author name to display: 
+goto:eof
+
+:set_version
+set /p version=Enter the version to display: 
 goto:eof
 
 :set_keys_path
@@ -138,6 +146,7 @@ IF "%nsp_type%"=="nro" (
 	echo Rom path: %rompath%
 )
 echo Author: %author%
+echo Version: %version%
 echo keys path: %keys_path%
 echo NSP output path: %nsp_path%
 echo.

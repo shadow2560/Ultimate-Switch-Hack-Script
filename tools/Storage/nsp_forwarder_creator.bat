@@ -57,6 +57,10 @@ IF "%id%"=="" (
 	call :randomize_id
 	goto:pass_id_set
 )
+IF "%id:~0,2%" == "00" (
+	call "%associed_language_script%" "id_too_small_error"
+	goto:id_set
+)
 call tools\storage\functions\strlen.bat nb "%id%"
 IF %nb% NEQ 16 (
 	call "%associed_language_script%" "id_length_error"
@@ -137,6 +141,10 @@ IF "%nsp_type%"=="rom" (
 echo.
 set author=No specified
 call "%associed_language_script%" "set_author"
+:version_set
+echo.
+set version=1.0
+call "%associed_language_script%" "set_version"
 :keys_path_set
 echo.
 set keys_path=
@@ -219,6 +227,8 @@ IF "%nsp_type%"=="nro" (
 )
 echo|set /p="sdmc:/%nro_path:\=/%"> tools\nsp_forwarder_creator\romfs\nextNroPath
 cd tools\nsp_forwarder_creator
+"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i exefs\main.npdm >nul
+"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control\control.nacp >nul
 hacbrewpack.exe --titleid %id% --titlename "%name%" --titlepublisher "%author%" --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
 IF %errorlevel% NEQ 0 (
 	echo.

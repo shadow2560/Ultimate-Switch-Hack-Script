@@ -40,6 +40,7 @@ IF "%action_choice%"=="11" goto:config_nes_classic
 IF "%action_choice%"=="12" goto:config_snes_classic
 IF "%action_choice%"=="13" goto:install_android_apps
 IF "%action_choice%"=="14" goto:create_forwarder
+IF "%action_choice%"=="15" goto:create_gamemaker_game
 goto:end_script
 
 :convert_game
@@ -208,6 +209,18 @@ IF EXIST "tools\Storage\nsp_forwarder_creator.bat" (
 	call tools\Storage\update_manager.bat "update_nsp_forwarder_creator.bat" "force"
 )
 call TOOLS\Storage\nsp_forwarder_creator.bat
+@echo off
+goto:define_action_choice
+:create_gamemaker_game
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\GameMakerNSPBuilder.bat" (
+	call tools\Storage\update_manager.bat "update_GameMakerNSPBuilder.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_GameMakerNSPBuilder.bat" "force"
+)
+call TOOLS\Storage\GameMakerNSPBuilder.bat
 @echo off
 goto:define_action_choice
 :end_script

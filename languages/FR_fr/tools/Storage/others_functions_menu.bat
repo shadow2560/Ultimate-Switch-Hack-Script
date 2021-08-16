@@ -37,6 +37,8 @@ echo 13: Installer des applications Android ^(mode débogage USB requis^)?
 echo.
 echo 14: Créer un forwarder?
 echo.
+echo 15: Créer un nsp pour un jeu GameMaker?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

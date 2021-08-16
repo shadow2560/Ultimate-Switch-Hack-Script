@@ -423,6 +423,7 @@ call :update_convert_game_to_nsp.bat
 call :update_donate.bat
 call :update_extract_cert.bat
 call :update_game_saves_unpack.bat
+call :update_GameMakerNSPBuilder.bat
 call :update_install_drivers.bat
 call :update_install_nsp_network.bat
 call :update_install_nsp_USB.bat
@@ -897,6 +898,41 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\Hactool_based_programs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_GameMakerNSPBuilder.bat
+call :verif_file_version "tools\Storage\GameMakerNSPBuilder.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\GameMakerNSPBuilder.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\GameMakerNSPBuilder.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\Hactool_based_programs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\ImageMagick"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\GameMakerNSPBuilder"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\npdm_and_nacp_rewrite"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -1466,6 +1502,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\nsp_forwarder_creator"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\npdm_and_nacp_rewrite"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

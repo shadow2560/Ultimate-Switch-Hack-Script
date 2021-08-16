@@ -25,6 +25,10 @@ echo Entrez l'ID du contenu ^(doit être unique sur la console sur lequel il est
 set /p id=ID: 
 goto:eof
 
+:id_too_small_error
+echo Erreur, l'ID ne peut commencer qu'à partir de "01".
+goto:eof
+
 :id_length_error
 echo Erreur, l'ID doit faire 16 caractères.
 goto:eof
@@ -45,7 +49,7 @@ goto:eof
 echo Veuillez renseigner le fichier de l'icône du forwarder dans la fenêtre suivante, préférablement une image carré de 255X255.
 echo Si vous fermez la fenêtre, le script se terminera sans rien faire.
 pause
-%windir%\system32\wscript.exe //Nologo tools\storage\functions\open_file.vbs "" "Fichiers d\'image standard (*.png;*.jpg;*.jpeg;*.bmp;*.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tous les fichiers (*.*)|*.*|" "Sélection de l\'icône du forwarder" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo tools\storage\functions\open_file.vbs "" "Fichiers d\'image standard ^(*.png;*.jpg;*.jpeg;*.bmp;*.gif^)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tous les fichiers (*.*)|*.*|" "Sélection de l\'icône du forwarder" "templogs\tempvar.txt"
 goto:eof
 
 :set_resize_icon_image
@@ -77,6 +81,10 @@ goto:eof
 
 :set_author
 set /p author=Entrez le nom de l'auteur à afficher: 
+goto:eof
+
+:set_version
+set /p version=Entrez la version à afficher: 
 goto:eof
 
 :set_keys_path
@@ -129,6 +137,7 @@ IF "%nsp_type%"=="nro" (
 	echo Chemin de la rom sur la SD: %rompath%
 )
 echo Auteur: %author%
+echo Version: %version%
 echo Chemin du fichier de clés: %keys_path%
 echo Chemin de sortie du NSP: %nsp_path%
 echo.

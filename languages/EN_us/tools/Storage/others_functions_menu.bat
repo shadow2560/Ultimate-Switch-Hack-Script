@@ -46,6 +46,8 @@ echo 13: Install Android APPS ^(USB debugging  MODE REQUIRED^)?
 echo.
 echo 14: Create a forwarder?
 echo.
+echo 15: Create a nsp for a GameMaker game?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.
