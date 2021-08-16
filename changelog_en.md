@@ -2,7 +2,7 @@
 &nbsp;
 <h2>V4.3.149</h2>
 <ul>
-<li>Add a new function to rebuild GameMaker games, function based on GameMakerNSPBuilder.</li>
+<li>Add a new function to rebuild GameMaker games, function based on GameMakerNSPBuilder ("others functions" menu).</li>
 <li>Some changes in the forwarders creation script.</li>
 <li>Update the Beta database for the console's serial verification.</li>
 <li>Update Hactoolnet to version 0.13.2.</li>

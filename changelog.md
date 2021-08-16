@@ -2,7 +2,7 @@
 &nbsp;
 <h2>V4.3.149</h2>
 <ul>
-<li>Ajout d'une fonction permettant de construire des jeux GameMaker, très largement construite à partir de GameMakerNSPBuilder.</li>
+<li>Ajout d'une fonction permettant de construire des jeux GameMaker, très largement construite à partir de GameMakerNSPBuilder (menu "Autres fonctions").</li>
 <li>Quelques changements dans le script de création de forwarders.</li>
 <li>Mise à jour de la base de données Beta de la vérification du numéro de série d'une console.</li>
 <li>Mise à jour de Hactoolnet en version 0.13.2.</li>
