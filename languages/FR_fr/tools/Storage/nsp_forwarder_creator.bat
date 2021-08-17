@@ -38,11 +38,15 @@ echo Un caractère non autorisé a été saisie.
 goto:eof
 
 :set_name
-set /p name=Entrez le nom qui sera affiché: 
+set /p name=Entrez le nom du jeu à afficher ^(128 caractères maximum^): 
 goto:eof
 
 :could_not_be_empty_error
 echo Cette valeur ne peut être vide.
+goto:eof
+
+:name_length_error
+echo Erreur, le nom doit faire 128 caractères au maximum.
 goto:eof
 
 :set_icon_path
@@ -80,11 +84,19 @@ set /p rom_path=Entrez le chemin de la rom à lancer: sdmc:/
 goto:eof
 
 :set_author
-set /p author=Entrez le nom de l'auteur à afficher: 
+set /p author=Entrez le nom de l'auteur à afficher ^(64 caractères maximum^): 
+goto:eof
+
+:author_length_error
+echo Erreur, l'auteur doit faire 64 caractères au maximum.
 goto:eof
 
 :set_version
-set /p version=Entrez la version à afficher: 
+set /p version=Entrez la version à afficher ^(4 caractères maximum^): 
+goto:eof
+
+:version_length_error
+echo Erreur, la version doit faire 4 caractères au maximum.
 goto:eof
 
 :set_keys_path

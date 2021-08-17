@@ -132,14 +132,29 @@ IF "%name%"=="" (
 	call "%associed_language_script%" "could_not_be_empty_error"
 	goto:name_set
 )
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%name%"
+IF %nb% GRT 128 (
+	call "%associed_language_script%" "name_length_error"
+	goto:name_set
+)
 :author_set
 echo.
 set author=No specified
 call "%associed_language_script%" "set_author"
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%author%"
+IF %nb% GRT 64 (
+	call "%associed_language_script%" "author_length_error"
+	goto:author_set
+)
 :version_set
 echo.
 set version=1.0
 call "%associed_language_script%" "set_version"
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%version%"
+IF %nb% NEQ 4 (
+	call "%associed_language_script%" "version_length_error"
+	goto:version_set
+)
 :nsp_path_set
 echo.
 set nsp_path=
@@ -159,10 +174,15 @@ if not exist "%CD%\nsp" (
 )
 rem "%ushs_base_path%tools\Hactool_based_programs\tools\hactool.exe" "%br%" -k "%keys_path%" -x --intype=pfs0 --pfs0dir="%CD%\nsp"
 "%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
 
 :START_NCA
 echo.
-set bl=
 call "%associed_language_script%" "nca_step"
 if not exist "%CD%\nca" (
 	mkdir "%CD%\nca"
@@ -174,6 +194,12 @@ if not exist "%CD%\nca" (
 For /R "%CD%\nsp\" %%G in (*.nca) do (
 	rem "%ushs_base_path%tools\Hactool_based_programs\tools\hactool.exe" "%%G" -k "%keys_path%" --romfsdir="%CD%\nca\romfs" --exefsdir="%CD%\nca\exefs"
 	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path%" --romfsdir "%CD%\nca\romfs" --exefsdir "%CD%\nca\exefs" "%%G" >nul 2>&1
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "conversion_error"
+		pause
+		call :del_temp_files
+		goto:menu
+	)
 )
 move "%CD%\nca\romfs\control.nacp" "%CD%\nca\control\control.nacp" >nul
 move "%CD%\nca\romfs\icon_AmericanEnglish.dat" "%CD%\nca\control\icon_AmericanEnglish.dat" >nul
@@ -213,8 +239,13 @@ if exist .\icon\icon.png (
 	ren .\icon\icon.png icon.jpg >nul
 )
 "%ushs_base_path%tools\ImageMagick\magick.exe" mogrify -resize 256x256! .\icon\icon.jpg
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
 move .\icon\icon.jpg .\nca\control\icon_AmericanEnglish.dat >nul
-rmdir /s /q .\icon
 GOTO Next
 
 :Generic
@@ -235,7 +266,19 @@ rem set /p bs=<main.npdm
 
 rem .\Tools\mnpdm.exe "%bs:"=%"
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control.nacp >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
 
 move .\control.nacp .\nca\control\ >nul
 move .\main.npdm .\nca\exefs\ >nul
@@ -264,12 +307,13 @@ if exist .\nca\out\*.nca (
 )
 
 .\Tools\hacpack.exe -k "%keys_path%" -o "%nsp_path:\=\\%" --type nsp --ncadir .\nca\out\ncas\ --titleid %td% >nul 2>&1
-rmdir /s /q .\nca\out
-rem del "ID.txt" >nul
-rmdir /s /q "%CD%\nca\"
-rmdir /s /q "%CD%\nsp\"
-rmdir /s /q "%CD%\hacpack_backup\"
-rmdir /s /q Game_inject
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
+call ::del_temp_files
 echo.
 call "%associed_language_script%" "end_process"
 pause
@@ -302,6 +346,18 @@ for /l %%n in (1,1,12) do (
 	if !rand!==16 set rand%%n=0
 )
 set id=01%rand1%%rand2%%rand3%%rand4%%rand5%%rand6%%rand7%%rand8%%rand9%%rand10%%rand11%000
+exit /b
+
+::del_temp_files
+rem del "ID.txt" >nul 2>&1
+rmdir /s /q "%CD%\nca\" >nul 2>&1
+rmdir /s /q "%CD%\nsp\" >nul 2>&1
+rmdir /s /q "%CD%\hacpack_backup\" >nul 2>&1
+rmdir /s /q "%CD%\hacpack_temp\" >nul 2>&1
+rmdir /s /q Game_inject >nul 2>&1
+rmdir /s /q icon >nul 2>&1
+del /q main.npdm >nul 2>&1
+del /q control.nacp >nul 2>&1
 exit /b
 
 :end_script

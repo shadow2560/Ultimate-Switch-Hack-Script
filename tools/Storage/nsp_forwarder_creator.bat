@@ -92,6 +92,11 @@ IF "%name%"=="" (
 	call "%associed_language_script%" "could_not_be_empty_error"
 	goto:name_set
 )
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%name%"
+IF %nb% GRT 128 (
+	call "%associed_language_script%" "name_length_error"
+	goto:name_set
+)
 :icon_path_set
 echo.
 set icon_path=
@@ -141,10 +146,20 @@ IF "%nsp_type%"=="rom" (
 echo.
 set author=No specified
 call "%associed_language_script%" "set_author"
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%author%"
+IF %nb% GRT 64 (
+	call "%associed_language_script%" "author_length_error"
+	goto:author_set
+)
 :version_set
 echo.
 set version=1.0
 call "%associed_language_script%" "set_version"
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%version%"
+IF %nb% NEQ 4 (
+	call "%associed_language_script%" "version_length_error"
+	goto:version_set
+)
 :keys_path_set
 echo.
 set keys_path=
@@ -228,18 +243,26 @@ IF "%nsp_type%"=="nro" (
 echo|set /p="sdmc:/%nro_path:\=/%"> tools\nsp_forwarder_creator\romfs\nextNroPath
 cd tools\nsp_forwarder_creator
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i exefs\main.npdm >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "forwarder_build_error"
+	call :del_temp_files
+	goto:end_script
+)
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control\control.nacp >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "forwarder_build_error"
+	call :del_temp_files
+	goto:end_script
+)
 hacbrewpack.exe --titleid %id% --titlename "%name%" --titlepublisher "%author%" --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
 IF %errorlevel% NEQ 0 (
 	echo.
 	call "%associed_language_script%" "forwarder_build_error"
-	rmdir /S/Q hacbrewpack_backup >nul 2>&1
-	del control\icon_AmericanEnglish.dat >nul 2>&1
+	call :del_temp_files
 	cd ..\..
 	goto:end_script
 )
-rmdir /S/Q hacbrewpack_backup >nul
-del control\icon_AmericanEnglish.dat >nul
+call :del_temp_files
 cd ..\..
 
 rename "%nsp_path%%id%.nsp" "%name%_%id%.nsp" >nul
@@ -269,6 +292,16 @@ for /l %%n in (1,1,12) do (
 	if !rand!==16 set rand%%n=0
 )
 set id=01%rand1%%rand2%%rand3%%rand4%%rand5%%rand6%%rand7%%rand8%%rand9%%rand10%%rand11%000
+exit /b
+
+:del_temp_files
+rmdir /s /q tools\nsp_forwarder_creator\control >nul
+rmdir /s /q tools\nsp_forwarder_creator\exefs >nul
+rmdir /s /q tools\nsp_forwarder_creator\logo >nul
+rmdir /s /q tools\nsp_forwarder_creator\romfs >nul
+rmdir /S/Q hacbrewpack_backup >nul 2>&1
+rmdir /S/Q hacbrewpack_temp >nul 2>&1
+del control\icon_AmericanEnglish.dat >nul 2>&1
 exit /b
 
 :end_script

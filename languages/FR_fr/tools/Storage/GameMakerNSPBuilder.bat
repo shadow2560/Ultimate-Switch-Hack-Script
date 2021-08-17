@@ -82,19 +82,31 @@ echo Un caractère non autorisé a été saisie.
 goto:eof
 
 :set_name
-set /p name=Entrez le nom qui sera affiché: 
+set /p name=Entrez le nom du jeu à afficher ^(128 caractères maximum^): 
 goto:eof
 
 :could_not_be_empty_error
 echo Cette valeur ne peut être vide.
 goto:eof
 
+:name_length_error
+echo Erreur, le nom doit faire 128 caractères au maximum.
+goto:eof
+
 :set_author
-set /p author=Entrez le nom de l'auteur à afficher: 
+set /p author=Entrez le nom de l'auteur à afficher ^(64 caractères maximum^): 
+goto:eof
+
+:author_length_error
+echo Erreur, l'auteur doit faire 64 caractères au maximum.
 goto:eof
 
 :set_version
-set /p version=Entrez la version à afficher: 
+set /p version=Entrez la version à afficher ^(4 caractères maximum^): 
+goto:eof
+
+:version_length_error
+echo Erreur, la version doit faire 4 caractères au maximum.
 goto:eof
 
 :set_nsp_path
@@ -107,9 +119,13 @@ goto:eof
 :extract_nsp_step
 ECHO 	=========================================================================================================
 ECHO.
-ECHO	 		        			 Etape 1:  Extraction du NSP GameMaker source...
+ECHO	 		        			 Etape 1:  Extraction du NSP source du jeu GameMaker...
 ECHO.
 ECHO 	=========================================================================================================
+goto:eof
+
+:conversion_error
+echo Une erreur s'est produite durant le processus, vérifiez vos fichiers sources et l'espace restant sur les disques durs.
 goto:eof
 
 :nca_step

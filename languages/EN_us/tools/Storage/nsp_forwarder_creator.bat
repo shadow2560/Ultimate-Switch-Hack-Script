@@ -47,11 +47,15 @@ echo An unauthorized character has been entered.
 goto:eof
 
 :set_name
-set /p name=Enter the name that will be displayed: 
+set /p name=Enter the name to display ^(128 chars max^): 
 goto:eof
 
 :could_not_be_empty_error
 echo This value couldn't be empty.
+goto:eof
+
+:name_length_error
+echo Error, the name must be maximum 128 chars long.
 goto:eof
 
 :set_icon_path
@@ -89,11 +93,19 @@ set /p rom_path=Enter the path to the rom to launch: sdmc:/
 goto:eof
 
 :set_author
-set /p author=Enter the author name to display: 
+set /p author=Enter the author name to display ^(64 chars max^): 
+goto:eof
+
+:author_length_error
+echo Error, the author must be maximum 64 chars long.
 goto:eof
 
 :set_version
-set /p version=Enter the version to display: 
+set /p version=Enter the version to display ^(4 chars max^): 
+goto:eof
+
+:version_length_error
+echo Error, the version must be maximum 4 chars long.
 goto:eof
 
 :set_keys_path
