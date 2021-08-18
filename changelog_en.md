@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.151</h2>
+<ul>
+<li>Update the python scripts used to create sig_patches to fix some bugs and to make them compatible with the latest version of Hactoolnet.</li>
+</ul>
 <h2>V4.3.150</h2>
 <ul>
 <li>Add error checks in the forwarder creation script and in the GameMaker game vuilder script.</li>

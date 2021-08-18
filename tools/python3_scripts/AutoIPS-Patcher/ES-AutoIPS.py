@@ -16,10 +16,10 @@ import sys
 import struct
 import time
 
-hactool = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe'))
-hactoolnet = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe'))
-keyset = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys'))
-FIRMWARE_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware'))
+hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
+hactoolnet = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe')
+keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys')
+FIRMWARE_DIR = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware')
 if len(sys.argv) < 2:
     print("You didn't type any arguements, trying default firmware folder and prod.keys\n")
     if Path(FIRMWARE_DIR).exists() and Path(keyset).exists() and Path(hactoolnet).exists() and Path(hactool).exists():
@@ -99,14 +99,15 @@ def extract():
     print(shortlist)
     for filename in shortlist:
         if filename.endswith(".nca"):
-
-            outlines = subprocess.check_output([hactoolnet.name,'-k', keyset, FIRMWARE_DIR + '/' + filename])
+            outlines = subprocess.check_output([hactoolnet,'-k', keyset, FIRMWARE_DIR + '/' + filename])
 
             for line in outlines.splitlines():
-                line = line.decode('ascii').replace(" ","")
+                # line = line.decode('ascii').replace(" ","")
+                line = line.decode('utf-8').replace(" ","")
                 if line.startswith("TitleID:0100000000000033") and not filename.endswith("*.nca"):
                     for line in outlines.splitlines():
-                        line = line.decode('ascii').replace(" ","")
+                        # line = line.decode('ascii').replace(" ","")
+                        line = line.decode('utf-8').replace(" ","")
                         if line.startswith("ContentType:Program") and not filename.endswith("*.nca"):
                             print("Found! Filename : " + filename)				
                             global ES_NCA
@@ -115,17 +116,18 @@ def extract():
             
             if ES_NCA:
                 print("Using hactoolnet to extract exefsdir")
-                subprocess.run([hactoolnet.name, '-k', keyset, '-t', 'nca', '--exefsdir', '.', FIRMWARE_DIR + '/' + filename], stdout=subprocess.DEVNULL)
+                subprocess.run([hactoolnet, '-k', keyset, '-t', 'nca', '--exefsdir', '.', FIRMWARE_DIR + '/' + filename], stdout=subprocess.DEVNULL)
                 if os.path.exists("main"):
                     print("Using hactool to decompress main")
-                    outlines = subprocess.check_output([hactool.name, '-k', keyset, '-t', 'nso', '--uncompressed', 'main_dec', 'main'])
+                    outlines = subprocess.check_output([hactool, '-k', keyset, '-t', 'nso', '--uncompressed', 'main_dec', 'main'])
                     cleanup()
                     makedumped()
                     movefiles()
 
-                outlines = subprocess.check_output([hactoolnet.name,'-k', keyset, FIRMWARE_DIR + '/' + ES_NCA])
+                outlines = subprocess.check_output([hactoolnet,'-k', keyset, FIRMWARE_DIR + '/' + ES_NCA])
                 for line in outlines.splitlines():
-                    line = line.decode('ascii').replace(" ","")
+                    # line = line.decode('ascii').replace(" ","")
+                    line = line.decode('utf-8').replace(" ","")
                     if line.startswith("SDKVersion:"):
                         f = open("sdk.txt", "w")
                         f.write((line).replace("SDKVersion:", "").replace(".", ""))

@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 import time
 import struct
-hactool = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe'))
+hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
 keyset = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys'))
 FIRMWARE_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware'))
 if len(sys.argv) < 2:
@@ -159,14 +159,14 @@ def extract():
             address = struct.unpack('>I',x.read(4))[0]
             x.close()
             if address == 2573934072: # if hex equals 0x996B1DF8
-                outlines = subprocess.run([hactool.name, '-k', keyset, '-t', 'nca', '--romfsdir', 'temp/', FIRMWARE_DIR + '/' + file], capture_output=True)
+                outlines = subprocess.run([hactool, '-k', keyset, '-t', 'nca', '--romfsdir', 'temp/', FIRMWARE_DIR + '/' + file], capture_output=True)
                 if B"Invalid NCA header!" in outlines.stderr:
                     print("Error, verify your keys file.")
                     sys.exit(1)
                 if os.path.isfile('temp/nx/package2'):
-                    subprocess.run([hactool.name, '-k', keyset, '-t', 'pk21', 'temp/nx/package2', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
-                    subprocess.run([hactool.name, '-k', keyset, '-t', 'ini1', 'temp/INI1.bin', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
-                    subprocess.run([hactool.name, '-t', 'kip1', '--uncompressed', 'temp/FS-dec.kip1', 'temp/FS.kip1'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '-k', keyset, '-t', 'pk21', 'temp/nx/package2', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '-k', keyset, '-t', 'ini1', 'temp/INI1.bin', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '-t', 'kip1', '--uncompressed', 'temp/FS-dec.kip1', 'temp/FS.kip1'], stdout=subprocess.DEVNULL)
                     os.remove("temp/nx/package2")
                     search()
                     makepatches()

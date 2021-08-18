@@ -11,7 +11,7 @@ import sys
 import time
 
 filename = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'fusee-secondary.bin'))
-hactool = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe'))
+hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe')
 if len(sys.argv) < 2:
         print("You didn't type any arguements, trying the default file: " + '"fusee-secondary.bin"')
         if Path(filename).exists() and Path(hactool).exists():
@@ -86,10 +86,10 @@ def sha256():
                 file.close()
 
 def decrypt_loader():
-        if hactool.is_file():
-                subprocess.run([hactool.name, '-t', 'kip1', '--uncompressed', kipname, loaderkip], stdout=subprocess.DEVNULL)
+        if Path(hactool).is_file():
+                subprocess.run([hactool, '-t', 'kip1', '--uncompressed', kipname, loaderkip], stdout=subprocess.DEVNULL)
         else:
-                print("Hactool wasn't found in this script directory, you need that to decrypt %s - quitting now!" % loaderkip)
+                print("Hactoolnet wasn't found in this script directory, you need that to decrypt %s - quitting now!" % loaderkip)
                 cleanup()
                 sys.exit(1)
 
