@@ -2581,6 +2581,41 @@ IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 		exit /b
 	)
 )
+IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
+	rmdir /s /q "!temp_folder_path!" >nul 2>&1
+	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	)
+	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	)
+	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/bootloader !temp_folder_path!\bootloader --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	) else (
+		IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
+		del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
+		call "%associed_language_script%" "update_folder_success"
+		exit /b
+	)
+)
 IF "%temp_folder_path%"=="Payloads" (
 	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\Payloads --force >nul
 	IF !errorlevel! NEQ 0 (

@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.153</h2>
+<ul>
+<li>The sig_patches will be installed during the unbrick script.</li>
+</ul>
 <h2>V4.3.152</h2>
 <ul>
 <li>Add Theme Injector and  SwitchLayoutEditor to the toolbox.</li>
