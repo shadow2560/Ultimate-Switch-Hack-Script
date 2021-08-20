@@ -109,6 +109,7 @@
 <li><a target="_blank" href="https://github.com/thedax/NX-ntpc">NX-mtpc</a></li>
 <li><a target="_blank" href="https://github.com/joel16/NX-Shell">NX-Shell</a></li>
 <li><a target="_blank" href="https://github.com/CompSciOrBust/N-Xplorer">N-Xplorer</a></li>
+<li><a target="_blank" href="https://github.com/exelix11/SwitchThemeInjector">SwitchThemeInjector</a> and <a target="_blank" href="https://github.com/FuryBaguette/SwitchLayoutEditor">SwitchLayoutEditor</a>.</li>
 <li><a target="_blank" href="https://github.com/t-flo/nxTransmission">NXTransmission</a></li>
 <li><a target="_blank" href="https://discord.gg/EYzmVca">Off_switch, founded in the Deejay87 pack</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/Payload_Launcher">Payload_Launcher</a></li>
