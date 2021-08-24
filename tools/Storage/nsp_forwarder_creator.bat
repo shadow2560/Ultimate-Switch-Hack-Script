@@ -246,12 +246,14 @@ cd tools\nsp_forwarder_creator
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "forwarder_build_error"
 	call :del_temp_files
+	cd ..\..
 	goto:end_script
 )
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control\control.nacp >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "forwarder_build_error"
 	call :del_temp_files
+	cd ..\..
 	goto:end_script
 )
 hacbrewpack.exe --titleid %id% --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
@@ -295,10 +297,10 @@ set id=01%rand1%%rand2%%rand3%%rand4%%rand5%%rand6%%rand7%%rand8%%rand9%%rand10%
 exit /b
 
 :del_temp_files
-rmdir /s /q tools\nsp_forwarder_creator\control >nul
-rmdir /s /q tools\nsp_forwarder_creator\exefs >nul
-rmdir /s /q tools\nsp_forwarder_creator\logo >nul
-rmdir /s /q tools\nsp_forwarder_creator\romfs >nul
+rmdir /s /q control >nul 2>&1
+rmdir /s /q exefs >nul 2>&1
+rmdir /s /q logo >nul 2>&1
+rmdir /s /q romfs >nul 2>&1
 rmdir /S/Q hacbrewpack_backup >nul 2>&1
 rmdir /S/Q hacbrewpack_temp >nul 2>&1
 del control\icon_AmericanEnglish.dat >nul 2>&1

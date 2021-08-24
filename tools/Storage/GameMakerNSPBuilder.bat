@@ -350,10 +350,10 @@ exit /b
 
 ::del_temp_files
 rem del "ID.txt" >nul 2>&1
-rmdir /s /q "%CD%\nca\" >nul 2>&1
-rmdir /s /q "%CD%\nsp\" >nul 2>&1
-rmdir /s /q "%CD%\hacpack_backup\" >nul 2>&1
-rmdir /s /q "%CD%\hacpack_temp\" >nul 2>&1
+rmdir /s /q "nca\" >nul 2>&1
+rmdir /s /q "nsp\" >nul 2>&1
+rmdir /s /q "hacpack_backup\" >nul 2>&1
+rmdir /s /q "hacpack_temp\" >nul 2>&1
 rmdir /s /q Game_inject >nul 2>&1
 rmdir /s /q icon >nul 2>&1
 del /q main.npdm >nul 2>&1
