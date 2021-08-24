@@ -194,10 +194,10 @@ call "%associed_language_script%" "set_confirm_nsp_creation"
 IF %errorlevel% NEQ 1 goto:end_script2
 
 call "%associed_language_script%" "nsp_build_begin"
-rmdir /s /q tools\nsp_forwarder_creator\control >nul
-rmdir /s /q tools\nsp_forwarder_creator\exefs >nul
-rmdir /s /q tools\nsp_forwarder_creator\logo >nul
-rmdir /s /q tools\nsp_forwarder_creator\romfs >nul
+rmdir /s /q tools\nsp_forwarder_creator\control >nul 2>&1
+rmdir /s /q tools\nsp_forwarder_creator\exefs >nul 2>&1
+rmdir /s /q tools\nsp_forwarder_creator\logo >nul 2>&1
+rmdir /s /q tools\nsp_forwarder_creator\romfs >nul 2>&1
 %windir%\System32\Robocopy.exe tools\nsp_forwarder_creator\default_files tools\nsp_forwarder_creator /e >nul
 IF /i "%resize_icon_image%"=="o" (
 	tools\ImageMagick\magick.exe "%icon_path%" -resize 256x256^^ -gravity center -extent 256x256 "tools\nsp_forwarder_creator\control\icon.bmp"
