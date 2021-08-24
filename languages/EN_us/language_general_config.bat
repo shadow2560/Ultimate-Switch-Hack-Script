@@ -1,7 +1,7 @@
 ::Pay attention, you must translate comments
 
 ::Basic configurations
-set language_authors=shadow256 on some forums, shadow2560 on Github, eliboa.
+set language_authors=shadow256 on some forums, shadow2560 on Github; eliboa.
 set language_name=English US
 set lng_yes_choice=y
 set lng_no_choice=n
