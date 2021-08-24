@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.154</h2>
+<ul>
+<li>Fix important bugs in the scripts for creating forwarders and creating GameMaker games.</li>
+<li>Update Hactoolnet to version 0.13.3.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 469.</li>
+</ul>
 <h2>V4.3.153</h2>
 <ul>
 <li>The sig_patches will be installed during the unbrick script.</li>

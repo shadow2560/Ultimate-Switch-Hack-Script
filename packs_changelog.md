@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V469</h2>
+<ul>
+<li>Mise à jour du lien de Retroarch avec la version 1.9.8.</li>
+</ul>
 <h2>V468</h2>
 <ul>
 <li>Ajout du homebrew NXThemesInstaller.</li>

@@ -93,7 +93,7 @@ IF "%name%"=="" (
 	goto:name_set
 )
 call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%name%"
-IF %nb% GRT 128 (
+IF %nb% GTR 128 (
 	call "%associed_language_script%" "name_length_error"
 	goto:name_set
 )
@@ -147,7 +147,7 @@ echo.
 set author=No specified
 call "%associed_language_script%" "set_author"
 call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%author%"
-IF %nb% GRT 64 (
+IF %nb% GTR 64 (
 	call "%associed_language_script%" "author_length_error"
 	goto:author_set
 )
@@ -156,7 +156,7 @@ echo.
 set version=1.0
 call "%associed_language_script%" "set_version"
 call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%version%"
-IF %nb% NEQ 4 (
+IF %nb% GTR 4 (
 	call "%associed_language_script%" "version_length_error"
 	goto:version_set
 )
@@ -254,7 +254,7 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:end_script
 )
-hacbrewpack.exe --titleid %id% --titlename "%name%" --titlepublisher "%author%" --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
+hacbrewpack.exe --titleid %id% --nspdir "%nsp_path:\=\\%" --keyset "%keys_path:\=\\%"
 IF %errorlevel% NEQ 0 (
 	echo.
 	call "%associed_language_script%" "forwarder_build_error"

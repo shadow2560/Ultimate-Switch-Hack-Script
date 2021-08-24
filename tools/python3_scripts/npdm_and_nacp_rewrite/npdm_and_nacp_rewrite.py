@@ -228,7 +228,7 @@ elif (file_type == 'nacp'):
 		print("Le paramètre Auteur_du_jeu  ne doit pas faire plus de " + str(int(0x100/4)) + " caractères pour modifier  le type de fichier nacp.")
 		help()
 		sys.exit(301)
-	if (len(game_author) > int(0x10/4)):
+	if (len(game_version) > int(0x10/4)):
 		print("Le paramètre Version_du_jeu  ne doit pas faire plus de " + str(int(0x10/4)) + " caractères pour modifier  le type de fichier nacp.")
 		help()
 		sys.exit(301)
