@@ -25,6 +25,7 @@ aci0_magic = b'ACI0'
 
 def test_src_file(file_src_path):
 	file_type = 'nacp'
+	nacp_size = 16384
 	try:
 		with open(file_src_path, 'rb') as file_src:
 			test_meta_magic = file_src.read(0x4)
@@ -38,6 +39,10 @@ def test_src_file(file_src_path):
 			test_aci0_magic = file_src.read(0x4)
 			if (test_meta_magic == meta_magic and test_acid_magic == acid_magic and test_aci0_magic == aci0_magic):
 				file_type = 'npdm'
+			file_src.seek(0, os.SEEK_END)
+			if (file_src.tell() != nacp_size):
+				print("Le fichier ne semble pas être de type NPDM ou NACP.")
+				return(1)
 			file_src.seek(0)
 			file_datas=file_src.read()
 			file_src.close()
@@ -119,7 +124,7 @@ def help():
 
 file_type = ''
 title_id = ''
-gam_name = ''
+game_name = ''
 game_author= ''
 game_version = ''
 file_src_path = ''
@@ -197,6 +202,9 @@ if (file_src_path == file_dest_path):
 	help()
 	sys.exit(301)
 src_file_infos = test_src_file(file_src_path)
+if (src_file_infos == 1):
+	help()
+	sys.exit(301)
 if (file_type != '' and file_type != src_file_infos[0]):
 	print("Il semble que le type de fichier indiqué ne corresponde pas avec le type de fichier vérifié, le script ne va pas continuer par mesure de sécurité.")
 	help()
