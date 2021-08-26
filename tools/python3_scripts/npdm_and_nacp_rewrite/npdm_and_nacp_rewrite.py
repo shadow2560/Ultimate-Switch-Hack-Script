@@ -47,7 +47,7 @@ def test_src_file(file_src_path):
 			file_datas=file_src.read()
 			file_src.close()
 	except:
-		print ('Le fichier "' + file_src_path + '" n\'existe pas.')
+		print ('Le fichier "' + file_src_path + '" n\'existe pas ou une erreur s\'est produite durant sa lecture.')
 		raise
 		sys.exit(101)
 	result = [file_type, file_datas]
