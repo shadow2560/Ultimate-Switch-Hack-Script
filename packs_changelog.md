@@ -1,5 +1,13 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V470</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 0.20.0.</li>
+<li>Mise à jour de Hekate en version 5.6.0.</li>
+<li>Mise à jour des sig_patches.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.4.</li>
+<li>Mise à jour de Incognito-RCM vers la version master du Github, compilées par moi-même.</li>
+</ul>
 <h2>V469</h2>
 <ul>
 <li>Mise à jour du lien de Retroarch avec la version 1.9.8.</li>
