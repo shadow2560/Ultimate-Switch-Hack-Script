@@ -980,6 +980,7 @@ IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000034\*.*" rmdir /s /q
 IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000036\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000036"
 IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000037\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000037"
 IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000042\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000042"
+IF EXIST "%volume_letter%:\sept\payload.bin" del /q "%volume_letter%:\sept\payload.bin" >nul
 del /Q /S "%volume_letter%:\atmosphere\.emptydir" >nul
 del /Q /S "%volume_letter%:\bootloader\.emptydir" >nul
 del /q "%volume_letter%:\folder_version.txt" >nul
