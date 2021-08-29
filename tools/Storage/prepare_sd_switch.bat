@@ -722,12 +722,12 @@ for /l %%i in (1,1,%temp_count%) do (
 	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%temp_modules_profile_path%" >templogs\tempvar.txt
 	set /p temp_module=<templogs\tempvar.txt
 	IF EXIST "tools\sd_switch\modules\pack\!temp_module!\folder_version.txt" (
-			IF "!temp_module!"=="uLaunch" (
-				rem IF "%~1"=="sxos" (
+		IF "!temp_module!"=="uLaunch" (
+			rem IF "%~1"=="sxos" (
 				rem set temp_special_module=Y
 				rem call "%associed_language_script%" "sxos_force_disable_stealth_mode_for_uLaunch"
 				rem IF EXIST "%volume_letter%:\sxos\config\stealth_enable" rename "%volume_letter%:\sxos\config\stealth_enable" "stealth_disable"
-			)
+			rem )
 			IF EXIST "%temp_modules_copy_path%\01008BB00013C000" rmdir /s /q "%temp_modules_copy_path%\01008BB00013C000"
 			IF EXIST "%temp_modules_copy_path%\010000000000100B" rmdir /s /q "%temp_modules_copy_path%\010000000000100B"
 			IF EXIST "%temp_modules_copy_path%\0100000000001001" rmdir /s /q "%temp_modules_copy_path%\0100000000001001"
@@ -752,8 +752,8 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF EXIST "%volume_letter%:\atmosphere\config_templates\missioncontrol.ini" del /q "%volume_letter%:\atmosphere\config_templates\missioncontrol.ini"
 				IF EXIST "%volume_letter%:\atmosphere\config\missioncontrol.ini" del /q "%volume_letter%:\atmosphere\config\missioncontrol.ini"
 			)
-				rem IF "%~1"=="sxos" (
-				rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
+			rem IF "%~1"=="sxos" (
+			rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
 			rem )
 		)
 		IF "!temp_module!"=="Emuiibo" (
