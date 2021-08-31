@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.157</h2>
+<ul>
+<li>Update the file allowing to check the keys of a key file.</li>
+<li>Fix a bug during the loader patches creation.</li>
+<li>Update Atmosphere to version 0.20.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 471.</li>
+</ul>
 <h2>V4.3.156</h2>
 <ul>
 <li>Fix an important bug in the SD preparation script during the copy of modules.</li>

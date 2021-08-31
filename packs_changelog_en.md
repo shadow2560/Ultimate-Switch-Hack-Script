@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V471</h2>
+<ul>
+<li>Update Atmosphere to version 0.20.1.</li>
+<li>Update sig_patches.</li>
+<li>Update DBI to version 324.</li>
+<li>Update Edizon-SE to version 3.8.24.</li>
+</ul>
 <h2>V470</h2>
 <ul>
 <li>Update Atmosphere to version 0.20.0.</li>

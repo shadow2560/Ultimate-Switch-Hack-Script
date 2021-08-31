@@ -163,7 +163,7 @@ def makeips():
         print("Offset patch address for ips file: %s" % xxx)
 
         if not os.path.exists(os.path.join(workingdir, "bootloader")):
-            os.makedirs(os.path.join(root_dir, "bootloader"))
+            os.makedirs(os.path.join(workingdir, "bootloader"))
         if not os.path.exists(os.path.join(workingdir, "bootloader/patches.ini")):
                 loader = ("[Loader:" + info[:-48] + "]")
         else:
