@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V472</h2>
+<ul>
+<li>Mise à jour de JKSV en version 09.01.2021.</li>
+<li>Mise à jour de Fizeau en version 2.2.1.</li>
+</ul>
 <h2>V471</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 0.20.1.</li>

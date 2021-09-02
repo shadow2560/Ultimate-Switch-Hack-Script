@@ -1,17 +1,17 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Outfile=Menu_v0.9B.exe
+#AutoIt3Wrapper_Outfile=Menu_v0.10B.exe
 #AutoIt3Wrapper_UseX64=n
 #AutoIt3Wrapper_Res_Comment=Gui for NSP Forwarder Tool for 12+ Firmwares
 #AutoIt3Wrapper_Res_Description=Gui for NSP Forwarder Tool for 12+ Firmwares
-#AutoIt3Wrapper_Res_Fileversion=0.9.0.0
-#AutoIt3Wrapper_Res_ProductVersion=0.9
+#AutoIt3Wrapper_Res_Fileversion=0.10.0.0
+#AutoIt3Wrapper_Res_ProductVersion=0.10
 #AutoIt3Wrapper_Res_CompanyName=EddCase
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #cs ----------------------------------------------------------------------------
 
  AutoIt Version: 3.3.14.5
  Author:         EddCase
- Script Version: 0.9Beta
+ Script Version: 0.10Beta
 
  Script Function:
 	GUI for mpham's NSP Forwarder tool for 12+
@@ -61,12 +61,16 @@ Changelog
 		Path for files pointed by the forwarder doesn't require anymore the "/" at the beginning of them
 		Rewrite text of some labels
 		Other minor changes
+		0.10 Beta
+			Prod.keys should work properly.
+			Special characters should be displayed correctly
+			Fix some other bugs
 
 Known Issues
 	0.6
-		Adds " " around Title and Author names when using non english characters (Pokémon), needs investigation if this is an issue with the GUI or hacBrewPack, Also does this behavior effect standard or only RetroArch forwarders
+		Fixed in 0.10; Adds " " around Title and Author names when using non english characters (Pokémon), needs investigation if this is an issue with the GUI or hacBrewPack, Also does this behavior effect standard or only RetroArch forwarders
 	0.8
-		Custom Prod.Keys Location not working 100% for now place your prod.keys in the same location as Menu.exe (root folder)
+		Fixed in 0.10; Custom Prod.Keys Location not working 100% for now place your prod.keys in the same location as Menu.exe (root folder)
 
 
 #ce ----------------------------------------------------------------------------
@@ -85,16 +89,16 @@ Known Issues
 
 
 ;Global Declerations
-$version = "0.9 Beta"
+$version = "0.10 Beta"
 $Title = "NSP Forwarder Tool for 12+" & "                                -=Menu v" & $version & "=-"
 $Credits = "Thank You To" & @LF & @LF & "The-4n for hacBrewPack" & @LF & "mpham for NSP Forwarder tool for 12+" & @LF & @LF & "This Gui would not be possible without their work"
 $hacbrewpac = '"' & @ScriptDir & "\hacbrewpack.exe" & '"'
 $titleid = "05000A0000000000" ;16 characters long
 $titlename = "App Name"
 $titlepub = "Author"
-$nropath = "/switch/application/application.nro"
-$corepath = "/retroarch/core/corename.nro"
-$rompath = "/retroarch/roms/rom path"
+$nropath = "switch/application/application.nro"
+$corepath = "retroarch/core/corename.nro"
+$rompath = "retroarch/roms/rom path"
 $prodkeys = @ScriptDir & "\prod.keys"
 $icon = ""
 $logo = @ScriptDir & "\control\NintendoLogo.png"
@@ -142,7 +146,7 @@ $chkProd = GUICtrlCreateCheckbox("Custom prod.key location", 240, 208, 153, 17)
 GUICtrlSetTip(-1, "By default it will use prod.keys in the same directory as Menu.exe")
 $lblProd = GUICtrlCreateLabel("Prod.keys path:", 16, 236, 65, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-$inpProd = GUICtrlCreateInput("prod.keys Path", 144, 236, 369, 25)
+$inpProd = GUICtrlCreateInput(@ScriptDir & "\prod.keys", 144, 236, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $btnProd = GUICtrlCreateButton("Browse", 521, 236, 75, 25)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
@@ -247,11 +251,12 @@ Func prodkeyscheck()
 			GUICtrlSetState($lblProd, $GUI_ENABLE)
 			GUICtrlSetState($inpProd, $GUI_ENABLE)
 			GUICtrlSetState($btnProd, $GUI_ENABLE)
+			GUICtrlSetData ($inpProd, "prod.keys path")
 		Else
 			GUICtrlSetState($lblProd, $GUI_DISABLE)
 			GUICtrlSetState($inpProd, $GUI_DISABLE)
 			GUICtrlSetState($btnProd, $GUI_DISABLE)
-			GUICtrlSetData ($inpProd, "prod.keys path")
+			GUICtrlSetData ($inpProd, @ScriptDir & "\prod.keys")
 			$prodkeys = @ScriptDir & "\prod.keys"
 		EndIf
 EndFunc
@@ -377,7 +382,13 @@ Func errorcheck()
 		$error = 0
 	EndIf
 
-
+	If FileExists (@ScriptDir & "\control\control.nacp") = 0 Then
+		Msgbox(0,"Error","control\control.nacp file missing in script's folder")
+		$error = 1
+		Return
+	Else
+		$error = 0
+	EndIf
 
 
 EndFunc
@@ -416,8 +427,24 @@ Func newbuild()
 		$titleid = GUICtrlRead ($inpTitleID)
 		$titlename = GUICtrlRead ($inpTitleName)
 		$titlepub = GUICtrlRead ($inpAuthor)
-
-		ShellExecuteWait ($hacbrewpac, ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"', @ScriptDir)
+		Local $hFile = FileOpen(@ScriptDir & "\control\control.nacp", 17)
+		If $hFile = -1 Then
+			MsgBox(0, "Error", "Unable to open control\\control.nacp file.")
+			Return
+		EndIf
+		FileSetPos($hFile, 0, 0)
+		For $i = 1 To 0x3000
+			FileWrite($hFile, Binary("0x00"))
+		Next
+		FileSetPos($hFile, 0, 0)
+		For $i = 1 To 0x11
+			FileWrite($hFile, StringToBinary($titlename, $SB_UTF8))
+			FileSetPos($hFile, $i*0x300-0x100, 0)
+			FileWrite($hFile, StringToBinary($titlepub, $SB_UTF8))
+			FileSetPos($hFile, $i*0x300, 0)
+		Next
+		FileClose($hFile)
+		ShellExecuteWait ($hacbrewpac, ' --titleid "' & $titleid & '" --nspdir NSP -k "' & $prodkeys & '"', @ScriptDir, $SHEX_OPEN, @SW_HIDE)
 
 		FileMove (@ScriptDir & "\NSP\" & $titleid & ".nsp", @ScriptDir & "\NSP\" & $titlename & "_" & $titleid & ".nsp")
 		ShellExecute ("Explorer.exe", '"' & @ScriptDir & '\NSP\"', '"' & @ScriptDir & '\NSP\"')
@@ -431,14 +458,32 @@ Func nspbuild()
 		$titleid = GUICtrlRead ($inpTitleID)
 		$titlename = GUICtrlRead ($inpTitleName)
 		$titlepub = GUICtrlRead ($inpAuthor)
-		$build = $hacbrewpac & ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"'
+		Local $hFile = FileOpen(@ScriptDir & "\control\control.nacp", 17)
+		If $hFile = -1 Then
+			MsgBox(0, "Error", "Unable to open control\\control.nacp file.")
+			Return
+		EndIf
+		FileSetPos($hFile, 0, 0)
+		For $i = 1 To 0x3000
+			FileWrite($hFile, Binary("0x00"))
+		Next
+		FileSetPos($hFile, 0, 0)
+		For $i = 1 To 0x11
+			FileWrite($hFile, StringToBinary($titlename, $SB_UTF8))
+			FileSetPos($hFile, $i*0x300-0x100, 0)
+			FileWrite($hFile, StringToBinary($titlepub, $SB_UTF8))
+			FileSetPos($hFile, $i*0x300, 0)
+		Next
+		FileClose($hFile)
+		$build = $hacbrewpac & ' --titleid "' & $titleid & '" --nspdir NSP -k "' & $prodkeys & '"'
 
 
 ;Create the batch file
 		FileDelete (@ScriptDir & "\GUI_Build.bat")
 		FileWrite (@scriptDir & "\GUI_Build.bat", $build & @CRLF)
+		FileWrite (@scriptDir & "\GUI_Build.bat", 'cd /d "' & @scriptDir & '"' & @CRLF)
 		FileWrite (@scriptDir & "\GUI_Build.bat", "exit")
-		RunWait(@ComSpec & ' /k "' & @ScriptDir & '\GUI_Build.bat"')
+		RunWait(@ComSpec & ' /c "' & @ScriptDir & '\GUI_Build.bat"')
 		FileMove (@ScriptDir & "\NSP\" & $titleid & ".nsp", @ScriptDir & "\NSP\" & $titlename & "_" & $titleid & ".nsp")
 		ShellExecute ("Explorer.exe", '"' & @ScriptDir & '\NSP\"', '"' & @ScriptDir & '\NSP\"')
 
@@ -544,6 +589,6 @@ Func diagnose()
 	FileCopy (@ScriptDir & "\control\icon_AmericanEnglish.dat", @ScriptDir & "\Diagnose\")
 	FileCopy (@ScriptDir & "\romfs\nextNroPath", @ScriptDir & "\Diagnose\")
 	FileCopy (@ScriptDir & "\romfs\nextArgv", @ScriptDir & "\Diagnose\")
-	FileWriteLine (@ScriptDir & "\Diagnose\Out.txt", $hacbrewpac & ' --titleid "' & $titleid & '" --titlename "' & $titlename & '" --titlepublisher "' & $titlepub & '" --nspdir NSP -k "' & $prodkeys & '"')
+	FileWriteLine (@ScriptDir & "\Diagnose\Out.txt", $hacbrewpac & ' --titleid "' & $titleid & '" --nspdir NSP -k "' & $prodkeys & '"')
 
 EndFunc
