@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V473</h2>
+<ul>
+<li>Remplacement de HekateToolbox par DeepSea-Toolbox dans le pack Atmosphere.</li>
+<li>Déplacement des homebrews Ipswitch et Kip_Select du pack Atmosphere vers la liste des homebrews.</li>
+</ul>
 <h2>V472</h2>
 <ul>
 <li>Mise à jour de JKSV en version 09.01.2021.</li>

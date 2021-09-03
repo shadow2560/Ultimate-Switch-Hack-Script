@@ -562,6 +562,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	del /Q /S "%volume_letter%:\mods\.emptydir" >nul 2>&1
 	IF EXIST "%volume_letter%:\switch\KosmosToolbox\*.*" rmdir /S /Q "%volume_letter%:\switch\KosmosToolbox" >nul 2>&1
 	IF EXIST "%volume_letter%:\switch\KosmosUpdater\*.*" rmdir /S /Q "%volume_letter%:\switch\KosmosUpdater" >nul 2>&1
+	IF EXIST "%volume_letter%:\switch\HekateToolbox\*.*" rmdir /S /Q "%volume_letter%:\switch\HekateToolbox" >nul 2>&1
 	IF EXIST "%volume_letter%:\bootloader\hekate_ipl.ini.old" del /q "%volume_letter%:\bootloader\hekate_ipl.ini.old" >nul 2>&1
 	IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" (
 	IF EXIST "%volume_letter%:\switch\DeepSea-Updater\DeepSeaUpdater.nro" del /q "%volume_letter%:\switch\DeepSea-Updater\DeepSeaUpdater.nro" >nul 2>&1

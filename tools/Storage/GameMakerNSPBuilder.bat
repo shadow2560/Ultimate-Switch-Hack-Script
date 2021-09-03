@@ -166,6 +166,19 @@ IF "%nsp_path%"=="" (
 	set nsp_path=%nsp_path%\
 	set nsp_path=!nsp_path:\\=\!
 )
+IF EXIST "%nsp_path%%name%_%id%.nsp" (
+	echo.
+	call "%associed_language_script%" "set_confirm_nsp_duplicated_deletion"
+	IF !errorlevel! NEQ 1 (
+		goto:end_script2
+	) else (
+		del /q "%nsp_path%%name%_%id%.nsp" >nul
+	)
+)
+:confirm_nsp_creation
+echo.
+call "%associed_language_script%" "set_confirm_nsp_creation"
+IF %errorlevel% NEQ 1 goto:end_script2
 
 echo.
 call "%associed_language_script%" "extract_nsp_step"
@@ -314,6 +327,7 @@ IF %errorlevel% NEQ 0 (
 	goto:menu
 )
 call ::del_temp_files
+rename "%nsp_path%%id%.nsp" "%name%_%id%.nsp" >nul
 echo.
 call "%associed_language_script%" "end_process"
 pause

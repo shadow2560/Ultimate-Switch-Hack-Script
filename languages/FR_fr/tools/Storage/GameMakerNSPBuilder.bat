@@ -116,6 +116,29 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Sélection du répertoire dans lequel le nsp du jeu sera créé"
 goto:eof
 
+:set_confirm_nsp_duplicated_deletion
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Le fichier ^"%nsp_path%%name%_%id%.nsp^" existe déjà, souhaitez-vous écraser le fichier ^(si oui le fichier sera effacé juste après ce choix, si non le script s'arrêtera sans rien faire^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:set_confirm_nsp_creation
+echo Informations sur le jeu GameMaker à créer:
+echo Chemin du NSP source du jeu GameMaker: %br%
+echo Chemin du répertoire contenant le jeu GameMaker à injecter: %gamemaker_source%
+echo ID: %id%
+echo Nom du jeu: %name%
+IF /i "%bs%"=="o" (
+	echo Chemin de l'icône personnalisé: %bz%
+) else (
+	echo Icône par défaut.
+)
+echo Auteur: %author%
+echo Version: %version%
+echo Chemin du fichier de clés: %keys_path%
+echo Chemin de sortie du NSP: %nsp_path%
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous continuer avec ces paramètres? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
 :extract_nsp_step
 ECHO 	=========================================================================================================
 ECHO.
