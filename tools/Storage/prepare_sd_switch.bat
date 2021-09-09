@@ -486,6 +486,25 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 			move "%volume_letter%:\atmosphere\titles" "%volume_letter%:\atmosphere\contents" >nul
 		)
 	)
+	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\fs_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\fs_patches" >nul
+	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\loader_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\loader_patches" >nul
+	rem IF EXIST "%volume_letter%:\atmosphere\exefs_patches\es_patches" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\es_patches" >nul
+	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
+	IF "%sx_gear_copy%"=="Y" (
+		%windir%\System32\Robocopy.exe TOOLS\sd_switch\sx_gear %volume_letter%:\ /e >nul
+	) else IF "%copy_sxos_boot%"=="Y" (
+		copy /V /B TOOLS\sd_switch\sxos\boot.dat %volume_letter%:\boot.dat >nul
+	)
+	IF /i "%copy_payloads%"=="o" (
+		copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\Atmosphere_fusee.bin >nul
+		copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\Hekate.bin >nul
+		IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "TOOLS\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\hekate_switchboot_mod.bin" >nul
+	)
+	copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\bootloader\payloads\Atmosphere_fusee.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\payloads\Hekate.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\update.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payload.bin >nul
+	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\start.bin >nul
 	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000000D"
 	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000002B\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000002B"
 	IF EXIST "%volume_letter%:\atmosphere\contents\010000000000003C\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\010000000000003C"
@@ -498,9 +517,6 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\atmosphere\BCT.ini" del /q "%volume_letter%:\atmosphere\BCT.ini"
 	IF EXIST "%volume_letter%:\atmosphere\loader.ini" del /q "%volume_letter%:\atmosphere\loader.ini"
 	IF EXIST "%volume_letter%:\atmosphere\system_settings.ini" del /q "%volume_letter%:\atmosphere\system_settings.ini"
-	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\fs_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\fs_patches" >nul
-	rem IF EXIST "%volume_letter%:\atmosphere\kip_patches\loader_patches" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\loader_patches" >nul
-	rem IF EXIST "%volume_letter%:\atmosphere\exefs_patches\es_patches" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\es_patches" >nul
 	IF EXIST "%volume_letter%:\atmosphere\hekate_kips\loader.kip" del /q "%volume_letter%:\atmosphere\hekate_kips\loader.kip" >nul
 	IF EXIST "%volume_letter%:\sept\sept-secondary.enc" del /q "%volume_letter%:\sept\sept-secondary.enc"
 	IF EXIST "%volume_letter%:\sept\ams\sept-secondary.enc" del /q "%volume_letter%:\sept\ams\sept-secondary.enc"
@@ -508,22 +524,6 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\switch\sigpatch-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatch-updater"
 	IF EXIST "%volume_letter%:\switch\sigpatches-updater\*.*" rmdir /s /q "%volume_letter%:\switch\sigpatches-updater"
 	IF EXIST "%volume_letter%:\switch\DeepSea-Toolbox\*.*" rmdir /s /q "%volume_letter%:\switch\DeepSea-Toolbox"
-	%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere %volume_letter%:\ /e >nul
-	IF "%sx_gear_copy%"=="Y" (
-		%windir%\System32\Robocopy.exe TOOLS\sd_switch\sx_gear %volume_letter%:\ /e >nul
-	) else IF "%copy_sxos_boot%"=="Y" (
-		copy /V /B TOOLS\sd_switch\sxos\boot.dat %volume_letter%:\boot.dat >nul
-	)
-	IF /i "%copy_payloads%"=="o" (
-		copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\Atmosphere_fusee-primary.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\Hekate.bin >nul
-		IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "TOOLS\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\hekate_switchboot_mod.bin" >nul
-	)
-	copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\bootloader\payloads\Atmosphere_fusee-primary.bin >nul
-	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\payloads\Hekate.bin >nul
-	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\bootloader\update.bin >nul
-	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payload.bin >nul
-	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\start.bin >nul
 	IF EXIST "%volume_letter%:\switch\GagOrder.nro" del /q "%volume_letter%:\switch\GagOrder.nro" >nul
 	IF EXIST "%volume_letter%:\atmosphere\exefs_patches\Signature_Patches_by_br4z0rf_and_Jakibaki" rmdir /s /q "%volume_letter%:\atmosphere\exefs_patches\Signature_Patches_by_br4z0rf_and_Jakibaki" >nul
 	IF EXIST "%volume_letter%:\switch\appstore\res" rmdir /s /q "%volume_letter%:\switch\appstore\res" >nul
@@ -536,6 +536,12 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\modules\atmosphere\fs_mitm.kip" del /q "%volume_letter%:\modules\atmosphere\fs_mitm.kip" >nul
 	IF EXIST "%volume_letter%:\atmosphere\titles\010000000000100D" rmdir /s /q "%volume_letter%:\atmosphere\titles\010000000000100D" >nul
 	IF EXIST "%volume_letter%:\atmosphere\fusee-mtc.bin" del /q "%volume_letter%:\atmosphere\fusee-mtc.bin" >nul
+	IF EXIST "%volume_letter%:\atmosphere\kip_patches\default_nogc\*.*" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\default_nogc" >nul
+	IF EXIST "%volume_letter%:\atmosphere\config\BCT.ini" del /q "%volume_letter%:\atmosphere\config\BCT.ini" >nul
+	IF EXIST "%volume_letter%:\atmosphere\config_templates\BCT.ini" del /q "%volume_letter%:\atmosphere\config_templates\BCT.ini" >nul
+	IF EXIST "%volume_letter%:\atmosphere\fusee-secondary.bin" del /q "%volume_letter%:\atmosphere\fusee-secondary.bin" >nul
+	IF EXIST "%volume_letter%:\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" del /q "%volume_letter%:\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" >nul
+	del /Q /S "%volume_letter%:\Atmosphere_fusee-primary.bin" >nul 2>&1
 	IF /i "%atmosphere_enable_nogc_patch%"=="O" (
 		%windir%\System32\Robocopy.exe TOOLS\sd_switch\atmosphere_patches_nogc %volume_letter%:\ /e >nul
 	)
@@ -977,7 +983,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
 				IF /i "%copy_atmosphere_pack%"=="o" (
-					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\payloads\Atmosphere_fusee.bin >nul
 					copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
 					IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
 				)
@@ -1021,7 +1027,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
 				IF /i "%copy_atmosphere_pack%"=="o" (
-					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\payloads\Atmosphere_fusee.bin >nul
 					copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
 					IF EXIST "%volume_letter%:\bootloader\sys\switchboot.txt" copy /v /b "tools\Switchboot\tegrarcm\hekate_switchboot_mod.bin" "%volume_letter%:\payloads\hekate_switchboot_mod.bin" >nul
 				)
@@ -1083,7 +1089,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					)
 					IF /i "%copy_atmosphere_pack%"=="o" (
 						set one_cfw_chosen=Y
-						copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee-primary.bin %volume_letter%:\payloads\Atmosphere_fusee-primary.bin >nul
+						copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\payloads\Atmosphere_fusee.bin >nul
 						copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\payloads\Hekate.bin >nul
 						echo [Hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo name=Hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
@@ -1134,7 +1140,7 @@ for /l %%i in (1,1,%temp_count%) do (
 						echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo [Atmosphere_Fusee_Primary]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo name=Atmosphere_Fusee_Primary>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
-						echo path=/payloads/Atmosphere_fusee-primary.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+						echo path=/payloads/Atmosphere_fusee.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo [sysnand_Atmosphere_via_hekate]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 						echo name=sysnand_Atmosphere_via_hekate>>"%volume_letter%:\config\fastCFWSwitch\config.ini"

@@ -982,6 +982,12 @@ IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000037\*.*" rmdir /s /q
 IF EXIST "%volume_letter%:\atmosphere\contents\0100000000000042\*.*" rmdir /s /q "%volume_letter%:\atmosphere\contents\0100000000000042"
 IF EXIST "%volume_letter%:\sept\payload.bin" del /q "%volume_letter%:\sept\payload.bin" >nul
 IF EXIST "%volume_letter%:\atmosphere\fusee-mtc.bin" del /q "%volume_letter%:\atmosphere\fusee-mtc.bin" >nul
+IF EXIST "%volume_letter%:\atmosphere\kip_patches\default_nogc\*.*" rmdir /s /q "%volume_letter%:\atmosphere\kip_patches\default_nogc" >nul
+IF EXIST "%volume_letter%:\atmosphere\config\BCT.ini" del /q "%volume_letter%:\atmosphere\config\BCT.ini" >nul
+IF EXIST "%volume_letter%:\atmosphere\config_templates\BCT.ini" del /q "%volume_letter%:\atmosphere\config_templates\BCT.ini" >nul
+IF EXIST "%volume_letter%:\atmosphere\fusee-secondary.bin" del /q "%volume_letter%:\atmosphere\fusee-secondary.bin" >nul
+IF EXIST "%volume_letter%:\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" del /q "%volume_letter%:\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" >nul
+del /Q /S "%volume_letter%:\Atmosphere_fusee-primary.bin" >nul 2>&1
 del /Q /S "%volume_letter%:\atmosphere\.emptydir" >nul
 del /Q /S "%volume_letter%:\bootloader\.emptydir" >nul
 del /q "%volume_letter%:\folder_version.txt" >nul

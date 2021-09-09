@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.160</h2>
+<ul>
+<li>Started writing a new function that allows to migrate an emunand from SXOS to Atmosphere or vice versa.</li>
+<li>Update Atmosphere to version 1.0.0.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 474.</li>
+</ul>
 <h2>V4.3.159</h2>
 <ul>
 <li>In the GameMaker game creation script, added a summary of the chosen settings, asked for confirmation before overwriting the existing output file and the output file is now renamed to contain the game name and the chosen ID.</li>

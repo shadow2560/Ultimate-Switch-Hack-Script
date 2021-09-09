@@ -20,7 +20,7 @@ goto:eof
 :intro
 echo This script can create the sig_patches for Atmosphere.
 echo.
-echo You must create the loader patches each time you update Atmosphere based on the "fusee-secondary.bin" file.
+echo You must create the loader patches each time you update Atmosphere based on the "fusee-secondary.bin" or "package3" file.
 echo.
 echo For FS_patches and ES_patches, you will need to update them if you update the console firmware using the latest keys retrievable via Lockpick-RCM and a folder containing the firmware files.
 echo.
@@ -49,13 +49,13 @@ echo No keys file selected, the script will stop.
 goto:eof
 
 :fusee_file_selection
-echo Please fill in the file "fusee-secondary.bin" of the version of Atmosphere you are using in the following window.
+echo Please fill in the file "fusee-secondary.bin" or "package3" of the version of Atmosphere you are using in the following window.
 pause
-%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "bin files^(*.bin^)|*.bin|" "fusee-secondary.bin file selection" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "All files^(*.*^)|*.*|" "fusee-secondary.bin or package3 file selection" "templogs\tempvar.txt"
 goto:eof
 
 :no_fusee_file_selected_error
-echo No "fusee-secondary.bin" file filled in, the script will stop.
+echo No "fusee-secondary.bin" or "package3" file filled in, the script will stop.
 goto:eof
 
 :package_folder_select

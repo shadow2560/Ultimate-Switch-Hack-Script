@@ -1,5 +1,13 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V474</h2>
+<ul>
+<li>Ajout de Amiigo à Emuiibo.</li>
+<li>Mise à jour d'Atmosphere en version 1.0.0.</li>
+<li>Mise à jour des sig_patches.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.9.9.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.12.1.</li>
+</ul>
 <h2>V473</h2>
 <ul>
 <li>Remplacement de HekateToolbox par DeepSea-Toolbox dans le pack Atmosphere.</li>
