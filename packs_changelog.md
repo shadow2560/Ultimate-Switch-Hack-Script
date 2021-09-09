@@ -7,6 +7,7 @@
 <li>Mise à jour des sig_patches.</li>
 <li>Mise à jour du lien de Retroarch pour la version 1.9.9.</li>
 <li>Mise à jour de AIO-Switch-Updater en version 2.12.1.</li>
+<li>Mise à jour de Ldn_mitm en version 1.9.0.</li>
 </ul>
 <h2>V473</h2>
 <ul>
