@@ -155,6 +155,9 @@ echo.
 echo 1: Use SX_Flasher to flash an opfficial firmware?
 echo 2: Flash Spacecraft?
 echo 3: Flash SXOS bootloader?
+echo 4: Flash SXOS firrmware?
+echo 5: Flash Spacecraft bootloader?
+echo 6: Flash Spacecraft firrmware?
 echo All other choices: Go back to main actions choice of this script?
 echo.
 set /p sx_core_lite_action_choice=Make your choice: 
@@ -187,6 +190,42 @@ goto:eof
 
 :sx_bootloader_end_flash
 echo Modship flash with SXOS bootloader success.
+goto:eof
+
+:sx_firmware_begin_flash
+echo Modship flashing with SXOS firmware...
+goto:eof
+
+:sx_firmware_error_flash
+echo Error during the modship flash  with SXOS firmware.
+goto:eof
+
+:sx_firmware_end_flash
+echo Modship flash with SXOS firmware success.
+goto:eof
+
+:spacecraft_bootloader_begin_flash
+echo Modship flashing with Spacecraft bootloader...
+goto:eof
+
+:spacecraft_bootloader_error_flash
+echo Error during the modship flash  with Spacecraft bootloader.
+goto:eof
+
+:spacecraft_bootloader_end_flash
+echo Modship flash with Spacecraft bootloader success.
+goto:eof
+
+:spacecraft_firmware_begin_flash
+echo Modship flashing with Spacecraft firmware...
+goto:eof
+
+:spacecraft_firmware_error_flash
+echo Error during the modship flash  with Spacecraft firmware.
+goto:eof
+
+:spacecraft_firmware_end_flash
+echo Modship flash with Spacecraft firmware success.
 goto:eof
 
 :no_compatible_disk_found_error

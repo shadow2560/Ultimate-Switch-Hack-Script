@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V475</h2>
+<ul>
+<li>Correction d'une erreur dans le fichier de configuration de Hekate.</li>
+</ul>
 <h2>V474</h2>
 <ul>
 <li>Ajout de Amiigo à Emuiibo.</li>

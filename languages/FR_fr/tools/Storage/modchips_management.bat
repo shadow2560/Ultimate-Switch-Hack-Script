@@ -146,6 +146,9 @@ echo.
 echo 1: Utiliser SX_Flasher pour flasher un firmware officiel?
 echo 2: Flasher Spacecraft?
 echo 3: Flasher le bootloader de SXOS?
+echo 4: Flasher le firmware de SXOS?
+echo 5: Flasher le bootloader de Spacecraft?
+echo 6: Flasher le firmware de Spacecraft?
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
 set /p sx_core_lite_action_choice=Faites votre choix: 
@@ -178,6 +181,42 @@ goto:eof
 
 :sx_bootloader_end_flash
 echo Flash de la puce avec le bootloader de SXOS terminé avec succès.
+goto:eof
+
+:sx_firmware_begin_flash
+echo Flash de la puce avec le firmware de SXOS en cours...
+goto:eof
+
+:sx_firmware_error_flash
+echo Erreur durant le flash de la puce avec le firmware de SXOS.
+goto:eof
+
+:sx_firmware_end_flash
+echo Flash de la puce avec le firmware de SXOS terminé avec succès.
+goto:eof
+
+:spacecraft_bootloader_begin_flash
+echo Flash de la puce avec le bootloader de Spacecraft en cours...
+goto:eof
+
+:spacecraft_bootloader_error_flash
+echo Erreur durant le flash de la puce avec le bootloader de Spacecraft.
+goto:eof
+
+:spacecraft_bootloader_end_flash
+echo Flash de la puce avec le bootloader de Spacecraft terminé avec succès.
+goto:eof
+
+:spacecraft_firmware_begin_flash
+echo Flash de la puce avec le firmware de Spacecraft en cours...
+goto:eof
+
+:spacecraft_firmware_error_flash
+echo Erreur durant le flash de la puce avec le firmware de Spacecraft.
+goto:eof
+
+:spacecraft_firmware_end_flash
+echo Flash de la puce avec le firmware de Spacecraft terminé avec succès.
 goto:eof
 
 :no_compatible_disk_found_error

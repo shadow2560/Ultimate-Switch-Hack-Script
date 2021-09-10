@@ -322,6 +322,7 @@ IF "%sx_core_lite_action_choice%"=="1" (
 	call "%associed_language_script%" "sx_flasher_launch_infos"
 	pause
 	start tools\sx_core_lite\sx_flasher\sxflasher.exe
+	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="2" (
 	call "%associed_language_script%" "spacecraft_begin_flash"
@@ -340,6 +341,7 @@ IF "%sx_core_lite_action_choice%"=="2" (
 	)
 	call "%associed_language_script%" "spacecraft_end_flash"
 	pause
+	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="3" (
 	call "%associed_language_script%" "sx_bootloader_begin_flash"
@@ -351,6 +353,43 @@ IF "%sx_core_lite_action_choice%"=="3" (
 	)
 	call "%associed_language_script%" "sx_bootloader_end_flash"
 	pause
+	goto:sx_core_lite_flash
+)
+IF "%sx_core_lite_action_choice%"=="4" (
+	call "%associed_language_script%" "sx_firmware_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\firmwares\sxcore_fw_v1.3.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "sx_firmware_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "sx_firmware_end_flash"
+	pause
+	goto:sx_core_lite_flash
+)
+IF "%sx_core_lite_action_choice%"=="5" (
+	call "%associed_language_script%" "spacecraft_bootloader_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\BootloaderUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\bootloader.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "spacecraft_bootloader_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "spacecraft_bootloader_end_flash"
+	pause
+	goto:sx_core_lite_flash
+)
+IF "%sx_core_lite_action_choice%"=="6" (
+	call "%associed_language_script%" "spacecraft_firmware_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "spacecraft_firmware_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "spacecraft_firmware_end_flash"
+	pause
+	goto:sx_core_lite_flash
 )
 goto:define_action_type
 

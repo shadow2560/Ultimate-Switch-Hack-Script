@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.161</h2>
+<ul>
+<li>Ajout de la possibilité de flasher indépendamment le firmware de SXOS, le bootloader de Spacecraft et le firmware de Spacecraft sur une SX Core/Lite.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 475.</li>
+</ul>
 <h2>V4.3.160</h2>
 <ul>
 <li>Début d'écriture d'une nouvelle fonction qui permet de migrer une emunand de SXOS vers Atmosphere ou inversement.</li>
