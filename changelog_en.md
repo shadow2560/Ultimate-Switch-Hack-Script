@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.162</h2>
+<ul>
+<li>Big improvements in the script to generate a license spoof for SXOS, too many to list but fix various things.</li>
+<li>Fix a bug in the function to create sig_patches.</li>
+</ul>
 <h2>V4.3.161</h2>
 <ul>
 <li>Added the ability to independently flash SXOS firmware, Spacecraft bootloader and Spacecraft firmware on a SX Core/Lite.</li>

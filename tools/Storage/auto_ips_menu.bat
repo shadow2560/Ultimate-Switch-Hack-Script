@@ -153,6 +153,7 @@ IF "%outdir_path%"=="" (
 	call "%associed_language_script%" "no_outdir_source_selected_error"
 	exit /b 400
 )
+set outdir_path=%outdir_path%\
 set outdir_path=%outdir_path:\\=\%
 exit /b
 

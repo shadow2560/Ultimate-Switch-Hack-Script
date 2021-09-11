@@ -7,19 +7,30 @@ goto:eof
 :intro
 echo Ce script permet de créer un fichier "boot.dat" avec un spoof pour une licence.
 echo.
-echo Vous devez avoir le fichier "boot.dat" de SXOS 3.1.0 ainsi que le fingerprint et la licence d'une console.
+echo Vous devez avoir le fingerprint et le fichier "license.dat" associé d'une console ou le fichier "license_request.dat" de la console ciblée. Une méthode ne nécessitant pas ces éléments est également possible et recommandée.
 echo.
-echo Pour trouver le fingerprint de la console, lancer SXOS et aller dans "album" pour afficher le menu de SXOS, ensuite appuyer une fois sur "R" et vous trouverez le "console fingerprint" sous le numéro de la licence.
+echo Pour trouver le fingerprint d'une console, lancer SXOS et aller dans "album" pour afficher le menu de SXOS, ensuite appuyer une fois sur "R" et vous trouverez le "console fingerprint" sous le numéro de la licence.
+echo Pour générer le fichier "license_request.dat", lancer SXOS sans licence sur la console ciblée et cliquer sur "Launch CFW" et un message indiquant que le fichier a été créé devrait s'afficher.
 goto:eof
 
-:boot_file_selection
-	echo Veuillez renseigner le fichier "boot.dat" à modifier.
+:action_choice
+echo Que voulez-vous faire:
+echo 1: Créer les fichiers avec une license par défaut ^(recommandé, ne requière aucun fichier^)?
+echo 2: Créer les fichiers avec un fichier "license_request.dat"?
+echo 3: Créer un fichier "boot.dat" modifié pour être compatible avec un fingerprint et un fichier "license.dat"?
+echo Tout autre choix: Revenir au menu précédent?
+echo.
+set /p action_choice=Faites votre choix: 
+goto:eof
+
+:license_request_file_path_selection
+	echo Veuillez renseigner le fichier license_request  de la console ciblée.
 pause
-%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichier dat^(*.dat^)|*.dat|" "Sélection du fichier du boot.dat à modifier" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichier dat^(*.dat^)|*.dat|" "Sélection du fichier license_request" "templogs\tempvar.txt"
 goto:eof
 
-:no_boot_file_selected_error
-echo Aucun fichier SXOS renseigné, le script va s'arrêter.
+:no_license_request_file_selected_error
+echo Aucun fichier "license_request.dat" renseigné, le script va s'arrêter.
 goto:eof
 
 :fingerprint_set
@@ -34,10 +45,16 @@ goto:eof
 echo Un caractère saisie est incorrect.
 goto:eof
 
+:outdir_folder_select
+echo Vous allez devoir sélectionner le répertoire dans lequel créer les fichiers.
+pause
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier de sortie des fichiers"
+goto:eof
+
 :boot_creation_success
-echo Fichier modifié avec succès.
+echo Fichier^(s^) créé^(s^) avec succès.
 goto:eof
 
 :boot_creation_error
-echo Erreur durant la modification du fichier.
+echo Erreur durant le processus.
 goto:eof

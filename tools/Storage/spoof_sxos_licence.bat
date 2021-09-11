@@ -30,14 +30,30 @@ call "%associed_language_script%" "display_title"
 call "%associed_language_script%" "intro"
 pause
 echo.
-set boot_file=
-call "%associed_language_script%" "boot_file_selection"
-set /p boot_file_path=<templogs\tempvar.txt
-IF "%boot_file_path%"=="" (
-	call "%associed_language_script%" "no_boot_file_selected_error"
+:define_action_choice
+set action_choice=
+call "%associed_language_script%" "action_choice"
+IF "%action_choice%"=="1" (
+	goto:licence_creation
+)
+IF "%action_choice%"=="2" (
+	goto:license_request_select
+)
+IF "%action_choice%"=="3" (
+	goto:set_fingerprint
+)
+goto:end_script
+
+:license_request_select
+set license_request_file_path=
+call "%associed_language_script%" "license_request_file_path_selection"
+set /p license_request_file_path=<templogs\tempvar.txt
+IF "%license_request_file_path%"=="" (
+	call "%associed_language_script%" "no_license_request_file_path_file_selected_error"
 	pause
 	goto:end_script
 )
+goto:licence_creation
 :set_fingerprint
 echo.
 set fingerprint=
@@ -69,15 +85,28 @@ IF %i% LEQ 31 (
 	)
 )
 :licence_creation
-IF "%fingerprint%"=="" (
-	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -i "!boot_file_path:\=\\!" >nul 2>&1
-) else (
-	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -i "!boot_file_path:\=\\!" -f "!fingerprint!" >nul 2>&1
+set outdir_path=
+call "%associed_language_script%" "outdir_folder_select"
+set /p outdir_path=<"templogs\tempvar.txt"
+IF "%outdir_path%"=="" (
+	call "%associed_language_script%" "no_outdir_source_selected_error"
+	goto:end_script
 )
-IF !errorlevel! EQU 0 (
+set outdir_path=%outdir_path%\
+set outdir_path=%outdir_path:\\=\%
+
+IF "%action_choice%"=="1" (
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%">nul 2>&1
+) else IF "%action_choice%"=="2" (
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -l "%license_request_file_path%:\=\\" -o "%outdir_path:\=\\%">nul 2>&1
+) else IF "%action_choice%"=="3" (
 	IF "%fingerprint%"=="" (
-		call :move_preconfig_sxos_license "%boot_file_path%"
+		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%">nul 2>&1
+	) else (
+		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -f "%fingerprint%" -o "%outdir_path:\=\\%">nul 2>&1
 	)
+)
+IF %errorlevel% EQU 0 (
 	call "%associed_language_script%" "boot_creation_success"
 	pause
 ) else (
@@ -85,12 +114,6 @@ IF !errorlevel! EQU 0 (
 	pause
 )
 goto:end_script
-
-:move_preconfig_sxos_license
-IF EXIST "license.dat" (
-	move "license.dat" "%~dp1" >nul
-)
-exit /b
 
 :end_script
 IF EXIST templogs (
