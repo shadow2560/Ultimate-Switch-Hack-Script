@@ -26,6 +26,7 @@ import binascii
 from binascii import hexlify as _hexlify, unhexlify
 import subprocess
 import sys
+import re
 
 if (sys.version_info[0] == 3):
 	pass
@@ -75,6 +76,9 @@ elif os.path.isfile(os.path.abspath(sxos_fingerprint)):
 else:
     if len(sxos_fingerprint) != 32:
         print("Fingerprint must be 32 characters long, exiting script.")
+        sys.exit(1)
+    if not re.match('[0-9A-Fa-f]{32}', sxos_fingerprint):
+        print("Fingerprint can only contains hexadecimal characters, exiting script.")
         sys.exit(1)
 if output_folder_path != '':
     if not os.path.isdir(output_folder_path):
@@ -183,6 +187,9 @@ if not os.path.isfile(Request):
             f = open(fpfile, "r")
             sxos_fingerprint = f.read(32)
             f.close
+            if not re.match('[0-9A-Fa-f]{32}', sxos_fingerprint):
+                print("Fingerprint can only contains hexadecimal characters, exiting script.")
+                sys.exit(1)
         else:
             sxos_fingerprint = ("5602D40FA505523444544A4200011500") #Inaki
             goodlic = ("B2ECDB5F517EDB111D906C8D153AEFFCE6D17282E9955116600EBBAE4770FA21A33A78CB5FCB7A9431D6D9CE20B02879E84D899310F2F59ABD716143A5381A53D55944E37EECFE166AEA6FA334469CDDF868F99509C6D95CCFC0B9DB63F8377DD6E833E8989F7C20FFED34F4F0AF054D60C28455E6933C5158F4F72E8C44C9F695E5EFAD756FF3A8D3CCF1633AC72AFB5E53CFE3ECBE25E31FA49FD6397D75E5DF38EC61DC897E02D1A44613B8A4359FB0292D95173BDF96B5AE5D8EEF821B1CFB6AEFA759E0A51EBD083C3CD751B5E2EA20201EAC2A19AE37712036DF4E7A05A1DE757FA5F5B440BA303A477063D9D2957EE71FA370217532684BA1E55C097D")
