@@ -52,12 +52,28 @@ for i in range(1,len(sys.argv), 2):
         help()
         sys.exit(0)
     elif currArg.startswith('-i'):
+        if bootori != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
         bootori = os.path.abspath(sys.argv[i+1])
     elif currArg.startswith('-f'):
+        if sxos_fingerprint != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
         sxos_fingerprint = sys.argv[i+1]
     elif currArg.startswith('-l'):
+        if Request != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
         Request = os.path.abspath(sys.argv[i+1])
     elif currArg.startswith('-o'):
+        if output_folder_path != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
         output_folder_path = os.path.abspath(sys.argv[i+1])
     else:
         print('Error in arguments passed.\n')
