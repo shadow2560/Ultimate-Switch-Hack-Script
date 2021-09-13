@@ -50,6 +50,14 @@ pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Files output folder selection"
 goto:eof
 
+:autoboot_parram_choice
+set /p autoboot=Disable SXOS autoboot? ^(%lng_yes_choice%/%lng_no_choice%^):
+goto:eof
+
+:emunand_sd_file_param_choice
+set /p emunand_sd_file=Files based emunand? ^(%lng_yes_choice%/%lng_no_choice%^):
+goto:eof
+
 :boot_creation_success
 echo File^(s^) successfully created.
 goto:eof

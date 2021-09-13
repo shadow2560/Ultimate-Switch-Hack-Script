@@ -37,39 +37,72 @@ else:
 #-----------------------------------------------------
 
 def help():
-	print ('Usage:')
-	print ()
-	print ('TX_SX_spoof_ID_unpacker.py [-i boot.dat_3.1.0_file_path] [-f console_fingerprint_or_text_file_path_containing_fingerprint_to_spoof] [-l licence_request.dat_file_path] [-o output_folder_path]')
-	return 1
+    print ('Usage:')
+    print ()
+    print ('TX_SX_spoof_ID_unpacker.py [-i boot.dat_3.1.0_file_path] [-f console_fingerprint_or_text_file_path_containing_fingerprint_to_spoof] [-l licence_request.dat_file_path] [-o output_folder_path] [--autoboot=0_or_1] [--emunand_sd_file=0_or_1]')
+    print ('\nFor "--autoboot" and "--emunand_sd_file" params, 0 disable the ffeature and 1 enable it.\n')
+    print('Note: "--emunand_sd_file" param is not used for now.')
+    return 1
 
 bootori = ''
 Request = ''
 sxos_fingerprint = ''
 output_folder_path = ''
-for i in range(1,len(sys.argv), 2):
+autoboot = ""
+sdfile = ""
+i = 1
+while (i < len(sys.argv)):
     currArg = sys.argv[i]
     if currArg.startswith('-h'):
         help()
         sys.exit(0)
-    elif currArg.startswith('-i'):
+    elif currArg == '--autoboot=0':
+        if autoboot != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
+        autoboot = 'n'
+        i = i-1
+    elif currArg == '--autoboot=1':
+        if autoboot != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
+        autoboot = 'y'
+        i = i-1
+    elif currArg == '--emunand_sd_file=0':
+        if sdfile != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
+        sdfile = 'n'
+        i = i-1
+    elif currArg == '--emunand_sd_file=1':
+        if sdfile != '':
+            print("Error in arguments.")
+            help()
+            sys.exit(1)
+        sdfile = 'y'
+        i = i-1
+    elif currArg == '-i':
         if bootori != '':
             print("Error in arguments.")
             help()
             sys.exit(1)
         bootori = os.path.abspath(sys.argv[i+1])
-    elif currArg.startswith('-f'):
+    elif currArg == '-f':
         if sxos_fingerprint != '':
             print("Error in arguments.")
             help()
             sys.exit(1)
         sxos_fingerprint = sys.argv[i+1]
-    elif currArg.startswith('-l'):
+    elif currArg == '-l':
         if Request != '':
             print("Error in arguments.")
             help()
             sys.exit(1)
         Request = os.path.abspath(sys.argv[i+1])
-    elif currArg.startswith('-o'):
+    elif currArg == '-o':
         if output_folder_path != '':
             print("Error in arguments.")
             help()
@@ -79,6 +112,7 @@ for i in range(1,len(sys.argv), 2):
         print('Error in arguments passed.\n')
         help()
         sys.exit(1)
+    i = i+2
 
 if bootori == "":
     bootori = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'boot_ori.dat')
@@ -189,6 +223,21 @@ def hexxor (a, b):
             if (len(s) != 64) :
                 s = '0'+ s
     return s
+
+#--------------Main---------
+"""
+if sdfile == '':
+    while (1):
+        sdfile = input('\n boot.dat for Emunand (SD Files): yes (y): no (n): ') 
+        if sdfile == "y" or sdfile == "n" :
+            break
+"""
+
+if autoboot == '':
+    while (1):
+        autoboot = input('\n Autoboot: yes (y): no (n): ') 
+        if autoboot == "y" or autoboot == "n" :
+            break
 
 #--------------Spoof------------------
 
@@ -365,7 +414,7 @@ BL.seek(0x4E0)
 BL.write(RET0)
 
 #no boot auto
-if os.path.isfile('out/holder.bin'):
+if autoboot == "n":
     boot_auto = unhexlify("80000034")
     BL.seek(0x682C)
     BL.write(boot_auto)

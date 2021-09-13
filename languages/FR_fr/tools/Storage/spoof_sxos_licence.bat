@@ -51,6 +51,14 @@ pause
 %windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier de sortie des fichiers"
 goto:eof
 
+:autoboot_parram_choice
+set /p autoboot=Désactiver l'autoboot de SXOS? ^(%lng_yes_choice%/%lng_no_choice%^):
+goto:eof
+
+:emunand_sd_file_param_choice
+set /p emunand_sd_file=Emunand via fichiers? ^(%lng_yes_choice%/%lng_no_choice%^):
+goto:eof
+
 :boot_creation_success
 echo Fichier^(s^) créé^(s^) avec succès.
 goto:eof

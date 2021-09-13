@@ -94,16 +94,37 @@ IF "%outdir_path%"=="" (
 )
 set outdir_path=%outdir_path%\
 set outdir_path=%outdir_path:\\=\%
+echo.
+set params=
+set autoboot=
+call "%associed_language_script%" "autoboot_parram_choice"
+IF NOT "%autoboot%"=="" set autoboot=%autoboot:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "autoboot" "o/n_choice"
+IF /i "%autoboot%"=="o" (
+	set params=--autoboot=0
+) else (
+	set params=--autoboot=1
+)
+rem echo.
+set emunand_sd_file=n
+rem call "%associed_language_script%" "emunand_sd_file_param_choice"
+IF NOT "%emunand_sd_file%"=="" set emunand_sd_file=%emunand_sd_file:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "emunand_sd_file" "o/n_choice"
+IF /i "%emunand_sd_file%"=="o" (
+	set params=%params% --emunand_sd_file=1
+) else (
+	set params=%params% --emunand_sd_file=0
+)
 
 IF "%action_choice%"=="1" (
-	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%">nul 2>&1
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%" %params% >nul 2>&1
 ) else IF "%action_choice%"=="2" (
-	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -l "%license_request_file_path%:\=\\" -o "%outdir_path:\=\\%">nul 2>&1
+	tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -l "%license_request_file_path%:\=\\" -o "%outdir_path:\=\\%" %params% >nul 2>&1
 ) else IF "%action_choice%"=="3" (
 	IF "%fingerprint%"=="" (
-		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%">nul 2>&1
+		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe  -o "%outdir_path:\=\\%" %params%>nul 2>&1
 	) else (
-		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -f "%fingerprint%" -o "%outdir_path:\=\\%">nul 2>&1
+		tools\python3_scripts\TX_SX_spoof_ID_unpacker\TX_SX_spoof_ID_unpacker.exe -f "%fingerprint%" -o "%outdir_path:\=\\%" %params%>nul 2>&1
 	)
 )
 IF %errorlevel% EQU 0 (
