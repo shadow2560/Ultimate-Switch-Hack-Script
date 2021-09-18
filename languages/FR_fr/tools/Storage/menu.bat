@@ -32,11 +32,13 @@ echo 9: Lancer ou configurer le client pour pouvoir jouer en réseau ^(serveur S
 echo.
 echo 10: Lancer un serveur pour le jeu en réseau ^(serveur Switch-Lan-Play^)?
 echo.
-echo 11: Changer de langue?
+echo 11: Permettre le contrôle à distance de cet ordinateur via NVDA et Nvdaremote?
 echo.
-echo 12: A propos du script?
+echo 12: Changer de langue?
 echo.
-echo 13: Me faire une donation?
+echo 13: A propos du script?
+echo.
+echo 14: Me faire une donation?
 echo.
 echo 0: Lancer la documentation ^(recommandé^)?
 echo.

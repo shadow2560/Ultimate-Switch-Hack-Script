@@ -439,6 +439,7 @@ call :update_netplay.bat
 call :update_nsp_forwarder_creator.bat
 call :update_launch_nsusbloader.bat
 call :update_nsZip.bat
+call :update_nvda_remote_control.bat
 call :update_partial_aes_mariko_keys_decrypt.bat
 call :update_pegaswitch.bat
 call :update_preload_NSC_Builder.bat
@@ -1529,6 +1530,29 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\nsZip"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_nvda_remote_control.bat
+call :verif_file_version "tools\Storage\nvda_remote_control.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\nvda_remote_control.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\nvda_remote_control.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\nvda"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

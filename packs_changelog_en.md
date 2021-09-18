@@ -1,5 +1,13 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V476</h2>
+<ul>
+<li>Update Lockpick-RCM to version 1.9.5.</li>
+<li>Update Incognito-RCM to version 0.6.9.</li>
+<li>Update TegraExplorer to version 4.0.1.</li>
+<li>Update DBI to version 330.</li>
+<li>Update AIO-Switch-Updater to version 2.13.0.</li>
+</ul>
 <h2>V475</h2>
 <ul>
 <li>Fix an error in the Hekate's config file.</li>

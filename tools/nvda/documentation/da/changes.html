@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="http://txt2tags.sf.net">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
+<TITLE>Nyheder i NVDA</TITLE>
+</HEAD><BODY BGCOLOR="white" TEXT="black">
+<P ALIGN="center"><CENTER><H1>Nyheder i NVDA</H1>
+<FONT SIZE="4">
+</FONT></CENTER>
+
+<H2>2021.2</H2>
+<P>
+Denne udgave indeholder foreløbig understøttelse af Windows 11.
+Selvom Windows 11 ikke er udgivet endnu, har man testet med forhåndsversioner af Windows 11.
+Versionen af NVDA indeholder også en vigtig rettelse til skærmtæppefunktionen (læs vigtige bemærkninger).
+Værktøjet til løsning af almindelige problemer kan nu også løse yderligere problemer med NVDA.
+Der er opdateringer til talesyntesen eSpeak-NG og punktoversættelsen LibLouis.
+Der er desuden mange fejlrettelser, bl.a. til Windows-terminalprogrammer, emoji-panelet, udklipshistorik og lommeregner, samt punktskriftsunderstøttelse i NVDA.
+</P>
+<H3>Vigtige bemærkninger</H3>
+<P>
+Pga. ændringer i Windows Magnification API, var det nødvendigt at opdatere skærmtæppefunktionen for at understøtte de nyeste versioner af Windows.
+Benyt NVDA 2021.2 til at aktivere skærmtæppet med Windows 10 21H2 (10.0.19044) eller nyere.
+Dette gælder også Windows 10 Insiders og Windows 11.
+Af sikkerhedsmæssige årsager kan det være en god idé at få bekræftet af en seende person, hvorvidt skærmtæppefunktionen er aktiv og gør skærmen fuldstændigt sort, når denne benyttes med nyere versioner af Windows.
+</P>
+<H3>Nye funktioner</H3>
+<UL>
+<LI>Eksperimentel understøttelse for ARIA-annotationer:
+  <UL>
+  <LI>Tilføjet en kommando, der giver en oversigt over detaljerne for et objekt med ARIA-detaljer. (<A HREF="https://github.com/nvaccess/nvda/issues/12364" target="_blank">#12364</A>)
+  <LI>Tilføjet en indstilling under "Avanceret" i NVDAs indstillinger, der bestemmer om NVDA skal oplyse, når et objekt har yderligere detaljer i gennemsynstilstand. (<A HREF="https://github.com/nvaccess/nvda/issues/12439" target="_blank">#12439</A>) 
+  </UL>
+<LI>NVDA vil nu oplyse antallet af søgeforslag i Stifinder i Windows 10 Version 1909 og nyere, samt Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/10341" target="_blank">#10341</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12628" target="_blank">#12628</A>)
+<LI>NVDA vil nu oplyse, når du bruger kommandoerne til indrykning og hængende indrykning i Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/6269" target="_blank">#6269</A>)
+</UL>
+
+<P></P>
+<H3>Ændringer</H3>
+<UL>
+<LI>Espeak-ng er opdateret til 1.51-dev commit <CODE>ab11439b18238b7a08b965d1d5a6ef31cbb05cbb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12449" target="_blank">#12449</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12202" target="_blank">#12202</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12280" target="_blank">#12280</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12568" target="_blank">#12568</A>)
+<LI>NVDA vil annoncere "artikel" efter læsning af indholdet, hvis indstillingen er slået til under "Dokumentformatering" i indstillingspanelet. (<A HREF="https://github.com/nvaccess/nvda/issues/11103" target="_blank">#11103</A>)
+<LI>Opdaterede LibLouis punktoversættelse til <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.18.0" target="_blank">3.18.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12526" target="_blank">#12526</A>)
+  <UL>
+  <LI>Nye punkttabeller: Bulgarsk niveau 1, burmesisk niveau 1, burmesisk niveau 2, kasakhisk niveau 1, Khmer niveau 1, nordkurdisk niveau 0, Sepedi niveau 1, Sepedi niveau 2, Sesotho niveau 1, Sesotho niveau 2, Setswana niveau 1, Setswana niveau 2, tatarisk niveau 1, vietnamesisk niveau 0, vietnamesisk niveau 2, sydvietnamesisk niveau 1, Xhosa niveau 1, Xhosa niveau 2, Yakut niveau 1, zulu niveau 1, zulu niveau 2 
+  </UL>
+<LI>Windows 10 Tekstgenkendelse er blevet omdøbt til Windows Tekstgenkendelse. (<A HREF="https://github.com/nvaccess/nvda/issues/12690" target="_blank">#12690</A>)
+</UL>
+
+<P></P>
+<H3>Fejlrettelser</H3>
+<UL>
+<LI>NVDA vil nu vise regneudtryk på et punktdisplay i Windows 10 Lommeregner. (<A HREF="https://github.com/nvaccess/nvda/issues/12268" target="_blank">#12268</A>)
+<LI>I terminalprogrammer i Windows 10 version 1607 og nyere, vil du ikke længere få tegn til højre for markøren oplæst, når du sletter eller indsætter tegn midtpå en linje. (<A HREF="https://github.com/nvaccess/nvda/issues/3200" target="_blank">#3200</A>)
+  <UL>
+  <LI>Diff Match Patch er nu aktiveret som standard. (<A HREF="https://github.com/nvaccess/nvda/issues/12485" target="_blank">#12485</A>)
+  </UL>
+<LI>Punktindtastning virker nu korrekt med følgende punkttabeller med forkortet punktskrift: Arabisk niveau 2, spansk niveau 2, urdu niveau 2, kinesisk (Kina, mandarin) niveau 2. (<A HREF="https://github.com/nvaccess/nvda/issues/12541" target="_blank">#12541</A>)
+<LI>Værktøjet til løsning af almindelige problemer løser nu endnu flere problemer, særligt med 64-bit varianter af Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12560" target="_blank">#12560</A>)
+<LI>Forbedringer til knappehåndtering på Seika-notatapparatet fra Nippon Telesoft. (<A HREF="https://github.com/nvaccess/nvda/issues/12598" target="_blank">#12598</A>)
+<LI>Forbedring til oplæsning af Emoji-panelet og historikken for udklipsholderen. (<A HREF="https://github.com/nvaccess/nvda/issues/11485" target="_blank">#11485</A>)
+<LI>Opdaterede de bengalske alfabettegnbeskrivelser. (<A HREF="https://github.com/nvaccess/nvda/issues/12502" target="_blank">#12502</A>)
+<LI>NVDA afslutter nu på en sikker måde, når en ny proces igangsættes. (<A HREF="https://github.com/nvaccess/nvda/issues/12605" target="_blank">#12605</A>)
+<LI>Genvalg af Handy Tech driveren til punktdisplays vil ikke længere fejl fra dialogen til valg af punktdisplay. (<A HREF="https://github.com/nvaccess/nvda/issues/12618" target="_blank">#12618</A>)
+<LI>Windows version 10.0.22000 eller nyere genkendes nu som Windows 11 og ikke Windows 10. (<A HREF="https://github.com/nvaccess/nvda/issues/12626" target="_blank">#12626</A>)
+<LI>Understøttelse for skærmtæppefunktionen er rettet og testet med Windows versioner  op til 10.0.22000. (<A HREF="https://github.com/nvaccess/nvda/issues/12684" target="_blank">#12684</A>)
+<LI>Hvis ingen søgeresultater vises, når du filtrerer kommandoer, vil dialogen fortsætte med at virke som forventet. (<A HREF="https://github.com/nvaccess/nvda/issues/12673" target="_blank">#12673</A>)
+<LI>Rettede en fejl, hvor første menupunkt i en undermenu ikke blev oplæst i nogle tilfælde. (<A HREF="https://github.com/nvaccess/nvda/issues/12624" target="_blank">#12624</A>)
+</UL>
+
+<P></P>
+<H3>Ændringer for udviklere</H3>
+<P>
+For nyheder relateret til udvikling se venligst det engelske "What's New"-dokument.
+</P>
+<H2>Tidligere versioner</H2>
+<P>
+For nyheder i ældre versioner se venligst det engelske "What's New"-dokument.
+</P>
+
+<!-- html code generated by txt2tags 2.5 (http://txt2tags.sf.net) -->
+<!-- cmdline: txt2tags user_docs\da\changes.t2t -->
+</BODY></HTML>

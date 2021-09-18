@@ -175,7 +175,10 @@ IF "%firmware_folder%"=="" (
 	call "%associed_language_script%" "no_firmware_source_selected_error"
 	exit /b 400
 )
+set firmware_folder=%firmware_folder%\
 set firmware_folder=%firmware_folder:\\=\%
+rem %windir%\System32\Robocopy.exe "%firmware_folder% " firmware_temp\ /e >nul
+rem set firmware_folder=firmware_temp\
 exit /b
 
 :firmware_download_and_choice
@@ -591,7 +594,7 @@ call "%associed_language_script%" "firmware_downloading_end"
 call "%associed_language_script%" "extract_firmware_begin"
 TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\%firmware_file_name%" -o"firmware_temp" -r
 :daybreak_convert
-call :daybreak_convertion "firmware_temp"
+call :daybreak_convertion "%firmware_folder%"
 exit /b 0
 
 :daybreak_convertion

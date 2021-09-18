@@ -41,9 +41,10 @@ IF "%action_choice%"=="7" goto:ocasional_functions
 IF "%action_choice%"=="8" goto:settings
 IF "%action_choice%"=="9" goto:client_netplay
 IF "%action_choice%"=="10" goto:server_netplay
-IF "%action_choice%"=="11" goto:language_change
-IF "%action_choice%"=="12" goto:about
-IF "%action_choice%"=="13" goto:donate
+IF "%action_choice%"=="11" goto:nvda_remote_control
+IF "%action_choice%"=="12" goto:language_change
+IF "%action_choice%"=="13" goto:about
+IF "%action_choice%"=="14" goto:donate
 goto:end_script
 
 :basic_functions
@@ -139,6 +140,18 @@ IF EXIST "tools\Storage\launch_switch_lan_play_server.bat" (
 	call tools\Storage\update_manager.bat "update_launch_switch_lan_play_server.bat" "force"
 )
 call tools\Storage\launch_switch_lan_play_server.bat
+@echo off
+goto:define_action_choice
+:nvda_remote_control
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\nvda_remote_control.bat" (
+	call tools\Storage\update_manager.bat "update_nvda_remote_control.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_nvda_remote_control.bat" "force"
+)
+call tools\Storage\nvda_remote_control.bat
 @echo off
 goto:define_action_choice
 :language_change

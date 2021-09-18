@@ -96,7 +96,8 @@ def movefiles():
 def extract():
     List_files() # create short list of files to process
     print("Checking files in " + FIRMWARE_DIR + " folder.")
-    print(shortlist)
+
+    # print(shortlist)
     for filename in shortlist:
         if filename.endswith(".nca"):
             outlines = subprocess.check_output([hactoolnet,'-k', keyset, FIRMWARE_DIR + '/' + filename])

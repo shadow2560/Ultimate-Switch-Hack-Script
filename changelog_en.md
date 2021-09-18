@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.164</h2>
+<ul>
+<li>Add the possibility to give the control of the computer to someone else via NVDA and Nvdaremote.</li>
+<li>Fixed a bug in the sig_patches creation script that prevented firmware verification/conversion if a custom source was selected; slight modifications to the python scripts related to this feature.</li>
+<li>Update Ns-usb-loader to version 5.2.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 476.</li>
+</ul>
 <h2>V4.3.163</h2>
 <ul>
 <li>some improvements in the script to generate a license spoof for SXOS.</li>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen"/>
+<title>Remote Support 2.3</title>
+</head>
+<body>
+<h1>Dostęp Zdalny NVDA</h1>
+<p>Wersja 2.3</p>
+<p>Witamy w dodatku Dostęp Zdalny NVDA. Umożliwia on połączenie się z innym komputerem obsługiwanym przez darmowy czytnik ekranu NVDA. Nie ważne, czy ten komputer znajduje się na sąsiednim biurku, czy na innym kontynencie. Samo łączenie się jest niezwykle proste, a do obsługi dodatku wystarczy zapamiętać  kilka komend. Można kontrolować inny komputer lub udzielić zaufanej osobie dostępu do systemu operacyjnego własnego komputera,  w celu przeprowadzenia  rutynowej konserwacji, zdiagnozowania problemu, czy przeprowadzenia szkolenia.</p>
+<h2>Zanim Zaczniesz Pracę z Dodatkiem</h2>
+<p>Upewnij się, czy na obydwu komputerach został zainstalowany czytnik ekranu NVDA orazdodatek Dostęp Zdalny NVDA.
+Instalacja czytnika ekranu i dodatku przebiega standardowo. Więcej informacji na ten temat można znaleźć w  Podręczniku Użytkownika NVDA.</p>
+<h2>Aktualizacja</h2>
+<p>Jeżeli posiadasz kopię dodatku Dostęp Zdalny NVDA zainstalowaną na bezpiecznym pulpicie, podczas aktualizacji dodatku w systemie zalecane jest uaktualnienie również tej kopii.
+Aby to zrobić, najpierw uaktualnij  główną kopię dodatku zainstalowaną w systemie. Następnie otwórz menu NVDA, Ustawienia, ogólne i naciśnij przycisk o nazwie "Używaj zapisanych ustawień NVDA na ekranie logowania i innych zabezpieczonych ekranach (wymaga uprawnień administratora)".</p>
+<h2>Rozpoczęcie sesji zdalnej przez serwer pośredniczący</h2>
+<h3>Na komputerze kontrolowanym</h3>
+<ol>
+<li>Otwórz menu NVDA, Narzędzia, Zdalne, Połącz.</li>
+<li>W pierwszym przycisku opcji zaznacz "klient".</li>
+<li>W drugim przycisku opcji zaznacz "Zezwól na kontrolę tego komputera".</li>
+<li>W polu edycyjnym "host" wpisz adres serwera, z którym chcesz się połączyć, Na przykład nvdaremote.com. Jeżeli dany serwer używa innego portu, można wpisać jego adres jako &lt;host&gt;:&lt;port&gt;, na przykład nvdaremote.com:1234.</li>
+<li>Wpisz klucz w kolejnym polu edycyjnym, Lub naciśnij przycisk "Generuj klucz".
+Tego klucza będą używać uprawnione osoby, aby połączyć się z twoim komputerem.
+Komputer kontrolowany i wszyscy jego klienci muszą używać tego samego klucza.</li>
+<li>Naciśnij przycisk OK. Jeżeli łączenie przebiegnie pomyślnie, usłyszysz odpowiedni dźwięk oraz komunikat "Połączono z serwerem kontrolującym".</li>
+</ol>
+<h3>Na komputerze kontrolującym</h3>
+<ol>
+<li>Otwórz menu NVDA, Narzędzia, Zdalne, Połącz.</li>
+<li>W pierwszym przycisku opcji zaznacz "klient".</li>
+<li>W drugim przycisku opcji zaznacz "kontroluj inny komputer".</li>
+<li>W polu edycyjnym "host" wpisz adres serwera, z którym chcesz się połączyć, Na przykład nvdaremote.com. Jeżeli dany serwer używa innego portu, można wpisać jego adres jako &lt;host&gt;:&lt;port&gt;, na przykład nvdaremote.com:1234.</li>
+<li>Wpisz klucz w kolejnym polu edycyjnym, Lub naciśnij przycisk "Generuj klucz".
+Komputer kontrolujący i wszyscy jego klienci muszą używać tego samego klucza.</li>
+<li>Naciśnij przycisk OK. Jeżeli łączenie przebiegnie pomyślnie, usłyszysz odpowiedni dźwięk oraz komunikat "Połączono z serwerem kontrolującym".</li>
+</ol>
+<h2>Połączenia bezpośrednie</h2>
+<p>Opcja "Serwer" w oknie dialogowym "Połącz" pozwala ustawić połączenie bezpośrednie.
+Po zaznaczeniu tej opcji wybierz swoją stronę połączenia.
+Druga osoba połączy się z twoim komputerem za pomocą strony przeciwnej.</p>
+<p>Po wybraniu strony połączenia możesz użyć przycisku "Pobierz zewnętrzne IP".
+Upewnij się, czy  wpisany w polu edycyjnym port jest poprawny.
+Jeśli portcheck wykryje, że wpisany port (domyślnie 6837) jest nieosiągalny, pojawi się ostrzeżenie.
+Wpisz port jeszcze raz i spróbuj ponownie.
+Uwaga! Proces przekierowywania portów Nie jest opisany w tym dokumencie. Potrzebne informacje i wskazówki znajdziesz w instrukcji dołączonej do swojego routera.</p>
+<p>Wpisz klucz w polu edycyjnym lub naciśnij przycisk "generuj". Użytkownik, który łączy się z twoim komputerem będzie potrzebować twojego zewnętrznego IP oraz klucza. Jeżeli chcesz użyć innego portu niż domyślny (6837) upewnij się, że osoba, z którą się łączysz dodała ten port do adresu serwera jako &lt;zewnętrzne ip&gt;:&lt;port&gt;.</p>
+<p>Po naciśnięciu OK nastąpi połączenie.
+Kiedy druga osoba również się połączy, możesz normalnie używać Dostępu Zdalnego NVDA</p>
+<h2>Kontrola maszyny zdalnej</h2>
+<p>Kiedy oba komputery są już połączone i rozpoczyna się sesja zdalna, użytkownik komputera kontrolującego może nacisnąć f11 aby kontrolować maszynę zdalną (np. przez przesyłanie komend klawiszowych lub brajlowskich).
+Gdy NVDA powie "kontroluję maszynę zdalną", naciskane klawisze na klawiaturze lub linijce brajlowskiej zostaną przekazane do komputera kontrolowanego. Ponadto, gdy maszyna lokalna, czyli komputer kontrolujący używa linijki brajlowskiej, informacje z maszyny zdalnej są na niej wyświetlane. Aby przestać przesyłać komendy i powrócić do maszyny lokalnej, ponownie naciśnij f11.
+Dla uzyskania najlepszej zgodności, upewnij się, że układy klawiatury w obu komputerach są takie same.</p>
+<h2>Udostępnianie sesji</h2>
+<p>Aby udostępnić link umożliwiający kolejnym osobom dołączenie do sesji zdalnej, wybierz Kopiuj link z menu Zdalne.
+Jeżeli twój komputer jest w tej sesji maszyną kontrolującą, udostępniony link pozwoli  innym  dołączyć się pod twoją kontrolę.
+Jeżeli natomiast twój komputer jest maszyną zdalną, udostępniony link pozwoli tym, z którymi dzielisz sesję kontrolować ten komputer.
+Wiele aplikacji pozwala użytkownikom na automatyczne aktywowanie tego linku. Gdy jednak nie aktywuje się on automatycznie z poziomu danej aplikacji, można skopiować go do schowka i aktywować w oknie dialogowym Uruchom.</p>
+<h2>Przesyłanie Ctrl+Alt+Del</h2>
+<p>Podczas przesyłania komend z klawiatury, nie da się przesłać kombinacji CTRL+Alt+del w standardowy sposób.
+W razie potrzeby przesłania CTRL+Alt+del, można użyć tej komendy gdy system kontroli zdalnej jest włączony na bezpiecznym pulpicie.</p>
+<h2>Kontrola zdalna komputera nienadzorowanego</h2>
+<p>Możesz też kontrolować zdalnie inny własny komputer. Jest to szczególnie pomocne, kiedy podczas podróży chcesz używać swojego domowego komputera za pomocą laptopa. Tak samo możesz kontrolować komputer znajdujący się w  domu kiedy siedzisz na dworze z innym PC. Dzięki niewielkim uprzednim przygotowaniom, staje się to możliwe i wygodne.</p>
+<ol>
+<li>Wejdź do meni NVDA. W menu wybierz kolejno Narzędzia i Zdalne. Następnie naciśnij enter na pozycji Opcje.</li>
+<li>Zaznacz pole wyboru o nazwie "Łącz automatycznie z serwerem kontroli przy starcie".</li>
+<li>Wybierz, czy chcesz użyć serwera pośredniczącego, czy zwykłego serwera kontroli zdalnej. </li>
+<li>Wybierz "Zezwól na kontrolę tego komputera" w kolejnym przycisku opcji.</li>
+<li>Jeżeli twój komputer jest maszyną kontrolującą, upewnij się, że wpisany w kolejnym polu edycyjnym port (domyślnie 6837) jest osiągalny dla maszyny kontrolowanej, jak i kontrolującej.</li>
+<li>Jeżeli chcesz użyć serwera pośredniczącego, wypełnij pola Host i Klucz, przejdź tabulatorem do przycisku OK i naciśnij enter. Opcja Generuj Klucz nie jest w tym kontekście dostępna. Najlepiej wymyślić łatwy do zapamiętania klucz, aby móc używać go w przyszłości z dowolnego komputera.</li>
+</ol>
+<p>Dla zaawansowanego użytku można również skonfigurować Dostęp Zdalny NVDA tak, aby automatycznie łączył się z lokalnym lub zdalnym serwerem pośredniczącym w trybie maszyny kontrolującej. aby to ustawić, wybierz Kontroluj inny komputer w drugim przycisku opcji.</p>
+<p>Uwaga! Automatyczne łączenie z serwerem przy starcie NVDA w oknie dialogowym Opcje zadziała dopiero po restarcie czytnika ekranu.</p>
+<h2>Wyciszanie mowy na komputerze kontrolowanym</h2>
+<p>Jeżeli nie chcesz słyszeć mowy, czy dźwięków NVDA, wejdź do menu NVDA, Narzędzia, Zdalne. Następnie przejdź strzałką w dół do Wycisz wsparcie zdalne i naciśnij enter. Uwaga! ta opcja nie wyłącza zdalnego wyświetlania brajla na linijce brajlowskiej komputera kontrolującegopodczas przesyłania komend.</p>
+<h2>Zakończenie sesji zdalnej</h2>
+<p>Aby zakończyć sesję zdalną, wykonaj następujące kroki:</p>
+<ol>
+<li>
+<p>Na komputerze kontrolującym naciśnij F11 aby zatrzymać kontrolę maszyny zdalnej. Najprawdopodobniej pojawi się wiadomość: "Kontroluję maszynę lokalną." Jeżeli zamiast tego usłyszysz lub przeczytasz "Kontroluję maszynę zdalną", ponownie naciśnij F11.</p>
+</li>
+<li>
+<p>przejdź do menu NVDA, Narzędzia, Zdalne, znajdź pozycję Rozłącz i naciśnij enter.</p>
+</li>
+</ol>
+<h2>Wyślij schowek</h2>
+<p>Opcja Wyślij schowek znajdująca się w menu Zdalne umożliwia przesyłanie tekstu ze schowka.
+Kiedy jest aktywna, można przesyłać każdy znajdujący się w schowku tekst do innych maszyn.</p>
+<h2>Konfiguracja Dostępu Zdalnego NVDA na bezpiecznym pulpicie</h2>
+<p>Do pracy z Dostępem Zdalnym NVDA na bezpiecznym pulpicie,należy najpierw zainstalować kopię tego  dodatku w NVDA uruchomionym na bezpiecznym pulpicie.</p>
+<ol>
+<li>
+<p>Z menu NVDA wybierz Ustawienia, Ustawienia ogólne.</p>
+</li>
+<li>
+<p>Przejdź tabulatorem do przycisku "Używaj zapisanych ustawień NVDA na ekranie logowania i innych zabezpieczonych ekranach (wymaga uprawnień administratora)", i naciśnij enter.</p>
+</li>
+<li>
+<p>Odpowiedz "Tak" w ostrzeżeniach dotyczących kopiowania twoich ustawień oraz kopiowania  wtyczek. Następnie odpowiedz na ostrzeżenie kontroli konta użytkownika, jeśli się pojawi.</p>
+</li>
+<li>Gdy ustawienia skopiują się do końca, zamknij to okno naciskając enter na przycisku OK. Następnie przejdź  tabulatorem do kolejnego przycisku OK, który zamyka okno dialogowe i ponownie naciśnij enter.</li>
+</ol>
+<p>Po instalacji dodatku na bezpiecznym pulpicie, jeżeli twój komputer jest kontrolowany podczas danej sesji,
+mowa i brajl będą dostępne gdy przełączysz się na bezpieczny pulpit.</p>
+<h2>Współautorzy</h2>
+<p>Chcielibyśmy podziękować chociaż kilku spośród wielu współautorów, bez których projekt Dostęp Zdalny NVDA nie zostałby zrealizowany.</p>
+<ul>
+<li>Hai Nguyen Ly</li>
+<li>Chris Westbrook</li>
+<li>Thomas Huebner</li>
+<li>John F Crosotn III</li>
+<li>Darrell Shandrow</li>
+<li>D Williams</li>
+<li>Matthew McCubbin</li>
+<li>Jason Meddaugh</li>
+<li>ABDULAZIZ ALSHMASI.</li>
+<li>Tyler W Kavanaugh</li>
+<li>Casey Mathews</li>
+<li>Babbage B.V.</li>
+<li>Leonard de Ruijter</li>
+<li>NV Access</li>
+<li>Reef Turner</li>
+</ul>
+<h2>Lista zmian</h2>
+<h3>Wersja 2.3</h3>
+<ul>
+<li>Przejście do Pythona 3</li>
+<li>Unicestwione wsparcie dla Pythona 2</li>
+<li>Zaktualizowana zgodność z Api 2019.3:</li>
+<li>przebudowa mowy</li>
+<li>zmiany w kodzie sterowników dla monitorów brajlowskich</li>
+</ul>
+<h3>Wersja 2.2</h3>
+<ul>
+<li>Wsparcie dla IPv6</li>
+<li>Wsparcie dla nowej wersji NVDA 2018.3 a także dla starszych wersji</li>
+<li>Wsparcie dla gestów brajlowskich monitorów dla określonego modelu</li>
+</ul>
+<h3>Wersja 2.1</h3>
+<ul>
+<li>Naprawiono automatyczne łączenie przy ustawianiu automatycznej kontroli komputera</li>
+<li>Dodano skrypt do wysyłania schowka skrótem ctrl+shift+NVDA+c</li>
+<li>Wprowadzanie brajla działa w trybie przeglądania.</li>
+<li>Dźwięki generowane przez dodatek Dostęp Zdalny nie blokują już NVDA.</li>
+</ul>
+<h3>Wersja 2.0</h3>
+<ul>
+<li>Wsparcie dla zdalnego brajla</li>
+<li>Wsparcie dla linków nvdaremote://</li>
+<li>Wyśrodkowane okna dialogowe zgadzają się z resztą okien dialogowych w NVDA</li>
+<li>Naprawiono portcheck do wskazywania domeny, którą kontrolujemy portcheck.nvdaremote.com</li>
+<li>Wsparcie automatycznego łączenia z serwerem kontroli w trybie master</li>
+<li>Usprawniono poprawki błędów w dokumentacji</li>
+<li>Aktualizacja do  protokołu wersja 2, który zawiera pole origin w każdej wiadomości zdalnej.</li>
+<li>Znaczne oczyszczenie kodu ułatwiające dokonywanie zmian w przyszłości.</li>
+</ul>
+<h2>Modyfikowanie NVDA Remote</h2>
+<p>możesz sklonować to repozytorium w celu wprowadzenia zmian w NVDA remote/</p>
+<h3>Zależnożci trzeciej strony</h3>
+<p>Mogą być zainstalowane za pomocą pip:
+- Markdown
+- scons
+- python-gettext</p>
+<h3>Aby skompilować dodatek dla dalszego rozprzestrzeniania:</h3>
+<ol>
+<li>otwórz wiersz poleceń, przejdź do katalogu głównego tego repozytorium</li>
+<li>Uruchom polecenie <strong>scons</strong>. Jeżeli nie napotkano na nieoczekiwany błąd,dodatek znajdzie się w aktualnym katalogu.</li>
+</ol>
+</body>
+</html>

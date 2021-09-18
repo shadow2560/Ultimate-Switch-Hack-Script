@@ -41,11 +41,13 @@ echo 9: Launch or configure the network gaming client ^(Switch-Lan-Play client^)
 echo.
 echo 10: Launch a network gaming server ^(Switch-Lan-Play server^)?
 echo.
-echo 11: change language?
+echo 11: Allow the remote control of this computer via NVDA and Nvdaremote?
 echo.
-echo 12: About the script?
+echo 12: change language?
 echo.
-echo 13: Donate to me?
+echo 13: About the script?
+echo.
+echo 14: Donate to me?
 echo.
 echo 0: Launch the documentation ^(recommanded^)?
 echo.
