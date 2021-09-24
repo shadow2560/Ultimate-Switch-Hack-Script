@@ -4,7 +4,7 @@
 <ul>
 <li>Support the new settings of Atmosphere for automatic and manual configurations.</li>
 <li>Support of the firmware 13.0.0 in the scripts witch can make actions on firmwares and ffix a bug in them.</li>
-<li>Update Atmosphere to version 1.1.0.</li>
+<li>Update Atmosphere to version 1.1.1.</li>
 <li>Update Hekate to version 5.6.2.</li>
 <li>Update Lockpick-RCM to version 1.9.6.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 477.</li>
