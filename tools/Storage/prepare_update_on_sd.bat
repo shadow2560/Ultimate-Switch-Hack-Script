@@ -114,6 +114,7 @@ echo 12.0.1?
 echo 12.0.2?
 echo 12.0.3?
 echo 12.1.0?
+echo 13.0.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT EXIST "downloads" mkdir "downloads"
@@ -470,6 +471,15 @@ IF "%firmware_choice%"=="12.1.0" (
 	IF !errorlevel! EQU 1 goto:define_firmware_choice
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="13.0.0" (
+	set expected_md5=9fa654de1a4682e517a15b5a79a7895d
+	set "firmware_link=https://mega.nz/file/UFpi3Yra#_UwDAU0c0OrE88oInSHUXuhnwJwhPA2Qm297pbT7KSA"
+	set firmware_file_name=Firmware 13.0.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
 goto:define_action_type
 
 :download_firmware
@@ -506,6 +516,7 @@ set /p md5_verif=<templogs\tempvar.txt
 IF NOT "%md5_verif%"=="%expected_md5%" (
 	set md5_verif=
 	call "%associed_language_script%" "firmware_exist_but_bad_md5_tested_error"
+	del /q "downloads\firmwares\%firmware_file_name%" >nul
 	goto:downloading_firmware
 )
 :skip_verif_md5sum

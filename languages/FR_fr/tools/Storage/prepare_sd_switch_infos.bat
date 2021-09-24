@@ -94,6 +94,17 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Service HTC: désactivée.
 		)
+						IF /i "%atmo_enable_log_manager%"=="o" (
+			echo service de gestion du journal: activé.
+		) else (
+			echo service de gestion du journal: désactivé.
+		)
+						IF /i "%atmo_enable_sd_card_logging%"=="o" (
+			echo Enregistrement du journal sur la carte SD: activé.
+			echo Chemin d'enregistrement du journal sur la carte SD: %atmo_sd_card_log_output_directory%
+		) else (
+			Enregistrement du journal sur la carte SD: désactivé.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Temps avant de redémarrer en cas de crash: jusqu'à l'appui d'une touche par l'utilisateur
 		) else (

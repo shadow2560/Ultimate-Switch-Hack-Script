@@ -1,5 +1,20 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V477</h2>
+<ul>
+<li>Update Atmosphere to version 1.1.0.</li>
+<li>Update Hekate to version 5.6.2.</li>
+<li>Update sig_patches.</li>
+<li>Update Lockpick-RCM to version 1.9.6.</li>
+<li>Update NXThemesInstaller to version 2.6.3.</li>
+<li>Update  Retroarch download link to version 1.9.10.</li>
+<li>Update Tinfoil to version 13.0.</li>
+<li>Update Sys-botbase to version 1.9.</li>
+<li>Update Fizeau to version 2.2.2.</li>
+<li>Update AIO-Switch-Updater to version 2.14.0.</li>
+<li>Update Haku33 to version 4.3.</li>
+<li>Update Sys-con to version 0.6.4.</li>
+</ul>
 <h2>V476</h2>
 <ul>
 <li>Update Lockpick-RCM to version 1.9.5.</li>

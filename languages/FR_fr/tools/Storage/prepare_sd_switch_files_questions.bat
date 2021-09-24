@@ -277,6 +277,18 @@ goto:eof
 set /p atmo_enable_htc=Activer le service HTC? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_enable_log_manager_param_choice
+set /p atmo_enable_log_manager=Activer le service de gestion du journal? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_enable_sd_card_logging_param_choice
+set /p atmo_enable_sd_card_logging=Activer l'enregistrement du journal sur la carte SD? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:atmosphere_manual_sd_card_log_output_directory_param_choice
+set /p atmo_sd_card_log_output_directory=Chemin d'enregistrement du journal sur la carte SD ^(laisser vide pour régler sur le chemin "atmosphere/binlogs"^): 
+goto:eof
+
 :atmosphere_manual_config_applet-heap-size_param_choice
 set /p atmo_applet_heap_size=Taille réservée au Homebrew Loader en mode applet, mettre à 0 pour utiliser la taille maximum est fortement recommandé ^(valeur réglée à 0 si laissé vide^): 
 goto:eof

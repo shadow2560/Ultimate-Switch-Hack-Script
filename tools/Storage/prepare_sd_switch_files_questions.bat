@@ -712,6 +712,23 @@ set atmo_enable_htc=
 call "%associed_language_script2%" "atmosphere_manual_enable_htc_param_choice"
 IF NOT "%atmo_enable_htc%"=="" set atmo_enable_htc=%atmo_enable_htc:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_htc" "o/n_choice"
+IF /i "%atmo_enable_htc%"=="o" (
+	set atmo_enable_log_manager=o
+	goto:skip_atmo_enable_log_manager
+)
+set atmo_enable_log_manager=
+call "%associed_language_script2%" "atmosphere_manual_enable_log_manager_param_choice"
+IF NOT "%atmo_enable_log_manager%"=="" set atmo_enable_log_manager=%atmo_enable_log_manager:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_log_manager" "o/n_choice"
+:skip_atmo_enable_log_manager
+IF /i NOT "%atmo_enable_log_manager%"=="o" goto:define_atmo_applet_heap_size
+set atmo_enable_sd_card_logging=
+call "%associed_language_script2%" "atmosphere_manual_enable_sd_card_logging_param_choice"
+IF NOT "%atmo_enable_sd_card_logging%"=="" set atmo_enable_sd_card_logging=%atmo_enable_sd_card_logging:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_enable_sd_card_logging" "o/n_choice"
+IF /i NOT "%atmo_enable_sd_card_logging%"=="o" goto:define_atmo_applet_heap_size
+set atmo_sd_card_log_output_directory=atmosphere/binlogs
+call "%associed_language_script2%" "atmosphere_manual_sd_card_log_output_directory_param_choice"
 :define_atmo_applet_heap_size
 set atmo_applet_heap_size=
 call "%associed_language_script2%" "atmosphere_manual_config_applet-heap-size_param_choice"

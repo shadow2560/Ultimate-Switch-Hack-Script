@@ -1478,8 +1478,24 @@ IF /i "%atmo_enable_dns_mitm_debug_log%"=="o" (
 )
 IF /i "%atmo_enable_htc%"=="o" (
 	set atmo_enable_htc=0x1
+	set atmo_enable_log_manager=o
 ) else (
 	set atmo_enable_htc=0x0
+)
+IF /i "%atmo_enable_log_manager%"=="o" (
+	set atmo_enable_log_manager=0x1
+) else (
+	set atmo_enable_log_manager=0x0
+)
+IF /i "%atmo_enable_sd_card_logging%"=="o" (
+	set atmo_enable_sd_card_logging=0x1
+) else (
+	set atmo_enable_sd_card_logging=0x0
+)
+IF /i "%atmo_sd_card_log_output_directory%"=="" (
+	set atmo_sd_card_log_output_directory=atmosphere/binlogs
+) else (
+	set atmo_sd_card_log_output_directory=%atmo_sd_card_log_output_directory%
 )
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0x0
@@ -1508,7 +1524,7 @@ IF "%atmo_applet_heap_reservation_size%"=="" (
 IF "%atmo_hbl_override_key%"=="" (
 	set atmo_hbl_override_key=R
 ) else (
-	IF "%inverted_atmo_hbl_override_key%"=="Y" set atmo_hbl_override_key=!%atmo_hbl_override_key%
+	IF "%inverted_atmo_hbl_override_key%"= ="Y" set atmo_hbl_override_key=!%atmo_hbl_override_key%
 )
 IF "%atmo_override_address_space%"=="" (
 	set atmo_override_address_space=39_bit
@@ -1545,6 +1561,13 @@ echo ; Control whether RO should ease its validation of NROs.>>%volume_letter%:\
 echo ; (note: this is normally not necessary, and ips patches can be used.)>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [ro]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ease_nro_restriction = u8!%atmo_ease_nro_restriction%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo [lm]>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Control whether lm should log to the SD card.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Note that this setting does nothing when log manager is not enabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo enable_sd_card_logging = u8!%atmo_enable_sd_card_logging%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Control the output directory for SD card logs.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Note that this setting does nothing when log manager is not enabled/sd card logging is not enabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo sd_card_log_output_directory = str!%atmo_sd_card_log_output_directory%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Atmosphere custom settings>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [atmosphere]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Reboot from fatal automatically after some number of milliseconds.>>%volume_letter%:\atmosphere\config\system_settings.ini
@@ -1589,6 +1612,10 @@ echo enable_dns_mitm_debug_log = u8!%atmo_enable_dns_mitm_debug_log%>>%volume_le
 echo ; ; Controls whether htc is enabled
 echo ; 0 = Disabled, 1 = Enabled
 echo enable_htc = u8!%atmo_enable_htc%>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Controls whether atmosphere's log manager is enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; Note that this setting is ignored (and treated as 1) when htc is enabled.>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo enable_log_manager = u8!%atmo_enable_log_manager%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo [hbloader]>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls the size of the homebrew heap when running as applet.>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; If set to zero, all available applet memory is used as heap.>>%volume_letter%:\atmosphere\config\system_settings.ini

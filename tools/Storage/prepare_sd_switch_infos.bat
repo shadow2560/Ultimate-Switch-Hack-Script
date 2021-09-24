@@ -61,6 +61,17 @@ IF /i NOT "%atmo_enable_dns_mitm_debug_log%"=="o" (
 )
 IF /i NOT "%atmo_enable_htc%"=="o" (
 	set atmo_enable_htc=n
+) else (
+	set atmo_enable_log_manager=o
+)
+IF /i NOT "%atmo_enable_log_manager%"=="o" (
+	set atmo_enable_log_manager=n
+)
+IF /i NOT "%atmo_enable_sd_card_logging%"=="o" (
+	set atmo_enable_sd_card_logging=n
+)
+IF /i "%atmo_sd_card_log_output_directory%"=="" (
+	set atmo_sd_card_log_output_directory=atmosphere/binlogs"
 )
 IF "%atmo_fatal_auto_reboot_interval%"=="" (
 	set atmo_fatal_auto_reboot_interval=0

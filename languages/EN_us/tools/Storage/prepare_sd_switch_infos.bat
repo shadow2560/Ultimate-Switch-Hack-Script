@@ -103,6 +103,17 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo HTC service: disabled.
 		)
+						IF /i "%atmo_enable_log_manager%"=="o" (
+			echo Log Manager service: enabled.
+		) else (
+			echo Log Manager service: disabled.
+		)
+						IF /i "%atmo_enable_sd_card_logging%"=="o" (
+			echo SD card Logging: enabled.
+			echo SD card logging path: %atmo_sd_card_log_output_directory%
+		) else (
+			echo SD card Logging: disabled.
+		)
 		IF "%atmo_fatal_auto_reboot_interval%"=="0" (
 			echo Time before reboot if a crash occure: if the user press a button
 		) else (
