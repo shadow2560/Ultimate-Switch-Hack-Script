@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V478</h2>
+<ul>
+<li>Update MissionControl to version 0.6.0.</li>
+</ul>
 <h2>V477</h2>
 <ul>
 <li>Update Atmosphere to version 1.1.1.</li>

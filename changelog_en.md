@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.166</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 478.</li>
+</ul>
 <h2>V4.3.165</h2>
 <ul>
 <li>Support the new settings of Atmosphere for automatic and manual configurations.</li>
