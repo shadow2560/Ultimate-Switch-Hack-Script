@@ -126,6 +126,10 @@ echo Warning: On an Erista console equipped with an SX Core chip using SXOS, if 
 echo This procedure must be repeated each time the console has been switched off and the chip starts up the console.
 goto:eof
 
+:sx_launcher_use_choice
+set /p sx_launcher_use=Do you use a dongle or a chip other than a SX Core/Lite witch launch directly SXOS? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :general_profile_select_begin
 echo Select the general profile:
 goto:eof

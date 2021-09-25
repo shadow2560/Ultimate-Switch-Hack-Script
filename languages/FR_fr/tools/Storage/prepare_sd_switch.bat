@@ -119,6 +119,10 @@ echo Attention: Sur une console Erista équipée d'une puce SX Core utilisant SX
 echo Cette procédure est à refaire à chaque fois que la console a été éteinte et que la puce démarre celle-ci.
 goto:eof
 
+:sx_launcher_use_choice
+set /p sx_launcher_use=Utilisez-vous un dongle ou une puce autre qu'un SX Core/Lite lançant directement SXOS? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :general_profile_select_begin
 echo Sélection du profile général:
 goto:eof

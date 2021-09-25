@@ -158,14 +158,19 @@ IF "%ERRORLEVEL%"=="0" (
 )
 :copy_to_sd
 set sx_core_lite_chip=
+set mariko_console=
+set sx_launcher_use=
 call "%associed_language_script%" "sx_core_lite_chip_choice"
 IF NOT "%sx_core_lite_chip%"=="" set sx_core_lite_chip=%sx_core_lite_chip:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_core_lite_chip" "o/n_choice"
 IF /i "%sx_core_lite_chip%"=="o" (
-	set mariko_console=
 	call "%associed_language_script%" "mariko_console_choice"
 	IF NOT "!mariko_console!"=="" set mariko_console=!mariko_console:~0,1!
 	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
+) else (
+	call "%associed_language_script%" "sx_launcher_use_choice"
+	IF NOT "!sx_launcher_use!"=="" set sx_launcher_use=!sx_launcher_use:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_launcher_use" "o/n_choice"
 )
 :define_general_select_profile
 echo.
@@ -364,6 +369,13 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 					set copy_sxos_boot=Y
 				)
 			)
+		)
+	)
+)
+IF /i "%copy_atmosphere_pack%"=="o" (
+	IF /i "%sx_launcher_use%"=="o" (
+		IF /i NOT "%copy_sxos_pack%"=="o" (
+			set sx_gear_copy=Y
 		)
 	)
 )

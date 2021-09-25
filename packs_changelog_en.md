@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V479</h2>
+<ul>
+<li>Update Haku33 to version 4.4.</li>
+</ul>
 <h2>V478</h2>
 <ul>
 <li>Update MissionControl to version 0.6.0.</li>
