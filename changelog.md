@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.168</h2>
+<ul>
+<li>Mise à jour de uViewer en version 0.3.1.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 480.</li>
+</ul>
 <h2>V4.3.167</h2>
 <ul>
 <li>Dans la préparation d'une SD un choix est maintenant proposé pour ceux ayant un dongle ou une puce autre qu'un SX Core/Lite lançant directement SXOS, ceci permet de mettre en place les fichiers du SX Gear si la configuration le nécessite.</li>

@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V480</h2>
+<ul>
+<li>Update TextReaderOverlay to the fork of "tungns0695".</li>
+<li>Update uLaunch to version 0.3.1.</li>
+</ul>
 <h2>V479</h2>
 <ul>
 <li>Update Haku33 to version 4.4.</li>

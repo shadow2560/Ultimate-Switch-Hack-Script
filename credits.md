@@ -19,7 +19,7 @@
 <li><a target="_blank" href="https://github.com/Hartie95/fastCFWswitch">FastCFWSwitch</a></li>
 <li><a target="_blank" href="https://github.com/WerWolv/ovl-sysmodules">OvlSysmodules</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/Status-Monitor-Overlay">Status-Monitor-Overlay</a></li>
-<li><a target="_blank" href="https://github.com/diwo/TextReaderOverlay-NX">TextReaderOverlay-NX</a></li>
+<li><a target="_blank" href="https://github.com/diwo/TextReaderOverlay-NX">TextReaderOverlay-NX</a>, replaced by <a target="_blank" href="https://github.com/tungns0695/TextReaderOverlay-NX">this fork</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/SaltyNX">SaltyNX</a> and <a target="_blank" href="https://github.com/masagrator/SaltyNX-Tool">SaltyNX-Tool</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/ReverseNX">ReverseNX</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/UnityGraphics">UnityGraphics</a> and <a target="_blank" href="https://github.com/masagrator/UnityGraphicsWarehouse">UnityGraphicsWarehouse</a></li>
