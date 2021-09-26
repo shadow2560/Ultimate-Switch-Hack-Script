@@ -64,7 +64,7 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to unbrick a patche
 goto:eof
 
 :mariko_console_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to unbrick a Mariko console? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to unbrick a Mariko console ^(serial number starting with "XK" or Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :method_creation_firmware_unbrick_choice
