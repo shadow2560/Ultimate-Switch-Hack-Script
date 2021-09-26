@@ -107,7 +107,7 @@ set /p sx_core_lite_chip=La console est-elle équipée d'une puce SX Core/Lite? 
 goto:eof
 
 :mariko_console_choice
-set /p mariko_console=La console est-elle un modèle Mariko ^(numéro de série commençant par "XKJ" ou Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p mariko_console=La console est-elle un modèle Mariko ^(numéro de série commençant par "XK" ou Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :sx_gear_force_copy
