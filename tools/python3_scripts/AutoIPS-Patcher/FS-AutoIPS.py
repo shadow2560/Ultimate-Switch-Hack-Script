@@ -146,7 +146,7 @@ def makepatches():
 
 def cantfind():
     print ("Can't find the byte pattern, unable to create an ips file :-(")
-    sys.exit()
+    sys.exit(1)
 
 def extract():
     try:
