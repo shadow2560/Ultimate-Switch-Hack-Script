@@ -5,6 +5,7 @@ Modified by shadow256
 Thanks to Crckd/DarkMatterCore and the others that helped @GbaTemp
 https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/
 https://armconverter.com/
+Branching & bit shifting- https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/page-7#post-9352950
 """
 import os
 import subprocess
@@ -25,7 +26,7 @@ if len(sys.argv) < 2:
     if Path(FIRMWARE_DIR).exists() and Path(keyset).exists() and Path(hactoolnet).exists() and Path(hactool).exists():
         pass
     else:
-        print('Usage Example: python ES-MakeIPS.py "firmware" "prod.keys" "output"')
+        print('\nError in default paths\nUsage Example: python ES-AutoIPS.py "firmware" "prod.keys" "output"')
         sys.exit(1)
 else:
     FIRMWARE_DIR = sys.argv[1]
@@ -34,7 +35,7 @@ else:
 if Path(FIRMWARE_DIR).exists() and Path(keyset).exists():
     pass
 else:
-    print('Something is wrong with your paths: Usage Example: python ES-MakeIPS.py "firmware" "prod.keys" "output"')
+    print('Something is wrong with your paths: \nUsage Example: ES-AutoIPS.py "firmware" "prod.keys" "output"')
     sys.exit(1)    
 
 start = time.time()
@@ -66,6 +67,7 @@ patterns2 = ['0x1f90013128928052', '0xc0fdff35a8c35838', '0xe023009145eeff97']
     #patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c35c38', '0xe023009168edff97']
 patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009168edff97'] #firmware 12.0.3
 patterns4 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009140edff97'] #firmware 12.1.0
+patterns5 = ['0x1F90013128928052', '0xc0fdff35a8c3', '0xe02300916de9ff97'] #firmware 13.0.0
 
 def List_files():
     directory = FIRMWARE_DIR
@@ -156,15 +158,23 @@ def checkfiles():
     build_id() # run this first so we can get our IPS name.
     if value < 11400:
         patterns = patterns1 # sdk for firmware under 11.0.0
+        print ("Using pattern 1")
     elif value < 12300:
         patterns = patterns2 # sdk for firmware 11.0.0 or 11.0.1 under 12.0.0
+        print ("Using pattern 2")
     elif value == 12300:
         if buildid == "1114E9102F1EBCD1B0EAF19C927362CFCB8B5D2C": #id for firmware 12.1.0
             patterns = patterns4 # for firmware 12.1.0
+            print ("Using pattern 4")
         else:
             patterns = patterns3 # for firmware under 12.1.0
+            print ("Using pattern 3")
+    elif value == 13300:
+        patterns = patterns5 # for firmware 13.0.0
+        print ("Using pattern 5")
     else:
-        patterns = patterns4
+        patterns = patterns5
+        print ("Unable to find sdk so just using pattern 5")
 
 def clean_sdk():
     if Path(sdk).exists():
@@ -217,7 +227,7 @@ def find_offsets():
         # Fix offset
         off_fix = int(off / 8)
 
-        if off_fix < 0x20000 or off_fix > 0x2FFFC: # Limit range
+        if off_fix < 0x10000 or off_fix > 0x3FFFC: # Limit range
             continue
 
         # Calculate instruction offset
@@ -362,7 +372,7 @@ checkfiles() # Make sure main was decrypted and we were able to read the sdk ver
 #========================================================
 clean_sdk() # We already have the value so this can be removed now.
 makedirs() # create directories to store the ips patch.
-build_id() # run this first so we can get our IPS name.
+#build_id() # run this first so we can get our IPS name.
 write_header() # write the first part of the ips file, leave file open until patches are completed.
 patch1() # try and find pattern 0 so we can write patch 1 to our ips file
 patch2() # try and find pattern 1 so we can write patch 2 to our ips file
@@ -370,7 +380,7 @@ patch3() # try and find pattern 2 so we can write patch 3 to our ips file
 write_footer() # write the last part of the ips file.
 ips_file.close() # we wrote the header,all the patches and the footer so we can close this file now.
 patch_address() # show probable address patch adressess.
-clean_dumped() # clean up dumped folder, this is not required now.
+clean_dumped() # clean up dumped folder
 end = time.time()
 timetaken = (end - start)
 seconds = ("{:.2f}".format(round(timetaken, 2)))

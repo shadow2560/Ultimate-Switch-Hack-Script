@@ -10,14 +10,19 @@ import subprocess
 import sys
 import time
 
-filename = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'fusee-secondary.bin'))
+if Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'fusee-secondary.bin')).exists():
+    filename = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'fusee-secondary.bin')
+elif Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'package3')).exists():
+    filename = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'package3')
+else:
+    filename = 'no default file founded'
 hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe')
 if len(sys.argv) < 2:
-        print("You didn't type any arguements, trying the default file: " + '"fusee-secondary.bin"')
+        print("You didn't type any arguements, trying the default files: " + '"fusee-secondary.bin" or "package3"')
         if Path(filename).exists() and Path(hactool).exists():
                 pass
         else:
-                print('Usage Example: python Loader-AutoIPS.py "fusee-secondary.bin"')
+                print('\nError: Default file not founded\nUsage Example: python Loader-AutoIPS.py "package3"')
                 sys.exit(1)
 else:
         filename = sys.argv[1]
@@ -25,7 +30,7 @@ else:
 if Path(filename).exists():
         pass
 else:
-        print('Something is wrong with your paths: Usage Example: python Loader-AutoIPS.py "fusee-secondary.bin"')
+        print('Something is wrong with your paths: \nUsage Example: python Loader-AutoIPS.py "package3"')
         sys.exit(1)   
 
 loaderkip = "loader.kip"
@@ -39,10 +44,10 @@ if sys.argv[2] == "":
 else:
     workingdir = sys.argv[2]
 Path(workingdir).mkdir(parents=True, exist_ok=True)
-if Path(filename).exists():
+if Path(workingdir).exists():
         pass
 else:
-        print('Something is wrong with your paths: Usage Example: python Loader-AutoIPS.py "fusee-secondary.bin" "output"')
+        print('Something is wrong with your paths: Usage Example: python Loader-AutoIPS.py "package3" "output"')
         sys.exit(1)
 info = ""
 kipname = workingdir + "/Loader-dec.kip"

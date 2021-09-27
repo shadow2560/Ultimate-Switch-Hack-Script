@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.169</h2>
+<ul>
+<li>Update AutoIPS-Patcher scripts for the firmware 13.0.0 and some other fixes.</li>
+</ul>
 <h2>V4.3.168</h2>
 <ul>
 <li>Small change in the text to identify Mariko's console in the SD preparation and Unbrick scripts.</li>

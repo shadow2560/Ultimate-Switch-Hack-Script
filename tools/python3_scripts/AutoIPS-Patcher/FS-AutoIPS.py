@@ -10,16 +10,15 @@ import sys
 import time
 import struct
 hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
-keyset = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys'))
-FIRMWARE_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware'))
+keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys')
+FIRMWARE_DIR = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware')
 if len(sys.argv) < 2:
     print("You didn't type any arguements, trying default firmware folder and prod.keys\n")
     if Path(FIRMWARE_DIR).exists() and Path(keyset).exists() and Path(hactool).exists():
         pass
     else:
-        print('Usage Example: python FS-AutoIPS.py "firmware" "prod.keys" "output"')
+        print('\nError in default paths\nUsage Example: python FS-AutoIPS.py "firmware" "prod.keys" "output"')
         sys.exit(1)
-    
 else:
     FIRMWARE_DIR = sys.argv[1]
     keyset = sys.argv[2]
@@ -27,7 +26,7 @@ else:
 if Path(FIRMWARE_DIR).exists() and Path(keyset).exists():
     pass
 else:
-    print('Something is wrong with your paths: Usage Example: python FS-AutoIPS.py "firmware" "prod.keys" "output"')
+    print('Something is wrong with your paths: \nUsage Example: python FS-AutoIPS.py "firmware" "prod.keys" "output"')
     sys.exit(1)    
 
 start = time.time()
@@ -63,7 +62,7 @@ def List_files():
         files = os.listdir(directory)
         for filelist in files:
             getsize = os.stat(directory + '/' + filelist).st_size
-            if (3145728 < getsize < 3500000):
+            if (3122687 < getsize < 3500000):
                 shortlist.append(filelist)
     except OSError as e:
         print("Error: %s : %s" % ("Listing files: ", e.strerror))

@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.169</h2>
+<ul>
+<li>Mise à jour des scripts AutoIPS-Patcher pour le firmware 13.0.0 et quelques autres corrections.</li>
+</ul>
 <h2>V4.3.168</h2>
 <ul>
 <li>Changement dans le texte permettant d'identifier les consoles de type Mariko dans les scripts de Préparation d'une SD et de Débrickage.</li>
