@@ -140,7 +140,7 @@ cleanup()
 #--let's make the patches now if we managed to get a decrypted loader
 if not Path(kipname).exists():
         print("ERROR " + kipname + " does not exist.")
-        sys.exit()
+        sys.exit(1)
 
 def search():
         try:
@@ -199,7 +199,7 @@ def patterncheck():
                         makeips()
                 else:
                         print ("Can't find the byte pattern, unable to create the ips file :-(\nCheck GBATemp for an update")
-                        sys.exit()
+                        sys.exit(1)
         
         except OSError as e:
                 print("Somethings gone wrong in the pattern check! %s" % e)                
