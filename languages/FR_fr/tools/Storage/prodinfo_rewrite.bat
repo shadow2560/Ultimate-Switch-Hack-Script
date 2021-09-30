@@ -15,7 +15,7 @@ goto:eof
 :prodinfo_input_file_select_choice
 echo Sélectionnez le fichier prodinfo source.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier prodinfo" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier prodinfo" "templogs\tempvar.txt"
 goto:eof
 
 :prodinfo_input_file_empty_error
@@ -29,7 +29,7 @@ goto:eof
 :prod_keys_file_select_choice
 echo Sélectionnez le fichier contenant les clés dumpée sur la console via Lockpick-RCM.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier clés de la console" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier clés de la console" "templogs\tempvar.txt"
 goto:eof
 
 :prod_keys_file_empty_error

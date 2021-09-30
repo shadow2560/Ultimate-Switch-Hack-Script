@@ -15,7 +15,7 @@ goto:eof
 :partial_keys_input_file_select_choice
 echo Sélectionnez le fichier "partialaes.keys" à déchiffrer.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier partialaes.keys" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier partialaes.keys" "templogs\tempvar.txt"
 goto:eof
 
 :partial_keys_input_file_empty_error
@@ -25,7 +25,7 @@ goto:eof
 :prod_keys_file_select_choice
 echo Sélectionnez le fichier "prod.keys" contenant les clés dumpée sur la console via Lockpick-RCM.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés de la console" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés de la console" "templogs\tempvar.txt"
 goto:eof
 
 :prod_keys_file_empty_error

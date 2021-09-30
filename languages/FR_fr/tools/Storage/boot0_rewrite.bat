@@ -16,7 +16,7 @@ goto:eof
 :boot0_input_file_select_choice
 echo Sélectionnez le fichier BOOT0 qui sera utilisé comme base de reconstruction.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier BOOT0" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier BOOT0" "templogs\tempvar.txt"
 goto:eof
 
 :boot0_input_file_empty_error
@@ -34,7 +34,7 @@ goto:eof
 :prod_keys_file_select_choice
 echo Sélectionnez le fichier contenant les clés dumpée sur la console via Lockpick-RCM.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés de la console" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés de la console" "templogs\tempvar.txt"
 goto:eof
 
 :prod_keys_file_empty_error
@@ -61,7 +61,7 @@ echo.
 echo Si vous possédez un fichier contenant les clés communes nécessaire ^(un fichier récupéré via une console fonctionnelle par exemple^) vous pouvez tenter de le renseigner.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous renseigner un fichier de clés complémentaire? ^(%lng_yes_choice%/%lng_no_choice%^): "
 if !errorlevel! EQU 1 (
-	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier complémentaire de clés" "templogs\tempvar.txt"
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier complémentaire de clés" "templogs\tempvar.txt"
 )
 goto:eof
 

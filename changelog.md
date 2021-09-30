@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.171</h2>
+<ul>
+<li>Ajout d'une fonction permettant de convertir un payload en fichier "boot.dat".</li>
+<li>Corrections diverses dans les fichiers de langues.</li>
+<li>Mise à jour des crédits.</li>
+</ul>
 <h2>V4.3.170</h2>
 <ul>
 <li>Mise à jour des scripts AutoIPS-Patcher pour inclure les dernière modifications effectuées par @mrdude, voir <a target="_blank" href="https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/post-9613755">ici</a> pour les scripts originaux.</li>

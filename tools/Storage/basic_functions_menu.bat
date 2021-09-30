@@ -37,6 +37,7 @@ IF "%action_choice%"=="8" goto:launch_nsusbloader
 IF "%action_choice%"=="9" goto:modchips_management
 IF "%action_choice%"=="10" goto:create_sig_patches
 IF "%action_choice%"=="11" goto:spoof_sxos_licence
+IF "%action_choice%"=="12" goto:custom_boot.dat_maker
 goto:end_script
 
 :launch_payload
@@ -169,6 +170,18 @@ IF EXIST "tools\Storage\spoof_sxos_licence.bat" (
 	call tools\Storage\update_manager.bat "update_spoof_sxos_licence.bat" "force"
 )
 call TOOLS\Storage\spoof_sxos_licence.bat
+@echo off
+goto:define_action_choice
+:custom_boot.dat_maker
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\custom_boot.dat_maker.bat" (
+	call tools\Storage\update_manager.bat "update_custom_boot.dat_maker.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_custom_boot.dat_maker.bat" "force"
+)
+call TOOLS\Storage\custom_boot.dat_maker.bat
 @echo off
 goto:define_action_choice
 :end_script

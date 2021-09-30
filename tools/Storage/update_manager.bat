@@ -420,6 +420,7 @@ call :update_biskey_dump.bat
 call ::update_auto_ips_menu.bat
 call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
+call :update_custom_boot.dat_maker.bat
 call :update_donate.bat
 call :update_extract_cert.bat
 call :update_game_saves_unpack.bat
@@ -732,6 +733,29 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\EmmcHaccGen"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_custom_boot.dat_maker.bat
+call :verif_file_version "tools\Storage\custom_boot.dat_maker.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\custom_boot.dat_maker.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\custom_boot.dat_maker.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\python3_scripts\custom_boot.dat_maker"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

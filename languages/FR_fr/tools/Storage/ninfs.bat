@@ -28,7 +28,7 @@ goto:eof
 :ninfs_input_begin
 echo Vous allez devoir sélectioner un fichier de la rawnand   à utiliser avec Ninfs. Pour revenir au menu précédent, ne sélectionnez aucun fichier.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier de dump de la rawnand" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier de dump de la rawnand" "templogs\tempvar.txt"
 goto:eof
 
 :ninfs_nand_type_error
@@ -42,7 +42,7 @@ goto:eof
 :biskeys_file_select_choice
 echo Sélectionnez le fichier contenant les Bis keys à utiliser.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
 goto:eof
 
 :biskeys_file_not_selected_error

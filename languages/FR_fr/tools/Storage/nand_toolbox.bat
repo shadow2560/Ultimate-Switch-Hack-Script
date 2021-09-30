@@ -81,7 +81,7 @@ goto:eof
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous indiquer un fichier de Bis keys pour avoir plus d'infos sur la nand? ^(%lng_yes_choice%/%lng_no_choice%^): "
 IF %errorlevel% EQU 2 goto:eof
 IF %errorlevel% EQU 1 (
-	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
+	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
 	set /p biskeys_file_path=<"templogs\tempvar.txt"
 	IF "!biskeys_file_path!"=="" (
 		echo Fichier Bis keys non indiqué, vous n'obtiendrez donc pas plus d'infos sur la nand.
@@ -473,7 +473,7 @@ set /p resize_user_partition_format=Souhaitez-vous formater la nouvelle partitio
 goto:eof
 
 :nand_file_select_choice
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier de dump" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier de dump" "templogs\tempvar.txt"
 goto:eof
 
 :nand_choice_char_error
@@ -483,7 +483,7 @@ goto:eof
 :biskeys_file_select_choice
 echo Sélectionnez le fichier contenant les Bis keys à utiliser.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les Bis keys" "templogs\tempvar.txt"
 goto:eof
 
 :partition_choice_begin

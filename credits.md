@@ -171,6 +171,7 @@
 <li><a target="_blank" href="https://github.com/AkdM/ssncpy">SSNCpy</a></li>
 <li>SVN et gitget: <a target="_blank" href="https://www.smartsvn.com/download/">this page</a> for SVN 32-bit bundle and <a target="_blank" href="https://gist.github.com/divs1210/973493941a82b28f0d4a">this page</a> for gitget but I have modified it to be fully portable with the SVN 32-bit Bundle</li>
 <li><a target="_blank" href="https://github.com/spacemeowx2/switch-lan-play">switch-lan-play</a></li>
+<li><a target="_blank" href="https://github.com/ELY3M/sx-custom-boot.dat-maker">Sx-custom-boot.dat-maker</a></li>
 <li><a target="_blank" href="https://github.com/rajkosto/TegraRcmSmash">TegraRcmSmash</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/hack-sxos.582831/">SXOS licence spoofer</a></li>
 <li><a target="_blank" href="https://eternallybored.org/misc/wget/">Wget</a></li>

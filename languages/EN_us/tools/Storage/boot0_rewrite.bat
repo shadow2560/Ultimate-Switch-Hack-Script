@@ -25,7 +25,7 @@ goto:eof
 :boot0_input_file_select_choice
 echo Select the BOOT0 file witch will be used as a base to reconstruct the file.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "BOOT0 file select" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "BOOT0 file select" "templogs\tempvar.txt"
 goto:eof
 
 :boot0_input_file_empty_error
@@ -57,7 +57,7 @@ pause
 goto:eof
 
 :output_folder_empty_error
-echo The directory to create the rebuilt BOOT0 file cannot be empty, the function will be cancelled.
+echo The directory where to create the rebuilt BOOT0 file cannot be empty, the function will be cancelled.
 goto:eof
 
 :erase_existing_file_choice

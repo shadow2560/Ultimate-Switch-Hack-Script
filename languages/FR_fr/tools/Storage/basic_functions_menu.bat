@@ -31,6 +31,8 @@ echo 10: Créer les sig_patches pour Atmosphere?
 echo.
 echo 11: Spoof de la licence de SXOS?
 echo.
+echo 12: Convertir un payload en fichier "boot.dat"?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

@@ -110,7 +110,7 @@ goto:eof
 echo Dans la prochaine étape, vous devrez indiquer où se trouve le logiciel sur votre ordinateur.
 echo Si vous avez choisi de copier le logiciel et selon le type de logiciel choisi, le fichier indiqué et/ou le dossier qui le contient seront copiés dans le dossier "tools\toolbox" du script et le chemin sera adapté pour n'être qu'un chemin relatif vers l'exécutable choisi.
 pause
-%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file2.vbs "" "Tout les fichiers ^(*.*^)|*.*|" "Sélection du fichier principal de votre logiciel" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file2.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier principal de votre logiciel" "templogs\tempvar.txt"
 goto:eof
 
 :no_software_file_selected_error
