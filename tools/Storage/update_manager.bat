@@ -759,6 +759,10 @@ call :verif_folder_version "tools\python3_scripts\custom_boot.dat_maker"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\Payloads"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 exit /b
 
 :update_donate.bat

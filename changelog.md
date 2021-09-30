@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.172</h2>
+<ul>
+<li>Amélioration de la fonction de conversion d'un payload en fichier "boot.dat", une liste de payloads est maintenant aussi proposée.</li>
+<li>Correction d'un bug mineur dans la fonction permettant de lancer un payload.</li>
+</ul>
 <h2>V4.3.171</h2>
 <ul>
 <li>Ajout d'une fonction permettant de convertir un payload en fichier "boot.dat".</li>

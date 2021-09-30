@@ -17,9 +17,18 @@ goto:eof
 echo This script allows to convert a payload file in a "boot.dat" file, this can be usful for those who use hardware attached to SXOS.
 goto:eof
 
+:begin_payload_choice
+echo Select the payload file to convert:
+goto:eof
+
+:end_payload_choice
+echo 0: Choose a payload file.
+echo All other choices: Go back to main menu.
+echo.
+set /p payload_number=Make your choice: 
+goto:eof
+
 :payload_input_file_select_choice
-echo Select the payload file to convert.
-pause
 %windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Bin files ^(*.bin^)|*.bin|" "payload file select" "templogs\tempvar.txt"
 goto:eof
 

@@ -80,7 +80,7 @@ IF "%payload_number%"=="0" (
 	)
 	goto:launch_payload
 )
-TOOLS\gnuwin32\bin\grep.exe "%payload_number%: " <templogs\payloads_list.txt | TOOLS\gnuwin32\bin\cut.exe -d : -f 2 > templogs\tempvar.txt
+TOOLS\gnuwin32\bin\grep.exe -e "^%payload_number%: " <templogs\payloads_list.txt | TOOLS\gnuwin32\bin\cut.exe -d : -f 2 > templogs\tempvar.txt
 set /p payload_path=<templogs\tempvar.txt
 IF "%payload_path%"=="" (
 	goto:finish_script
