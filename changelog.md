@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.170</h2>
+<ul>
+<li>Mise à jour des scripts AutoIPS-Patcher pour inclure les dernière modifications effectuées par @mrdude, voir <a target="_blank" href="https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/post-9613755">ici</a> pour les scripts originaux.</li>
+<li>Dans le script de débrickage pour TegraExplorer, ajout d'un message d'avertissement à la fin de la migration d'une emunand SXOS via fichiers.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 481.</li>
+</ul>
 <h2>V4.3.169</h2>
 <ul>
 <li>Mise à jour des scripts AutoIPS-Patcher pour le firmware 13.0.0 et quelques autres corrections.</li>

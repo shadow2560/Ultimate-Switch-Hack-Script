@@ -62,12 +62,19 @@ ips_file = ""
 patterns = 0
 value = 0
 
-patterns1 = ['0x1f90013128928052', '0xc07240f9e1930091', '0xf3031faa02000014']
-patterns2 = ['0x1f90013128928052', '0xc0fdff35a8c35838', '0xe023009145eeff97']
-    #patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c35c38', '0xe023009168edff97']
-patterns3 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009168edff97'] #firmware 12.0.3
-patterns4 = ['0x1f90013128928052', '0xc0fdff35a8c3', '0xe023009140edff97'] #firmware 12.1.0
-patterns5 = ['0x1F90013128928052', '0xc0fdff35a8c3', '0xe02300916de9ff97'] #firmware 13.0.0
+common1 = "0x1f90013128928052"
+common2 = "0xc0fdff35a8c3"
+patterns1 = [common1, '0xc07240f9e1930091', '0xf3031faa02000014'] #firmware under 11.0.0
+patterns2 = [common1, common2, '0xe023009145eeff97'] #firmware 11.0.x
+patterns3 = [common1, common2, '0xe023009168edff97'] #firmware 12.0.x
+patterns4 = [common1, common2, '0xe023009140edff97'] #firmware 12.1.1
+patterns5 = [common1, common2, '0xe02300916de9ff97'] #firmware 13.0.0
+
+'''
+Note to find the new pattern for the 3rd pattern, use hex probe software and use this wildcard
+to search main_dec file (comment out clean_dumped() from the bottom of this file to get that decrypted file):
+Wildcard search string: FF 97 *0 ** ** ** F* ** ** A9 F* ** ** *9 (usually the second place found)
+'''
 
 def List_files():
     directory = FIRMWARE_DIR
@@ -112,7 +119,7 @@ def extract():
                         # line = line.decode('ascii').replace(" ","")
                         line = line.decode('utf-8').replace(" ","")
                         if line.startswith("ContentType:Program") and not filename.endswith("*.nca"):
-                            print("Found! Filename : " + filename)				
+                            print("Found NCA: " + filename)
                             global ES_NCA
                             ES_NCA = filename
                     break
@@ -333,12 +340,13 @@ def patch3():
                 # Generate B instruction
                 patch = int((0x14 << 24) | ((inst >> 5) & 0x7FFFF))
                 inst = struct.unpack("<I", struct.pack(">I", inst))[0]
+                yyy = '0x{0:0{1}X}'.format(inst, 8) #make sure we show the leading zero so we don't get confused.
                 # Byteswap patched instruction
                 patch = struct.unpack("<I", struct.pack(">I", patch))[0]
                 y = bytearray(struct.pack('>IHI',final,4,patch))
                 xxx = '0x{0:0{1}X}'.format(patch, 8) #change int back to uppercase hex (make sure we also print leading zero)
-                print("CBZ instruction found 0x%X, writing patch 3 (%s) to ips file" %(inst, xxx))
-                # print(y)
+                print("CBZ instruction found %s, writing patch 3 (%s) to ips file" %(yyy, xxx))
+                #print(y)
                 del y[0] # IPS uses 24-bit offsets
                 ips_file.write(y)                        
         else: # (firmware sdk lower than 11.0.0)

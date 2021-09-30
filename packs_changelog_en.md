@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V481</h2>
+<ul>
+<li>Update AIO-Switch-Updater to version 2.15.0.</li>
+<li>Update AtmoXL-Titel-Installer to version 1.5.3.</li>
+</ul>
 <h2>V480</h2>
 <ul>
 <li>Update TextReaderOverlay to the fork of "tungns0695".</li>

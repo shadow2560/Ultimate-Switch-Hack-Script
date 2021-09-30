@@ -38,6 +38,7 @@ find = ""
 compkip = "temp/FS.kip1"
 kipname = "temp/FS-dec.kip1"
 pattern = '0x1e42b91fc14271'
+pattern2 = '0x0194081C00121F05007181000054' #added for extra patch....
 rootloc = root_dir + "atmosphere/kip_patches/fs_patches/"
 file = ""
 shortlist = []
@@ -62,7 +63,7 @@ def List_files():
         files = os.listdir(directory)
         for filelist in files:
             getsize = os.stat(directory + '/' + filelist).st_size
-            if (3122687 < getsize < 3500000):
+            if (3000000 < getsize < 3500000):
                 shortlist.append(filelist)
     except OSError as e:
         print("Error: %s : %s" % ("Listing files: ", e.strerror))
@@ -79,12 +80,25 @@ def search():
         s = ConstBitStream(filename=kipname)
         global find
         find = s.find(pattern)
-    
+        global findnew
+        findnew = s.find(pattern2)
+
     except OSError as e:
         print("Error: %s : %s" % ("Search: ", e.strerror))    
     
 def makepatches():
     try:
+        if findnew:
+            res = int(''.join(map(str, findnew)))
+            newval =  res / 8
+            addpos = int(2) #byte position in find hex
+            addpos2 = int(256)
+            newfinal =  int(newval - addpos)
+            newfinal2 =  int(newfinal - addpos2)
+        else:
+            print("Unable to find pattern2 - exiting script to avoid a crash")
+            sys.exit(1)
+
         if find:
             res = int(''.join(map(str, find)))
             newval =  res / 8
@@ -107,20 +121,25 @@ def makepatches():
                     filekip = open(kipname, 'rb')
                     filekip.seek(final, 1)
                     xxx =  filekip.read(4)
-                    hexstring =  xxx.hex()
-                    # print (hexstring)
+                    hexstring =  xxx.hex().upper()
+                    #print (hexstring)
+                    #new patch
+                    filekip.seek(newfinal, 0)
+                    yyy =  filekip.read(4)
+                    newhexstring =  yyy.hex().upper() #CAD10194
+
                     filekip.close()
                     
                     outputdirs() # Create some directories so we can store our files...
                     if not os.path.exists(os.path.join(root_dir, "bootloader")):
                         os.makedirs(os.path.join(root_dir, "bootloader"))
                     if not os.path.exists(os.path.join(root_dir, "bootloader/patches.ini")):
-                            loader = ("[FS:" + info[:-48] + "]")
+                            loader = ("#" + fatver + "\n" + "[FS:" + info[:-48] + "]")
                     else:
-                            loader = ("\n\n[FS:" + info[:-48] + "]")
+                            loader = ("\n\n" + "#" + fatver + "\n" + "[FS:" + info[:-48] + "]")
                     
                     print("Patch for file: %s" % file)
-                    patchnfo = (".nosigchk=0:0x%X" % final2 + ":0x4:" + hexstring + ",1F2003D5")
+                    patchnfo = (".nosigchk=0:0x%X" % final2 + ":0x4:" + hexstring + ",1F2003D5" + "\n.nosigchk=0:0x%X" % newfinal2 + ":0x4:" + newhexstring + ",E0031F2A")
                     print("Adding to Patches.ini")
                     print ((loader + "\n" + patchnfo).replace("\n\n", ""))
                     print("")
@@ -131,9 +150,13 @@ def makepatches():
             
             # write ips patch
             text_file = open(rootloc + info + ".ips", "wb")
-            hexval = hex(final)
+            hexval = ('0x{0:0{1}X}'.format(final, 6))
+            hexval2 = ('0x{0:0{1}X}'.format(newfinal, 6)) #change int back to hex (make sure we also print leading zero and limit address size)
             shorthex =  hexval.replace("0x", "")
-            y = bytes.fromhex(str("50415443480" + shorthex + "00041F2003D5454F46")) #written ips patch
+            newpatchloc =  hexval2.replace("0x", "")
+            longstr = ("5041544348" + shorthex + "0004" + "1F2003D5" + newpatchloc + "0004" + "E0031F2A" + "454F46")
+            #print(longstr)
+            y = bytes.fromhex(longstr) #written ips patch
             text_file.write(y)
             text_file.close()
         
@@ -158,6 +181,24 @@ def extract():
             address = struct.unpack('>I',x.read(4))[0]
             x.close()
             if address == 2573934072: # if hex equals 0x996B1DF8
+                #extract hdr file and check the size is equal to 3072 bytes
+                subprocess.run(['hactool.exe', '--keyset=' + keyset, '-t', 'nca', '--header=temp/hdr.bin', '--romfsdir=temp/', FIRMWARE_DIR + '/' + file], stdout=subprocess.DEVNULL)
+                x = os.path.getsize("temp/hdr.bin")
+                if x == 3072:
+                    #print ("File size is correct: " + str(x) + " Bytes")
+                    with open ("temp/hdr.bin","rb") as z:
+                        z.seek(528) # start search offset 0x210
+                        address = struct.unpack('>I',z.read(4))[0]
+                        z.close
+                        global fatver
+                        if address == 453509120: # if hex equals 0x1B080000 at 0x210 file hdr is for exfat
+                            print("Exfat firmware file found")
+                            fatver = "Exfat"
+                        if address == 419954688: # if hex equals 0x19080000 at 0x210 file hdr is for fat
+                            print("Fat firmware file found")
+                            fatver = "Fat"
+                else:
+                    run()
                 outlines = subprocess.run([hactool, '-k', keyset, '-t', 'nca', '--romfsdir', 'temp/', FIRMWARE_DIR + '/' + file], capture_output=True)
                 if B"Invalid NCA header!" in outlines.stderr:
                     print("Error, verify your keys file.")
