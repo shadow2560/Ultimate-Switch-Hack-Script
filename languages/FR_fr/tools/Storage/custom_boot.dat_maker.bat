@@ -1,7 +1,7 @@
 goto:%~1
 
 :display_title
-title Convertion d'un payload en  boot.dat %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
+title Conversion d'un payload en  boot.dat %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
 goto:eof
 
 :intro
