@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.174</h2>
+<ul>
+<li>Mise à jour de la documentation.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 482.</li>
+</ul>
 <h2>V4.3.173</h2>
 <ul>
 <li>Dans le script de préparation d'une SD, si des modules sont déjà présents sur la SD pour le pack souhaité et sont supportés par le script alors les modules déjà présents sur la SD seront mis à jour pour éviter d'éventuels bugs.</li>

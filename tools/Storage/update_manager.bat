@@ -1259,6 +1259,8 @@ IF "!update_finded!"=="Y" (
 set /a temp_count+=1
 goto:listing_homebrews
 :skip_listing_homebrews
+IF EXIST "tools\sd_switch\mixed\modular\EdiZon" rmdir /s /q "tools\sd_switch\mixed\modular\EdiZon"
+IF EXIST "tools\sd_switch\mixed\modular\Fizeau" rmdir /s /q "tools\sd_switch\mixed\modular\Fizeau"
 exit /b
 
 :update_modchips_management.bat

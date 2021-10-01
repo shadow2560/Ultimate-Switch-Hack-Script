@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V482</h2>
+<ul>
+<li>Les homebrews EdiZon et Fizeau ont été transférés dans la liste des modules.</li>
+</ul>
 <h2>V481</h2>
 <ul>
 <li>Mise à jour de AIO-Switch-Updater en version 2.15.0.</li>

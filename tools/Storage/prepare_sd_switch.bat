@@ -574,7 +574,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			call :copy_cheats_profile "atmosphere"
 		)
-		%windir%\System32\Robocopy.exe TOOLS\sd_switch\mixed\modular\EdiZon\switch %volume_letter%:\switch /e >nul
+		%windir%\System32\Robocopy.exe TOOLS\sd_switch\modules\pack\EdiZon\others\switch %volume_letter%:\switch /e >nul
 		call :force_copy_overlays_base_files "atmosphere"
 	)
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\atmosphere\reboot_payload.bin >nul
@@ -759,7 +759,9 @@ for /d %%f in ("%temp_sd_modules_path%\*") do (
 		)
 	)
 )
-pause
+"tools\gnuwin32\bin\sort.exe" -u -o "%temp_updatable_modules_file%2" "%temp_updatable_modules_file%"
+del /q "%temp_updatable_modules_file%" >nul
+move "%temp_updatable_modules_file%2" "%temp_updatable_modules_file%" >nul
 IF %temp_count% NEQ 0 (
 	IF "%~1"=="atmosphere" (
 		set tmp_pass_copy_modules_pack=%atmosphere_pass_copy_modules_pack%
@@ -831,6 +833,9 @@ for /l %%i in (1,1,%temp_count%) do (
 		IF NOT "!temp_special_module!"=="Y" (
 			dir /b "tools\sd_switch\modules\pack\!temp_module!\titles">templogs\tempvar.txt
 			set /p temp_module_title_id=<templogs\tempvar.txt
+			IF "!temp_module!"=="EdiZon" (
+				set temp_module_title_id=054e4f4558454000
+			)
 			"%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\titles %temp_modules_copy_path% /e >nul
 			IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" tools\sd_switch\modules\pack\!temp_module!\others %volume_letter%:\ /e >nul
 			IF "!temp_module!"=="Nx-btred" (
@@ -872,6 +877,13 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF EXIST "%temp_modules_copy_path%\AA200000000002AA\exefs.nsp" rmdir /s /q ""%temp_modules_copy_path%\AA200000000002AA""
 		)
 		IF "!temp_module!"=="Sys-tune" (
+			call :force_copy_overlays_base_files "%~1"
+		)
+		IF "!temp_module!"=="EdiZon" (
+			IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
+			call :force_copy_overlays_base_files "%~1"
+		)
+		IF "!temp_module!"=="Fizeau" (
 			call :force_copy_overlays_base_files "%~1"
 		)
 	) else (
@@ -925,58 +937,6 @@ for /l %%i in (1,1,%temp_count%) do (
 	TOOLS\gnuwin32\bin\sed.exe -n !temp_line!p <"%mixed_profile_path%" >templogs\tempvar.txt
 	set /p temp_homebrew=<templogs\tempvar.txt
 	IF EXIST "tools\sd_switch\mixed\modular\!temp_homebrew!\folder_version.txt" (
-		IF "!temp_homebrew!"=="EdiZon" (
-			set temp_special_homebrew=Y
-			IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
-			IF EXIST "%volume_letter%:\EdiZon" move "%volume_letter%:\EdiZon" "%volume_letter%:\switch\EdiZon" >nul
-			%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\switch %volume_letter%:\switch /e >nul
-			IF EXIST "%volume_letter%:\atmosphere\contents" (
-				call :force_copy_overlays_base_files "atmosphere"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-			)
-			IF EXIST "%volume_letter%:\ReiNX\contents" (
-				call :force_copy_overlays_base_files "reinx"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-			)
-			IF EXIST "%volume_letter%:\sxos\titles" (
-				call :force_copy_overlays_base_files "sxos"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
-			)
-			IF EXIST "%volume_letter%:\boot.dat" (
-				IF NOT "%sx_gear_present_on_sd%"=="Y" (
-					IF NOT EXIST "%volume_letter%:\sxos" (
-						mkdir "%volume_letter%:\sxos"
-						mkdir "%volume_letter%:\sxos\titles"
-					)
-					call :force_copy_overlays_base_files "sxos"
-					rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
-				)
-			)
-			IF /i "%copy_atmosphere_pack%"=="o" (
-				IF NOT EXIST "%volume_letter%:\atmosphere" (
-					mkdir "%volume_letter%:\atmosphere"
-					mkdir "%volume_letter%:\contents
-				)
-				call :force_copy_overlays_base_files "atmosphere"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-			)
-			IF /i "%copy_reinx_pack%"=="o" (
-				IF NOT EXIST "%volume_letter%:\ReiNX" (
-					mkdir "%volume_letter%:\ReiNX"
-					mkdir "%volume_letter%:\ReiNX\contents"
-				)
-				call :force_copy_overlays_base_files "reinx"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-			)
-			IF /i "%copy_sxos_pack%"=="o" (
-				IF NOT EXIST "%volume_letter%:\sxos" (
-					mkdir "%volume_letter%:\sxos"
-					mkdir "%volume_letter%:\sxos\titles"
-				)
-				call :force_copy_overlays_base_files "sxos"
-				rem %windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
-			)
-		)
 		IF "!temp_homebrew!"=="Switch-cheats-updater" (
 			IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt" rename "%volume_letter%:\config\cheats-updater\exclude.txt" "exclude.txt.bak" >nul
 		)
@@ -990,68 +950,6 @@ for /l %%i in (1,1,%temp_count%) do (
 				set temp_special_homebrew=Y
 			) else (
 				call "%associed_language_script%" "choidujournx_alert_message"
-			)
-		)
-			IF "!temp_homebrew!"=="Fizeau" (
-			set temp_special_homebrew=Y
-			IF EXIST "%volume_letter%:\atmosphere\contents" (
-				set one_cfw_chosen=Y
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\special_atmosphere %volume_letter%: /e >nul
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-				call :force_copy_overlays_base_files "atmosphere"
-			)
-			IF EXIST "%volume_letter%:\ReiNX\contents" (
-				set one_cfw_chosen=Y
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-				call :force_copy_overlays_base_files "reinx"
-			)
-			IF EXIST "%volume_letter%:\sxos\titles" (
-				set one_cfw_chosen=Y
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module %volume_letter%:\sxos /e >nul
-				call :force_copy_overlays_base_files "sxos"
-			)
-			IF EXIST "%volume_letter%:\boot.dat" (
-				IF NOT "%sx_gear_present_on_sd%"=="Y" (
-					set one_cfw_chosen=Y
-					IF NOT EXIST "%volume_letter%:\sxos" (
-						mkdir "%volume_letter%:\sxos"
-						mkdir "%volume_letter%:\sxos\titles"
-					)
-					%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
-					call :force_copy_overlays_base_files "sxos"
-				)
-			)
-			IF /i "%copy_atmosphere_pack%"=="o" (
-				set one_cfw_chosen=Y
-				IF NOT EXIST "%volume_letter%:\atmosphere" (
-					mkdir "%volume_letter%:\atmosphere"
-					mkdir "%volume_letter%:\contents
-				)
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\atmosphere\contents /e >nul
-				call :force_copy_overlays_base_files "atmosphere"
-			)
-			IF /i "%copy_reinx_pack%"=="o" (
-				set one_cfw_chosen=Y
-				IF NOT EXIST "%volume_letter%:\ReiNX" (
-					mkdir "%volume_letter%:\ReiNX"
-					mkdir "%volume_letter%:\ReiNX\contents"
-				)
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\ReiNX\contents /e >nul
-				call :force_copy_overlays_base_files "reinx"
-			)
-			IF /i "%copy_sxos_pack%"=="o" (
-				set one_cfw_chosen=Y
-				IF NOT EXIST "%volume_letter%:\sxos" (
-					mkdir "%volume_letter%:\sxos"
-					mkdir "%volume_letter%:\sxos\titles"
-				)
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\module\titles %volume_letter%:\sxos\titles /e >nul
-				call :force_copy_overlays_base_files "sxos"
-			)
-			IF "!one_cfw_chosen!"=="Y" (
-				%windir%\System32\Robocopy.exe tools\sd_switch\mixed\modular\!temp_homebrew!\homebrew %volume_letter%:\ /e >nul
-			) else (
-				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
 			)
 		)
 		IF "!temp_homebrew!"=="MiiPort" (
