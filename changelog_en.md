@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.173</h2>
+<ul>
+<li>In the SD preparation script, if modules are already present on the SD for the desired pack and are supported by the script then the modules already present on the SD will be updated to avoid possible bugs.</li>
+</ul>
 <h2>V4.3.172</h2>
 <ul>
 <li>Ameliorate the function witch convert a  payload to a "boot.dat" file, a payloads list is now also proposed.</li>

@@ -491,6 +491,16 @@ IF /i "%update_retroarch%"=="o" call tools\storage\update_manager.bat "retroarch
 IF NOT EXIST "templogs" mkdir templogs
 
 IF /i "%copy_atmosphere_pack%"=="o" (
+	call :verif_updatable_modules "atmosphere"
+)
+IF /i "%copy_reinx_pack%"=="o" (
+	call :verif_updatable_modules "reinx"
+)
+IF /i "%copy_sxos_pack%"=="o" (
+	call :verif_updatable_modules "sxos"
+)
+
+IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%:\atmosphere\titles*.*" (
 		IF EXIST "%volume_letter%:\atmosphere\contents" (
 			rmdir /s /q "%volume_letter%:\atmosphere\titles" >nul
@@ -716,6 +726,68 @@ IF /i "%prepare_another_sd%"=="o" (
 ) else (
 	goto:endscript2
 )
+
+:verif_updatable_modules
+IF "%~1"=="atmosphere" (
+	set temp_sd_modules_path=%volume_letter%:\atmosphere\contents
+	set temp_updatable_modules_file=templogs\atmosphere_modules_update.txt
+) else IF "%~1"=="reinx" (
+	set temp_sd_modules_path=%volume_letter%:\ReiNX\contents
+	set temp_updatable_modules_file=templogs\reinx_modules_update.txt
+) else IF "%~1"=="sxos" (
+	set temp_sd_modules_path=%volume_letter%:\sxos\titles
+	set temp_updatable_modules_file=templogs\sxos_modules_update.txt
+)
+IF NOT EXIST "%temp_sd_modules_path%\*.*" exit /b
+set /a tempcount=0
+for /d %%f in ("%temp_sd_modules_path%\*") do (
+	set tmp_module_test=%%f
+	set tmp_module_test=!tmp_module_test:~-16!
+	for /d %%g in ("tools\sd_switch\modules\pack\*") do (
+		set tmp_module_test_2_name=%%~ng
+		for /d %%h in ("%%g\titles\*") do (
+			set tmp_module_test_2=%%h
+			set tmp_module_test_2=!tmp_module_test_2:~-16!
+			IF "!tmp_module_test!"=="!tmp_module_test_2!" (
+				set /a tempcount=!tempcount!+1
+				IF !temp_count! EQU 1 (
+					echo !tmp_module_test_2_name!>%temp_updatable_modules_file%
+				) else (
+					echo !tmp_module_test_2_name!>>%temp_updatable_modules_file%
+				)
+			)
+		)
+	)
+)
+pause
+IF %temp_count% NEQ 0 (
+	IF "%~1"=="atmosphere" (
+		set tmp_pass_copy_modules_pack=%atmosphere_pass_copy_modules_pack%
+		set tmp_modules_profile_path=%atmosphere_modules_profile_path%
+		set atmosphere_pass_copy_modules_pack=n
+		set atmosphere_modules_profile_path=%temp_updatable_modules_file%
+		call :copy_modules_pack "atmosphere"
+		set atmosphere_pass_copy_modules_pack=!tmp_pass_copy_modules_pack!
+		set atmosphere_modules_profile_path=!tmp_modules_profile_path!
+	) else IF "%~1"=="reinx" (
+		set tmp_pass_copy_modules_pack=%reinx_pass_copy_modules_pack%
+		set tmp_modules_profile_path=%reinx_modules_profile_path%
+		set reinx_pass_copy_modules_pack=n
+		set reinx_modules_profile_path=%temp_updatable_modules_file%
+		call :copy_modules_pack "reinx"
+		set reinx_pass_copy_modules_pack=!tmp_pass_copy_modules_pack!
+		set reinx_modules_profile_path=!tmp_modules_profile_path!
+	) else IF "%~1"=="sxos" (
+		set tmp_pass_copy_modules_pack=%sxos_pass_copy_modules_pack%
+		set tmp_modules_profile_path=%sxos_modules_profile_path%
+		set sxos_pass_copy_modules_pack=n
+		set sxos_modules_profile_path=%temp_updatable_modules_file%
+		call :copy_modules_pack "sxos"
+		set sxos_pass_copy_modules_pack=!tmp_pass_copy_modules_pack!
+		set sxos_modules_profile_path=!tmp_modules_profile_path!
+	)
+)
+exit /b
 
 :copy_modules_pack
 IF "%~1"=="atmosphere" (
