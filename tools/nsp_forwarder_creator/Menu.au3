@@ -1,17 +1,17 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Outfile=Menu_v0.10B.exe
+#AutoIt3Wrapper_Outfile=Menu_v0.11B.exe
 #AutoIt3Wrapper_UseX64=n
 #AutoIt3Wrapper_Res_Comment=Gui for NSP Forwarder Tool for 12+ Firmwares
 #AutoIt3Wrapper_Res_Description=Gui for NSP Forwarder Tool for 12+ Firmwares
-#AutoIt3Wrapper_Res_Fileversion=0.10.0.0
-#AutoIt3Wrapper_Res_ProductVersion=0.10
+#AutoIt3Wrapper_Res_Fileversion=0.11.0.0
+#AutoIt3Wrapper_Res_ProductVersion=0.11
 #AutoIt3Wrapper_Res_CompanyName=EddCase
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #cs ----------------------------------------------------------------------------
 
  AutoIt Version: 3.3.14.5
- Author:         EddCase
- Script Version: 0.10Beta
+ Author:         EddCase & Shadow256
+ Script Version: 0.11Beta
 
  Script Function:
 	GUI for mpham's NSP Forwarder tool for 12+
@@ -56,22 +56,23 @@ Changelog
 	0.8 Beta
 		Reorganize GUI to be More usable with screen readers, tested with NVDA Changes provided by GBATemp User Shadow256 (Thank You)
 		Removed Old Unused code
-	0.9 Beta
+	0.9 Beta (Shadow256)
 		Change some path treatements, should fix some bugs like the bug of custom prod.keys path not always working
 		Path for files pointed by the forwarder doesn't require anymore the "/" at the beginning of them
 		Rewrite text of some labels
 		Other minor changes
-		0.10 Beta
-			Prod.keys should work properly.
-			Special characters should be displayed correctly
-			Fix some other bugs
+	0.10 Beta (Shadow256)
+		Prod.keys should work properly.
+		Special characters should be displayed correctly
+		Fix some other bugs
+		0.11 Beta (Shadow256)
+			Default logo file and his backup will not be deleted anymore at the end of the process, should prevent for some big problems
 
 Known Issues
 	0.6
 		Fixed in 0.10; Adds " " around Title and Author names when using non english characters (Pokémon), needs investigation if this is an issue with the GUI or hacBrewPack, Also does this behavior effect standard or only RetroArch forwarders
 	0.8
 		Fixed in 0.10; Custom Prod.Keys Location not working 100% for now place your prod.keys in the same location as Menu.exe (root folder)
-
 
 #ce ----------------------------------------------------------------------------
 
@@ -89,7 +90,7 @@ Known Issues
 
 
 ;Global Declerations
-$version = "0.10 Beta"
+$version = "0.11 Beta"
 $Title = "NSP Forwarder Tool for 12+" & "                                -=Menu v" & $version & "=-"
 $Credits = "Thank You To" & @LF & @LF & "The-4n for hacBrewPack" & @LF & "mpham for NSP Forwarder tool for 12+" & @LF & @LF & "This Gui would not be possible without their work"
 $hacbrewpac = '"' & @ScriptDir & "\hacbrewpack.exe" & '"'
@@ -326,7 +327,7 @@ EndFunc
 Func prodbrowse()
 ;Setup the browse for Prod.Keys dialog and copy resultant path
 
-	$prodkeys = FileOpenDialog ("Select your Prod.keys file",@ScriptDir, "Prod.keys (*.keys)", $FD_FILEMUSTEXIST)
+	$prodkeys = FileOpenDialog ("Select your Prod.keys file",@ScriptDir, "All files (*.*)", $FD_FILEMUSTEXIST)
 	if @error Then
 		GUICtrlSetData ($inpProd, "prod.keys path")
 		$prodkeys = @ScriptDir & "\prod.keys"
@@ -558,7 +559,7 @@ Func tidy()
 
 		;Restore the NintendoLogo.png
 		FileDelete (@ScriptDir & "\logo\NintendoLogo.png")
-		FileMove (@ScriptDir & "\logo\NintendoLogo.bak", @ScriptDir & "\logo\NintendoLogo.png",1)
+		FileCopy (@ScriptDir & "\logo\NintendoLogo.bak", @ScriptDir & "\logo\NintendoLogo.png")
 
 		;Delete the hacbrewpack_backup directory
 		FileDelete (@ScriptDir & "\hacbrewpack_backup\*.*")

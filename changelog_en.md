@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.175</h2>
+<ul>
+<li>Fixed an important bug in the GUI script to create forwarders.</li>
+</ul>
 <h2>V4.3.174</h2>
 <ul>
 <li>Update documentation.</li>

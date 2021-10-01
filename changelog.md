@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.175</h2>
+<ul>
+<li>Correction d'un bug important dans le script en interface graphique pour créer des forwarders.</li>
+</ul>
 <h2>V4.3.174</h2>
 <ul>
 <li>Mise à jour de la documentation.</li>
