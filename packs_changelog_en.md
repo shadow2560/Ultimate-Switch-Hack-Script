@@ -1,5 +1,13 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V483</h2>
+<ul>
+<li>Update Hekate to version 5.6.3.</li>
+<li>Update Tinleaf to version 1.4.5.</li>
+<li>Update Tinwoo to version 1.0.4.</li>
+<li>Update AtmoXL-Titel-Installer to version 1.5.4.</li>
+<li>Update FastCFWswitch to version 1.3.0.</li>
+</ul>
 <h2>V482</h2>
 <ul>
 <li>EdiZon and Fizeau homebrews have been moved to the modules list.</li>

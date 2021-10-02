@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.176</h2>
+<ul>
+<li>Update Hekate to version 5.6.3.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 483.</li>
+</ul>
 <h2>V4.3.175</h2>
 <ul>
 <li>Fixed an important bug in the GUI script to create forwarders.</li>
