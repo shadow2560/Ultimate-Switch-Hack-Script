@@ -422,6 +422,7 @@ call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
 call :update_custom_boot.dat_maker.bat
 call :update_donate.bat
+call :update_emunand_migrate.bat
 call :update_extract_cert.bat
 call :update_game_saves_unpack.bat
 call :update_GameMakerNSPBuilder.bat
@@ -858,6 +859,34 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 exit /b
+
+:update_emunand_migrate.bat
+call :verif_file_version "tools\Storage\emunand_migrate.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\emunand_migrate.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\emunand_migrate.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\dd_for_windows"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python2_scripts\NxNandManager"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
 
 :update_extract_cert.bat
 call :verif_file_version "tools\Storage\extract_cert.bat"

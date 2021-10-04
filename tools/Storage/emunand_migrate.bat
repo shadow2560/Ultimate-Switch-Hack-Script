@@ -115,7 +115,7 @@ set atmo_emunand_exist=0
 set atmo_emunand_type=
 :sxos_emunand_partition_verif
 %windir%\system32\wscript //Nologo //B TOOLS\Storage\functions\list_drive_letter_associated_with_deviceid.vbs
-tools\gnuwin32\bin\grep.exe "%volume_letter%: =" <templogs\list_volumes.txt | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
+tools\gnuwin32\bin\grep.exe "%volume_letter%: =" <templogs\volumes_list.txt | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p physicale_path_off_sd=<templogs\tempvar.txt
 set physicale_path_off_sd=%physicale_path_off_sd:~1%
 call :get_type_nand "%physicale_path_off_sd%"
@@ -132,16 +132,19 @@ IF EXIST "%sxos_emunand_folder_path%\*.*" (
 	IF EXIST "%sxos_emunand_boot0_path%" (
 		call :get_type_nand "%sxos_emunand_boot0_path%"
 		IF /i "!nand_type!"=="BOOT0" (
-		IF EXIST "%sxos_emunand_boot1_path%" (
-			call :get_type_nand "%sxos_emunand_boot1_path%"
-			IF /i "!nand_type!"=="BOOT1" (
-				IF EXIST "%sxos_emunand_rawnand0_path%" (
-					call :get_type_nand "%sxos_emunand_rawnand0_path%"
-					IF /i "!nand_type!"=="RAWNAND - splitted dump" (
-						set nand_type=RAWNAND
-					)
-					IF /i "!nand_type!"=="RAWNAND" (
-						set sxos_emunand_files_exist=1
+			IF EXIST "%sxos_emunand_boot1_path%" (
+				call :get_type_nand "%sxos_emunand_boot1_path%"
+				IF /i "!nand_type!"=="BOOT1" (
+					IF EXIST "%sxos_emunand_rawnand0_path%" (
+						call :get_type_nand "%sxos_emunand_rawnand0_path%"
+						IF /i "!nand_type!"=="RAWNAND - splitted dump" (
+							set nand_type=RAWNAND
+						)
+						IF /i "!nand_type!"=="RAWNAND" (
+							set sxos_emunand_files_exist=1
+						) else (
+							goto:atmo_emunand_verif
+						)
 					) else (
 						goto:atmo_emunand_verif
 					)
@@ -149,7 +152,7 @@ IF EXIST "%sxos_emunand_folder_path%\*.*" (
 					goto:atmo_emunand_verif
 				)
 			) else (
-			goto:atmo_emunand_verif
+				goto:atmo_emunand_verif
 			)
 		) else (
 			goto:atmo_emunand_verif
@@ -164,7 +167,7 @@ IF EXIST "%sxos_emunand_folder_path%\*.*" (
 IF EXIST "%atmo_emummc_config_file%" (
 	call :atmo_parse_emummc_config_file
 ) else (
-	IFF "%sxos_emunand_partition_exist%"=="2"
+	IF "%sxos_emunand_partition_exist%"=="2" (
 		tools\dd_for_windows\dd-removable.exe bs=512 skip=2 count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
 		call :get_type_nand "templogs\boot0_test.bin"
 		IF /i "!nand_type!"=="BOOT0" (
@@ -174,7 +177,58 @@ IF EXIST "%atmo_emummc_config_file%" (
 		)
 	)
 )
+IF "%sxos_emunand_partition_exist%"=="3" (
+	IF "%atmo_emunand_sector%"=="0x2" (
+		set atmo_emunand_exist=1
+		set atmo_emunand_type=sxos_partition
+	)
+)
+IF "%atmo_emunand_sector%"=="" (
+	IF NOT "%atmo_emunand_path%"=="" (
+		IF EXIST "%atmo_emunand_path:/=\%\BOOT0" (
+			call :get_type_nand "%atmo_emunand_path:/=\%\BOOT0"
+			IF /i NOT "!nand_type!"=="BOOT0" goto:pass_atmo_emunand_verif
+			IF EXIST "%atmo_emunand_path:/=\%\BOOT1" (
+				call :get_type_nand "%atmo_emunand_path:/=\%\BOOT1"
+				IF /i NOT "!nand_type!"=="BOOT1" goto:pass_atmo_emunand_verif
+				IF EXIST "%atmo_emunand_path:/=\%\00" (
+					call :get_type_nand "%atmo_emunand_path:/=\%\00"
+					IF /i "!nand_type!"=="RAWNAND - splitted dump" set nand_type=RAWNAND
+					IF /i NOT "!nand_type!"=="RAWNAND" goto:pass_atmo_emunand_verif
+				) else (
+					goto:pass_atmo_emunand_verif
+				)
+			) else (
+				goto:pass_atmo_emunand_verif
+			)
+		) else (
+			goto:pass_atmo_emunand_verif
+		)
+		set atmo_emunand_exist=1
+		set atmo_emunand_type=files
+	)
+) else (
+	IF "%atmo_emunand_sector%"=="0x2" goto:pass_atmo_emunand_verif
+call :get_type_nand "%physicale_path_off_sd%"
+IF /i NOT "!nand_type!"=="FULL NAND" goto:pass_atmo_emunand_verif
+	set atmo_emunand_exist=1
+	set atmo_emunand_type=partition
+)
+:pass_atmo_emunand_verif
+
 :define_action_choice
+
+echo %sxos_emunand_files_exist%
+echo %sxos_emunand_partition_exist%
+echo %atmo_emunand_enabled%
+echo %atmo_emunand_id=%
+echo %atmo_emunand_sector%
+echo %atmo_emunand_path%
+echo %atmo_emunand_nintendo_path%
+echo %atmo_emunand_exist%
+echo %atmo_emunand_type%
+pause
+
 set action_choice=
 
 IF "%action_choice%"=="1" (
@@ -225,27 +279,29 @@ exit /b
 :atmo_parse_emummc_config_file
 tools\gnuwin32\bin\grep.exe -e "^enabled *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_enabled=<templogs\tempvar.txt
-IFF NOT "!atmo_emunand_enabled!"=="" (
+IF NOT "!atmo_emunand_enabled!"=="" (
 	set atmo_emunand_enabled=!atmo_emunand_enabled:~1!
 )
 tools\gnuwin32\bin\grep.exe -e "^id *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_id=<templogs\tempvar.txt
-IFF NOT "!atmo_emunand_id!"=="" (
+IF NOT "!atmo_emunand_id!"=="" (
 	set atmo_emunand_id=!atmo_emunand_id:~1!
 )
 tools\gnuwin32\bin\grep.exe -e "^sector *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_sector=<templogs\tempvar.txt
-IFF NOT "!atmo_emunand_sector!"=="" (
+IF NOT "!atmo_emunand_sector!"=="" (
 	set atmo_emunand_sector=!atmo_emunand_sector:~1!
+	IF "!atmo_emunand_sector!"=="0x0" set atmo_emunand_sector=
+	IF "!atmo_emunand_sector!"=="0" set atmo_emunand_sector=
 )
 tools\gnuwin32\bin\grep.exe -e "^path *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_path=<templogs\tempvar.txt
-IFF NOT "!atmo_emunand_path!"=="" (
+IF NOT "!atmo_emunand_path!"=="" (
 	set atmo_emunand_path=!atmo_emunand_path:~1!
 )
 tools\gnuwin32\bin\grep.exe -e "^nintendo_path *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_nintendo_path=<templogs\tempvar.txt
-IFF NOT "!atmo_emunand_nintendo_path!"=="" (
+IF NOT "!atmo_emunand_nintendo_path!"=="" (
 	set atmo_emunand_nintendo_path=!atmo_emunand_nintendo_path:~1!
 ) else (
 	IF NOT "!atmo_emunand_id!"=="" (

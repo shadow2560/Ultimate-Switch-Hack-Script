@@ -38,6 +38,7 @@ IF "%action_choice%"=="9" goto:modchips_management
 IF "%action_choice%"=="10" goto:create_sig_patches
 IF "%action_choice%"=="11" goto:spoof_sxos_licence
 IF "%action_choice%"=="12" goto:custom_boot.dat_maker
+rem IF "%action_choice%"=="13" goto:migrate_emunand
 goto:end_script
 
 :launch_payload
@@ -182,6 +183,18 @@ IF EXIST "tools\Storage\custom_boot.dat_maker.bat" (
 	call tools\Storage\update_manager.bat "update_custom_boot.dat_maker.bat" "force"
 )
 call TOOLS\Storage\custom_boot.dat_maker.bat
+@echo off
+goto:define_action_choice
+:migrate_emunand
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\emunand_migrate.bat" (
+	call tools\Storage\update_manager.bat "update_emunand_migrate.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_emunand_migrate.bat" "force"
+)
+call TOOLS\Storage\emunand_migrate.bat
 @echo off
 goto:define_action_choice
 :end_script
