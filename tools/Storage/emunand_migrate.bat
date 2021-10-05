@@ -209,8 +209,9 @@ IF "%atmo_emunand_sector%"=="" (
 	)
 ) else (
 	IF "%atmo_emunand_sector%"=="0x2" goto:pass_atmo_emunand_verif
-call :get_type_nand "%physicale_path_off_sd%"
-IF /i NOT "!nand_type!"=="FULL NAND" goto:pass_atmo_emunand_verif
+	tools\dd_for_windows\dd-removable.exe bs=512 skip=%int_atmo_emunand_sector% count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
+	call :get_type_nand "templogs\boot0_test.bin"
+	IF /i NOT "!nand_type!"=="BOOT0" goto:pass_atmo_emunand_verif
 	set atmo_emunand_exist=1
 	set atmo_emunand_type=partition
 )
@@ -243,27 +244,33 @@ IF "%action_choice%"=="3" (
 	call :reverse_migrate_sxos_files_emunand
 	goto:end_script
 )
-IF "%action_choice%"=="4" (
-	call :transfert_emunand
-	goto:end_script
-)
 goto:end_script2
 
 :migrate_sxos_partition_emunand
-
+IF NOT "%sxos_emunand_partition_exist%"=="3" (
+	exit /b
+)
+IF "%atmo_emunand_exist%"=="1" (
+	exit /b
+)
 exit /b
 
 :migrate_sxos_files_emunand
-
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	exit /b
+)
+IF "%atmo_emunand_exist%"=="1" (
+	exit /b
+)
 exit /b
 
 :reverse_migrate_sxos_files_emunand
-
-exit /b
-
-:transfert_emunand
-echo.
-
+IF /i NOT "%atmo_emunand_type%"=="files" (
+	exit /b
+)
+IF "%sxos_emunand_files_exist%"=="1" (
+	exit /b
+)
 exit /b
 
 :get_type_nand
@@ -293,6 +300,11 @@ IF NOT "!atmo_emunand_sector!"=="" (
 	set atmo_emunand_sector=!atmo_emunand_sector:~1!
 	IF "!atmo_emunand_sector!"=="0x0" set atmo_emunand_sector=
 	IF "!atmo_emunand_sector!"=="0" set atmo_emunand_sector=
+)
+IF NOT "!atmo_emunand_sector!"=="" (
+	set /a int_atmo_emunand_sector=%atmo_emunand_sector%
+) else (
+	set /a int_atmo_emunand_sector=0
 )
 tools\gnuwin32\bin\grep.exe -e "^path *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_path=<templogs\tempvar.txt
