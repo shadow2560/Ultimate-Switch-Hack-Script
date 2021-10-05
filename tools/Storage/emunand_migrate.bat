@@ -96,13 +96,6 @@ set sxos_emunand_folder_path=%volume_letter%:\sxos\emunand
 set sxos_emunand_boot0_path=%sxos_emunand_folder_path%\boot0.bin
 set sxos_emunand_boot1_path=%sxos_emunand_folder_path%\boot1.bin
 set sxos_emunand_rawnand0_path=%sxos_emunand_folder_path%\full.00.bin
-set sxos_emunand_rawnand1_path=%sxos_emunand_folder_path%\full.01.bin
-set sxos_emunand_rawnand2_path=%sxos_emunand_folder_path%\full.02.bin
-set sxos_emunand_rawnand3_path=%sxos_emunand_folder_path%\full.03.bin
-set sxos_emunand_rawnand4_path=%sxos_emunand_folder_path%\full.04.bin
-set sxos_emunand_rawnand5_path=%sxos_emunand_folder_path%\full.05.bin
-set sxos_emunand_rawnand6_path=%sxos_emunand_folder_path%\full.06.bin
-set sxos_emunand_rawnand7_path=%sxos_emunand_folder_path%\full.07.bin
 set sxos_emunand_files_exist=0
 set sxos_emunand_partition_exist=0
 set atmo_emummc_config_file=%volume_letter%:\emummc\emummc.ini
@@ -177,12 +170,13 @@ IF EXIST "%atmo_emummc_config_file%" (
 		)
 	)
 )
-IF "%sxos_emunand_partition_exist%"=="3" (
+IF "%sxos_emunand_partition_exist%"=="1" (
 	IF "%atmo_emunand_sector%"=="0x2" (
 		set atmo_emunand_exist=1
 		set atmo_emunand_type=sxos_partition
 	)
 )
+IF "%sxos_emunand_partition_exist%"=="3" set sxos_emunand_partition_exist=1
 IF "%atmo_emunand_sector%"=="" (
 	IF NOT "%atmo_emunand_path%"=="" (
 		IF EXIST "%atmo_emunand_path:/=\%\BOOT0" (
@@ -247,12 +241,16 @@ IF "%action_choice%"=="3" (
 goto:end_script2
 
 :migrate_sxos_partition_emunand
-IF NOT "%sxos_emunand_partition_exist%"=="3" (
+IF NOT "%sxos_emunand_partition_exist%"=="1" (
 	exit /b
 )
 IF "%atmo_emunand_exist%"=="1" (
 	exit /b
 )
+IF NOT EXIST "%volume_letter%:\emummc" mkdir "%volume_letter%:\emummc" >nul
+IF NOT EXIST "%volume_letter%:\emummc\ER00" mkdir "%volume_letter%:\emummc\ER00" >nul
+copy "tools\default_configs\emummc_migration_files\sxos_share_emummc.ini" "%volume_letter%:\emummc\emummc.ini" >nul
+copy "tools\default_configs\emummc_migration_files\ER00\raw_based" "%volume_letter%:\emummc\ER00\raw_based" >nul
 exit /b
 
 :migrate_sxos_files_emunand
@@ -262,6 +260,28 @@ IF NOT "%sxos_emunand_files_exist%"=="1" (
 IF "%atmo_emunand_exist%"=="1" (
 	exit /b
 )
+IF NOT EXIST "%volume_letter%:\emummc" mkdir "%volume_letter%:\emummc" >nul
+IF NOT EXIST "%volume_letter%:\emummc\eMMC" mkdir "%volume_letter%:\emummc\eMMC" >nul
+IF EXIST "%sxos_emunand_boot0_path%" move "%sxos_emunand_boot0_path%" "%volume_letter%:\emummc\eMMC\BOOT0" >nul
+IF EXIST "%sxos_emunand_boot1_path%" move "%sxos_emunand_boot1_path%" "%volume_letter%:\emummc\eMMC\BOOT1" >nul
+set /a tempcount=0
+:sxos_rename_rawnand_files
+IF %tempcount% LSS 10 (
+	IF EXIST "%volume_letter%:\sxos\emunand\full.0%tempcount%.bin" (
+		move "%volume_letter%:\sxos\emunand\full.0%tempcount%.bin" "%volume_letter%:\emummc\eMMC\0%tempcount%" >nul
+	) else (
+		goto:pass_sxos_rename_rawnand_files
+	)
+) else (
+	IF EXIST "%volume_letter%:\sxos\emunand\full.%tempcount%.bin" (
+		move "%volume_letter%:\sxos\emunand\full.%tempcount%.bin" "%volume_letter%:\emummc\eMMC\%tempcount%" >nul
+	) else (
+		goto:pass_sxos_rename_rawnand_files
+	)
+set /a tempcount=%tempcount%+1
+goto:sxos_rename_rawnand_files
+:pass_sxos_rename_rawnand_files
+copy "tools\default_configs\emummc_migration_files\atmo_files_emummc.ini" "%volume_letter%:\emummc\emummc.ini" >nul
 exit /b
 
 :reverse_migrate_sxos_files_emunand
@@ -271,6 +291,30 @@ IF /i NOT "%atmo_emunand_type%"=="files" (
 IF "%sxos_emunand_files_exist%"=="1" (
 	exit /b
 )
+set temp_atmo_emummc_path=%atmo_emunand_path:/=\%\eMMC
+IF NOT EXIST "%volume_letter%:\sxos" mkdir "%volume_letter%:\sxos" >nul
+IF NOT EXIST "%volume_letter%:\sxos\emunand" mkdir "%volume_letter%:\sxos\emunand" >nul
+IF EXIST "%volume_letter%:\%temp_atmo_emummc_path%\BOOT0" move "%volume_letter%:\%temp_atmo_emummc_path%\BOOT0" "%sxos_emunand_boot0_path%" >nul
+IF EXIST "%volume_letter%:\%temp_atmo_emummc_path%\BOOT1" move "%volume_letter%:\%temp_atmo_emummc_path%\BOOT1" "%sxos_emunand_boot1_path%" >nul
+set /a tempcount=0
+:atmo_rename_rawnand_files
+IF %tempcount% LSS 10 (
+	IF EXIST "%volume_letter%:\%temp_atmo_emummc_path%\0%tempcount%" (
+		move "%volume_letter%:\%temp_atmo_emummc_path%\0%tempcount%" "%volume_letter%:\sxos\emunand\full.0%tempcount%.bin" >nul
+	) else (
+		goto:pass_atmo_rename_rawnand_files
+	)
+) else (
+	IF EXIST "%volume_letter%:\%temp_atmo_emummc_path%\%tempcount%" (
+		move "%volume_letter%:\%temp_atmo_emummc_path%\%tempcount%" "%volume_letter%:\sxos\emunand\full.%tempcount%.bin" >nul
+	) else (
+		goto:pass_atmo_rename_rawnand_files
+	)
+set /a tempcount=%tempcount%+1
+goto:atmo_rename_rawnand_files
+:pass_atmo_rename_rawnand_files
+move "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%" "%volume_letter%:\emutendo" >nul
+del /q "%volume_letter%:\emummc\emummc.ini" >nul
 exit /b
 
 :get_type_nand
