@@ -33,6 +33,8 @@ echo 11: Spoof de la licence de SXOS?
 echo.
 echo 12: Convertir un payload en fichier "boot.dat"?
 echo.
+echo 13: Migration d'emunand ^(fonction en Beta^)?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

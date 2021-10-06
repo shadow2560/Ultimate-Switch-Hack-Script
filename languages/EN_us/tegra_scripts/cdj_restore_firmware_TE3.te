@@ -278,12 +278,12 @@ migrate_emunand_menu = {
 prepare_sxos_emunand_partition_for_atmosphere = {
 	clearscreen()
 	if (fileExists("sd:/emummc") == 0){
-		dirDel("sd:/emummc")
+		mkdir("sd:/emummc")
 	}
 	if (fileExists("sd:/emummc/emummc.ini")){
 		fileDel("sd:/emummc/emummc.ini")
 	}
-	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x32, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x65, 0x6D, 0x75, 0x4D, 0x4D, 0x43, 0x2F, 0x45, 0x52, 0x30, 0x30, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x20, 0x3D, 0x20, 0x31, 0x0D, 0x0A, 0x69, 0x64, 0x20, 0x3D, 0x20, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x20, 0x3D, 0x20, 0x30, 0x78, 0x32, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x20, 0x3D, 0x20, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x2F, 0x45, 0x52, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x20, 0x3D, 0x20, 0x65, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
 	if (fileExists("sd:/emummc/ER00")) {
 		dirDel("sd:/emummc/ER00")
 	}
@@ -338,32 +338,29 @@ convert_emunand_files_sxos_for_atmosphere = {
 		pause()
 		return()
 	}
-	if (fileExists("sd:/sxos/eMMC") == 0) {
-		mkdir("sd:/sxos/eMMC")
-	}
-	fileMove("sd:/sxos/emunand/boot0.bin", "sd:/sxos/eMMC/boot0")
-	fileMove("sd:/sxos/emunand/boot1.bin", "sd:/sxos/eMMC/boot1")
-	fileMove("sd:/sxos/emunand/full.00.bin", "sd:/sxos/eMMC/00")
-	fileMove("sd:/sxos/emunand/full.01.bin", "sd:/sxos/eMMC/01")
-	fileMove("sd:/sxos/emunand/full.02.bin", "sd:/sxos/eMMC/02")
-	fileMove("sd:/sxos/emunand/full.03.bin", "sd:/sxos/eMMC/03")
-	fileMove("sd:/sxos/emunand/full.04.bin", "sd:/sxos/eMMC/04")
-	fileMove("sd:/sxos/emunand/full.05.bin", "sd:/sxos/eMMC/05")
-	fileMove("sd:/sxos/emunand/full.06.bin", "sd:/sxos/eMMC/06")
-	fileMove("sd:/sxos/emunand/full.07.bin", "sd:/sxos/eMMC/07")
 	if (fileExists("sd:/emummc") == 0){
-		dirDel("sd:/emummc")
+		mkdir("sd:/emummc")
 	}
+	if (fileExists("sd:/emummc/eMMC") == 0) {
+		mkdir("sd:/emummc/eMMC")
+	}
+	fileMove("sd:/sxos/emunand/boot0.bin", "sd:/emummc/eMMC/boot0")
+	fileMove("sd:/sxos/emunand/boot1.bin", "sd:/emummc/eMMC/boot1")
+	fileMove("sd:/sxos/emunand/full.00.bin", "sd:/emummc/eMMC/00")
+	fileMove("sd:/sxos/emunand/full.01.bin", "sd:/emummc/eMMC/01")
+	fileMove("sd:/sxos/emunand/full.02.bin", "sd:/emummc/eMMC/02")
+	fileMove("sd:/sxos/emunand/full.03.bin", "sd:/emummc/eMMC/03")
+	fileMove("sd:/sxos/emunand/full.04.bin", "sd:/emummc/eMMC/04")
+	fileMove("sd:/sxos/emunand/full.05.bin", "sd:/emummc/eMMC/05")
+	fileMove("sd:/sxos/emunand/full.06.bin", "sd:/emummc/eMMC/06")
+	fileMove("sd:/sxos/emunand/full.07.bin", "sd:/emummc/eMMC/07")
 	if (fileExists("sd:/emummc/emummc.ini")){
 		fileDel("sd:/emummc/emummc.ini")
 	}
-	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x3D, 0x31, 0x0D, 0x0A, 0x73, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x3D, 0x30, 0x78, 0x30, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x73, 0x78, 0x6F, 0x73, 0x0D, 0x0A, 0x69, 0x64, 0x3D, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x3D, 0x45, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
+	fileWrite("sd:/emummc/emummc.ini", byte([0x5B, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x5D, 0x0D, 0x0A, 0x65, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x20, 0x3D, 0x20, 0x31, 0x0D, 0x0A, 0x69, 0x64, 0x20, 0x3D, 0x20, 0x30, 0x78, 0x30, 0x30, 0x30, 0x30, 0x0D, 0x0A, 0x70, 0x61, 0x74, 0x68, 0x20, 0x3D, 0x20, 0x65, 0x6D, 0x75, 0x6D, 0x6D, 0x63, 0x0D, 0x0A, 0x6E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x5F, 0x70, 0x61, 0x74, 0x68, 0x20, 0x3D, 0x20, 0x65, 0x6D, 0x75, 0x74, 0x65, 0x6E, 0x64, 0x6F, 0x0D, 0x0A]))
 	dirDel("sd:/sxos/emunand")
 	color("GREEN")
 	println("Operation successfully completed.")
-	println("")
-	color("RED")
-	println("Be careful: Don't delete the sxos folder of the SD cause it always contain the emunand.")
 	color("WHITE")
 	println("")
 	println("Press any key to close the script.")
@@ -374,34 +371,34 @@ convert_emunand_files_sxos_for_atmosphere = {
 invert_emunand_files_sxos_for_atmosphere = {
 	clearscreen()
 	emunand_file_check = 0
-	if (fileExists("sd:/sxos/eMMC/boot0") == 0) {
+	if (fileExists("sd:/emummc/eMMC/boot0") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/boot1") == 0) {
+	if (fileExists("sd:/emummc/eMMC/boot1") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/00") == 0) {
+	if (fileExists("sd:/emummc/eMMC/00") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/01") == 0) {
+	if (fileExists("sd:/emummc/eMMC/01") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/02") == 0) {
+	if (fileExists("sd:/emummc/eMMC/02") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/03") == 0) {
+	if (fileExists("sd:/emummc/eMMC/03") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/04") == 0) {
+	if (fileExists("sd:/emummc/eMMC/04") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/05") == 0) {
+	if (fileExists("sd:/emummc/eMMC/05") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/06") == 0) {
+	if (fileExists("sd:/emummc/eMMC/06") == 0) {
 		emunand_file_check = 1
 	}
-	if (fileExists("sd:/sxos/eMMC/07") == 0) {
+	if (fileExists("sd:/emummc/eMMC/07") == 0) {
 		emunand_file_check = 1
 	}
 	if (emunand_file_check == 1) {
@@ -414,17 +411,17 @@ invert_emunand_files_sxos_for_atmosphere = {
 	if (fileExists("sd:/sxos/emunand") == 0) {
 		mkdir("sd:/sxos/emunand")
 	}
-	fileMove("sd:/sxos/eMMC/boot0", "sd:/sxos/emunand/boot0.bin")
-	fileMove("sd:/sxos/eMMC/boot1", "sd:/sxos/emunand/boot1.bin")
-	fileMove("sd:/sxos/eMMC/00", "sd:/sxos/emunand/full.00.bin")
-	fileMove("sd:/sxos/eMMC/01", "sd:/sxos/emunand/full.01.bin")
-	fileMove("sd:/sxos/eMMC/02", "sd:/sxos/emunand/full.02.bin")
-	fileMove("sd:/sxos/eMMC/03", "sd:/sxos/emunand/full.03.bin")
-	fileMove("sd:/sxos/eMMC/04", "sd:/sxos/emunand/full.04.bin")
-	fileMove("sd:/sxos/eMMC/05", "sd:/sxos/emunand/full.05.bin")
-	fileMove("sd:/sxos/eMMC/06", "sd:/sxos/emunand/full.06.bin")
-	fileMove("sd:/sxos/eMMC/07", "sd:/sxos/emunand/full.07.bin")
-	dirDel("sd:/sxos/eMMC")
+	fileMove("sd:/emummc/eMMC/boot0", "sd:/sxos/emunand/boot0.bin")
+	fileMove("sd:/emummc/eMMC/boot1", "sd:/sxos/emunand/boot1.bin")
+	fileMove("sd:/emummc/eMMC/00", "sd:/sxos/emunand/full.00.bin")
+	fileMove("sd:/emummc/eMMC/01", "sd:/sxos/emunand/full.01.bin")
+	fileMove("sd:/emummc/eMMC/02", "sd:/sxos/emunand/full.02.bin")
+	fileMove("sd:/emummc/eMMC/03", "sd:/sxos/emunand/full.03.bin")
+	fileMove("sd:/emummc/eMMC/04", "sd:/sxos/emunand/full.04.bin")
+	fileMove("sd:/emummc/eMMC/05", "sd:/sxos/emunand/full.05.bin")
+	fileMove("sd:/emummc/eMMC/06", "sd:/sxos/emunand/full.06.bin")
+	fileMove("sd:/emummc/eMMC/07", "sd:/sxos/emunand/full.07.bin")
+	dirDel("sd:/emummc/eMMC")
 	if (fileExists("sd:/emummc/emummc.ini")){
 		fileDel("sd:/emummc/emummc.ini")
 	}

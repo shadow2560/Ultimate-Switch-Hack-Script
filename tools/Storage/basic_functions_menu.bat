@@ -38,7 +38,7 @@ IF "%action_choice%"=="9" goto:modchips_management
 IF "%action_choice%"=="10" goto:create_sig_patches
 IF "%action_choice%"=="11" goto:spoof_sxos_licence
 IF "%action_choice%"=="12" goto:custom_boot.dat_maker
-rem IF "%action_choice%"=="13" goto:migrate_emunand
+IF "%action_choice%"=="13" goto:migrate_emunand
 goto:end_script
 
 :launch_payload

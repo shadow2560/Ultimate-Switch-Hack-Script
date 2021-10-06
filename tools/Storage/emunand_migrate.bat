@@ -212,52 +212,50 @@ IF "%atmo_emunand_sector%"=="" (
 :pass_atmo_emunand_verif
 
 :define_action_choice
-
-echo %sxos_emunand_files_exist%
-echo %sxos_emunand_partition_exist%
-echo %atmo_emunand_enabled%
-echo %atmo_emunand_id=%
-echo %atmo_emunand_sector%
-echo %atmo_emunand_path%
-echo %atmo_emunand_nintendo_path%
-echo %atmo_emunand_exist%
-echo %atmo_emunand_type%
+echo.
+call "%associed_language_script%" "emunands_sumary"
 pause
-
 set action_choice=
-
+call "%associed_language_script%" "set_action_choice"
 IF "%action_choice%"=="1" (
 	call :migrate_sxos_partition_emunand
-	goto:end_script
-)
-IF "%action_choice%"=="2" (
+) else IF "%action_choice%"=="2" (
 	call :migrate_sxos_files_emunand
-	goto:end_script
-)
-IF "%action_choice%"=="3" (
+) else IF "%action_choice%"=="3" (
 	call :reverse_migrate_sxos_files_emunand
-	goto:end_script
+) else (
+	goto:end_script2
 )
 goto:end_script2
 
 :migrate_sxos_partition_emunand
 IF NOT "%sxos_emunand_partition_exist%"=="1" (
+	call "%associed_language_script%" "sxos_partition_emunand_not_exist"
+	pause
 	exit /b
 )
 IF "%atmo_emunand_exist%"=="1" (
+	call "%associed_language_script%" "atmo_emunand_already_exists"
+	pause
 	exit /b
 )
 IF NOT EXIST "%volume_letter%:\emummc" mkdir "%volume_letter%:\emummc" >nul
 IF NOT EXIST "%volume_letter%:\emummc\ER00" mkdir "%volume_letter%:\emummc\ER00" >nul
 copy "tools\default_configs\emummc_migration_files\sxos_share_emummc.ini" "%volume_letter%:\emummc\emummc.ini" >nul
 copy "tools\default_configs\emummc_migration_files\ER00\raw_based" "%volume_letter%:\emummc\ER00\raw_based" >nul
+call "%associed_language_script%" "succesful_migration"
+pause
 exit /b
 
 :migrate_sxos_files_emunand
 IF NOT "%sxos_emunand_files_exist%"=="1" (
+	call "%associed_language_script%" "sxos_files_emunand_not_exist"
+	pause
 	exit /b
 )
 IF "%atmo_emunand_exist%"=="1" (
+	call "%associed_language_script%" "atmo_emunand_already_exists"
+	pause
 	exit /b
 )
 IF NOT EXIST "%volume_letter%:\emummc" mkdir "%volume_letter%:\emummc" >nul
@@ -282,13 +280,19 @@ set /a tempcount=%tempcount%+1
 goto:sxos_rename_rawnand_files
 :pass_sxos_rename_rawnand_files
 copy "tools\default_configs\emummc_migration_files\atmo_files_emummc.ini" "%volume_letter%:\emummc\emummc.ini" >nul
+call "%associed_language_script%" "succesful_migration"
+pause
 exit /b
 
 :reverse_migrate_sxos_files_emunand
 IF /i NOT "%atmo_emunand_type%"=="files" (
+	call "%associed_language_script%" "atmo_emunand_not_files_type"
+	pause
 	exit /b
 )
 IF "%sxos_emunand_files_exist%"=="1" (
+	call "%associed_language_script%" "sxos_emunand_files_already_exists"
+	pause
 	exit /b
 )
 set temp_atmo_emummc_path=%atmo_emunand_path:/=\%\eMMC
@@ -313,8 +317,13 @@ IF %tempcount% LSS 10 (
 set /a tempcount=%tempcount%+1
 goto:atmo_rename_rawnand_files
 :pass_atmo_rename_rawnand_files
-move "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%" "%volume_letter%:\emutendo" >nul
+IF NOT "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%"=="%volume_letter%:\emutendo" (
+	IF EXIST "%volume_letter%:\emutendo" rmdir /s /q "%volume_letter%:\emutendo" >nul
+	move "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%" "%volume_letter%:\emutendo" >nul
+)
 del /q "%volume_letter%:\emummc\emummc.ini" >nul
+call "%associed_language_script%" "succesful_migration"
+pause
 exit /b
 
 :get_type_nand
