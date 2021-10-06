@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.178</h2>
+<ul>
+<li>Improve errorr controls in the emunand migration function.</li>
+</ul>
 <h2>V4.3.177</h2>
 <ul>
 <li>Add a  migration of emunand function.</li>

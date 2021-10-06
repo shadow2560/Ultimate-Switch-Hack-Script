@@ -79,6 +79,17 @@ IF "%atmo_emunand_exist%"=="1" (
 		echo Chemin d'émulation du dossier nintendo associé à l'emunand: %atmo_emunand_nintendo_path%
 	)
 )
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	IF NOT "%sxos_emunand_partition_exist%"=="1" (
+		IF NOT "%atmo_emunand_exist%"=="1" (
+			echo Aucune emunand trouvée.
+		)
+	)
+)
+goto:eof
+
+:no_action_possible
+echo Aucune action possible, retour au menu précédent.
 goto:eof
 
 :set_action_choice

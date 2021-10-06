@@ -214,6 +214,40 @@ IF "%atmo_emunand_sector%"=="" (
 :define_action_choice
 echo.
 call "%associed_language_script%" "emunands_sumary"
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	IF NOT "%sxos_emunand_partition_exist%"=="1" (
+		IF NOT "%atmo_emunand_exist%"=="1" (
+			echo.
+			call "%associed_language_script%" "no_action_possible"
+			pause
+			goto:end_script2
+		)
+	)
+)
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	IF NOT "%sxos_emunand_partition_exist%"=="1" (
+		IF "%atmo_emunand_exist%"=="1" (
+			IF NOT "%atmo_emunand_type%"=="files" (
+				echo.
+				call "%associed_language_script%" "no_action_possible"
+				pause
+				goto:end_script2
+			)
+		)
+	)
+)
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	IF "%sxos_emunand_partition_exist%"=="1" (
+		IF "%atmo_emunand_exist%"=="1" (
+			IF "%atmo_emunand_type%"=="sxos_partition" (
+				echo.
+				call "%associed_language_script%" "no_action_possible"
+				pause
+				goto:end_script2
+			)
+		)
+	)
+)
 pause
 set action_choice=
 call "%associed_language_script%" "set_action_choice"

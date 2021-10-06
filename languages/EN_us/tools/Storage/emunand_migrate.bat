@@ -88,6 +88,17 @@ IF "%atmo_emunand_exist%"=="1" (
 		echo Path of the emulated nintendo folder associated with the emunand: %atmo_emunand_nintendo_path%
 	)
 )
+IF NOT "%sxos_emunand_files_exist%"=="1" (
+	IF NOT "%sxos_emunand_partition_exist%"=="1" (
+		IF NOT "%atmo_emunand_exist%"=="1" (
+			echo No emunand founde.
+		)
+	)
+)
+goto:eof
+
+:no_action_possible
+echo No action possible, going back to previous menu.
 goto:eof
 
 :set_action_choice
