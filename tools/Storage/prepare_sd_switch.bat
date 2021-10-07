@@ -990,7 +990,7 @@ for /l %%i in (1,1,%temp_count%) do (
 			) else (
 				echo [mii]>"%volume_letter%:\atmosphere\config\system_settings.ini"
 			)
-			echo is_db_test_mode_enabled=u8!0x1 >>"%volume_letter%:\atmosphere\config\system_settings.ini"
+			echo is_db_test_mode_enabled=u8^^!0x^1>>"%volume_letter%:\atmosphere\config\system_settings.ini"
 		)
 		IF "!temp_homebrew!"=="Switch-cheats-updater" (
 			IF EXIST "%volume_letter%:\config\cheats-updater\exclude.txt.bak" (
