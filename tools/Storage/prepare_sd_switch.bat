@@ -1043,6 +1043,8 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF /i "%erase_fastcfwswitch_config%"=="o" (
 					IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
+					IF NOT EXIST "%volume_letter%:\config\*.*" mkdir "%volume_letter%:\config"
+					IF NOT EXIST "%volume_letter%:\config\fastCFWSwitch\*.*" mkdir "%volume_letter%:\config\fastCFWSwitch"
 					echo [payloads]>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo type=section>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo name=Payloads>>"%volume_letter%:\config\fastCFWSwitch\config.ini"

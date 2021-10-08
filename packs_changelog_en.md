@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V484</h2>
+<ul>
+<li>Update Ldn_mitm to version 1.10.0.</li>
+</ul>
 <h2>V483</h2>
 <ul>
 <li>Update Hekate to version 5.6.3.</li>

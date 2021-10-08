@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.181</h2>
+<ul>
+<li>Corrections de bugs dans la préparation d'une SD.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 484.</li>
+</ul>
 <h2>V4.3.180</h2>
 <ul>
 <li>Amélioration des contrôles d'erreurs dans la fonction de migration d'emunand.</li>
