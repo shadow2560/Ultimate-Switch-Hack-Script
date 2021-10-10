@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.184</h2>
+<ul>
+<li>A custom configuration ini file can now be specified during the injection of a Saturn game script.</li>
+</ul>
 <h2>V4.3.183</h2>
 <ul>
 <li>Implement a function allowing to inject a Saturn game thanks to the games of the "Saturn Tribute" series (except for the compilation of the three games which is not managed here) (alpha function).</li>

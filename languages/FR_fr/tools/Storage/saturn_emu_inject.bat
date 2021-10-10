@@ -71,6 +71,17 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers jpg et png ^(*.jpg;*.png^)|*.jpg;*.png|" "Sélectionner le fichier de l\'icône" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_custom_ini_choice
+set /p custom_ini_choice=Souhaitez-vous utiliser votre propre fichier ini de configuration de l'émulateur pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_ini_path
+echo Sélectionnez le fichier ini dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type de fichier ini.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers ini^(*.ini^)|*.ini|" "Sélectionner un fichier ini personnalisé" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
 :set_id
 echo Entrez l'ID du contenu ^(doit être unique sur la console sur lequel il est installé et doit faire 16 caractères hexadécimaux ^(0-9, A-F^)^), laissez vide pour générer un ID aléatoirement.
 set /p id=ID: 

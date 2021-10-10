@@ -96,6 +96,21 @@ IF /i "%bs%"=="o" (
 	)
 )
 
+:custom_ini_change_choice
+set custom_ini_choice=
+set custom_ini_path=Tools\config.ini
+echo.
+call "%associed_language_script%" "set_custom_ini_choice"
+IF NOT "%custom_ini_choice%"=="" set custom_ini_choice=%custom_ini_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_ini_choice" "o/n_choice"
+IF /i "%custom_ini_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_ini_path"
+	set /p custom_ini_path=<%ushs_base_path%templogs\tempvar.txt
+	IF "!custom_ini_path!"=="" (
+		goto:custom_ini_change_choice
+	)
+)
+
 :id_set
 echo.
 set id=
@@ -250,7 +265,7 @@ del /q "%CD%\nca\romfs\%game_files%.cue"
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
-copy "Tools\config.ini" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
+copy "%custom_ini_path%" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
 
 echo.
 call "%associed_language_script%" "icon_step"

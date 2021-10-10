@@ -80,6 +80,17 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "jpg and png files^(*.jpg;*.png^)|*.jpg;*.png|" "Select the icon file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_custom_ini_choice
+set /p custom_ini_choice=Do you want to choose your own ini config file for the emulator for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_ini_path
+echo Please choose the ini file in the following window.
+echo If you close the window you will return to the ini type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "ini files^(*.ini^)|*.ini|" "Select the custom ini file" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
 :set_id
 echo Enter the content ID ^(must be unique on the console it is installed on and must be 16 hexadecimal characters long ^(0-9, A-F^)^), leave blank to generate a random ID.
 set /p id=ID: 
