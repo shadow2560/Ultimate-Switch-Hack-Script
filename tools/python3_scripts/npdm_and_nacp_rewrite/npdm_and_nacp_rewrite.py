@@ -32,7 +32,7 @@ def test_src_file(file_src_path):
 			file_src.seek(0x70)
 			aci0_start = file_src.read(0x4)
 			aci0_start = int.from_bytes(aci0_start, 'little')
-			print(aci0_start)
+			# print(aci0_start)
 			file_src.seek(0x280)
 			test_acid_magic = file_src.read(0x4)
 			file_src.seek(aci0_start)
