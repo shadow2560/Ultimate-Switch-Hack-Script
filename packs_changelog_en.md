@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V485</h2>
+<ul>
+<li>Update  Retroarch download link to version 1.9.11.</li>
+<li>Update Scummvm to version 2.5.0.</li>
+</ul>
 <h2>V484</h2>
 <ul>
 <li>Update Ldn_mitm to version 1.10.0.</li>

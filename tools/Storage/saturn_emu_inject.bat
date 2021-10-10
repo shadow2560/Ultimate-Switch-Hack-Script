@@ -39,6 +39,9 @@ if "%begin%"=="1" (
 ) else if "%begin%"=="2" (
 	cls
 	goto:Start
+	) else if "%begin%"=="3" (
+		start "" /d "Tools\CDmage" "Tools\CDmage\CDmage.exe"
+		goto:Menu
 ) else (
 	goto:end_script2
 )

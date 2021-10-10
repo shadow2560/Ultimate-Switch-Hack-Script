@@ -27,6 +27,7 @@ echo 	-=========================================================================
 echo							Que souhaitez-vous faire:
 echo							1: Afficher l'aide
 echo							2: Commencer l'injection
+echo 3: Lancer CDmage pour convertir des images CD en format .cue et .bin, seul format supporté pour l'injection.
 echo							Tout autre choix: Revenir au menu précédent
 echo 	-=======================================================================================================-
 set /p begin=Faites votre choix: 

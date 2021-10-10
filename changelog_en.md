@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.185</h2>
+<ul>
+<li>Add CDmage to the Saturn game injection script.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 485.</li>
+</ul>
 <h2>V4.3.184</h2>
 <ul>
 <li>A custom configuration ini file can now be specified during the injection of a Saturn game script.</li>

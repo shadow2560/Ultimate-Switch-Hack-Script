@@ -1,7 +1,418 @@
 For a more comprehensive changelog of the latest experimental code, see:
         https://github.com/scummvm/scummvm/commits/
 
-#### 2.1.1 (2020-01-31)
+#### 2.5.0 "Twenty years ago today..." (2021-10-09)
+
+ New games:
+   - Added support for Grim Fandango.
+   - Added support for The Longest Journey.
+   - Added support for Myst 3: Exile.
+   - Added support for Little Big Adventure.
+   - Added support for Red Comrades 1: Save the Galaxy.
+   - Added support for Red Comrades 2: For the Great Justice.
+   - Added support for Transylvania.
+   - Added support for Crimson Crown.
+   - Added support for OO-Topos.
+   - Added support for Glulx interactive fiction games.
+   - Added support for Lure of the Temptress Konami release.
+   - Added support for Private Eye.
+   - Added support for Spanish Blue Force.
+   - Added support for Spanish Ringworld.
+   - Added support for Spanish Amazon: Guardians of Eden.
+   - Added support for AGS Games versions 2.5+.
+   - Added support for Nightlong: Union City Conspiracy.
+   - Added support for The Journeyman Project 2: Buried in Time.
+   - Added support for Crusader: No Remorse.
+   - Added support for L-ZONE.
+   - Added support for Spaceship Warlock.
+
+ New ports:
+   - The Nintendo DS port got a major rewrite.
+
+ General:
+   - Switched ScummVM GUI output to UTF-32.
+   - Updated the Roland MT-32 emulation code to the Munt project's mt32emu 2.5.1.
+   - Updated Dropbox Cloud Storage to use the new Dropbox OAuth workflow.
+   - Major extension to the number of supported graphics scalers.
+   - Display path to scummvm configuration file in GUI -> Options -> Paths.
+   - Added new optional dependency, giflib >= 5.0.0. Used by some version of LBA.
+   - Added HiDPI support to the ScummVM GUI.
+   - Added command line option --window-size for specifying ScummVM window size,
+     applicable only to the OpenGL renderer.
+   - Fixed switching to the default graphics mode. This was sometimes not applied
+     until restarting ScummVM or starting a game.
+   - ScummVM GUI has been fully translated into Korean and Japanese.
+   - Added GUI option for enabling and disabling the Discord RPC integration.
+
+ ADL:
+   - Added support for Mystery House French translation.
+   - Added support for several game variants.
+
+ AGI:
+   - Added support for Russian versions. Input now works.
+
+ AGOS:
+   - Added support for the Japanese PC-98 version of Elvira 1.
+
+ CGE:
+   - Added option to use Text To Speech for Soltys.
+
+ CGE2:
+   - Added option to use Text To Speech for Sfinx.
+
+ Cine:
+   - Added detection for Future Wars CD version with French translation patch.
+   - Added detection for Italian Amiga Operation Stealth.
+   - Fixed crash before entering secret base.
+   - Fixed space missing in verb line.
+   - Fixed vertically overflowing message boxes.
+
+ Dreamweb:
+   - Rendering fixes for Russian fan translation.
+
+ Glk:
+   - Fixed savegame issues with several subengines.
+   - Fixed memory overrun in Level9 game detector.
+   - Added detections for 2020 IF Comp games.
+   - Enabled Glulx sub-engine.
+
+ Gob:
+   - Added support for Bargon Attack Russian translation.
+   - Added support for Woodruff Russian translation.
+
+ Griffon:
+   - Fixed Return to Launcher from The Griffon Legend.
+   - Added option to use Text To Speech in The Griffon Legend
+
+ Grim:
+   - Added support for Brazillian Portuguese Grim Fandango.
+
+ Kyra:
+   - Added support for the Japanese Sega-CD version of Eye of the Beholder.
+   - Added support for the Hebrew fan translation of Legend of Kyrandia.
+   - Added support for the Hebrew fan translation of Legend of Kyrandia 2.
+   - Added support for the Simplified Chinese version of Legend of Kyrandia 3.
+   - Added support for the playable demo of Lands of Lore.
+
+ Lure:
+   - Fixed fire animation in first room when loading saves.
+   - Fixed AdLib support.
+   - Fixed MT-32 support.
+
+ Pegasus:
+   - Added support for DVD/GOG.com release.
+
+ Queen:
+   - Added support for German Amiga floppy release.
+
+ SAGA:
+   - Added support for ITE GOG Mac CD v1.1.
+   - Added support for ITE PC-98 Japanese.
+
+ SCI:
+   - Added RGB rendering mode (16/32bpp) for SCI0 - SCI1.1 games, which addresses palette
+     issues in screen transitions and avoids mode changes when playing Mac QuickTime videos.
+   - Added custom palette mods for SQ3 and LSL2 from the FreeSCI project. When enabled, the mods improve the visuals
+     in these two games.
+   - Added support for Macintosh version of Gabriel Knight 1.
+   - Added support for CD-Audio version of Mixed-Up Mother Goose.
+   - Added support for Korean fan translations from the scummkor project: Castle of Dr. Brain,
+     EcoQuest 1, Gabriel Knight 1, King's Quest 1, 5, and 6, Laura Bow 2, and Space Quest 4.
+   - Added support for Space Quest 4 Update 1.3 by New Rising Sun.
+   - Added support for French LSL1VGA.
+   - Added support for Hebrew QFG1VGA.
+   - Added support for Hebrew GK1.
+   - Added support for Russian Longbow.
+   - Added support for Russian LSL6.
+   - Added support for alternate Russian LSL7.
+   - Added support for alternate Polish LSL7 including files packaged with InstallShield.
+   - Added support for alternate Russian SQ5.
+   - Added support for alternate Russian Torin's Passage.
+   - Added support for fan game Soulshade Asylum.
+   - SCI1.1 views are now scaled accurately.
+   - Fixed sounds not stopping or restarting correctly.
+   - Fixed sound issues when restoring SCI0 games.
+   - Fixed corruption when "Prefer digital sound effects" was disabled in SCI1 games.
+   - Space Quest 4 CD sound effects now match the selected platform.
+   - Added option to enable Windows cursors in CD versions of King's Quest 5 and Space Quest 4.
+   - Fixed "Girl In The Tower" song not playing at the end of King's Quest 6 CD.
+   - Fixed King's Quest 5 Amiga beach error that prevented completing the game.
+   - Fixed over 30 script bugs in GK1, HOYLE4, KQ1DEMO, KQ5, KQ6, KQ7, LB1,
+     LSL3, PEPPER, PQ3, QFG3, SQ1, SQ4, and SQ6.
+   - Unlocked JANE easter egg in Gabriel Knight 1.
+
+ SCUMM:
+   - Fixed Chinese, Japanese and Korean text display for The Dig and for The Curse of Monkey Island. These fixes
+     also include some improvements to the common text display (mainly the formatting of wrapped texts).
+   - Fixed display of Chinese, Japanese and Korean pause and restart dialogs.
+   - Added support for numerous Korean translations from scummkor project.
+   - Added support for Russobit-M versions of Pajama2 and SpyOzone.
+   - Fixed speech playback in Akella version of COMI.
+   - Added support for Discord and Humble Bundle versions of Indiana Jones and the Fate of Atlantis.
+   - Added smooth scrolling for FM-TOWNS versions of games.
+   - Added optional trimming to 200 pixels for some FM-TOWNS games, so aspect-ratio correction is possible.
+   - Fixed audio distortion in Loom for PC-Engine.
+   - Added support for the high resolution font and cursor in the 16-color Macintosh version of Loom.
+   - Added support for Japanese Mac version of The Dig.
+   - Added partial support for the high resolution fonts and cursor in the
+     16-color Macintosh version of Indiana Jones and the Last Crusade.
+   - Fixed missing instruments in the m68k Mac versions of Monkey Island 2
+     and Indiana Jones and the Fate of Atlantis.
+   - Added "Macintosh b/w" render mode for the 16-color Macintosh versions of
+     Loom and Indiana Jones and the Last Crusade.
+   - Enabled difficulty selection in the version of Monkey Island 2 that was
+     included on the LucasArts Mac CD Game Pack II compilation. (It had been
+     disabled along with the copy protection.)
+   - Repaired clumsy crack in Maniac Mansion (enhanced)'s keypad script.
+     This means that the GOG and Steam versions will no longer accept incorrect
+     numbers, e.g. for Edna's phone number. (Why are they selling a cracked
+     version anyway?!)
+   - Added support for Low quality music in Macintosh version of Loom.
+   - Improved Digital iMUSE accuracy for Full Throttle and The Curse of Monkey Island. These improvements also fix
+     several audio related bugs for both games.
+   - Fixed a very old regression in the walk code for Full Throttle which softlocked the game.
+   - Improved the accuracy of the walk code for The Dig and The Curse of Monkey Island.
+   - Fixed a bug in The Curse of Monkey Island which prevented, during the cannon minigame in Part 1, the destruction
+     of one of the three destroyable turrets in the fort.
+   - Added animated cigar smoke to the close-up of captain Smirk in the CD
+     version of Monkey Island 1. It was present in earlier versions.
+   - Restored some missing Lemonhead lines in the English, Italian, German and Spanish CD
+     versions as well as the English Macintosh, FM-Towns and Sega CD versions
+     of Monkey Island 1.
+   - Made the clock tower in Monkey Island 1 behave the same in the CD version
+     as in earlier versions, i.e. after examining it you have to leave the
+     room and come back again for its description to change.
+
+ Tinsel:
+   - Enabled the Return to Launcher feature.
+
+ Titanic:
+   - Fixed crashes when asking bots what I should do.
+
+ TsAGE:
+   - Added support for uninstalled floppy version.
+
+ Stark:
+   - Added support for Hungarian translation.
+
+ Supernova:
+   - Added Italian translation for part 1.
+
+ Sword25:
+   - Made the extracted version working.
+   - Fixed crash when selecting Croatian language.
+
+ Ultima:
+   - Ultima 4: Added several debugger commands.
+   - Ultima 4: Allow Enter key to exit ZStats display.
+   - Ultima 8: Fixed several animation bugs for events and objects.
+   - Ultima 8: Restored original text for the Spell of Resurrection book.
+
+ Xeen:
+   - Fixed occasional border corruption during fights.
+   - Improvements to cutscenes to better match the original games.
+   - Fixes for character selection, deselection, and dismissing to better match original.
+   - Added support for Russian version.
+
+ AmigaOS port:
+   - Added native system file browser feature.
+   - Re-activated nuked OPL Adlib driver.
+
+ Big-endian ports:
+   - Fixed crashes or rendering issues with the Blazing Dragons, Duckman and
+     Full Pipe games.
+
+ iOS port:
+   - Fixed using arrow keys on physical keyboard in iOS 15.
+   - Fixed rotating the device while ScummVM is inactive.
+   - Added support for upside down portrait orientation.
+
+ macOS port:
+   - Added support for Dark Mode.
+   - Use OpenGL renderer by default, providing better support for HiDPI displays.
+
+ MorphOS port:
+   - Added native system file browser feature.
+   - Added Cloud feature.
+   - Re-activate nuked OPL Adlib driver.
+   - Added CAMD MIDI driver support.
+
+  Windows port:
+   - Use OpenGL renderer by default, providing better support for HiDPI displays.
+
+#### 2.2.0 "Interactive Fantasy" (2020-09-27)
+
+ New games:
+   - Added support for Blazing Dragons.
+   - Added support for Griffon Legend.
+   - Added support for Interactive Fiction games based on the following engines:
+     ADRIFT (except for version 5), AdvSys, AGT, Alan 2 & 3,
+     Archetype (newly reimplemented for Glk from the original Pascal sources),
+     Hugo, JACL, Level 9, Magnetic Scrolls, Quest, Scott Adams,
+     ZCode (all ZCode games except the Infocom graphical version 6 games).
+     Currently, more than 1600 games are detected and supported.
+   - Added support for Operation Stealth.
+   - Added support for Police Quest: SWAT.
+   - Added support for English translation of Prince and the Coward.
+   - Added support for Ultima IV - Quest of the Avatar.
+   - Added support for Ultima VI - The False Prophet.
+   - Added support for Ultima VIII - Pagan.
+
+ New ports:
+   - MorphOS port got a major rewrite.
+
+ General:
+   - Autosaves are now supported for all the engines.
+   - Errors are more likely to open the debugger, and be displayed, than just crash ScummVM.
+   - Games are sorted in GUI ignoring the articles.
+   - Now Hebrew is displayed correctly in GUI (requires FriBiDi library).
+   - Updated the Roland MT-32 emulation code to Munt 2.4.0.
+   - Added option to select the default voice for ports that support Text-to-Speech.
+   - Added support for Discord Rich Presence integration on supported platforms (Windows Vista+, macOS 10.9+ 64 Bit).
+   - Major improvements to the keymapper.
+   - Games are now recognised by engineid:gameid combination.
+
+ BBVS:
+   - Added support for the demo, available from our website.
+   - Added support for the Loogie minigame demo.
+
+ Dreamweb:
+   - Added support for Russian fan-translation.
+   - Fixed animation speed.
+
+ Illusions:
+   - Fixed subtitle speed (set it to max for good speed).
+   - Added support for Russian Duckman.
+
+ Kyra:
+   - Added support for the SegaCD version of Eye of the Beholder I (with CD-Audio, animated
+     cutscenes and map function).
+   - Added support for the PC-98 version of Eye of the Beholder I.
+   - Added support for the Spanish versions of Eye of the Beholder I and II, Legend of
+     Kyrandia 1 (CD-ROM fan translation) and Legend of Kyrandia 2 (floppy version and
+     CD-ROM fan translation). Fix Spanish Lands of Lore support (floppy version and
+     CD-ROM fan translation).
+
+ Lab:
+   - Fixed sound looping in some rooms.
+
+ Neverhood:
+   - Added support for bigger demo, available from our website.
+
+ Prince:
+   - Fixed inventory item descriptions display.
+   - Added English translation.
+   - Fixed bug with infinite loop when looking at some objects.
+
+ Queen:
+   - Fixed loading a save game from the launcher.
+   - Fixed random long delays when starting a game.
+
+ SCI:
+   - Major improvements to Amiga and Mac sound drivers.
+   - Improved MIDI playback and fixed many audio issues.
+   - Fixed 30 original script bugs in ECO2, GK1, KQ4, KQ5, KQ6, KQ7, LB1, LONGBOW,
+     PHANT2, QFG1, QFG3, QFG4, SQ5 and SQ6.
+   - Fixed a script bug responsible for rare and random lockups in most Sierra
+     games between 1992-1996.
+   - Added support for Inside the Chest / Behind the Developer's Shield.
+   - Added support for German LSL6-Floppy.
+   - Added support for Hebrew Torin's Passage.
+   - Added support for Italian Lighthouse.
+   - Added support for Polish KQ5, LSL2, LSL3, LSL5 and LSL6-Floppy.
+   - Fixed Russian LSL1 error when hailing a taxi.
+   - Fixed Phantasmagoria 2 error when attempting easter eggs.
+   - Fixed QFG3 auto-saves.
+   - Fixed QFG4 and Shivers save game thumbnails being obscured by control panels.
+   - Fixed a random crash in the Windows version when exiting a game.
+   - Added support for Roland D-110 sound driver.
+   - The "Prefer digital sound effects" checkbox works correctly now for SCI01/SCI1 games.
+
+ SCUMM:
+   - Fixed palette issues leading to incorrect colors in MM NES intro and dark rooms.
+   - Fixed the rendering of the flashlight in MM NES to match the original version.
+   - Replaced the existing NES palette to a more accurate NTSC palette based on Mesen.
+   - Added a new GUI option to switch to an alternative NES palette based on the NES Classic.
+   - Improved colors in Apple //gs Maniac Mansion.
+   - Fixed crash when entering garage in Apple //gs Maniac Mansion.
+   - Added support from Classic Full Throttle from Remastered release.
+
+ Supernova:
+   - Improved English translation.
+
+ Sky:
+   - Fixed syncing of music volume between native settings panel and ScummVM configuration.
+
+ Sword1:
+   - Added support for localized menus in Novy Disk Russian Trilogy release.
+   - Added support for Spanish playable Demo available from our website.
+
+ Sword2:
+   - Added support for Spanish playable Demo available from our website.
+
+ Titanic:
+   - Fixed Barbot crash after asking what else he needs.
+
+ Wintermute:
+   - Added subsystem for tracking achievements, implemented for 10+ games.
+
+ Xeen:
+   - Add missing sprite drawer for enemies hit by Energy Blast.
+   - Fixed freeze due to bad mob data at the top of Witches Tower.
+   - Fix crash loading some savegames directly from the launcher.
+   - Fix curing the well in Nightshadow.
+   - Fix loading of wall items from savegames.
+   - Fix U/D keys not working on Quests dialog.
+   - Fix incorrect mirror destination for Dragon Tower.
+   - Fix crash reading book in Great Pyramid safe.
+   - Prevent attributes from going negative.
+   - Fix border faces animation during Clairvoyance.
+
+ ZVision:
+   - Fixed regression in the safe puzzle in Zork Nemesis: The Forbidden Lands.
+   - Fixed getting perfect score in Zork: Grand Inquisitor.
+
+ Android port:
+   - Added support for immersive fullscreen mode.
+   - Improved keyboard and mouse input.
+
+ iOS port:
+   - Fixed unsupported graphic mode for some games (such as SCI games with high
+     quality video scaling enabled).
+   - Removed Quit button to follow the iOS design guidelines.
+   - Removed virtual keyboard input assistant bar. In particular this means that we
+     no longer see a bar at the bottom of the screen when using an external keyboard.
+   - Added save of current game state if possible when switching to a different task
+     and restore game state when returning to the ScummVM task.
+
+ Linux port:
+   - Added option to use the system file browser instead of the ScummVM file browser.
+
+ MacOS X port:
+   - Fixed blurry on Retina screens. Unfortunately this required dropping support
+     for the dark theme for window decorations.
+   - Fixed Taskbar icon display when running a game (this was broken since ScummVM
+     1.9.0).
+
+ RISC OS port:
+   - Added a VFP optimized build for newer hardware.
+
+ Windows port:
+   - Added support for using additional OneCore voices for text to speech.
+   - Active support for Windows Vista and lower is now discontinued. While we still provide
+     builds for those systems in the foreseeable future, some newer features might be missing.
+
+#### 2.1.2 "Fixing Powerful Windows" (2020-03-31)
+
+ Windows port:
+   - Fixed an issue with the Sparkle updater which lead to an infinite update loop.
+
+ MacOS X port:
+   - Fixed application freeze on start on Mac OS X 10.5 and older.
+   - Fixed application icon on Mac OS X 10.5 and older.
+
+
+#### 2.1.1 ":More sheep:" (2020-01-31)
 
  General:
    - Fixed crash when switching certain languages in GUI.
@@ -232,6 +643,8 @@ For a more comprehensive changelog of the latest experimental code, see:
  ZVISION:
    - Fixed graphical glitch in Zork: Grand Inquisitor.
    - Packaged the required fonts with ScummVM.
+   - Enabled hires movies in the DVD version of Zork: Grand Inquisitor (requires
+     libmpeg2 and libac52).
 
  Android port:
    - Rewrote to make use of the OpenGL Graphics Manager.
@@ -432,7 +845,7 @@ For a more comprehensive changelog of the latest experimental code, see:
      in-game dialog.
 
  Tinsel:
-   - Fixed some Discworld 2 text/voice not displaying & playing all the way through
+   - Fixed some Discworld 2 text/voice not displaying & playing all the way through.
    - Fix crash in in-game save menu when all slots are used with long names
 
  TsAGE:
@@ -505,7 +918,7 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Fixed missing translations in the in-game quit and restart dialogs in Pajama Sam 1.
    - Fixed visual glitches in DOTT that occured after loading a savegame with the stereo
      in Green Tentacle's room turned on.
-   - Improved timing and pathfinding in Maniac Mansion (C64 and Apple II versions)
+   - Improved timing and pathfinding in Maniac Mansion (C64 and Apple II versions).
    - Added support for the Dutch demo of Let's Explore the Airport with Buzzy.
 
  Sherlock:
@@ -576,10 +989,10 @@ For a more comprehensive changelog of the latest experimental code, see:
 
  SCI:
    - Make cursor workarounds work properly on OpenPandora (and other devices, that
-     support touch screen and analog sticks/mouse at the same time)
+     support touch screen and analog sticks/mouse at the same time).
    - Script patch to fix broken ending battle in multilingual King's Quest 5
-     (French, German + Spanish versions are all broken)
-   - Fixed invalid memory access, when loading broken King's Quest 5 credit music track
+     (French, German + Spanish versions are all broken).
+   - Fixed invalid memory access, when loading broken King's Quest 5 credit music track.
    - Fixed lowres/hires issues in King's Quest 6 when saving, changing the lowres/hires
      setting and restoring the saved game afterwards.
 
@@ -892,7 +1305,7 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Added support for Geisha.
    - Added support for Gregory and the Hot Air Balloon.
    - Added support for Magic Tales: Liam Finds a Story.
-   - Added support for Once Upon A Time: Little Red Riding Hood
+   - Added support for Once Upon A Time: Little Red Riding Hood.
    - Added support for Sleeping Cub's Test of Courage.
    - Added support for Soltys.
    - Added support for The Princess and the Crab.
@@ -924,11 +1337,11 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Implemented Roland MT-32 output driver.
 
  Drascula:
-   - Added Spanish subtitles in the Von Braun cutscene (#3069981: no subtitles
+   - Added Spanish subtitles in the Von Braun cutscene (#5372: no subtitles
      in scene with "von Braun").
 
  Gob:
-   - Fixed a crash in Lost in Time
+   - Fixed a crash in Lost in Time.
    - Rewrote the AdLib player. Enabled the now working MDY player in
      Fascination and Geisha.
 
@@ -1111,7 +1524,7 @@ For a more comprehensive changelog of the latest experimental code, see:
      glitches remain so not official supported.
 
  Drascula:
-   - Added German and French subtitles in the Von Braun cutscene (#3069981:
+   - Added German and French subtitles in the Von Braun cutscene (#5372:
      no subtitles in scene with "von Braun").
    - Improved French translation of the game.
    - Added support for "Return To Launcher".
@@ -1306,7 +1719,7 @@ For a more comprehensive changelog of the latest experimental code, see:
  Broken Sword 2:
    - Fixed missing speech in some cutscenes.
    - Fixed a memory leak that would eventually cause the game to hang.
-     (#2976008 - BS2: Game lockup in British Museum)
+     (#4828 - BS2: Game lockup in British Museum)
 
  Drascula:
    - Fixed number of GFX glitches.
@@ -1371,7 +1784,7 @@ For a more comprehensive changelog of the latest experimental code, see:
 
  Drascula:
    - Fixed regression that caused some texts to always be in English, even when
-     using another language. (#2970211 - DRASCULA: missing german translation)
+     using another language. (#4819 - DRASCULA: missing german translation)
 
  KYRA:
    - Fixed a bug which caused the DOS versions to crash before the credits when
@@ -2041,7 +2454,7 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Fixed last-minute crash when playing sound effects.
 
  WinCE Port:
-   - Should fix weird crashes with DOTT stamp and in FOA. (#1399830 #1392815)
+   - Should fix weird crashes with DOTT stamp and in FOA. (#2439 #2430)
    - Fixed Monkey Island blocking keyboard panel on Smartphones. (thks Knakos)
    - Fixed QVGA Smartphone detection (mean it this time :p).
    - Fixed Smartphone double right click issue.

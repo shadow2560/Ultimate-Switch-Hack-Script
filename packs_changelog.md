@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V485</h2>
+<ul>
+<li>Mise à jour du lien de Retroarch pour la version 1.9.11.</li>
+<li>Mise à jour de Scummvm en version 2.5.0.</li>
+</ul>
 <h2>V484</h2>
 <ul>
 <li>Mise à jour de Ldn_mitm en version 1.10.0.</li>

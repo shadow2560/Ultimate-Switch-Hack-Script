@@ -36,6 +36,7 @@ echo 	-=========================================================================
 echo							What do you want to do:
 echo							1: Display help
 echo							2: Start injection
+echo 3: Launch CDmage to convert  CD images to the .cue and .bin format, the only format supported by the injection process.
 echo							All other choices: Go back to menu.
 echo 	-=======================================================================================================-
 set /p begin=Make your choice: 
