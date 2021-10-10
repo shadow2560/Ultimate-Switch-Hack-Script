@@ -247,7 +247,7 @@ IF /i "%software_copy%"=="o" (
 )
 call :extract_base_folder "%software_path%"
 IF /i "%software_copy%"=="o" (
-	IF "%software_type%"=="2" %windir%\System32\Robocopy.exe "%software_path%" "tools\toolbox\%software_name%" /e
+	IF "%software_type%"=="2" %windir%\System32\Robocopy.exe "%software_path% " "tools\toolbox\%software_name%" /e
 )
 call :get_software_file_name "%software_path%"
 IF /i "%software_copy%"=="o" (

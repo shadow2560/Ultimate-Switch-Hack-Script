@@ -41,6 +41,7 @@ IF "%action_choice%"=="12" goto:config_snes_classic
 IF "%action_choice%"=="13" goto:install_android_apps
 IF "%action_choice%"=="14" goto:create_forwarder
 IF "%action_choice%"=="15" goto:create_gamemaker_game
+IF "%action_choice%"=="16" goto:inject_saturn_game
 goto:end_script
 
 :convert_game
@@ -221,6 +222,18 @@ IF EXIST "tools\Storage\GameMakerNSPBuilder.bat" (
 	call tools\Storage\update_manager.bat "update_GameMakerNSPBuilder.bat" "force"
 )
 call TOOLS\Storage\GameMakerNSPBuilder.bat
+@echo off
+goto:define_action_choice
+:inject_saturn_game
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\saturn_emu_inject.bat" (
+	call tools\Storage\update_manager.bat "update_saturn_emu_inject.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_saturn_emu_inject.bat" "force"
+)
+call TOOLS\Storage\saturn_emu_inject.bat
 @echo off
 goto:define_action_choice
 :end_script

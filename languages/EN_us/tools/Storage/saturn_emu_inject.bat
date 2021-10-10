@@ -10,7 +10,7 @@ IF "%lng_label_exist%"=="0" (
 )
 
 :display_title
-title GameMaker NSP Builder %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
+title Sega Saturn game inject %this_script_version% - Shadow256 Ultimate Switch Hack Script %ushs_version%
 goto:eof
 
 :main_menu
@@ -25,8 +25,7 @@ echo   	       	     ***  ************        shadow256         ************
 echo   	       	         *************                         ************                
 echo   	       	        *************         Presents:        ***********               
 echo   	       	          ************                        **********   ***               
-echo   	       	           *************     GameMaker    *************   ****           
-echo   	       	            **************   NSP Builder  ************    ******          
+echo   	       	           *************     NS Saturn Game Injector    *************   ****           
 echo   	       	              *************     v1.0   *************    *********        
 echo   	       	               *********************  *************   ************       
 echo   	       	                 ******************  *************    *************      
@@ -36,31 +35,38 @@ echo.
 echo 	-=======================================================================================================-
 echo							What do you want to do:
 echo							1: Display help
-echo							2: Start conversion
+echo							2: Start injection
 echo							All other choices: Go back to menu.
 echo 	-=======================================================================================================-
 set /p begin=Make your choice: 
 goto:eof
 
 :nsp_source_choice
-echo Please choose the GameMaker nsp source file in the following window.
+echo Please choose the Saturn nsp source file in the following window.
 echo If you close the window you will return to the menu.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Nintendo Switch nsp files^(*.nsp^)|*.nsp|" "Select the GameMaker nsp source file" "%ushs_base_path%templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Nintendo Switch nsp files^(*.nsp^)|*.nsp|" "Select the Saturn nsp source file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
 :set_gamemaker_game_source
-echo Please choose the GameMaker game folder to convert in the following window.
+echo Please choose the Saturn game folder to inject ^(.cue and.bin format only^) in the following window.
 echo If you close the window you will return to the menu.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Select the GameMaker game folder to convert"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Select the Saturn game folder to inject"
 goto:eof
 
 :set_keys_path
-echo Please choose the key file in the following window.
+echo Please choose the prod.keys file in the following window.
 echo If you close the window you will return to the menu.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Switch keys list files^(*.*^)|*.*|" "Select the keys file" "%ushs_base_path%templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Switch keys list files^(*.*^)|*.*|" "Select the prod.keys file" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:set_title_keys_path
+echo Please choose the title.keys file in the following window.
+echo If you close the window you will return to the menu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Switch keys list files^(*.*^)|*.*|" "Select the title.keys file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
 :set_icon_type_choice
@@ -131,9 +137,9 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "The file ^"%nsp_path%%name%_%id
 goto:eof
 
 :set_confirm_nsp_creation
-echo Informations on the GameMaker game to create:
-echo Gamemaker game NSP path source: %br%
-echo Folder path containing  the GameMaker game to inject: %gamemaker_source%
+echo Informations on the Saturn game to create:
+echo Saturn game NSP source path: %br%
+echo Folder path containing  the Saturn game to inject: %gamemaker_source%
 echo ID: %id%
 echo Game name: %name%
 IF /i "%bs%"=="o" (
@@ -143,7 +149,8 @@ IF /i "%bs%"=="o" (
 )
 echo Author: %author%
 echo Version: %version%
-echo keys path: %keys_path%
+echo prod.keys path: %keys_path%
+echo title.keys path: %title.keys_path%
 echo NSP output path: %nsp_path%
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to continue with theses settings? ^(%lng_yes_choice%/%lng_no_choice%^): "
@@ -152,7 +159,7 @@ goto:eof
 :extract_nsp_step
 ECHO 	=========================================================================================================
 ECHO.
-ECHO	 		        			 Step 1:  Extract GameMaker game NSP source...
+ECHO	 		        			 Step 1:  Extract Saturn game NSP source...
 ECHO.
 ECHO 	=========================================================================================================
 goto:eof
@@ -168,6 +175,10 @@ ECHO.
 ECHO	 		        			 Step 2:   Extract Decrypted NCA...
 Echo.
 ECHO 	=========================================================================================================
+goto:eof
+
+:nsp_source_not_allowed
+echo The source NSP chosen is not compatible with this script.
 goto:eof
 
 :icon_step
@@ -201,17 +212,17 @@ ECHO.
 ECHO	 		        			 How to use this software:
 Echo.
 ECHO 	=========================================================================================================
-Echo 	-Indicate a NSP from retail GameMaker Game for sourcing
-Echo 	-Indicate your GameMaker Game folder to convert
-Echo 	-Indicate your keys file
+Echo 	-Indicate a NSP from retail Saturn Game for sourcing
+Echo 	-Indicate your Saturn Game folder to inject
+Echo 	-Indicate your prod.keys file
+Echo 	-Indicate your title.keys file containing the title key of the NSP source.
 Echo 	-Icon can be JPG or PNG and will be resized at good size by the process
 Echo 	-Indicate an output folder for your NSP
 Echo.
 Echo.
 Echo 	Greetings:
-Echo 			Kardch ^& Chocolate2890 from GBATemp for manual method,
-Echo 			The-4n for Hacpack tool,SciresM for Hactool
-Echo 			YoYo Games for GameMaker Studio and all Nintendo Switch Scene
+Echo 			https://gbatemp.net/threads/saturn-emulation-using-cotton-guardian-force-testing-and-debug.600756/
+Echo 			The-4n for Hacpack tool, Thealexbarney for Hactoolnet
 Echo 			You know who you are!
 Echo. 	           
 goto:eof

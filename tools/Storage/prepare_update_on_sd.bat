@@ -613,7 +613,7 @@ IF /i "%cancel_script%"=="o" goto:define_action_type
 IF "%action_type%"=="1" (
 	call "%associed_language_script%" "copying_begin"
 	if exist "%volume_letter%:\FW_%firmware_choice%" rmdir /s /q "%volume_letter%:\FW_%firmware_choice%"
-	%windir%\System32\Robocopy.exe "firmware_temp" %volume_letter%:\FW_%firmware_choice% /e >nul
+	%windir%\System32\Robocopy.exe "firmware_temp " %volume_letter%:\FW_%firmware_choice% /e >nul
 	call :daybreak_convert "%volume_letter%:\FW_%firmware_choice%"
 	IF EXIST "%volume_letter%:\switch\ChoiDuJourNX.nro" del /q "%volume_letter%:\switch\ChoiDuJourNX.nro"
 	IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"
@@ -627,7 +627,7 @@ IF "%action_type%"=="1" (
 IF "%action_type%"=="3" (
 	call "%associed_language_script%" "copying_begin"
 	if exist "%volume_letter%:\FW_%firmware_choice%" rmdir /s /q "%volume_letter%:\FW_%firmware_choice%"
-	%windir%\System32\Robocopy.exe "firmware_temp" %volume_letter%:\FW_%firmware_choice% /e >nul
+	%windir%\System32\Robocopy.exe "firmware_temp " %volume_letter%:\FW_%firmware_choice% /e >nul
 	call :daybreak_convert "%volume_letter%:\FW_%firmware_choice%"
 	IF EXIST "%volume_letter%:\switch\ChoiDuJourNX.nro" del /q "%volume_letter%:\switch\ChoiDuJourNX.nro"
 	IF NOT EXIST "%volume_letter%:\switch" mkdir "%volume_letter%:\switch"

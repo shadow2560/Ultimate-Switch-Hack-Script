@@ -448,6 +448,7 @@ call :update_preload_NSC_Builder.bat
 call :update_prepare_sd_switch.bat
 call :update_prodinfo_rewrite.bat
 call :update_renxpack.bat
+call :update_saturn_emu_inject.bat
 call :update_serial_checker.bat
 call :update_split_games.bat
 call :update_spoof_sxos_licence.bat
@@ -2043,6 +2044,37 @@ IF "!update_finded!"=="Y" (
 set /a temp_count+=1
 goto:listing_salty-nx
 :skip_listing_salty-nx
+exit /b
+
+:update_saturn_emu_inject.bat
+call :verif_file_version "tools\Storage\saturn_emu_inject.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\saturn_emu_inject.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\saturn_emu_inject.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\Hactool_based_programs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\npdm_and_nacp_rewrite"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\Saturn_emu_inject"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 exit /b
 
 :update_save_configs.bat

@@ -126,7 +126,7 @@ goto:end_script
 :start_converting
 call "%associed_language_script%" "intro_copying_files"
 copy "TOOLS\BOTW_SaveConv\BOTW_SaveConv.exe" "BOTW_save\BOTW_SaveConv.exe"
-%windir%\System32\Robocopy.exe "%filepath%" "BOTW_save" /e
+%windir%\System32\Robocopy.exe "%filepath% " "BOTW_save" /e
 call "%associed_language_script%" "end_copying_files"
 cd "BOTW_save"
 BOTW_SaveConv.exe

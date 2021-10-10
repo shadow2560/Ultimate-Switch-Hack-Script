@@ -48,6 +48,8 @@ echo 14: Create a forwarder?
 echo.
 echo 15: Create a nsp for a GameMaker game?
 echo.
+echo 16: Inject a Sega Saturn game ^(alpha function^)?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.

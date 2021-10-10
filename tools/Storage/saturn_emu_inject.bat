@@ -27,7 +27,7 @@ IF EXIST templogs (
 )
 mkdir templogs
 call "%associed_language_script%" "display_title"
-cd tools\GameMakerNSPBuilder
+cd tools\Saturn_emu_inject
 :Menu
 cls
 set begin=
@@ -51,18 +51,16 @@ IF "%br%"=="" (
 	goto:menu
 )
 
-:gamemaker_game_set
+:saturn_game_set
 echo.
-set gamemaker_source=
-call "%associed_language_script%" "set_gamemaker_game_source"
-set /p gamemaker_source=<%ushs_base_path%templogs\tempvar.txt
-IF "%gamemaker_source%"=="" (
+set saturn_game_source=
+call "%associed_language_script%" "set_saturn_game_source"
+set /p saturn_game_source=<%ushs_base_path%templogs\tempvar.txt
+IF "%saturn_game_source%"=="" (
 	goto:menu
 ) else (
-	set gamemaker_source=%gamemaker_source%\
-	set gamemaker_source=!gamemaker_source:\\=\!
-	IF NOT EXIST "Game_inject" mkdir Game_inject
-	%windir%\System32\Robocopy.exe "%gamemaker_source% " "Game_inject" /e >nul
+	set saturn_game_source=%saturn_game_source%\
+	set saturn_game_source=!saturn_game_source:\\=\!
 )
 
 :keys_path_set
@@ -71,6 +69,15 @@ set keys_path=
 call "%associed_language_script%" "set_keys_path"
 set /p keys_path=<%ushs_base_path%templogs\tempvar.txt
 IF "%keys_path%"=="" (
+	goto:menu
+)
+
+:title_keys_path_set
+echo.
+set title_keys_path=
+call "%associed_language_script%" "set_title_keys_path"
+set /p title_keys_path=<%ushs_base_path%templogs\tempvar.txt
+IF "%title_keys_path%"=="" (
 	goto:menu
 )
 
@@ -180,13 +187,15 @@ echo.
 call "%associed_language_script%" "set_confirm_nsp_creation"
 IF %errorlevel% NEQ 1 goto:end_script2
 
+set filename0=Cotton2
+set filename1=GuardianForce
+set filename2=CottonBoomerang
 echo.
 call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
 	mkdir "%CD%\nsp"
 )
-rem "%ushs_base_path%tools\Hactool_based_programs\tools\hactool.exe" "%br%" -k "%keys_path%" -x --intype=pfs0 --pfs0dir="%CD%\nsp"
-"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
+"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path%" --titlekeys "%title_keys_path%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause
@@ -205,8 +214,7 @@ if not exist "%CD%\nca" (
 )
 
 For /R "%CD%\nsp\" %%G in (*.nca) do (
-	rem "%ushs_base_path%tools\Hactool_based_programs\tools\hactool.exe" "%%G" -k "%keys_path%" --romfsdir="%CD%\nca\romfs" --exefsdir="%CD%\nca\exefs"
-	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path%" --romfsdir "%CD%\nca\romfs" --exefsdir "%CD%\nca\exefs" "%%G" >nul 2>&1
+	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path%" --titlekeys "%title_keys_path%" --romfsdir "%CD%\nca\romfs" --exefsdir "%CD%\nca\exefs" "%%G" >nul 2>&1
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "conversion_error"
 		pause
@@ -214,18 +222,35 @@ For /R "%CD%\nsp\" %%G in (*.nca) do (
 		goto:menu
 	)
 )
-move "%CD%\nca\romfs\control.nacp" "%CD%\nca\control\control.nacp" >nul
-move "%CD%\nca\romfs\icon_AmericanEnglish.dat" "%CD%\nca\control\icon_AmericanEnglish.dat" >nul
-del /f /s /q "%CD%\nca\romfs\*.*" >nul
+del /q "%CD%\nca\romfs\control.nacp">nul
+del /q "%CD%\nca\romfs\*.dat">nul
+del /q "%CD%\nca\romfs\*.cnmt">nul
 
-ren "%CD%\Game_inject\data.win"  game.win >nul
-for /d %%f in ("%CD%\Game_inject\*.*") do (
-	move /y "%%f" "%CD%\nca\romfs\" >nul
-)
-move /y "%CD%\Game_inject\*.*" "%CD%\nca\romfs\" >nul
 if exist .\nca\control\icon_AmericanEnglish.dat (
 	del .\nca\control\icon_AmericanEnglish.dat >nul
 )
+
+:replace_game_files
+set /a tempcount=0
+for /l %%i in (0,1,2) do (
+	IF EXIST "%CD%\nca\romfs\!filename%%i!.bin" (
+		set game_files=!filename%%i!
+		set /a tempcount=!tempcount!+1
+	)
+)
+IF %tempcount% NEQ 1 (
+	call "%associed_language_script%" "nsp_source_not_allowed"
+	pause
+	call :del_temp_files
+	goto:menu
+)
+del /q "%CD%\nca\romfs\%game_files%.bin"
+del /q "%CD%\nca\romfs\%game_files%.cue"
+%windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" >nul
+rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
+
+:rewrite_ini_file
+copy "Tools\config.ini" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
 
 echo.
 call "%associed_language_script%" "icon_step"
@@ -262,7 +287,7 @@ move .\icon\icon.jpg .\nca\control\icon_AmericanEnglish.dat >nul
 GOTO Next
 
 :Generic
-copy .\Tools\icon_AmericanEnglish.dat .\nca\control\icon_AmericanEnglish.dat >nul
+copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_AmericanEnglish.dat >nul
 
 :Next
 echo.
@@ -270,14 +295,8 @@ call "%associed_language_script%" "create_game_step"
 if exist .\nca\exefs\main.npdm (
 	move .\nca\exefs\main.npdm .\ >nul
 )
-if exist .\nca\control\control.nacp (
-	move .\nca\control\control.nacp .\ >nul
-) else (
-	copy .\Tools\control2.nacp .\control.nacp >nul
-)
-rem set /p bs=<main.npdm
+	copy .\Tools\control\control.nacp .\control.nacp >nul
 
-rem .\Tools\mnpdm.exe "%bs:"=%"
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
@@ -295,7 +314,7 @@ IF %errorlevel% NEQ 0 (
 
 move .\control.nacp .\nca\control\ >nul
 move .\main.npdm .\nca\exefs\ >nul
-rem set /p td=<ID.txt
+
 set td=%id%
 
 mkdir .\nca\out
@@ -326,7 +345,7 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
-call ::del_temp_files
+call :del_temp_files
 rename "%nsp_path%%id%.nsp" "%name%_%id%.nsp" >nul
 echo.
 call "%associed_language_script%" "end_process"
@@ -362,7 +381,7 @@ for /l %%n in (1,1,12) do (
 set id=01%rand1%%rand2%%rand3%%rand4%%rand5%%rand6%%rand7%%rand8%%rand9%%rand10%%rand11%000
 exit /b
 
-::del_temp_files
+:del_temp_files
 rem del "ID.txt" >nul 2>&1
 rmdir /s /q "nca\" >nul 2>&1
 rmdir /s /q "nsp\" >nul 2>&1

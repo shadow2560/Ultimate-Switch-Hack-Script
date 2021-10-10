@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.183</h2>
+<ul>
+<li>Mise en place d'une fonction permettant d'injecter un jeu Saturn grâce aux jeux de la série "Saturn Tribute" (excepté la compilation des trois jeux qui n'est pas gérée ici) (fonction en alpha).</li>
+<li>Correction de bugs divers.</li>
+<li>Mise à jour des crédits.</li>
+</ul>
 <h2>V4.3.182</h2>
 <ul>
 <li>Correction d'un bug importants dans les scripts de création de forwarders et de création de jeux GameMaker.</li>
