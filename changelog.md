@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.182</h2>
+<ul>
+<li>Correction d'un bug importants dans les scripts de création de forwarders et de création de jeux GameMaker.</li>
+</ul>
 <h2>V4.3.181</h2>
 <ul>
 <li>Corrections de bugs dans la préparation d'une SD.</li>

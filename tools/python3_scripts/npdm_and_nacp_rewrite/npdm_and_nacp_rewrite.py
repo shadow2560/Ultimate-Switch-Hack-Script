@@ -32,17 +32,18 @@ def test_src_file(file_src_path):
 			file_src.seek(0x70)
 			aci0_start = file_src.read(0x4)
 			aci0_start = int.from_bytes(aci0_start, 'little')
-			# print(aci0_start)
+			print(aci0_start)
 			file_src.seek(0x280)
 			test_acid_magic = file_src.read(0x4)
 			file_src.seek(aci0_start)
 			test_aci0_magic = file_src.read(0x4)
 			if (test_meta_magic == meta_magic and test_acid_magic == acid_magic and test_aci0_magic == aci0_magic):
 				file_type = 'npdm'
-			file_src.seek(0, os.SEEK_END)
-			if (file_src.tell() != nacp_size):
-				print("Le fichier ne semble pas être de type NPDM ou NACP.")
-				return(1)
+			if file_type != 'npdm':
+				file_src.seek(0, os.SEEK_END)
+				if (file_src.tell() != nacp_size):
+					print("Le fichier ne semble pas être de type NPDM ou NACP.")
+					return(1)
 			file_src.seek(0)
 			file_datas=file_src.read()
 			file_src.close()
