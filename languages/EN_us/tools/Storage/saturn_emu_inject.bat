@@ -43,10 +43,22 @@ set /p begin=Make your choice:
 goto:eof
 
 :nsp_source_choice
-echo Please choose the Saturn nsp source file in the following window.
-echo If you close the window you will return to the menu.
-pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Nintendo Switch nsp files^(*.nsp^)|*.nsp|" "Select the Saturn nsp source file" "%ushs_base_path%templogs\tempvar.txt"
+IF /i "%display_good_saved_games%"=="Y" (
+	echo Which games do you want to use as a base source:
+	IF NOT "%filename0_path%"=="" echo 1: %filename0%
+	IF NOT "%filename1_path%"=="" echo 2: %filename1%
+	IF NOT "%filename2_path%"=="" echo 3: %filename2%
+	echo 0: Select a NSP
+	echo All other choices: Go back tou previous menu.
+	echo.
+	set /p br=Make your choice: 
+	IF "!br!"=="0" %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Nintendo Switch nsp files^(*.nsp^)|*.nsp|" "Select the Saturn nsp source file" "%ushs_base_path%templogs\tempvar.txt"
+) else (
+	echo Please choose the Saturn nsp source file in the following window.
+	echo If you close the window you will return to the menu.
+	pause
+	%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Nintendo Switch nsp files^(*.nsp^)|*.nsp|" "Select the Saturn nsp source file" "%ushs_base_path%templogs\tempvar.txt"
+)
 goto:eof
 
 :set_gamemaker_game_source
@@ -90,6 +102,17 @@ echo Please choose the ini file in the following window.
 echo If you close the window you will return to the ini type choice.
 pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "ini files^(*.ini^)|*.ini|" "Select the custom ini file" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:set_custom_wallpaper_choice
+set /p custom_wallpaper_choice=Do you want to choose your own wallpaper folder for the game ^(the folder must contain the four file named "WP_001.tex" to "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_wallpaper_folder_path
+echo Please choose the wallpaper folder in the following window.
+echo If you close the window you will return to the wallpaper type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Wallpaper folder select"
 goto:eof
 
 :set_id
@@ -150,7 +173,8 @@ goto:eof
 
 :set_confirm_nsp_creation
 echo Informations on the Saturn game to create:
-echo Saturn game NSP source path: %br%
+IF "%br_choice%"=="" echo Saturn game NSP source path: %br%
+IF NOT "%br_choice%"=="" echo Game base used: !filename%br_choice%!
 echo Folder path containing  the Saturn game to inject: %gamemaker_source%
 echo ID: %id%
 echo Game name: %name%
@@ -159,10 +183,20 @@ IF /i "%bs%"=="o" (
 ) else (
 	echo Default icon.
 )
+IF /i "%custom_ini_choice%"=="o" (
+	echo Custom ini file path: %custom_ini_path%
+) else (
+	echo Default ini file.
+)
+IF /i "%custom_wallpaper_choice%"=="o" (
+	echo Custom wallpaper folder path: %custom_wallpaper_folder_path%
+) else (
+	echo Default wallpaper folder.
+)
 echo Author: %author%
 echo Version: %version%
 echo prod.keys path: %keys_path%
-echo title.keys path: %title.keys_path%
+IF "%br_choice%"=="" echo title.keys path: %title_keys_path%
 echo NSP output path: %nsp_path%
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to continue with theses settings? ^(%lng_yes_choice%/%lng_no_choice%^): "

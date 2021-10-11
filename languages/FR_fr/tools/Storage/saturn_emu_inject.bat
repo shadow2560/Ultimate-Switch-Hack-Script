@@ -34,10 +34,22 @@ set /p begin=Faites votre choix:
 goto:eof
 
 :nsp_source_choice
-echo Choisissez  le fichier NSP source du jeu saturn  dans la fenêtre suivante.
-echo Si vous refermez la fenêtre vous retournerez au menu.
-pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichier nsp nintendo Switch ^(*.nsp^)|*.nsp|" "Sélection du fichier nsp source du jeu Saturn" "%ushs_base_path%templogs\tempvar.txt"
+IF /i "%display_good_saved_games%"=="Y" (
+	echo Quel jeux souhaitez-vous utiliser comme base source:
+	IF NOT "%filename0_path%"=="" echo 1: %filename0%
+	IF NOT "%filename1_path%"=="" echo 2: %filename1%
+	IF NOT "%filename2_path%"=="" echo 3: %filename2%
+	echo 0: Sélectionner un NSP
+	echo Tout autres choix: Revenir au menu précédent.
+	echo.
+	set /p br=Faites votre choix: 
+	IF "!br!"=="0" %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichier nsp nintendo Switch ^(*.nsp^)|*.nsp|" "Sélection du fichier nsp source du jeu Saturn" "%ushs_base_path%templogs\tempvar.txt"
+) else (
+	echo Choisissez  le fichier NSP source du jeu saturn  dans la fenêtre suivante.
+	echo Si vous refermez la fenêtre vous retournerez au menu.
+	pause
+	%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichier nsp nintendo Switch ^(*.nsp^)|*.nsp|" "Sélection du fichier nsp source du jeu Saturn" "%ushs_base_path%templogs\tempvar.txt"
+)
 goto:eof
 
 :set_saturn_game_source
@@ -81,6 +93,17 @@ echo Sélectionnez le fichier ini dans la fenêtre suivante.
 echo Si vous refermez la fenêtre vous retournerez au choix du type de fichier ini.
 pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers ini^(*.ini^)|*.ini|" "Sélectionner un fichier ini personnalisé" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:set_custom_wallpaper_choice
+set /p custom_wallpaper_choice=Souhaitez-vous utiliser votre propre dossier  de fonds d'écran pour le jeu ^(le dossier devra contenir les quatre fichiers nommés "WP_001.tex" à "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_wallpaper_folder_path
+echo Sélectionnez le dossier de fonds d'écran dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type de fonds d'écran.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier des fonds d'écran"
 goto:eof
 
 :set_id
@@ -141,8 +164,9 @@ goto:eof
 
 :set_confirm_nsp_creation
 echo Informations sur le jeu Saturn à injecter:
-echo Chemin du NSP source du jeu Saturn: %br%
-echo Chemin du répertoire contenant le jeu Saturn à injecter: %gamemaker_source%
+IF "%br_choice%"=="" echo Chemin du NSP source du jeu Saturn: %br%
+IF NOT "%br_choice%"=="" echo Jeu base utilisé: !filename%br_choice%!
+echo Chemin du répertoire contenant le jeu Saturn à injecter: %saturn_game_source%
 echo ID: %id%
 echo Nom du jeu: %name%
 IF /i "%bs%"=="o" (
@@ -150,10 +174,20 @@ IF /i "%bs%"=="o" (
 ) else (
 	echo Icône par défaut.
 )
+IF /i "%custom_ini_choice%"=="o" (
+	echo Chemin du fichier ini personnalisé: %custom_ini_path%
+) else (
+	echo Fichier ini par défaut.
+)
+IF /i "%custom_wallpaper_choice%"=="o" (
+	echo Chemin du dossier des fonds d'écran personnalisé: %custom_wallpaper_folder_path%
+) else (
+	echo Dossier des fonds d'écran par défaut.
+)
 echo Auteur: %author%
 echo Version: %version%
 echo Chemin du fichier prod.keys: %keys_path%
-echo Chemin du fichier title.keys: %title_keys_path%
+IF "%br_choice%"=="" echo Chemin du fichier title.keys: %title_keys_path%
 echo Chemin de sortie du NSP: %nsp_path%
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous continuer avec ces paramètres? ^(%lng_yes_choice%/%lng_no_choice%^): "

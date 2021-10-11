@@ -29,6 +29,11 @@ mkdir templogs
 IF NOT EXIST "Saturn_emu_inject_datas\*.*" mkdir "Saturn_emu_inject_datas"
 IF NOT EXIST "Saturn_emu_inject_datas\games\*.*" mkdir "Saturn_emu_inject_datas\games"
 IF NOT EXIST "Saturn_emu_inject_datas\ini\*.*" mkdir "Saturn_emu_inject_datas\ini"
+IF NOT EXIST "Saturn_emu_inject_datas\wallpapers\*.*" mkdir "Saturn_emu_inject_datas\wallpapers"
+
+set filename0=Cotton2
+set filename1=GuardianForce
+set filename2=CottonBoomerang
 
 call "%associed_language_script%" "display_title"
 :Menu
@@ -55,9 +60,40 @@ if "%begin%"=="1" (
 )
 
 :Start
+set display_good_saved_games=n
+for /l %%i in (0,1,2) do (
+	IF EXIST "Saturn_emu_inject_datas\games\!filename%%i!\*.*" (
+		set filename%%i_path=%ushs_base_path%Saturn_emu_inject_datas\games\!filename%%i!
+		set display_good_saved_games=Y
+	) else (
+		set filename%%i_path=
+	)
+)
 set br=
+set br_choice=
 call "%associed_language_script%" "nsp_source_choice"
-set /p br=<%ushs_base_path%templogs\tempvar.txt
+IF /i "%display_good_saved_games%"=="Y" (
+	IF "%br%"=="1" (
+	set br_choice=0
+	set game_files=%filename0%
+	set wallpaper_name_change=C2
+	) else IF "%br%"=="2" (
+	set br_choice=1
+	set game_files=%filename1%
+	set wallpaper_name_change=GF
+	) else IF "%br%"=="3" (
+	set br_choice=2
+	set game_files=%filename2%
+	set wallpaper_name_change=CB
+	) else IF "%br%"=="0" (
+	set /p br=<%ushs_base_path%templogs\tempvar.txt
+	) else (
+	goto:menu
+	)
+) else (
+	set /p br=<%ushs_base_path%templogs\tempvar.txt
+)
+IF "%br%"=="0" set br=
 IF "%br%"=="" (
 	goto:menu
 )
@@ -84,12 +120,14 @@ IF "%keys_path%"=="" (
 )
 
 :title_keys_path_set
-echo.
-set title_keys_path=
-call "%associed_language_script%" "set_title_keys_path"
-set /p title_keys_path=<%ushs_base_path%templogs\tempvar.txt
-IF "%title_keys_path%"=="" (
-	goto:menu
+IF "%br_choice%"=="" (
+	echo.
+	set title_keys_path=
+	call "%associed_language_script%" "set_title_keys_path"
+	set /p title_keys_path=<%ushs_base_path%templogs\tempvar.txt
+	IF "!title_keys_path!"=="" (
+		goto:menu
+	)
 )
 
 :icon_change_choice
@@ -119,6 +157,21 @@ IF /i "%custom_ini_choice%"=="o" (
 	set /p custom_ini_path=<%ushs_base_path%templogs\tempvar.txt
 	IF "!custom_ini_path!"=="" (
 		goto:custom_ini_change_choice
+	)
+)
+
+:custom_wallpaper_change_choice
+set custom_wallpaper_choice=
+set custom_wallpaper_folder_path=
+echo.
+call "%associed_language_script%" "set_custom_wallpaper_choice"
+IF NOT "%custom_wallpaper_choice%"=="" set custom_wallpaper_choice=%custom_wallpaper_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_wallpaper_choice" "o/n_choice"
+IF /i "%custom_wallpaper_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_wallpaper_folder_path"
+	set /p custom_wallpaper_folder_path=<%ushs_base_path%templogs\tempvar.txt
+	IF "!custom_wallpaper_folder_path!"=="" (
+		goto:custom_wallpaper_change_choice
 	)
 )
 
@@ -211,13 +264,19 @@ IF EXIST "%nsp_path%%name%_%id%.nsp" (
 :confirm_nsp_creation
 echo.
 call "%associed_language_script%" "set_confirm_nsp_creation"
-IF %errorlevel% NEQ 1 goto:end_script2
-
-set filename0=Cotton2
-set filename1=GuardianForce
-set filename2=CottonBoomerang
+IF %errorlevel% NEQ 1 goto:menu
 
 cd tools\Saturn_emu_inject
+if exist "%CD%\nca" rmdir /s /q "%CD%\nca"
+mkdir "%CD%\nca"
+mkdir "%CD%\nca\control"
+mkdir "%CD%\nca\exefs"
+mkdir "%CD%\nca\romfs"
+
+IF NOT "%br_choice%"=="" (
+	%windir%\System32\Robocopy.exe "!filename%br_choice%_path! " "%CD%\nca" /e >nul
+	goto:decrypted_folder_work
+)
 echo.
 call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
@@ -234,13 +293,6 @@ IF %errorlevel% NEQ 0 (
 :START_NCA
 echo.
 call "%associed_language_script%" "nca_step"
-if not exist "%CD%\nca" (
-	mkdir "%CD%\nca"
-	mkdir "%CD%\nca\control"
-	mkdir "%CD%\nca\exefs"
-	mkdir "%CD%\nca\romfs"
-)
-
 For /R "%CD%\nsp\" %%G in (*.nca) do (
 	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path%" --titlekeys "%title_keys_path%" --romfsdir "%CD%\nca\romfs" --exefsdir "%CD%\nca\exefs" "%%G" >nul 2>&1
 	IF !errorlevel! NEQ 0 (
@@ -250,8 +302,8 @@ For /R "%CD%\nsp\" %%G in (*.nca) do (
 		goto:menu
 	)
 )
-del /q "%CD%\nca\romfs\control.nacp">nul
-del /q "%CD%\nca\romfs\*.dat">nul
+rem del /q "%CD%\nca\romfs\control.nacp">nul
+rem del /q "%CD%\nca\romfs\*.dat">nul
 del /q "%CD%\nca\romfs\*.cnmt">nul
 
 if exist .\nca\control\icon_AmericanEnglish.dat (
@@ -276,13 +328,26 @@ del /q "%CD%\nca\romfs\%game_files%.bin"
 del /q "%CD%\nca\romfs\%game_files%.cue"
 
 rem Saving the decrypted folders for futur use
-%windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e >nul
+%windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e /purge >nul
 
+:decrypted_folder_work
 %windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" /e >nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
 copy "%custom_ini_path%" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
+
+:wallpaper_replace
+IF "%custom_wallpaper_folder_path%"=="" goto:pass_wallpaper_replace
+set wallpaper_name_change=
+IF "%game_files%"=="GuardianForce" set wallpaper_name_change=GF
+IF "%game_files%"=="CottonBoomerang" set wallpaper_name_change=CB
+IF "%game_files%"=="Cotton2" set wallpaper_name_change=C2
+copy "%custom_wallpaper_folder_path%\WP_001.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
+copy "%custom_wallpaper_folder_path%\WP_002.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul
+copy "%custom_wallpaper_folder_path%\WP_003.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul
+copy "%custom_wallpaper_folder_path%\WP_004.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_004.tex" >nul
+:pass_wallpaper_replace
 
 echo.
 call "%associed_language_script%" "icon_step"
@@ -315,19 +380,34 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
-move .\icon\icon.jpg .\nca\control\icon_AmericanEnglish.dat >nul
+copy .\icon\icon.jpg .\nca\control\icon_AmericanEnglish.dat >nul
+copy .\icon\icon.jpg .\nca\control\icon_Japanese.dat >nul
+del /q .\icon\icon.jpg
 GOTO Next
 
 :Generic
 copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_AmericanEnglish.dat >nul
+copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_Japanese.dat >nul
 
 :Next
 echo.
 call "%associed_language_script%" "create_game_step"
 if exist .\nca\exefs\main.npdm (
 	move .\nca\exefs\main.npdm .\ >nul
+) else (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
 )
-	copy .\Tools\control\control.nacp .\control.nacp >nul
+if exist .\nca\romfs\control.nacp (
+	move .\nca\romfs\control.nacp .\control.nacp >nul
+) else (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
 
 "%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm >nul
 IF %errorlevel% NEQ 0 (
