@@ -26,8 +26,11 @@ IF EXIST templogs (
 	rmdir /s /q templogs 2>nul
 )
 mkdir templogs
+IF NOT EXIST "Saturn_emu_inject_datas\*.*" mkdir "Saturn_emu_inject_datas"
+IF NOT EXIST "Saturn_emu_inject_datas\games\*.*" mkdir "Saturn_emu_inject_datas\games"
+IF NOT EXIST "Saturn_emu_inject_datas\ini\*.*" mkdir "Saturn_emu_inject_datas\ini"
+
 call "%associed_language_script%" "display_title"
-cd tools\Saturn_emu_inject
 :Menu
 cls
 set begin=
@@ -42,6 +45,11 @@ if "%begin%"=="1" (
 	) else if "%begin%"=="3" (
 		start "" /d "Tools\CDmage" "Tools\CDmage\CDmage.exe"
 		goto:Menu
+) else if "%begin%"=="4" (
+	cls
+	call :manage_ini_profiles
+	goto:Menu
+)
 ) else (
 	goto:end_script2
 )
@@ -208,6 +216,8 @@ IF %errorlevel% NEQ 1 goto:end_script2
 set filename0=Cotton2
 set filename1=GuardianForce
 set filename2=CottonBoomerang
+
+cd tools\Saturn_emu_inject
 echo.
 call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
@@ -264,7 +274,12 @@ IF %tempcount% NEQ 1 (
 )
 del /q "%CD%\nca\romfs\%game_files%.bin"
 del /q "%CD%\nca\romfs\%game_files%.cue"
-%windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" >nul
+
+rem Saving the decrypted folders for futur use
+%windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e >nul
+goto:menu
+
+%windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" /e >nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
@@ -409,12 +424,37 @@ rmdir /s /q Game_inject >nul 2>&1
 rmdir /s /q icon >nul 2>&1
 del /q main.npdm >nul 2>&1
 del /q control.nacp >nul 2>&1
+cd ..\..
 exit /b
+
+:manage_ini_profiles
+echo Function not usable for now
+pause
+exit /b
+
+:create_ini_profile
+
+exit /b
+
+modify_ini_profile
+
+exit /b
+
+:delete_ini_profile
+
+goto:eof
+
+:select_ini_profile
+
+goto:eof
+
+:infos_ini_profile
+
+goto:eof
 
 :end_script
 pause
 :end_script2
-cd ..\..
 IF EXIST templogs (
 	rmdir /s /q templogs
 )

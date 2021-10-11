@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.186</h2>
+<ul>
+<li>In the injection of a Saturn game script, fix bugs and begin to implement some new functions.</li>
+</ul>
 <h2>V4.3.185</h2>
 <ul>
 <li>Add CDmage to the Saturn game injection script.</li>
