@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.188</h2>
+<ul>
+<li>Fix a bug in the Saturn game injection script.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 486.</li>
+</ul>
 <h2>V4.3.187</h2>
 <ul>
 <li>Fix a bug in the update manager that caused a tool for the Saturn game injection script to be missing, if you have already downloaded the function, once the update manager is updated you will have to launch the update of the Saturn game injection script to completly fix the issue.</li>

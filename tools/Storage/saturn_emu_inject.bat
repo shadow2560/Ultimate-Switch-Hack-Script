@@ -277,7 +277,6 @@ del /q "%CD%\nca\romfs\%game_files%.cue"
 
 rem Saving the decrypted folders for futur use
 %windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e >nul
-goto:menu
 
 %windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" /e >nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"

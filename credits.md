@@ -104,6 +104,7 @@
 <li><a target="_blank" href="https://github.com/zhaoloving/n1dus">N1dusd</a></li>
 <li><a target="_blank" href="https://github.com/tallbl0nde/NX-Activity-Log">NX-Activity-Log</a></li>
 <li><a target="_blank" href="https://github.com/DarkMatterCore/nxdumptool">Nxdumptool</a></li>
+<li><a target="_blank" href="https://github.com/HamletDuFromage/nx-locale-switcher">Nx-locale-switcher</a></li>
 <li><a target="_blank" href="https://github.com/D3fau4/NightFall">NightFall</a></li>
 <li><a target="_blank" href="https://github.com/thedax/NX-ntpc">NX-mtpc</a></li>
 <li><a target="_blank" href="https://github.com/joel16/NX-Shell">NX-Shell</a></li>
