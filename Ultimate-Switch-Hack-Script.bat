@@ -171,5 +171,4 @@ exit /b
 
 :end_script
 endlocal
-pause
 exit
