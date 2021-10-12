@@ -249,7 +249,7 @@ IF %errorlevel% NEQ 0 (
 	cd ..\..
 	goto:end_script
 )
-"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control\control.nacp >nul
+"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -i control\control.nacp >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "forwarder_build_error"
 	call :del_temp_files

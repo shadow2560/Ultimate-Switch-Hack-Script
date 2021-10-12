@@ -25,3 +25,15 @@ echo.
 echo If everything is configured correctly, the script should work without issue.
 echo If the script fails and force closes, the font selected is not compatible with UTF-8 encoding.
 goto:eof
+
+:set_debug_flag
+echo.
+echo Log mode choice.
+echo.
+echo For this cession:
+echo 1: Intermediate log mode ^(make the script more verbose on screen and write the outputs to a log file^)
+echo 2: Full log mode ^(display a lots of thing on screen and write the outputs to a log file^)
+echo All other choices: No log mode ^(recommanded^).
+echo.
+set /p debug_flag=Make your choice: 
+goto:eof

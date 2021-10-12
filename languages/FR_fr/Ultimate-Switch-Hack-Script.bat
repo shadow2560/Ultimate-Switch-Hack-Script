@@ -16,3 +16,15 @@ echo.
 echo Si tout est bon, le script devrait fonctionner correctement.
 echo Si le script se ferme immédiatement après ceci, cela veut dire que la police que vous avez sélectionné n'est pas compatible avec l'encodage de caractères UTF-8.
 goto:eof
+
+:set_debug_flag
+echo.
+echo Mode de journaux d'information.
+echo.
+echo Pour cette cession:
+echo 1: Mode journal intermédiaire ^(rend le script un peu plus verveux à l'affichage et écrit les résultats des sorties dans un fichier de journal^)
+echo 2: Mode journal complet ^(affichage très verbeux et enregistrements plus grand du fichier de journal^)
+echo Tout autre choix: Mode sans journal ^(recommandé^).
+echo.
+set /p debug_flag=Faites votre choix: 
+goto:eof

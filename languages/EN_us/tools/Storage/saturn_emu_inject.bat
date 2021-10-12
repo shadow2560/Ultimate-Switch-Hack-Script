@@ -175,7 +175,7 @@ goto:eof
 echo Informations on the Saturn game to create:
 IF "%br_choice%"=="" echo Saturn game NSP source path: %br%
 IF NOT "%br_choice%"=="" echo Game base used: !filename%br_choice%!
-echo Folder path containing  the Saturn game to inject: %gamemaker_source%
+echo Folder path containing  the Saturn game to inject: %saturn_game_source%
 echo ID: %id%
 echo Game name: %name%
 IF /i "%bs%"=="o" (

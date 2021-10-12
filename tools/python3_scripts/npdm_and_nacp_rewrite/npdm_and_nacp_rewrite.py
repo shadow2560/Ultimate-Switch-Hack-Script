@@ -80,7 +80,7 @@ def rewrite_npdm_file(file_src_path, file_dest_path, title_id):
 	print("Traitement effectué avec succès.")
 	return(0)
 
-def rewrite_nacp_file(file_src_path, file_dest_path, game_name, game_author, game_version):
+def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version):
 	global src_file_infos
 	if (file_src_path != file_dest_path):
 		write_mode = 'wb+'
@@ -105,6 +105,17 @@ def rewrite_nacp_file(file_src_path, file_dest_path, game_name, game_author, gam
 				file_dest.write(b'\0'*0x10)
 				file_dest.seek(0x3060)
 				file_dest.write(bytes(game_version, 'utf-8'))
+			# Title id work
+			file_dest.seek(0x3038)
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))
+			file_dest.seek(0x3070)
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))
+			file_dest.seek(0x3078)
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))		
+			file_dest.seek(0x30B0)
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little')*0x8)
+			file_dest.seek(0x30F8)
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))		
 			file_dest.close()
 	except:
 		print ('Le fichier "' + file_dest_path + '" n\'existe pas.')
@@ -119,7 +130,7 @@ def help():
 	print ('npdm_and_nacp_rewrite.py -t Type_de_fichier -d Title_ID -n nom_du_jeu -a auteur_du_jeu -v Version_du_jeu -i Chemin_fichier_source -o Chemin_fichier_destination')
 	print("\nType_de_fichier peut être:")
 	print("npdm: Traiter un fichier npdm (les paramètres Nom_du_jeu, Auteur_du_jeu et Version_du_jeu ne seront pas pris en compte).")
-	print("nacp: Traiter un fichier nacp (le paramètre Title_ID ne sera pas pris en compte).")
+	print("nacp: Traiter un fichier nacp.")
 	print("\nLe Title_ID doit faire 16 caractères hexadécimaux et commencer à partir de 01, le paramètre Nom_du_jeu peut faire jusqu'à " + str(int(0x200/4)) + " caractères, le paramètre Auteur_du_jeu peut faire jusqu'à " + str(int(0x100/4)) + " caractères et le paramètre Version_du_jeu peut faire jusqu'à " + str(int(0x10/4)) + " caractères.")
 	return(0)
 
@@ -225,6 +236,18 @@ if (file_type == 'npdm'):
 		help()
 		sys.exit(301)
 elif (file_type == 'nacp'):
+	if (title_id == ''):
+		print("Le paramètre Title_id est requis pour modifier  le type de fichier nacp.")
+		help()
+		sys.exit(301)
+	if title_id.startswith('00'):
+		print("Le paramètre Title_id ne peut commencer qu'à partir de 01.")
+		help()
+		sys.exit(301)
+	if (len(title_id) != 16):
+		print("Le paramètre Title_id doit faire 16 caractères hexadécimaux pour modifier  le type de fichier nacp.")
+		help()
+		sys.exit(301)
 	if (game_name == '' and game_author == '' and game_version == ''):
 		print("Les paramètres Nom_du_jeu, Auteur_du_jeu ou/et Version_du_jeu sont requis pour modifier  le type de fichier nacp.")
 		help()
@@ -256,7 +279,7 @@ if (file_dest_path == ''):
 if (file_type == 'npdm'):
 	return_code = rewrite_npdm_file(file_src_path, file_dest_path, title_id)
 elif (file_type == 'nacp'):
-	return_code = rewrite_nacp_file(file_src_path, file_dest_path, game_name, game_author, game_version)
+	return_code = rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version)
 else:
 	help()
 	sys.exit(301)

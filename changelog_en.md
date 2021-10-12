@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.190</h2>
+<ul>
+<li>Add a debug mode.</li>
+<li>Fix a display bug in the english version of the Saturn injection script, also fix a bug with custom wallpaper copy and try to ameliorate the "control.nacp" file rewrite (this last improvement will also affect the GameMaker injection and forwarders creation scripts).</li>
+</ul>
 <h2>V4.3.189</h2>
 <ul>
 <li>Ameliorate and fix important bugs in the Saturn game injection script, please delete manualy the "Saturn_emu_inject_datas\games" folder if you have used a previous version.</li>

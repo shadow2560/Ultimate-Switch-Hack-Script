@@ -343,7 +343,7 @@ set wallpaper_name_change=
 IF "%game_files%"=="GuardianForce" set wallpaper_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set wallpaper_name_change=CB
 IF "%game_files%"=="Cotton2" set wallpaper_name_change=C2
-copy "%custom_wallpaper_folder_path%\WP_001.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
+copy "%custom_wallpaper_folder_path%\WP_001.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_002.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_003.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_004.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_004.tex" >nul
@@ -416,7 +416,7 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
-"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -n "%name%" -a "%author%" -v "%version%" -i control.nacp >nul
+"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -i control.nacp >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause

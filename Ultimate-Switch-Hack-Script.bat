@@ -80,7 +80,22 @@ IF EXIST "failed_updates\tools;Storage;update_manager.bat.file.failed" (
 	call tools\Storage\update_manager_updater.bat
 )
 call tools\Storage\update_manager.bat "general_content_update"
-call tools\Storage\menu.bat
+cls
+chcp 1252 >nul
+set debug_flag=
+call "%associed_language_script%" "set_debug_flag"
+IF "%debug_flag%"=="1" (
+	set ushs_debug_mode=on
+) else if "%debug_flag%"=="2" (
+	set ushs_debug_mode=on
+	set language_echo=on
+)
+chcp 65001 >nul
+IF /i NOT "%ushs_debug_mode%"=="on" (
+	call tools\Storage\menu.bat
+) else (
+	call tools\Storage\menu.bat 2>&1 | tools\gnuwin32\bin\tee.exe Ultimate-Switch-Hack-Script.log >con
+)
 goto:end_script
 
 :config_lng
