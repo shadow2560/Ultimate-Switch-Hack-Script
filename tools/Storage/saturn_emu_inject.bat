@@ -105,10 +105,10 @@ call "%associed_language_script%" "set_saturn_game_source"
 set /p saturn_game_source=<%ushs_base_path%templogs\tempvar.txt
 IF "%saturn_game_source%"=="" (
 	goto:menu
-) else (
-	set saturn_game_source=%saturn_game_source%\
-	set saturn_game_source=!saturn_game_source:\\=\!
 )
+
+set saturn_game_source=%saturn_game_source%\
+set saturn_game_source=!saturn_game_source:\\=\!
 
 :keys_path_set
 echo.
@@ -248,17 +248,16 @@ call "%associed_language_script%" "set_nsp_path"
 set /p nsp_path=<%ushs_base_path%templogs\tempvar.txt
 IF "%nsp_path%"=="" (
 	goto:menu
-) else (
-	set nsp_path=%nsp_path%\
-	set nsp_path=!nsp_path:\\=\!
 )
+set nsp_path=%nsp_path%\
+set nsp_path=!nsp_path:\\=\!
 IF EXIST "%nsp_path%%name%_%id%.nsp" (
 	echo.
 	call "%associed_language_script%" "set_confirm_nsp_duplicated_deletion"
 	IF !errorlevel! NEQ 1 (
 		goto:end_script2
 	) else (
-		del /q "%nsp_path%%name%_%id%.nsp" >nul
+		del /q "%nsp_path:)=^)%%name%_%id%.nsp" >nul
 	)
 )
 :confirm_nsp_creation
@@ -294,7 +293,7 @@ IF %errorlevel% NEQ 0 (
 echo.
 call "%associed_language_script%" "nca_step"
 For /R "%CD%\nsp\" %%G in (*.nca) do (
-	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path%" --titlekeys "%title_keys_path%" --romfsdir "%CD%\nca\romfs" --exefsdir "%CD%\nca\exefs" "%%G" >nul 2>&1
+	"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G" >nul 2>&1
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "conversion_error"
 		pause
@@ -313,7 +312,7 @@ if exist .\nca\control\icon_AmericanEnglish.dat (
 :replace_game_files
 set /a tempcount=0
 for /l %%i in (0,1,2) do (
-	IF EXIST "%CD%\nca\romfs\!filename%%i!.bin" (
+	IF EXIST "%CD:)=^)%\nca\romfs\!filename%%i!.bin" (
 		set game_files=!filename%%i!
 		set /a tempcount=!tempcount!+1
 	)
@@ -360,9 +359,9 @@ IF /i "%bs%"=="o" (
 :Giveyouricon
 mkdir .\icon
 IF /i "%bz:~-3,3%"=="jpg" (
-	copy /b "%bz:"=%" .\icon\icon.jpg >nul
+	copy /b "%bz:)=^)%" .\icon\icon.jpg >nul
 ) else IF /i "%bz:~-3,3%"=="png" (
-	copy /b "%bz:"=%" .\icon\icon.png >nul
+	copy /b "%bz:)=^)%" .\icon\icon.png >nul
 ) else (
 	echo.
 	call "%associed_language_script%" "icon_copy_error"
@@ -433,10 +432,10 @@ mkdir .\nca\out
 .\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ >nul 2>&1
 .\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul.txt 2>&1
 if exist .\nca\out\program\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
 )
 if exist .\nca\out\control\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
 )
 
 mkdir .\nca\out\ncas

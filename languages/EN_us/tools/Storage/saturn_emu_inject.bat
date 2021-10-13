@@ -197,7 +197,7 @@ echo Author: %author%
 echo Version: %version%
 echo prod.keys path: %keys_path%
 IF "%br_choice%"=="" echo title.keys path: %title_keys_path%
-echo NSP output path: %nsp_path%
+echo NSP output path: %nsp_path%%name%_%id%.nsp
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to continue with theses settings? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof

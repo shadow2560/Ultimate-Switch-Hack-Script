@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.191</h2>
+<ul>
+<li>Fix some problems with paths having parentheses in the injection script of a Saturn game.</li>
+</ul>
 <h2>V4.3.190</h2>
 <ul>
 <li>Add a debug mode.</li>

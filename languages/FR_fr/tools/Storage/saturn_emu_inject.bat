@@ -188,7 +188,7 @@ echo Auteur: %author%
 echo Version: %version%
 echo Chemin du fichier prod.keys: %keys_path%
 IF "%br_choice%"=="" echo Chemin du fichier title.keys: %title_keys_path%
-echo Chemin de sortie du NSP: %nsp_path%
+echo Chemin de sortie du NSP: %nsp_path%%name%_%id%.nsp
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous continuer avec ces paramètres? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
