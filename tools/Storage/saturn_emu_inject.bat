@@ -281,7 +281,11 @@ call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
 	mkdir "%CD%\nsp"
 )
-"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path%" --titlekeys "%title_keys_path%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
+IF /i "%ushs_debug_mode%"=="on" (
+	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t pfs0 --outdir "%CD%\nsp" "%br%"
+) else (
+	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
+)
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause
@@ -293,7 +297,11 @@ IF %errorlevel% NEQ 0 (
 echo.
 call "%associed_language_script%" "nca_step"
 For /R "%CD%\nsp\" %%G in (*.nca) do (
-	"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G" >nul 2>&1
+	IF /i "%ushs_debug_mode%"=="on" (
+		"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G"
+	) else (
+		"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G" >nul 2>&1
+	)
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "conversion_error"
 		pause
@@ -429,13 +437,29 @@ move .\main.npdm .\nca\exefs\ >nul
 set td=%id%
 
 mkdir .\nca\out
-.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ >nul 2>&1
-.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul.txt 2>&1
+IF /i "%ushs_debug_mode%"=="on" (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\
+) else (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ >nul 2>&1
+)
+IF /i "%ushs_debug_mode%"=="on" (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\
+) else (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul 2>&1
+)
 if exist .\nca\out\program\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	IF /i "%ushs_debug_mode%"=="on" (
+		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
+	) else (
+		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	)
 )
 if exist .\nca\out\control\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	IF /i "%ushs_debug_mode%"=="on" (
+		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
+	) else (
+		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	)
 )
 
 mkdir .\nca\out\ncas
@@ -449,7 +473,12 @@ if exist .\nca\out\*.nca (
 	move .\nca\out\*.nca .\nca\out\ncas\ >nul
 )
 
-.\Tools\hacpack.exe -k "%keys_path%" -o "%nsp_path:\=\\%" --type nsp --ncadir .\nca\out\ncas\ --titleid %td% >nul 2>&1
+set temp_nsp_path=%nsp_path:\=\\%
+IF /i "%ushs_debug_mode%"=="on" (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o "%temp_nsp_path:)=^)%" --type nsp --ncadir .\nca\out\ncas\ --titleid %td%
+) else (
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o "%temp_nsp_path:)=^)%" --type nsp --ncadir .\nca\out\ncas\ --titleid %td% >nul 2>&1
+)
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause

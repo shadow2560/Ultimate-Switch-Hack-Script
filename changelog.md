@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.192</h2>
+<ul>
+<li>Amélioration du mode débogage dans le script d'injection d'un jeu Saturn.</li>
+</ul>
 <h2>V4.3.191</h2>
 <ul>
 <li>Correction de certains problèmes avec les chemins ayant des parenthèses dans le script d'injection d'un jeu Saturn.</li>
