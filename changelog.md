@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.193</h2>
+<ul>
+<li>Mise à jour de Spacecraft-NX en version 0.2.0.</li>
+</ul>
 <h2>V4.3.192</h2>
 <ul>
 <li>Amélioration du mode débogage dans le script d'injection d'un jeu Saturn.</li>
