@@ -46,7 +46,7 @@ if "%begin%"=="1" (
 :Start
 set br=
 call "%associed_language_script%" "nsp_source_choice"
-set /p br=<%ushs_base_path%templogs\tempvar.txt
+set /p br=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%br%"=="" (
 	goto:menu
 )
@@ -55,7 +55,7 @@ IF "%br%"=="" (
 echo.
 set gamemaker_source=
 call "%associed_language_script%" "set_gamemaker_game_source"
-set /p gamemaker_source=<%ushs_base_path%templogs\tempvar.txt
+set /p gamemaker_source=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%gamemaker_source%"=="" (
 	goto:menu
 ) else (
@@ -69,7 +69,7 @@ IF "%gamemaker_source%"=="" (
 echo.
 set keys_path=
 call "%associed_language_script%" "set_keys_path"
-set /p keys_path=<%ushs_base_path%templogs\tempvar.txt
+set /p keys_path=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%keys_path%"=="" (
 	goto:menu
 )
@@ -83,7 +83,7 @@ IF NOT "%bs%"=="" set bs=%bs:~0,1%
 call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "bs" "o/n_choice"
 IF /i "%bs%"=="o" (
 	call "%associed_language_script%" "set_icon_path"
-	set /p bz=<%ushs_base_path%templogs\tempvar.txt
+	set /p bz=<"%ushs_base_path%templogs\tempvar.txt"
 	IF "!bz!"=="" (
 		goto:icon_change_choice
 	)
@@ -159,7 +159,7 @@ IF %nb% GTR 4 (
 echo.
 set nsp_path=
 call "%associed_language_script%" "set_nsp_path"
-set /p nsp_path=<%ushs_base_path%templogs\tempvar.txt
+set /p nsp_path=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%nsp_path%"=="" (
 	goto:menu
 ) else (

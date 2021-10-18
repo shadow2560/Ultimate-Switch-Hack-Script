@@ -1,5 +1,5 @@
 set lng_label_exist=0
-%ushs_base_path%tools\gnuwin32\bin\grep.exe -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
 set /p lng_label_exist=<"%ushs_base_path%temp_lng_var.txt"
 del /q "%ushs_base_path%temp_lng_var.txt"
 IF "%lng_label_exist%"=="0" (

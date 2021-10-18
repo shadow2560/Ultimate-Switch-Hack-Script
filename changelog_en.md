@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.194</h2>
+<ul>
+<li>Improve the injection script of a saturn game and fix bugs, also fix bugs in the injection script of a GameMaker game.</li>
+<li>Fix important bugs in the english language.</li>
+</ul>
 <h2>V4.3.193</h2>
 <ul>
 <li>Update Spacecraft-NX to version 0.2.0.</li>

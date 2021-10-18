@@ -76,22 +76,19 @@ IF /i "%display_good_saved_games%"=="Y" (
 	IF "%br%"=="1" (
 	set br_choice=0
 	set game_files=%filename0%
-	set wallpaper_name_change=C2
 	) else IF "%br%"=="2" (
 	set br_choice=1
 	set game_files=%filename1%
-	set wallpaper_name_change=GF
 	) else IF "%br%"=="3" (
 	set br_choice=2
 	set game_files=%filename2%
-	set wallpaper_name_change=CB
 	) else IF "%br%"=="0" (
-	set /p br=<%ushs_base_path%templogs\tempvar.txt
+	set /p br=<"%ushs_base_path%templogs\tempvar.txt"
 	) else (
 	goto:menu
 	)
 ) else (
-	set /p br=<%ushs_base_path%templogs\tempvar.txt
+	set /p br=<"%ushs_base_path%templogs\tempvar.txt"
 )
 IF "%br%"=="0" set br=
 IF "%br%"=="" (
@@ -102,7 +99,7 @@ IF "%br%"=="" (
 echo.
 set saturn_game_source=
 call "%associed_language_script%" "set_saturn_game_source"
-set /p saturn_game_source=<%ushs_base_path%templogs\tempvar.txt
+set /p saturn_game_source=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%saturn_game_source%"=="" (
 	goto:menu
 )
@@ -114,7 +111,7 @@ set saturn_game_source=!saturn_game_source:\\=\!
 echo.
 set keys_path=
 call "%associed_language_script%" "set_keys_path"
-set /p keys_path=<%ushs_base_path%templogs\tempvar.txt
+set /p keys_path=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%keys_path%"=="" (
 	goto:menu
 )
@@ -124,7 +121,7 @@ IF "%br_choice%"=="" (
 	echo.
 	set title_keys_path=
 	call "%associed_language_script%" "set_title_keys_path"
-	set /p title_keys_path=<%ushs_base_path%templogs\tempvar.txt
+	set /p title_keys_path=<"%ushs_base_path%templogs\tempvar.txt"
 	IF "!title_keys_path!"=="" (
 		goto:menu
 	)
@@ -139,7 +136,7 @@ IF NOT "%bs%"=="" set bs=%bs:~0,1%
 call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "bs" "o/n_choice"
 IF /i "%bs%"=="o" (
 	call "%associed_language_script%" "set_icon_path"
-	set /p bz=<%ushs_base_path%templogs\tempvar.txt
+	set /p bz=<"%ushs_base_path%templogs\tempvar.txt"
 	IF "!bz!"=="" (
 		goto:icon_change_choice
 	)
@@ -154,7 +151,7 @@ IF NOT "%custom_ini_choice%"=="" set custom_ini_choice=%custom_ini_choice:~0,1%
 call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_ini_choice" "o/n_choice"
 IF /i "%custom_ini_choice%"=="o" (
 	call "%associed_language_script%" "set_custom_ini_path"
-	set /p custom_ini_path=<%ushs_base_path%templogs\tempvar.txt
+	set /p custom_ini_path=<"%ushs_base_path%templogs\tempvar.txt"
 	IF "!custom_ini_path!"=="" (
 		goto:custom_ini_change_choice
 	)
@@ -169,9 +166,69 @@ IF NOT "%custom_wallpaper_choice%"=="" set custom_wallpaper_choice=%custom_wallp
 call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_wallpaper_choice" "o/n_choice"
 IF /i "%custom_wallpaper_choice%"=="o" (
 	call "%associed_language_script%" "set_custom_wallpaper_folder_path"
-	set /p custom_wallpaper_folder_path=<%ushs_base_path%templogs\tempvar.txt
+	set /p custom_wallpaper_folder_path=<"%ushs_base_path%templogs\tempvar.txt"
 	IF "!custom_wallpaper_folder_path!"=="" (
 		goto:custom_wallpaper_change_choice
+	)
+)
+
+:custom_credit_change_choice
+set custom_credit_choice=
+set custom_credit_folder_path=
+echo.
+call "%associed_language_script%" "set_custom_credit_choice"
+IF NOT "%custom_credit_choice%"=="" set custom_credit_choice=%custom_credit_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_credit_choice" "o/n_choice"
+IF /i "%custom_credit_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_credit_folder_path"
+	set /p custom_credit_folder_path=<"%ushs_base_path%templogs\tempvar.txt"
+	IF "!custom_credit_folder_path!"=="" (
+		goto:custom_credit_change_choice
+	)
+)
+
+:custom_playingguide_change_choice
+set custom_playingguide_choice=
+set custom_playingguide_folder_path=
+echo.
+call "%associed_language_script%" "set_custom_playingguide_choice"
+IF NOT "%custom_playingguide_choice%"=="" set custom_playingguide_choice=%custom_playingguide_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_playingguide_choice" "o/n_choice"
+IF /i "%custom_playingguide_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_playingguide_folder_path"
+	set /p custom_playingguide_folder_path=<"%ushs_base_path%templogs\tempvar.txt"
+	IF "!custom_playingguide_folder_path!"=="" (
+		goto:custom_playingguide_change_choice
+	)
+)
+
+:custom_texture_change_choice
+set custom_texture_choice=
+set custom_texture_path=
+echo.
+call "%associed_language_script%" "set_custom_texture_choice"
+IF NOT "%custom_texture_choice%"=="" set custom_texture_choice=%custom_texture_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_texture_choice" "o/n_choice"
+IF /i "%custom_texture_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_texture_path"
+	set /p custom_texture_path=<"%ushs_base_path%templogs\tempvar.txt"
+	IF "!custom_texture_path!"=="" (
+		goto:custom_texture_change_choice
+	)
+)
+
+:custom_nodata_change_choice
+set custom_nodata_choice=
+set custom_nodata_path=
+echo.
+call "%associed_language_script%" "set_custom_nodata_choice"
+IF NOT "%custom_nodata_choice%"=="" set custom_nodata_choice=%custom_nodata_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "custom_nodata_choice" "o/n_choice"
+IF /i "%custom_nodata_choice%"=="o" (
+	call "%associed_language_script%" "set_custom_nodata_path"
+	set /p custom_nodata_path=<"%ushs_base_path%templogs\tempvar.txt"
+	IF "!custom_nodata_path!"=="" (
+		goto:custom_nodata_change_choice
 	)
 )
 
@@ -245,7 +302,7 @@ IF %nb% GTR 4 (
 echo.
 set nsp_path=
 call "%associed_language_script%" "set_nsp_path"
-set /p nsp_path=<%ushs_base_path%templogs\tempvar.txt
+set /p nsp_path=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%nsp_path%"=="" (
 	goto:menu
 )
@@ -345,16 +402,61 @@ rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 copy "%custom_ini_path%" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
 
 :wallpaper_replace
+IF /i NOT "%custom_wallpaper_choice%"=="o" goto:pass_wallpaper_replace
 IF "%custom_wallpaper_folder_path%"=="" goto:pass_wallpaper_replace
 set wallpaper_name_change=
 IF "%game_files%"=="GuardianForce" set wallpaper_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set wallpaper_name_change=CB
 IF "%game_files%"=="Cotton2" set wallpaper_name_change=C2
+del /q "%CD%\nca\romfs\Wallpaper\*.* >nul
 copy "%custom_wallpaper_folder_path%\WP_001.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_002.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_003.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_004.tex" ""%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_004.tex" >nul
 :pass_wallpaper_replace
+
+:credit_replace
+IF /i NOT "%custom_credit_choice%"=="o" goto:pass_credit_replace
+IF "%custom_credit_folder_path%"=="" goto:pass_credit_replace
+set credit_name_change=
+IF "%game_files%"=="GuardianForce" set credit_name_change=GF
+IF "%game_files%"=="CottonBoomerang" set credit_name_change=CtnB
+IF "%game_files%"=="Cotton2" set credit_name_change=Ctn2
+del /q "%CD%\nca\romfs\Credit\*.* >nul
+copy "%custom_credit_folder_path%\00.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_00.tex" >nul
+copy "%custom_credit_folder_path%\01.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_01.tex" >nul
+:pass_credit_replace
+
+:playingguide_replace
+IF /i NOT "%custom_playingguide_choice%"=="o" goto:pass_playingguide_replace
+IF "%custom_playingguide_folder_path%"=="" goto:pass_playingguide_replace
+set playingguide_name_change=
+IF "%game_files%"=="GuardianForce" set playingguide_name_change=GF
+IF "%game_files%"=="CottonBoomerang" set playingguide_name_change=CtnB
+IF "%game_files%"=="Cotton2" set playingguide_name_change=Ctn2
+del /q "%CD%\nca\romfs\PlayingGuide\English\*.* >nul
+del /q "%CD%\nca\romfs\PlayingGuide\Japanese\*.* >nul
+copy "%custom_playingguide_folder_path%\00.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_00.tex" >nul
+copy "%custom_playingguide_folder_path%\01.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_01.tex" >nul
+copy "%custom_playingguide_folder_path%\02.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_02.tex" >nul
+copy "%custom_playingguide_folder_path%\03.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_03.tex" >nul
+copy "%custom_playingguide_folder_path%\00.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_00.tex" >nul
+copy "%custom_playingguide_folder_path%\01.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_01.tex" >nul
+copy "%custom_playingguide_folder_path%\02.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_02.tex" >nul
+copy "%custom_playingguide_folder_path%\03.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_03.tex" >nul
+:pass_playingguide_replace
+
+:texture_replace
+IF /i NOT "%custom_texture_choice%"=="o" goto:pass_texture_replace
+IF "%custom_texture_path%"=="" goto:pass_texture_replace
+copy "%custom_texture_path%" "%CD%\nca\romfs\Texture.tex" >nul
+:pass_texture_replace
+
+:nodata_replace
+IF /i NOT "%custom_nodata_choice%"=="o" goto:pass_nodata_replace
+IF "%custom_nodata_path%"=="" goto:pass_nodata_replace
+copy "%custom_nodata_path%" "%CD%\nca\romfs\no_data.tex" >nul
+:pass_nodata_replace
 
 echo.
 call "%associed_language_script%" "icon_step"

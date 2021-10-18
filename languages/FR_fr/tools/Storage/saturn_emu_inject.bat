@@ -106,6 +106,50 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier des fonds d'écran"
 goto:eof
 
+:set_custom_credit_choice
+set /p custom_credit_choice=Souhaitez-vous utiliser votre propre dossier  de crédits pour le jeu ^(le dossier devra contenir les deux fichiers nommés "00.tex" et "01.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_credit_folder_path
+echo Sélectionnez le dossier de crédits dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type de crédits.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier des crédits"
+goto:eof
+
+:set_custom_playingguide_choice
+set /p custom_playingguide_choice=Souhaitez-vous utiliser votre propre dossier  du guide de jeu pour le jeu ^(le dossier devra contenir les fichiers nommés "00.tex" à maximum "03.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_playingguide_folder_path
+echo Sélectionnez le dossier du guide de jeu dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type du guide de jeu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier du guide de jeu"
+goto:eof
+
+:set_custom_texture_choice
+set /p custom_texture_choice=Souhaitez-vous utiliser votre propre fichier de texture pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_texture_path
+echo Sélectionnez le fichier de texture dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type de fichier de texture.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers tex^(*.tex^)|*.tex|" "Sélectionner un fichier de texture personnalisé" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:set_custom_nodata_choice
+set /p custom_nodata_choice=Souhaitez-vous utiliser votre propre fichier "no_data.tex" pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_nodata_path
+echo Sélectionnez le fichier "no_data.tex" dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au choix du type de fichier "no_data.tex".
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers tex^(*.tex^)|*.tex|" "Sélectionner un fichier ^"no_data.tex^" personnalisé" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
 :set_id
 echo Entrez l'ID du contenu ^(doit être unique sur la console sur lequel il est installé et doit faire 16 caractères hexadécimaux ^(0-9, A-F^)^), laissez vide pour générer un ID aléatoirement.
 set /p id=ID: 

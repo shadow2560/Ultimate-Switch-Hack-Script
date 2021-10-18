@@ -1,5 +1,5 @@
 set lng_label_exist=0
-%ushs_base_path%tools\gnuwin32\bin\grep.exe -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -c -E "^:%~1$" <"%~0" >"%ushs_base_path%temp_lng_var.txt"
 set /p lng_label_exist=<"%ushs_base_path%temp_lng_var.txt"
 del /q "%ushs_base_path%temp_lng_var.txt"
 IF "%lng_label_exist%"=="0" (
@@ -105,7 +105,7 @@ pause
 goto:eof
 
 :set_custom_wallpaper_choice
-set /p custom_wallpaper_choice=Do you want to choose your own wallpaper folder for the game ^(the folder must contain the four file named "WP_001.tex" to "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_wallpaper_choice=Do you want to choose your own wallpaper folder for the game ^(the folder must contain the four files named "WP_001.tex" to "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_wallpaper_folder_path
@@ -113,6 +113,50 @@ echo Please choose the wallpaper folder in the following window.
 echo If you close the window you will return to the wallpaper type choice.
 pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Wallpaper folder select"
+goto:eof
+
+:set_custom_credit_choice
+set /p custom_credit_choice=Do you want to choose your own credit folder for the game ^(the folder must contain the two files named "00.tex" and "01.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_credit_folder_path
+echo Please choose the credit folder in the following window.
+echo If you close the window you will return to the credit type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Credit folder select"
+goto:eof
+
+:set_custom_playingguide_choice
+set /p custom_playingguide_choice=Do you want to choose your own playing guide folder for the game ^(the folder must contain the files named "00.tex" to maximum "03.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_playingguide_folder_path
+echo Please choose the playing guide folder in the following window.
+echo If you close the window you will return to the playing guide type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Playing guide folder select"
+goto:eof
+
+:set_custom_texture_choice
+set /p custom_texture_choice=Do you want to choose your own texture  file for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_texture_path
+echo Please choose the texture file in the following window.
+echo If you close the window you will return to the texture type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "tex files^(*.tex^)|*.tex|" "Select the custom texture file" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:set_custom_nodata_choice
+set /p custom_nodata_choice=Do you want to choose your own "no_data.tex" file for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_custom_nodata_path
+echo Please choose the "no_data.tex" file in the following window.
+echo If you close the window you will return to the "no_data.tex" type choice.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "tex files^(*.tex^)|*.tex|" "Select the custom ^"no_data.tex^" file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
 :set_id
