@@ -48,7 +48,7 @@ if "%begin%"=="1" (
 	cls
 	goto:Start
 	) else if "%begin%"=="3" (
-		start "" /d "Tools\CDmage" "Tools\CDmage\CDmage.exe"
+		start "" /d "Tools\Saturn_emu_inject\Tools\CDmage" "Tools\Saturn_emu_inject\Tools\CDmage\CDmage.exe"
 		goto:Menu
 ) else if "%begin%"=="4" (
 	cls
@@ -324,10 +324,12 @@ IF %errorlevel% NEQ 1 goto:menu
 
 cd tools\Saturn_emu_inject
 if exist "%CD%\nca" rmdir /s /q "%CD%\nca"
+if exist "%CD%\nsp" rmdir /s /q "%CD%\nsp"
 mkdir "%CD%\nca"
 mkdir "%CD%\nca\control"
 mkdir "%CD%\nca\exefs"
 mkdir "%CD%\nca\romfs"
+mkdir "%CD%\nsp"
 
 IF NOT "%br_choice%"=="" (
 	%windir%\System32\Robocopy.exe "!filename%br_choice%_path! " "%CD%\nca" /e >nul
@@ -395,7 +397,20 @@ rem Saving the decrypted folders for futur use
 %windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e /purge >nul
 
 :decrypted_folder_work
-%windir%\System32\Robocopy.exe "%saturn_game_source% " "%CD%\nca\romfs" /e >nul
+IF NOT EXIST "%saturn_game_source:)=^)%*.cue" (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
+IF NOT EXIST "%saturn_game_source:)=^)%\*.bin" (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
+copy "%saturn_game_source%\*.bin" "%CD%\nca\romfs">nul
+copy "%saturn_game_source%\*.cue" "%CD%\nca\romfs">nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
