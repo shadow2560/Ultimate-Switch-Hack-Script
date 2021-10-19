@@ -326,7 +326,6 @@ cd tools\Saturn_emu_inject
 if exist "%CD%\nca" rmdir /s /q "%CD%\nca"
 if exist "%CD%\nsp" rmdir /s /q "%CD%\nsp"
 mkdir "%CD%\nca"
-mkdir "%CD%\nca\control"
 mkdir "%CD%\nca\exefs"
 mkdir "%CD%\nca\romfs"
 mkdir "%CD%\nsp"
@@ -341,7 +340,7 @@ if not exist "%CD%\nsp" (
 	mkdir "%CD%\nsp"
 )
 IF /i "%ushs_debug_mode%"=="on" (
-	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t pfs0 --outdir "%CD%\nsp" "%br%"
+	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t nsp --outdir "%CD%\nsp" "%br%"
 ) else (
 	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
 )
@@ -372,10 +371,6 @@ rem del /q "%CD%\nca\romfs\control.nacp">nul
 rem del /q "%CD%\nca\romfs\*.dat">nul
 del /q "%CD%\nca\romfs\*.cnmt">nul
 
-if exist .\nca\control\icon_AmericanEnglish.dat (
-	del .\nca\control\icon_AmericanEnglish.dat >nul
-)
-
 :replace_game_files
 set /a tempcount=0
 for /l %%i in (0,1,2) do (
@@ -397,13 +392,19 @@ rem Saving the decrypted folders for futur use
 %windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e /purge >nul
 
 :decrypted_folder_work
-IF NOT EXIST "%saturn_game_source:)=^)%*.cue" (
+rmdir /s /q "nca\romfs\Data" >nul 2>&1
+rmdir /s /q "nca\romfs\important.htdocs" >nul 2>&1
+rmdir /s /q "nca\romfs\ipnotices.htdocs" >nul 2>&1
+rmdir /s /q "nca\romfs\support.htdocs" >nul 2>&1
+del /q "nca\romfs\legalinfo.xml" >nul 2>&1
+
+IF NOT EXIST "%saturn_game_source%*.cue" (
 	call "%associed_language_script%" "conversion_error"
 	pause
 	call :del_temp_files
 	goto:menu
 )
-IF NOT EXIST "%saturn_game_source:)=^)%\*.bin" (
+IF NOT EXIST "%saturn_game_source%*.bin" (
 	call "%associed_language_script%" "conversion_error"
 	pause
 	call :del_temp_files
@@ -475,6 +476,7 @@ copy "%custom_nodata_path%" "%CD%\nca\romfs\no_data.tex" >nul
 
 echo.
 call "%associed_language_script%" "icon_step"
+mkdir "%CD%\nca\control"
 IF /i "%bs%"=="o" (
 	goto:Giveyouricon
 ) else (
@@ -514,6 +516,9 @@ copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_AmericanEnglish
 copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_Japanese.dat >nul
 
 :Next
+IF EXIST "nca\logo\*.*" rmdir /s /q "nca\logo"
+mkdir "nca\logo"
+copy "Tools\logo\*.*" "nca\logo"
 echo.
 call "%associed_language_script%" "create_game_step"
 if exist .\nca\exefs\main.npdm (
@@ -555,9 +560,9 @@ set td=%id%
 
 mkdir .\nca\out
 IF /i "%ushs_debug_mode%"=="on" (
-	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ --logodir .\nca\logo\
 ) else (
-	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ >nul 2>&1
+	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ --logodir .\nca\logo\ >nul 2>&1
 )
 IF /i "%ushs_debug_mode%"=="on" (
 	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\
@@ -565,17 +570,12 @@ IF /i "%ushs_debug_mode%"=="on" (
 	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul 2>&1
 )
 if exist .\nca\out\program\*.nca (
-	IF /i "%ushs_debug_mode%"=="on" (
-		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
-	) else (
-		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
-	)
-)
-if exist .\nca\out\control\*.nca (
-	IF /i "%ushs_debug_mode%"=="on" (
-		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
-	) else (
-		.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	if exist .\nca\out\control\*.nca (
+		IF /i "%ushs_debug_mode%"=="on" (
+			.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
+		) else (
+			.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+		)
 	)
 )
 
