@@ -882,7 +882,7 @@ call :verif_folder_version "tools\dd_for_windows"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-call :verif_folder_version "tools\python2_scripts\NxNandManager"
+call :verif_folder_version "tools\NxNandManager"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
