@@ -117,15 +117,15 @@ IF "%keys_path%"=="" (
 )
 
 :title_keys_path_set
-IF "%br_choice%"=="" (
-	echo.
-	set title_keys_path=
-	call "%associed_language_script%" "set_title_keys_path"
-	set /p title_keys_path=<"%ushs_base_path%templogs\tempvar.txt"
-	IF "!title_keys_path!"=="" (
-		goto:menu
-	)
-)
+rem IF "%br_choice%"=="" (
+	rem echo.
+	rem set title_keys_path=
+	rem call "%associed_language_script%" "set_title_keys_path"
+	rem set /p title_keys_path=<"%ushs_base_path%templogs\tempvar.txt"
+	rem IF "!title_keys_path!"=="" (
+		rem goto:menu
+	rem )
+rem )
 
 :icon_change_choice
 set bs=
@@ -280,6 +280,19 @@ IF %nb% GTR 128 (
 	call "%associed_language_script%" "name_length_error"
 	goto:name_set
 )
+set i=0
+:check_chars_name
+IF %i% LSS %nb% (
+	FOR %%z in (^& ^< ^> ^/ ^* ^? ^: ^^ ^| ^\) do (
+		IF "!name:~%i%,1!"=="%%z" (
+			call "%associed_language_script%" "name_char_error"
+			goto:name_set
+		)
+	)
+	set /a i+=1
+	goto:check_chars_name
+)
+
 :author_set
 echo.
 set author=No specified
@@ -326,7 +339,9 @@ cd tools\Saturn_emu_inject
 if exist "%CD%\nca" rmdir /s /q "%CD%\nca"
 if exist "%CD%\nsp" rmdir /s /q "%CD%\nsp"
 mkdir "%CD%\nca"
+mkdir "%CD%\nca\control"
 mkdir "%CD%\nca\exefs"
+mkdir "%CD%\nca\logo"
 mkdir "%CD%\nca\romfs"
 mkdir "%CD%\nsp"
 
@@ -339,10 +354,45 @@ call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
 	mkdir "%CD%\nsp"
 )
-IF /i "%ushs_debug_mode%"=="on" (
-	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t nsp --outdir "%CD%\nsp" "%br%"
+Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" --Read_cnmt "%br%" > "%ushs_base_path%templogs\cnmt_infos.txt"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" "Number of content =" "%ushs_base_path%templogs\cnmt_infos.txt" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d = -f 2 > "%ushs_base_path%templogs\tempvar.txt"
+set /p tempcount=<"%ushs_base_path%templogs\tempvar.txt"
+IF "%tempcount%"=="" (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
 ) else (
-	"%ushs_base_path%tools\Hactool_based_programs\hactoolnet.exe" --k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" -t pfs0 --outdir "%CD%\nsp" "%br%" >nul 2>&1
+	set tempcount=%tempcount: =%
+	set /a tempcount=%tempcount%
+)
+set /a nca_count=0
+for /l %%i in (1,1,%tempcount%) do (
+	"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -n -m 1 "Content number %%i" "%ushs_base_path%templogs\cnmt_infos.txt" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d : -f 1 > "%ushs_base_path%templogs\tempvar.txt"
+	set /p templine=<"%ushs_base_path%templogs\tempvar.txt"
+	set /a templine=!templine!
+	set /a templine=!templine!+6
+	"%ushs_base_path%tools\gnuwin32\bin\sed.exe" -n !templine!p "%ushs_base_path%templogs\cnmt_infos.txt" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d = -f 2 > "%ushs_base_path%templogs\tempvar.txt"
+	set /p tempinfo=<"%ushs_base_path%templogs\tempvar.txt"
+	set tempinfo=!tempinfo: =!
+	IF "!tempinfo!"=="2" (
+		set /a templine=!templine!-3
+		"%ushs_base_path%tools\gnuwin32\bin\sed.exe" -n !templine!p "%ushs_base_path%templogs\cnmt_infos.txt" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d ' -f 2 > "%ushs_base_path%templogs\tempvar.txt"
+		set /a nca_count=!nca_count!+1
+		set /p nca!nca_count!=<"%ushs_base_path%templogs\tempvar.txt"
+	)
+)
+IF %nca_count% EQU 0 (
+	call "%associed_language_script%" "conversion_error"
+	pause
+	call :del_temp_files
+	goto:menu
+)
+call :get_nsp_source_file_name "%br%"
+IF /i "%ushs_debug_mode%"=="on" (
+	Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%"
+) else (
+	Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%" >nul 2>&1
 )
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
@@ -350,26 +400,35 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
+"%windir%\System32\robocopy.exe" /move /e "%CD%\nsp\%nsp_source_file_name% " "%CD%\nsp" >nul
+rem rmdir "%CD%\nsp\%nsp_source_file_name%"
 
 :START_NCA
 echo.
 call "%associed_language_script%" "nca_step"
-For /R "%CD%\nsp\" %%G in (*.nca) do (
-	IF /i "%ushs_debug_mode%"=="on" (
-		"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G"
-	) else (
-		"%ushs_base_path:)=^)%tools\Hactool_based_programs\hactoolnet.exe" -k "%keys_path:)=^)%" --titlekeys "%title_keys_path:)=^)%" --romfsdir "%CD:)=^)%\nca\romfs" --exefsdir "%CD:)=^)%\nca\exefs" "%%G" >nul 2>&1
-	)
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "conversion_error"
-		pause
-		call :del_temp_files
-		goto:menu
+for /l %%i in (1,1,%nca_count%) do (
+	for /D %%g in ("nsp\*") do (
+		echo nsp\!nca%%i!_nca
+		IF /i "%%g"=="nsp\!nca%%i!_nca" (
+			for /D %%h in ("%%g\*") do (
+				echo %%h
+				pause
+				set tempvar=%%h
+				IF /i "!tempvar:~-7!"=="[romfs]" (
+					"%windir%\System32\robocopy.exe" /move /e "%%h " "nca\romfs" >nul
+				) else IF /i "!tempvar:~-6!"=="[pfs0]" (
+					"%windir%\System32\robocopy.exe" /move /e "%%h " "nca\exefs" >nul
+				)
+			)
+		)
 	)
 )
-rem del /q "%CD%\nca\romfs\control.nacp">nul
-rem del /q "%CD%\nca\romfs\*.dat">nul
-del /q "%CD%\nca\romfs\*.cnmt">nul
+move "%CD%\nca\romfs\control.nacp" "%CD%\nca\control" >nul
+move "%CD%\nca\romfs\*.dat" "%CD%\nca\control" >nul
+move "%CD%\nca\exefs\*.png" "%CD%\nca\logo" >nul
+move "%CD%\nca\exefs\*.gif" "%CD%\nca\logo" >nul
+pause
+rmdir /s /q "nsp"
 
 :replace_game_files
 set /a tempcount=0
@@ -392,11 +451,11 @@ rem Saving the decrypted folders for futur use
 %windir%\System32\Robocopy.exe "%CD%\nca\ " "%ushs_base_path%Saturn_emu_inject_datas\games\%game_files%" /e /purge >nul
 
 :decrypted_folder_work
-rmdir /s /q "nca\romfs\Data" >nul 2>&1
-rmdir /s /q "nca\romfs\important.htdocs" >nul 2>&1
-rmdir /s /q "nca\romfs\ipnotices.htdocs" >nul 2>&1
-rmdir /s /q "nca\romfs\support.htdocs" >nul 2>&1
-del /q "nca\romfs\legalinfo.xml" >nul 2>&1
+rem rmdir /s /q "nca\romfs\Data" >nul 2>&1
+rem rmdir /s /q "nca\romfs\important.htdocs" >nul 2>&1
+rem rmdir /s /q "nca\romfs\ipnotices.htdocs" >nul 2>&1
+rem rmdir /s /q "nca\romfs\support.htdocs" >nul 2>&1
+rem del /q "nca\romfs\legalinfo.xml" >nul 2>&1
 
 IF NOT EXIST "%saturn_game_source%*.cue" (
 	call "%associed_language_script%" "conversion_error"
@@ -476,7 +535,6 @@ copy "%custom_nodata_path%" "%CD%\nca\romfs\no_data.tex" >nul
 
 echo.
 call "%associed_language_script%" "icon_step"
-mkdir "%CD%\nca\control"
 IF /i "%bs%"=="o" (
 	goto:Giveyouricon
 ) else (
@@ -514,11 +572,8 @@ GOTO Next
 :Generic
 copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_AmericanEnglish.dat >nul
 copy .\Tools\control\icon_AmericanEnglish.dat .\nca\control\icon_Japanese.dat >nul
-
 :Next
-IF EXIST "nca\logo\*.*" rmdir /s /q "nca\logo"
-mkdir "nca\logo"
-copy "Tools\logo\*.*" "nca\logo"
+
 echo.
 call "%associed_language_script%" "create_game_step"
 if exist .\nca\exefs\main.npdm (
@@ -529,8 +584,8 @@ if exist .\nca\exefs\main.npdm (
 	call :del_temp_files
 	goto:menu
 )
-if exist .\nca\romfs\control.nacp (
-	move .\nca\romfs\control.nacp .\control.nacp >nul
+if exist .\nca\control\control.nacp (
+	move .\nca\control\control.nacp .\control.nacp >nul
 ) else (
 	call "%associed_language_script%" "conversion_error"
 	pause
@@ -649,6 +704,10 @@ rmdir /s /q icon >nul 2>&1
 del /q main.npdm >nul 2>&1
 del /q control.nacp >nul 2>&1
 cd ..\..
+exit /b
+
+:get_nsp_source_file_name
+set nsp_source_file_name=%~n1
 exit /b
 
 :manage_ini_profiles

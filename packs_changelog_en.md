@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V487</h2>
+<ul>
+<li>Update Hekate to version 5.6.4.</li>
+</ul>
 <h2>V486</h2>
 <ul>
 <li>Add the Nx-locale-switcher homebrew.</li>

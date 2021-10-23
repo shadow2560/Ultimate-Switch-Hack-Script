@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.197</h2>
+<ul>
+<li>Improve the injection script of a saturn game and fix bug in it.</li>
+<li>Fix an important bug in the update manager.</li>
+<li>Update Hekate to version 5.6.4.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 487.</li>
+</ul>
 <h2>V4.3.196</h2>
 <ul>
 <li>Improve the injection script of a saturn game and fix bug in it.</li>

@@ -188,6 +188,10 @@ goto:eof
 echo Error, the name must be maximum 128 chars long.
 goto:eof
 
+:name_char_error
+echo An unauthorized char has been entred in the game's name.
+goto:eof
+
 :set_author
 set /p author=Enter the author name to display ^(64 chars max^): 
 goto:eof
@@ -223,24 +227,44 @@ echo Folder path containing  the Saturn game to inject: %saturn_game_source%
 echo ID: %id%
 echo Game name: %name%
 IF /i "%bs%"=="o" (
-	echo Custom icon path: %bz%
+	echo Custom icon path: %bz:)=^)%
 ) else (
 	echo Default icon.
 )
 IF /i "%custom_ini_choice%"=="o" (
-	echo Custom ini file path: %custom_ini_path%
+	echo Custom ini file path: %custom_ini_path:)=^)%
 ) else (
 	echo Default ini file.
 )
 IF /i "%custom_wallpaper_choice%"=="o" (
-	echo Custom wallpaper folder path: %custom_wallpaper_folder_path%
+	echo Custom wallpaper folder path: %custom_wallpaper_folder_path:)=^)%
 ) else (
 	echo Default wallpaper folder.
+)
+IF /i "%custom_playingguide_choice%"=="o" (
+	echo Custom playing guide folder path: %custom_playingguide_folder_path:)=^)%
+) else (
+	echo Default playing guide folder.
+)
+IF /i "%custom_credit_choice%"=="o" (
+	echo Custom credit folder path: %custom_credit_folder_path:)=^)%
+) else (
+	echo Default credit folder.
+)
+IF /i "%custom_texture_choice%"=="o" (
+	echo Custom texture file path: %custom_texture_path:)=^)%
+) else (
+	echo Default texture file.
+)
+IF /i "%custom_nodata_choice%"=="o" (
+	echo Custom no_data file path: %custom_nodata_path:)=^)%
+) else (
+	echo Default no_data file.
 )
 echo Author: %author%
 echo Version: %version%
 echo prod.keys path: %keys_path%
-IF "%br_choice%"=="" echo title.keys path: %title_keys_path%
+rem IF "%br_choice%"=="" echo title.keys path: %title_keys_path%
 echo NSP output path: %nsp_path%%name%_%id%.nsp
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to continue with theses settings? ^(%lng_yes_choice%/%lng_no_choice%^): "
@@ -305,7 +329,6 @@ ECHO 	==========================================================================
 Echo 	-Indicate a NSP from retail Saturn Game for sourcing
 Echo 	-Indicate your Saturn Game folder to inject
 Echo 	-Indicate your prod.keys file
-Echo 	-Indicate your title.keys file containing the title key of the NSP source.
 Echo 	-Icon can be JPG or PNG and will be resized at good size by the process
 Echo 	-Indicate an output folder for your NSP
 Echo.
