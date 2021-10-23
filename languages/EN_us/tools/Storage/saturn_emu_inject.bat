@@ -226,41 +226,28 @@ IF NOT "%br_choice%"=="" echo Game base used: !filename%br_choice%!
 echo Folder path containing  the Saturn game to inject: %saturn_game_source%
 echo ID: %id%
 echo Game name: %name%
-IF /i "%bs%"=="o" (
-	echo Custom icon path: %bz:)=^)%
-) else (
-	echo Default icon.
-)
-IF /i "%custom_ini_choice%"=="o" (
-	echo Custom ini file path: %custom_ini_path:)=^)%
-) else (
-	echo Default ini file.
-)
-IF /i "%custom_wallpaper_choice%"=="o" (
-	echo Custom wallpaper folder path: %custom_wallpaper_folder_path:)=^)%
-) else (
-	echo Default wallpaper folder.
-)
-IF /i "%custom_playingguide_choice%"=="o" (
-	echo Custom playing guide folder path: %custom_playingguide_folder_path:)=^)%
-) else (
-	echo Default playing guide folder.
-)
-IF /i "%custom_credit_choice%"=="o" (
-	echo Custom credit folder path: %custom_credit_folder_path:)=^)%
-) else (
-	echo Default credit folder.
-)
-IF /i "%custom_texture_choice%"=="o" (
-	echo Custom texture file path: %custom_texture_path:)=^)%
-) else (
-	echo Default texture file.
-)
-IF /i "%custom_nodata_choice%"=="o" (
-	echo Custom no_data file path: %custom_nodata_path:)=^)%
-) else (
-	echo Default no_data file.
-)
+
+IF /i "%bs%"=="o" echo Custom icon path: %bz%
+IF /i NOT "%bs%"=="o" echo Default icon.
+
+IF /i "%custom_ini_choice%"=="o" echo Custom ini file path: %custom_ini_path%
+IF /i NOT "%custom_ini_choice%"=="o" echo Default ini file.
+
+IF /i "%custom_wallpaper_choice%"=="o" echo Custom wallpaper folder path: %custom_wallpaper_folder_path%
+IF /i NOT "%custom_wallpaper_choice%"=="o" echo Default wallpaper folder.
+
+IF /i "%custom_playingguide_choice%"=="o" echo Custom playing guide folder path: %custom_playingguide_folder_path%
+IF /i NOT "%custom_playingguide_choice%"=="o" echo Default playing guide folder.
+
+IF /i "%custom_credit_choice%"=="o" echo Custom credit folder path: %custom_credit_folder_path%
+IF /i NOT "%custom_credit_choice%"=="o" echo Default credit folder.
+
+IF /i "%custom_texture_choice%"=="o" echo Custom texture file path: %custom_texture_path%
+IF /i NOT "%custom_texture_choice%"=="o" echo Default texture file.
+
+IF /i "%custom_nodata_choice%"=="o" echo Custom no_data file path: %custom_nodata_path%
+IF /i NOT "%custom_nodata_choice%"=="o" echo Default no_data file.
+
 echo Author: %author%
 echo Version: %version%
 echo prod.keys path: %keys_path%

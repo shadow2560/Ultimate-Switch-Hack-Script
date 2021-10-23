@@ -217,41 +217,28 @@ IF NOT "%br_choice%"=="" echo Jeu base utilisé: !filename%br_choice%!
 echo Chemin du répertoire contenant le jeu Saturn à injecter: %saturn_game_source%
 echo ID: %id%
 echo Nom du jeu: %name%
-IF /i "%bs%"=="o" (
-	echo Chemin de l'icône personnalisé: %bz:)=^)%
-) else (
-	echo Icône par défaut.
-)
-IF /i "%custom_ini_choice%"=="o" (
-	echo Chemin du fichier ini personnalisé: %custom_ini_path:)=^)%
-) else (
-	echo Fichier ini par défaut.
-)
-IF /i "%custom_wallpaper_choice%"=="o" (
-	echo Chemin du dossier des fonds d'écran personnalisé: %custom_wallpaper_folder_path:)=^)%
-) else (
-	echo Dossier des fonds d'écran par défaut.
-)
-IF /i "%custom_playingguide_choice%"=="o" (
-	echo Chemin du dossier du guide de jeu personnalisé: %custom_playingguide_folder_path:)=^)%
-) else (
-	echo Dossier du guide de jeu par défaut.
-)
-IF /i "%custom_credit_choice%"=="o" (
-	echo Chemin du dossier des crédits personnalisé: %custom_credit_folder_path:)=^)%
-) else (
-	echo Dossier des crédits par défaut.
-)
-IF /i "%custom_texture_choice%"=="o" (
-	echo Chemin du fichier de texture personnalisé: %custom_texture_path:)=^)%
-) else (
-	echo Fichier de texture par défaut.
-)
-IF /i "%custom_nodata_choice%"=="o" (
-	echo Chemin du fichier no_data personnalisé: %custom_nodata_path:)=^)%
-) else (
-	echo Fichier no_data par défaut.
-)
+
+IF /i "%bs%"=="o" echo Chemin de l'icône personnalisé: %bz%
+IF /i NOT "%bs%"=="o" echo Icône par défaut.
+
+IF /i "%custom_ini_choice%"=="o" echo Chemin du fichier ini personnalisé: %custom_ini_path%
+IF /i NOT "%custom_ini_choice%"=="o" echo Fichier ini par défaut.
+
+IF /i "%custom_wallpaper_choice%"=="o" echo Chemin du dossier des fonds d'écran personnalisé: %custom_wallpaper_folder_path%
+IF /i NOT "%custom_wallpaper_choice%"=="o" echo Dossier des fonds d'écran par défaut.
+
+IF /i "%custom_playingguide_choice%"=="o" echo Chemin du dossier du guide de jeu personnalisé: %custom_playingguide_folder_path%
+IF /i NOT "%custom_playingguide_choice%"=="o" echo Dossier du guide de jeu par défaut.
+
+IF /i "%custom_credit_choice%"=="o" echo Chemin du dossier des crédits personnalisé: %custom_credit_folder_path%
+IF /i NOT"%custom_credit_choice%"=="o" echo Dossier des crédits par défaut.
+
+IF /i "%custom_texture_choice%"=="o" echo Chemin du fichier de texture personnalisé: %custom_texture_path%
+IF /i NOT "%custom_texture_choice%"=="o" echo Fichier de texture par défaut.
+
+IF /i "%custom_nodata_choice%"=="o" echo Chemin du fichier no_data personnalisé: %custom_nodata_path%
+IF /i NOT "%custom_nodata_choice%"=="o" echo Fichier no_data par défaut.
+
 echo Auteur: %author%
 echo Version: %version%
 echo Chemin du fichier prod.keys: %keys_path%
