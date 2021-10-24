@@ -105,7 +105,7 @@ IF "%saturn_game_source%"=="" (
 )
 set saturn_game_source_folder=
 call :get_saturn_game_source_folder "%saturn_game_source%"
-"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -e "^FILE" "%saturn_game_source%" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d\^" -f 2 > "%ushs_base_path%templogs\bin_list.txt"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -i -e "^FILE " "%saturn_game_source%" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d\^" -f 2 > "%ushs_base_path%templogs\bin_list.txt"
 "%ushs_base_path%tools\gnuwin32\bin\grep.exe" -c "" "%ushs_base_path%templogs\bin_list.txt" > "%ushs_base_path%templogs\tempvar.txt"
 set /p count_saturn_game_files=<"%ushs_base_path%templogs\tempvar.txt"
 set /a count_saturn_game_files=%count_saturn_game_files%
