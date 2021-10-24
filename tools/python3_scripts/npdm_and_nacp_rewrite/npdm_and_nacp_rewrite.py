@@ -118,7 +118,7 @@ def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_a
 			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))
 			# Program index work
 			file_dest.seek(0x3212)
-			file_dest.write(int(str(program_index), base=16).to_bytes(1, 'little'))
+			file_dest.write(program_index.to_bytes(1, 'little'))
 			file_dest.close()
 	except:
 		print ('Le fichier "' + file_dest_path + '" n\'existe pas.')
@@ -134,7 +134,7 @@ def help():
 	print("\nType_de_fichier peut être:")
 	print("npdm: Traiter un fichier npdm (les paramètres Nom_du_jeu, Auteur_du_jeu et Version_du_jeu ne seront pas pris en compte).")
 	print("nacp: Traiter un fichier nacp.")
-	print("\nLe Title_ID doit faire 16 caractères hexadécimaux et commencer à partir de 01, le paramètre Nom_du_jeu peut faire jusqu'à " + str(int(0x200/4)) + " caractères, le paramètre Auteur_du_jeu peut faire jusqu'à " + str(int(0x100/4)) + " caractères, le paramètre Version_du_jeu peut faire jusqu'à " + str(int(0x10/4)) + " caractères et le paramètre ProgramIndex doit être un entier allant de 0 à 9 inclus (ce paramètre est défini à 0 par défaut).")
+	print("\nLe Title_ID doit faire 16 caractères hexadécimaux et commencer à partir de 01, le paramètre Nom_du_jeu peut faire jusqu'à " + str(int(0x200/4)) + " caractères, le paramètre Auteur_du_jeu peut faire jusqu'à " + str(int(0x100/4)) + " caractères, le paramètre Version_du_jeu peut faire jusqu'à " + str(int(0x10/4)) + " caractères et le paramètre ProgramIndex doit être un entier allant de 0 à 255 inclus (ce paramètre est défini à 0 par défaut).")
 	return(0)
 
 file_type = ''
@@ -276,9 +276,8 @@ elif (file_type == 'nacp'):
 		print("Le paramètre Version_du_jeu  ne doit pas faire plus de " + str(int(0x10/4)) + " caractères pour modifier  le type de fichier nacp.")
 		help()
 		sys.exit(301)
-	
-	if program_index > 9 or program_index < 0:
-		print("Le paramètre ProgramIndex doit être compris entre 0 et 9 pour modifier  le type de fichier nacp.")
+	if program_index > 255 or program_index < 0:
+		print("Le paramètre ProgramIndex doit être compris entre 0 et 255 pour modifier  le type de fichier nacp.")
 		help()
 		sys.exit(301)
 else:
