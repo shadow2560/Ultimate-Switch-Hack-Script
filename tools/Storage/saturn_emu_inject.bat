@@ -103,9 +103,33 @@ set /p saturn_game_source=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%saturn_game_source%"=="" (
 	goto:menu
 )
-
-set saturn_game_source=%saturn_game_source%\
-set saturn_game_source=!saturn_game_source:\\=\!
+set saturn_game_source_folder=
+call :get_saturn_game_source_folder "%saturn_game_source%"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -e "^FILE" "%saturn_game_source%" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d\^" -f 2 > "%ushs_base_path%templogs\bin_list.txt"
+"%ushs_base_path%tools\gnuwin32\bin\grep.exe" -c "" "%ushs_base_path%templogs\bin_list.txt" > "%ushs_base_path%templogs\tempvar.txt"
+set /p count_saturn_game_files=<"%ushs_base_path%templogs\tempvar.txt"
+set /a count_saturn_game_files=%count_saturn_game_files%
+IF %count_saturn_game_files% EQU 0 (
+	call "%associed_language_script%" "cue_file_error"
+	pause
+	goto:menu
+)
+set /a templine=1
+copy nul "%ushs_base_path%templogs\bin_list2.txt" >nul
+:start_cue_analyse
+IF %templine% GTR %count_saturn_game_files% goto:pass_start_cue_analyse
+"%ushs_base_path%tools\gnuwin32\bin\sed.exe" -n !templine!p "%ushs_base_path%templogs\bin_list.txt" > "%ushs_base_path%templogs\tempvar.txt"
+set /p tempinfo=<"%ushs_base_path%templogs\tempvar.txt"
+set tempinfo=%saturn_game_source_folder%\%tempinfo%
+IF NOT EXIST "%tempinfo%" (
+	call "%associed_language_script%" "cue_file_error"
+	pause
+	goto:menu
+)
+echo !tempinfo! >> "%ushs_base_path%templogs\bin_list2.txt"
+set /a templine=%templine%+1
+goto:start_cue_analyse
+:pass_start_cue_analyse
 
 :keys_path_set
 echo.
@@ -457,20 +481,22 @@ rem rmdir /s /q "nca\romfs\ipnotices.htdocs" >nul 2>&1
 rem rmdir /s /q "nca\romfs\support.htdocs" >nul 2>&1
 rem del /q "nca\romfs\legalinfo.xml" >nul 2>&1
 
-IF NOT EXIST "%saturn_game_source%*.cue" (
-	call "%associed_language_script%" "conversion_error"
-	pause
-	call :del_temp_files
-	goto:menu
+set /a templine=1
+for /l %%i in (1,1,%count_saturn_game_files%) do (
+	"%ushs_base_path%tools\gnuwin32\bin\sed.exe" -n !templine!p "%ushs_base_path%templogs\bin_list2.txt" > "%ushs_base_path%templogs\tempvar.txt"
+	set /p tempinfo=<"%ushs_base_path%templogs\tempvar.txt"
+	copy "!tempinfo!" "%CD%\nca\romfs">nul
+	set /a templine=!templine!+1
 )
-IF NOT EXIST "%saturn_game_source%*.bin" (
-	call "%associed_language_script%" "conversion_error"
-	pause
-	call :del_temp_files
-	goto:menu
+set /a templine=1
+for %%f in ("nca\romfs\*.bin") do (
+	set tempvar=%%f
+	"%ushs_base_path%tools\gnuwin32\bin\sed.exe" -n !templine!p "%ushs_base_path%templogs\bin_list.txt" > "%ushs_base_path%templogs\tempvar.txt"
+	set /p tempinfo=<"%ushs_base_path%templogs\tempvar.txt"
+	IF NOT "!tempvar!"=="nca\romfs\!tempinfo!" ren "!tempvar!" "!tempinfo!" >nul
+	set /a templine=!templine!+1
 )
-copy "%saturn_game_source%\*.bin" "%CD%\nca\romfs">nul
-copy "%saturn_game_source%\*.cue" "%CD%\nca\romfs">nul
+copy "%saturn_game_source%" "%CD%\nca\romfs">nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
@@ -600,7 +626,7 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
-"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -i control.nacp >nul
+"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp >nul
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause
@@ -708,6 +734,10 @@ exit /b
 
 :get_nsp_source_file_name
 set nsp_source_file_name=%~n1
+exit /b
+
+:get_saturn_game_source_folder
+set saturn_game_source_folder=%~dp1
 exit /b
 
 :manage_ini_profiles

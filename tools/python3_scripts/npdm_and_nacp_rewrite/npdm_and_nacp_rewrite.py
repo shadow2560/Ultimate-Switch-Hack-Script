@@ -80,7 +80,7 @@ def rewrite_npdm_file(file_src_path, file_dest_path, title_id):
 	print("Traitement effectué avec succès.")
 	return(0)
 
-def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version):
+def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version, program_index):
 	global src_file_infos
 	if (file_src_path != file_dest_path):
 		write_mode = 'wb+'
@@ -115,7 +115,10 @@ def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_a
 			file_dest.seek(0x30B0)
 			file_dest.write(int(title_id, base=16).to_bytes(8, 'little')*0x8)
 			file_dest.seek(0x30F8)
-			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))		
+			file_dest.write(int(title_id, base=16).to_bytes(8, 'little'))
+			# Program index work
+			file_dest.seek(0x3212)
+			file_dest.write(int(str(program_index), base=16).to_bytes(1, 'little'))
 			file_dest.close()
 	except:
 		print ('Le fichier "' + file_dest_path + '" n\'existe pas.')
@@ -127,11 +130,11 @@ def rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_a
 def help():
 	print ('Utilisation:')
 	print ()
-	print ('npdm_and_nacp_rewrite.py -t Type_de_fichier -d Title_ID -n nom_du_jeu -a auteur_du_jeu -v Version_du_jeu -i Chemin_fichier_source -o Chemin_fichier_destination')
+	print ('npdm_and_nacp_rewrite.py -t Type_de_fichier -d Title_ID -n nom_du_jeu -a auteur_du_jeu -v Version_du_jeu -p ProgramIndex -i Chemin_fichier_source -o Chemin_fichier_destination')
 	print("\nType_de_fichier peut être:")
 	print("npdm: Traiter un fichier npdm (les paramètres Nom_du_jeu, Auteur_du_jeu et Version_du_jeu ne seront pas pris en compte).")
 	print("nacp: Traiter un fichier nacp.")
-	print("\nLe Title_ID doit faire 16 caractères hexadécimaux et commencer à partir de 01, le paramètre Nom_du_jeu peut faire jusqu'à " + str(int(0x200/4)) + " caractères, le paramètre Auteur_du_jeu peut faire jusqu'à " + str(int(0x100/4)) + " caractères et le paramètre Version_du_jeu peut faire jusqu'à " + str(int(0x10/4)) + " caractères.")
+	print("\nLe Title_ID doit faire 16 caractères hexadécimaux et commencer à partir de 01, le paramètre Nom_du_jeu peut faire jusqu'à " + str(int(0x200/4)) + " caractères, le paramètre Auteur_du_jeu peut faire jusqu'à " + str(int(0x100/4)) + " caractères, le paramètre Version_du_jeu peut faire jusqu'à " + str(int(0x10/4)) + " caractères et le paramètre ProgramIndex doit être un entier allant de 0 à 9 inclus (ce paramètre est défini à 0 par défaut).")
 	return(0)
 
 file_type = ''
@@ -139,6 +142,7 @@ title_id = ''
 game_name = ''
 game_author= ''
 game_version = ''
+program_index = 0
 file_src_path = ''
 file_dest_path = ''
 if (len(sys.argv) == 1):
@@ -149,6 +153,7 @@ title_id_param = 0
 game_name_param = 0
 game_author_param = 0
 game_version_param = 0
+program_index_param = 0
 input_param = 0
 output_param = 0
 for i in range(1,len(sys.argv), 2):
@@ -191,6 +196,13 @@ for i in range(1,len(sys.argv), 2):
 			sys.exit(301)
 		game_version = sys.argv[i+1]
 		game_version_param = 1
+	elif currArg.startswith('-p'):
+		if (game_version_param == 1):
+			print('Erreur de saisie des arguments.\n')
+			help()
+			sys.exit(301)
+		program_index = int(sys.argv[i+1])
+		program_index_param = 1
 	elif currArg.startswith('-i'):
 		if (input_param == 1):
 			print('Erreur de saisie des arguments.\n')
@@ -264,6 +276,11 @@ elif (file_type == 'nacp'):
 		print("Le paramètre Version_du_jeu  ne doit pas faire plus de " + str(int(0x10/4)) + " caractères pour modifier  le type de fichier nacp.")
 		help()
 		sys.exit(301)
+	
+	if program_index > 9 or program_index < 0:
+		print("Le paramètre ProgramIndex doit être compris entre 0 et 9 pour modifier  le type de fichier nacp.")
+		help()
+		sys.exit(301)
 else:
 	print("Le paramètre Type_de_fichier  doit être \"nacp\" ou \"npdm\".")
 	help()
@@ -279,7 +296,7 @@ if (file_dest_path == ''):
 if (file_type == 'npdm'):
 	return_code = rewrite_npdm_file(file_src_path, file_dest_path, title_id)
 elif (file_type == 'nacp'):
-	return_code = rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version)
+	return_code = rewrite_nacp_file(file_src_path, file_dest_path, title_id, game_name, game_author, game_version, program_index)
 else:
 	help()
 	sys.exit(301)

@@ -62,10 +62,14 @@ IF /i "%display_good_saved_games%"=="Y" (
 goto:eof
 
 :set_gamemaker_game_source
-echo Please choose the Saturn game folder to inject ^(.cue and.bin format only^) in the following window.
+echo Please choose the Saturn's cue file  to inject in the following window.
 echo If you close the window you will return to the menu.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Select the Saturn game folder to inject"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "cue files^(*.cue^)|*.cue|" "Select the Saturn cue  file to inject" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:cue_file_error
+echo An error occured during cue file analyse.
 goto:eof
 
 :set_keys_path
@@ -223,7 +227,7 @@ goto:eof
 echo Informations on the Saturn game to create:
 IF "%br_choice%"=="" echo Saturn game NSP source path: %br%
 IF NOT "%br_choice%"=="" echo Game base used: !filename%br_choice%!
-echo Folder path containing  the Saturn game to inject: %saturn_game_source%
+echo Saturn game cue file path to inject: %saturn_game_source%
 echo ID: %id%
 echo Game name: %name%
 

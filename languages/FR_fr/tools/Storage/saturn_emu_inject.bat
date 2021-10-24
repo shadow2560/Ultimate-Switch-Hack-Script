@@ -53,10 +53,14 @@ IF /i "%display_good_saved_games%"=="Y" (
 goto:eof
 
 :set_saturn_game_source
-echo Choisissez le répertoire contenant le jeu Saturn ^(format .cue et .bin uniquement^) à injecter dans la fenêtre suivante.
+echo Choisissez le fichier cue du jeu Saturn à injecter dans la fenêtre suivante.
 echo Si vous refermez la fenêtre vous retournerez au menu.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Sélection du répertoire du jeu Saturn à injecter"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers cue ^(*.cue^)|*.cue|" "Sélection du fichier cue du jeu Saturn à injecter" "%ushs_base_path%templogs\tempvar.txt"
+goto:eof
+
+:cue_file_error
+echo Une erreur s'est produite durant l'analyse du fichier cue.
 goto:eof
 
 :set_keys_path
@@ -214,7 +218,7 @@ goto:eof
 echo Informations sur le jeu Saturn à injecter:
 IF "%br_choice%"=="" echo Chemin du NSP source du jeu Saturn: %br%
 IF NOT "%br_choice%"=="" echo Jeu base utilisé: !filename%br_choice%!
-echo Chemin du répertoire contenant le jeu Saturn à injecter: %saturn_game_source%
+echo Chemin du fichier cue du jeu Saturn à injecter: %saturn_game_source%
 echo ID: %id%
 echo Nom du jeu: %name%
 
