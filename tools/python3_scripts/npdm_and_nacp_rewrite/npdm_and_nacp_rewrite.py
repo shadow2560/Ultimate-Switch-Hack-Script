@@ -197,7 +197,7 @@ for i in range(1,len(sys.argv), 2):
 		game_version = sys.argv[i+1]
 		game_version_param = 1
 	elif currArg.startswith('-p'):
-		if (game_version_param == 1):
+		if (program_index_param == 1):
 			print('Erreur de saisie des arguments.\n')
 			help()
 			sys.exit(301)

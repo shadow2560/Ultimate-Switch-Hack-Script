@@ -619,14 +619,22 @@ if exist .\nca\control\control.nacp (
 	goto:menu
 )
 
-"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm >nul
+IF /i "%ushs_debug_mode%"=="on" (
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm
+) else (
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t npdm -d %id% -i main.npdm >nul
+)
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause
 	call :del_temp_files
 	goto:menu
 )
-"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp >nul
+IF /i "%ushs_debug_mode%"=="on" (
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp
+) else (
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp >nul
+)
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"
 	pause
