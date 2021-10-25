@@ -451,7 +451,6 @@ move "%CD%\nca\romfs\control.nacp" "%CD%\nca\control" >nul
 move "%CD%\nca\romfs\*.dat" "%CD%\nca\control" >nul
 move "%CD%\nca\exefs\*.png" "%CD%\nca\logo" >nul
 move "%CD%\nca\exefs\*.gif" "%CD%\nca\logo" >nul
-pause
 rmdir /s /q "nsp"
 
 :replace_game_files
@@ -480,6 +479,8 @@ rem rmdir /s /q "nca\romfs\important.htdocs" >nul 2>&1
 rem rmdir /s /q "nca\romfs\ipnotices.htdocs" >nul 2>&1
 rem rmdir /s /q "nca\romfs\support.htdocs" >nul 2>&1
 rem del /q "nca\romfs\legalinfo.xml" >nul 2>&1
+rem rmdir /s /q nca\romfs\Cheat_Switch
+rem mkdir nca\romfs\Cheat_Switch
 
 set /a templine=1
 for /l %%i in (1,1,%count_saturn_game_files%) do (
@@ -509,7 +510,7 @@ set wallpaper_name_change=
 IF "%game_files%"=="GuardianForce" set wallpaper_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set wallpaper_name_change=CB
 IF "%game_files%"=="Cotton2" set wallpaper_name_change=C2
-del /q "%CD%\nca\romfs\Wallpaper\*.* >nul
+del /q "%CD%\nca\romfs\Wallpaper\*.*" >nul
 copy "%custom_wallpaper_folder_path%\WP_001.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_002.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul
 copy "%custom_wallpaper_folder_path%\WP_003.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul
@@ -523,7 +524,7 @@ set credit_name_change=
 IF "%game_files%"=="GuardianForce" set credit_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set credit_name_change=CtnB
 IF "%game_files%"=="Cotton2" set credit_name_change=Ctn2
-del /q "%CD%\nca\romfs\Credit\*.* >nul
+del /q "%CD%\nca\romfs\Credit\*.*" >nul
 copy "%custom_credit_folder_path%\00.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_00.tex" >nul
 copy "%custom_credit_folder_path%\01.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_01.tex" >nul
 :pass_credit_replace
@@ -535,8 +536,8 @@ set playingguide_name_change=
 IF "%game_files%"=="GuardianForce" set playingguide_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set playingguide_name_change=CtnB
 IF "%game_files%"=="Cotton2" set playingguide_name_change=Ctn2
-del /q "%CD%\nca\romfs\PlayingGuide\English\*.* >nul
-del /q "%CD%\nca\romfs\PlayingGuide\Japanese\*.* >nul
+del /q "%CD%\nca\romfs\PlayingGuide\English\*.*" >nul
+del /q "%CD%\nca\romfs\PlayingGuide\Japanese\*.*" >nul
 copy "%custom_playingguide_folder_path%\00.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_00.tex" >nul
 copy "%custom_playingguide_folder_path%\01.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_01.tex" >nul
 copy "%custom_playingguide_folder_path%\02.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_02.tex" >nul
@@ -646,7 +647,6 @@ move .\control.nacp .\nca\control\ >nul
 move .\main.npdm .\nca\exefs\ >nul
 
 set td=%id%
-
 mkdir .\nca\out
 IF /i "%ushs_debug_mode%"=="on" (
 	.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ --logodir .\nca\logo\
