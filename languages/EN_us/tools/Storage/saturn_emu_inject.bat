@@ -212,6 +212,10 @@ goto:eof
 echo Error, the version must be maximum 4 chars long.
 goto:eof
 
+:set_save_size
+set /p save_size=Enter the save size in octets ^(leave empty to ceep the default size^): 
+goto:eof
+
 :set_nsp_path
 echo Please choose the folder where to create the game nsp in the following window.
 echo If you close the window you will return to the menu.
@@ -254,6 +258,11 @@ IF /i NOT "%custom_nodata_choice%"=="o" echo Default no_data file.
 
 echo Author: %author%
 echo Version: %version%
+IF %save_size% EQU -1 (
+	echo Default save size.
+) else (
+	echo Save size: %save_size%
+)
 echo prod.keys path: %keys_path%
 rem IF "%br_choice%"=="" echo title.keys path: %title_keys_path%
 echo NSP output path: %nsp_path%%name%_%id%.nsp

@@ -43,30 +43,15 @@ IF "%prod_keys_file%"=="" (
 	call "%associed_language_script%" "prod_keys_file_empty_error"
 	goto:endscript
 )
-tools\gnuwin32\bin\sed.exe -n 1p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_result=<templogs\tempvar.txt
-IF NOT "%temp_result%"=="12" (
-	call "%associed_language_script%" "create_partial_keys_error"
+tools\gnuwin32\bin\grep.exe -c "" "%partial_keys_input_file%" > templogs\tempvar.txt
+set /p maxcount=<templogs\tempvar.txt
+set /a maxcount=%maxcount%
+IF %maxcount% EQU 0 (
+	call "%associed_language_script%" "partial_keys_file_error"
+	pause
 	goto:endscript
 )
-tools\gnuwin32\bin\sed.exe -n 6p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_result=<templogs\tempvar.txt
-IF NOT "%temp_result%"=="13" (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
-tools\gnuwin32\bin\sed.exe -n 11p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_result=<templogs\tempvar.txt
-IF NOT "%temp_result%"=="14" (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
-tools\gnuwin32\bin\sed.exe -n 16p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_result=<templogs\tempvar.txt
-IF NOT "%temp_result%"=="15" (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
+
 tools\gnuwin32\bin\tail.exe -q -c 1 "%prod_keys_file%" >templogs\tempvar.txt
 set /p temp_char_test=<templogs\tempvar.txt
 IF "%temp_char_test%"=="" (
@@ -94,107 +79,85 @@ IF %i% NEQ %nb% (
 	)
 )
 
-tools\gnuwin32\bin\grep.exe -c "mariko_kek" <"%prod_keys_file%" > templogs\tempvar.txt
-set /p temp_key_founded=<templogs\tempvar.txt
-IF %temp_key_founded% NEQ 0 (
-	call "%associed_language_script%" "mariko_kek_already_present_message"
-	goto:pass_mariko_kek
+set /a tempcount=1
+:begin
+IF %tempcount% GTR %maxcount% goto:end
+tools\gnuwin32\bin\sed.exe -n %tempcount%p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+set /p temp_result=<templogs\tempvar.txt
+set /a tempcount=%tempcount%+1
+IF "%temp_result%"=="0" (
+	call :create_key "mariko_aes_class_key_00"
+) else IF "%temp_result%"=="1" (
+	call :create_key "mariko_aes_class_key_01"
+) else IF "%temp_result%"=="2" (
+	call :create_key "mariko_aes_class_key_02"
+) else IF "%temp_result%"=="3" (
+	call :create_key "mariko_aes_class_key_03"
+) else IF "%temp_result%"=="4" (
+	call :create_key "mariko_aes_class_key_04"
+) else IF "%temp_result%"=="5" (
+	call :create_key "mariko_aes_class_key_05"
+) else IF "%temp_result%"=="6" (
+	call :create_key "mariko_aes_class_key_06"
+) else IF "%temp_result%"=="7" (
+	call :create_key "mariko_aes_class_key_07"
+) else IF "%temp_result%"=="8" (
+	call :create_key "mariko_aes_class_key_08"
+) else IF "%temp_result%"=="9" (
+	call :create_key "mariko_aes_class_key_09"
+) else IF "%temp_result%"=="10" (
+	call :create_key "mariko_aes_class_key_0a"
+) else IF "%temp_result%"=="11" (
+	call :create_key "mariko_aes_class_key_0b"
+) else IF "%temp_result%"=="12" (
+	call :create_key "mariko_kek"
+) else IF "%temp_result%"=="13" (
+	call :create_key "mariko_bek"
+) else IF "%temp_result%"=="14" (
+	call :create_key "secure_boot_key"
+) else IF "%temp_result%"=="15" (
+	call :create_key "secure_storage_key"
 )
-tools\gnuwin32\bin\sed.exe -n 2p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_first_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 3p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_second_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 4p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_third_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 5p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_fourth_key_part=<templogs\tempvar.txt
-tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% %temp_first_key_part% %temp_second_key_part% %temp_third_key_part% %temp_fourth_key_part% >templogs\tempvar.txt
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
-set /p mariko_kek_key=<templogs\tempvar.txt
-IF NOT "%first_key_write%"=="Y" echo.>>"%prod_keys_file%"
-echo mariko_kek = %mariko_kek_key%>>"%prod_keys_file%"
-set first_key_write=Y
+set /a tempcount=!tempcount!+1
+goto:begin
+:end
+call "%associed_language_script%" "create_partial_keys_end"
+goto:endscript
 
-:pass_mariko_kek
-tools\gnuwin32\bin\grep.exe -c "mariko_bek" <"%prod_keys_file%" > templogs\tempvar.txt
+:create_key
+set temp_key_name=%~1
+call "%associed_language_script%" "create_partial_key_begin"
+tools\gnuwin32\bin\grep.exe -c "%~1" <"%prod_keys_file%" > templogs\tempvar.txt
 set /p temp_key_founded=<templogs\tempvar.txt
-IF %temp_key_founded% NEQ 0 (
-	call "%associed_language_script%" "mariko_bek_already_present_message"
-	goto:pass_mariko_bek
+IF !temp_key_founded! NEQ 0 (
+	call "%associed_language_script%" "key_already_present_message"
+	exit /b
 )
-tools\gnuwin32\bin\sed.exe -n 7p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+tools\gnuwin32\bin\sed.exe -n !tempcount!p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+set /p temp_result=<templogs\tempvar.txt
+echo !temp_result! | tools\gnuwin32\bin\cut.exe -d " " -f 1 > templogs\tempvar.txt
 set /p temp_first_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 8p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+echo !temp_result! | tools\gnuwin32\bin\cut.exe -d " " -f 2 > templogs\tempvar.txt
 set /p temp_second_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 9p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+echo !temp_result! | tools\gnuwin32\bin\cut.exe -d " " -f 3 > templogs\tempvar.txt
 set /p temp_third_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 10p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
+echo !temp_result! | tools\gnuwin32\bin\cut.exe -d " " -f 4 > templogs\tempvar.txt
 set /p temp_fourth_key_part=<templogs\tempvar.txt
-tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% %temp_first_key_part% %temp_second_key_part% %temp_third_key_part% %temp_fourth_key_part% >templogs\tempvar.txt
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
+IF /i "%ushs_debug_mode%"=="on" (
+	tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% !temp_first_key_part! !temp_second_key_part! !temp_third_key_part! !temp_fourth_key_part! >templogs\tempvar.txt
+) else (
+	tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% !temp_first_key_part! !temp_second_key_part! !temp_third_key_part! !temp_fourth_key_part! >templogs\tempvar.txt 2> nul
 )
-set /p mariko_bek_key=<templogs\tempvar.txt
-IF NOT "%first_key_write%"=="Y" echo.>>"%prod_keys_file%"
-echo mariko_bek = %mariko_bek_key%>>"%prod_keys_file%"
+IF !errorlevel! NEQ 0 (
+	call "%associed_language_script%" "create_partial_key_error"
+	exit /b
+)
+set /p temp_key=<templogs\tempvar.txt
+IF NOT "!first_key_write!"=="Y" echo.>>"%prod_keys_file%"
+echo %~1 = !temp_key!>>"%prod_keys_file%"
 set first_key_write=Y
-
-:pass_mariko_bek
-tools\gnuwin32\bin\grep.exe -c "secure_boot_key" <"%prod_keys_file%" > templogs\tempvar.txt
-set /p temp_key_founded=<templogs\tempvar.txt
-IF %temp_key_founded% NEQ 0 (
-	call "%associed_language_script%" "secure_boot_key_already_present_message"
-	goto:pass_secure_boot_key
-)
-tools\gnuwin32\bin\sed.exe -n 12p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_first_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 13p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_second_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 14p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_third_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 15p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_fourth_key_part=<templogs\tempvar.txt
-tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% %temp_first_key_part% %temp_second_key_part% %temp_third_key_part% %temp_fourth_key_part% >templogs\tempvar.txt
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
-set /p secure_boot_key=<templogs\tempvar.txt
-IF NOT "%first_key_write%"=="Y" echo.>>"%prod_keys_file%"
-echo secure_boot_key = %secure_boot_key%>>"%prod_keys_file%"
-set first_key_write=Y
-
-:pass_secure_boot_key
-tools\gnuwin32\bin\grep.exe -c "secure_storage_key" <"%prod_keys_file%" > templogs\tempvar.txt
-set /p temp_key_founded=<templogs\tempvar.txt
-IF %temp_key_founded% NEQ 0 (
-	call "%associed_language_script%" "secure_storage_key_already_present_message"
-	goto:pass_secure_storage_key
-)
-tools\gnuwin32\bin\sed.exe -n 17p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_first_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 18p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_second_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 19p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_third_key_part=<templogs\tempvar.txt
-tools\gnuwin32\bin\sed.exe -n 20p <"%partial_keys_input_file%" > templogs\tempvar.txt 2> nul
-set /p temp_fourth_key_part=<templogs\tempvar.txt
-tools\PartialAesKeyCrack\PartialAesKeyCrack.exe --numthreads=%num_threads% %temp_first_key_part% %temp_second_key_part% %temp_third_key_part% %temp_fourth_key_part% >templogs\tempvar.txt
-IF %errorlevel% NEQ 0 (
-	call "%associed_language_script%" "create_partial_keys_error"
-	goto:endscript
-)
-set /p secure_storage_key=<templogs\tempvar.txt
-IF NOT "%first_key_write%"=="Y" echo.>>"%prod_keys_file%"
-echo secure_storage_key = %secure_storage_key%>>"%prod_keys_file%"
-set first_key_write=Y
-
-:pass_secure_storage_key
-call "%associed_language_script%" "create_partial_keys_success"
+call "%associed_language_script%" "create_partial_key_success"
+exit /b
 
 :endscript
 pause

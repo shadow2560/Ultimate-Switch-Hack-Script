@@ -203,6 +203,10 @@ goto:eof
 echo Erreur, la version doit faire 4 caractères au maximum.
 goto:eof
 
+:set_save_size
+set /p save_size=Entrez la taille de la sauvegarde en octets ^(laissez vide pour garder la taille par défaut^): 
+goto:eof
+
 :set_nsp_path
 echo Sélectionnez le répertoire dans lequel créer le nsp du jeu dans la fenêtre suivante.
 echo Si vous refermez la fenêtre vous retournerez au menu.
@@ -245,6 +249,11 @@ IF /i NOT "%custom_nodata_choice%"=="o" echo Fichier no_data par défaut.
 
 echo Auteur: %author%
 echo Version: %version%
+IF %save_size% EQU -1 (
+	echo Taille de la sauvegarde par défaut.
+) else (
+	echo Taille de la sauvegarde: %save_size%
+)
 echo Chemin du fichier prod.keys: %keys_path%
 rem IF "%br_choice%"=="" echo Chemin du fichier title.keys: %title_keys_path%
 echo Chemin de sortie du NSP: %nsp_path%%name%_%id%.nsp

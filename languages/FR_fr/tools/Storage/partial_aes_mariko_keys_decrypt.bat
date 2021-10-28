@@ -40,26 +40,26 @@ goto:eof
 echo Un caractère non autorisé a été entré.
 goto:eof
 
-:mariko_kek_already_present_message
-echo La clé "mariko_kek" a été trouvée dans le fichier "prod.keys", elle ne sera donc pas traitée.
+:partial_keys_file_error
+echo Erreur durant l'analyse du fichier des clés partielles.
 goto:eof
 
-:mariko_bek_already_present_message
-echo La clé "mariko_bek" a été trouvée dans le fichier "prod.keys", elle ne sera donc pas traitée.
+:create_partial_key_begin
+echo Déchiffrement de la clé "%temp_key_name%"...
 goto:eof
 
-:secure_boot_key_already_present_message
-echo La clé "secure_boot_key" a été trouvée dans le fichier "prod.keys", elle ne sera donc pas traitée.
+:key_already_present_message
+echo La clé "%temp_key_name%" a été trouvée dans le fichier "prod.keys", elle ne sera donc pas traitée.
 goto:eof
 
-:secure_storage_key_already_present_message
-echo La clé "secure_storage_key" a été trouvée dans le fichier "prod.keys", elle ne sera donc pas traitée.
+:create_partial_key_error
+echo Une erreur s'est produite durant le déchiffrement du fichier "partialaes.keys" pour la clé "%temp_key_name%".
 goto:eof
 
-:create_partial_keys_error
-echo Une erreur s'est produite durant le déchiffrement du fichier "partialaes.keys".
+:create_partial_key_success
+echo Déchiffrement de la clé "%temp_key_name%" effectué avec succès, elle a été ajoutée à la fin de votre fichier "prod.keys".
 goto:eof
 
-:create_partial_keys_success
-echo Déchiffrement du fichier "partialaes.keys" effectué avec succès, les clés ont été ajoutées à la fin de votre fichier "prod.keys".
+:create_partial_keys_end
+echo Traitement terminé.
 goto:eof

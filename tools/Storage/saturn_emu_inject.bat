@@ -335,6 +335,27 @@ IF %nb% GTR 4 (
 	call "%associed_language_script%" "version_length_error"
 	goto:version_set
 )
+:save_size_set
+echo.
+set /a save_size=-1
+call "%associed_language_script%" "set_save_size"
+call "%ushs_base_path%tools\storage\functions\strlen.bat" nb "%save_size%"
+set i=0
+:check_chars_save_size_value
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9 -) do (
+		IF "!save_size:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_save_size_value
+		)
+	)
+	IF "!check_chars!"=="0" (
+		call "%associed_language_script%" "bad_char_error"
+		goto:save_size_set
+	)
+)
 :nsp_path_set
 echo.
 set nsp_path=
@@ -432,11 +453,8 @@ echo.
 call "%associed_language_script%" "nca_step"
 for /l %%i in (1,1,%nca_count%) do (
 	for /D %%g in ("nsp\*") do (
-		echo nsp\!nca%%i!_nca
 		IF /i "%%g"=="nsp\!nca%%i!_nca" (
 			for /D %%h in ("%%g\*") do (
-				echo %%h
-				pause
 				set tempvar=%%h
 				IF /i "!tempvar:~-7!"=="[romfs]" (
 					"%windir%\System32\robocopy.exe" /move /e "%%h " "nca\romfs" >nul
@@ -632,9 +650,9 @@ IF %errorlevel% NEQ 0 (
 	goto:menu
 )
 IF /i "%ushs_debug_mode%"=="on" (
-	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -s %save_size% -i control.nacp
 ) else (
-	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -i control.nacp >nul
+	"%ushs_base_path%tools\python3_scripts\npdm_and_nacp_rewrite\npdm_and_nacp_rewrite.exe" -t nacp -d %id% -n "%name%" -a "%author%" -v "%version%" -p 0 -s %save_size% -i control.nacp >nul
 )
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"

@@ -4,6 +4,7 @@ Patch Script made by MrDude
 Modified by shadow256
 Thanks to Crckd/DarkMatterCore and the others that helped @GbaTemp
 https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/
+Branching & bit shifting- https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/page-7#post-9352950
 https://armconverter.com/
 Branching & bit shifting- https://gbatemp.net/threads/info-on-sha-256-hashes-on-fs-patches.581550/page-7#post-9352950
 """
@@ -69,11 +70,12 @@ patterns2 = [common1, common2, '0xe023009145eeff97'] #firmware 11.0.x
 patterns3 = [common1, common2, '0xe023009168edff97'] #firmware 12.0.x
 patterns4 = [common1, common2, '0xe023009140edff97'] #firmware 12.1.1
 patterns5 = [common1, common2, '0xe02300916de9ff97'] #firmware 13.0.0
+patterns6 = [common1, common2, '0xe02300910de9ff97'] #firmware 13.0.1
 
 '''
 Note to find the new pattern for the 3rd pattern, use hex probe software and use this wildcard
 to search main_dec file (comment out clean_dumped() from the bottom of this file to get that decrypted file):
-Wildcard search string: FF 97 *0 ** ** ** F* ** ** A9 F* ** ** *9 (usually the second place found)
+Wildcard search string: FF 97 *0 ** ** ** F* ** ** A9 F* ** ** *9 (usually the second place found and just above where this is found)
 '''
 
 def List_files():
@@ -179,9 +181,12 @@ def checkfiles():
     elif value == 13300:
         patterns = patterns5 # for firmware 13.0.0
         print ("Using pattern 5")
+    elif value == 13400:
+        patterns = patterns6 # for firmware 13.0.1
+        print ("Using pattern 6")    
     else:
-        patterns = patterns5
-        print ("Unable to find sdk so just using pattern 5")
+        patterns = patterns6
+        print ("Unable to find sdk so just using pattern 6")
 
 def clean_sdk():
     if Path(sdk).exists():

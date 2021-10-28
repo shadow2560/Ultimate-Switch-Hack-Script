@@ -49,26 +49,26 @@ goto:eof
 echo Char not authorized.
 goto:eof
 
-:mariko_kek_already_present_message
-echo The "mariko_kek" key has been found in the "prod.keys" file, it will not be treated.
+:partial_keys_file_error
+echo Error during the analyse of the partial keys file.
 goto:eof
 
-:mariko_bek_already_present_message
-echo The "mariko_bek" key has been found in the "prod.keys" file, it will not be treated.
+:create_partial_key_begin
+echo Decryption of the key "%temp_key%"...
 goto:eof
 
-:secure_boot_key_already_present_message
-echo The "secure_boot_key" key has been found in the "prod.keys" file, it will not be treated.
+:key_already_present_message
+echo The "%temp_key_name%" key has been found in the "prod.keys" file, it will not be treated.
 goto:eof
 
-:secure_storage_key_already_present_message
-echo The "secure_storage_key" key has been found in the "prod.keys" file, it will not be treated.
+:create_partial_key_error
+echo An error occured during decryption of the "partialaes.keys" file for the key "%temp_key_name%".
 goto:eof
 
-:create_partial_keys_error
-echo An error occured during decryption of the "partialaes.keys" file.
+:create_partial_key_success
+echo Decryption of the key "%temp_key%" succesful, the key has been added to the end of the "prod.keys" file.
 goto:eof
 
-:create_partial_keys_success
-echo Decryption of the "partialaes.keys" file succesful, the keys have been added to the end of the "prod.keys" file.
+:create_partial_keys_end
+echo Process finished.
 goto:eof
