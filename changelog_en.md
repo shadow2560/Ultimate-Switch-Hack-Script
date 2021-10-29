@@ -1,5 +1,19 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.204</h2>
+<ul>
+<li>Rewrite of the script allowing to decrypt the partial keys dumped on Mariko console with Lockpick-RCM.</li>
+<li>Add new verifiable keys in the verification of a key file function.</li>
+<li>Update script witch verify the es_patches to add support of firmware 13.1.0.</li>
+<li>Added some configuration items in the default ini file for Saturn game injection.</li>
+<li>Improve the injection script of a saturn game and fix bug in it.</li>
+<li>Support of the firmware 13.1.0 in the scripts witch can make actions on firmwares.</li>
+<li>Update SwitchThemeInjector to version 4.6.4.</li>
+<li>Update Atmosphere to version 1.2.1.</li>
+<li>Update Hekate to version 5.6.5.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 488.</li>
+</ul>
 <h2>V4.3.203</h2>
 <ul>
 <li>Fix bugs in Saturn game injection script.</li>

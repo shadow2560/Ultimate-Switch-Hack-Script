@@ -114,6 +114,7 @@
 <li><a target="_blank" href="https://discord.gg/EYzmVca">Off_switch, founded in the Deejay87 pack</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/Payload_Launcher">Payload_Launcher</a></li>
 <li><a target="_blank" href="https://github.com/Cpasjuste/pplay">Pplay</a></li>
+<li><a target="_blank" href="https://github.com/proconsule/nxmp">Nxmp</a></li>
 <li><a target="_blank" href="https://github.com/darkxex/prodinfoenabler">ProdinfoEnabler</a></li>
 <li><a target="_blank" href="https://github.com/nx-python/PyNX">PyNX</a></li>
 <li><a target="_blank" href="https://github.com/ITotalJustice/Reset-Parental-Controls-NX">Reset-Parental-Controls-NX</a></li>

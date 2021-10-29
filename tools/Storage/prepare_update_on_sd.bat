@@ -115,6 +115,7 @@ echo 12.0.2?
 echo 12.0.3?
 echo 12.1.0?
 echo 13.0.0?
+echo 13.1.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT EXIST "downloads" mkdir "downloads"
@@ -480,6 +481,15 @@ IF "%firmware_choice%"=="13.0.0" (
 	IF !errorlevel! EQU 1 goto:define_firmware_choice
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="13.1.0" (
+	set expected_md5=ab837980ed2c83eedaecb28ebf667d9a
+	set "firmware_link=https://mega.nz/file/IFx1jIAZ#JZlMks0EjumXZEZPUgQhii_MjovVOzOLaxSP3_SHx8g"
+	set firmware_file_name=Firmware 13.1.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
 goto:define_action_type
 
 :download_firmware
@@ -655,11 +665,13 @@ goto:define_action_type
 :cdj_test_max_firmware
 IF %action_type% EQU 2 (
 	call "%associed_language_script%" "choidujour_max_firmware_error"
+	pause
 	exit /b 1
 )
 IF %action_type% EQU 3 (
 	set cdjnx_use=
 	call "%associed_language_script%" "choidujour_max_firmware_error"
+	pause
 	IF NOT "!cdjnx_use!"=="" set cdjnx_use=!cdjnx_use:~0,1!
 	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "cdjnx_use" "o/n_choice"
 	IF /i NOT "!cdjnx_use!"=="o" (
