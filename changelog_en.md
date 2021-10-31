@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.206</h2>
+<ul>
+<li>Ameliorate the Saturn game injection script.</li>
+</ul>
 <h2>V4.3.205</h2>
 <ul>
 <li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include a better detection of the Device ID in the PRODINFO partition.</li>

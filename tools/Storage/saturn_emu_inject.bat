@@ -52,7 +52,7 @@ if "%begin%"=="1" (
 		goto:Menu
 ) else if "%begin%"=="4" (
 	cls
-	call :manage_ini_profiles
+	call :save_prod.keys_file
 	goto:Menu
 )
 ) else (
@@ -133,6 +133,8 @@ goto:start_cue_analyse
 
 :keys_path_set
 echo.
+IF EXIST "Saturn_emu_inject_datas\prod.keys" set "keys_path=%ushs_base_path%Saturn_emu_inject_datas\prod.keys
+IF EXIST "Saturn_emu_inject_datas\prod.keys" goto:icon_change_choice
 set keys_path=
 call "%associed_language_script%" "set_keys_path"
 set /p keys_path=<"%ushs_base_path%templogs\tempvar.txt"
@@ -519,7 +521,7 @@ copy "%saturn_game_source%" "%CD%\nca\romfs">nul
 rename "%CD%\nca\romfs\*.cue" "%game_files%.cue"
 
 :rewrite_ini_file
-copy "%custom_ini_path%" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
+IF /i "%custom_ini_choice%"=="o" copy "%custom_ini_path%" "%CD%\nca\romfs\%game_files%_Switch.ini" >nul
 
 :wallpaper_replace
 IF /i NOT "%custom_wallpaper_choice%"=="o" goto:pass_wallpaper_replace
@@ -764,6 +766,23 @@ exit /b
 
 :get_saturn_game_source_folder
 set saturn_game_source_folder=%~dp1
+exit /b
+
+:save_prod.keys_file
+call "%associed_language_script%" "set_keys_path"
+set /p temp_keys_file_path=<templogs\tempvar.txt
+IF "%temp_keys_file_path%"=="" (
+	exit /b
+)
+IF NOT EXIST "Saturn_emu_inject_datas\*.*" mkdir "Saturn_emu_inject_datas" >nul
+copy "%temp_keys_file_path%" "Saturn_emu_inject_datas\prod.keys" >nul
+IF %errorlevel% EQU 0 (
+	call "%associed_language_script%" "keys_file_save_successful"
+	pause
+) else (
+	call "%associed_language_script%" "keys_file_save_error"
+	pause
+)
 exit /b
 
 :manage_ini_profiles

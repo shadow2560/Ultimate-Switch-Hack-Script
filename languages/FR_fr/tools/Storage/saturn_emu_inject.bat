@@ -28,6 +28,7 @@ echo							Que souhaitez-vous faire:
 echo							1: Afficher l'aide
 echo							2: Commencer l'injection
 echo 3: Lancer CDmage pour convertir des images CD en format .cue et .bin, seul format supporté pour l'injection.
+echo 4: Sauvegarder votre fichier prod.keys pour que celui-ci ne soit plus demandé durant les futurs injections.
 echo							Tout autre choix: Revenir au menu précédent
 echo 	-=======================================================================================================-
 set /p begin=Faites votre choix: 
@@ -310,6 +311,14 @@ goto:eof
 echo 			Profitez de votre jeu, vous pouvez installer votre fichier "%nsp_path%%td%" généré sur votre console.
 goto:eof
 
+:keys_file_save_successful
+echo Sauvegarde du fichier de clés effectuée avec succès.
+goto:eof
+
+:keys_file_save_error
+echo Erreur durant la sauvegarde du fichier de clés.
+goto:eof
+
 :howtouse_text
 ECHO.
 ECHO 	=========================================================================================================
@@ -318,10 +327,11 @@ ECHO	 		        			 Comment utiliser ce logiciel:
 Echo.
 ECHO 	=========================================================================================================
 Echo 	-Indiquez un NSP d'un jeu officiel Saturn qui servira de source
-Echo 	-Indiquez le répertoire contenant les fichiers du jeu Saturn à injecter
+Echo 	-Indiquez le fichier cue du jeu Saturn à injecter
 Echo 	-Indiquez votre fichier prod.keys
 Echo 	-L'icône peut être un JPG ou un PNG et sera redimensionné à la bonne taille durant le processus
 Echo 	-Indiquez un répertoire de sortie pour le NSP
+echo Indiquer les autres informations lorsque demandé si vous souhaitez customiser votre injection.
 Echo.
 Echo.
 Echo 	Remerciements:

@@ -37,6 +37,7 @@ echo							What do you want to do:
 echo							1: Display help
 echo							2: Start injection
 echo 3: Launch CDmage to convert  CD images to the .cue and .bin format, the only format supported by the injection process.
+echo 4: Save your prod.keys file to pass the demand for this file during futur injections.
 echo							All other choices: Go back to menu.
 echo 	-=======================================================================================================-
 set /p begin=Make your choice: 
@@ -319,6 +320,14 @@ goto:eof
 echo 			Enjoy your game, you can now install your "%nsp_path%%td%" generated file on your console.
 goto:eof
 
+:keys_file_save_successful
+echo Keys file successfuly saved.
+goto:eof
+
+:keys_file_save_error
+echo Error while saving the keys file.
+goto:eof
+
 :howtouse_text
 ECHO.
 ECHO 	=========================================================================================================
@@ -327,10 +336,11 @@ ECHO	 		        			 How to use this software:
 Echo.
 ECHO 	=========================================================================================================
 Echo 	-Indicate a NSP from retail Saturn Game for sourcing
-Echo 	-Indicate your Saturn Game folder to inject
+Echo 	-Indicate your Saturn Game cue file to inject
 Echo 	-Indicate your prod.keys file
 Echo 	-Icon can be JPG or PNG and will be resized at good size by the process
 Echo 	-Indicate an output folder for your NSP
+echo Indicate the other informations when asked to customize your injection.
 Echo.
 Echo.
 Echo 	Greetings:
