@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V490</h2>
+<ul>
+<li>Mise à jour de Nxmp en version 0.3.0.</li>
+</ul>
 <h2>V489</h2>
 <ul>
 <li>Ajout de l'émulateur Easyrpg-player.</li>

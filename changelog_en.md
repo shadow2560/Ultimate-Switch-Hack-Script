@@ -4,6 +4,7 @@
 <ul>
 <li>Ameliorate the Saturn game injection script.</li>
 <li>Ameliorate the beta database for checking serial numbers.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 490.</li>
 </ul>
 <h2>V4.3.205</h2>
 <ul>
