@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V489</h2>
 <ul>
+<li>Add the Easyrpg-player emulator.</li>
 <li>Update Atmosphere to version 1.2.2.</li>
 <li>Update sig_patches.</li>
 <li>Update HB-menu to version 3.5.0.</li>

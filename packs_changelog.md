@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V489</h2>
 <ul>
+<li>Ajout de l'émulateur Easyrpg-player.</li>
 <li>Mise à jour d'Atmosphere en version 1.2.2.</li>
 <li>Mise à jour des sig_patches.</li>
 <li>Mise à jour de HB-menu en version 3.5.0.</li>
