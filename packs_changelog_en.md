@@ -1,10 +1,17 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V489</h2>
+<ul>
+<li>Update Atmosphere to version 1.2.2.</li>
+<li>Update sig_patches.</li>
+<li>Update HB-menu to version 3.5.0.</li>
+</ul>
 <h2>V488</h2>
 <ul>
 <li>Add the Nxmp homebrew.</li>
 <li>Update Atmosphere to version 1.2.1.</li>
 <li>Update Hekate to version 5.6.5.</li>
+<li>Update sig_patches.</li>
 <li>Update AIO-Switch-Updater to version 2.16.1.</li>
 <li>Update AtmoXL-Titel-Installer to version 1.5.5.</li>
 <li>Update Linkalho to version 1.0.6.</li>

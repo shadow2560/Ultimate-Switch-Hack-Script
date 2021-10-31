@@ -1009,9 +1009,9 @@ del /Q /S "%volume_letter%:\atmosphere\.emptydir" >nul
 del /Q /S "%volume_letter%:\bootloader\.emptydir" >nul
 del /q "%volume_letter%:\folder_version.txt" >nul
 IF /i "%mariko_console%"=="O" (
-	rmdir /s /q "%volume_letter%:\payloads >nul
-	rmdir /s /q "%volume_letter%:\switch\ChoiDuJourNX >nul
-	rmdir /s /q "%volume_letter%:\switch\Payload_Launcher >nul
+	rmdir /s /q "%volume_letter%:\payloads" >nul
+	rmdir /s /q "%volume_letter%:\switch\ChoiDuJourNX" >nul
+	rmdir /s /q "%volume_letter%:\switch\Payload_Launcher" >nul
 )
 echo.
 set restore_method=

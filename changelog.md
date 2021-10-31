@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.205</h2>
+<ul>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure une meilleur détection du Device ID dans la partition PRODINFO.</li>
+<li>Correction de bugs mineurs dans la fonction de débrickage.</li>
+<li>Mise à jour d'Atmosphere en version 1.2.2.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 488.</li>
+</ul>
 <h2>V4.3.204</h2>
 <ul>
 <li>Réécriture du script permettant de de déchiffrer les clés partielles dumpées sur console Mariko avec Lockpick-RCM.</li>
