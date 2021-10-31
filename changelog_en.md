@@ -3,6 +3,7 @@
 <h2>V4.3.206</h2>
 <ul>
 <li>Ameliorate the Saturn game injection script.</li>
+<li>Ameliorate the beta database for checking serial numbers.</li>
 </ul>
 <h2>V4.3.205</h2>
 <ul>

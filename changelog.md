@@ -3,6 +3,7 @@
 <h2>V4.3.206</h2>
 <ul>
 <li>Amélioration du script d'injection d'un jeu Saturn.</li>
+<li>Amélioration de la base de données beta pour la vérification de numéros de série.</li>
 </ul>
 <h2>V4.3.205</h2>
 <ul>
