@@ -5,6 +5,7 @@
 <li>Update Atmosphere to version 1.2.2.</li>
 <li>Update sig_patches.</li>
 <li>Update HB-menu to version 3.5.0.</li>
+<li>Update Tinfoil to version 13.0V7.</li>
 </ul>
 <h2>V488</h2>
 <ul>
