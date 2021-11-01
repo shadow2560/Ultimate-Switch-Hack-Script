@@ -4,6 +4,7 @@
 <ul>
 <li>Ameliorate the Saturn game injection script.</li>
 <li>Ameliorate the beta database for checking serial numbers.</li>
+<li>Update script witch create the es_patches.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 490.</li>
 </ul>
 <h2>V4.3.205</h2>
@@ -18,7 +19,7 @@
 <ul>
 <li>Rewrite of the script allowing to decrypt the partial keys dumped on Mariko console with Lockpick-RCM.</li>
 <li>Add new verifiable keys in the verification of a key file function.</li>
-<li>Update script witch verify the es_patches to add support of firmware 13.1.0.</li>
+<li>Update script witch create the es_patches to add support of firmware 13.1.0.</li>
 <li>Added some configuration items in the default ini file for Saturn game injection.</li>
 <li>Improve the injection script of a saturn game and fix bug in it.</li>
 <li>Support of the firmware 13.1.0 in the scripts witch can make actions on firmwares.</li>

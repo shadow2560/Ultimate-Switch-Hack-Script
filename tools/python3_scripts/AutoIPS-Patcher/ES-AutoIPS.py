@@ -16,6 +16,7 @@ from pathlib import Path
 from bitstring import ConstBitStream
 import sys
 import struct
+import re
 import time
 
 hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
@@ -248,6 +249,15 @@ def find_offsets():
         final = off_fix - 4
         hexval = '0x{0:0{1}X}'.format(final, 6) #change int back to uppercase hex (make sure we also print leading zero)
 
+def wildcard_offsets(): #wildcard test search for patch 3
+    with open(filename, 'rb') as file:
+        f1 = re.search(b'\xE0\x23\x00\x91..\xFF\x97', file.read())
+        # Calculate instruction offset
+        global final
+        global hexval
+        final = (f1 .start() - 4)
+        hexval = '0x{0:0{1}X}'.format(final, 6) #change int back to uppercase hex (make sure we also print leading zero)
+
 def patch_address():
     global patchloc
     global idx
@@ -329,7 +339,8 @@ def patch2():
 def patch3():
     global patchloc
     patchloc = 2
-    find_offsets()
+    #find_offsets()
+    wildcard_offsets()
     # Get instruction to patch
     with open(filename,"rb") as f:
         f.seek(final)
@@ -389,7 +400,7 @@ makedirs() # create directories to store the ips patch.
 write_header() # write the first part of the ips file, leave file open until patches are completed.
 patch1() # try and find pattern 0 so we can write patch 1 to our ips file
 patch2() # try and find pattern 1 so we can write patch 2 to our ips file
-patch3() # try and find pattern 2 so we can write patch 3 to our ips file
+patch3() # try and find pattern 2 so we can write patch 3 to our ips file - current search is a wildard.
 write_footer() # write the last part of the ips file.
 ips_file.close() # we wrote the header,all the patches and the footer so we can close this file now.
 patch_address() # show probable address patch adressess.
