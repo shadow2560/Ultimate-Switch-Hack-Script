@@ -958,7 +958,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF !errorlevel! NEQ 0 rename "%volume_letter%:\MiiPort\qrkey.txt" "qrkey.txt.bak" >nul
 			)
 		)
-				IF "!temp_homebrew!"=="Payload_Launcher" (
+				IF "!temp_homebrew:~0,16!"=="Payload_Launcher" (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
 				copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul

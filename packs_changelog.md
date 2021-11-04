@@ -1,5 +1,14 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V491</h2>
+<ul>
+<li>Ajout des homebrews Tencent-Switch-switcher et Tencent-switcher-GUI.</li>
+<li>Ajout du homebrew Payload-Launcher-GUI qui est en fait la version 3.1 du homebrew Payload-Launcher.</li>
+<li>Mise à jour d'Atmosphere en version 1.2.4.</li>
+<li>Mise à jour des sig_patches.</li>
+<li>Mise à jour de DBI en version 336.</li>
+<li>Mise à jour de Nxmp en version 0.4.1.</li>
+</ul>
 <h2>V490</h2>
 <ul>
 <li>Mise à jour de Nxmp en version 0.3.0.</li>

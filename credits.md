@@ -125,6 +125,7 @@
 <li><a target="_blank" href="https://github.com/meganukebmp/Switch_90DNS_tester">Switch_90DNS_tester</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/switch-cheats-updater-update-your-cheat-files-from-your-switch.561878/">Switch-cheats-updater</a></li>
 <li><a target="_blank" href="https://github.com/joel16/SwitchIdent">SwitchIdent</a></li>
+<li><a target="_blank" href="https://github.com/CaiMiao/Tencent-Switch-switcher">Tencent-Switch-switcher</a> and <a target="_blank" href="https://github.com/CaiMiao/Tencent-switcher-GUI">Tencent-switcher-GUI</a></li>
 <li><a target="_blank" href="https://github.com/blawar/tinleaf">Tinleaf</a></li>
 <li><a target="_blank" href="https://github.com/mrdude2478/TinWoo">TinWoo-Installer</a></li>
 <li><a target="_blank" href="https://github.com/vgmoose/vgedit">Vgedit</a></li>

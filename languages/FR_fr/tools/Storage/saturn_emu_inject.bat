@@ -27,8 +27,9 @@ echo 	-=========================================================================
 echo							Que souhaitez-vous faire:
 echo							1: Afficher l'aide
 echo							2: Commencer l'injection
-echo 3: Lancer CDmage pour convertir des images CD en format .cue et .bin, seul format supporté pour l'injection.
-echo 4: Sauvegarder votre fichier prod.keys pour que celui-ci ne soit plus demandé durant les futurs injections.
+echo 3: Lancer CDmage pour convertir des images CD en format .cue et .bin, seul format supporté pour l'injection
+echo 4: Sauvegarder votre fichier prod.keys pour que celui-ci ne soit plus demandé durant les futurs injections
+echo 5: Convertir un dossier contenant des fichiers png en fichiers tex ^(les sous-dossiers seront également analysés^)
 echo							Tout autre choix: Revenir au menu précédent
 echo 	-=======================================================================================================-
 set /p begin=Faites votre choix: 
@@ -317,6 +318,28 @@ goto:eof
 
 :keys_file_save_error
 echo Erreur durant la sauvegarde du fichier de clés.
+goto:eof
+
+:png2tex_src_folder_choice
+echo Sélectionnez le répertoire  contenant les fichiers png à convertir dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au menu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Sélection du répertoire source des fichiers png"
+goto:eof
+
+:png2tex_dest_folder_choice
+echo Sélectionnez le répertoire  qui contiendra les fichiers tex convertis dans la fenêtre suivante.
+echo Si vous refermez la fenêtre vous retournerez au menu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Sélection du répertoire de destination des fichiers tex convertis"
+goto:eof
+
+:png2tex_conversion_error
+echo Une erreur s'est produite durant la convertion du répertoire.
+goto:eof
+
+:png2tex_conversion_success
+echo Convertion du répertoire effectuée.
 goto:eof
 
 :howtouse_text

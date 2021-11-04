@@ -38,6 +38,7 @@ echo							1: Display help
 echo							2: Start injection
 echo 3: Launch CDmage to convert  CD images to the .cue and .bin format, the only format supported by the injection process.
 echo 4: Save your prod.keys file to pass the demand for this file during futur injections.
+echo 5: Convert a folder containing png files to tex files ^(subfolders will be also analysed^)
 echo							All other choices: Go back to menu.
 echo 	-=======================================================================================================-
 set /p begin=Make your choice: 
@@ -214,7 +215,7 @@ echo Error, the version must be maximum 4 chars long.
 goto:eof
 
 :set_save_size
-set /p save_size=Enter the save size in octets ^(leave empty to ceep the default size^): 
+set /p save_size=Enter the save size in octets ^(leave empty to keep the default size^): 
 goto:eof
 
 :set_nsp_path
@@ -326,6 +327,28 @@ goto:eof
 
 :keys_file_save_error
 echo Error while saving the keys file.
+goto:eof
+
+:png2tex_src_folder_choice
+echo Select the directory containing the png files to convert in the next window.
+echo If you close the window you will return to the menu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Directory containing png files selection"
+goto:eof
+
+:png2tex_dest_folder_choice
+echo Select the directory that will contain the converted tex files in the next window.
+echo If you close the window you will return to the menu.
+pause
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\select_dir.vbs" "%ushs_base_path%templogs\tempvar.txt" "Tex files converted folder selection"
+goto:eof
+
+:png2tex_conversion_error
+echo Error during the folder's conversion.
+goto:eof
+
+:png2tex_conversion_success
+echo Directory's conversion done.
 goto:eof
 
 :howtouse_text

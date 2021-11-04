@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.207</h2>
+<ul>
+<li>Amélioration du script d'injection d'un jeu Saturn.</li>
+<li>Correction de certains problèmes dans la Nand Toolbox avec les fichiers liés aux consoles Mariko.</li>
+<li>Mise à jour d'Atmosphere en version 1.2.4.</li>
+<li>Mise à jour de Prodinfogen en version 1.0.1.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 491.</li>
+</ul>
 <h2>V4.3.206</h2>
 <ul>
 <li>Amélioration du script d'injection d'un jeu Saturn.</li>

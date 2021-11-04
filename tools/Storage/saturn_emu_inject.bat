@@ -27,8 +27,12 @@ IF EXIST templogs (
 )
 mkdir templogs
 IF NOT EXIST "Saturn_emu_inject_datas\*.*" mkdir "Saturn_emu_inject_datas"
+IF NOT EXIST "Saturn_emu_inject_datas\credits\*.*" mkdir "Saturn_emu_inject_datas\Credit"
 IF NOT EXIST "Saturn_emu_inject_datas\games\*.*" mkdir "Saturn_emu_inject_datas\games"
 IF NOT EXIST "Saturn_emu_inject_datas\ini\*.*" mkdir "Saturn_emu_inject_datas\ini"
+IF NOT EXIST "Saturn_emu_inject_datas\no_data\*.*" mkdir "Saturn_emu_inject_datas\no_data"
+IF NOT EXIST "Saturn_emu_inject_datas\playingguides\*.*" mkdir "Saturn_emu_inject_datas\PlayingGuide"
+IF NOT EXIST "Saturn_emu_inject_datas\textures\*.*" mkdir "Saturn_emu_inject_datas\textures"
 IF NOT EXIST "Saturn_emu_inject_datas\wallpapers\*.*" mkdir "Saturn_emu_inject_datas\wallpapers"
 
 set filename0=Cotton2
@@ -54,7 +58,10 @@ if "%begin%"=="1" (
 	cls
 	call :save_prod.keys_file
 	goto:Menu
-)
+) else if "%begin%"=="5" (
+	cls
+	call :convert_png_to_tex_folder
+	goto:Menu
 ) else (
 	goto:end_script2
 )
@@ -781,6 +788,25 @@ IF %errorlevel% EQU 0 (
 	pause
 ) else (
 	call "%associed_language_script%" "keys_file_save_error"
+	pause
+)
+exit /b
+
+:convert_png_to_tex_folder
+set png2tex_src_folder_path=
+call "%associed_language_script%" "png2tex_src_folder_choice"
+set /p png2tex_src_folder_path=<templogs\tempvar.txt
+IF "%png2tex_src_folder_path%"=="" exit /b
+set png2tex_dest_folder_path=
+call "%associed_language_script%" "png2tex_dest_folder_choice"
+set /p png2tex_dest_folder_path=<templogs\tempvar.txt
+IF "%png2tex_dest_folder_path%"=="" exit /b
+"tools\Saturn_emu_inject\Tools\png2tex\png2tex.exe" "%png2tex_src_folder_path%" "%png2tex_dest_folder_path%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "png2tex_conversion_error"
+	pause
+) else (
+	call "%associed_language_script%" "png2tex_conversion_success"
 	pause
 )
 exit /b
