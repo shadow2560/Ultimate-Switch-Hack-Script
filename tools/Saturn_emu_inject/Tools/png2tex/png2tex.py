@@ -3,6 +3,7 @@
 
 # Coded by botik of Gbatemp forum, see https://gbatemp.net/threads/saturn-emulation-using-cotton-guardian-force-testing-and-debug.600756/post-9635281 for original source
 # Modified by shadow256
+# This file is on GPL V3 licence
 
 import sys
 import os
