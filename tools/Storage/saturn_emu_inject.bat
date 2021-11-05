@@ -177,7 +177,17 @@ IF /i "%bs%"=="o" (
 
 :custom_ini_change_choice
 set custom_ini_choice=
-set custom_ini_path=Tools\config.ini
+set custom_ini_path=
+set default_ini_choice=
+echo.
+call "%associed_language_script%" "set_default_ini_choice"
+IF NOT "%default_ini_choice%"=="" set default_ini_choice=%default_ini_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "default_ini_choice" "o/n_choice"
+IF "%default_ini_choice%"=="o" (
+	set custom_ini_choice=o
+	call :generic_ini_select
+	goto:custom_wallpaper_change_choice
+)
 echo.
 call "%associed_language_script%" "set_custom_ini_choice"
 IF NOT "%custom_ini_choice%"=="" set custom_ini_choice=%custom_ini_choice:~0,1%
@@ -193,6 +203,16 @@ IF /i "%custom_ini_choice%"=="o" (
 :custom_wallpaper_change_choice
 set custom_wallpaper_choice=
 set custom_wallpaper_folder_path=
+set default_wallpaper_choice=
+echo.
+call "%associed_language_script%" "set_default_wallpaper_choice"
+IF NOT "%default_wallpaper_choice%"=="" set default_wallpaper_choice=%default_wallpaper_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "default_wallpaper_choice" "o/n_choice"
+IF "%default_wallpaper_choice%"=="o" (
+	set custom_wallpaper_choice=o
+	set custom_wallpaper_folder_path=%ushs_base_path%tools\Saturn_emu_inject\Tools\Wallpaper
+	goto:custom_credit_change_choice
+)
 echo.
 call "%associed_language_script%" "set_custom_wallpaper_choice"
 IF NOT "%custom_wallpaper_choice%"=="" set custom_wallpaper_choice=%custom_wallpaper_choice:~0,1%
@@ -208,6 +228,16 @@ IF /i "%custom_wallpaper_choice%"=="o" (
 :custom_credit_change_choice
 set custom_credit_choice=
 set custom_credit_folder_path=
+set default_credit_choice=
+echo.
+call "%associed_language_script%" "set_default_credit_choice"
+IF NOT "%default_credit_choice%"=="" set default_credit_choice=%default_credit_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "default_credit_choice" "o/n_choice"
+IF "%default_credit_choice%"=="o" (
+	set custom_credit_choice=o
+	set custom_credit_folder_path=%ushs_base_path%tools\Saturn_emu_inject\Tools\Credit
+	goto:custom_playingguide_change_choice
+)
 echo.
 call "%associed_language_script%" "set_custom_credit_choice"
 IF NOT "%custom_credit_choice%"=="" set custom_credit_choice=%custom_credit_choice:~0,1%
@@ -223,6 +253,16 @@ IF /i "%custom_credit_choice%"=="o" (
 :custom_playingguide_change_choice
 set custom_playingguide_choice=
 set custom_playingguide_folder_path=
+set default_playingguide_choice=
+echo.
+call "%associed_language_script%" "set_default_playingguide_choice"
+IF NOT "%default_playingguide_choice%"=="" set default_playingguide_choice=%default_playingguide_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "default_playingguide_choice" "o/n_choice"
+IF "%default_playingguide_choice%"=="o" (
+	set custom_playingguide_choice=o
+	set custom_playingguide_folder_path=%ushs_base_path%tools\Saturn_emu_inject\Tools\PlayingGuide
+	goto:custom_texture_change_choice
+)
 echo.
 call "%associed_language_script%" "set_custom_playingguide_choice"
 IF NOT "%custom_playingguide_choice%"=="" set custom_playingguide_choice=%custom_playingguide_choice:~0,1%
@@ -238,6 +278,16 @@ IF /i "%custom_playingguide_choice%"=="o" (
 :custom_texture_change_choice
 set custom_texture_choice=
 set custom_texture_path=
+set default_texture_choice=
+echo.
+call "%associed_language_script%" "set_default_texture_choice"
+IF NOT "%default_texture_choice%"=="" set default_texture_choice=%default_texture_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "default_texture_choice" "o/n_choice"
+IF "%default_texture_choice%"=="o" (
+	set custom_texture_choice=o
+	set custom_texture_path=%ushs_base_path%tools\Saturn_emu_inject\Tools\Texture.tex
+	goto:custom_nodata_change_choice
+)
 echo.
 call "%associed_language_script%" "set_custom_texture_choice"
 IF NOT "%custom_texture_choice%"=="" set custom_texture_choice=%custom_texture_choice:~0,1%
@@ -538,10 +588,10 @@ IF "%game_files%"=="GuardianForce" set wallpaper_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set wallpaper_name_change=CB
 IF "%game_files%"=="Cotton2" set wallpaper_name_change=C2
 del /q "%CD%\nca\romfs\Wallpaper\*.*" >nul
-copy "%custom_wallpaper_folder_path%\WP_001.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul
-copy "%custom_wallpaper_folder_path%\WP_002.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul
-copy "%custom_wallpaper_folder_path%\WP_003.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul
-copy "%custom_wallpaper_folder_path%\WP_004.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_004.tex" >nul
+copy "%custom_wallpaper_folder_path%\WP_001.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_001.tex" >nul 2>&1
+copy "%custom_wallpaper_folder_path%\WP_002.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_002.tex" >nul 2>&1
+copy "%custom_wallpaper_folder_path%\WP_003.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_003.tex" >nul 2>&1
+copy "%custom_wallpaper_folder_path%\WP_004.tex" "%CD%\nca\romfs\Wallpaper\WP_%wallpaper_name_change%_004.tex" >nul 2>&1
 :pass_wallpaper_replace
 
 :credit_replace
@@ -552,8 +602,15 @@ IF "%game_files%"=="GuardianForce" set credit_name_change=GF
 IF "%game_files%"=="CottonBoomerang" set credit_name_change=CtnB
 IF "%game_files%"=="Cotton2" set credit_name_change=Ctn2
 del /q "%CD%\nca\romfs\Credit\*.*" >nul
-copy "%custom_credit_folder_path%\00.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_00.tex" >nul
-copy "%custom_credit_folder_path%\01.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_01.tex" >nul
+copy "%custom_credit_folder_path%\00.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_00.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\01.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_01.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\02.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_02.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\03.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_03.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\04.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_04.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\05.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_05.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\06.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_06.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\07.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_07.tex" >nul 2>&1
+copy "%custom_credit_folder_path%\08.tex" "%CD%\nca\romfs\Credit\%credit_name_change%_08.tex" >nul 2>&1
 :pass_credit_replace
 
 :playingguide_replace
@@ -565,14 +622,25 @@ IF "%game_files%"=="CottonBoomerang" set playingguide_name_change=CtnB
 IF "%game_files%"=="Cotton2" set playingguide_name_change=Ctn2
 del /q "%CD%\nca\romfs\PlayingGuide\English\*.*" >nul
 del /q "%CD%\nca\romfs\PlayingGuide\Japanese\*.*" >nul
-copy "%custom_playingguide_folder_path%\00.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_00.tex" >nul
-copy "%custom_playingguide_folder_path%\01.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_01.tex" >nul
-copy "%custom_playingguide_folder_path%\02.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_02.tex" >nul
-copy "%custom_playingguide_folder_path%\03.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_03.tex" >nul
-copy "%custom_playingguide_folder_path%\00.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_00.tex" >nul
-copy "%custom_playingguide_folder_path%\01.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_01.tex" >nul
-copy "%custom_playingguide_folder_path%\02.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_02.tex" >nul
-copy "%custom_playingguide_folder_path%\03.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_03.tex" >nul
+copy "%custom_playingguide_folder_path%\English\00.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_00.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\01.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_01.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\02.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_02.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\03.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_03.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\04.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_04.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\05.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_05.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\06.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_06.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\07.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_07.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\English\08.tex" "%CD%\nca\romfs\PlayingGuide\English\%playingguide_name_change%_08.tex" >nul 2>&1
+
+copy "%custom_playingguide_folder_path%\Japanese\00.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_00.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\01.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_01.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\02.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_02.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\03.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_03.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\04.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_04.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\05.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_05.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\06.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_06.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\07.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_07.tex" >nul 2>&1
+copy "%custom_playingguide_folder_path%\Japanese\08.tex" "%CD%\nca\romfs\PlayingGuide\Japanese\%playingguide_name_change%_08.tex" >nul 2>&1
 :pass_playingguide_replace
 
 :texture_replace
@@ -809,6 +877,21 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "png2tex_conversion_success"
 	pause
 )
+exit /b
+
+:generic_ini_select
+set custom_ini_path=%ushs_base_path%tools\Saturn_emu_inject\Tools\config
+set cartridge_4mb_ram_choice=
+set widescreen_choice=
+call "%associed_language_script%" "set_cartridge_4mb_ram_choice"
+IF NOT "%cartridge_4mb_ram_choice%"=="" set cartridge_4mb_ram_choice=%cartridge_4mb_ram_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "cartridge_4mb_ram_choice" "o/n_choice"
+call "%associed_language_script%" "set_widescreen_choice"
+IF NOT "%widescreen_choice%"=="" set widescreen_choice=%widescreen_choice:~0,1%
+call "%ushs_base_path%tools\Storage\functions\modify_yes_no_always_never_vars.bat" "widescreen_choice" "o/n_choice"
+IF /i "%cartridge_4mb_ram_choice%"=="o" set custom_ini_path=%custom_ini_path%_4mb
+IF /i "%widescreen_choice%"=="o" set custom_ini_path=%custom_ini_path%_widescreen
+set custom_ini_path=%custom_ini_path%.ini
 exit /b
 
 :manage_ini_profiles

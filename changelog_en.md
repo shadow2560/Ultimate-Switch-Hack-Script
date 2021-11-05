@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.208</h2>
+<ul>
+<li>Ameliorate the Saturn game injection script.</li>
+</ul>
 <h2>V4.3.207</h2>
 <ul>
 <li>Ameliorate the Saturn game injection script.</li>

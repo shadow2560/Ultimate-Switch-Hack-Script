@@ -90,6 +90,10 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers jpg et png ^(*.jpg;*.png^)|*.jpg;*.png|" "Sélectionner le fichier de l\'icône" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_default_ini_choice
+set /p default_ini_choice=Souhaitez-vous utiliser un fichier ini de configuration de l'émulateur générique pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_ini_choice
 set /p custom_ini_choice=Souhaitez-vous utiliser votre propre fichier ini de configuration de l'émulateur pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
@@ -101,8 +105,12 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "Fichiers ini^(*.ini^)|*.ini|" "Sélectionner un fichier ini personnalisé" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_default_wallpaper_choice
+set /p default_wallpaper_choice=Souhaitez-vous utiliser des fonds d'écran génériques pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_wallpaper_choice
-set /p custom_wallpaper_choice=Souhaitez-vous utiliser votre propre dossier  de fonds d'écran pour le jeu ^(le dossier devra contenir les quatre fichiers nommés "WP_001.tex" à "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_wallpaper_choice=Souhaitez-vous utiliser votre propre dossier  de fonds d'écran pour le jeu ^(le dossier devra contenir  des  fichiers nommés "WP_001.tex" à maximum "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_wallpaper_folder_path
@@ -112,8 +120,12 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier des fonds d'écran"
 goto:eof
 
+:set_default_credit_choice
+set /p default_credit_choice=Souhaitez-vous utiliser des crédits génériques pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_credit_choice
-set /p custom_credit_choice=Souhaitez-vous utiliser votre propre dossier  de crédits pour le jeu ^(le dossier devra contenir les deux fichiers nommés "00.tex" et "01.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_credit_choice=Souhaitez-vous utiliser votre propre dossier  de crédits pour le jeu ^(le dossier devra contenir des  fichiers nommés "00.tex" à maximum "08.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_credit_folder_path
@@ -123,8 +135,12 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier des crédits"
 goto:eof
 
+:set_default_playingguide_choice
+set /p default_playingguide_choice=Souhaitez-vous utiliser un guide de jeu générique pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_playingguide_choice
-set /p custom_playingguide_choice=Souhaitez-vous utiliser votre propre dossier  du guide de jeu pour le jeu ^(le dossier devra contenir les fichiers nommés "00.tex" à maximum "03.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_playingguide_choice=Souhaitez-vous utiliser votre propre dossier  du guide de jeu pour le jeu ^(le dossier devra contenir un dossier "English" et un dossier "Japanese" contenant des fichiers nommés "00.tex" à maximum "08.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_playingguide_folder_path
@@ -132,6 +148,10 @@ echo Sélectionnez le dossier du guide de jeu dans la fenêtre suivante.
 echo Si vous refermez la fenêtre vous retournerez au choix du type du guide de jeu.
 pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier du guide de jeu"
+goto:eof
+
+:set_default_texture_choice
+set /p default_texture_choice=Souhaitez-vous utiliser un fichier de texture générique pour le jeu? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_texture_choice
@@ -342,6 +362,14 @@ goto:eof
 echo Convertion du répertoire effectuée.
 goto:eof
 
+:set_cartridge_4mb_ram_choice
+set /p cartridge_4mb_ram_choice=Souhaitez-vous utiliser l'extension de ram de 4MB ^(les savestates ne fonctionneront plus^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_widescreen_choice
+set /p widescreen_choice=Souhaitez-vous activer l'écran large ^(attention, le jeu doit être prévu pour cela sinon l'affichage ne sera pas joli^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :howtouse_text
 ECHO.
 ECHO 	=========================================================================================================
@@ -360,6 +388,12 @@ Echo.
 Echo 	Remerciements:
 Echo 			https://gbatemp.net/threads/saturn-emulation-using-cotton-guardian-force-testing-and-debug.600756/
 Echo 			The-4n pour Hacpack tool, Thealexbarney pour Hactoolnet
+echo Le projet NSC_builder pour Squirrel
+echo botik pour la base de Png2tex
+echo cucholix pour le fichier de texture générique
+echo Xenocard pour les autres fichiers d'images génériques
+echo.
+echo Et tout ceux qui ont participé à ce projet
 Echo 			Vous saurez vous reconnaître!
 Echo. 	           
 goto:eof

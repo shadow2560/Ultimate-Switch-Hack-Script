@@ -99,6 +99,10 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "jpg and png files^(*.jpg;*.png^)|*.jpg;*.png|" "Select the icon file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_default_ini_choice
+set /p default_ini_choice=Do you want to use a generic ini   config file for the emulator for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_ini_choice
 set /p custom_ini_choice=Do you want to choose your own ini config file for the emulator for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
@@ -110,30 +114,42 @@ pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%TOOLS\Storage\functions\open_file.vbs" "" "ini files^(*.ini^)|*.ini|" "Select the custom ini file" "%ushs_base_path%templogs\tempvar.txt"
 goto:eof
 
+:set_default_wallpaper_choice
+set /p default_wallpaper_choice=Do you want to use generic wallpapers for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :set_custom_wallpaper_choice
-set /p custom_wallpaper_choice=Do you want to choose your own wallpaper folder for the game ^(the folder must contain the four files named "WP_001.tex" to "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_wallpaper_choice=Do you want to choose your own wallpapers folder for the game ^(the folder must contains files named "WP_001.tex" to maximum "WP_004.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_wallpaper_folder_path
-echo Please choose the wallpaper folder in the following window.
-echo If you close the window you will return to the wallpaper type choice.
+echo Please choose the wallpapers folder in the following window.
+echo If you close the window you will return to the wallpapers type choice.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Wallpaper folder select"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Wallpapers folder select"
+goto:eof
+
+:set_default_credit_choice
+set /p default_credit_choice=Do you want to use generic credits for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_credit_choice
-set /p custom_credit_choice=Do you want to choose your own credit folder for the game ^(the folder must contain the two files named "00.tex" and "01.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_credit_choice=Do you want to choose your own credits folder for the game ^(the folder must contains  files named "00.tex" to maximum "08.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_credit_folder_path
-echo Please choose the credit folder in the following window.
-echo If you close the window you will return to the credit type choice.
+echo Please choose the credits folder in the following window.
+echo If you close the window you will return to the credits type choice.
 pause
-%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Credit folder select"
+%windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Credits folder select"
+goto:eof
+
+:set_default_playingguide_choice
+set /p default_playingguide_choice=Do you want to use a generic playing guide for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_playingguide_choice
-set /p custom_playingguide_choice=Do you want to choose your own playing guide folder for the game ^(the folder must contain the files named "00.tex" to maximum "03.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p custom_playingguide_choice=Do you want to choose your own playing guide folder for the game ^(the folder must contains the "English" and "Japanese" folders containing files named "00.tex" to maximum "08.tex"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_playingguide_folder_path
@@ -141,6 +157,10 @@ echo Please choose the playing guide folder in the following window.
 echo If you close the window you will return to the playing guide type choice.
 pause
 %windir%\system32\wscript.exe //Nologo "%ushs_base_path%tools\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Playing guide folder select"
+goto:eof
+
+:set_default_texture_choice
+set /p default_texture_choice=Do you want to use a generic texture file for the game? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :set_custom_texture_choice
@@ -351,6 +371,14 @@ goto:eof
 echo Directory's conversion done.
 goto:eof
 
+:set_cartridge_4mb_ram_choice
+set /p cartridge_4mb_ram_choice=Do you want to use the 4MB ram extension ^(savestates will not work anymore^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:set_widescreen_choice
+set /p widescreen_choice=Do you want to enable widescreen ^(be careful, the game must be set up for this otherwise the display will not be beautiful^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :howtouse_text
 ECHO.
 ECHO 	=========================================================================================================
@@ -369,6 +397,12 @@ Echo.
 Echo 	Greetings:
 Echo 			https://gbatemp.net/threads/saturn-emulation-using-cotton-guardian-force-testing-and-debug.600756/
 Echo 			The-4n for Hacpack tool, Thealexbarney for Hactoolnet
+echo NSC_builder project for Squirrel
+echo botik for the bases of Png2tex
+echo Cucholix for generic texture file
+echo Xenocard for others images generic files
+echo.
+echo And all who participated in this project
 Echo 			You know who you are!
 Echo. 	           
 goto:eof
