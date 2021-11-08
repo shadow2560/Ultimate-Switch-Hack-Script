@@ -983,7 +983,7 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 		goto:endscript
 	)
 )
-copy "%language_path%\tegra_scripts\cdj_restore_firmware_TE3.te" "%volume_letter%:\cdj_restore_firmware.te" >nul
+copy "%language_path%\tegra_scripts\cdj_restore_firmware_TE4.te" "%volume_letter%:\cdj_restore_firmware.te" >nul
 IF !errorlevel! NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript
@@ -1035,7 +1035,7 @@ call "%associed_language_script%" "copying_end"
 :launch_tegraexplorer
 echo.
 call "%associed_language_script%" "tegraexplorer_launch_begin"
-IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer_3.0.6.bin"
+IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer.bin"
 call "%associed_language_script%" "tegraexplorer_launch_correctly_question"
 IF %errorlevel% EQU 2 goto:launch_tegraexplorer
 call "%associed_language_script%" "tegraexplorer_launch_end"

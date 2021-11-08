@@ -2,6 +2,11 @@
 &nbsp;
 <h2>V491</h2>
 <ul>
+<li>Update TegraExplorer to support the OLED consoles, see <a target="_blank" href="https://github.com/dezem/TegraExplorer">this Github project</a>.</li>
+<li>Update  Retroarch download link to version 1.9.13.</li>
+</ul>
+<h2>V491</h2>
+<ul>
 <li>Add Tencent-Switch-switcher and Tencent-switcher-GUI homebrews.</li>
 <li>Add Payload-Launcher-GUI homebrew witch is in fact the version 3.1 of the Payload-Launcher homebrew.</li>
 <li>Update Atmosphere to version 1.2.4.</li>
