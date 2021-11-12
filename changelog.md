@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.211</h2>
+<ul>
+<li>Corrections de bugs dans le script de préparation d'une SD.</li>
+</ul>
 <h2>V4.3.210</h2>
 <ul>
 <li>Corrections de bugs.</li>

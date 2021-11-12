@@ -574,9 +574,10 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			call :copy_cheats_profile "atmosphere"
 		)
-		%windir%\System32\Robocopy.exe TOOLS\sd_switch\modules\pack\EdiZon\others\switch %volume_letter%:\switch /e >nul
-		call :force_copy_overlays_base_files "atmosphere"
 	)
+	IF NOT EXIST "%volume_letter%:\switch\.overlays" mkdir "%volume_letter%:\switch\.overlays"
+	%windir%\System32\Robocopy.exe TOOLS\sd_switch\modules\pack\EdiZon\others\switch\.overlays %volume_letter%:\switch\.overlays /e >nul
+	call :force_copy_overlays_base_files "atmosphere"
 	copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\atmosphere\reboot_payload.bin >nul
 	rem copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%:\switch\HekateBrew\payload.bin >nul
 	copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\bootloader\payloads\Lockpick_RCM.bin >nul
@@ -1316,6 +1317,9 @@ for /l %%i in (1,1,%temp_count%) do (
 		)
 		IF "!temp_emulator!"=="RetroArch" (
 			set temp_special_emulator=Y
+			IF NOT EXIST "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" (
+				call tools\storage\update_manager.bat "retroarch_update"
+			)
 			IF NOT EXIST "tools\sd_switch\emulators\pack\!temp_emulator!" (
 				call "%associed_language_script%" "retroarch_not_exist_error"
 			) else (
