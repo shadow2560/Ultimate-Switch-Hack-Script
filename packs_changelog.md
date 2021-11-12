@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V493</h2>
+<ul>
+<li>Mise à jour de Amiigo en version 2.1.0.</li>
+<li>Mise à jour de SwitchIdent en version 0.3.</li>
+</ul>
 <h2>V492</h2>
 <ul>
 <li>Mise à jour de TegraExplorer pour supporter les consoles OLED, voir <a target="_blank" href="https://github.com/dezem/TegraExplorer">ce projet Github</a>.</li>

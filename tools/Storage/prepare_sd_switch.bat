@@ -1508,7 +1508,7 @@ IF "%atmo_applet_heap_reservation_size%"=="" (
 IF "%atmo_hbl_override_key%"=="" (
 	set atmo_hbl_override_key=R
 ) else (
-	IF "%inverted_atmo_hbl_override_key%"= ="Y" set atmo_hbl_override_key=!%atmo_hbl_override_key%
+	IF "%inverted_atmo_hbl_override_key%"=="Y" set atmo_hbl_override_key=!%atmo_hbl_override_key%
 )
 IF "%atmo_override_address_space%"=="" (
 	set atmo_override_address_space=39_bit
@@ -1593,8 +1593,8 @@ echo add_defaults_to_dns_hosts = u8!%atmo_add_defaults_to_dns_hosts%>>%volume_le
 echo ; Controls whether dns.mitm logs to the sd card for debugging>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_dns_mitm_debug_log = u8!%atmo_enable_dns_mitm_debug_log%>>%volume_letter%:\atmosphere\config\system_settings.ini
-echo ; ; Controls whether htc is enabled
-echo ; 0 = Disabled, 1 = Enabled
+echo ; ; Controls whether htc is enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
+echo ; 0 = Disabled, 1 = Enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo enable_htc = u8!%atmo_enable_htc%>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Controls whether atmosphere's log manager is enabled>>%volume_letter%:\atmosphere\config\system_settings.ini
 echo ; Note that this setting is ignored (and treated as 1) when htc is enabled.>>%volume_letter%:\atmosphere\config\system_settings.ini

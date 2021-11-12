@@ -810,7 +810,10 @@ set /a temp_count=1
 IF %temp_count% GTR %count_emulators% goto:skip_listing_emulators
 "tools\gnuwin32\bin\sed.exe" -n %temp_count%p "tools\default_configs\Lists\emulators.list" >templogs\tempvar.txt
 set /p temp_emulator=<templogs\tempvar.txt
-IF "%temp_emulator%"=="RetroArch" goto:skip_emulators_special_files
+IF "%temp_emulator%"=="RetroArch" (
+	call :retroarch_update "main_update_only"
+	goto:skip_emulators_special_files
+)
 call :verif_folder_version "tools\sd_switch\emulators\pack\%temp_emulator%"
 IF "!update_finded!"=="Y" (
 	call :update_folder
@@ -3009,6 +3012,7 @@ IF NOT EXIST "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" (
 IF "!update_finded!"=="Y" (
 	call "%associed_language_script%" "retroarch_updating"
 	call :update_folder
+	IF "%~1"=="main_update_only" exit /b
 	call "%associed_language_script%" "retroarch_updating"
 	set /p retroarch_file_slash_path=<"tools\sd_switch\emulators\pack\RetroArch\download_adress.txt"
 	set retroarch_file_path=tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z
