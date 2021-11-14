@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.212</h2>
+<ul>
+<li>Mise à jour des urls de téléchargement d'informations pour NSC_Builder, merci à @colween.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 494.</li>
+</ul>
 <h2>V4.3.211</h2>
 <ul>
 <li>Corrections de bugs dans le script de préparation d'une SD.</li>

@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V494</h2>
+<ul>
+<li>Update Nxmp to version 0.5.0.</li>
+</ul>
 <h2>V493</h2>
 <ul>
 <li>Update Amiigo to version 2.1.0.</li>
