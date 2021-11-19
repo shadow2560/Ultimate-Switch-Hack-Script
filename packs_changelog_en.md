@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V495</h2>
+<ul>
+<li>Update Checkpoint to version 3.8.0.</li>
+<li>Update MissionControl to version 0.6.2.</li>
+<li>Update Nx-locale-switcher to version 1.1.1.</li>
+</ul>
 <h2>V494</h2>
 <ul>
 <li>Update Nxmp to version 0.5.0.</li>
