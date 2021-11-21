@@ -43,8 +43,9 @@ IF "%action_choice%"=="9" goto:client_netplay
 IF "%action_choice%"=="10" goto:server_netplay
 IF "%action_choice%"=="11" goto:nvda_remote_control
 IF "%action_choice%"=="12" goto:language_change
-IF "%action_choice%"=="13" goto:about
-IF "%action_choice%"=="14" goto:donate
+IF "%action_choice%"=="13" goto:theme_change
+IF "%action_choice%"=="14" goto:about
+IF "%action_choice%"=="15" goto:donate
 goto:end_script
 
 :basic_functions
@@ -159,6 +160,13 @@ set action_choice=
 echo.
 cls
 call tools\Storage\language_selector.bat
+@echo off
+goto:define_action_choice
+:theme_change
+set action_choice=
+echo.
+cls
+call tools\Storage\theme_selector.bat
 @echo off
 goto:define_action_choice
 :about

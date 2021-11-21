@@ -45,9 +45,11 @@ echo 11: Allow the remote control of this computer via NVDA and Nvdaremote?
 echo.
 echo 12: change language?
 echo.
-echo 13: About the script?
+echo 13: change theme?
 echo.
-echo 14: Donate to me?
+echo 14: About the script?
+echo.
+echo 15: Donate to me?
 echo.
 echo 0: Launch the documentation ^(recommanded^)?
 echo.

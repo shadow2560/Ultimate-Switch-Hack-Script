@@ -28,3 +28,19 @@ echo Tout autre choix: Mode sans journal ^(recommandé^).
 echo.
 set /p debug_flag=Faites votre choix: 
 goto:eof
+
+:theme_number_set
+set /p temp_theme_number=Entrez le numéro du thème: 
+goto:eof
+
+:empty_theme_number_error
+echo Le thème ne peut être vide.
+goto:eof
+
+:bad_char_theme_number_error
+echo Un caractère non autorisé a été saisie pour le choix du thème.
+goto:eof
+
+:bad_value_theme_number_error
+echo Ce thème n'existe pas.
+goto:eof

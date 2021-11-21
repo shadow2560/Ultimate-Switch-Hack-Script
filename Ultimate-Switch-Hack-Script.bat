@@ -24,7 +24,6 @@ if '%errorlevel%' NEQ '0' (
 	cd /D "%~dp0"
 ::--------------------------------------
 
-color f0
 chcp 65001 >nul
 Setlocal enabledelayedexpansion
 ::MODE con:cols=140 lines=70
@@ -70,6 +69,13 @@ IF %errorlevel% NEQ 0 (
 	goto:end_script
 )
 rmdir /s /q test
+:define_theme
+set ushs_theme=
+IF NOT EXIST "Ultimate-Switch-Hack-Script.bat.theme" (
+	call :config_theme
+)
+set /p ushs_theme=<Ultimate-Switch-Hack-Script.bat.theme
+color %ushs_theme%
 call "%associed_language_script%" "display_utf8_instructions"
 pause
 cls
@@ -165,6 +171,75 @@ set temp_language_path=languages\%temp_language_path%
 IF NOT EXIST "%temp_language_path%" call "tools\Storage\update_manager.bat" "" "language_init"
 copy nul "Ultimate-Switch-Hack-Script.bat.lng" >nul
 echo %temp_language_path%>>"Ultimate-Switch-Hack-Script.bat.lng"
+rmdir /s /q "templogs" 2>nul
+cls
+exit /b
+
+:config_theme
+IF EXIST "templogs" (
+	del /q "templogs" 2>nul
+	rmdir /s /q "templogs" 2>nul
+)
+mkdir "templogs"
+IF EXIST "Ultimate-Switch-Hack-Script.bat.theme\*.*" (
+	rmdir /s /q "Ultimate-Switch-Hack-Script.bat.theme"
+)
+:set_temp_theme
+cls
+echo Choose theme:
+echo.
+tools\gnuwin32\bin\grep.exe -c "" <"tools\default_configs\Lists\themes.list" > templogs\tempvar.txt
+set /p count_themes=<templogs\tempvar.txt
+set /a temp_count=1
+:listing_themes
+IF %temp_count% GTR %count_themes% goto:skip_listing_themes
+"tools\gnuwin32\bin\sed.exe" -n %temp_count%p "tools\default_configs\Lists\themes.list" >templogs\tempvar.txt
+set /p temp_theme=<templogs\tempvar.txt
+echo %temp_theme%|tools\gnuwin32\bin\cut.exe -d ; -f 2 >templogs\tempvar.txt
+set /p temp_theme_name=<templogs\tempvar.txt
+echo %temp_count%: %temp_theme_name%
+set /a temp_count+=1
+goto:listing_themes
+:skip_listing_themes
+set /a temp_count-=1
+set temp_language_number=
+call "%associed_language_script%" "theme_number_set"
+IF "%temp_theme_number%"=="" (
+	call "%associed_language_script%" "empty_theme_number_error"
+	pause
+	goto:set_temp_theme
+)
+call TOOLS\Storage\functions\strlen.bat nb "%temp_theme_number%"
+set i=0
+:check_chars_temp_theme_number
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
+		IF "!temp_theme_number:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_temp_theme_number
+		)
+	)
+	IF "!check_chars!"=="0" (
+		call "%associed_language_script%" "bad_char_theme_number_error"
+		pause
+		goto:set_temp_theme
+	)
+)
+IF %temp_theme_number% GTR %temp_count% (
+	call "%associed_language_script%" "bad_value_theme_number_error"
+	pause
+	goto:set_temp_theme
+) else IF %temp_theme_number% EQU 0 (
+	call "%associed_language_script%" "bad_value_theme_number_error"
+	pause
+	goto:set_temp_theme
+)
+tools\gnuwin32\bin\sed.exe -n %temp_theme_number%p <"tools\default_configs\Lists\themes.list"|tools\gnuwin32\bin\cut.exe -d ; -f 1 > templogs\tempvar.txt
+set /p temp_theme=<templogs\tempvar.txt
+copy nul "Ultimate-Switch-Hack-Script.bat.theme" >nul
+echo %temp_theme%>>"Ultimate-Switch-Hack-Script.bat.theme"
 rmdir /s /q "templogs" 2>nul
 cls
 exit /b

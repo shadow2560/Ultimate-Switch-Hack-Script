@@ -36,9 +36,11 @@ echo 11: Permettre le contrôle à distance de cet ordinateur via NVDA et Nvdare
 echo.
 echo 12: Changer de langue?
 echo.
-echo 13: A propos du script?
+echo 13: Changer de thème?
 echo.
-echo 14: Me faire une donation?
+echo 14: A propos du script?
+echo.
+echo 15: Me faire une donation?
 echo.
 echo 0: Lancer la documentation ^(recommandé^)?
 echo.

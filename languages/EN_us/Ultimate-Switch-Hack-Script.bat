@@ -37,3 +37,19 @@ echo All other choices: No log mode ^(recommanded^).
 echo.
 set /p debug_flag=Make your choice: 
 goto:eof
+
+:theme_number_set
+set /p temp_theme_number=Enter theme number: 
+goto:eof
+
+:empty_theme_number_error
+echo Theme couldn't be empty.
+goto:eof
+
+:bad_char_theme_number_error
+echo Unauthorized char in theme choice.
+goto:eof
+
+:bad_value_theme_number_error
+echo Bad value for theme selection.
+goto:eof

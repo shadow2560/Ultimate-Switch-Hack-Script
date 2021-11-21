@@ -453,6 +453,7 @@ call :update_serial_checker.bat
 call :update_split_games.bat
 call :update_spoof_sxos_licence.bat
 call :update_test_keys.bat
+call :update_theme_selector.bat
 call :update_toolbox.bat
 call :update_unbrick.bat
 call :update_update_shofel2.bat
@@ -2219,6 +2220,88 @@ IF "!update_finded!"=="Y" (
 )
 exit /b
 
+:update_theme_selector.bat
+call :verif_file_version "tools\Storage\theme_selector.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\theme_selector.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\theme_selector.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+exit /b
+
+:update_toolbox.bat
+call :verif_file_version "tools\Storage\toolbox.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\toolbox.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\toolbox.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\toolbox"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\emuGUIibo"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\GuiFormat"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\HacDiskMount"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\Hactool_based_programs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\H2testw"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\XCI-Cutter"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\EmuTool"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\NxFileViewer"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\uViewer"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\theme_editor"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
 :update_unbrick.bat
 call :verif_file_version "tools\Storage\unbrick.bat"
 IF "!update_finded!"=="Y" (
@@ -2293,69 +2376,6 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\unbrick_special_SD_files"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-exit /b
-
-:update_toolbox.bat
-call :verif_file_version "tools\Storage\toolbox.bat"
-IF "!update_finded!"=="Y" (
-	call :update_file
-)
-call :verif_file_version "languages\FR_fr\tools\Storage\toolbox.bat"
-IF "!update_finded!"=="Y" (
-	call :update_file
-)
-IF NOT "%language_path%"=="languages\FR_fr" (
-	IF "%language_custom%"=="0" (
-		call :verif_file_version "%language_path%\tools\Storage\toolbox.bat"
-		IF "!update_finded!"=="Y" (
-			call :update_file
-		)
-	)
-)
-call :verif_folder_version "tools\toolbox"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\emuGUIibo"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\GuiFormat"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\HacDiskMount"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\Hactool_based_programs"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\H2testw"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\XCI-Cutter"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\EmuTool"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\NxFileViewer"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\uViewer"
-IF "!update_finded!"=="Y" (
-	call :update_folder
-)
-call :verif_folder_version "tools\theme_editor"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2514,6 +2534,7 @@ call :update_restore_configs.bat
 call :update_restore_default.bat
 call :update_save_configs.bat
 call :update_settings_menu.bat
+call :update_theme_selector.bat
 call :update_updates_or_unbrick_menu.bat
 call :verif_folder_version "tools\7zip"
 IF "!update_finded!"=="Y" (
