@@ -5,6 +5,8 @@
 <li>Mise à jour de Checkpoint en version 3.8.0.</li>
 <li>Mise à jour de MissionControl en version 0.6.2.</li>
 <li>Mise à jour de Nx-locale-switcher en version 1.1.1.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.16.2.</li>
+<li>Mise à jour de Edizon-se en version 3.8.25e.</li>
 </ul>
 <h2>V494</h2>
 <ul>
