@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.215</h2>
 <ul>
+<li>Fix bugs in themes management.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 496.</li>
 </ul>
 <h2>V4.3.214</h2>

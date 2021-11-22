@@ -29,6 +29,10 @@ echo.
 set /p debug_flag=Faites votre choix: 
 goto:eof
 
+:theme_choice_begin
+echo Choix du thème:
+goto:eof
+
 :theme_number_set
 set /p temp_theme_number=Entrez le numéro du thème: 
 goto:eof

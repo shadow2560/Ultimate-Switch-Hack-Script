@@ -186,7 +186,7 @@ IF EXIST "Ultimate-Switch-Hack-Script.bat.theme\*.*" (
 )
 :set_temp_theme
 cls
-echo Choose theme:
+call "%associed_language_script%" "theme_choice_begin"
 echo.
 tools\gnuwin32\bin\grep.exe -c "" <"tools\default_configs\Lists\themes.list" > templogs\tempvar.txt
 set /p count_themes=<templogs\tempvar.txt
