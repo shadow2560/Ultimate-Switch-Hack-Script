@@ -32,6 +32,7 @@ IF NOT EXIST "Saturn_emu_inject_datas\games\*.*" mkdir "Saturn_emu_inject_datas\
 IF NOT EXIST "Saturn_emu_inject_datas\ini\*.*" mkdir "Saturn_emu_inject_datas\ini"
 IF NOT EXIST "Saturn_emu_inject_datas\no_data\*.*" mkdir "Saturn_emu_inject_datas\no_data"
 IF NOT EXIST "Saturn_emu_inject_datas\playingguides\*.*" mkdir "Saturn_emu_inject_datas\PlayingGuide"
+IF NOT EXIST "Saturn_emu_inject_datas\profiles\*.*" mkdir "Saturn_emu_inject_datas\profiles"
 IF NOT EXIST "Saturn_emu_inject_datas\textures\*.*" mkdir "Saturn_emu_inject_datas\textures"
 IF NOT EXIST "Saturn_emu_inject_datas\wallpapers\*.*" mkdir "Saturn_emu_inject_datas\wallpapers"
 
@@ -893,6 +894,31 @@ IF /i "%cartridge_4mb_ram_choice%"=="o" set custom_ini_path=%custom_ini_path%_4m
 IF /i "%widescreen_choice%"=="o" set custom_ini_path=%custom_ini_path%_widescreen
 set custom_ini_path=%custom_ini_path%.ini
 exit /b
+
+:manage_profiles
+echo Function not usable for now
+pause
+exit /b
+
+:create_profile
+
+exit /b
+
+modify_profile
+
+exit /b
+
+:delete_profile
+
+goto:eof
+
+:select_profile
+
+goto:eof
+
+:infos_profile
+
+goto:eof
 
 :manage_ini_profiles
 echo Function not usable for now

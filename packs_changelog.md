@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V496</h2>
+<ul>
+<li>Mise à jour de DBI en version 343.</li>
+<li>Mise à jour de Sys-botebase en version 2.0.</li>
+<li>Mise à jour de Nxmp en version 0.5.1.</li>
+<li>Mise à jour de Payload_Launcher-GUI en version 3.0.2.</li>
+</ul>
 <h2>V495</h2>
 <ul>
 <li>Mise à jour de Checkpoint en version 3.8.0.</li>
