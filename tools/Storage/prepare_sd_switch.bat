@@ -584,6 +584,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF /i NOT "%mariko_console%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\bootloader\payloads\Incognito_RCM.bin >nul
 	)
+	copy /V /B TOOLS\sd_switch\payloads\prodinfo_gen.bin %volume_letter%:\bootloader\payloads\Prodinfo_gen.bin >nul
 	copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\bootloader\payloads\TegraExplorer.bin >nul
 	del /Q /S "%volume_letter%:\atmosphere\.emptydir" >nul 2>&1
 	del /Q /S "%volume_letter%:\bootloader\.emptydir" >nul 2>&1
@@ -637,11 +638,7 @@ IF /i "%copy_sxos_pack%"=="o" (
 	%windir%\System32\Robocopy.exe TOOLS\sd_switch\sxos %volume_letter%:\ /e >nul
 	IF /i "%copy_payloads%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\SXOS.bin >nul
-		copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\Lockpick_RCM.bin >nul
-		IF /i NOT "%mariko_console%"=="o" (
-			copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\Incognito_RCM.bin >nul
-		)
-		copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\TegraExplorer.bin >nul
+		copy /V /B TOOLS\sd_switch\payloads\hekate.bin %volume_letter%:\hekate.bin >nul
 	)
 	IF /i "%copy_atmosphere_pack%"=="o" (
 		copy /V /B TOOLS\sd_switch\payloads\SXOS.bin %volume_letter%:\bootloader\payloads\SXOS.bin >nul
@@ -964,6 +961,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
 				copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
+				copy /V /B TOOLS\sd_switch\payloads\prodinfo_gen.bin %volume_letter%:\payloads\Prodinfo_gen.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
 				IF /i "%copy_atmosphere_pack%"=="o" (
 					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\payloads\Atmosphere_fusee.bin >nul
@@ -1008,6 +1006,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF NOT EXIST "%volume_letter%:\payloads\*.*" mkdir "%volume_letter%:\payloads"
 				copy /V /B TOOLS\sd_switch\payloads\Lockpick_RCM.bin %volume_letter%:\payloads\Lockpick_RCM.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\Incognito_RCM.bin %volume_letter%:\payloads\Incognito_RCM.bin >nul
+				copy /V /B TOOLS\sd_switch\payloads\prodinfo_gen.bin %volume_letter%:\payloads\Prodinfo_gen.bin >nul
 				copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
 				IF /i "%copy_atmosphere_pack%"=="o" (
 					copy /V /B TOOLS\sd_switch\payloads\Atmosphere_fusee.bin %volume_letter%:\payloads\Atmosphere_fusee.bin >nul
@@ -1059,6 +1058,11 @@ for /l %%i in (1,1,%temp_count%) do (
 					echo [Incognito-RCM]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo name=Incognito-RCM>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo path=/payloads/Incognito_RCM.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					copy /V /B TOOLS\sd_switch\payloads\prodinfo_gen.bin %volume_letter%:\payloads\Prodinfo_gen.bin >nul
+					echo [Prodinfo_gen]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo name=Prodinfo_gen>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/Prodinfo_gen.bin>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					echo.>>"%volume_letter%:\config\fastCFWSwitch\config.ini"
 					copy /V /B TOOLS\sd_switch\payloads\TegraExplorer.bin %volume_letter%:\payloads\TegraExplorer.bin >nul
 					echo [TegraExplorer]>>"%volume_letter%:\config\fastCFWSwitch\config.ini"

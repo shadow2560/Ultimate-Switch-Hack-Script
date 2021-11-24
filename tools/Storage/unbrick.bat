@@ -983,7 +983,9 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 		goto:endscript
 	)
 )
-copy "%language_path%\tegra_scripts\cdj_restore_firmware_TE4.te" "%volume_letter%:\cdj_restore_firmware.te" >nul
+IF NOT EXIST "%volume_letter%:\tegraexplorer" mkdir "%volume_letter%:\tegraexplorer"
+IF NOT EXIST "%volume_letter%:\tegraexplorer\scripts" mkdir "%volume_letter%:\tegraexplorer\scripts"
+copy "%language_path%\tegra_scripts\cdj_restore_firmware_TE4.te" "%volume_letter%:\tegraexplorer\scripts\cdj_restore_firmware.te" >nul
 IF !errorlevel! NEQ 0 (
 	call "%associed_language_script%" "copy_to_sd_error"
 	goto:endscript

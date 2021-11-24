@@ -365,9 +365,8 @@ goto:eof
 
 :tegraexplorer_launch_end
 echo.
-echo Once the payload is launched, go to the "[SD:/] SD CARD" menu. 
-echo You should see a file named "cdj_restore_firmware.te" at the root of the SD,.
-echo Select it with the directional arrows or with the volume buttons and validate with the "A" button or the "Power" button then select "Launch Script" in the same way.
+echo Once the payload is launched, you should see a script named "cdj_restore_firmware".
+echo Select it with the directional arrows or with the volume buttons and validate with the "A" button or the "Power" button.
 echo The script starts, presenting a menu to you.
 echo First, run the "Save BOOT0, BOOT1, PRODINFO and PRODINFOF" choice ^(to be done only once^) and keep the created files aside, these are the most important files to have absolutely in case of problems.
 IF "%restore_method%"=="1" (
