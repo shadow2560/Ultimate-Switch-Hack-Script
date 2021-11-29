@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V498</h2>
+<ul>
+<li>Update DBI to version 345.</li>
+</ul>
 <h2>V497</h2>
 <ul>
 <li>Add the Prodinfo_gen payload.</li>

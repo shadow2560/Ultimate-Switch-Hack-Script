@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.217</h2>
+<ul>
+<li>Update Hactoolnet to version 0.14.0.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 498.</li>
+</ul>
 <h2>V4.3.216</h2>
 <ul>
 <li>Minor bug fix in the unbrick script for TegraExplorer.</li>
