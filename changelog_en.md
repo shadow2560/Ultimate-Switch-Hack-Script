@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.218</h2>
+<ul>
+<li>Fix critical bugs in the emunand migration function.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 499.</li>
+</ul>
 <h2>V4.3.217</h2>
 <ul>
 <li>Update Hactoolnet to version 0.14.0.</li>

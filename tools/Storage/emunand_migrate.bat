@@ -325,6 +325,7 @@ IF %tempcount% LSS 10 (
 	) else (
 		goto:pass_sxos_rename_rawnand_files
 	)
+)
 set /a tempcount=%tempcount%+1
 goto:sxos_rename_rawnand_files
 :pass_sxos_rename_rawnand_files
@@ -363,6 +364,7 @@ IF %tempcount% LSS 10 (
 	) else (
 		goto:pass_atmo_rename_rawnand_files
 	)
+)
 set /a tempcount=%tempcount%+1
 goto:atmo_rename_rawnand_files
 :pass_atmo_rename_rawnand_files

@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V499</h2>
+<ul>
+<li>Update Atmosphere to version 1.2.5.</li>
+<li>Update sig_patches.</li>
+<li>Update MissionControl to version 0.6.3.</li>
+<li>Update AtmoXL-Titel-Installer to version 1.6.0.</li>
+</ul>
 <h2>V498</h2>
 <ul>
 <li>Update DBI to version 345.</li>
