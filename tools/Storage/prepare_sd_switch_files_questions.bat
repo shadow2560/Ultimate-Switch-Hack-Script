@@ -31,8 +31,8 @@ IF /i "%launch_manual%"=="o" (
 	start "" "%language_path%\doc\files\sd_prepare.html"
 )
 echo.
-set copy_atmosphere_pack=
-call "%associed_language_script2%" "copy_atmosphere_pack_choice"
+set copy_atmosphere_pack=o
+rem call "%associed_language_script2%" "copy_atmosphere_pack_choice"
 IF NOT "%copy_atmosphere_pack%"=="" set copy_atmosphere_pack=%copy_atmosphere_pack:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "copy_atmosphere_pack" "o/n_choice"
 IF /i NOT "%copy_atmosphere_pack%"=="o" goto:skip_ask_cheats_atmosphere

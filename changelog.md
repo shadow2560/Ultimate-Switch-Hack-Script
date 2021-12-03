@@ -3,6 +3,7 @@
 <h2>V4.3.219</h2>
 <ul>
 <li>Support du firmware 13.2.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Le pack Atmosphere sera toujours inclus par défaut dans la préparation d'une SD, les profiles généraux créés avant cette version et n'incluant pas le pack Atmosphere seront toujours utilisables comme avant.</li>
 <li>Mise à jour de Aria2C en version 1.36.0.</li>
 <li>Mise à jour de Megatools en version 1.11.0-git-20211030.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 500.</li>
