@@ -238,6 +238,7 @@ echo 12.0.3?
 echo 12.1.0?
 echo 13.0.0?
 echo 13.1.0?
+echo 13.2.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF EXIST "firmware_temp" (
@@ -540,8 +541,8 @@ IF "%firmware_choice%"=="12.0.2" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="12.0.3" (
-	set expected_md5=26d79bde70476ab1c20ceefd8b0fd4c5
-	set "firmware_link=https://mega.nz/file/lB5UTIqB#YSUkChTrftWSPJH7ulH537s9OgFWqrNr2OCEx7eGgSw"
+	set expected_md5=35cb46f7d2d609f7d056c22099d1c469
+	set "firmware_link=https://mega.nz/file/4dwk0IRB#48ATk9rdx3klFC2juWzxRukTfSYWI2vBK3tblsOMZQI"
 	set firmware_file_name=Firmware 12.0.3.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
@@ -567,6 +568,13 @@ IF "%firmware_choice%"=="13.1.0" (
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="13.2.0" (
+	set expected_md5=f4f0a7e77d39e209d1be0ee8641c9afb
+	set "firmware_link=https://mega.nz/file/VdZzXaCT#b2mX02_YfyLqFroFoTbspyswGoTXYtZAZIWMsUl6PJ4"
+	set firmware_file_name=Firmware 13.2.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
 goto:define_action_type
 
 :download_firmware
@@ -576,7 +584,14 @@ IF EXIST "downloads\firmwares\%firmware_file_name%" goto:verif_md5sum
 IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
 	call "%associed_language_script%" "firmware_downloading_begin"
 Setlocal disabledelayedexpansion
-TOOLS\megatools\megatools.exe dl --path="templogs\temp.zip" "%firmware_link%"
+echo %firmware_link% | TOOLS\gnuwin32\bin\grep.exe -c "mega.nz/" >templogs\tempvar.txt
+set /p mega_link_verif=<templogs\tempvar.txt
+IF "%mega_link_verif%"=="0" (
+	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "templogs\temp.zip" "%firmware_link%"
+) else (
+	IF EXIST "templogs\temp.zip" del /q "templogs\temp.zip" >nul
+	TOOLS\megatools\megatools.exe dl --path="templogs\temp.zip" "%firmware_link%"
+)
 endlocal
 	TOOLS\gnuwin32\bin\md5sum.exe templogs\temp.zip | TOOLS\gnuwin32\bin\cut.exe -d " " -f 1 | TOOLS\gnuwin32\bin\cut.exe -d ^\ -f 2 >templogs\tempvar.txt
 		set /p md5_verif=<templogs\tempvar.txt

@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.219</h2>
+<ul>
+<li>Support du firmware 13.2.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Mise à jour de Aria2C en version 1.36.0.</li>
+<li>Mise à jour de Megatools en version 1.11.0-git-20211030.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 500.</li>
+</ul>
 <h2>V4.3.218</h2>
 <ul>
 <li>Correction de bugs critiques dans la fonction de migration d'emunand.</li>

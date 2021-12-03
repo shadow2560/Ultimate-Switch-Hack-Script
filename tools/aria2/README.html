@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
 <title>aria2 - The ultra fast download utility</title>
 <style type="text/css">
 
@@ -609,7 +609,7 @@ $ autoreconf -i
 </pre>
 <p>Also you need <a class="reference external" href="http://sphinx-doc.org/">Sphinx</a> to build man page.</p>
 <p>If you are building aria2 for Mac OS X, take a look at
-the make-release-os.mk GNU Make makefile.</p>
+the makerelease-osx.mk GNU Make makefile.</p>
 <p>The quickest way to build aria2 is first run configure script:</p>
 <pre class="literal-block">
 $ ./configure
@@ -713,7 +713,7 @@ libraries.</p>
 <h1>Cross-compiling Android binary</h1>
 <p>In this section, we describe how to build Android binary using Android
 NDK cross-compiler on Debian Linux.</p>
-<p>At the time of this writing, android-ndk-r14b should compile aria2
+<p>At the time of this writing, Android NDK r21e should compile aria2
 without errors.</p>
 <p><tt class="docutils literal"><span class="pre">android-config</span></tt> script is a configure script wrapper for Android
 build.  We use it to create official Android build.  This script
@@ -728,29 +728,14 @@ assumes the following libraries have been built for cross-compile:</p>
 <p>When building the above libraries, make sure that disable shared
 library and enable only static library. We are going to link those
 libraries statically.</p>
-<p>We use zlib which comes with Android NDK, so we don't have to build it
-by ourselves.</p>
-<p><tt class="docutils literal"><span class="pre">android-config</span></tt> assumes the existence of <tt class="docutils literal">$ANDROID_HOME</tt>
-environment variable which must fulfill the following conditions:</p>
-<ul>
-<li><p class="first">Android NDK toolchain is installed under
-<tt class="docutils literal">$ANDROID_HOME/toolchain</tt>.  Refer to <a class="reference external" href="https://developer.android.com/ndk/guides/standalone_toolchain.html">Standalone Toolchain</a>
-for more details, but it is a bit out of date.</p>
-<p>To install toolchain under <tt class="docutils literal">$ANDROID_HOME/toolchain</tt>, do this:</p>
-<pre class="code text literal-block">
-$NDK/build/tools/make_standalone_toolchain.py \
-   --arch arm --api 16 --stl=gnustl \
-   --install-dir $ANDROID_HOME/toolchain
-</pre>
-</li>
-<li><p class="first">The dependent libraries must be installed under
+<p><tt class="docutils literal"><span class="pre">android-config</span></tt> assumes that <tt class="docutils literal">$ANDROID_HOME</tt> and <tt class="docutils literal">$NDK</tt>
+environment variables are defined.</p>
+<p>We currently use Android NDK r21e.  <tt class="docutils literal">$NDK</tt> should point to the
+directory to Anroid NDK.  The build tools will be found under
+<tt class="docutils literal"><span class="pre">$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/</span></tt>.</p>
+<p>All the dependent libraries must be installed under
 <tt class="docutils literal">$ANDROID_HOME/usr/local</tt>.</p>
-</li>
-</ul>
-<p>Before running <tt class="docutils literal"><span class="pre">android-config</span></tt> and <tt class="docutils literal"><span class="pre">android-make</span></tt>,
-<tt class="docutils literal">$ANDROID_HOME</tt> environment variable must be set to point to the
-correct path.</p>
-<p>After <tt class="docutils literal"><span class="pre">android-config</span></tt>, run <tt class="docutils literal"><span class="pre">android-make</span></tt> to compile sources.</p>
+<p>After <tt class="docutils literal"><span class="pre">android-config</span></tt>, run <tt class="docutils literal">make</tt> to compile sources.</p>
 </div>
 <div class="section" id="building-documentation">
 <h1>Building documentation</h1>

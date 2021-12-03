@@ -1,4 +1,4 @@
-aria2 1.34.0
+aria2 1.36.0
 ============
 
 Release Note
@@ -9,44 +9,32 @@ This release fixes several bugs.  See Changes for details.
 Changes
 -------
 
-* mingw: Use SetFileTime to avoid DST adjustment
+* Update wslay
 
-  GH-1079
+* Bump Windows build dependencies
 
-* UnknownLengthPieceStorage: return piece length
+* Bump android build dependencies
 
-  show something in console status when downloading items
-  with unknown content length
+* Fix segfault when time_t is 64bit on 32bit arch
 
-  Patch from kwkam
+  Patch from Natanael Copa
 
-  GH-1065
+  GH-1666
 
-* WinConsoleFile: fix colour properly
+* Updates the make_bash_completion script to Python3.
 
-  Patch from kwkam
+  Patch from sleepymac
 
-  GH-1058
+  GH-1672
 
-* util: also detect xdg_* env variables on windows
+* Prevent corrupt downloads after app and/or system crash
 
-  so if people like to keep FHS they could define XDG_* for it
+  Patch from Ali MJ Al-Nasrawy
 
-  Patch from kwkam
+  GH-1644
 
-  GH-1057
+* Reset sessionDownloadLength and sessionUploadLength on download start
 
-* MacOS: Allocate once (apfs compat)
+  GH-1486
 
-* Fix bug that signal handler does not work with libaria2
-
-  This commit fixes the bug that signal handler does not work with
-  libaria2 when aria2::RUN_ONCE is passed to aria2::run().
-
-  GH-1053
-
-* Retry on HTTP 502
-
-  Patch from nicolov
-
-  GH-1038
+* AppleTLS: Add TLSv1.3 support

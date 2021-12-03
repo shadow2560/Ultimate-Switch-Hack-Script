@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V500</h2>
+<ul>
+<li>Update Ldn_mitm to version 1.12.0.</li>
+</ul>
 <h2>V499</h2>
 <ul>
 <li>Update Atmosphere to version 1.2.5.</li>
