@@ -3,6 +3,8 @@
 <h2>V500</h2>
 <ul>
 <li>Mise à jour de Ldn_mitm en version 1.12.0.</li>
+<li>Mise à jour de AtmoXL-Titel-Installer en version 1.6.1.</li>
+<li>Mise à jour de Fizeau en version 2.3.0.</li>
 </ul>
 <h2>V499</h2>
 <ul>
