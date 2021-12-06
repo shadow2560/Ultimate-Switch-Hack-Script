@@ -55,7 +55,7 @@ choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous débricker une c
 goto:eof
 
 :mariko_console_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous débricker une console Mariko ^(numéro de série commençant par "XK" ou Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous débricker une console Mariko ^(numéro de série ne commençant pas par "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :method_creation_firmware_unbrick_choice

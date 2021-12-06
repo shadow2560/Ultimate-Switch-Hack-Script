@@ -49,7 +49,7 @@ set /p no_exfat=Do you want to disable the SD card EXFAT support? ^(%lng_yes_cho
 goto:eof
 
 :mariko_console_param_choice
-set /p mariko_console=Do you want to create a package for a Mariko console? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p mariko_console=Do you want to create a package for a Mariko console ^(serial number witch doesn't start with "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :package_creation_success

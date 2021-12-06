@@ -40,7 +40,7 @@ set /p no_exfat=Souhaitez-vous désactiver le support pour le format EXFAT des c
 goto:eof
 
 :mariko_console_param_choice
-set /p mariko_console=Souhaitez-vous créer un package pour une console Mariko? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p mariko_console=Souhaitez-vous créer un package pour une console Mariko ^(numéro de série ne commençant pas par "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :package_creation_success

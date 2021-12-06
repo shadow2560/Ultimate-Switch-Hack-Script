@@ -114,7 +114,7 @@ set /p sx_core_lite_chip=The console is equiped with a SX Core/Lite modchip? ^(%
 goto:eof
 
 :mariko_console_choice
-set /p mariko_console=The console is a Mariko model ^(serial number starting with "XK" or Switch Lite^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p mariko_console=The console is a Mariko model ^(serial number witch doesn't start with "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :sx_gear_force_copy
