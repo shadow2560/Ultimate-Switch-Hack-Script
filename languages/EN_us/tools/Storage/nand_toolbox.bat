@@ -34,18 +34,19 @@ echo 2: Dump the nand or a partition of the nand of a console, copy a file or ex
 echo 3: Restaure the nand or a partition of the nand of a console on a console or in a dumped file?
 echo 4: Create an emunand on a SD?
 echo 5: Enable or disable auto-RCM on a BOOT0 partition of a console or of a dumped file ^(don't use on Erista patched or Mariko consoles^)?
-echo 6: Remove console's identification infos  from PRODINFO for a rawnand or a PRODINFO file ^(same function as Incognito^) ^(don't use on Mariko consoles^)?
-echo 7: Join a splitted dump of a rawnand, for example a dump made via Hekate on a FAT32 formated SD?
-echo 8: Split a rawnand dump?
-echo 9: Create a file from a complete nand dump that you can use to flash a partition on a SD for emunand?
-echo 10: Extract a complete dump from an emunand partition created/dumped file?
-echo 11: Decrypt a dump or a partition of a rawnand?
-echo 12: Encrypt a dump or a partition of a rawnand?
-echo 13: Use Ninfs to mount a rawnand dump file?
-echo 14: Resize the USER partition of a RAWNAND or a FULL NAND?
-echo 15: Create a BOOT0 file with keyblobs repaired ^(don't use on Mariko consoles^)?
-echo 16: Brute force the bis_keys?
-echo 17: RAWNAND unbrick menu?
+echo 6: Install the EXFAT driver of a specific firmware?
+echo 7: Remove console's identification infos  from PRODINFO for a rawnand or a PRODINFO file ^(same function as Incognito^) ^(don't use on Mariko consoles^)?
+echo 8: Join a splitted dump of a rawnand, for example a dump made via Hekate on a FAT32 formated SD?
+echo 9: Split a rawnand dump?
+echo 10: Create a file from a complete nand dump that you can use to flash a partition on a SD for emunand?
+echo 11: Extract a complete dump from an emunand partition created/dumped file?
+echo 12: Decrypt a dump or a partition of a rawnand?
+echo 13: Encrypt a dump or a partition of a rawnand?
+echo 14: Use Ninfs to mount a rawnand dump file?
+echo 15: Resize the USER partition of a RAWNAND or a FULL NAND?
+echo 16: Create a BOOT0 file with keyblobs repaired ^(don't use on Mariko consoles^)?
+echo 17: Brute force the bis_keys?
+echo 18: RAWNAND unbrick menu?
 echo 0: Mount a console's nand partition via USB and Memloader?
 goto:eof
 
@@ -122,6 +123,19 @@ goto:eof
 
 :canceled
 echo Operation canceled by user.
+goto:eof
+
+:exfat_driver_begin
+echo This function allow to install the EXFAT driver on a nand dump.
+echo During the process, the console's keys will be required.
+goto:eof
+
+:firmware_preparation_error
+echo No firmware chosen or an error occured during the firmware's creation.
+goto:eof
+
+:exfat_restaure_output_begin
+echo Choose the support where you want to restaure the EXFAT driver:
 goto:eof
 
 :restaure_input_file_begin

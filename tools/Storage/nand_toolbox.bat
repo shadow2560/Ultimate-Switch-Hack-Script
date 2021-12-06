@@ -46,8 +46,9 @@ IF "%action_choice%"=="2" cls & goto:dump_nand
 IF "%action_choice%"=="3" cls & goto:restaure_nand
 IF "%action_choice%"=="4" cls & goto:create_emunand_on_sd
 IF "%action_choice%"=="5" cls & goto:autorcm_management
-IF "%action_choice%"=="6" cls & goto:incognito_apply
-IF "%action_choice%"=="7" (
+IF "%action_choice%"=="6" cls & goto:exfat_driver_manual_install
+IF "%action_choice%"=="7" cls & goto:incognito_apply
+IF "%action_choice%"=="8" (
 	cls
 	call tools\storage\nand_joiner.bat
 	IF EXIST templogs (
@@ -57,7 +58,7 @@ IF "%action_choice%"=="7" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="8" (
+IF "%action_choice%"=="9" (
 	cls
 	call tools\storage\nand_spliter.bat
 	IF EXIST templogs (
@@ -67,7 +68,7 @@ IF "%action_choice%"=="8" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="9" (
+IF "%action_choice%"=="10" (
 	cls
 	call tools\storage\emunand_partition_file_create.bat
 	IF EXIST templogs (
@@ -77,7 +78,7 @@ IF "%action_choice%"=="9" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="10" (
+IF "%action_choice%"=="11" (
 	cls
 	call tools\storage\extract_nand_files_from_emunand_partition_file.bat
 	IF EXIST templogs (
@@ -87,9 +88,9 @@ IF "%action_choice%"=="10" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="11" cls & goto:decrypt_nand
-IF "%action_choice%"=="12" cls & goto:encrypt_nand
-IF "%action_choice%"=="13" (
+IF "%action_choice%"=="12" cls & goto:decrypt_nand
+IF "%action_choice%"=="13" cls & goto:encrypt_nand
+IF "%action_choice%"=="14" (
 	cls
 	call tools\storage\ninfs.bat
 	IF EXIST templogs (
@@ -99,8 +100,8 @@ IF "%action_choice%"=="13" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="14" cls & goto:resize_user_partition
-IF "%action_choice%"=="15" (
+IF "%action_choice%"=="15" cls & goto:resize_user_partition
+IF "%action_choice%"=="16" (
 	cls
 	call tools\storage\boot0_rewrite.bat
 	IF EXIST templogs (
@@ -110,8 +111,8 @@ IF "%action_choice%"=="15" (
 	mkdir templogs
 	goto:define_action_choice
 )
-IF "%action_choice%"=="16" cls & goto:brute_force
-IF "%action_choice%"=="17" cls & goto:unbrick_menu
+IF "%action_choice%"=="17" cls & goto:brute_force
+IF "%action_choice%"=="18" cls & goto:unbrick_menu
 IF "%action_choice%"=="0" (
 	cls
 	call tools\storage\mount_discs.bat "auto_close"
@@ -307,6 +308,73 @@ call :set_NNM_params
 call :set_nnm_passthrough_0_param
 ::echo -i "%input_path%" -o "%output_path%" %params%%lflags%
 tools\NxNandManager\NxNandManager.exe -i "%input_path%" -o "%output_path%" %params%%lflags%
+echo.
+pause
+goto:define_action_choice
+
+:exfat_driver_manual_install
+set output_path=
+set action_choice=
+IF EXIST "update_packages\*.*" rmdir /s /q "update_packages"
+call "%associed_language_script%" "exfat_driver_begin"
+pause
+call tools\storage\prepare_update_on_sd.bat "firmware_create_ehg" "exfat_force"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	goto:define_action_choice
+)
+IF NOT EXIST "update_packages\*.*" (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	goto:define_action_choice
+)
+IF NOT EXIST "templogs" mkdir "templogs"
+call "%associed_language_script%" "exfat_restaure_output_begin"
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:define_action_choice
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:exfat_driver_manual_install
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_output_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p output_path=<templogs\tempvar.txt
+	)
+)
+IF "%output_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:exfat_driver_manual_install
+)
+call :get_type_nand "%output_path%"
+IF %errorlevel% EQU 3001 (
+	goto:restaure_nand
+)
+set output_nand_type=%nand_type%
+IF "%output_nand_type%"=="RAWNAND - splitted dump" set output_nand_type=RAWNAND
+IF "%output_nand_type%"=="FULL NAND" set output_nand_type=RAWNAND
+IF "%output_nand_type%"=="UNKNOWN" (
+	call "%associed_language_script%" "restaure_output_dump_invalid_error"
+	goto:exfat_driver_manual_install
+)
+IF NOT "%output_nand_type%"=="RAWNAND" (
+	call "%associed_language_script%" "nand_type_must_be_rawnand_error"
+	pause
+	goto:exfat_driver_manual_install
+)
+for /d %%f in ("update_packages\*") do (
+	tools\NxNandManager\NxNandManager.exe -i "%%f\BCPKG2-1-Normal-Main.bin" -o "%output_path%" -part=BCPKG2-1-Normal-Main FORCE BYPASS_MD5SUM
+	tools\NxNandManager\NxNandManager.exe -i "%%f\BCPKG2-2-Normal-Sub.bin" -o "%output_path%" -part=BCPKG2-2-Normal-Sub FORCE BYPASS_MD5SUM
+	tools\NxNandManager\NxNandManager.exe -i "%%f\BCPKG2-3-SafeMode-Main.bin" -o "%output_path%" -part=BCPKG2-3-SafeMode-Main FORCE BYPASS_MD5SUM
+	tools\NxNandManager\NxNandManager.exe -i "%%f\BCPKG2-4-SafeMode-Sub.bin" -o "%output_path%" -part=BCPKG2-4-SafeMode-Sub FORCE BYPASS_MD5SUM
+)
 echo.
 pause
 goto:define_action_choice

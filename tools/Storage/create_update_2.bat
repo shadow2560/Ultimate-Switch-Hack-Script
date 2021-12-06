@@ -66,9 +66,11 @@ set update_file_path=%update_file_path:\\=\%
 :skip_hfs0_select
 cd "%this_script_dir%"
 set no_exfat=
+IF "%~2"=="exfat_force" goto:skip_exfat_param_choice
 call "%associed_language_script%" "noexfat_param_choice"
 IF NOT "%no_exfat%"=="" set no_exfat=%no_exfat:~0,1%
 call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "no_exfat" "o/n_choice"
+:skip_exfat_param_choice
 IF /i "%no_exfat%"=="o" set no_exfat_param=--no-exfat
 set mariko_console=
 call "%associed_language_script%" "mariko_console_param_choice"

@@ -25,18 +25,19 @@ echo 2: Dumper la nand ou une partition de la nand de la console, copier un fich
 echo 3: Restaurer la nand ou une partition de la nand de la console sur la console ou dans un fichier de dump?
 echo 4: Créer une emunand sur une SD?
 echo 5: Activer/désactiver l'auto-RCM d'une partition BOOT0 ^(ne pas utiliser sur les consoles Erista patchées ou Mariko^)?
-echo 6: Supprimer les informations d'identification de la console dans PRODINFO ^(fonction identique à Incognito^) ^(ne pas utiliser sur les consoles Mariko^)?
-echo 7: Joindre un dump de la rawnand fait en plusieurs parties, par exemple un dump fait via Hekate sur une SD formatée en FAT32?
-echo 8: Spliter un dump de la rawnand?
-echo 9: Créer un fichier à partir d'un dump complet de la nand qui pourra ensuite être utilisé pour la création d'une Emunand via une partition dédiée de la SD?
-echo 10: Extraire les fichiers d'un dump de nand à partir d'un fichier de la partition de l'emunand?
-echo 11: Déchiffrer un dump ou une partition d'une rawnand?
-echo 12: Chiffrer un dump ou une partition d'une rawnand?
-echo 13: Utiliser Ninfs pour monter un fichier de dump de la rawnand?
-echo 14: Changer la taille de la partition USER d'une RAWNAND ou d'une FULL NAND?
-echo 15: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(ne pas utiliser sur les consoles Mariko^)?
-echo 16: Brute forcer les bis_keys?
-echo 17: Fonctions de débrickage de la RAWNAND?
+echo 6: Installer  le driver EXFAT d'un firmware spécifique?
+echo 7: Supprimer les informations d'identification de la console dans PRODINFO ^(fonction identique à Incognito^) ^(ne pas utiliser sur les consoles Mariko^)?
+echo 8: Joindre un dump de la rawnand fait en plusieurs parties, par exemple un dump fait via Hekate sur une SD formatée en FAT32?
+echo 9: Spliter un dump de la rawnand?
+echo 10: Créer un fichier à partir d'un dump complet de la nand qui pourra ensuite être utilisé pour la création d'une Emunand via une partition dédiée de la SD?
+echo 11: Extraire les fichiers d'un dump de nand à partir d'un fichier de la partition de l'emunand?
+echo 12: Déchiffrer un dump ou une partition d'une rawnand?
+echo 13: Chiffrer un dump ou une partition d'une rawnand?
+echo 14: Utiliser Ninfs pour monter un fichier de dump de la rawnand?
+echo 15: Changer la taille de la partition USER d'une RAWNAND ou d'une FULL NAND?
+echo 16: Créer un fichier BOOT0 pour réparrer une erreurs sur les keyblobs ^(ne pas utiliser sur les consoles Mariko^)?
+echo 17: Brute forcer les bis_keys?
+echo 18: Fonctions de débrickage de la RAWNAND?
 echo 0: Charger une partie de la nand d'une console via USB avec Memloader?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
@@ -116,6 +117,19 @@ goto:eof
 
 :canceled
 echo Opération annulée par l'utilisateur.
+goto:eof
+
+:exfat_driver_begin
+echo Cette fonction permet de mettre en place le driver EXFAT d'un firmware spécifique sur un dump de nand.
+echo Durant le processus, les clés de la console seront requises.
+goto:eof
+
+:firmware_preparation_error
+echo Aucun firmware choisi ou une erreur s'est produite durant la création du firmware.
+goto:eof
+
+:exfat_restaure_output_begin
+echo Choisissez le support vers lequel restaurer le driver EXFAT:
 goto:eof
 
 :restaure_input_file_begin

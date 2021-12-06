@@ -27,6 +27,7 @@ IF NOT EXIST templogs (
 	rmdir /s /q templogs
 	mkdir templogs
 )
+IF EXIST "firmware_temp" rmdir /s /q "firmware_temp" 2>nul
 call "%associed_language_script%" "display_title"
 ping /n 2 www.google.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
@@ -34,6 +35,20 @@ IF %errorlevel% NEQ 0 (
 	goto:end_script
 )
 IF "%~1" == "unbrick_package_creation" set special_launch=unbrick_package_creation
+IF "%~1"=="firmware_create_cdj" (
+	set action_param=firmware_download
+	set action_type=2
+)
+IF "%~1"=="firmware_create_ehg" (
+	set action_param=firmware_download
+	set action_type=6
+)
+IF "%~1"=="firmware_download_and_extract" (
+	set action_param=firmware_download_and_extract
+	set action_type=2
+)
+IF "%action_param%"=="firmware_download" goto:define_firmware_choice
+IF "%action_param%"=="firmware_download_and_extract" goto:define_firmware_choice
 set md5_try=0
 call "%associed_language_script%" "intro"
 pause 
@@ -131,6 +146,7 @@ IF /i "%firmware_choice%"=="F" (
 	start explorer.exe "%~dp0..\..\downloads\firmwares"
 	goto:define_firmware_choice
 )
+
 IF "%firmware_choice%"=="1.0.0" (
 	set expected_md5=46e6814359631d3c92bc43ead4328349
 	set "firmware_link=https://mega.nz/#^!sVg2RKYS^!MVDYwOWwvL6rUKiXHPhDr7071MhsbTi9ybIn_RABihI"
@@ -500,6 +516,14 @@ IF "%firmware_choice%"=="13.2.0" (
 	IF !errorlevel! EQU 1 goto:define_firmware_choice
 	goto:download_firmware
 )
+			IF "%action_param%"=="firmware_download" (
+				endlocal
+				exit /b 400
+			)
+			IF "%action_param%"=="firmware_download_and_extract" (
+				endlocal
+				exit /b 400
+			)
 goto:define_action_type
 
 :download_firmware
@@ -526,6 +550,14 @@ IF NOT EXIST "downloads\firmwares\%firmware_file_name%" (
 		IF %md5_try% EQU 3 (
 			call "%associed_language_script%" "firmware_downloading_md5_error"
 			pause
+			IF "%action_param%"=="firmware_download" (
+				endlocal
+				exit /b 400
+			)
+			IF "%action_param%"=="firmware_download_and_extract" (
+				endlocal
+				exit /b 400
+			)
 			goto:define_action_type
 		) else (
 			call "%associed_language_script%" "firmware_downloading_md5_retry"
@@ -548,23 +580,33 @@ IF NOT "%md5_verif%"=="%expected_md5%" (
 )
 :skip_verif_md5sum
 call "%associed_language_script%" "firmware_downloading_end"
+IF "%action_param%"=="firmware_download" goto:extract_firmware
+IF "%action_param%"=="firmware_download_and_extract" goto:extract_firmware
 IF "%action_type%"=="5" (
 	pause
 	goto:define_action_type
 )
+:extract_firmware
 call "%associed_language_script%" "extract_firmware_begin"
 TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\%firmware_file_name%" -o"firmware_temp" -r
+IF "%action_param%"=="firmware_download_and_extract" goto:end_script_2
 IF "%action_type%"=="1" goto:define_volume_letter
 IF "%action_type%"=="2" (
 	call tools\storage\create_update.bat "%~dp0..\..\firmware_temp"
 	call "%associed_language_script%" "display_title"
 	mkdir templogs
+	IF "%action_param%"=="firmware_download" goto:end_script_2
 	goto:define_action_type
 )
 IF "%action_type%"=="6" (
-	call tools\storage\create_update_2.bat "%~dp0..\..\firmware_temp"
+	IF "%~2"=="exfat_force" (
+		call tools\storage\create_update_2.bat "%~dp0..\..\firmware_temp" "exfat_force"
+	) else (
+		call tools\storage\create_update_2.bat "%~dp0..\..\firmware_temp"
+	)
 	call "%associed_language_script%" "display_title"
 	mkdir templogs
+	IF "%action_param%"=="firmware_download" goto:end_script_2
 	goto:define_action_type
 )
 IF "%action_type%"=="3" goto:define_volume_letter

@@ -1053,8 +1053,10 @@ call "%associed_language_script%" "copying_end"
 echo.
 call "%associed_language_script%" "tegraexplorer_launch_begin"
 IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\TegraExplorer.bin"
-call "%associed_language_script%" "tegraexplorer_launch_correctly_question"
-IF %errorlevel% EQU 2 goto:launch_tegraexplorer
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "tegraexplorer_launch_correctly_question"
+IF /i NOT "%patched_console%"=="O" (
+	IF %errorlevel% EQU 2 goto:launch_tegraexplorer
+)
 call "%associed_language_script%" "tegraexplorer_launch_end"
 pause
 IF NOT "%restore_method%"=="2" goto:launch_hekate
@@ -1062,8 +1064,10 @@ IF NOT "%restore_method%"=="2" goto:launch_hekate
 echo.
 call "%associed_language_script%" "memloader_launch_begin"
 IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w tools\memloader\memloader_usb.bin --dataini="tools\memloader\mount_discs\ums_emmc.ini"
-call "%associed_language_script%" "memloader_launch_correctly_question"
-IF %errorlevel% EQU 2 goto:hacdiskmount_step
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "memloader_launch_correctly_question"
+IF /i NOT "%patched_console%"=="O" (
+	IF %errorlevel% EQU 2 goto:hacdiskmount_step
+)
 call "%associed_language_script%" "memloader_launch_end"
 pause
 start tools\HacDiskMount\HacDiskMount.exe
@@ -1074,14 +1078,18 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 )
 :launch_hekate
 echo.
-call "%associed_language_script%" "hekate_launch_begin"
-IF %errorlevel% EQU 2 goto:launch_hekate_end
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "hekate_launch_begin"
+IF /i NOT "%patched_console%"=="O" (
+	IF %errorlevel% EQU 2 goto:launch_hekate_end
+)
 :hekate_after_first_launch
-call "%associed_language_script%" "hekate_rcm_instruction"
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "hekate_rcm_instruction"
 IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\hekate.bin"
 :launch_hekate_end
-call "%associed_language_script%" "hekate_launch_end"
-IF %errorlevel% EQU 1 goto:hekate_after_first_launch
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "hekate_launch_end"
+IF /i NOT "%patched_console%"=="O" (
+	IF %errorlevel% EQU 1 goto:hekate_after_first_launch
+)
 call "%associed_language_script%" "script_end_message"
 goto:endscript
 
