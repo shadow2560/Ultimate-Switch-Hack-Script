@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.221</h2>
+<ul>
+<li>Correction d'un bug critique dans la préparation d'une SD.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour les firmwares 13.0.0 à 13.2.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 501.</li>
+</ul>
 <h2>V4.3.220</h2>
 <ul>
 <li>Dans le script de débrickage, tous les lancements de payloads via l'USB ont été supprimés pour les consoles patchées.</li>

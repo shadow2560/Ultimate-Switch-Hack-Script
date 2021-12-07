@@ -288,13 +288,13 @@ IF %general_profile% EQU %atmosphere_profile_number% (
 		goto:skip_verif_general_profile
 	)
 )
-IF %general_profile% EQU %sxos_profile_number% (
-	IF NOT "%sxos_no_default_config%"=="Y" (
-		set pass_prepare_packs=Y
-		set general_profile_path=tools\default_configs\sxos_profile_all.bat
-		goto:skip_verif_general_profile
-	)
-)
+rem IF %general_profile% EQU %sxos_profile_number% (
+	rem IF NOT "%sxos_no_default_config%"=="Y" (
+		rem set pass_prepare_packs=Y
+		rem set general_profile_path=tools\default_configs\sxos_profile_all.bat
+		rem goto:skip_verif_general_profile
+	rem )
+rem )
 TOOLS\gnuwin32\bin\sed.exe -n %general_profile%p <templogs\profiles_list.txt > templogs\tempvar.txt
 set /p general_profile_path=<templogs\tempvar.txt
 set general_profile_path=tools\sd_switch\profiles\%general_profile_path%
