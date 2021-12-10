@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V502</h2>
+<ul>
+<li>Update <a target="_blank" href="https://github.com/dezem/TegraExplorer">this version of TegraExplorer</a> with <a target="_blank" href="https://github.com/rashevskyv/TegraExplorer/commit/73fec7529a74af701450eed2d5564226ea73e221">this modification</a>.</li>
+</ul>
 <h2>V501</h2>
 <ul>
 <li>Update Nxmp to version 0.6.0.</li>

@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.222</h2>
+<ul>
+<li>In the "other functions" menu, add a function allowing to extract the NCAs needed to identify a firmware (useful to complete data like those of the FVI project).</li>
+<li>Update <a target="_blank" href="https://github.com/dezem/TegraExplorer">this version of TegraExplorer</a> with <a target="_blank" href="https://github.com/rashevskyv/TegraExplorer/commit/73fec7529a74af701450eed2d5564226ea73e221">this modification</a>.</li>
+<li>Update the unbrick script for TegraExplorer to add a function to it witch reboot in OFW.</li>
+<li>Some minor fixes.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 502.</li>
+</ul>
 <h2>V4.3.221</h2>
 <ul>
 <li>Fix a critical bug in the sd preparation.</li>

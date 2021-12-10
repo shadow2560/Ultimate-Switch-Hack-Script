@@ -5,7 +5,7 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quit without doing anything", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Switch script work between SYSNAND and EMUNAND"]
+main_menu_options = ["Quit without doing anything", "Reboot to OFW", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Switch script work between SYSNAND and EMUNAND"]
 migrate_emunand_menu_options = ["Return to main menu", "Make SXOS partition emunand compatible with Atmosphere", "Convert SXOS files emunand  for Atmosphere", "Reverse the conversion of SXOS files emunand  for Atmosphere"]
 explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
@@ -990,34 +990,38 @@ while (1) {
 	if (main_action == 1){
 		break()
 	}
-	if (main_action == 2){
+		if (main_action == 2){
+			reboot_ofw()
+			break()
+		}
+	if (main_action == 3){
 		dump_important_partitions()
 	}
-	if (main_action == 3){
+	if (main_action == 4){
 		choidujour_package_restore(method_restore = 1)
 	}
-	if (main_action == 4){
+	if (main_action == 5){
 		choidujour_package_restore(method_restore = 2)
 	}
-	if (main_action == 5){
+	if (main_action == 6){
 		choidujour_package_restore(method_restore = 3)
 	}
-	if (main_action == 6){
+	if (main_action == 7){
 		del_parental_control()
 	}
-	if (main_action == 7){
+	if (main_action == 8){
 		wip_console_data()
 	}
-	if (main_action == 8){
+	if (main_action == 9){
 		bypass_first_configuration()
 	}
-	if (main_action == 9){
+	if (main_action == 10){
 		synch_joycons()
 	}
-	if (main_action == 10){
+	if (main_action == 11){
 		migrate_emunand_menu()
 	}
-	if (main_action == 11){
+	if (main_action == 12){
 		switch_working_nand()
 	}
 }

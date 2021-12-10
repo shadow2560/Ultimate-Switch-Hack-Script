@@ -329,7 +329,6 @@ IF NOT EXIST "update_packages\*.*" (
 	pause
 	goto:define_action_choice
 )
-IF NOT EXIST "templogs" mkdir "templogs"
 call "%associed_language_script%" "exfat_restaure_output_begin"
 call :list_disk
 call "%associed_language_script%" "nand_choice"
@@ -1107,7 +1106,11 @@ IF %errorlevel% NEQ 0 (
 echo.
 :skip_incognito_biskeys_file_choice
 call :set_NNM_params
-call :get_base_folder_path_of_a_file_path "%input_path%"
+IF "%input_path:~0,4%"=="\\.\" (
+	set base_folder_path_of_a_file_path=%ushs_base_path%
+) else (
+	call :get_base_folder_path_of_a_file_path "%input_path%"
+)
 tools\NxNandManager\NxNandManager.exe --incognito -i "%input_path%" %biskeys_param% %decrypt_param%%params%%lflags%
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "incognito_action_error"
@@ -1116,6 +1119,9 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "incognito_action_success"
 	IF NOT EXIST "PRODINFO.backup" goto:skip_move_nnm_prodinfo_backup
 )
+echo.
+IF "%input_path:~0,4%"=="\\.\" call "%associed_language_script%" "incognito_prodinfo_backup_moved"
+IF "%input_path:~0,4%"=="\\.\" goto:skip_move_nnm_prodinfo_backup
 set /a temp_count=0
 :move_nnm_prodinfo_backup
 IF %temp_count% EQU 0 (

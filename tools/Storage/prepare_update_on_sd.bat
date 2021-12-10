@@ -45,7 +45,7 @@ IF "%~1"=="firmware_create_ehg" (
 )
 IF "%~1"=="firmware_download_and_extract" (
 	set action_param=firmware_download_and_extract
-	set action_type=2
+	set action_type=6
 )
 IF "%action_param%"=="firmware_download" goto:define_firmware_choice
 IF "%action_param%"=="firmware_download_and_extract" goto:define_firmware_choice
@@ -147,6 +147,7 @@ IF /i "%firmware_choice%"=="F" (
 	goto:define_firmware_choice
 )
 
+echo %firmware_choice%>templogs\firmware_chosen.txt
 IF "%firmware_choice%"=="1.0.0" (
 	set expected_md5=46e6814359631d3c92bc43ead4328349
 	set "firmware_link=https://mega.nz/#^!sVg2RKYS^!MVDYwOWwvL6rUKiXHPhDr7071MhsbTi9ybIn_RABihI"
@@ -806,6 +807,10 @@ exit /b
 :end_script
 pause 
 :end_script_2
-IF EXIST "templogs" rmdir /s /q templogs 2>nul
-IF EXIST "firmware_temp" rmdir /s /q "firmware_temp" 2>nul
+IF "%~1"=="" (
+	IF EXIST "templogs" rmdir /s /q templogs 2>nul
+)
+IF NOT "%~1"=="firmware_download_and_extract" (
+	IF EXIST "firmware_temp" rmdir /s /q "firmware_temp" 2>nul
+)
 endlocal

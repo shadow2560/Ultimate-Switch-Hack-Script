@@ -421,6 +421,7 @@ call ::update_auto_ips_menu.bat
 call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
 call :update_custom_boot.dat_maker.bat
+call :update_detect_firmware_titles.bat
 call :update_donate.bat
 call :update_emunand_migrate.bat
 call :update_extract_cert.bat
@@ -766,6 +767,26 @@ call :verif_folder_version "tools\Payloads"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+exit /b
+
+:update_detect_firmware_titles.bat
+call :verif_file_version "tools\Storage\detect_firmware_titles.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\detect_firmware_titles.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\detect_firmware_titles.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :update_prepare_update_on_sd.bat
 exit /b
 
 :update_donate.bat

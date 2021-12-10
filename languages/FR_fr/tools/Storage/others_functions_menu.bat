@@ -39,7 +39,9 @@ echo 14: Créer un forwarder?
 echo.
 echo 15: Créer un nsp pour un jeu GameMaker?
 echo.
-echo 16: Injecter un jeu Sega Saturn ^(fonction en alpha^)?
+echo 16: Injecter un jeu Sega Saturn ^(fonction en beta^)?
+echo.
+echo 17: Obtenir les NCAs permettant d'identifier un firmware?
 echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.

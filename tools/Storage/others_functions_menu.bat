@@ -42,6 +42,7 @@ IF "%action_choice%"=="13" goto:install_android_apps
 IF "%action_choice%"=="14" goto:create_forwarder
 IF "%action_choice%"=="15" goto:create_gamemaker_game
 IF "%action_choice%"=="16" goto:inject_saturn_game
+IF "%action_choice%"=="17" goto:detect_firmware_titles
 goto:end_script
 
 :convert_game
@@ -234,6 +235,18 @@ IF EXIST "tools\Storage\saturn_emu_inject.bat" (
 	call tools\Storage\update_manager.bat "update_saturn_emu_inject.bat" "force"
 )
 call TOOLS\Storage\saturn_emu_inject.bat
+@echo off
+goto:define_action_choice
+:detect_firmware_titles
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\detect_firmware_titles.bat" (
+	call tools\Storage\update_manager.bat "update_detect_firmware_titles.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_detect_firmware_titles.bat" "force"
+)
+call TOOLS\Storage\detect_firmware_titles.bat
 @echo off
 goto:define_action_choice
 :end_script
