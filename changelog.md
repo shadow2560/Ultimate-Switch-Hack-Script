@@ -2,7 +2,7 @@
 &nbsp;
 <h2>V4.3.222</h2>
 <ul>
-<li>Dans le menu "autres fonctions", ajout d'une fonction permettant d'extraire les NCAs utilisés pour identifier un firmware (util pour compléter des données comme celles du projet FVI).</li>
+<li>Dans le menu "autres fonctions", ajout d'une fonction permettant d'extraire les NCAs utilisés pour identifier un firmware (util pour compléter des données comme celles du projet FVI), voir <a target="_blank" href="https://github.com/shchmue/FVI/issues/3">cette page</a> pour connaître la méthode utilisée.</li>
 <li>Mise à jour de <a target="_blank" href="https://github.com/dezem/TegraExplorer">cette version de TegraExplorer</a> avec <a target="_blank" href="https://github.com/rashevskyv/TegraExplorer/commit/73fec7529a74af701450eed2d5564226ea73e221">cette modification</a>.</li>
 <li>Mise à jour du script de débrickage pour TegraExplorer pour y ajouter une fonction permettant de redémarrer en OFW.</li>
 <li>Quelques corrections mineures.</li>
