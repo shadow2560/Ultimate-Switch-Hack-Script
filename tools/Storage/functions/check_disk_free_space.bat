@@ -15,22 +15,29 @@ IF %len_value% GTR %len_max% (
 	goto:eof
 )
 set /a len_max-=1
-for /l %%i in (0,1,%len_max%) do (
-	IF %%i LSS %len_max% (
-		IF !value:~%%i,1! GTR !max:~%%i,1! (
+set /a i=0
+:begin_verif
+IF %i% GTR %len_max% goto:end_verif
+set temp1=!value:~%i%,1!
+set temp2=!max:~%i%,1!
+	IF %i% LSS %len_max% (
+		IF %temp1% GTR %temp2% (
 			endlocal
 			set verif_free_space=OK
 			goto:eof
-		) else IF !value:~%%i,1! LSS !max:~%%i,1! (
+		) else IF %temp1% LSS %temp2% (
 			endlocal
 			goto:eof
 		)
 	) else (
-		IF !value:~%%i,1! GEQ !max:~%%i,1! (
+		IF %temp1% GEQ %temp2% (
 			endlocal
 			set verif_free_space=OK
 			goto:eof
 		)
 	)
-)
+set /a i+=1
+goto:begin_verif
+:end_verif
+
 endlocal

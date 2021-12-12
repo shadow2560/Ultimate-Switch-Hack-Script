@@ -41,6 +41,10 @@ goto:eof
 echo Cette lettre de volume n'est pas dans la liste. Recommencez. 
 goto:eof
 
+:mariko_console_choice
+set /p mariko_console=La console est-elle un modèle Mariko ^(numéro de série ne commençant pas par "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :emunands_sumary
 echo Résumé sur les emunands trouvées:
 echo.

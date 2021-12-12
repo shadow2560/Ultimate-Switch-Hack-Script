@@ -91,6 +91,12 @@ IF NOT "%volume_letter%"=="%temp_volume_letter%" (
 	call "%associed_language_script%" "disk_choice_letter_not_exist_error"
 	goto:define_volume_letter
 )
+echo.
+set mariko_console=
+rem call "%associed_language_script%" "mariko_console_choice"
+IF NOT "%mariko_console%"=="" set mariko_console=%mariko_console:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
+
 :sd_emunand_test
 set sxos_emunand_folder_path=%volume_letter%:\sxos\emunand
 set sxos_emunand_boot0_path=%sxos_emunand_folder_path%\boot0.bin
@@ -158,10 +164,11 @@ IF EXIST "%sxos_emunand_folder_path%\*.*" (
 )
 :atmo_emunand_verif
 IF EXIST "%atmo_emummc_config_file%" (
-	call :atmo_parse_emummc_config_file
+	call :atmo_parse_config
 ) else (
 	IF "%sxos_emunand_partition_exist%"=="2" (
-		tools\dd_for_windows\dd-removable.exe bs=512 skip=2 count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
+		tools\dd_for_windows\dd.exe bs=512 skip=2 count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
+		rem tools\dd_for_windows\dd-removable.exe bs=512 skip=2 count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
 		call :get_type_nand "templogs\boot0_test.bin"
 		IF /i "!nand_type!"=="BOOT0" (
 			set sxos_emunand_partition_exist=3
@@ -179,14 +186,14 @@ IF "%sxos_emunand_partition_exist%"=="1" (
 IF "%sxos_emunand_partition_exist%"=="3" set sxos_emunand_partition_exist=1
 IF "%atmo_emunand_sector%"=="" (
 	IF NOT "%atmo_emunand_path%"=="" (
-		IF EXIST "%atmo_emunand_path:/=\%\BOOT0" (
-			call :get_type_nand "%atmo_emunand_path:/=\%\BOOT0"
+		IF EXIST "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\BOOT0" (
+			call :get_type_nand "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\BOOT0"
 			IF /i NOT "!nand_type!"=="BOOT0" goto:pass_atmo_emunand_verif
-			IF EXIST "%atmo_emunand_path:/=\%\BOOT1" (
-				call :get_type_nand "%atmo_emunand_path:/=\%\BOOT1"
+			IF EXIST "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\BOOT1" (
+				call :get_type_nand "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\BOOT1"
 				IF /i NOT "!nand_type!"=="BOOT1" goto:pass_atmo_emunand_verif
-				IF EXIST "%atmo_emunand_path:/=\%\00" (
-					call :get_type_nand "%atmo_emunand_path:/=\%\00"
+				IF EXIST "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\00" (
+					call :get_type_nand "%volume_letter%:\%atmo_emunand_path:/=\%\eMMC\00"
 					IF /i "!nand_type!"=="RAWNAND - splitted dump" set nand_type=RAWNAND
 					IF /i NOT "!nand_type!"=="RAWNAND" goto:pass_atmo_emunand_verif
 				) else (
@@ -203,7 +210,8 @@ IF "%atmo_emunand_sector%"=="" (
 	)
 ) else (
 	IF "%atmo_emunand_sector%"=="0x2" goto:pass_atmo_emunand_verif
-	tools\dd_for_windows\dd-removable.exe bs=512 skip=%int_atmo_emunand_sector% count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
+	tools\dd_for_windows\dd.exe bs=512 skip=%int_atmo_emunand_sector% count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
+	rem tools\dd_for_windows\dd-removable.exe bs=512 skip=%int_atmo_emunand_sector% count=8192 if=%physicale_path_off_sd% of=templogs\boot0_test.bin
 	call :get_type_nand "templogs\boot0_test.bin"
 	IF /i NOT "!nand_type!"=="BOOT0" goto:pass_atmo_emunand_verif
 	set atmo_emunand_exist=1
@@ -368,9 +376,9 @@ IF %tempcount% LSS 10 (
 set /a tempcount=%tempcount%+1
 goto:atmo_rename_rawnand_files
 :pass_atmo_rename_rawnand_files
-IF NOT "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%"=="%volume_letter%:\emutendo" (
+IF NOT "%volume_letter%:\%atmo_emunand_nintendo_path:/=\%"=="%volume_letter%:\emutendo" (
 	IF EXIST "%volume_letter%:\emutendo" rmdir /s /q "%volume_letter%:\emutendo" >nul
-	move "%volume_letter%:\%atmo_nintendo_emunand_path:/=\%" "%volume_letter%:\emutendo" >nul
+	move "%volume_letter%:\%atmo_emunand_nintendo_path:/=\%" "%volume_letter%:\emutendo" >nul
 )
 del /q "%volume_letter%:\emummc\emummc.ini" >nul
 call "%associed_language_script%" "succesful_migration"
@@ -387,7 +395,7 @@ set /p nand_type=<templogs\tempvar.txt
 set nand_type=%nand_type:~1%
 exit /b
 
-:atmo_parse_emummc_config_file
+:atmo_parse_config
 tools\gnuwin32\bin\grep.exe -e "^enabled *=" <"%atmo_emummc_config_file%" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 set /p atmo_emunand_enabled=<templogs\tempvar.txt
 IF NOT "!atmo_emunand_enabled!"=="" (

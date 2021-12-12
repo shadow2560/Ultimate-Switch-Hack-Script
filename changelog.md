@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.223</h2>
+<ul>
+<li>Correction de bugs critiques dans la fonction de migration d'emunand.</li>
+<li>Correction d'autres bugs.</li>
+</ul>
 <h2>V4.3.222</h2>
 <ul>
 <li>Dans le menu "autres fonctions", ajout d'une fonction permettant d'extraire les NCAs utilisés pour identifier un firmware (util pour compléter des données comme celles du projet FVI), voir <a target="_blank" href="https://github.com/shchmue/FVI/issues/3">cette page</a> pour connaître la méthode utilisée.</li>
