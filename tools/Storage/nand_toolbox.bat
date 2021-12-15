@@ -669,7 +669,7 @@ IF "%output_path%"=="" (
 	goto:emunand_create_list_disk_choice
 )
 call :set_NNM_params
-tools\NxNandManager\NxNandManager.exe %emunand_type% %rawnand_path% -o "%output_path%" %params%%lflags%
+tools\NxNandManager\NxNandManager_emunand.exe %emunand_type% %rawnand_path% -o "%output_path%" %params%%lflags%
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "emunand_create_action_error"
 ) else (

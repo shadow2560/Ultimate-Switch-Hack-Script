@@ -47,6 +47,7 @@ IF "%~1"=="firmware_download_and_extract" (
 	set action_param=firmware_download_and_extract
 	set action_type=6
 )
+IF "%~3"=="no_dir_choice" set no_dir_choice=Y
 IF "%action_param%"=="firmware_download" goto:define_firmware_choice
 IF "%action_param%"=="firmware_download_and_extract" goto:define_firmware_choice
 set md5_try=0
@@ -134,14 +135,22 @@ echo 13.1.0?
 echo 13.2.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
-IF NOT EXIST "downloads" mkdir "downloads"
-IF NOT EXIST "downloads\firmwares" mkdir "downloads\firmwares"
+IF NOT "%no_dir_choice%"=="Y" (
+	IF /i "%firmware_choice%"=="C" (
+		call :firmware_folder_choice
+		IF %errorlevel% NEQ 0 (
+			goto:define_firmware_choice
+		)
+		goto:end_extract
+	)
+)
 IF EXIST "firmware_temp" (
 	del /q "firmware_temp" 2>nul
 	rmdir /S /Q "firmware_temp" 2>nul
-) else (
-	mkdir firmware_temp
 )
+mkdir firmware_temp
+IF NOT EXIST "downloads" mkdir "downloads"
+IF NOT EXIST "downloads\firmwares" mkdir "downloads\firmwares"
 IF /i "%firmware_choice%"=="F" (
 	start explorer.exe "%~dp0..\..\downloads\firmwares"
 	goto:define_firmware_choice
@@ -590,6 +599,8 @@ IF "%action_type%"=="5" (
 :extract_firmware
 call "%associed_language_script%" "extract_firmware_begin"
 TOOLS\7zip\7za.exe x -y -sccUTF-8 "downloads\firmwares\%firmware_file_name%" -o"firmware_temp" -r
+:end_extract
+echo %firmware_folder%>templogs\firmware_folder.txt
 IF "%action_param%"=="firmware_download_and_extract" goto:end_script_2
 IF "%action_type%"=="1" goto:define_volume_letter
 IF "%action_type%"=="2" (
@@ -802,6 +813,20 @@ for %%f in ("%~1\*.nca") do (
 	)
 )
 rem echo %count_loop%
+exit /b
+
+:firmware_folder_choice
+set firmware_folder=
+call "%associed_language_script%" "package_folder_select"
+set /p firmware_folder=<"templogs\tempvar.txt"
+IF "%firmware_folder%"=="" (
+	call "%associed_language_script%" "no_firmware_source_selected_error"
+	exit /b 400
+)
+set firmware_folder=%firmware_folder%\
+set firmware_folder=%firmware_folder:\\=\%
+rem %windir%\System32\Robocopy.exe "%firmware_folder% " firmware_temp\ /e >nul
+rem set firmware_folder=firmware_temp\
 exit /b
 
 :end_script

@@ -547,6 +547,7 @@ call :verif_folder_version "tools\python3_scripts\AutoIPS-Patcher"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :update_prepare_update_on_sd.bat
 exit /b
 
 :update_basic_functions_menu.bat

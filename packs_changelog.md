@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V503</h2>
+<ul>
+<li>Mise à jour de DBI en version 347.</li>
+</ul>
 <h2>V502</h2>
 <ul>
 <li>Mise à jour de <a target="_blank" href="https://github.com/dezem/TegraExplorer">cette version de TegraExplorer</a> avec <a target="_blank" href="https://github.com/rashevskyv/TegraExplorer/commit/73fec7529a74af701450eed2d5564226ea73e221">cette modification</a>.</li>

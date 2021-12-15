@@ -49,6 +49,10 @@ IF "%special_launch%" == "unbrick_package_creation" (
 )
 goto:eof
 
+:package_folder_select
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Sélection du dossier contenant la mise à jour extraite"
+goto:eof
+
 :firmware_choice_begin
 echo Choisissez le firmware que vous souhaitez préparer?
 echo.
@@ -57,6 +61,7 @@ goto:eof
 
 :firmware_choice_end
 echo F: Ouvrir le dossier contenant les firmwares déjà téléchargé?
+IF NOT "%no_dir_choice%"=="Y" echo C: Choisir un dossier de firmware?
 echo N'importe quel autre choix: Terminer ce script et revenir au choix de l'action principale de ce script.
 echo.
 set /p firmware_choice=Entrez le firmware souhaité ou une action à faire: 

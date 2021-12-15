@@ -55,6 +55,10 @@ IF "%special_launch%" == "unbrick_package_creation" (
 )
 goto:eof
 
+:package_folder_select
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\select_dir.vbs" "templogs\tempvar.txt" "Firmware folder selection"
+goto:eof
+
 :firmware_choice_begin
 echo Choose the firmware that you want to prepare
 echo.
@@ -63,6 +67,7 @@ goto:eof
 
 :firmware_choice_end
 echo F: Open the folder containing the firmwares already downloaded?
+IF NOT "%no_dir_choice%"=="Y" echo C: Choose a firmware folder?
 echo All other choices: Go back to principal action of this script.
 echo.
 set /p firmware_choice=Enter the  wanted firmware  or the action you want to make: 

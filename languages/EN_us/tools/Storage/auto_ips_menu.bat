@@ -104,42 +104,8 @@ goto:eof
 echo Error during the creation of ES_patches, check that you have dumpled and indicated the last keys of your console and check the source firmware folder.
 goto:eof
 
-:firmware_choice_begin
-echo Choose the firmware that you want to prepare
-echo.
-echo Firmwares list:
-goto:eof
-
-:firmware_choice_end
-echo F: Open the folder containing the firmwares already downloaded?
-echo C: Choose a firmware folder?
-echo All other choices: Go back to principal action of this script.
-echo.
-set /p firmware_choice=Enter the  wanted firmware  or the action you want to make: 
-goto:eof
-
-:firmware_downloading_begin
-echo Downloading firmware %firmware_choice%...
-goto:eof
-
-:firmware_downloading_md5_error
-echo The firmware's MD5 seems to be incorrect, please verify your internet connexion and the space on the disk where this script is installed and retry.
-goto:eof
-
-:firmware_downloading_md5_retry
-echo The firmware's MD5 seems to be incorrect, the download will be retried.
-goto:eof
-
-:firmware_exist_but_bad_md5_tested_error
-echo The firmware file seems to exist but his MD5 is not correct, for this reason the firmware will be downloaded.
-goto:eof
-
-:firmware_downloading_end
-echo Download of firmware %firmware_choice% success.
-goto:eof
-
-:extract_firmware_begin
-echo Extracting firmware files...
+:firmware_preparation_error
+echo No firmware selected or an error occurred during firmware preparation.
 goto:eof
 
 :daybreak_convert_begin

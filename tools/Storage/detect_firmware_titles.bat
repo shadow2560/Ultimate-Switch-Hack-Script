@@ -30,13 +30,20 @@ mkdir "templogs"
 call "%associed_language_script%" "intro"
 pause
 echo.
-call tools\storage\prepare_update_on_sd.bat "firmware_download_and_extract"
+call tools\storage\prepare_update_on_sd.bat "firmware_download_and_extract" "" "no_dir_choice"
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "firmware_preparation_error"
 	pause
 	goto:endscript
 )
-IF NOT EXIST "firmware_temp\*.*" (
+IF EXIST "templogs\firmware_folder.txt" (
+	set /p firmware_folder=<templogs\firmware_folder.txt
+) else (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	goto:endscript
+)
+IF NOT EXIST "%firmware_folder%\*.*" (
 	call "%associed_language_script%" "firmware_preparation_error"
 	pause
 	goto:endscript
