@@ -81,7 +81,7 @@ IF %errorlevel% EQU 0 (
 			) else (
 				call "%associed_language_script%" "FS_patches_creation_error"
 			)
-			tools\python3_scripts\AutoIPS-Patcher\ES-AutoIPS.exe "!firmware_folder:\=\\!" "!keys_file_path:\=\\!" "!outdir_path:\=\\!"
+			tools\python3_scripts\AutoIPS-Patcher\ES-AutoIPS.exe "!firmware_folder:\=\\!" "!keys_file_path:\=\\!" "!outdir_path:\=\\!" >nul 2>&1
 			IF !errorlevel! EQU 0 (
 				call "%associed_language_script%" "ES_patches_creation_success"
 				pause

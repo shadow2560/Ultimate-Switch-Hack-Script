@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.225</h2>
+<ul>
+<li>Remove some debug messages in the sig_patches creation script.</li>
+<li>Update Hactoolnet to version 0.14.2.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 504.</li>
+</ul>
 <h2>V4.3.224</h2>
 <ul>
 <li>Rewrite the sig_patches extraction script and downgrade the version of Hactoolnet to the version used in 4.3.154.</li>
