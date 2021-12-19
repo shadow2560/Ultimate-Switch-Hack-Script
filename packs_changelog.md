@@ -3,6 +3,7 @@
 <h2>V504</h2>
 <ul>
 <li>Mise à jour de AtmoXL-Titel-Installer en version 1.6.2.</li>
+<li>Mise à jour de MGBA en version 0.9.3.</li>
 </ul>
 <h2>V503</h2>
 <ul>
