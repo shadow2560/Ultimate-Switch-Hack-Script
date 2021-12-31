@@ -145,8 +145,9 @@ IF "%action_choice%"=="1" (
 )
 IF "%action_choice%"=="2" cls & goto:pass_first_config_screen
 IF "%action_choice%"=="3" cls & goto:del_parental_control
-IF "%action_choice%"=="4" cls & goto:reset_rawnand
-IF "%action_choice%"=="5" (
+IF "%action_choice%"=="4" cls & goto:del_erpt
+IF "%action_choice%"=="5" cls & goto:reset_rawnand
+IF "%action_choice%"=="6" (
 	cls
 	call tools\storage\prepare_update_on_sd.bat "unbrick_package_creation"
 	IF EXIST templogs (
@@ -156,7 +157,7 @@ IF "%action_choice%"=="5" (
 	mkdir templogs
 	goto:unbrick_menu
 )
-IF "%action_choice%"=="6" cls & goto:apply_fw_package_on_rawnand
+IF "%action_choice%"=="7" cls & goto:apply_fw_package_on_rawnand
 IF "%action_choice%"=="0" (
 	cls
 	tools\NxNandManager\NxNandManager.exe --install_dokan
@@ -1509,6 +1510,78 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "unmounting_partition_error"
 )
 call "%associed_language_script%" "del_parental_control_sucess"
+pause
+goto:unbrick_menu
+
+:del_erpt
+set input_path=
+set biskeys_file_path=
+set action_choice=
+call "%associed_language_script%" "del_erpt_begin"
+pause
+echo.
+call :list_disk
+call "%associed_language_script%" "nand_choice"
+IF "%action_choice%" == "" (
+	goto:unbrick_menu
+)
+call :verif_disk_choice %action_choice%
+IF %errorlevel% EQU 3000 (
+	goto:del_erpt
+)
+IF "%action_choice%" == "0" (
+	call :nand_file_input_select
+) else (
+	IF EXIST templogs\disks_list.txt (
+		TOOLS\gnuwin32\bin\sed.exe -n %action_choice%p <templogs\disks_list.txt > templogs\tempvar.txt 2> nul
+		set /p input_path=<templogs\tempvar.txt
+	)
+)
+IF "%input_path%"=="" (
+	call "%associed_language_script%" "dump_not_exist_error"
+	echo.
+	goto:del_erpt
+)
+set partition=
+call :get_type_nand "%input_path%"
+IF /i "%nand_type%"=="RAWNAND" set partition=SYSTEM
+IF /i "%nand_type%"=="RAWNAND - splitted dump" set partition=SYSTEM
+IF /i "%nand_type%"=="FULL NAND" set partition=SYSTEM
+IF /i "%nand_type%"=="SYSTEM" set partition=SYSTEM
+IF /i NOT "%partition%"=="SYSTEM" (
+	call "%associed_language_script%" "partition_should_be_system_error"
+	goto:del_erpt
+)
+echo.
+call :select_biskeys_file
+IF "%biskeys_file_path%"=="" (
+	call "%associed_language_script%" "biskeys_file_not_selected_error"
+	goto:del_erpt
+)
+tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "%biskeys_file_path%" -part=SYSTEM>nul 2>&1
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
+	goto:del_erpt
+)
+call :mount_nand_partition "%partition%"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "mounting_partition_error"
+	goto:del_erpt
+)
+IF EXIST "%mounted_partition_letter%:\save\80000000000000D1" del /q "%mounted_partition_letter%:\save\80000000000000D1" >nul
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "del_erpt_error"
+	call :unmount_nand_partition
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "unmounting_partition_error"
+	)
+	goto:del_erpt
+)
+call :unmount_nand_partition
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "unmounting_partition_error"
+)
+call "%associed_language_script%" "del_erpt_sucess"
 pause
 goto:unbrick_menu
 

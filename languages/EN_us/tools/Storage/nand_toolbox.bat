@@ -60,9 +60,10 @@ echo.
 echo 1: Mount a console's rawnand partition via USB and Memloader?
 echo 2: Bypass the first configuration screen  of the console?
 echo 3: Remove the parental control?
-echo 4: Wip a RAWNAND?
-echo 5: Create a firmware package with ChoiDuJour or EmmcHaccGen?
-echo 6: Flash a firmware package created with ChoiDuJour or EmmcHaccGen on a RAWNAND?
+echo 4: Remove the Erpt save ^(can fix the 0xffe error of the Title ID 010000000000002b with Atmosphere^)?
+echo 5: Wip a RAWNAND?
+echo 6: Create a firmware package with ChoiDuJour or EmmcHaccGen?
+echo 7: Flash a firmware package created with ChoiDuJour or EmmcHaccGen on a RAWNAND?
 echo 0: Install the Dokan driver?
 echo All other choices: Go back to previous menu?
 echo.
@@ -418,6 +419,18 @@ goto:eof
 
 :del_parental_control_sucess
 echo The remove of the parental control has been successfully completed.
+goto:eof
+
+:del_erpt_begin
+echo This function allows you to remove the module Erpt save.
+goto:eof
+
+:del_erpt_error
+echo An error occurred during the modification of the file allowing to remove the Erpt save, the action will be cancelled.
+goto:eof
+
+:del_erpt_sucess
+echo The remove of the Erpt save has been successfully completed.
 goto:eof
 
 :reset_rawnand_begin

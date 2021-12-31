@@ -58,6 +58,10 @@ goto:eof
 echo No input file selected, the script couldn't continue.
 goto:eof
 
+:prodinfo_not_found_error
+ECHO Error: Place %~2 in the "Certificat" folder and retry!
+goto:eof
+
 :certificat_first_success
 ECHO The "nx_tls_client_cert.pfx" file has been saved in the "Certificat" folder on the script root.
 ECHO Pasword = switch

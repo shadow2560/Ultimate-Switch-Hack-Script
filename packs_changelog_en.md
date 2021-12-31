@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V505</h2>
+<ul>
+<li>Update DBI to version 350.</li>
+</ul>
 <h2>V504</h2>
 <ul>
 <li>Update AtmoXL-Titel-Installer to version 1.6.2.</li>

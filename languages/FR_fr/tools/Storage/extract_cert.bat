@@ -50,6 +50,9 @@ goto:eof
 :prodinfo_no_file_selected_error
 echo Aucun fichier sélectionné, oppération annulée.
 goto:eof
+:prodinfo_not_found_error
+ECHO Erreur: Placer %~2 dans le répertoire "Certificat" et recommencez!
+goto:eof
 
 :certificat_first_success
 ECHO Le fichier nx_tls_client_cert.pfx a été sauvegardé dans le répertoire "Certificat" à la racine du script.

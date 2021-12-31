@@ -54,9 +54,10 @@ echo.
 echo 1: Charger la rawnand d'une console via USB avec Memloader?
 echo 2: Forcer le passage de l'écran de la première configuration de la console?
 echo 3: Supprimer le contrôle parental?
-echo 4: Réinitialiser la RAWNAND?
-echo 5: Créer un firmware type ChoiDuJour ou EmmcHaccGen?
-echo 6: Flasher un firmware créé par ChoiDuJour ou EmmcHaccGen sur une RAWNAND?
+echo 4: Supprimer la sauvegarde de Erpt ^(peut corriger l'erreur 0xffe du Title ID 010000000000002b d'Atmosphere^)?
+echo 5: Réinitialiser la RAWNAND?
+echo 6: Créer un firmware type ChoiDuJour ou EmmcHaccGen?
+echo 7: Flasher un firmware créé par ChoiDuJour ou EmmcHaccGen sur une RAWNAND?
 echo 0: Installer le driver Dokan?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
@@ -412,6 +413,18 @@ goto:eof
 
 :del_parental_control_sucess
 echo La suppression du contrôle parental a été effectué avec succès.
+goto:eof
+
+:del_erpt_begin
+echo Cette fonction permet de supprimer la sauvegarde du module Erpt.
+goto:eof
+
+:del_erpt_error
+echo Une erreur s'est produite durant la modification du fichier permettant de supprimer la sauvegarde de Erpt, l'action va être annulée.
+goto:eof
+
+:del_erpt_sucess
+echo La suppression de la sauvegarde de Erpt a été effectué avec succès.
 goto:eof
 
 :reset_rawnand_begin

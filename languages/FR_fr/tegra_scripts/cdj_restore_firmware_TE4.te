@@ -5,7 +5,7 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quitter sans rien faire", "Redémarrer en OFW", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Réinitialiser la console", "Passer   la première configuration (non fonctionnel pour l'instant)", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Switcher le travail du script entre SYSNAND et EMUNAND"]
+main_menu_options = ["Quitter sans rien faire", "Redémarrer en OFW", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Supprimer la sauvegarde de Erpt (peut corriger l'erreur 0xffe du Title ID 010000000000002b d'Atmosphere)", "Réinitialiser la console", "Passer   la première configuration (non fonctionnel pour l'instant)", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Switcher le travail du script entre SYSNAND et EMUNAND"]
 migrate_emunand_menu_options = ["Revenir au menu principal", "Rendre compatible l'emunand via partition de SXOS avec Atmosphere", "Convertir l'emunand via fichiers de SXOS pour Atmosphere", "Inverser la convertion de l'emunand via fichiers de SXOS pour Atmosphere"]
 explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
@@ -421,6 +421,22 @@ bypass_first_configuration={
 			color(0xFFFFFF)
 			println("")
 			println("Appuyez sur une touche pour revenir au menu.")
+			pause()
+		}
+	}
+}
+
+fix_erpt={
+	clear()
+	mount_system()
+	if (return_code != 1) {
+		if (fsexists("bis:/save/80000000000000D1")){
+			println("Suppression de la sauvegarde de Erpt...")
+			delfile("bis:/save/80000000000000D1")
+			color(0x00FF00)
+			println("")
+			println("")
+			println("Opération terminée avec succès, Appuyez sur n'importe quelle touche pour revenir au menu.")
 			pause()
 		}
 	}
@@ -1009,18 +1025,21 @@ while (1) {
 		del_parental_control()
 	}
 	if (main_action == 8){
-		wip_console_data()
+		fix_erpt()
 	}
 	if (main_action == 9){
-		bypass_first_configuration()
+		wip_console_data()
 	}
 	if (main_action == 10){
-		synch_joycons()
+		bypass_first_configuration()
 	}
 	if (main_action == 11){
-		migrate_emunand_menu()
+		synch_joycons()
 	}
 	if (main_action == 12){
+		migrate_emunand_menu()
+	}
+	if (main_action == 13){
 		switch_working_nand()
 	}
 }

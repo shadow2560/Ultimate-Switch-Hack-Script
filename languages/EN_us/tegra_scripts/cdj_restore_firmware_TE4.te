@@ -5,7 +5,7 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quit without doing anything", "Reboot to OFW", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Switch script work between SYSNAND and EMUNAND"]
+main_menu_options = ["Quit without doing anything", "Reboot to OFW", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Remove the Erpt save (can fix the 0xffe error of the Title ID 010000000000002b with Atmosphere)", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Switch script work between SYSNAND and EMUNAND"]
 migrate_emunand_menu_options = ["Return to main menu", "Make SXOS partition emunand compatible with Atmosphere", "Convert SXOS files emunand  for Atmosphere", "Reverse the conversion of SXOS files emunand  for Atmosphere"]
 explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
 
@@ -421,6 +421,22 @@ bypass_first_configuration={
 			color(0xFFFFFF)
 			println("")
 			println("Press any key to go back to menu.")
+			pause()
+		}
+	}
+}
+
+fix_erpt={
+	clear()
+	mount_system()
+	if (return_code != 1) {
+		if (fsexists("bis:/save/80000000000000D1")){
+			println("Deleting the Erpt save...")
+			delfile("bis:/save/80000000000000D1")
+			color(0x00FF00)
+			println("")
+			println("")
+			println("Done! press any key to return to menu.")
 			pause()
 		}
 	}
@@ -1010,18 +1026,21 @@ while (1) {
 		del_parental_control()
 	}
 	if (main_action == 8){
-		wip_console_data()
+		fix_erpt()
 	}
 	if (main_action == 9){
-		bypass_first_configuration()
+		wip_console_data()
 	}
 	if (main_action == 10){
-		synch_joycons()
+		bypass_first_configuration()
 	}
 	if (main_action == 11){
-		migrate_emunand_menu()
+		synch_joycons()
 	}
 	if (main_action == 12){
+		migrate_emunand_menu()
+	}
+	if (main_action == 13){
 		switch_working_nand()
 	}
 }
