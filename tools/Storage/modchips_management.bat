@@ -393,6 +393,7 @@ IF "%sx_core_lite_action_choice%"=="6" (
 )
 IF "%sx_core_lite_action_choice%"=="7" (
 	start tools\SX_Core_Lite\PayloadChecker\payloadchecker.exe
+	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="8" (
 IF "%sx_core_lite_action_choice%"=="6" (
