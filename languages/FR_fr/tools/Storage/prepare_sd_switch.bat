@@ -20,9 +20,13 @@ echo Aucun support ne sera donné si vous utilisez cette fonctionnalité, ne l'u
 goto:eof
 
 :no_disk_found_error
-echo Aucun disque compatible trouvé. Veuillez insérer votre carte SD.
-	echo.
-set /p disk_not_finded_choice=Souhaitez-vous tenter de recharger la liste de disques ^(si non, le script se terminera^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+echo Aucun disque compatible trouvé. Que souhaitez-vous faire:
+echo.
+echo r: Recharger la liste de disques?
+echo d: Sélectionner un dossier vers lequel copier le pack.
+echo Tout autre choix: Terminer le script.
+echo.
+set /p disk_not_finded_choice=Faites votre choix: 
 goto:eof
 
 :disk_list_begin
@@ -30,7 +34,11 @@ echo Liste des disques:
 goto:eof
 
 :disk_choice
-set /p volume_letter=Entrez la lettre du volume de la SD que vous souhaitez utiliser ou entrez "0" pour quitter le script: 
+set /p volume_letter=Entrez la lettre du volume de la SD que vous souhaitez utiliser, entrez "1" pour copier dans un dossier  ou entrez "0" pour quitter le script: 
+goto:eof
+
+:select_folder_choice
+%windir%\system32\wscript.exe //Nologo tools\Storage\functions\select_dir.vbs "templogs\tempvar.txt" "Sélection du dossier vers lequel copier les fichiers"
 goto:eof
 
 :disk_choice_empty_error
@@ -216,7 +224,7 @@ echo Attention, veuillez ne pas utiliser ChoiDuJour-NX avec une console Mariko s
 goto:eof
 
 :miiport_alert_message
-echo N'oubliez pas de remplacer le texte du fichier "%volume_letter%:\MiiPort\qrkey.txt" par la clé "Mii QR key".
+echo N'oubliez pas de remplacer le texte du fichier "%volume_letter%\MiiPort\qrkey.txt" par la clé "Mii QR key".
 goto:eof
 
 :module_not_exist_warning

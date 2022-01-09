@@ -149,6 +149,8 @@ echo 3: Flasher le bootloader de SXOS?
 echo 4: Flasher le firmware de SXOS?
 echo 5: Flasher le bootloader de Spacecraft?
 echo 6: Flasher le firmware de Spacecraft?
+echo 7: Vérifier le firmware de Spacecraft dans un fichier BOOT0 dumpé sur une console?
+echo 8: Flasher le firmware réparant le bug de débogage USB présent sur certaines puces pour consoles Oled?
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
 set /p sx_core_lite_action_choice=Faites votre choix: 
@@ -217,6 +219,18 @@ goto:eof
 
 :spacecraft_firmware_end_flash
 echo Flash de la puce avec le firmware de Spacecraft terminé avec succès.
+goto:eof
+
+:repair_usb_debug_firmware_begin_flash
+echo Flash de la puce avec le firmware réparant le bug de débogage USB en cours...
+goto:eof
+
+:repair_usb_debug_firmware_error_flash
+echo Erreur durant le flash de la puce avec le firmware réparant le bug de débogage USB.
+goto:eof
+
+:repair_usb_debug_firmware_end_flash
+echo Flash de la puce avec le firmware réparant le bug de débogage USB terminé avec succès.
 goto:eof
 
 :no_compatible_disk_found_error

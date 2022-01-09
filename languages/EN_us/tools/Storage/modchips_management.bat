@@ -158,6 +158,8 @@ echo 3: Flash SXOS bootloader?
 echo 4: Flash SXOS firrmware?
 echo 5: Flash Spacecraft bootloader?
 echo 6: Flash Spacecraft firrmware?
+echo 7: Verify the Spacecraft firmware in a BOOT0 file dumped on a console?
+echo 8: Flash the firmware witch repair the USB debug problem on some modchips for Oled consoles?
 echo All other choices: Go back to main actions choice of this script?
 echo.
 set /p sx_core_lite_action_choice=Make your choice: 
@@ -226,6 +228,18 @@ goto:eof
 
 :spacecraft_firmware_end_flash
 echo Modship flash with Spacecraft firmware success.
+goto:eof
+
+:repair_usb_debug_firmware_begin_flash
+echo Modship flashing with USB debug reparation firmware...
+goto:eof
+
+:repair_usb_debug_firmware_error_flash
+echo Error during the modship flash  with USB debug reparation firmware.
+goto:eof
+
+:repair_usb_debug_firmware_end_flash
+echo Modship flash with USB debug reparation firmware success.
 goto:eof
 
 :no_compatible_disk_found_error

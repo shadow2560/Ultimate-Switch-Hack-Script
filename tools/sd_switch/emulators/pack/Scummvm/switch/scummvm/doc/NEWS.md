@@ -1,6 +1,74 @@
 For a more comprehensive changelog of the latest experimental code, see:
         https://github.com/scummvm/scummvm/commits/
 
+#### 2.5.1 (2022-01-02)
+
+ General:
+   - Ported ResidualVM GUI theme to remastered version.
+   - Fixed edge case for Punycode.
+   - Fixed checking for savegame overwrite in autosave slot.
+   - Fixed moving savegame to new slot for most engines.
+   - Scalers are now supported with the OpenGL graphics mode.
+
+ AGOS:
+   - Fixed old Waxworks AdLib music regression.
+
+ AGS:
+   - Detection list updates.
+
+ Grim:
+   - Fixed default "Talk Speed" option value.
+   - Fixed black screen while entering save game name.
+   - OpenGL without shaders is preferred as default for Grim Fandango.
+
+ Kyra:
+   - Fixed graphical glitch in Legend of Kyrandia 3.
+
+ SAGA:
+   - Fixed digitized music not looping in Inherit the Earth.
+
+ SCUMM:
+   - Improved support for the high-resolution text in the 16-color Macintosh
+     versions of Loom and Indiana Jones and the Last Crusade.
+   - Improved OPL3 sound emulation for Sam&Max.
+   - Fixed music not looping in The Dig.
+   - Fixed crash when loading savegames from Humongous Entertainment games.
+
+ Sherlock:
+   - Fixed crash using matches on lab table.
+   - Fixed character animation in Rose Tattoo.
+   - Fixed glitch opening map in Rose Tattoo.
+   - Fixed bell pull and fog horn sounds in Serrated Scalpel.
+   - Fixed inventory not updating in Serrated Scalpel after examining watch.
+   - Fixed fog overlay at Cleopatra's Needle in Rose Tattoo.
+   - Fixed graphic issues in Serrated Scalpel looking at items whilst inventory is open.
+   - Made Serrated Scalpel darts closer in speed to the original.
+   - Fixed crash when moving cursor past end of string in Rose Tattoo save dialog.
+   - Process pending key presses in the order they were made, not the most
+     recent first.
+   - Fixed crash when using Delete key in Rose Tattoo save dialog.
+   - Fixed rare conversation bug in Serrated Scalpel that would happen when Lord
+     Brumwell started talking to you while the inventory window was open.
+   - Resume animations in Serrated Scalpel after conversations. This fixes the
+     bug where Jock Mahoney or Nobby Charleton would get stuck indefinitely,
+     refusing to talk to you.
+   - Fixed various user interface glitches in both games.
+
+ Stark:
+   - Added OpenGL renderer (without shaders).
+   - Added TinyGL renderer.
+   - Fixed autosave handling.
+
+ TwinE:
+   - Numerous bugfixes and stability improvements.
+
+ Xeen:
+   - Fixed crash on startup loading constants from xeen.ccs.
+   - Fixed spell selection aborting when characters were switched.
+   - Fixed some bad memory accesses.
+   - Various sound fixes.
+   - Fixed the monster item drop probabilities.
+
 #### 2.5.0 "Twenty years ago today..." (2021-10-09)
 
  New games:

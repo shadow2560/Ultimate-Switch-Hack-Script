@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V506</h2>
+<ul>
+<li>Update AIO-Switch-Updater to version 2.16.3.</li>
+<li>Update Scummvm to version 2.5.1.</li>
+</ul>
 <h2>V505</h2>
 <ul>
 <li>Update DBI to version 350.</li>

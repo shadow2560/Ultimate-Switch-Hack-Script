@@ -15,7 +15,7 @@ goto:eof
 
 :display_infos
 IF "%profile_selected%"=="" (
-	echo Sumary of what will be copied on the SD, volume "%volume_letter%:":
+	echo Sumary of what will be copied  in the folder "%volume_letter%":
 ) else (
 	echo Sumary for the profile %profile_selected:~0,-4%:
 )

@@ -27,9 +27,13 @@ echo No support will be given if you use this feature, only use it if you unders
 goto:eof
 
 :no_disk_found_error
-echo No compatible disk found. Please insert a compatible disk.
+echo No compatible disk found. What do you want to do:
 echo.
-set /p disk_not_finded_choice=Do you want to try to reload the disks list ^(if not, the script will end^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+echo r: Reload the disks list?
+echo d: Select a folder where the pack will be copied?
+echo All other choices: End the script?
+echo.
+set /p disk_not_finded_choice=Make your choice: 
 goto:eof
 
 :disk_list_begin
@@ -37,7 +41,11 @@ echo Disks list:
 goto:eof
 
 :disk_choice
-set /p volume_letter=Enter the volume letter that you want to use or enter "0" to go back to previous menu: 
+set /p volume_letter=Enter the volume letter that you want to use, enter "1" to copy in a  folder or enter "0" to go back to previous menu: 
+goto:eof
+
+:select_folder_choice
+%windir%\system32\wscript.exe //Nologo tools\Storage\functions\select_dir.vbs "templogs\tempvar.txt" "Select the folder where files will be copied"
 goto:eof
 
 :disk_choice_empty_error

@@ -6,7 +6,7 @@ goto:eof
 
 :display_infos
 IF "%profile_selected%"=="" (
-	echo Résumé de se qui sera copié sur la SD, lecteur "%volume_letter%:":
+	echo Résumé de se qui sera copié dans le dossier "%volume_letter%":
 ) else (
 	echo Résumé du profile %profile_selected:~0,-4%:
 )

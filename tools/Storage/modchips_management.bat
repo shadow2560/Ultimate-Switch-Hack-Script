@@ -391,6 +391,22 @@ IF "%sx_core_lite_action_choice%"=="6" (
 	pause
 	goto:sx_core_lite_flash
 )
+IF "%sx_core_lite_action_choice%"=="7" (
+	start tools\SX_Core_Lite\PayloadChecker\payloadchecker.exe
+)
+IF "%sx_core_lite_action_choice%"=="8" (
+IF "%sx_core_lite_action_choice%"=="6" (
+	call "%associed_language_script%" "repair_usb_debug_firmware_begin_flash"
+	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\oled_debug_usb_problem\firmware_oled_chip_only.bin
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "repair_usb_debug_firmware_error_flash"
+		pause
+		goto:sx_core_lite_flash
+	)
+	call "%associed_language_script%" "repair_usb_debug_firmware_end_flash"
+	pause
+	goto:sx_core_lite_flash
+)
 goto:define_action_type
 
 :choose_payload
