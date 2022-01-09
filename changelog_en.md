@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.228</h2>
+<ul>
+<li>Update PayloadChecker to version 1.1.3.</li>
+</ul>
 <h2>V4.3.227</h2>
 <ul>
 <li>Add the possibility to copy the files in a specific folder in the SD preparation.</li>
