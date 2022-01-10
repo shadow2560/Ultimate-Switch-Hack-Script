@@ -1344,6 +1344,10 @@ call :verif_folder_version "tools\SX_Core_Lite"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\python3_scripts\boot0_rewrite"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :update_launch_payload.bat
 exit /b
 

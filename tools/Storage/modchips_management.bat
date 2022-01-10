@@ -316,6 +316,7 @@ set sd_volume_letter=
 goto:define_action_type
 
 :sx_core_lite_flash
+cls
 set sx_core_lite_action_choice=
 call "%associed_language_script%" "sx_flasher_launch_intro"
 IF "%sx_core_lite_action_choice%"=="1" (
@@ -392,11 +393,11 @@ IF "%sx_core_lite_action_choice%"=="6" (
 	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="7" (
-	start tools\SX_Core_Lite\PayloadChecker\payloadchecker.exe
+	cls
+	call :spacecraft_check
 	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="8" (
-IF "%sx_core_lite_action_choice%"=="6" (
 	call "%associed_language_script%" "repair_usb_debug_firmware_begin_flash"
 	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\oled_debug_usb_problem\firmware_oled_chip_only.bin
 	IF !errorlevel! NEQ 0 (
@@ -409,6 +410,15 @@ IF "%sx_core_lite_action_choice%"=="6" (
 	goto:sx_core_lite_flash
 )
 goto:define_action_type
+
+:spacecraft_check
+set boot0_path=
+call "%associed_language_script%" "select_boot0_file"
+set /p boot0_path=<templogs\tempvar.txt
+IF "%boot0_path%"=="" call "%associed_language_script%" "boot0_file_empty_error"
+tools\python3_scripts\boot0_rewrite\boot0_rewrite.exe -a check_spacecraft -i "%boot0_path%"
+pause
+exit /b 0
 
 :choose_payload
 copy nul templogs\payload_list.txt >nul

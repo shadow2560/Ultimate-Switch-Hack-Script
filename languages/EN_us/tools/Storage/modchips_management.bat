@@ -242,6 +242,16 @@ goto:eof
 echo Modship flash with USB debug reparation firmware success.
 goto:eof
 
+:select_boot0_file
+echo Verification of the Spacecraft version in a BOOT0 file
+echo.
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "BOOT0 file select" "templogs\tempvar.txt"
+goto:eof
+
+:boot0_file_empty_error
+echo No BOOT0 file selected.
+goto:eof
+
 :no_compatible_disk_found_error
 echo No compatible disk found. Please insert a compatible disk and relaunch the script.
 goto:eof

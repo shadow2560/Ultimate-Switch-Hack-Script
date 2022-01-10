@@ -145,21 +145,57 @@ def create_linkle_keys_file(keys_file):
 			return 0
 	return (keys_source_list)
 
+# function inspired by the project on https://github.com/Pheeeeenom/payloadchecker
+def check_spacecraft(boot0_file_src_path):
+	payload_v1 = 0xd90f1907
+	payload_v2 = 0x3d36ffac
+	gateway_payload = 0x3b25Bab4
+	payload_v2_improved_sd_BOOT2OFW = 0xf67893ad
+	stock_oled = 0x8bdd4e3e
+	hwliteg3 = 0x13e8eea5;
+	# Table of Spacecraft version organized like this:
+	# crc32 value to check, length to verify in BOOT0 from 0x3F0000, name of the Spacecraft version to display
+	spacecraft_table = [[0x5104d6f4, 0xF9C0, 'Spacecraft V1'], [0x5074125e, 0xFC60, 'Spacecraft V2'], [0x3a560dc4, 0xCB20, 'Spacecraft V2 mod']]
+
+	try:
+		with open(boot0_file_src_path, 'rb') as boot0_file_dest:
+			for item in spacecraft_table:
+				boot0_file_dest.seek(0x3F0000)
+				temp_value = boot0_file_dest.read(item[1])
+				temp_crc32 = binascii.crc32(temp_value)
+				if item[0] == temp_crc32:
+					print(item[2])
+					boot0_file_dest.close()
+					return(0)
+			print("Unknown/SX payload")
+			boot0_file_dest.close()
+	except:
+		print ('Le fichier "' + boot0_file_dest_path + '" n\'existe pas ou n\'est pas vérifiable.')
+		raise
+		return(101)
+	return(0)
+
 def help():
 	print ('Utilisation:')
 	print ()
-	print ('boot0_rewrite.py -k chemin_prod.keys_de_la_console -i chemin_fichier_source_BOOT0 -o chemin_fichier_destination_BOOT0 [-c chemin_fichier_prod.keys_contenant_des_clés_communes_manquantes_au_fichier_prod.keys_de_la_console')
+	print ('boot0_rewrite.py -a action -k chemin_prod.keys_de_la_console -i chemin_fichier_source_BOOT0 -o chemin_fichier_destination_BOOT0 [-c chemin_fichier_prod.keys_contenant_des_clés_communes_manquantes_au_fichier_prod.keys_de_la_console')
+	print("Le paramètre action peut être:")
+	print("create_boot0: Cré un BOOT0 avec les keyblobs modifiées (action par défaut), nécessite tous les paramètres.")
+	print("check_spacecraft: Vérifie la version de Spacecraft utilisée dans un fichier BOOT0 fourni en entrée, ne nécessite que le paramètre -i.")
 	return 1
 
 if (len(sys.argv) == 1):
 	help()
 	sys.exit(0)
+action = 'create_boot0'
 common_prod_keys_path = ''
 for i in range(1,len(sys.argv), 2):
 	currArg = sys.argv[i]
 	if currArg.startswith('-h'):
 		help()
 		sys.exit(0)
+	elif currArg.startswith('-a'):
+		action = sys.argv[i+1]
 	elif currArg.startswith('-k'):
 		prod_keys_path = os.path.abspath(sys.argv[i+1])
 	elif currArg.startswith('-c'):
@@ -172,6 +208,16 @@ for i in range(1,len(sys.argv), 2):
 		print('Erreur de saisie des arguments.\n')
 		help()
 		sys.exit(301)
+
+if action == 'check_spacecraft':
+	return_code = check_spacecraft(boot0_file_src_path)
+	sys.exit(return_code)
+elif action == 'create_boot0':
+	pass
+else:
+	print('Erreur de saisie des arguments.\n')
+	help()
+	sys.exit(301)
 
 linkle_keys_path = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'Linkle_keys.txt')
 linkle_program_path = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'Linkle.exe')

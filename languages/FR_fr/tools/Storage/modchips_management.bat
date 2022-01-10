@@ -233,6 +233,16 @@ goto:eof
 echo Flash de la puce avec le firmware réparant le bug de débogage USB terminé avec succès.
 goto:eof
 
+:select_boot0_file
+echo Vérification de la version de Spacecraft dans un fichier BOOT0
+echo.
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier BOOT0" "templogs\tempvar.txt"
+goto:eof
+
+:boot0_file_empty_error
+echo Aucun fichier BOOT0 sélectionné.
+goto:eof
+
 :no_compatible_disk_found_error
 echo Aucun disque compatible trouvé. Veuillez insérer un périphérique compatible puis relancez l'action.
 goto:eof
