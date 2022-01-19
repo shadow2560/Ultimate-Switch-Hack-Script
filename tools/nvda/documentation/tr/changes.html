@@ -10,6 +10,104 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+Bu sürüm, yeni HID Braille spesifikasyonu için destek sunar.
+Bu spesifikasyon, ayrı sürücülere ihtiyaç duymadan Braille Ekranları için desteği standartlaştırmayı amaçlamaktadır.
+Yeni Rusça ve Tshivenda tabloları da dahil olmak üzere LibLouis ve eSpeak-NG için güncellemeler içerilmiştir.
+Kararlı NVDA sürümlerinde hata sesleri, ayarlar iletişim kutusunda gelişmiş panelinde bulunan yeni bir seçenek aracılığıyla etkinleştirilebilir.
+Word'de tümünü oku komutu bulunulan konumu göstermek amacıyla görünümü de kaydırıyor.
+Office'i UIA ile kullanırken birçok iyileştirme yapıldı.
+UIA düzeltmelerinden biri, Outlook'un artık iletilerde daha fazla düzen tablosu türünü yok saymasını sağlıyor.
+</P>
+<P>
+Önemli notlar:
+</P>
+<P>
+Güvenlik sertifikamızda yapılan bir güncelleme nedeniyle, NVDA 2021.2 güncellemeleri kontrol ettiğinde az sayıda kullanıcı hata alabiliyor.
+NVDA şimdi Windows'tan güvenlik sertifikalarını güncellemesini istiyor, bu da gelecekte bu hatayı önleyecektir.
+Etkilenen kullanıcıların bu güncellemeyi manuel olarak indirmeleri gerekecektir.
+</P>
+<H3>Yeni özellikler</H3>
+<UL>
+<LI>Hücre kenarlıklarının stilinin bildirim ayarını değiştirmek için bir girdi hareketi eklendi. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Braille Ekranları için desteği standartlaştırmayı amaçlayan yeni HID Braille spesifikasyonu desteği. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+  <UL>
+  <LI>Bu özelliği destekleyen cihazlar, NVDA tarafından otomatik olarak algılanacaktır.
+  <LI>NVDA'nın bu spesifikasyonla ilgili uygulamasına ilişkin teknik ayrıntılar için bkz. <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A>
+  </UL>
+<LI>VisioBraille Vario 4 Braille ekranı için destek eklendi. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>NVDA'nın herhangi bir sürümünü kullanırken hata bildirimleri etkinleştirilebilir (gelişmiş ayarlar). (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>Windows 10 ve sonraki sürümlerde NVDA, Ayarlar ve Microsoft Store gibi uygulamalarda arama terimleri girildiğinde öneri sayısını bildirir. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Tablo navigasyonu artık PowerShell'de Out-GridView cmdlet'i kullanılarak oluşturulan ızgara denetimlerinde destekleniyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>Değişiklikler</H3>
+<UL>
+<LI>Espeak-ng 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE> sürümüne güncellendi. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>NVDA'nın tercih ettiği dili destekleyen yüklü OneCore sesleri yoksa, NVDA varsayılan olarak eSpeak'e geçer. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>OneCore sesleri sürekli olarak problem çıkarıyorsa, sentezleyici olarak eSpeak'e dönülür. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Durum çubuğunu <CODE>NVDA+end</CODE> ile okurken, inceleme imleci artık bu konuma taşınmaz.
+Bu işlevselliğe ihtiyacınız varsa, lütfen Girdi Hareketleri iletişim kutusundaki Nesne dolaşımı kategorisindeki ilgili komut için bir hareket atayın. (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Zaten açık olan bir ayarlar iletişim kutusunu açarken, NVDA, hata vermek yerine odağı mevcut iletişim kutusuna taşıyor. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>liblouis braille çevirmen <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A> sürümüne güncellendi. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+  <UL>
+  <LI>Yeni braille tabloları: Rusça derece 1, Tshivenda derece 1, Tshivenda derece 2
+  </UL>
+<LI>"işaretli içerik" veya "işrl" yerine artık "vurgulanan" veya "vrgl" konuşma ve braille için kullanılacak. (<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>NVDA artık diyaloglar gerekli bir eylemi beklerken (örneğin Onayla/İptal) diyalogu kapatmaya kalkmayacaktır. (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>Hata düzeltmeleri</H3>
+<UL>
+<LI>Kontrol, insert gibi klavye değiştirici tuşların takibi watchdog kurtarılırken daha kararlı. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>Belirli sistemlerde NVDA güncellemelerini kontrol etmek tekrar mümkün; Örneğin. temiz Windows yüklemeleri. (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA, UI otomasyonunu kullanırken Microsoft Word'de boş tablo hücrelerini doğru şekilde bildiriyor. (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Web'deki ARIA veri ızgara hücrelerinde, Escape tuşu artık ızgaraya iletilecek ve artık odak modunu kasıtlı olarak kapatmayacak. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Chrome'da bir tablonun başlık hücresini okurken, sütun adının iki kez bildirimi düzeltildi. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA, değerlerinin metinsel bir temsiline sahip olan UIA kaydırıcıları için artık sayısal bir değer bildirmemektedir. (UIA ValuePattern artık RangeValuePattern yerine tercih ediliyor). (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA artık UIA kaydırıcılarının değerini her zaman yüzdeye dayalı olarak ele almıyor.
+<LI>UI Otomasyonu aracılığıyla erişildiğinde Microsoft Excel'de bir hücrenin konumunun bildirimi, Windows 11'de tekrar düzgün çalışıyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA artık geçersiz Python yerel ayarları belirlememektedir. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Devre dışı bırakılan bir eklenti kaldırılır ve ardından yeniden yüklenirse yeniden etkinleştiriliyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Eklenti klasörünün yeniden adlandırıldığı veya dosyaların açıldığı eklentilerin güncellenmesi ve kaldırılmasıyla ilgili hatalar düzeltildi. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Microsoft Excel elektronik tablo kontrollerine erişmek için UI Otomasyonu kullanıldığında, NVDA artık tek bir hücre seçildiğinde artık gereksiz bir şekilde bildirim yapmıyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>LibreOffice Writer'da, örneğin onay diyaloglarında olduğu gibi, daha fazla diyalog metni otomatik olarak okunuyor. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>UI otomasyonu aracılığıyla Microsoft Word'de tarama kipinde okuma/gezinme artık belgenin her zaman kaydırılmasını, böylece geçerli tarama kipi konumunun görünür olmasını ve odak kipindeki düzeltme iminin konumunun tarama kipi konumunu doğru bir şekilde yansıtmasını sağlıyor. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>UI otomasyonu aracılığıyla Microsoft Word'de Tümünü oku komutu verildiğinde, belge artık otomatik olarak kaydırılıyor ve düzeltme iminin konumu doğru şekilde güncelleniyor. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Outlook'ta e-postaları okurken ve NVDA, UI Otomasyonu ile mesaja erişirken, belirli tablolar artık düzen tabloları olarak işaretleniyor, bu da artık varsayılan olarak bildirilmeyecekleri anlamına geliyor. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>Ses cihazlarını değiştirirken nadir görülen bir hata düzeltildi. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Edebi braille tablolarıyla giriş, düzenleme alanlarında daha güvenilir çalışmalıdır. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Windows sistem tepsisi takviminde gezinirken, NVDA artık haftanın gününü tam olarak bildiriyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Tayvan - Microsoft Word'de Microsoft Quick gibi bir Çince giriş yöntemi kullanırken, braille ekranını ileri ve geri kaydırmak artık yanlış bir şekilde orijinal düzeltme imi konumuna geri dönmeye devam etmiyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>UIA üzerinden Microsoft Word belgelerine erişirken, yine cümle ile gezinme (alt+aşağı ok / alt+yukarı ok) mümkün. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>UIA ile MS Word'e erişirken, artık paragraf girintisi bildiriliyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>UIA ile MS Word'e erişirken, değişiklik izleme komutu ve diğer bazı yerelleştirilmiş komutlar artık Word'de bildiriliyor. (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>'Açıklama' 'içerik' veya 'ad' ile eşleştiğinde yinelenen braille ve konuşma düzeltildi. (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>UIA etkinleştirilmiş MS Word'de, yazarken yazım hatası seslerinin daha doğru çalınması söz konusu. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>Windows 11'de NVDA, programlar arasında geçiş yapmak için Alt+Tab tuşlarına basıldığında artık "pano" demeyecektir. (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Yeni Modern Yorumlar yan izleme bölmesi, belgeye UIA aracılığıyla erişilmediğinde artık MS Word'de desteklenmektedir. Yan izleme bölmesi ile belge arasında hareket etmek için alt+f12 tuşlarına basın. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
+<P></P>
+<H3>Changes for Developers</H3>
+<UL>
+<LI>Building NVDA now requires Visual Studio 2019 16.10.4 or later.
+To match the production build environment, update Visual Studio to keep in sync with the <A HREF="https://www.appveyor.com/docs/windows-images-software/#visual-studio-2019" target="_blank">current version AppVeyor is using</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12728" target="_blank">#12728</A>)
+<LI><CODE>NVDAObjects.UIA.winConsoleUIA.WinConsoleUIA.isImprovedTextRangeAvailable</CODE> has been deprecated for removal in 2022.1. (<A HREF="https://github.com/nvaccess/nvda/issues/12660" target="_blank">#12660</A>)
+  <UL>
+  <LI>Instead use <CODE>apiLevel</CODE> (see the comments at <CODE>_UIAConstants.WinConsoleAPILevel</CODE> for details).
+  </UL>
+<LI>Transparency of text background color sourced from GDI applications (via the display model), is now exposed for add-ons or appModules. (<A HREF="https://github.com/nvaccess/nvda/issues/12658" target="_blank">#12658</A>)
+<LI><CODE>LOCALE_SLANGUAGE</CODE>, <CODE>LOCALE_SLIST</CODE> and <CODE>LOCALE_SLANGDISPLAYNAME</CODE> are moved to the <CODE>LOCALE</CODE> enum in languageHandler.
+They are still available at the module level but are deprecated and to be removed in NVDA 2022.1. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>The usage of functions <CODE>addonHandler.loadState</CODE> and <CODE>addonHandler.saveState</CODE> should be replaced with their equivalents <CODE>addonHandler.state.save</CODE> and <CODE>addonHandler.state.load</CODE> before 2022.1. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Braille output can now be checked in system tests. (<A HREF="https://github.com/nvaccess/nvda/issues/12917" target="_blank">#12917</A>)
+</UL>
+
+<P></P>
 <H2>2021.2</H2>
 <P>
 Bu sürüm, ön Windows 11 desteği sunar.

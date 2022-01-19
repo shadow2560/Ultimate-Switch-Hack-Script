@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>Hướng dẫn sử dụng NVDA 2021.2 </TITLE>
+<TITLE>Hướng dẫn sử dụng NVDA 2021.3.1 </TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>Hướng dẫn sử dụng NVDA 2021.2 </H1>
+<P ALIGN="center"><CENTER><H1>Hướng dẫn sử dụng NVDA 2021.3.1 </H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. các màn hình Esys/Esytime/Iris của Eurobraille</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Các màn hình của Nattiq nBraille</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Các màn hình nổi tiêu chuẩn</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Chủ Đề Nâng Cao</A>
     <UL>
@@ -735,7 +736,7 @@ Có một số phím tắt quan trọng khi di chuyển với focus hệ thống
 <TD>Thông báo thanh trạng thái</TD>
 <TD>NVDA+end</TD>
 <TD>NVDA+shift+end</TD>
-<TD>Thông báo thanh trạng thái của cửa sổ hiện tại (nếu tìm thấy) và nó cũng sẽ đưa đối tượng điều hướng đến vị trí đó. Bấm hai lần để đánh vần thông tin</TD>
+<TD>Thông báo thanh trạng thái của cửa sổ hiện tại nếu tìm thấy. Bấm hai lần để đánh vần thông tin. Bấm ba lần để chép nó vào bộ nhớ tạm.</TD>
 </TR>
 </TABLE>
 
@@ -932,6 +933,13 @@ Sử dụng các phím tắt sau để duyệt qua các đối tượng:
 <TD>NVDA+delete</TD>
 <TD>không có</TD>
 <TD>Thông báo vị trí của nội dung hoặc đối tượng tại con trỏ duyệt. Ví dụ theo thông tin được cung cấp như tỷ lệ phần trăm của màn hình, khoảng cách đến các mép của trang hoặc tỉ lệ theo độ phân giải màn hình. Bấm nhanh hai lần để được cung cấp  thêm thông tin nếu có.</TD>
+</TR>
+<TR>
+<TD>Chuyển con trỏ duyệt đến thanh trạng thái</TD>
+<TD>không có</TD>
+<TD>không có</TD>
+<TD>không có</TD>
+<TD>Thông báo thanh trạng thái của cửa sổ hiện tại nếu tìm thấy, và nó cũng sẽ đưa đối tượng điều hướng đến vị trí đó.</TD>
 </TR>
 </TABLE>
 
@@ -2908,6 +2916,11 @@ Một số lựa chọn thường gặp là: "tự động" (yêu cầu NVDA t�
 <P>
 Bạn nên tham khảo tài liệu của màn hình nổi tại phần <A HREF="#SupportedBrailleDisplays">Các màn hình nổi được hỗ trợ</A> để kiểm tra các phương thức nào được hỗ trợ cho dòng màn hình chữ nổi của bạn.
 </P>
+<P>
+Lưu ý: nếu kết nối cùng lúc nhiều màn hình nổi với cùng trình điều khiển vào máy tính (kết nối hai màn hình của Seika chẳng hạn),
+hiện không thể khai báo với NVDA là màn hình nào đang được dùng.
+Vậy nên chúng tôi khuyến khích kết nối một loại màn hình của một nhà sản xuất ở một thời điểm.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Hỗ trợ nhìn</H4>
 <P>
@@ -3160,7 +3173,8 @@ Nếu được chọn thì NVDA sẽ lọc bớt một số đối tượng như
 <H4>12.1.12. Trình Bày Đối Tượng (NVDA+control+o)</H4>
 <P>
 Phân loại trình bày đối tượng trong hộp thoại cấu hình NVDA được dùng để thiết lập các thông tin về các điều khiển được trình bày bởi NVDA như mô tả, vị trí, v...v...
-Phân loại này gồm các mục sau:
+Thường thì các tùy chọn này không áp dụng cho chế độ duyệt.
+Các tùy chọn này thường áp dụng cho việc thông báo focus và điều hướng đối tượng của NVDA, nhưng không đọc nội dung văn bản trong chế độ duyệt chẳng hạn.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>Đọc các thông báo trên đối tượng</H5>
@@ -3530,11 +3544,11 @@ Nếu bạn thấy mệt mỏi với việc vận hành của một hay vài ứ
 <A NAME="AdvancedSettingsUseUiaForWord"></A>
 <H5>Sử dụng UI Automation để truy cập các điều khiển của tài liệu Microsoft Word khi có thể</H5>
 <P>
-Khi bật tùy chọn này, NVDA sẽ nỗ lực dùng  Microsoft UI Automation accessibility API để lấy các thông tin từ các điều khiển của tài liệu Microsoft Word.
+Khi bật tùy chọn này, NVDA sẽ nỗ lực dùng  Microsoft UI Automation accessibility API để lấy thông tin từ các điều khiển của tài liệu Microsoft Word.
 Nó được tích hợp trong chính Microsoft Word cũng như trình xem và soạn thư của Microsoft Outlook.
- Với hầu hết các phiên bản gần đây của Microsoft Office 2016/365 chạy trên windows 10 trở lên, hỗ trợ UI Automation hoàn toàn đủ để truy cập các tài liệu Microsoft Word gần như bằng với hỗ trợ sẵn có của NVDA cho Microsoft Word, với lợi thế là tăng khả năng phản hồi.
+ Với hầu hết các phiên bản gần đây của Microsoft Office 2016/365 chạy trên Windows 10 trở lên, hỗ trợ của UI Automation là hoàn toàn đủ để truy cập các tài liệu Microsoft Word, gần như bằng với hỗ trợ sẵn có của NVDA cho Microsoft Word, với thuận lợi là khả năng phản hồi có thể tăng lên.
  Tuy nhiên, có thể một vài thông tin không được thể hiện hoặc thể hiện không chính xác trong vài phiên bản của Microsoft Office, có nghĩa là hỗ trợ UI automation không thể luôn được dựa vào.
- Chúng tôi vẫn không khuyến khích đa số người dùng bật tính năng này làm mặc định, dù rằng vẫn hoan nghênh những người dùng Office 2016/365 thử nghiệm tính năng này và cung cấp phản hồi.
+Chúng tôi vẫn không khuyến khích đa số người dùng bật tính năng này làm mặc định, dù rằng vẫn hoan nghênh những người dùng Office 2016/365 thử nghiệm tính năng này và cung cấp phản hồi.
 </P>
 <A NAME="AdvancedSettingsConsoleUIA"></A>
 <H5>Sử dụng UI Automation để truy cập Windows Console khi có thể</H5>
@@ -3562,15 +3576,25 @@ Hộp xổ có các tùy chọn sau:
 
 <P></P>
 <A NAME="Annotations"></A>
-<H5>Bật hỗ trợ ghi chú thử nghiệm ARIA</H5>
+<H5>các ghi chú</H5>
 <P>
-Dùng để bật tính năng hỗ trợ thử nghiệm cho các ghi chú ARIA.
-Một trong những tính năng thuộc nhóm này có thể chưa được hoàn thiện.
+Nhóm tùy chọn này được dùng để bật tính năng hỗ trợ thử nghiệm cho các ghi chú ARIA.
+Vài tính năng thuộc nhóm này có thể chưa được hoàn thiện.
 Hiện có các tùy chọn sau: 
 </P>
 <UL>
 <LI>"Thông báo các chi tiết trong chế độ duyệt": bật thông báo nếu một đối tượng có các thông tin chi tiết trong chế độ duyệt.
 Việc thông báo tổng quan các chi tiết này có thể thực hiện bằng cách gán một thao tác thông qua hộp thoại <A HREF="#InputGestures">Quản lý thao tác</A>.
+<LI>"Luôn thông báo mô tả aria":
+  Khi nguồn <CODE>accDescription</CODE> là aria-description, mô tả sẽ được thông báo.
+  Điều này hữu ích cho các chú thích trên web.
+  Lưu ý:
+  <UL>
+  <LI>Có nhiều nguồn cho <CODE>accDescription</CODE>, một số có ngữ nghĩa hỗn hợp hoặc không đáng tin cậy.
++    Trong lịch sử, nó không phân biệt được các nguồn của <CODE>accDescription</CODE>, thường thì nó không được đọc lên do ngữ nghĩa hạn hẹp.
+  <LI>Tùy chọn này đang được phát triển rất sớm, dựa trên những tính năng chưa có của trình duyệt.
+  <LI>Mong đợi nó sẽ hoạt động với Chromium 92.0.4479.0+
+  </UL>
 </UL>
 
 <P></P>
@@ -3626,12 +3650,27 @@ Tính năng này mặc định được bật trên NVDA 2021.1.
  Tùy chọn này cho phép bạn cấu hình thời gian tính bằng mili giây mà NVDA sẽ chờ dấu náy (điểm chèn) di chuyển trong các điều khiển có thể nhập.
  Nếu bạn nhận thấy rằng có vẻ như NVDA theo dõi dấu náy không chính xác, ví dụ: nó có vẻ như luôn đứng ở một kí tự đằng sau hoặc lặp lại các dòng, có thể bạn sẽ phải thử tăng giá trị này.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Thông báo độ trong suốt của màu</H5>
+<P>
+Tùy chọn này cho phép thông báo khi gặp những màu có độ trong suốt, hữu dụng cho những người phát triển addon/appModule cần lấy thông tin để cải tiến trải nghiệm người dùng với một ứng dụng của bên thứ ba.
+Vài ứng dụng GDI sẽ làm nổi văn bản với một màu nền, NVDA (thông qua mẫu hiển thị) sẽ nỗ lực thông báo màu này.
+Trong vài tình huống, văn bản nền có thể hoàn toàn trong suốt, với văn bản được xếp lớp trên một vài thành phần giao diện đồ họa người dùng (GUI) khác.
+Với vài GUI APIs phổ biến trong lịch sử, văn bản có thể hiển thị với nền trong suốt, nhưng một cách trực quan thì màu nền vẫn chính xác.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Kiểu bản ghi dò lỗi</H5>
 <P>
  Các hộp kiểm trong danh sách này cho phép bạn bật một số kiểu thông điệp dò lỗi nhất định trong log của NVDA.
  Kết quả của việc ghi các thông điệp này có thể làm giảm hiệu năng vận hành và tạo các tập tin log dung lượng lớn.
  Chỉ nên bật một trong số chúng nếu được  hướng dẫn cụ thể bởi một lập trình viên NVDA. Ví dụ: khi tìm hiểu xem tại sao một màn hình nổi không hoạt động như mong muốn.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Phát âm thanh báo lỗi ghi vào log</H5>
+<P>
+ Tùy chọn này cho phép bạn chỉ định việc NVDA sẽ phát âm báo lỗi trong trường hợp có lỗi được ghi vào log.
+Việc chọn chỉ dùng cho các phiên bản thử nghiệm (mặc định) là để NVDA chỉ phát âm thanh báo lỗi nếu phiên bản NVDA hiện tại là bản thử nghiệm (alpha, beta hoặc chạy từ mã nguồn).
+Chọn Có để cho phép phát âm báo lỗi, bất kể bạn đang dùng phiên bản NVDA nào.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Các thiết lập khác</H3>
@@ -4170,7 +4209,7 @@ Nếu sử dụng các bộ đọc này thì trong phân loại <A HREF="#Speech
 <A NAME="MicrosoftSpeechPlatform"></A>
 <H3>14.4. Microsoft Speech Platform</H3>
 <P>
-Microsoft Speech Platform (nền tản bộ đọc của Microsoft) cung cấp các bộ đọc nhiều ngôn ngữ để phát triển các ứng dụng dựa trên máy chủ.
+Microsoft Speech Platform (nền tảng bộ đọc của Microsoft) cung cấp các bộ đọc nhiều ngôn ngữ để phát triển các ứng dụng dựa trên máy chủ.
 Các giọng đọc này cũng có thể được sử dụng với NVDA.
 </P>
 <P>
@@ -4232,6 +4271,7 @@ Các màn hình nổi sau đây có hỗ trợ chức năng tự nhận biết.
 <LI>HIMS Braille các dòng Sense/Braille EDGE/Smart Beetle/Sync Braille
 <LI>Các màn hình nổi Eurobraille Esys/Esytime/Iris
 <LI>Các màn hình nổi của Nattiq nBraille
+<LI>Mọi màn hình nổi có hỗ trợ giao thức HID Braille tiêu chuẩn
 </UL>
 
 <P></P>
@@ -6680,6 +6720,108 @@ Vui lòng xem <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">Danh sách phí
 </TR>
 </TABLE>
 
+<A NAME="HIDBraille"></A>
+<H3>15.20. Các màn hình nổi tiêu chuẩn</H3>
+<P>
+Đây là một trình điều khiển thử nghiệm cho chuẩn kết nối (HID) màn hình chữ nổi mới, được cho phép vào năm 2018 bởi Microsoft, Google, Apple và vài công ty về công nghệ trợ giúp bao gồm NV Access.
+Niềm hi vọng là tất cả các mẫu màn hình nổi trong tương lai tạo bởi bất kì nhà sản xuất nào, đều dùng giao thức tiêu chuẩn này, sẽ gỡ bỏ các trình điều khiển nhất định của nhà sản xuất.
+</P>
+<P>
+Tính năng tự nhận màn hình nổi của NVDA cũng sẽ nhận các màn hình có hỗ trợ giao thức này.
+</P>
+<P>
+Sau đây là các phím hiện được gán cho những màn hình nổi này.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Tên</TH>
+<TH>Phím</TH>
+</TR>
+<TR>
+<TD>Cuộn màn hình nổi về trước</TD>
+<TD>pan left hoặc rocker up</TD>
+</TR>
+<TR>
+<TD>Cuộn màn hình nổi về sau</TD>
+<TD>pan right hoặc rocker down</TD>
+</TR>
+<TR>
+<TD>Di chuyển màn hình về dòng trước</TD>
+<TD>khoảng trắng + chấm 1</TD>
+</TR>
+<TR>
+<TD>Di chuyển màn hình về dòng trước</TD>
+<TD>khoảng trắng + chấm 4</TD>
+</TR>
+<TR>
+<TD>Đưa về ô chữ nổi</TD>
+<TD>routing set 1|</TD>
+</TR>
+<TR>
+<TD>Bật / tắt chữ nổi đi theo</TD>
+<TD>lên+xuống</TD>
+</TR>
+<TR>
+<TD>phím mũi tên lên</TD>
+<TD>joystick up</TD>
+</TR>
+<TR>
+<TD>phím mũi tên xuống</TD>
+<TD>joystick down</TD>
+</TR>
+<TR>
+<TD>phím mũi tên trái</TD>
+<TD>khoảng trắng+chấm 3 hoặc joystick left</TD>
+</TR>
+<TR>
+<TD>phím mũi tên phải</TD>
+<TD>khoảng trắng+chấm 6 hoặc joystick right</TD>
+</TR>
+<TR>
+<TD>phím shift+tab</TD>
+<TD>khoảng trắng+chấm 1+chấm 3</TD>
+</TR>
+<TR>
+<TD>phím tab</TD>
+<TD>khoảng trắng+chấm 4+chấm 6</TD>
+</TR>
+<TR>
+<TD>phím alt</TD>
+<TD>khoảng trắng+chấm 1+chấm 3+chấm 4 (khoảng trắng+m)</TD>
+</TR>
+<TR>
+<TD>phím escape</TD>
+<TD>khoảng trắng+chấm 1+chấm 5 (khoảng trắng+e)</TD>
+</TR>
+<TR>
+<TD>phím enter</TD>
+<TD>chấm 8 hoặc joystick center</TD>
+</TR>
+<TR>
+<TD>phím windows</TD>
+<TD>khoảng trắng+chấm 3+chấm 4</TD>
+</TR>
+<TR>
+<TD>phím alt+tab</TD>
+<TD>khoảng trắng+chấm 2+chấm 3+chấm 4+chấm 5 (khoảng trắng+t)</TD>
+</TR>
+<TR>
+<TD>Trình đơn NVDA</TD>
+<TD>khoảng trắng+chấm 1+chấm 3+chấm 4+chấm 5 (khoảng trắng+n)</TD>
+</TR>
+<TR>
+<TD>phím windows+d (thu nhỏ toàn bộ ứng dụng)</TD>
+<TD>khoảng trắng+chấm 1+chấm 4+chấm 5 (khoảng trắng+d)</TD>
+</TR>
+<TR>
+<TD>Đọc tất cả</TD>
+<TD>khoảng trắng+chấm 1+chấm 2+chấm 3+chấm 4+chấm 5+chấm 6</TD>
+</TR>
+</TABLE>
+
+<P>
++ 
+</P>
 <A NAME="AdvancedTopics"></A>
 <H2>16. Chủ Đề Nâng Cao</H2>
 <A NAME="CommandLineOptions"></A>

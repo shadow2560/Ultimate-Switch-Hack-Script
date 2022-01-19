@@ -34,6 +34,7 @@ IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	goto:end_script
 )
+set md5_try=0
 IF "%~1" == "unbrick_package_creation" set special_launch=unbrick_package_creation
 IF "%~1"=="firmware_create_cdj" (
 	set action_param=firmware_download
@@ -50,7 +51,6 @@ IF "%~1"=="firmware_download_and_extract" (
 IF "%~3"=="no_dir_choice" set no_dir_choice=Y
 IF "%action_param%"=="firmware_download" goto:define_firmware_choice
 IF "%action_param%"=="firmware_download_and_extract" goto:define_firmware_choice
-set md5_try=0
 call "%associed_language_script%" "intro"
 pause 
 :define_action_type

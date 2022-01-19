@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>NVDA 2021.2 Používateľská príručka</TITLE>
+<TITLE>NVDA 2021.3.1 Používateľská príručka</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>NVDA 2021.2 Používateľská príručka</H1>
+<P ALIGN="center"><CENTER><H1>NVDA 2021.3.1 Používateľská príručka</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Eurobraille Esys/Esytime/Iris</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Riadky Nattiq nBraille</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Riadky podporujúce HID štandard</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Pre pokročilých</A>
     <UL>
@@ -735,7 +736,7 @@ Pri zameraní fokusu možno použiť niekoľko užitočných skratiek:
 <TD>Stavový riadok</TD>
 <TD>NVDA+end</TD>
 <TD>NVDA+shift+end</TD>
-<TD>Oznámi obsah stavového riadku ak ho NVDA dokáže nájsť. Tiež   premiestni navigačný objekt na stavový riadok. Stlačené dvakrát stavový riadok vyhláskuje. Stlačené trikrát skopíruje obsah stavového riadka do schránky</TD>
+<TD>Oznámi obsah stavového riadku ak ho NVDA dokáže nájsť. Stlačené dvakrát stavový riadok vyhláskuje. Stlačené trikrát skopíruje obsah stavového riadka do schránky</TD>
 </TR>
 </TABLE>
 
@@ -932,6 +933,13 @@ Pre pohyb po objektoch použite nasledujúce príkazy:
 <TD>NVDA+delete</TD>
 <TD>Nie je</TD>
 <TD>Oznamuje polohu prezeracieho kurzora. Informácia môže pozostávať z polohy v dokumente uvedenej v percentách, vzdialenosti od začiatku stránky alebo presnej polohy na obrazovke. Podrobnejšie informácie NVDA prečíta po dvojitom stlačení.</TD>
+</TR>
+<TR>
+<TD>Premiestniť prezerací kurzor  na stavový riadok</TD>
+<TD>nie je</TD>
+<TD>nie je</TD>
+<TD>nie je</TD>
+<TD>Oznámi stavový riadok, ak ho NVDA dokáže nájsť. Tiež premiestni prezerací kurzor na stavový riadok.</TD>
 </TR>
 </TABLE>
 
@@ -2910,6 +2918,11 @@ Táto možnosť nie je dostupná, ak zvolený riadok podporuje len automatický 
 <P>
 Pre podrobnejšie informácie si pozrite časť <A HREF="#SupportedBrailleDisplays">Podporované braillovské zobrazovače</A>.
 </P>
+<P>
+Upozorňujeme, že ak súčasne pripojíte dva riadky od rovnakého výrobcu, ktoré používajú rovnaký ovládač (napríklad dva riadky od výrobcu Seika),
+NVDA nedokáže rozpoznať, ktorý riadok chcete používať.
+Preto odporúčame vždy pripájať len jeden braillovský riadok výrobcu.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Zrak</H4>
 <P>
@@ -3162,7 +3175,8 @@ jednoduchý režim môžete zapínať a vypínať aj klávesovou skratkou. Stač
 <H4>12.1.12. Prezentácia objektov (NVDA+ctrl+o)</H4>
 <P>
 Tu môžete nastaviť, aké informácie bude NVDA čítať o prvkoch, napríklad pozíciu, počet a podobne.
-Táto kategória obsahuje nalsledujúce možnosti:
+Tieto nastavenia neovplyvňujú režim prehliadania.
+Tieto nastavenia ovplyvňujú oznamovanie pri pohybe kurzorom a objektovej navigácii, nie pri čítaní textu napríklad v režime prehliadania.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>Oznamovať kontextovú nápovedu</H5>
@@ -3401,7 +3415,7 @@ Takto môžete nastaviť:
  <LI>Vlastnosti písma
  <LI>indexy
  <LI>Zvýraznenie
- <LI>označený text
+ <LI>vyznačený text
  <LI>štýl
  <LI>Farby
  </UL>
@@ -3526,13 +3540,13 @@ Ak zapnete túto možnosť, NVDA bude sledovať udalosti len pre zamerané prvky
 Ak badáte spomalenie pri práci v aplikáciách, skúste zapnúť túto možnosť.
 </P>
 <A NAME="AdvancedSettingsUseUiaForWord"></A>
-<H5>Na sprístupnenie prvkov v dokumentoch Microsoft Word používať UI automation</H5>
+<H5>Na sprístupnenie prvkov v dokumentoch Microsoft &amp;Word preferovať UI Automation</H5>
 <P>
 Ak začiarknete túto možnosť, NVDA sa pokúsi použiť Microsoft UI Automation accessibility api na zobrazenie prvkov v aplikácii MS Word.
 Toto sa týka aplikácie Word, a tiež písania a čítania správ v aplikácii Outlook.
 Aktuálne verzie MS Office 2016/365 bežiace v systéme Windows od verzie 10 majú podporu dostatočne dobrú, ako je súčasná podpora zabudovaná priamo v NVDA. Výhodou tiež je, že aplikácie cez UI automation reagujú rýchlejšie.
 Niektoré informácie sú však nedostatočne prezentované, alebo sú prezentované nesprávne, takže nemôžeme UI automation odporúčať vo všetkých prípadoch.
-Väčšine používateľov neodporúčame používať UI automation. Zároveň privítame odozvu od používateľov Office 2016/365, ktorí sú ochotný otestovať UI automation.
+Väčšine používateľov neodporúčame používať UI automation. Zároveň privítame odozvu od používateľov Office 2016/365, ktorí sú ochotný otestovať UI automation a poskytnúť spätnú väzbu.
 </P>
 <A NAME="AdvancedSettingsConsoleUIA"></A>
 <H5>Použiť UIA na zobrazenie Windows konzoly</H5>
@@ -3560,44 +3574,43 @@ V zoznamovom rámiku sa nachádzajú tieto možnosti:
 
 <P></P>
 <A NAME="Annotations"></A>
-<H5>Povoliť podporu pre oznamovanie Aria revízií</H5>
+<H5>Revízie</H5>
 <P>
-Začiarknite, ak chcete testovať experimentálnu podporu pre revízie aria (komentáre a pod).
+Táto skupina experimentálnych funkcií určuje, ako bude NVDA oznamovať revízie označované pomocou aria atribútov.
 Niektoré funkcie nemusia byť dokončené.
 Dostupné sú tieto možnosti:
 </P>
 <UL>
-<LI>"Oznamovať podrobnosti pri prvkoch v režime prehliadania": Oznamuje situácie, ak prvok obsahuje podrobnosti.
-Oznámenie podrobností je možné vyvolať klávesovou skratkou. Túto je potrebné priradiť v dialógu <A HREF="#InputGestures">Klávesové skratky</A>.
-</UL>
-
+<LI>Vždy oznamovať prítomnosť atribútu aria-description:
+Ak je zdroj <CODE>accDescription</CODE> určený ako aria-description, nvda tento popis oznámi.
+Toto je užitočné pri oznamovaní zmien na webe.
+Upozornenie:
+  <UL>
+  <LI>Existuje viacero zdrojov pre <CODE>accDescription</CODE> Mnohé majú viaceré alebo nepresné významy.
+V minulosti asistenčné technológie neoznamovali tieto zdroje, nakoľko nebolo možné rozlíšiť, o ak ý druh zdroja ide.
+  <LI>Táto funkcia je v ranom štádiu vývoja a jej dostupnosť závisí od použitého prehliadača, pričom mohé ju zatiaľ nepodporujú.
+  <LI>Očakávame funkčnosť v Chromium 92.0.4479.0+
+  </UL>
+ -
 <P></P>
-<A NAME="UseUiaForExcel"></A>
-<H5>Na sprístupnenie prvkov v zošitoch Microsoft Excel používať UI Automation</H5>
-<P>
+ ==== Na sprístupnenie prvkov v zošitoch Microsoft Excel používať UI Automation ====[UseUiaForExcel]
 Keď je táto voľba aktívna, NVDA sa pokúsi na získavanie informácií o ovládacích prvkoch v programe Microsoft Excel používať rozhranie prístupnosti Microsoft UI Automation.
 Toto je experimentálna funkcia a niektoré vlastnosti programu Microsoft Excel nemusia byť v tomto režime dostupné.
 Takímito sú hlavne zoznam prvkov NVDA, kde je možné si zobraziť zoznamy vzorcov a komentárov a podpora pre rýchlu navigáciu v režime prehliadania na pohyb po prvkoch formulára v zošite.
 Pre základnú navigáciu v zošite a jednoduché úpravy, tento režim poskytne výrazné zrýchlenie odozvy.
 Zatiaľ neodporúčame toto nastavenie aktivovať pre väčšinu bežných používateľov, ale budeme radi, ak si tento režim vyskúšate s programom Microsoft Excel od verzie  16.0.13522.10000 a poskytnete nám spätnú väzbu.
 Implementácia rozhrania UI automation v programe Microsoft Excel sa stále zlepšuje a staršie verzie než Microsoft Office 16.0.13522.10000 nemusia poskytovať dostatok informácií, aby ste z tohto nastavenia mohli mať skutočný úžitok.
-</P>
-<A NAME="AdvancedSettingsKeyboardSupportInLegacy"></A>
-<H5>Použiť novú podporu oznamovania napísaných znakov vo Windows konzolách</H5>
-<P>
+<P></P>
+==== Použiť novú podporu oznamovania napísaných znakov vo Windows konzolách====[AdvancedSettingsKeyboardSupportInLegacy]
 Toto začiarkávacie pole aktivuje alternatívnu metódu oznamovania napísaných znakov vo windows konzolách.
 Toto môže zlepšiť odozvu a odstrániť hláskovanie výstupu z konzoly, súčasne však toto nastavenie nie je vhodné pre všetky terminály.
 Táto možnosť je dostupná a predvolene aktivovaná v systémoch od verzie Windows 10 1607 ak je vypnuté alebo nedostupné UI Automation.
 Pozor: Keď aktivujete túto funkciu, NVDA bude čítať napísané znaky a slová aj pri písaní hesiel.
 Ak tomu chcete zabrániť, vypnite dočasne čítanie poznakoch a po slovách.
-</P>
-<A NAME="DiffAlgo"></A>
-<H5>Algoritmus počítania rozdielov</H5>
-<P>
+<P></P>
+==== Algoritmus počítania rozdielov ====[DiffAlgo]
 Toto nastavenie ovplyvňuje, ako NVDA zisťuje nový text na prečítanie v okne príkazového riadku.
 V zoznamovom rámiku sú 3 možnosti:
-</P>
-<UL>
 <LI>Automaticky: Od NVDA 2021.2 sa používa automaticky algoritmus Diff Match Patch.
 <LI>povoliť Diff Match Patch: Táto možnosť spôsobí, že NVDA zisťuje text na prečítanie v okne príkazového riadku po znakoch.
 Môže to zlepšiť odozvu pri množstve textu na výstupe a spresniť oznamovanie zmien v strede riadkov.
@@ -3622,12 +3635,27 @@ Táto funkcia je predvolene zapnutá od verzie NVDA 2021.1.
 Tu môžete nastaviť časový úsek, ktorý NVDA počká pred pohybom systémového kurzora (bodu vloženia).
 Ak zistíte, že NVDA nesprávne sleduje kurzor, napríklad je o znak pozadu alebo opakuje riadky, môže vám pomôcť zvýšiť tento časový úsek.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Oznamovať hodnoty priehľadných farieb</H5>
+<P>
+Umožňuje zapnúť oznamovanie priehľadných farieb. Toto je užitočné pre vývojárov doplnkov, ktorí sprístupňujú aplikácie tretích strán.
+Niektoré GDI aplikácie označujú text farbou na pozadí, čo sa nvda pokúša identifikovať pomocou display modelu.
+V niektorých situáciách môže byť pozadie priehľadné a text sa môže nachádzať v inom prvku. 
+Tiež je možné stretnúť sa s tým, že text je zobrazený s priehľadnou farbou, ale vizuálne je farba presná.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Úroveň záznamu</H5>
 <P>
 Začiarkávacie políčka v tejto časti umožňujú povoliť dodatočné zaznamenávanie do logu NVDA.
 Zapisovanie  týchto správ môže spomaliť NVDA a zvýšiť veľkosť súborov.
 Zaznamenávanie týchto správ povoľte, len ak dostanete inštrukcie od vývojárov, napríklad pri diagnostike nefunkčného ovládača braillovského riadka.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Oznamovať zvukom zaznamenané chyby</H5>
+<P>
+Ak je zapnuté, NVDA bude zvukom oznamovať situácie, keď do logu zapíše chybu.
+Ak zvolíte Len v testovacích verziách NVDA (predvolené), NVDA bude zvuk prehrávať, len ak je spustená alpha, beta, alebo verzia zo zdroja.
+Ak vyberiete možnosť áno, bude zvuky NVDA prehrávať nezávisle od spustenej verzie.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Ďalšie nastavenia</H3>
@@ -4227,6 +4255,7 @@ Funkcia aktuálne funguje s týmito riadkami:
 <LI>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille
 <LI>Eurobraille Esys/Esytime/Iris
 <LI>Nattiq nBraille displays
+<LI>Všetky braillovské riadky podporujúce štandard HID
 </UL>
 
 <P></P>
@@ -5106,6 +5135,10 @@ Prosím, prečítajte si dokumentáciu dodanú spolu so zariadením  na zistenie
 <TH>Klávesová skratka</TH>
 </TR>
 <TR>
+<TD>Presunúť na znak v brailly</TD>
+<TD>routing</TD>
+</TR>
+<TR>
 <TD>Posunúť riadok späť</TD>
 <TD>leftSideScrollUp, rightSideScrollUp, leftSideScroll</TD>
 </TR>
@@ -5254,16 +5287,12 @@ Prosím, prečítajte si dokumentáciu dodanú spolu so zariadením  na zistenie
 <TD>bod1+bod2+bod6+bod8+medzera</TD>
 </TR>
 <TR>
+<TD>šípka hore</TD>
+<TD>bod1+medzera, šípka hore na ľavej strane</TD>
+</TR>
+<TR>
 <TD>ctrl+shift+šípka hore</TD>
 <TD>bod2+bod3+bod8+medzera+advance1</TD>
-</TR>
-<TR>
-<TD>šípka hore</TD>
-<TD>bod 1+medzera, leftSideUpArrow</TD>
-</TR>
-<TR>
-<TD>ctrl+shift+šípka hore</TD>
-<TD>body2+3+8+medzera+f1</TD>
 </TR>
 <TR>
 <TD>ctrl+šípka hore</TD>
@@ -6672,6 +6701,105 @@ Prosím prečítajte si <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">dokum
 <TR>
 <TD>Prejsť na znak v brailly</TD>
 <TD>route (bring cursor to character)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Riadky podporujúce HID štandard</H3>
+<P>
+Toto je experimentálny ovládač pre riadky podporujúce nový HID štandard, na ktorom sa v roku 2018 dohodli Microsoft, Google, Apple a viaceré spoločnosti dodávajúce asistívne technológie vrátane NV Access. 
+Cieľom je, aby všetky budúce braillovské riadky podporovali tento štandard čím sa odstráni nutnosť mať pre každý riadok samostatný ovládač.
+</P>
+<P>
+NVDA dokáže automaticky rozpoznať, že váš riadok podporuje tento spôsob komunikácie.
+</P>
+<P>
+Nasledujú klávesové skratky pre tieto riadky:
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>názov</TH>
+<TH>klávesová skratka</TH>
+</TR>
+<TR>
+<TD>Posunúť riadok späť</TD>
+<TD>pan left alebo rocker up</TD>
+</TR>
+<TR>
+<TD>Posunúť riadok vpred</TD>
+<TD>pan right alebo rocker down</TD>
+</TR>
+<TR>
+<TD>Predchádzajúci riadok</TD>
+<TD>medzera + bod1</TD>
+</TR>
+<TR>
+<TD>Nasledujúci riadok</TD>
+<TD>medzera + bod4</TD>
+</TR>
+<TR>
+<TD>Prejsť na znak v brailly</TD>
+<TD>routing set 1|</TD>
+</TR>
+<TR>
+<TD>Prepnnúť nastavenie braillovský kurzor zviazaný s</TD>
+<TD>šípka hore + šípka dole</TD>
+</TR>
+<TR>
+<TD>Šípka hore</TD>
+<TD>joystick hore</TD>
+</TR>
+<TR>
+<TD>Šípka dole</TD>
+<TD>joystick dole</TD>
+</TR>
+<TR>
+<TD>Šípka vľavo</TD>
+<TD>medzera+bod3 alebo joystick vľavo</TD>
+</TR>
+<TR>
+<TD>Šípka vpravo</TD>
+<TD>medzera+bod6 alebo joystick vpravo</TD>
+</TR>
+<TR>
+<TD>shift+tab</TD>
+<TD>medzera+bod1+bod3</TD>
+</TR>
+<TR>
+<TD>tab</TD>
+<TD>medzera+bod4+bod6</TD>
+</TR>
+<TR>
+<TD>alt</TD>
+<TD>medzera+bod1+bod3+bod4 (medzera+m)</TD>
+</TR>
+<TR>
+<TD>escape</TD>
+<TD>medzera+bod1+bod5 (medzera+e)</TD>
+</TR>
+<TR>
+<TD>enter</TD>
+<TD>bod8 or joystick center</TD>
+</TR>
+<TR>
+<TD>windows</TD>
+<TD>medzera+bod3+bod4</TD>
+</TR>
+<TR>
+<TD>alt+tab</TD>
+<TD>medzera+bod2+bod3+bod4+bod5 (medzera+t)</TD>
+</TR>
+<TR>
+<TD>NVDA Menu</TD>
+<TD>medzera+bod1+bod3+bod4+bod5 (medzera+n)</TD>
+</TR>
+<TR>
+<TD>windows+d (minimalizovať všetky aplikácie)</TD>
+<TD>medzera+bod1+bod4+bod5 (medzera+d)</TD>
+</TR>
+<TR>
+<TD>Plynulé čítanie</TD>
+<TD>medzera+bod1+bod2+bod3+bod4+bod5+bod6</TD>
 </TR>
 </TABLE>
 

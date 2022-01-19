@@ -10,6 +10,92 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+Tämä versio esittelee tuen uudelle HID Braille -määritykselle.
+Sen tarkoituksena on standardoida pistenäyttöjen tuki, jossa ei tarvita valmistajakohtaisia ajureita.
+Päivityksiä eSpeak-NG:hen ja LibLouis-pistekirjoituskääntäjään, mukaan lukien uusi venäläinen ja vendalainen taulukko.
+Virheäänet voidaan ottaa käyttöön NVDA:n vakaissa versioissa uudella Lisäasetukset-paneelin asetuksella.
+Jatkuva luku vierittää nyt näkymää Wordissa pitääkseen nykyisen sijainnin näkyvissä.
+Paljon parannuksia käytettäessä Officea UIA:n kanssa.
+Eräs UIA-korjaus on, että Outlook jättää nyt huomiotta viesteissä useammantyyppisiä asettelutaulukoita.
+</P>
+<P>
+Tärkeitä huomautuksia:
+</P>
+<P>
+Suojausvarmenteemme päivityksen vuoksi pieni määrä käyttäjiä saa virheilmoituksen, kun NVDA 2021.2 tarkistaa päivityksiä.
+NVDA pyytää nyt Windowsia päivittämään suojausvarmenteet, mikä estää tämän virheen tulevaisuudessa.
+Asianomaisten käyttäjien on ladattava tämä päivitys manuaalisesti.
+</P>
+<H3>Uudet ominaisuudet</H3>
+<UL>
+<LI>Lisätty syötekomento solun reunojen tyylin ilmaisemisasetuksen vaihtamiseen. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Tuki uudelle HID Braille -määritykselle, jonka tarkoituksena on pistenäyttötuen standardointi. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+ <UL>
+ <LI>NVDA tunnistaa Tätä määritystä tukevat laitteet automaattisesti.
+ <LI>Tekniset tiedot tämän määrityksen NVDA-toteutuksesta ovat osoitteessa <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A>
+ </UL>
+<LI>Lisätty tuki VisioBraille Vario 4 -pistenäytölle. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>Virheilmoitukset voidaan ottaa käyttöön lisäasetuksista mitä tahansa NVDA:n versiota käytettäessä. (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>NVDA puhuu Windows 10:ssä ja uudemmissa ehdotusten määrän kirjoitettaessa hakuehtoja sellaisissa sovelluksissa kuin Asetukset ja Microsoft Store. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Taulukossa liikkumista tuetaan nyt ruudukkosäätimissä, jotka on luotu PowerShellin Out-GridView-cmdlet-komentoa käyttäen. (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>Muutokset</H3>
+<UL>
+<LI>Espeak-NG on päivitetty versioksi 1.51-dev muutos <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>NVDA käyttää oletusarvoisesti eSpeakia, mikäli asennetut OneCore-äänet eivät tue NVDA:n käyttämää kieltä. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>Mikäli OneCore-äänet eivät johdonmukaisesti puhu mitään, palataan käyttämään eSpeak-syntetisaattoria. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Kun tilarivi luetaan <CODE>NVDA+End</CODE>-näppäinkomennolla, tarkastelukohdistinta ei enää siirretä sen kohdalle.
+Mikäli tarvitset tätä toiminnallisuutta, määritä syötekomento asianmukaiselle skriptille Syötekomennot-valintaikkunan Objektinavigointi-kategoriassa. (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Kun avaat jo avatun valintaikkunan, NVDA ei näytä enää virhettä vaan siirtää kohdistuksen avoimeen valintaikkunaan. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>Päivitetty liblouis-pistekirjoituskääntäjä versioksi <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+ <UL>
+ <LI>Uusia pistetaulukoita: venäläinen taso 1, venda taso 1, venda taso 2
+ </UL>
+<LI>"Merkitty sisältö" tai "mrkt" -ilmoitusten asemesta sanotaan "korostus" tai näytetään pistenäytöllä "krt". (<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>NVDA ei enää yritä sulkeutua, kun valintaikkunat odottavat vaadittua toimenpidettä (esim. OK/Peruuta). (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>Bugikorjaukset</H3>
+<UL>
+<LI>Kun NVDA palautuu virheestä, näppäimistön muokkausnäppäinten (kuten Ctrl tai Ins) seuranta on vikasietoisempaa. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>NVDA-päivitysten tarkistaminen on jälleen mahdollista tietyissä järjestelmissä, esim. puhtaissa Windows-asennuksissa. (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA ilmaisee asianmukaisesti tyhjät taulukon solut Microsoft Wordissa UI automation -rajapintaa käytettäessä. (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Verkon ARIA-tietoruudukon soluissa Esc-näppäimen painallus välitetään nyt kyseiselle ruudukolle, eikä enää poista kohdistustilaa ehdottomasti käytöstä. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Korjattu sarakenimen kahdesti puhuminen Chromessa taulukon otsikkosolua luettaessa. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA ei enää ilmoita numeerista arvoa UIA-liukusäätimissä, joiden arvo on määritetty tekstinä. (UIA:n ValuePattern asetetaan nyt etusijalle RangeValuePattern:in asemesta). (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA ei enää käsittele UIA-liukusäätimien arvoa aina prosentteina.
+<LI>Solun sijainnin ilmoittaminen Microsoft Excelissä toimii taas oikein Windows 11:ssä UI Automation -rajapintaa käytettäessä. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA ei enää määritä virheellisiä Pythonin kieliasetuksia. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Jos käytöstä poistettu lisäosa poistetaan ja asennetaan sitten uudelleen, se otetaan uudelleen käyttöön. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Korjattu bugeja lisäosien päivittämisessä ja poistamisessa, jos lisäosakansio on nimetty uudelleen tai sisältää avoimia tiedostoja. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Kun Microsoft Excel -laskentataulukon säätimissä käytetään UI Automation -rajapintaa, NVDA ei enää ilmoita tarpeettomasti valittuna olevaa yksittäistä solua. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>LibreOffice Writerin valintaikkunoissa (esim. vahvistusta kysyvissä) luetaan automaattisesti enemmän tekstiä. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Microsoft Wordin Selaustilassa luettaessa/navigoitaessa UI automation -rajapintaa käytettäessä varmistetaan, että asiakirjaa vieritetään aina siten, että nykyinen selaustilakohdistimen sijainti on näkyvissä ja että kohdistimen sijainti kohdistustilassa vastaa asianmukaisesti selaustilakohdistimen sijaintia. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Asiakirjaa vieritetään nyt automaattisesti ja kohdistimen sijainti päivitetään asianmukaisesti Microsoft Wordissa jatkuvaa lukua käytettäessä UI automation -rajapinnan ollessa käytössä. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Kun NVDA käyttää Outlookissa sähköposteja luettaessa UI Automation -rajapintaa, tiyetyt taulukot merkitään nyt asettelutaulukoiksi, mikä tarkoittaa, ettei niitä ilmaista oletusarvoisesti. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>Korjattu harvinainen virhe äänilaitteiden vaihdossa. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Pistekirjoituksen syötön  pitäisi toimia luotettavammin muokkauskentissä kaunokirjallisia pistetaulukkoja käytettäessä. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>NVDA ilmoittaa nyt viikonpäivän kokonaisuudessaan Windowsin ilmoitusalueen kalenterissa liikuttaessa. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Pistenäytön vierittäminen eteen- ja taaksepäin ei enää siirrä virheellisesti takaisin kohdistimen alkuperäiseen sijaintiin Microsoft Wordissa käytettäessä kiinalaista syöttömenetelmää, kuten Taiwan - Microsoft Quick. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>Kun Microsoft Word -asiakirjojen lukemiseen käytetään UIA:ta, virkkeittäin liikkuminen (Alt+Alanuoli / Alt+Ylänuoli) on taas mahdollista. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>Kappalesisennykset ilmoitetaan, kun MS Wordia käytetään UIA:n kautta. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>(
+<LI>Muutostenjäljityskomento ja jotkin muut lokalisoidut komennot puhutaan, kun MS Wordia käytetään UIA:n kautta. (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>Korjattu kaksinkertainen pistekirjoituksen ja puheen tuottaminen, kun "kuvaus" on sama kuin "sisältö" tai "nimi". (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>Kirjoitusvirheäänien toistaminen on nyt tarkempaa kirjoitettaessa MS Wordissa UIA:n ollessa käytössä. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>NVDA ei enää sano "ruutu" Windows 11:ssä vaihdettaessa ohjelmien välillä Alt+Sarkain-näppäinyhdistelmällä. (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Modernien kommenttien sivupaneelia tuetaan nyt MS Wordissa, kun UIA ei ole käytössä. Siirry sivupaneelin ja asiakirjan välillä painamalla Alt+F12. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
+<P></P>
+<H3>Muutokset kehittäjille</H3>
+<P>
+Katso muutokset tämän dokumentin <A HREF="../en/changes.html" target="_blank">englanninkielisestä versiosta.</A>
+</P>
 <H2>2021.2</H2>
 <P>
 Tämä versio esittelee alustavan Windows 11 -tuen.
@@ -28,10 +114,10 @@ Turvallisuussyistä uutta Windows-versiota käytettäessä näytetäänvahvistus
 </P>
 <H3>Uudet ominaisuudet</H3>
 <UL>
-<LI>Kokeellinen tuki ARIA-selitteille:
+<LI>Kokeellinen tuki ARIA-merkinnöille:
  <UL>
  <LI>Lisää komennon objektin ARIA-lisätietojen yhteenvedon lukemiseen. (<A HREF="https://github.com/nvaccess/nvda/issues/12364" target="_blank">#12364</A>)
- <LI>Lisää Lisäasetukset-paneeliin asetuksen objektin lisätiedoista ilmoittamiseen selaustilassa. (<A HREF="https://github.com/nvaccess/nvda/issues/12439" target="_blank">#12439</A>)
+ <LI>Lisää Lisäasetukset-paneeliin asetuksen objektin lisätietojen ilmoittamiseen selaustilassa. (<A HREF="https://github.com/nvaccess/nvda/issues/12439" target="_blank">#12439</A>)
  </UL>
 <LI>NVDA kertoo ehdotusten lukumäärän resurssienhallinnassa hakuja suoritettaessa Windows 10:n versiossa 1909 ja uudemmissa (Windows 11 mukaan lukien). (<A HREF="https://github.com/nvaccess/nvda/issues/10341" target="_blank">#10341</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12628" target="_blank">#12628</A>)
 <LI>NVDA kertoo nyt painettaessa tavallisen ja riippuvan sisennyksen näppäinkomentojen tulokset Microsoft Wordissa. (<A HREF="https://github.com/nvaccess/nvda/issues/6269" target="_blank">#6269</A>)
@@ -141,7 +227,7 @@ Huom:
 <LI>MS Wordissa on nyt mahdollista lukea kommentteja UIA:n ollessa käytössä. (<A HREF="https://github.com/nvaccess/nvda/issues/9285" target="_blank">#9285</A>)
 <LI>Vuorovaikutuksen suorituskykyä Visual Studiossa on parannettu. (<A HREF="https://github.com/nvaccess/nvda/issues/12171" target="_blank">#12171</A>)
 <LI>Korjattu graafisia bugeja, kuten puuttuvia elementtejä käytettäessä NVDA:ta oikealta vasemmalle luettavalla kielellä. (<A HREF="https://github.com/nvaccess/nvda/issues/8859" target="_blank">#8859</A>)
-<LI>Noudata graafisen käyttöliittymän ulkoasun suuntaa NVDA:n kielen mukaisesti, ei järjestelmäkielen. (<A HREF="https://github.com/nvaccess/nvda/issues/638" target="_blank">#638</A>)
+<LI>Noudattaa graafisen käyttöliittymän ulkoasun suuntaa NVDA:n kielen mukaisesti, ei järjestelmäkielen. (<A HREF="https://github.com/nvaccess/nvda/issues/638" target="_blank">#638</A>)
  <UL>
  <LI>Tunnettu ongelma oikealta vasemmalle luettavissa kielissä: Selitteet/säätimet katkaisevat ryhmien oikean reunan. (<A HREF="https://github.com/nvaccess/nvda/issues/12181" target="_blank">#12181</A>)
  </UL>
@@ -586,7 +672,7 @@ Tämän version merkittävimpiä uusia ominaisuuksia ovat Freedom Scientificin p
 <LI>NVDA ei enää puhu Windows 10:n May 2019 -päivityksessä useita ilmoituksia, jos äänenvoimakkuutta muutetaan fyysisillä painikkeilla Resurssienhallinnan ollessa aktiivisena. (<A HREF="https://github.com/nvaccess/nvda/issues/9466" target="_blank">#9466</A>)
 <LI>Välimerkkien ja symbolien puhuminen -valintaikkuna avautuu nyt paljon nopeammin, kun käytössä on yli 1000 symbolia sisältäviä symbolisanastoja. (<A HREF="https://github.com/nvaccess/nvda/issues/8790" target="_blank">#8790</A>)
 <LI>NVDA lukee  asianmukaisen rivin, kun automaattinen rivitys on käytössä Scintilla-säätimissä, kuten Notepad++:ssa. (<A HREF="https://github.com/nvaccess/nvda/issues/9424" target="_blank">#9424</A>)
-<LI>Solun sijainti ilmoitetaan Microsoft Excelissä sen muuttuessa Vaihto+Enter- tai Vaihto+Numeronäppäimistön Enter -syötekomentojen takia. (<A HREF="https://github.com/nvaccess/nvda/issues/9499" target="_blank">#9499</A>)
+<LI>Solun sijainti ilmoitetaan Microsoft Excelissä sen muuttuessa Vaihto+Enter- tai Vaihto+Laskinnäppäimistön Enter -syötekomentojen takia. (<A HREF="https://github.com/nvaccess/nvda/issues/9499" target="_blank">#9499</A>)
 <LI>Objects Explorer -ikkunan valittu kohde ilmoitetaan nyt asianmukaisesti kategorioita sisältävissä olio- ja alkiopuunäkymissä Visual Studio 2017:ssä ja uudemmissa. (<A HREF="https://github.com/nvaccess/nvda/issues/9311" target="_blank">#9311</A>)
 <LI>Lisäosia, joiden nimet eroavat toisistaan vain kirjainkoon osalta, ei enää käsitellä erillisinä. (<A HREF="https://github.com/nvaccess/nvda/issues/9334" target="_blank">#9334</A>)
 <LI>Windows 10:n teksti puheeksi -asetuksissa määritetty nopeus ei enää vaikuta Windows OneCore -ääniä käytettäessä NVDA:ssa määritettyyn nopeuteen. (<A HREF="https://github.com/nvaccess/nvda/issues/7498" target="_blank">#7498</A>)
@@ -709,7 +795,7 @@ Tämän version merkittävimpiä uusia ominaisuuksia ovat mm. suorituskyvyn para
 <LI>Uusia pistetaulukoita: mandariinikiina (Kiina) tasot 1 ja 2. (<A HREF="https://github.com/nvaccess/nvda/issues/5553" target="_blank">#5553</A>)
 <LI>Viestien vastattu/välitetty-tila ilmoitetaan nyt Microsoft Outlookin viestiluettelossa. (<A HREF="https://github.com/nvaccess/nvda/issues/6911" target="_blank">#6911</A>)
 <LI>NVDA voi nyt lukea emojien sekä muiden Unicode Common Locale Data -tietokantaan kuuluvien merkkien kuvaukset. (<A HREF="https://github.com/nvaccess/nvda/issues/6523" target="_blank">#6523</A>)
-<LI>Kohdistimen etäisyys sivun ylä- ja vasemmasta reunasta voidaan lukea Microsoft Wordissa painamalla NVDA+Numeronäppäimistön Del. (<A HREF="https://github.com/nvaccess/nvda/issues/1939" target="_blank">#1939</A>)
+<LI>Kohdistimen etäisyys sivun ylä- ja vasemmasta reunasta voidaan lukea Microsoft Wordissa painamalla NVDA+Laskinnäppäimistön Del. (<A HREF="https://github.com/nvaccess/nvda/issues/1939" target="_blank">#1939</A>)
 <LI>NVDA ei enää ilmoita Google Sheetsissä jokaisen solun kohdalla "valittu" siirrettäessä kohdistusta niiden välillä pistenäyttötilan ollessa käytössä. (<A HREF="https://github.com/nvaccess/nvda/issues/8879" target="_blank">#8879</A>)
 <LI>Lisätty tuki Foxit Readerille ja Foxit Phantom PDF:lle. (<A HREF="https://github.com/nvaccess/nvda/issues/8944" target="_blank">#8944</A>)
 <LI>Lisätty tuki DBeaver-tietokantatyökalulle. (<A HREF="https://github.com/nvaccess/nvda/issues/8905" target="_blank">#8905</A>)
@@ -1353,7 +1439,7 @@ Tämän version merkittävimpiä uusia ominaisuuksia ovat mahdollisuus kirjoitus
 
 <H3>Muutokset</H3>
 <UL>
-<LI>NVDA käsittelee selaustilassa ja muokattavissa tekstikentissä numeronäppäimistön Enteriä samalla tavoin kuin tavallista Enter-näppäintä. (<A HREF="https://github.com/nvaccess/nvda/issues/5385" target="_blank">#5385</A>)
+<LI>NVDA käsittelee selaustilassa ja muokattavissa tekstikentissä laskinnäppäimistön Enteriä samalla tavoin kuin tavallista Enter-näppäintä. (<A HREF="https://github.com/nvaccess/nvda/issues/5385" target="_blank">#5385</A>)
 <LI>NVDA:n puhesyntetisaattoriksi on vaihdettu eSpeak NG. (<A HREF="https://github.com/nvaccess/nvda/issues/5651" target="_blank">#5651</A>)
 <LI>NVDA ei jätä enää Microsoft Excelissä huomiotta solun sarakeotsikkoa, kun solun ja otsikon välissä on tyhjä rivi. (<A HREF="https://github.com/nvaccess/nvda/issues/5396" target="_blank">#5396</A>)
 <LI>Koordinaatit puhutaan Microsoft Excelissä ennen otsikoita epäselvyyksien välttämiseksi otsikoiden ja sisällön välillä. (<A HREF="https://github.com/nvaccess/nvda/issues/5396" target="_blank">#5396</A>)
@@ -2493,7 +2579,7 @@ Tämän version tärkeimpiä uusia ominaisuuksia ovat merkittävät välimerkkej
 
 <H3>Muutokset</H3>
 <UL>
-<LI>Järjestelmäkohdistin siirretään nyt tarkastelukohdistimen kohdalle painamalla Siirrä kohdistus navigointiobjektiin -komentoa (pöytäkoneissa NVDA+Shift+numeronäppäimistön miinus, kannettavissa NVDA+Shift+askelpalautin) kaksi kertaa nopeasti peräkkäin. Tämä vapauttaa lisää näppäimiä muuhun käyttöön. (<A HREF="https://github.com/nvaccess/nvda/issues/837" target="_blank">#837</A>)
+<LI>Järjestelmäkohdistin siirretään nyt tarkastelukohdistimen kohdalle painamalla Siirrä kohdistus navigointiobjektiin -komentoa (pöytäkoneissa NVDA+Shift+laskinnäppäimistön miinus, kannettavissa NVDA+Shift+askelpalautin) kaksi kertaa nopeasti peräkkäin. Tämä vapauttaa lisää näppäimiä muuhun käyttöön. (<A HREF="https://github.com/nvaccess/nvda/issues/837" target="_blank">#837</A>)
 <LI>Tarkastelukohdistimen alla olevan merkin desimaali- ja heksadesimaaliarvot luetaan nyt painamalla Lue nykyinen merkki -komentoa kolme kertaa kahden sijasta, koska kahdesti painaminen lukee merkin kuvauksen.
 <LI>eSpeak-puhesyntetisaattori päivitetty versioksi 1.45.03. (<A HREF="https://github.com/nvaccess/nvda/issues/1465" target="_blank">#1465</A>)
 <LI>Asettelutaulukoita ei enää lueta Mozilla Gecko -sovelluksissa siirrettäessä kohdistusta vuorovaikutustilassa tai pois asiakirjasta.
@@ -2660,7 +2746,7 @@ Tämän version tärkeimpiä uusia ominaisuuksia ovat automaattinen uuden teksti
 <LI>NVDA ei enää näytä Internet Explorerissa ja muissa MSHTML-säätimissä ankkurin kohteita tyhjinä linkkeinä näennäispuskurissaan, vaan ne ovat piilotettuja kuten pitääkin. (<A HREF="https://github.com/nvaccess/nvda/issues/1326" target="_blank">#1326</A>)
 <LI>Objektinavigointi toimii nyt oikein ryhmäruuduissa ja niiden välillä.
 <LI>NVDA ei jää Firefoxissa ja muissa Gecko-pohjaisissa asiakirjoissa enää jumiin alikehykseen, mikäli sen lataaminen päättyy ennen sen asiakirjan lataamista, jossa ollaan.
-<LI>NVDA  lukee nyt oikein seuraavana olevan merkin, kun kohdalla oleva merkki poistetaan numeronäppäimistön Delete-näppäimellä. (<A HREF="https://github.com/nvaccess/nvda/issues/286" target="_blank">#286</A>)
+<LI>NVDA  lukee nyt oikein seuraavana olevan merkin, kun kohdalla oleva merkki poistetaan laskinnäppäimistön Delete-näppäimellä. (<A HREF="https://github.com/nvaccess/nvda/issues/286" target="_blank">#286</A>)
 <LI>Käyttäjänimi luetaan jälleen Windows XP:n kirjautumisikkunassa valittua käyttäjää vaihdettaessa.
 <LI>Korjattu ongelmia luettaessa tekstiä Windowsin komentokonsoleissa  rivinumeroiden lukemisen ollessa käytössä.
 <LI>Elementtilista-valintaikkuna on nyt näkevien käytettävissä. Kaikki säätimet näkyvät ruudulla. (<A HREF="https://github.com/nvaccess/nvda/issues/1321" target="_blank">#1321</A>)
@@ -2710,8 +2796,8 @@ Tämän version merkittävimpiä uusia ominaisuuksia ovat huomattavasti yksinker
  </UL>
 <LI>Otettu käyttöön kokonaistarkastelun komennot: (<A HREF="https://github.com/nvaccess/nvda/issues/58" target="_blank">#58</A>)
  <UL>
- <LI>NVDA+numeronäppäimistön 7: siirtää kokonaistarkasteluun ja sijoittaa tarkastelukohdistimen nykyisen objektin kohdalle, mikä mahdollistaa koko ruudun tai asiakirjan lukemisen tekstintarkastelukomennoilla.
- <LI>NVDA+numeronäppäimistön 1: siirtää tarkastelukohdistimen sen kohdalla olevan tekstin sisältävään objektiin, mikä mahdollistaa objekti kerrallaan liikkumisen kyseisestä kohdasta lähtien.
+ <LI>NVDA+laskinnäppäimistön 7: siirtää kokonaistarkasteluun ja sijoittaa tarkastelukohdistimen nykyisen objektin kohdalle, mikä mahdollistaa koko ruudun tai asiakirjan lukemisen tekstintarkastelukomennoilla.
+ <LI>NVDA+laskinnäppäimistön 1: siirtää tarkastelukohdistimen sen kohdalla olevan tekstin sisältävään objektiin, mikä mahdollistaa objekti kerrallaan liikkumisen kyseisestä kohdasta lähtien.
  </UL>
 <LI>NVDA:n nykyiset asetukset voidaan kopioida suojatuissa ruuduissa käytettäväksi (esim. kirjautumisikkuna ja käyttäjätilien valvonnan kehotteet) painamalla Yleiset asetukset -valintaikkunassa olevaa painiketta.
 <LI>Tuki Mozilla Firefox 4:lle.
@@ -2720,7 +2806,7 @@ Tämän version merkittävimpiä uusia ominaisuuksia ovat huomattavasti yksinker
 
 <H3>Muutokset</H3>
 <UL>
-<LI>Navigointiobjektia käyttävä jatkuva luku -komento (NVDA+numeronäppäimistön plus) sekä seuraavaan ja edelliseen objektipuun objektiin siirtävät komennot (NVDA+Shift+numeronäppäimistön 6, NVDA+Shift+numeronäppäimistön 4) on poistettu virheiden vuoksi ja näppäinten vapauttamiseksi muita ominaisuuksia varten.
+<LI>Navigointiobjektia käyttävä jatkuva luku -komento (NVDA+laskinnäppäimistön plus) sekä seuraavaan ja edelliseen objektipuun objektiin siirtävät komennot (NVDA+Shift+laskinnäppäimistön 6, NVDA+Shift+laskinnäppäimistön 4) on poistettu virheiden vuoksi ja näppäinten vapauttamiseksi muita ominaisuuksia varten.
 <LI>NVDA:n Syntetisaattori-valintaikkunassa näytetään nyt vain syntetisaattorin näyttönimi. Aiemmin etuliitteenä näytettiin käytettävän ajurin nimi, josta ei ole hyötyä normaalikäyttäjälle.
 <LI>Upotetuista sovelluksista ja sisäkkäisistä näennäispuskureista (esim. Flash) voidaan nyt siirtyä pois ja takaisin asiakirjaan (esim. verkkosivulle), jossa ne ovat painamalla NVDA+Ctrl+välilyönti. Aiemmin tähän käytettiin näppäinyhdistelmää NVDA+välilyönti, jota käytetään nyt vain näennäispuskureiden selaus- ja vuorovaikutustilojen välillä vaihtamiseen.
 <LI>Jos kohdistus siirtyy puheentarkasteluikkunaan (otetaan käyttöön Työkalut-valikosta) esim. siksi, että sitä napsautettiin hiirellä, ikkunaan ei ilmesty uutta tekstiä ennen kuin kohdistus siirtyy siitä pois. Tämä mahdollistaa helpomman tekstin valitsemisen esim. kopiointia varten.
@@ -2781,8 +2867,8 @@ Tämä julkaisu keskittyy pääasiassa virheiden korjaamiseen ja käyttökokemuk
 <LI>Tekstiä voidaan nyt selata ja lukea nuolinäppäimillä Web Formator -sovelluksessa. (<A HREF="https://github.com/nvaccess/nvda/issues/452" target="_blank">#452</A>)
 <LI>NVDA:ssa on nyt tuki Microsoft Office Outlookin osoitekirjan yhteystietoluettelolle.
 <LI>Paranneltu tuki upotetuille muokattaville asiakirjoille Internet Explorerissa. (<A HREF="https://github.com/nvaccess/nvda/issues/402" target="_blank">#402</A>)
-<LI>Lisätty komento NVDA+Shift+numeronäppäimistön miinus, joka siirtää kohdistuksen nykyiseen navigointiobjektiin.
-<LI>Lisätty komennot vasemman ja oikean hiiripainikkeen lukitsemiseksi ja lukituksen vapauttamiseksi. Näistä  on hyötyä esim. vedä ja pudota -toiminnoissa. Shift+numeronäppäimistön / lukitsee tai vapauttaa vasemman hiiripainikkeen ja Shift+numeronäppäimistön - oikean.
+<LI>Lisätty komento NVDA+Shift+laskinnäppäimistön miinus, joka siirtää kohdistuksen nykyiseen navigointiobjektiin.
+<LI>Lisätty komennot vasemman ja oikean hiiripainikkeen lukitsemiseksi ja lukituksen vapauttamiseksi. Näistä  on hyötyä esim. vedä ja pudota -toiminnoissa. Shift+laskinnäppäimistön / lukitsee tai vapauttaa vasemman hiiripainikkeen ja Shift+laskinnäppäimistön - oikean.
 <LI>Lisätty uusia pistetaulukkoja: saksalainen 8 pisteen tietokonemerkistö, saksalainen taso 2, suomalainen 8 pisteen tietokonemerkistö, kiinalaiset (kantoni, Hong Kong ja mandariini, Taiwan). (<A HREF="https://github.com/nvaccess/nvda/issues/344" target="_blank">#344</A>, <A HREF="https://github.com/nvaccess/nvda/issues/369" target="_blank">#369</A>, <A HREF="https://github.com/nvaccess/nvda/issues/415" target="_blank">#415</A>, <A HREF="https://github.com/nvaccess/nvda/issues/450" target="_blank">#450</A>)
 <LI>NVDA:ta asennettaessa on nyt mahdollista valita, luodaanko työpöydälle kuvake vai ei. Jos kuvaketta ei luoda, NVDA:n käynnistävä pikanäppäinkään ei ole käytettävissä. (<A HREF="https://github.com/nvaccess/nvda/issues/518" target="_blank">#518</A>)
 <LI>NVDA voi nyt käyttää IAccessible2-rajapintaa 64-bittisissä sovelluksissa. (<A HREF="https://github.com/nvaccess/nvda/issues/479" target="_blank">#479</A>)
@@ -2886,8 +2972,8 @@ Tämän version tärkeimpiä uusia ominaisuuksia ovat tuki 64-bittisille Windows
 <LI>Edistymispalkkien ilmoittamista on paranneltu. NVDA voidaan nyt määrittää ilmaisemaan muutokset samaan aikaan sekä puheena että äänimerkeillä.
 <LI>Joitakin yleisiä rooleja, kuten ruutu, sovellus ja kehys, ei enää lueta kohdistettaessa, ellei säädinlla ole nimeä.
 <LI>Tekstin kopiointikomento (NVDA+F10) ottaa nyt huomioon myös loppumerkin kohdalla olevan merkin. Tämä mahdollistaa rivin viimeisen merkin kopioimisen, mikä ei aiemmin ollut mahdollista. (<A HREF="https://github.com/nvaccess/nvda/issues/430" target="_blank">#430</A>)
-<LI>Missä olen -komento (Ctrl+NVDA+numeronäppäimistön 5) on poistettu. Tämä näppäinyhdistelmä ei toiminut joillakin näppäimistöillä, eikä komento ollut edes kovin hyödyllinen.
-<LI>Navigointiobjektin sijainnin ilmoittava komento on uudelleenmääritelty näppäimiin NVDA+numeronäppäimistön delete. Entinen näppäinyhdistelmä ei toiminut joillakin näppäimistöillä. Tämä komento ilmoittaa nyt objektin oikean reunan ja alareunan koordinaattien sijasta objektin leveyden ja korkeuden.
+<LI>Missä olen -komento (Ctrl+NVDA+laskinnäppäimistön 5) on poistettu. Tämä näppäinyhdistelmä ei toiminut joillakin näppäimistöillä, eikä komento ollut edes kovin hyödyllinen.
+<LI>Navigointiobjektin sijainnin ilmoittava komento on uudelleenmääritelty näppäimiin NVDA+laskinnäppäimistön delete. Entinen näppäinyhdistelmä ei toiminut joillakin näppäimistöillä. Tämä komento ilmoittaa nyt objektin oikean reunan ja alareunan koordinaattien sijasta objektin leveyden ja korkeuden.
 <LI>Suorituskykyä paranneltu erityisesti minikannettavissa, kun useita äänimerkkejä esiintyy peräkkäin, esim.  liikutettaessa hiirtä nopeasti äänikoordinaattien ilmaisemisen ollessa käytössä. (<A HREF="https://github.com/nvaccess/nvda/issues/396" target="_blank">#396</A>)
 <LI>Virheestä ilmoittavaa ääntä ei enää toisteta NVDA:n release candidate- ja lopullisissa versioissa. Virheiden tiedot kirjataan edelleen lokiin.
 </UL>
@@ -3050,8 +3136,8 @@ Tämän version tärkeimpiä uusia ominaisuuksia ovat tuki 64-bittisille Windows
 <LI>Tehty jonkin verran parannuksia, jotka auttavat käyttämään ARIA:ta hyödyntäviä verkkosovelluksia, kuten Google Docs:ia
 <LI>Näennäispuskurista kopioitavaan tekstiin ei enää lisätä ylimääräisiä tyhjiä rivejä
 <LI>Välilyöntinäppäin ei enää avaa linkkiluettelon linkkejä. Sitä voidaan nyt käyttää kuten muitakin merkkejä jonkin tietyn linkin kohdalle siirtymiseen kirjoittamalla osa sen nimestä.
-<LI>Hiiren navigointiobjektiin siirtävä komento (NVDA+numeronäppäimistön /) siirtää nyt hiiren navigointiobjektin keskelle vasemman yläreunan sijasta.
-<LI>Lisätty komennot hiiren vasemman ja oikean painikkeen napsautukselle (numeronäppäimistön / ja numeronäppäimistön *)
+<LI>Hiiren navigointiobjektiin siirtävä komento (NVDA+laskinnäppäimistön /) siirtää nyt hiiren navigointiobjektin keskelle vasemman yläreunan sijasta.
+<LI>Lisätty komennot hiiren vasemman ja oikean painikkeen napsautukselle (laskinnäppäimistön / ja laskinnäppäimistön *)
 <LI>Windowsin ilmoitusalueen käyttöä paranneltu. Kohdistuksen ei enää pitäisi hypätä takaisin johonkin tiettyyn kohtaan. (<A HREF="https://github.com/nvaccess/nvda/issues/10" target="_blank">#10</A>)
 <LI>Suorituskykyä paranneltu sekä estetty NVDA:ta lukemasta Ylimääräistä tekstiä pidettäessä nuolinäppäintä alhaalla ja tultaessa tekstin loppuun muokkauskentässä.
 <LI>Poistettu mahdollisuus, joka pakottaa odottamaan sen aikaa kun tiettyjä ilmoituksia luetaan. Tämä korjaa joitakin kaatumisia ja jumiutumisia erinäisillä puhesyntetisaattoreilla. (<A HREF="https://github.com/nvaccess/nvda/issues/117" target="_blank">#117</A>)
@@ -3132,11 +3218,11 @@ Tämän version tärkeimpiä uusia ominaisuuksia ovat tuki 64-bittisille Windows
 
 <H4>Näppäinkomennot</H4>
 <UL>
-<LI>Näppäimet NVDA+Shift+numeronäppäimistön 6 ja NVDA+Shift+numeronäppäimistön 4 mahdollistavat siirtymisen eteen- ja taaksepäin koko objektihierarkiassa. Tämä tarkoittaa, että sovelluksen ikkunan kaikkia osia voidaan selata tarvitsematta siirtyä ylempään tai ensimmäiseen alemman tason objektiin. Jos hierarkian taso vaihtuu näitä komentoja käytettäessä, siitä ilmoitetaan äänimerkeillä.
+<LI>Näppäimet NVDA+Shift+laskinnäppäimistön 6 ja NVDA+Shift+laskinnäppäimistön 4 mahdollistavat siirtymisen eteen- ja taaksepäin koko objektihierarkiassa. Tämä tarkoittaa, että sovelluksen ikkunan kaikkia osia voidaan selata tarvitsematta siirtyä ylempään tai ensimmäiseen alemman tason objektiin. Jos hierarkian taso vaihtuu näitä komentoja käytettäessä, siitä ilmoitetaan äänimerkeillä.
 <LI>Ääniasetukset voidaan nyt määrittää myös avaamatta Ääniasetukset-valintaikkunaa puhesyntetisaattorin asetusrenkaan avulla. Haluttu asetus (puheääni, äänenkorkeus jne).) valitaan painamalla Ctrl+NVDA+Nuoli oikealle tai Ctrl+NVDA+Nuoli vasemmalle, ja valitun asetuksen arvoa muutetaan painamalla Ctrl+NVDA+Nuoli ylös tai Ctrl+NVDA+Nuoli alas.
 <LI>Lisätty komento nykyisen valinnan lukemiseen muokkauskentissä (NVDA+shift+Nuoli ylös).
 <LI>Melko monet jotain tekstiä puhuttavat NVDA:n komennot (sellaiset kuin nykyisen rivin lukeminen jne.) voivat nyt tavata tekstin, jos niitä painetaan kolme kertaa nopeasti.
-<LI>NVDA-näppäimenä voidaan käyttää sekä numeronäppäimistön että laajennettua Insertiä ja Capslockia. Lisäksi, jos jotain näistä näppäimistä painetaan kahdesti ilman mitään muuta näppäintä sen ollessa käytössä, välitetään kyseinen näppäinpainallus käyttöjärjestelmälle aivan kuin sitä olisi painettu silloin, kun NVDA ei ollut käynnissä. NVDA-näppäin voidaan määrittää näppäimistöasetusten valintaikkunasta.
+<LI>NVDA-näppäimenä voidaan käyttää sekä laskinnäppäimistön että laajennettua Insertiä ja Capslockia. Lisäksi, jos jotain näistä näppäimistä painetaan kahdesti ilman mitään muuta näppäintä sen ollessa käytössä, välitetään kyseinen näppäinpainallus käyttöjärjestelmälle aivan kuin sitä olisi painettu silloin, kun NVDA ei ollut käynnissä. NVDA-näppäin voidaan määrittää näppäimistöasetusten valintaikkunasta.
 </UL>
 
 <H4>Sovellustuki</H4>

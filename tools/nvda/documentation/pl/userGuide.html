@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>Podręcznik użytkownika - NVDA 2021.2</TITLE>
+<TITLE>Podręcznik użytkownika - NVDA 2021.3.1</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>Podręcznik użytkownika - NVDA 2021.2</H1>
+<P ALIGN="center"><CENTER><H1>Podręcznik użytkownika - NVDA 2021.3.1</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Eurobraille Esys/Esytime/Iris displays</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Monitory brajlowskie Nattiq nBraille</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Standardowe monitory brajlowskei HID</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Dla zaawansowanych</A>
     <UL>
@@ -734,7 +735,7 @@ Przydatne skróty klawiszowe do nawigacji za pomocą fokusa:
 <TD>Odczytaj pasek stanu</TD>
 <TD>NVDA+End</TD>
 <TD>NVDA+Shift+End</TD>
-<TD>Odczytuje pasek statusu jeśli go znajdzie, przenosi tam także obiekt nawigatora. Dwukrotne naciśnięcie przeliteruje informację. Trzykrotne naciśnięcie kopiuje ją do schowka.</TD>
+<TD>Odczytuje pasek stanu jeśli go znajdzie. Dwukrotne naciśnięcie przeliteruje informację. Trzykrotne naciśnięcie kopiuje ją do schowka.</TD>
 </TR>
 </TABLE>
 
@@ -931,6 +932,13 @@ Poniżej znajdują się skróty klawiszowe do nawigacji w hierarchii obiektów:
 <TD>NVDA+delete</TD>
 <TD>Brak</TD>
 <TD>Zgłasza położenie tekstu lub obiektu pod kursorem przeglądu. Może to być wyrażone w procentach w obrębie dokumentu, jako odległość od krawędzi strony lub jako dokładna pozycja na ekranie. Dwukrotne naciśnięcie odczyta dalsze informacje.|</TD>
+</TR>
+<TR>
+<TD>Przenieś kursor przeglądu do paska stanu</TD>
+<TD>brak</TD>
+<TD>brak</TD>
+<TD>brak</TD>
+<TD>Odczytuje pasek stanu, jeżeli NVDA go znajdzie. Objekt nawigatora będzie przeniesiony do tej lokalizacji.</TD>
 </TR>
 </TABLE>
 
@@ -2907,6 +2915,11 @@ Ta lista rozwijana nie pojawi się, jeśli twój monitor brajlowski obsługuje w
 <P>
 Możesz zajrzeć do sekcji omawiającej twój monitor brajlowski w rozdziale <A HREF="#SupportedBrailleDisplays">Obsługiwane monitory brajlowskie</A> aby poznać więcej szczegółów na temat wspieranych rodzajów komunikacji i dostępnych portów.
 </P>
+<P>
+Miej na uwadze, że jeżeli podłączasz więcej monitorów brajlowskich w tym samym momencie używających tego samego sterownika Np. podłączenie tych samych monitorów brajlowskich seika,
+że teraz jest niemożliwie dokładnie ustawić w NVDA, który monitor brajlowski ma być używany.
+Czyli zaleca się podłączać monitor brajlowski określonego typu/producenta na raz.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Ustawienia widoczności</H4>
 <P>
@@ -3159,7 +3172,8 @@ Aby przełączać ten tryb z każdego miejsca, proszę przypisać własne zdarze
 <H4>12.1.12. Prezentacja obiektów (NVDA+Ctrl+O)</H4>
 <P>
 Ta kategoria ustawień NVDA  pozwala określić ilość informacji prezentowanych przez NVDA na temat kontrolek takich jak opis, informacje o położeniu itd.
-Zawiera następujące ustawienia:
+Te opcje typowo nie są stosowane  do trybu czytania.
+Te opcje zazwyczas są zastosowane do czytania fokusu i obiektową nawigację NVDA, ale nie i do czytania tekstowej treści na przykład tryb czytania na stronach webowych.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>Czytaj dymki podpowiedzi</H5>
@@ -3396,7 +3410,7 @@ Możemy w ten sposób skonfigurować odczytywanie:
  <LI>Rozmiaru czcionki
  <LI>Atrybutów czcionki
  <LI>Podkreślenia
- <LI>Oznaczonego (Podświetlonego tekstu)
+ <LI>Podkreślonego, (zaznaczonego tekstu)
  <LI>Stylu tekstu
  <LI>Kolorów
  </UL>
@@ -3556,15 +3570,25 @@ Pole wyboru zawiera następujące opcje:
 
 <P></P>
 <A NAME="Annotations"></A>
-<H5>Włącz eksperymentalne wsparcie dla adnotacji Aria</H5>
+<H5>Adnotacje</H5>
 <P>
-Ta opcja jest używana do włączania funkcji służącej do wymawiania adnotacji Aria.
+Ta grupa opcji jest używana do włączania funkcji, które dodają eksperymentalne wsparcie dla adnotacji aria.
 Niektóre z tych funkcji mogą być niedopracowane.
 Istnieją następujące opcje: 
 </P>
 <UL>
 <LI>"Ogłaszaj szczeguły w trybie czytania": włącza zgłaszanie szczegółów w trybie czytania.
 streszczenie tych szczegułów może być włączone przydzielając skrót używając okno dialogowe  <A HREF="#InputGestures">zdarzenia wejścia</A>.
+<LI>"Zawsze odczytuj aria-description":
+ Gdy źródłem <CODE>accDescription</CODE> jest aria- description, opis jest odczytywany.
+ Jest to użyteczne dla adnotacji na stronach www.
+  Uwaga:
+ <UL>
+ <LI>Istnieje wielu źródeł dla <CODE>accDescription</CODE> niektóe z nich posiadają mieszaną lub nieprzewidywalną semantykę.
+  Historycznie, technologie wspomagające nie mogły to rozróźniać źródła <CODE>accDescription</CODE>i typowo nie były one wymawiane z powodu mieszanej  semantyki.
+ <LI>Ta opcja jest w bardzo wczesnym stadium rozwoju, i polega na opcjach przeglądarek, które nie są szeroko dostępne.
+ <LI>Oczekiwane jest, że ta funkcja będzie działać z Chromium 92.0.4479.0 i nowszymi wersjami.
+ </UL>
 </UL>
 
 <P></P>
@@ -3618,12 +3642,27 @@ Jest to funkcja domyślna od wersji NVDA 2021.1.
 Pozwala skonfigurować ilość milisekund, którą  NVDA będzie czekało przed przesunięciem kursora w polach edycji.
 Jeśli zauważysz, że NVDA nieprawidłowo śledzi kursor, np.  jest zawsze znak za kursorem lub powtarza linie, możesz próbować zwiększyć tę wartość.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Odczytuj przejrzystość kolorów</H5>
+<P>
+Ta opcja pozwala odczytywać przejrzystość kolorów, co jest ważne dla deweloperów dodatków oraz modułów aplikacji, którzy zbierają informacje w celu ulepszenia doświatczenia użytkownika.
+Niektóre aplikacje GDI będą podkreślać tekst kolorem tłą, NVDA (za pomocą modelu wyświetlania) spróbuje zgłośić ten kolor.
+W niektórych sytuacjach, tło tekstowe może być całkowicie przejrzyste, z tekstem pokazanym nad innym elementem okna.
+Z niektórymi historycznie popularnymi API do wyświetlania okien, tekst może być pokazywany za pomocą przejrzystego tła, ale wizualnie kolor jest dokładny.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Włączone logowanie kategorii debugowania</H5>
 <P>
 Pola wyboru na tej liście pozwalają włączyć konkretne kategorie informacji debugowania w dzienniku NVDA.
 Zapisywanie tych informacji może zmniejszyć wydajność i zwiększyć rozmiar pliku logu.
 Włącz określone kategorie tylko, gdy zostaniesz poinstruowany przez programistę NVDA np. w trakcie badania, dlaczego sterownik linijki brajlowskiej nie pracuje prawidłowo.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Odtwarzaj dźwięk dla logowanych błędów</H5>
+<P>
+Ta opcja pozwala określić możliwość odtwarzania dźwięku błędu przez NVDA w przypadku zapisanego błędu.
+Wybierając "tylko w wersjach testowych" (domyślnie) spowoduje, że błędy będą odtwarzane tylko w wersjach testowych (alpha, beta lub z wersji uruchomionych z kodu źródłowego).
+Wybierając "tak" umożliwia odtwarzanie dźwięku błędu niezależnie od wersji NVDA.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Różne ustawienia</H3>
@@ -4223,6 +4262,7 @@ Poniższe linijki brajlowskie mogą być automatycznie wykrywane.
 <LI>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille
 <LI>Eurobraille Esys/Esytime/Iris
 <LI>Monitory brajlowskie Nattiq nBraille
+<LI>Jakikolwiek monitor brajlowski wspierający standardowy HID protokół brajlowski
 </UL>
 
 <P></P>
@@ -6665,6 +6705,105 @@ Zobacz <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">tabele klawiszy w doku
 <TR>
 <TD>Przywołaj do komórki brajla</TD>
 <TD>route (przenieś kursor do znaku)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Standardowe monitory brajlowskei HID</H3>
+<P>
+Jest to eksperymentalny sterownik dla monitorów brajlowskich zrobionych według specyfikacji HID, którą przyjeli w roku 2018 Microsoft, Google, Apple i niektóre inne firmy produkujące technologie wspomagające włączając w to NV Access. 
+Mamy nadzieję, że przyszłe monitory brajlowskie stworzone przez jakiegokolwiek producenta będą wspierane będą używali ten protokół co wyeliminuje potrzebę dla specyficznych sterowników.
+</P>
+<P>
+Wykrywanie automatyczne brajlowskich monitorów NVDA będzie automatycznie wykrywało monitory brajlowskie według tego standartu.
+</P>
+<P>
+Oto skróty klawiszowe przydzielone dla tego monitora brajlowskiego.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>nazwanie</TH>
+<TH>klawisz</TH>
+</TR>
+<TR>
+<TD>przejście brajlowskiego monitoru wstecz</TD>
+<TD>pan left lub rocker up|</TD>
+</TR>
+<TR>
+<TD>przejście brajlowskiego monitoru w przód</TD>
+<TD>pan right lub rocker down|</TD>
+</TR>
+<TR>
+<TD>przemieszczanie monitoru brajlowskiego do poprzedniego wiersza</TD>
+<TD>spacja + kropka1</TD>
+</TR>
+<TR>
+<TD>przenieś monitor brajlowski do następnego wiersza</TD>
+<TD>spacja + kropka4</TD>
+</TR>
+<TR>
+<TD>przemieszczenie do brajlowskiej komórki</TD>
+<TD>routing set 1|</TD>
+</TR>
+<TR>
+<TD>przełączanie przywiązania brajla do</TD>
+<TD>up+down</TD>
+</TR>
+<TR>
+<TD>strzałka w górę</TD>
+<TD>joystick up</TD>
+</TR>
+<TR>
+<TD>strzałka w dół</TD>
+<TD>joystick down</TD>
+</TR>
+<TR>
+<TD>strzałka w lewo</TD>
+<TD>space+dot3 or joystick left</TD>
+</TR>
+<TR>
+<TD>strzałka w prawo</TD>
+<TD>space+dot6 or joystick right</TD>
+</TR>
+<TR>
+<TD>shift+tab</TD>
+<TD>spacja+kropka1+kropka3</TD>
+</TR>
+<TR>
+<TD>tab</TD>
+<TD>spacja+kropka4+kropka6</TD>
+</TR>
+<TR>
+<TD>alt</TD>
+<TD>spacja+kropka1+kropka3+kropka4 (spaja+m)</TD>
+</TR>
+<TR>
+<TD>escape</TD>
+<TD>spacja+kropka1+kropka5 (spacja+e)</TD>
+</TR>
+<TR>
+<TD>enter</TD>
+<TD>kropka8 lub joystick center</TD>
+</TR>
+<TR>
+<TD>window</TD>
+<TD>spacja+kropka3+kropka4</TD>
+</TR>
+<TR>
+<TD>alt+tab</TD>
+<TD>spacja+kropka2+kropka3+kropka4+kropka5 (spacja+t)</TD>
+</TR>
+<TR>
+<TD>NVDA Menu</TD>
+<TD>spacja+kropka1+kropka3+kropka4+kropka5 (spacja+n)</TD>
+</TR>
+<TR>
+<TD>windows+d (minimalizuje wszystkie aplikacje)</TD>
+<TD>spacja+kropka1+kropka4+kropka5 (spacja+d)</TD>
+</TR>
+<TR>
+<TD>czytaj wszystko</TD>
+<TD>spacja+kropka1+kropka2+kropka3+kropka4+kropka5+kropka6</TD>
 </TR>
 </TABLE>
 

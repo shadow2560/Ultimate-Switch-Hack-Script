@@ -10,6 +10,87 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+Táto verzia prináša podporu pre braillovské riadky podporujúce HID štandard.
+Tento štandard má v budúcnosti zaručiť, že nebude potrebné mať pre každý riadok samostatný ovládač.
+V tejto verzii je aktualizovaný hlasový výstup eSpeak-NG a braillovská tabuľka LibLouis. LibLouis prináša nové tabuľky pre Ruštinu a Tshivenda.
+V pokročilých nastaveniach pribudla možnosť prepínať zvukové hlásenie chýb zapísaných do logu. Teraz je možné takéto hlásenie zapnúť aj pre stabilné verzie NVDA.
+Počas plynulého čítania v dokumente MS Word sa posúva aj zobrazenie, aby bolo možné sledovať pozíciu kurzora.
+Táto verzia prináša tiež mnohé vylepšenia pre aplikácie MS Office s využitím technológie UIA.
+Spomeňme, že vďaka tomu je napríklad v Outlooku možné ignorovať viac tabuliek formujúcich vzhľad.
+</P>
+<P>
+Dôležité poznámky:
+</P>
+<P>
+Z dôvodu aktualizácie nášho bezpečnostného certifikátu sa môže niektorým používateľom stať, že NVDA 2021.2 pri kontrole aktualizácií vypíše chybu.
+Preto NVDA odteraz pravidelne žiada systém Windows o aktualizovanie certifikátov, čo v budúcnosti odstráni podobné problémy.
+Používatelia, ktorí narazia na túto chybu, musia NVDA aktualizovať ručne.
+</P>
+<H3>Nové vlastnosti</H3>
+<UL>
+<LI>Pridaná možnosť definovať skratku pre oznamovanie orámovania buniek tabuľky. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Pridaná podpora pre HID Štandard, ktorý umožňuje používať braillovské riadky bez nutnosti mať samostatný ovládač pre každý riadok. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+  <UL>
+  <LI>Zariadenia, ktoré podporujú tento štandard, NVDA automaticky rozpozná.
+  <LI>Technickú špecifikáciu a spôsob inplementácie na strane NVDA je možné nájsť na <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A> (anglicky).
+  </UL>
+<LI>Pridaná podpora pre braillovský riadok VisioBraille Vario 4. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>NVDA odteraz môže oznamovať chyby zapísané do logu aj v stabilných verziách. Nastavenie sa nachádza v pokročilých nastaveniach. (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>V systéme Windows od verzie 10 NVDA pri vyhľadávaní v ponuke štart a iných oknách (napríklad nastaveniach) oznamuje počet návrhov. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Odteraz je podporovaná navigácia v tabuľkách v mriežkovom zobrazení (prvok grid control vytvorený v PowerShell ako Out-GridView cmdlet). (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>Zmeny</H3>
+<UL>
+<LI>Hlasový výstup Espeak-ng aktualizovaný na verziu 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>Ak nie sú v systéme onecore hlasy, ktoré dokážu hovoriť nastaveným jazykom NVDA, potom sa predvolene používa eSpeak. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>Ak sa nedarí inicializovať Onecore hlasy, NVDA nastaví ako predvolený hlas eSpeak. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Pri čítaní stavového riadka sa odteraz nepresúva prehliadací kurzor na pozíciu stavového riadka.
+Pokiaľ potrebujete presúvať kurzor na pozíciu stavového riadka, nastavte skratku v dialógu klávesové skratky, časť objektová navigácia. (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Ak otvoríte dialóg s nastaveniami a súčasne je už takýto dialóg otvorený, NVDA viac nevypíše chybu, ale presunie fokus do otvoreného okna na príslušné miesto. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>Braillovská prekladová tabuľka liblouis aktualizovaná na verziu <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+  <UL>
+  <LI>Nové tabuľky: Ruština plnopis, Tshivenda skratkopis a plnopis.
+  </UL>
+<LI>NVDA odteraz oznamuje označený text (aria atribút 'mark' alebo 'amark') ako vyznačený resp. vyzn na braillovskom riadku. (<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>NVDA viac nie je možné ukončiť, ak je otvorený nejaký dialóg NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>Opravy</H3>
+<UL>
+<LI>Sledovanie stavu kláves ako ctrl a shift je robustnejšie aj v oknách, ktoré na chvíľu zamrznú. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>Odteraz je možné skontrolovať aktualizácie NVDA aj na nových čistých inštaláciách systému Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA odteraz správne oznamuje prázdne bunky tabuľky v dokumentoch MS Word cez UIA (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Ak stlačíte kláves ESC na webe v mriežke s dátami zobrazenej cez aria data grid, kláves je odoslaný do prehliadača a nevypína viac režim fokusu. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>NVDA viac dvakrát neopakuje názov stĺpca pri čítaní hlavičky bunky tabuľky v prehliadači Chrome. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA viac nečíta numerickú hodnotu posuvníkov v oknách prezentovaných cez UIA, ak je dostupný aj textový popis. (Preferujeme UIA ValuePattern pred RangeValuePattern) (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA viac nespracúva všetky UIA posuvníky v percentách.
+<LI>Oznamovanie pozície bunky v tabuľke MS Excel funguje správne pri použití UIA v systéme Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>Vylepšená synchronizácia jazyka NVDA a jazyka systému Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Ak je zakázaný doplnok odinštalovaný a neskôr opätovne nainštalovaný, je aj automaticky povolený. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Opravené problémy, ktoré nastávali počas aktualizácie a odstraňovania doplnkov v súvislosti s premenovaním priečinkov prípadne otvorenými súbormi. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Ak sa na prezentovanie tabuľky MS Excel používa UIA, NVDA neopakuje vybratie jednej bunky. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>NVDA dokáže identifikovať viac textu v dialógoch aplikácie LibreOffice Writer, napríklad v potvrdzovacích oknách. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Pri pohybe v dokumente MS Word v režime prehliadania s použitím UIA sa mení aj zobrazenie, takže je možné sledovať pozíciu kurzora. Súčasne s tým sa mení aj pozícia kurzora v režime fokusu. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Pri plynulom čítaní v dokumente MS Word sa automaticky posúva aj zobrazenie a poloha kurzora. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Pri čítaní správ v MS outlooku cez UIA NVDA dokáže rozpoznať a ignorovať viacej tabuliek formujúcich vzhľad. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>Opravené problémy, ktoré nastávali pri zmene zvukového zariadenia. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Písanie v plnopise je odteraz presnejšie. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Pri prezeraní kalendára na panely úloh, NVDA oznamuje plným názvom deň v týždni. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Pri písaní pomocou čínskych metód vstupu, ako napríklad Taiwan - Microsoft Quick v MS Worde, posúvanie braillovského riadka viac nespôsobí posunutie na pôvodnú pozíciu kurzora. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>V dokumentoch MS Word je aj s použitím UIA odteraz možné pohybovať sa po vetách skratkami alt+šípka hore a alt+šípka dole. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>V dokumentoch MS Word je aj s použitím UIA oznamované odsadenie odsekov. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>V dokumentoch MS Word s použitím UIA je oznamované sledovanie zmien a iné lokalizované funkcie. (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>Odstránené opakované oznamovanie cez hlasový výstup a braillovský riadok,  ak sa v režime prehliadania zhoduje názov, obsah a popis prvku. (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>V dokumentoch MS Word s použitím UIA sú zvukom presnejšie oznamované pravopisné chyby. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>V systéme Windows 11 NVDA viac pri prechádzaní medzi oknami cez alt+tab neoznamuje "pane". (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Moderné stromové zobrazenie komentárov v dokumentoch MS Word je možné prezerať aj s použitím NVDA v prípade, že je vypnutá podpora UIA. Medzi dokumentom a zobrazením komentárov sa prepínajte skratkou alt+f12. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
 <H2>2021.2</H2>
 <P>
 Prednosti tejto verzie zahŕňajú prvotnú podporu pre operačný systém Windows 11.

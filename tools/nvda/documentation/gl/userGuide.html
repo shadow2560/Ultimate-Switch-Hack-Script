@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>Guía do Usuario do NVDA 2021.2</TITLE>
+<TITLE>Guía do Usuario do NVDA 2021.3.1</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>Guía do Usuario do NVDA 2021.2</H1>
+<P ALIGN="center"><CENTER><H1>Guía do Usuario do NVDA 2021.3.1</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Pantallas Eurobraille Esys/Esytime/Iris</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Pantallas Nattiq nBraille</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Pantallas HID Braille estándar</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Temas Avanzados</A>
     <UL>
@@ -735,7 +736,7 @@ Hai algunhas ordes de teclado útis cando nos movamos co foco:
 <TD>Anunciar Barra de Estado</TD>
 <TD>NVDA+fin</TD>
 <TD>NVDA+shift+fin</TD>
-<TD>Anuncia a barra de estado se NVDA atopa unha. Tamén move o navegador de obxectos a esta localización. preméndo dúas veces deletreará a información. Premendo tres veces copiaráa ao portapapeis</TD>
+<TD>Anuncia a barra de estado se NVDA atopa unha. preméndo dúas veces deletreará a información. Premendo tres veces copiaráa ao portapapeis</TD>
 </TR>
 </TABLE>
 
@@ -930,6 +931,13 @@ Para navegar por obxectos, utiliza as seguintes ordes:
 <TD>NVDA+suprimir</TD>
 <TD>non</TD>
 <TD>Anuncia información acerca da localización do texto ou obxecto no cursor de revisión. Por exemplo, esto podería incluir a porcentaxe do documento, a distancia dende o borde da páxina ou a posición exacta na pantalla. ao se premer dúas veces poderá  proporcionar detalles adicionais.</TD>
+</TR>
+<TR>
+<TD>Mover cursor de revisión a barra de estado</TD>
+<TD>non</TD>
+<TD>non</TD>
+<TD>no</TD>
+<TD>Anuncia a Barra de Estado se o NVDA atopa unha.  Tamén move o navegador de obxectos a este lugar.</TD>
 </TR>
 </TABLE>
 
@@ -2908,6 +2916,11 @@ Esta opción non estará dispoñible se a túa pantalla braille só admite detec
 <P>
 Podes consultar a documentación para a túa pantalla braille na seción <A HREF="#SupportedBrailleDisplays">Pantallas Braille Admitidas</A> para procurar máis detalles sobre os tipos compatibles de comunicación e portos dispoñibles.
 </P>
+<P>
+Nota importante: se conectas varias Pantallas Braille a túa máquina ao mesmo tempo que usan o mesmo controlador (Ex.: connectar dúas pantallas Seika),
+actualmente é imposible decirlle ao NVDA que pantalla debe usr.
+Polo tanto, recoméndase conectar só unha Pantalla Braille dun determinado tipo de fabricante a túa máquina ao mesmo tempo.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Visión</H4>
 <P>
@@ -3160,7 +3173,8 @@ Para conmutar o modo de revisión sinxela dende calquera lado, por favor asigna 
 <H4>12.1.12. Presentación de Obxectos (NVDA+control+o)</H4>
 <P>
 A categoría Presentación de obxectos na caixa de diálogo Opcións do NVDA úsase para establecer a cantidade de información que o NVDA presentará sobre controis como descripción, información de posición, etc.
-Esta categoría contén as seguintes opcións:
+Estas opcións non acostuman a se aplicar ao modo exploración.
+Estas opcións acostuman a se aplicar ao anunciado do foco e ao navegador de obxectos de NVDA, pero non á lectura de contido de texto, por exemplo, no modo exploración.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>Anunciar Consellos</H5>
@@ -3399,7 +3413,7 @@ Podes configurar o anunciado de:
  <LI>Atributos de fonte
  <LI>Superíndices e subíndices
  <LI>Énfase
- <LI>Marcado (texto resaltado)
+ <LI>Resaltado (texto marcado)
  <LI>Estilo
  <LI>Cores
  </UL>
@@ -3528,9 +3542,9 @@ Se sofres problemas de rendemento nunha ou máis aplicacións, recomendámosche 
 <P>
 Cando esta opción estea activada, o NVDA tentará usar a API de accesibilidade de Microsoft UI Automation para obter información dos controis de documentos de Microsoft Word.
 Esto inclúe ao mesmo Microsoft Word, e tamén o visor de mensajes e o compositor de Microsoft Outlook.
-Para as versións máis recentes de Microsoft Office 2016/365 que se executan en Windows 10 ou posterior, a compatibilidade coa UI Automation  é o suficentemente compreta como para proporcionar acceso a documentos de Microsoft Word case igual á compatibilidade con Microsoft Word existente de NVDA, coa ventaxa engadida de que a capacidade de resposta aumenta considerablemente.
-Sen embargo, pode haber algunha información que non estea exposta ou que estea incorrectamente exposta nalgunhas versións de Microsoft Office, o que significa que non sempre se pode confiar neste soporte da UI automation.
-Aínda non recomendamos que a maioría dos usuarios activen esta opción de xeito predeterminado, aínda que invitamos aos usuarios de Office 2016/365 a que proben esta función e que nos envíen os seus comentarios.
+Para as versións máis recentes de Microsoft Office 2016/365 que se executen en Windows 10 e posteriores, a compatibilidade con UI Automation  é o suficentemente compreta como para proporcionar acceso aos documentos de Microsoft Word case que igual á compatibilidade con Microsoft Word existente do NVDA, coa ventaxa engadida de que a capacidade de resposta aumenta considerablemente.
+Sen embargo, pode haber algunha información que non estea exposta, ou que estea exposta de xeito incorrecto nalgunhas versións de Microsoft Office, o que significa que non sempre se pode confiar neste soporte de UI Automation.
+Aínda non recomendamos que a maioría dos usuarios activen esta función por defecto, aíndaque convidamos aos usuarios de Office 2016/365 a probar esta función e a dar a súa opinión.
 </P>
 <A NAME="AdvancedSettingsConsoleUIA"></A>
 <H5>Usar UI Automation para acesar á Consola de Windows cando estea dispoñible</H5>
@@ -3558,15 +3572,25 @@ A caixa combinada ten as seguintes opcións:
 
 <P></P>
 <A NAME="Annotations"></A>
-<H5>Habilitar o soporte Experimental de anotacións ARIA</H5>
+<H5>Anotacións</H5>
 <P>
-Utilízase para activar as características que engaden soporte experimental para anotacións ARIA.
+Este grupo de opcións úsanse para habilitar as características que engaden soporte experimental para as anotacións ARIA.
 Algunhas destas características poden estar incompretas.
 Existen as seguintes opcións: 
 </P>
 <UL>
 <LI>"Anunciar detalles en modo exploración": activa o anunciado se un obxecto ten detalles en modo exploración.
-O anunciado do resumo desos detalles pode facerse asignando un xesto usando o <A HREF="#InputGestures">diálogo Xestos de Entrada</A>.
+  O anunciado do resumo desos detalles pode facerse asignando un xesto usando o <A HREF="#InputGestures">diálogo Xestos de Entrada</A>.
+<LI>"Informar sempre de aria-description":
+  Cando a fonte de <CODE>accDescription</CODE> é aria-description, anúnciase a descripción.
+  Esto é útil para as anotacións na web.
+  Nota:
+ <UL>
+ <LI>Hai moitas fontes para <CODE>accDescription</CODE> varias teñen unha semántica mixta ou puoco fiable.
+   Históricamente AT non foi quen de diferenciar as fontes de <CODE>accDescription</CODE> típicamente non se falaba debido á semántica mixta.
+ <LI>Esta opción está nun desenvolvemento moi primitivo, baséase nas características do navegador que aínda non están ampliamente dispoñibles.
+ <LI>Espérase que funcione con Chromium 92.0.4479.0+
+ </UL>
 </UL>
 
 <P></P>
@@ -3620,12 +3644,27 @@ Esta funcionalidade está predeterminada a partires do NVDA 2021.1.
 Esta opción permíteche configurar o número de milésimas de segundo que o NVDA esperará a que o cursor (punto de inserción) se mova nos controis de texto editables.
 Se ves que o NVDA semella estar seguindo incorrectamente o cursor, por exemplo, parece estar sempre un carácter por detrás ou repetindo liñas, entón podes tentar aumentar este valor.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Anunciar transparencia das cores</H5>
+<P>
+Esta opción permite anunciar cando as cores son transparentes, útil para os desenvolvedores de complementos e módulos de aplicación que reúnen información para mellorar a experiencia do usuario cunha aplicación de terceiros.
+Algunhas aplicacións GDI resaltan o texto cunha cor de fondo, o NVDA (a través do modelo de visualización) tenta informar desta cor.
+Nalgunhas situacións, o fondo do texto pode ser compretamente transparente, co texto en capas sobre algún outro elemento da GUI.
+Con varias APIs de GUI históricamente populares, o texto pode seren renderizado cun fondo transparente, pero visualmente a cor de fondo é precisa.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Categorías de rexistro de depuración</H5>
 <P>
 As caixas de verificación desta listaxe permíteche habilitar categorías específicas de mensaxes de depuración no rexistro do NVDA.
 O rexistro destas mensaxes pode incurrir nun menor rendemento e en arquivos de rexistro de gran tamaño.
 Activa só un deles se un desenvolvedor do NVDA che dou instrucións específicas, por exemplo, ao depurar por que un controlador de pantalla braille non está funcionando correctamente.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Reproducir un son para os erros rexistrados</H5>
+<P>
+Esta opción permite especificar se o NVDA reproducirá un son de erro en caso de que se rexistre un erro.
+Escollendo Só en versións de proba (por defecto) fai que o NVDA reproduza sons de erro só se a versión actual do NVDA é unha versión de proba (alfa, beta ou executada dende o código fonte).
+Escollendo Si permite habilitar os sons de erro calquera que sexa a versión actual do NVDA.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Miscelánea de Opcións</H3>
@@ -4225,6 +4264,7 @@ As seguintes pantallas admiten esta funcionalidade de detección automática.
 <LI>Series das HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille
 <LI>Pantallas Eurobraille Esys/Esytime/Iris
 <LI>Pantallas Nattiq nBraille
+<LI>Calquera Pantalla que admita o protocolo braille estándar HID
 </UL>
 
 <P></P>
@@ -6668,6 +6708,105 @@ Por favor consulta as <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">listas 
 <TR>
 <TD>Guiar á celda braille</TD>
 <TD>route (leva o cursor ao caracter)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Pantallas HID Braille estándar</H3>
+<P>
+Este é un controlador experimental para a nova Especificación Estándar HID Braille, acordada en 2018 por Microsoft, Google, Apple e varias empresas de tecnoloxía de asistencia, incluindo NV Access. 
+A esperanza é que todos os futuros modelos de pantallas Braille creados por calquer fabricante, usen este protocolo estándar que eliminará a necesidade de controladores Braille específicos do fabricante.
+</P>
+<P>
+A detección automática de pantallas braille do NVDA tamén recoñecerá calquera pantalla que soporte este protocolo.
+</P>
+<P>
+Seguidamente van as asignacións de teclas actuales para estas pantallas.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Nome</TH>
+<TH>Tecla</TH>
+</TR>
+<TR>
+<TD>Desprazar a pantalla braille cara atrás</TD>
+<TD>pan á esquerda ou balancín arriba</TD>
+</TR>
+<TR>
+<TD>Desprazar a pantalla braille cara adiante</TD>
+<TD>pan á dereita ou balancín abaixo</TD>
+</TR>
+<TR>
+<TD>Mover a pantalla braille á liña anterior</TD>
+<TD>espazo+punto1</TD>
+</TR>
+<TR>
+<TD>Mover a pantalla braille á liña seguinte</TD>
+<TD>espazo+punto4</TD>
+</TR>
+<TR>
+<TD>Levar á celda braille</TD>
+<TD>conxunto de sensores de enrutamento 1|</TD>
+</TR>
+<TR>
+<TD>Alternar o seguemento de braille</TD>
+<TD>arriba+abaixo</TD>
+</TR>
+<TR>
+<TD>Tecla frecha arriba</TD>
+<TD>joystick arriba</TD>
+</TR>
+<TR>
+<TD>Tecla frecha abaixo</TD>
+<TD>joystick cara abaixo</TD>
+</TR>
+<TR>
+<TD>Tecla frecha esquerda</TD>
+<TD>espazo+punto3 ou joystick esquerdo</TD>
+</TR>
+<TR>
+<TD>Tecla frecha dereita</TD>
+<TD>espazo+punto6 ou joystick dereita</TD>
+</TR>
+<TR>
+<TD>Teclas shift+tab</TD>
+<TD>espazo+punto1+punto3</TD>
+</TR>
+<TR>
+<TD>tecla tab</TD>
+<TD>espazo+punto4+punto6</TD>
+</TR>
+<TR>
+<TD>tecla alt</TD>
+<TD>espazo+punto1+punto3+punto4 (espazo+m)</TD>
+</TR>
+<TR>
+<TD>tecla escape</TD>
+<TD>espazo+punto1+punto5 (espazo+e)</TD>
+</TR>
+<TR>
+<TD>tecla intro</TD>
+<TD>punto8 ou intro do joystick</TD>
+</TR>
+<TR>
+<TD>tecla windows</TD>
+<TD>espazo+punto3+punto4</TD>
+</TR>
+<TR>
+<TD>teclas alt+tab</TD>
+<TD>espazo+punto2+punto3+punto4+punto5 (espazo+t)</TD>
+</TR>
+<TR>
+<TD>Menú NVDA</TD>
+<TD>espazo+punto1+punto3+punto4+punto5 (espazo+n)</TD>
+</TR>
+<TR>
+<TD>teclas windows+d (minimizar todas as aplicacións)</TD>
+<TD>espazo+punto1+punto4+punto5 (espazo+d)</TD>
+</TR>
+<TR>
+<TD>Falar todo</TD>
+<TD>espazo+punto1+punto2+punto3+punto4+punto5+punto6</TD>
 </TR>
 </TABLE>
 

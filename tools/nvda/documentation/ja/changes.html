@@ -10,6 +10,104 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+このリリースでは新しい HID 点字仕様をサポートしました。
+この仕様の目的は点字ディスプレイの標準化とドライバーの共通化です。
+eSpeak-NG と LibLouis も更新されました。ロシア語とシヴェンダ語の点字テーブルが追加されています。
+設定ダイアログの「高度な設定」に「ログ出力したエラーを音で報告」が追加されました。
+Microsoft Word で「すべて読み上げ」を行う場合にドキュメントが適切にスクロールされるようになりました。
+Microsoft Office の UI オートメーション対応でさまざまな改善が行われました。
+例えば Outlook でメッセージのレイアウトテーブルを無視する処理が改善されています。
+</P>
+<P>
+重要な注意事項:
+</P>
+<P>
+セキュリティ証明書の変更の影響で NVDA が更新をチェックするときに一部のユーザーの環境でエラーが発生するようになりました。
+NVDA 2021.3 では Windows のセキュリティ証明書を更新できなかった不具合が修正されました。これにより、今後このエラーは発生しなくなります。
+この問題の影響を受けたユーザーは NVDA 2021.3 を手動でダウンロードして更新する必要があります。
+</P>
+<H3>新機能</H3>
+<UL>
+<LI>セルの罫線の報告を切り替える入力ジェスチャーが追加されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>点字ディスプレイの標準化を目的とした新しい HID 点字仕様をサポートしました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+  <UL>
+  <LI>この仕様をサポートするデバイスを NVDA は自動検出します。
+  <LI>NVDA の実装に関する技術的な詳細は <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A> を参照してください。
+  </UL>
+<LI>VisioBraille Vario 4 点字ディスプレイに対応しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>設定ダイアログの「高度な設定」に「ログ出力したエラーを音で報告」が追加されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>Windows 10 以降で「設定」アプリや Microsoft Store アプリの検索にキーワードを入力するときに、提案される候補の数を報告するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>PowerShell の Out-GridView コマンドレットを使用して作成されたグリッドコントロールで、テーブルナビゲーションが可能になりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>変更点</H3>
+<UL>
+<LI>Espeak-ng を 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE> に更新しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>インストール済みの OneCore 音声が NVDA の優先言語に対応していない場合に NVDA の既定の音声として eSpeak を使用するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>OneCore 音声が連続して起動に失敗する場合に eSpeak を代替の音声エンジンとして使用するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI><CODE>NVDA+end</CODE> でステータスバーの報告を行うときに、レビューカーソルがステータスバーに移動しないようになりました。
+この機能をひきつづき使用したい場合は、「入力ジェスチャ」ダイアログの「オブジェクトナビゲーション」カテゴリの適切なスクリプトにジェスチャーを割り当ててください。 (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>設定ダイアログがすでに開いているときに、さらに設定ダイアログを開く操作を行うと、エラーとせず、開いている設定ダイアログにフォーカスを移動するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>liblouis 点訳エンジンをバージョン <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A> に更新しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+  <UL>
+  <LI>新しい点字テーブル: ロシア語1級, シヴェンダ語1級, シヴェンダ語2級
+  </UL>
+<LI>音声および点字ディスプレイで「マーク」または "mrkd" と報告していた情報が「ハイライト」または "hlght" と報告されるようになりました。(<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>確認やキャンセルなどアクションを待つダイアログを表示している間に NVDA の終了を行わないようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>バグ修正</H3>
+<UL>
+<LI>ウォッチドッグ処理が行われている場合に、キーボード修飾キー(ControlやInsertなど)が押されたことをより確実に処理できるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>クリーンインストールされた Windows など、特定のシステムにおいて、NVDA の更新をチェックすることが再び可能になりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>Microsoft Word で UI オートメーションを使用している場合、NVDA は表の空白セルを正しく報告するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Web 上の ARIA データグリッドセルにおいて、Esc キーが押されたときにグリッドに渡されるようになりました。以前は無条件にフォーカスモードがオフになっていました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Chrome でテーブルの見出しセルを読み取る場合、列の名前が2回報告されていた問題が修正されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>UIA スライダーに値のテキスト表現が定義されている場合に、不適切に数値を報告しなくなりました。(UIA ValuePattern が RangeValuePattern よりも優先されるようになりました。) (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA は UIA スライダーの値を常にパーセントの値として処理していた問題が修正されました。
+<LI>Microsoft Excel で UI オートメーションを使用している場合に、Windows 11 でセルの位置を正しく報告しなかった問題が修正されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA は無効な Python ロケールを設定することがあった問題が修正されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>無効にしたアドオンをアンインストールしてから再インストールすると、再び有効になるように改善されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>アドオンの更新と削除において、アドオンのフォルダ名が変更された場合やファイルをオープンしていた場合に起きるバグが修正されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Microsoft Excel スプレッドシート・コントロールで UI オートメーションを使用している場合に、NVDA がセルが1つ選択されたことを冗長に報告していた問題を修正しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>LibreOffice Writer の確認ダイアログなどにおけるテキストの報告が改善されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Microsoft Word のブラウズモードで UI オートメーションを使用して読み取りや移動を行う場合に、ドキュメントが常に適切にスクロールされるようになりました。これにより、現在のブラウズモードの位置が画面に表示されない、あるいは、フォーカスモードでのテキストカーソルの位置がブラウズモードの現在の位置に正しく反映されない、といった問題が改善されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Microsoft Word で UI オートメーションを使用して「すべて読み上げ」を実行すると、ドキュメントが自動的にスクロールされ、テキストカーソルの位置が正しく更新されるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Outlook で UI オートメーションを使用して電子メールのメッセージを表示している場合、特定のテーブルをレイアウトテーブルと判断するようになりました。つまり、既定の設定ではレイアウト目的と判断されたテーブルを報告しなくなります。 (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>オーディオデバイスを変更するときに、まれに起きていたエラーが修正されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>エディットフィールドにおいて、非縮約の点字テーブルを使用した文字入力がより確実に動作するようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Windows システムトレイのカレンダーでナビゲーションする場合の曜日の報告が改善されました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Microsoft Word で台湾 Microsoft Quick などの中国語入力メソッドを使用する場合、点字ディスプレイを前後にスクロールするとテキストカーソルが不適切に制御されていた問題を修正しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>Microsoft Word ドキュメントで UI オートメーションを使用するときに、文を単位とするのナビゲーション(alt+下矢印/alt+上矢印)ができなくなっていた問題を修正しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>Microsoft Word ドキュメントで UI オートメーションを使用するときに、段落のインデントが報告されるようになりました。  (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>Microsoft Word ドキュメントで UI オートメーションを使用するときに、変更の追跡およびその他のコマンドがローカライズされていても報告されるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>description が content または name と一致する場合に、点字や音声が重複していた問題を修正しました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>Microsoft Word ドキュメントで UI オートメーションを使用するときに、入力時にスペルミスのサウンドをより正確に再生できるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>Windows 11 において Alt+Tab キーを押してアプリを切り替えるときに「ペイン」を報告しないようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Microsoft Word ドキュメントで UI オートメーションを使用しないときに、新しいコメントのペインの操作に対応しました。このペインとドキュメントの間を移動するには alt+f12 キーを押します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
+<P></P>
+<H3>開発者向けの変更</H3>
+<UL>
+<LI>NVDA をビルドするには Visual Studio 2019 16.10.4 以降が必要になりました。
+本番ビルド環境に揃えるためには、Visual Studio を <A HREF="https://www.appveyor.com/docs/windows-images-software/#visual-studio-2019" target="_blank">現在 AppVeyor が使用しているバージョン</A> に合わせて更新してください。 (<A HREF="https://github.com/nvaccess/nvda/issues/12728" target="_blank">#12728</A>)
+<LI><CODE>NVDAObjects.UIA.winConsoleUIA.WinConsoleUIA.isImprovedTextRangeAvailable</CODE> は廃止予定です。NVDA 2022.1 で削除されます。 (<A HREF="https://github.com/nvaccess/nvda/issues/12660" target="_blank">#12660</A>)
+  <UL>
+  <LI><CODE>apiLevel</CODE> を使用してください(詳細は <CODE>_UIAConstants.WinConsoleAPILevel</CODE> のコメントを参照してください)。
+  </UL>
+<LI>ディスプレイモデルを介して GDI アプリから取得したテキスト背景色の透過性がアドオンやアプリモジュールで利用できるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12658" target="_blank">#12658</A>)
+<LI><CODE>LOCALE_SLANGUAGE</CODE>, <CODE>LOCALE_SLIST</CODE> および <CODE>LOCALE_SLANGDISPLAYNAME</CODE> は languageHandler の <CODE>LOCALE</CODE> 列挙値に変更されました。移動しました。
+従来のモジュールレベルの値はまだ利用できますが NVDA 2022.1 で廃止され、削除される予定です。 (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>関数 <CODE>addonHandler.loadState</CODE> および <CODE>addonHandler.saveState</CODE> は NVDA 2022.1 に対応するために <CODE>addonHandler.state.save</CODE> および <CODE>addonHandler.state.load</CODE> に移行する必要があります。 (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>システムテストで点字出力の確認ができるようになりました。 (<A HREF="https://github.com/nvaccess/nvda/issues/12917" target="_blank">#12917</A>)
+</UL>
+
+<P></P>
 <H2>2021.2</H2>
 <P>
 このリリースでは Windows 11 への暫定的な対応を行いました。
@@ -224,7 +322,7 @@ Microsoft Office、Visual Studio、およびいくつかの言語に関する多
 <LI><CODE>winKernel.GetDateFormat</CODE> が削除されました - かわりに <CODE>winKernel.GetDateFormatEx</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12139" target="_blank">#12139</A>)
 <LI><CODE>gui.DriverSettingsMixin</CODE> が削除されました - かわりに <CODE>gui.AutoSettingsMixin</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12144" target="_blank">#12144</A>)
 <LI><CODE>speech.getSpeechForSpelling</CODE> が削除されました - かわりに <CODE>speech.getSpellingSpeech</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12145" target="_blank">#12145</A>)
-<LI>speech モジュールから <CODE>import speech; speech.ExampleCommand()</CODE> または <CODE>import speech.manager; speech.manager.ExampleCommand()</CODE> のようにコマンドを直接インポートすることはできません。<CODE>import speech; speech.ExampleCommand()</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12126" target="_blank">#12126</A>)
+<LI>speech モジュールから <CODE>import speech; speech.ExampleCommand()</CODE> または <CODE>import speech.manager; speech.manager.ExampleCommand()</CODE> のようにコマンドを直接インポートすることはできません - かわりに<CODE>from speech.commands import ExampleCommand</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12126" target="_blank">#12126</A>)
 <LI><CODE>speakTextInfo</CODE> は reason が <CODE>SAYALL</CODE> の場合に <CODE>speakWithoutPauses</CODE> を使って音声を出力しません。かわりに <CODE>SayAllHandler</CODE> を使用します。 (<A HREF="https://github.com/nvaccess/nvda/issues/12150" target="_blank">#12150</A>)
 <LI><CODE>synthDriverHandler</CODE> モジュールから <CODE>globalCommands</CODE> および <CODE>gui.settingsDialogs</CODE> へのスターインポートは行われません - かわりに <CODE>from synthDriverHandler import synthFunctionExample</CODE> を使います。 (<A HREF="https://github.com/nvaccess/nvda/issues/12172" target="_blank">#12172</A>)
 <LI>controlTypes から <CODE>ROLE_EQUATION</CODE> が削除されました - かわりに <CODE>ROLE_MATH</CODE> を使います。 (<A HREF="https://github.com/nvaccess/nvda/issues/12164" target="_blank">#12164</A>)

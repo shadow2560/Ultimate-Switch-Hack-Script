@@ -364,6 +364,12 @@ IF "%profile_selected%"=="" (
 	)
 )
 echo.
+IF /i "%firmware_copy%"=="o" (
+	echo The  firmware %firmware_choice% will be copied.
+) else (
+	echo No firmware will be copied.
+)
+echo.
 IF /i "%del_files_dest_copy%"=="1" echo Be careful: All CFWs folder will be cleaned, included the "titles" folder of them.
 IF /i "%del_files_dest_copy%"=="2" echo Be careful: All files on the SD will be removed.
 IF /i "%del_files_dest_copy%"=="0" echo The files on  the SD will be kept and  only the updated files will be copied.

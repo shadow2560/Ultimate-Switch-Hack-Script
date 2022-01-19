@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V507</h2>
+<ul>
+<li>Add the  Homebrew_details homebrew.</li>
+<li>Update Psnes and PFBA to version 5.0.</li>
+<li>Update the Edizon overlay to version 3.1.0.</li>
+</ul>
 <h2>V506</h2>
 <ul>
 <li>Update AIO-Switch-Updater to version 2.16.3.</li>

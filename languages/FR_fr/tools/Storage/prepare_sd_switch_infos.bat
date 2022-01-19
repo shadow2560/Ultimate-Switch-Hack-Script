@@ -355,6 +355,12 @@ IF "%profile_selected%"=="" (
 	)
 )
 echo.
+IF /i "%firmware_copy%"=="o" (
+	echo Le  firmware %firmware_choice% sera copié.
+) else (
+	echo Aucun firmware  ne sera copié.
+)
+echo.
 IF /i "%del_files_dest_copy%"=="1" echo Attention: Les fichiers de tous les CFWs seront réinitialisé avant la copie, dossier "titles" de ceux-ci inclus.
 IF /i "%del_files_dest_copy%"=="2" echo Attention: Les fichiers de la SD seront intégralement supprimés avant la copie.
 IF /i "%del_files_dest_copy%"=="0" echo Les fichiers de la SD seront concervés et seul les fichiers mis à jour seront remplacés.

@@ -1858,6 +1858,7 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :update_prepare_sd_switch_profiles_management.bat
+call :update_prepare_update_on_sd.bat
 call :verif_file_version "tools\sd_switch\version.txt"
 IF "!update_finded!"=="Y" (
 	call :update_file

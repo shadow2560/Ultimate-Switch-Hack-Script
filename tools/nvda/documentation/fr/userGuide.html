@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>Guide de l'utilisateur de NVDA 2021.2</TITLE>
+<TITLE>Guide de l'utilisateur de NVDA 2021.3.1</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>Guide de l'utilisateur de NVDA 2021.2</H1>
+<P ALIGN="center"><CENTER><H1>Guide de l'utilisateur de NVDA 2021.3.1</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Terminaux Eurobraille Esys/Esytime/Iris</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Afficheurs Nattiq nBraille</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Afficheurs braille au standard HID</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Fonctions Avancées</A>
     <UL>
@@ -735,7 +736,7 @@ Quelques touches de commandes utiles pour naviguer avec le focus :
 <TD>Annonce de la barre d'état</TD>
 <TD>NVDA+fin</TD>
 <TD>NVDA+maj+fin</TD>
-<TD>Lit la barre d'état si NVDA en trouve une. Déplace aussi l'objet navigateur à la barre d'état. Un double appui épelle l'information. Un triple appui la copie dans le presse-papiers</TD>
+<TD>Lit la barre d'état si NVDA en trouve une. Un double appui épelle l'information. Un triple appui la copie dans le presse-papiers</TD>
 </TR>
 </TABLE>
 
@@ -932,6 +933,13 @@ Pour naviguer par objet, utilisez les commandes suivantes :
 <TD>NVDA+effacement</TD>
 <TD>Aucun</TD>
 <TD>Annonce la position du texte ou de l'objet sous le curseur de revue. Cela peut inclure, par exemple, le pourcentage dans le document, la distance au bord de la page ou la position exacte sur l'écran. Un double appui annonce éventuellement des informations supplémentaires.</TD>
+</TR>
+<TR>
+<TD>Amener le curseur de revue à la barre d'état</TD>
+<TD>aucun</TD>
+<TD>aucun</TD>
+<TD>aucun</TD>
+<TD>Annonce la barre d'état si NVDA en trouve une. Amène également l'objet navigateur à sa position.</TD>
 </TR>
 </TABLE>
 
@@ -2910,6 +2918,11 @@ Cette option ne sera pas disponible si votre afficheur braille supporte seulemen
 <P>
 Vous devrez consulter la documentation de votre afficheur braille dans la section <A HREF="#SupportedbrailleDisplays">Afficheurs braille supportés</A> pour plus de détails sur les types de communications supportés et les ports disponibles.
 </P>
+<P>
+Note : Si vous connectez plusieurs Afficheurs Braille utilisant le même pilote en même temps à votre machine  (Ex. connexion de deux afficheurs Seika),
+il est actuellement impossible de dire à NVDA quel afficheur utiliser.
+Par conséquent, il est recommandé de ne connecter qu'un seul afficheur braille d'un type/fabricant donné à votre machine à la fois.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Vision</H4>
 <P>
@@ -3162,7 +3175,8 @@ Pour activer ou désactiver le mode de revue simple depuis n'importe où, veuill
 <H4>12.1.12. Présentation des Objets (NVDA+contrôle+o)</H4>
 <P>
 La catégorie Présentation des Objets du dialogue Paramètres de NVDA sert à définir la quantité d'informations annoncées par NVDA pour les contrôles tels que leur description, leur position etc.
-Elle contient les options suivantes :
+Ces options ne s'appliquent généralement pas au mode navigation.
+Elles s'appliquent généralement aux annonces de focus et à la navigation par objets de NVDA, mais pas à la lecture de contenu textuel, par ex. mode navigation.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>Annoncer les suggestions</H5>
@@ -3401,7 +3415,7 @@ On peut configurer les annonces suivantes :
  <LI>Attributs de la police,
  <LI>Exposants et indices
  <LI>Emphase
- <LI>Marqué (texte surligné)
+ <LI>Texte surligné (marqué)
  <LI>Style
  <LI>Couleurs
  </UL>
@@ -3528,11 +3542,11 @@ Si vous rencontrez des problèmes de performances dans une ou plusieurs applicat
 <A NAME="AdvancedSettingsUseUiaForWord"></A>
 <H5>Utiliser UI automation pour accéder aux contrôles des documents Microsoft Word quand disponible</H5>
 <P>
-Quand cette option est activée, NVDA essaie d'utiliser l'API d'accessibilité Microsoft UI Automation pour récupérer les informations des contrôles de documents Microsoft Word.
+Quand cette option est activée, NVDA essaiera d'utiliser l'API d'accessibilité Microsoft UI Automation afin de récupérer les informations des contrôles de document Microsoft Word.
 Ceci inclut Microsoft Word lui-même, et aussi l'afficheur et le composeur de message de Microsoft Outlook.
-Pour les versions les plus récentes de Microsoft Office 2016/365 exécutées sous Windows 10 et versions ultérieures, le support UI Automation est assez complet pour fournir un accès aux documents Microsoft Word presque égal au support existant de Microsoft Word par NVDA, avec l'avantage que la réactivité est nettement accrue.
-Cependant, il peut exister certaines informations qui ne sont pas exposées, ou exposées incorrectement sous certaines versions de Microsoft Office, ce qui signifie qu'on ne peut pas toujours se fier à ce support UI automation.
-Nous ne recommandons pas encore à la majorité des utilisateurs d'activer cette option par défaut, bien que nous encouragions les utilisateurs d'Office 2016/365 à tester cette fonctionnalité et à nous faire des retours d'expérience.
+Pour les versions les plus récentes de Microsoft Office 2016/365 fonctionnant sur Windows 10 et versions ultérieures, la prise en charge de UI Automation est suffisamment complète pour fournir un accès aux documents Microsoft Word presque égal à la prise en charge Microsoft Word existante de NVDA, avec l'avantage supplémentaire que la réactivité est considérablement augmentée.
+Cependant, certaines informations peuvent ne pas être exposées ou être exposées de manière incorrecte dans certaines versions de Microsoft Office, ce qui signifie que cette prise en charge de UI Automation n'est pas toujours fiable.
+Nous ne recommandons toujours pas à la majorité des utilisateurs d'activer cette option par défaut, bien que nous encourageons les utilisateurs d'Office 2016/365 à tester cette fonctionnalité et fournir des commentaires.
 </P>
 <A NAME="AdvancedSettingsConsoleUIA"></A>
 <H5>Utilisez UI Automation pour accéder à la console Windows quand elle est disponible</H5>
@@ -3562,13 +3576,23 @@ La liste déroulante contient les options suivantes :
 <A NAME="Annotations"></A>
 <H5>Annotations</H5>
 <P>
-Utilisé pour activer les fonctionnalités qui ajoutent une prise en charge expérimentale des annotations ARIA.
+Ce groupe d'options est utilisé pour activer des fonctionnalités qui ajoutent une prise en charge expérimentale des annotations ARIA.
 Certaines de ces fonctionnalités peuvent être incomplètes.
 Les options suivantes existent :
 </P>
 <UL>
 <LI>"Annoncer les détails en mode navigation" : permet de signaler si un objet a des détails en mode navigation.
 L'annonce du résumé de ces détails peut être faite en attribuant un geste à l'aide du <A HREF="#InputGestures">dialogue Gestes de commandes</A>.
+<LI>"Toujours annoncer aria-description" :
+  Lorsque la source de <CODE>accDescription</CODE> est aria-description, la description est annoncée.
+  Ceci est utile pour les annotations sur le web.
+  Note :
+  <UL>
+  <LI>Il existe de nombreuses sources pour <CODE>accDescription</CODE> plusieurs ont une sémantique mixte ou peu fiable.
+    Historiquement, les technologies d'assistance n'ont pas été en mesure de différencier les sources de <CODE>accDescription</CODE> généralement, elle n'a pas été annoncée en raison de la sémantique mixte.
+  <LI>Cette option est en développement très précoce, elle repose sur des fonctionnalités de navigateur pas encore largement disponibles.
+  <LI>Elle devrait fonctionner avec Chromium 92.0.4479.0+
+  </UL>
 </UL>
 
 <P></P>
@@ -3622,12 +3646,27 @@ Cette fonctionnalité est activée par défaut à partir de NVDA 2021.1.
 Cette option vous permet de configurer le nombre de millisecondes durant lequel NVDA attendra le déplacement du curseur (point d'insertion) dans les contrôles de texte éditable.
 Si vous trouvez que NVDA semble mal suivre le curseur ex : il semble être toujours un caractère en retard ou il répète les lignes, alors vous pouvez essayer d'accroître cette valeur.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Annoncer la transparence pour les couleurs</H5>
+<P>
+Cette option permet d'annoncer lorsque les couleurs sont transparentes, utile pour les développeurs d'extensions qui collectent des informations pour améliorer l'expérience utilisateur avec une application tierce.
+Certaines applications GDI mettent en surbrillance le texte avec une couleur d'arrière-plan, NVDA (via le modèle d'affichage) tente de signaler cette couleur.
+Dans certaines situations, l'arrière-plan du texte peut être entièrement transparent, le texte étant superposé sur un autre élément de l'interface graphique.
+Pour plusieurs API GUI historiquement populaires, le texte peut être rendu avec un arrière-plan transparent, mais visuellement, la couleur d'arrière-plan est précise.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Catégories de journalisation de débogage</H5>
 <P>
 Les cases à cocher dans cette liste vous permettent d'activer des catégories spécifiques de messages de débogage dans le journal de NVDA.
 La journalisation de ces messages peut dégrader la performance et produire de gros fichiers de journal.
 N'activez l'une d'entre elle que si un développeur de NVDA vous l'a spécifiquement demandé ex : pour déboguer un pilote de terminal braille ne fonctionnant pas correctement.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Jouer un son pour les erreurs journalisées</H5>
+<P>
+Cette option vous permet de spécifier si NVDA joue un son d'erreur au cas où une erreur est enregistrée.
+En sélectionnant Uniquement dans les versions de test (par défaut), NVDA émet des sons d'erreur uniquement si la version actuelle de NVDA est une version de test (alpha, bêta ou exécutée à partir de la source).
+En sélectionnant Oui les sons d'erreur sont activés quelle que soit votre version actuelle de NVDA.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Autres Paramètres</H3>
@@ -4227,6 +4266,7 @@ Les terminaux suivants supportent cette fonctionnalité de détection automatiqu
 <LI>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series
 <LI>Terminaux Eurobraille Esys/Esytime/Iris
 <LI>Afficheurs Nattiq nBraille
+<LI>N'importe quel afficheur supportant le protocole standard HID Braille
 </UL>
 
 <P></P>
@@ -6672,6 +6712,105 @@ Veuillez consulter les <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">listes
 <TR>
 <TD>Aller à la cellule braille</TD>
 <TD>route (amener le curseur au caractère)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Afficheurs braille au standard HID</H3>
+<P>
+Il s'agit d'un pilote expérimental pour la nouvelle spécification standard HID Braille, convenue en 2018 par Microsoft, Google, Apple et plusieurs sociétés de technologie d'assistance, dont NV Access.
+L'espoir est que tous les futurs modèles d'afficheurs Braille créés par n'importe quel fabricant utiliseront ce protocole standard qui supprimera le besoin de pilotes Braille spécifiques au fabricant.
+</P>
+<P>
+La détection automatique de l'affichage braille de NVDA reconnaîtra également tout affichage prenant en charge ce protocole.
+</P>
+<P>
+Voici les affectations de touches actuelles pour ces affichages.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Nom</TH>
+<TH>Touche</TH>
+</TR>
+<TR>
+<TD>Défilement arrière de l'afficheur braille</TD>
+<TD>panoramique à gauche ou rocker vers le haut</TD>
+</TR>
+<TR>
+<TD>Défilement avant de l'afficheur braille</TD>
+<TD>panoramique à droite ou rocker vers le bas</TD>
+</TR>
+<TR>
+<TD>Déplacer l'affichage braille à la ligne précédente</TD>
+<TD>espace+point1</TD>
+</TR>
+<TR>
+<TD>Déplacer l'affichage braille à la ligne suivante</TD>
+<TD>espace+point4</TD>
+</TR>
+<TR>
+<TD>Aller à la cellule braille</TD>
+<TD>ensemble de routage 1|</TD>
+</TR>
+<TR>
+<TD>Basculer braille suit to</TD>
+<TD>haut+bas</TD>
+</TR>
+<TR>
+<TD>Touche FlècheHaut</TD>
+<TD>joystick vers le haut</TD>
+</TR>
+<TR>
+<TD>Touche FlècheBas</TD>
+<TD>joystick vers le bas</TD>
+</TR>
+<TR>
+<TD>Touche FlècheGauche</TD>
+<TD>espace+point3 ou joystick vers la gauche</TD>
+</TR>
+<TR>
+<TD>Touche FlècheDroite</TD>
+<TD>espace+point6 ou joystick vers la droite</TD>
+</TR>
+<TR>
+<TD>Touche maj+tab</TD>
+<TD>espace+point1+point3</TD>
+</TR>
+<TR>
+<TD>Touche tab</TD>
+<TD>espace+point4+point6</TD>
+</TR>
+<TR>
+<TD>Touche alt</TD>
+<TD>espace+point1+point3+point4 (espace+m)</TD>
+</TR>
+<TR>
+<TD>Touche échap</TD>
+<TD>espace+point1+poin5 (espace+e)</TD>
+</TR>
+<TR>
+<TD>touche entrer</TD>
+<TD>poin8 ou joystick centre</TD>
+</TR>
+<TR>
+<TD>Touche Windows</TD>
+<TD>espace+point3+point4</TD>
+</TR>
+<TR>
+<TD>Touche alt+tab</TD>
+<TD>espace+point2+point3+point4+point5 (espace+t)</TD>
+</TR>
+<TR>
+<TD>Menu NVDA</TD>
+<TD>espace+point1+point3+point4+point5 (espace+n)</TD>
+</TR>
+<TR>
+<TD>Touche windows+d (minimiser toutes les applications)</TD>
+<TD>espace+point1+point4+point5 (espace+d)</TD>
+</TR>
+<TR>
+<TD>Dire tout</TD>
+<TD>espace+point1+point2+point3+point4+point5+point6</TD>
 </TR>
 </TABLE>
 

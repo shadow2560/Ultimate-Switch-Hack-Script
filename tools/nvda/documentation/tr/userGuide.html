@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>NVDA 2021.2 Kullanıcı Rehberi</TITLE>
+<TITLE>NVDA 2021.3.1 Kullanıcı Rehberi</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>NVDA 2021.2 Kullanıcı Rehberi</H1>
+<P ALIGN="center"><CENTER><H1>NVDA 2021.3.1 Kullanıcı Rehberi</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Eurobraille Esys/Esytime/Iris displays</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Nattiq nBraille Displays</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Standard HID Braille displays</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. İleri Düzey Konular</A>
     <UL>
@@ -233,7 +234,7 @@ NVDA'ya hoş geldiniz!
 </P>
 <P>
 İngilizce dilinde Görsel olmayan Masaüstü Erişimi anlamına gelen ifadenin kısaltması olan (NVDA) Microsoft Windows işletim sistemi için ücretsiz ve açık kaynak bir ekran okuma programıdır.
-NVDA bir konuşma sentezleyici ya da braille ile geri bildirim sağlayarak, kör ya da az görenlerin extra bir ücret ödemeden Windows işletim sistemi kurulu bilgisayarları kullanabilmesini mümkün kılar.
+NVDA bir konuşma sentezleyici ya da braille ile geri bildirim sağlayarak, kör ya da az görenlerin ek bir ücret ödemeden Windows işletim sistemi kurulu bilgisayarları kullanabilmesini mümkün kılar.
 NVDA <A HREF="https://www.nvaccess.org/">NV Access tarafından</A>, camiadan ilgili birçok insanın katkısıyla geliştirilmektedir.
 </P>
 <A NAME="GeneralFeatures"></A>
@@ -592,8 +593,8 @@ Menü açıldığında, menü ögeleri arasında yön tuşlarınızla dolaşabil
 </TR>
 <TR>
 <TD>NVDA'yı başlatır veya yeniden başlatır</TD>
-<TD>Control+alt+n</TD>
-<TD>Control+alt+n</TD>
+<TD>Kontrol+alt+n</TD>
+<TD>Kontrol+alt+n</TD>
 <TD>yok</TD>
 <TD>Bu Windows kısayolu NVDA'nın yükleme işlemi sırasında etkinleştirilirse, NVDA'yı Masaüstünden başlatır veya yeniden başlatır. Bu, Windows'a özgü bir kısayoldur ve bu nedenle girdi hareketleri iletişim kutusunda yeniden atanamaz.</TD>
 </TR>
@@ -734,7 +735,7 @@ Sistem odağıyla dolaşırken, bazı yararlı tuş kombinasyonları bulunmaktad
 <TD>Durum çubuğunun bildirimi</TD>
 <TD>NVDA+end</TD>
 <TD>NVDA+shift+end</TD>
-<TD>NVDA bulabilirse, durum çubuğunu belirtir. Bulamazsa, aktif pencerenin en alt satırı okunur. Bu komut, nesne sunucusunu da durum çubuğunun konumuna taşır. İki kez basılırsa bilgi kodlanır. Üç kez basılırsa bilgi panoya kopyalanır.</TD>
+<TD>NVDA bulabilirse, durum çubuğunu bildirir. İki kez basılırsa bilgi kodlanır. Üç kez basılırsa bilgi panoya kopyalanır.</TD>
 </TR>
 </TABLE>
 
@@ -870,67 +871,74 @@ Nesneler arasında dolaşmak için aşağıdaki komutları kullanın:
 <TH>Tarif</TH>
 </TR>
 <TR>
-<TD>Geçerli nesnenin bildirimi</TD>
+<TD>Geçerli nesnenin bildir</TD>
 <TD>NVDA+numaratör5</TD>
 <TD>NVDA+shift+o</TD>
 <TD>yok</TD>
 <TD>Nesne sunucusunun üzerinde bulunduğu nesneyi okur. İki kez basıldığında bilgi kodlanır, ve 3 kez basıldığında nesnenin adı ve değeri panoya kopyalanır.</TD>
 </TR>
 <TR>
-<TD>Ana nesneye gitme</TD>
+<TD>Ana nesneye git</TD>
 <TD>NVDA+numaratör8</TD>
 <TD>NVDA+shift+yukarı yön tuşu</TD>
 <TD>yukarı fiske</TD>
 <TD>nesne sunucusunun Üzerinde bulunduğu nesnenin bir üst düzeyindeki ana nesneye gider</TD>
 </TR>
 <TR>
-<TD>önceki nesneye gitme</TD>
+<TD>önceki nesneye git</TD>
 <TD>NVDA+numaratör4</TD>
 <TD>NVDA+shift+sol yön tuşu</TD>
 <TD>sola fiske</TD>
 <TD>nesne sunucusunu, üzerinde bulunulan nesneyle aynı seviyede bulunan bir önceki nesneye taşır</TD>
 </TR>
 <TR>
-<TD>bir sonraki nesneye gitme</TD>
+<TD>bir sonraki nesneye git</TD>
 <TD>NVDA+numaratör6</TD>
 <TD>NVDA+shift+sağ yön tuşu</TD>
 <TD>sağa fiske</TD>
 <TD>nesne sunucusunu, üzerinde bulunulan nesneyle aynı seviyede bulunan bir sonraki nesneye taşır</TD>
 </TR>
 <TR>
-<TD>İlk Yavru nesneye gitme</TD>
+<TD>İlk Yavru nesneye git</TD>
 <TD>NVDA+numaratör2</TD>
 <TD>NVDA+shift+aşağı yön tuşu</TD>
 <TD>aşağı fiske</TD>
 <TD>Nesne sunucusunu, Üzerinde bulunulan nesnenin ilk alt nesnesine taşır ve okur.</TD>
 </TR>
 <TR>
-<TD>Odaktaki nesneye gitme</TD>
+<TD>Odaktaki nesneye git</TD>
 <TD>NVDA+numaratörMinus</TD>
 <TD>NVDA+GeriSil</TD>
 <TD>yok</TD>
 <TD>Nesne sunucusunu, sistem odağının üzerinde bulunduğu nesneye taşır ve varsa, inceleme imlecini de sistem düzenleme imlecinin bulunduğu noktaya taşır</TD>
 </TR>
 <TR>
-<TD>Üzerinde bulunulan nesneyi etkinleştirme</TD>
+<TD>Üzerinde bulunulan nesneyi etkinleştir</TD>
 <TD>NVDA+numaratörEnter</TD>
 <TD>NVDA+enter</TD>
 <TD>çift dokunma</TD>
 <TD>Sistem odağı bir şeyin üzerindeyken oraya fare ile tıklamak veya boşluk çubuğuna basılmasına benzer biçimde, nesne sunucusunun üzerinde bulunduğu nesneyi etkinleştirir</TD>
 </TR>
 <TR>
-<TD>Sistem odağını nesne sunucusuna taşıma</TD>
+<TD>Sistem odağını nesne sunucusuna taşı</TD>
 <TD>NVDA+şift+numaratörEksi</TD>
 <TD>NVDA+şift+GeriSil</TD>
 <TD>yok</TD>
 <TD>Eğer mümkünse, bir kez basıldığında sistem odağını nesne sunucusunun konumuna; iki kez basıldığında, sistem düzenleme imlecini inceleme imlecinin konumuna taşır</TD>
 </TR>
 <TR>
-<TD>Geçerli nesnenin boyutlarını bildirme</TD>
+<TD>İnceleme imleci konumunu bildir</TD>
 <TD>NVDA+numaratörSil</TD>
 <TD>NVDA+Sil</TD>
 <TD>yok</TD>
 <TD>İnceleme imlecinin konumundaki nesnenin belgenin neresinde ya da sayfanın solundan ya da üstünden ne kadar uzakta olduğuyla ilgili bilgi verir. İki kez basılırsa daha ayrıntılı bilgi sunulabilir</TD>
+</TR>
+<TR>
+<TD>İnceleme imlecini durum çubuğuna taşı</TD>
+<TD>Yok</TD>
+<TD>Yok</TD>
+<TD>Yok</TD>
+<TD>NVDA  bulabilirse Durum Çubuğunu bildirir. Ayrıca nesne sunucusunu bu konuma taşır.</TD>
 </TR>
 </TABLE>
 
@@ -2200,12 +2208,12 @@ Tarama kipi ve tek tuş dolaşımı  hakkında daha fazla bilgi için, <A HREF="
 </TR>
 <TR>
 <TD>Geçen süreyi oku</TD>
-<TD>control+shift+e</TD>
+<TD>Kontrol+shift+e</TD>
 <TD>Varsa, çalan parçanın geçen süre bilgisini seslendirir.</TD>
 </TR>
 <TR>
 <TD>Parça süresini oku</TD>
-<TD>control+shift+t</TD>
+<TD>Kontrol+shift+t</TD>
 <TD>varsa, çalan parça süresini okur.</TD>
 </TR>
 </TABLE>
@@ -2909,6 +2917,11 @@ Bu bölüm braille ekranınız yalnızca otomatik port belirlemeyi destekliyorsa
 <P>
 Desteklenen bağlantı tipleri ve mevcut portlar için daha fazla detaya ulaşmak için <A HREF="#SupportedBrailleDisplays">desteklenen braille ekranlar</A> bölümünde Braille ekranınızın dokümantasyonuna baş vurabilirsiniz.
 </P>
+<P>
+Lütfen dikkat: Makinenize aynı anda aynı sürücüyü kullanan birden fazla Braille Ekranı bağlarsanız (Örneğin iki Seika ekranını bağlama),
+NVDA'ya hangi ekranın kullanılacağını belirtmek  şu anda olanaklı değil.
+Bu nedenle, makinenize aynı anda yalnızca belirli bir türde / üreticiye ait bir Braille Ekranı bağlamanız önerilir.
+</P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Görsellik</H4>
 <P>
@@ -3161,7 +3174,8 @@ Herhangi bir yerde basit inceleme kipini açıp kapatmak için, lütfen <A HREF=
 <H4>12.1.12. Nesne Sunumu (NVDA+kontrol+o)</H4>
 <P>
 NVDA Ayarları iletişim kutusundaki Nesne Sunumu kategorisi, açıklama, konum bilgisi vb, NVDA'nın kontrollerle ilgili ne kadar bilgi sunacağının belirlenmesi için kullanılır.
-Nesne sunumu kategorisinde aşağıdaki seçenekler mevcuttur:
+Bu seçenekler genellikle tarama kipi için geçerli değildir.
+Bu seçenekler genel olarak odak bildirimi ve NVDA nesne navigasyonu için geçerlidir, ancak metin içeriğini örneğin tarama kipinde okurken geçerli değildir.
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
 <H5>İpuçlarını bildir</H5>
@@ -3400,7 +3414,7 @@ Belge biçimlendirme seçenekleri gruplar halinde düzenlenmiştir.
  <UL>
  <LI>Üst ve alt simgeler
  <LI>Vurgu
- <LI>İşaretlenmiş (Öne çıkarılan metin)
+ <LI>Öne çıkarılmış (işaretli) metin
  <LI>Stil
  <LI>Renkler
  </UL>
@@ -3525,13 +3539,13 @@ Bu nedenle, bu seçenek etkinleştirildiğinde, NVDA çoğu olay için olay kayd
 Bir veya daha fazla uygulamada performans sorunları yaşıyorsanız, performansın iyileşip iyileşmediğini görmek için bu işlevi denemenizi öneririz.
 </P>
 <A NAME="AdvancedSettingsUseUiaForWord"></A>
-<H5>Varsa Microsoft Word belge denetimlerine erişmek için UI otomasyonunu kullanın</H5>
+<H5>Uygunsa Microsoft Word belge kontrollerine erişmek için UI otomasyonunu kullan</H5>
 <P>
-Bu seçenek etkinleştirildiğinde, NVDA Microsoft Word belge denetimlerinden bilgi almak için Microsoft UI Automation erişilebilirlik api'sini kullanmaya çalışacaktır.
+Bu seçenek etkinleştirildiğinde, NVDA, Microsoft Word belge kontrollerinden bilgi almak için Microsoft UI Otomasyonu erişilebilirlik API'sini kullanmayı deneyecektir.
 Buna, Microsoft Word’ün yanı sıra,  Microsoft Outlook mesaj görüntüleyicisi ve oluşturucusu dahildir.
- Windows 10 ve sonraki windows sürümlerinde çalışan Microsoft Office 2016/365'in en yeni sürümleri için, UI Automation desteği, NVDA'nın mevcut Microsoft Word desteğine neredeyse eşit olan Microsoft Word belgelerine erişim sağlayacak kadar eksiksizdir ve yanıt verme kabiliyetinin büyük oranda artması avantajını sağlar.
-Ancak Microsoft Office'in bazı sürümlerinde ya açığa çıkmamış ya da yanlış açıklanmış bazı bilgiler olabilir; bu, bu UI otomasyon desteğinin her zaman güvenilemeyeceği anlamına gelir.
-Kullanıcıların çoğunun varsayılan olarak bunu açmasını önermiyoruz, ancak Office 2016/365 kullanıcılarının bu özelliği test etmesini ve geri bildirimde bulunmasını memnuniyetle karşılarız.
+ Windows 10 ve sonraki sürümlerde çalışan Microsoft Office 2016/365'in en son sürümleri için, UI Otomasyonu desteği, Microsoft Word belgelerine neredeyse NVDA'nın mevcut Microsoft Word desteğine eşit erişim sağlayacak kadar eksiksizdir ve yanıt hızının büyük ölçüde artması avantajını da beraberinde getirir.
+Ancak, Microsoft Office'in bazı sürümlerinde gösterilmeyen veya yanlış gösterilen bazı bilgiler olabilir; bu, UI otomasyon desteğine her zaman güvenilemeyeceği anlamına gelir.
+Office 2016/365 kullanıcılarının bu özelliği test etmesini ve geri bildirimde bulunmasını memnuniyetle karşılarız, bununla birlikte kullanıcıların çoğunluğunun bunu varsayılan olarak açmasını önermiyoruz.
 </P>
 <A NAME="AdvancedSettingsConsoleUIA"></A>
 <H5>Windows Konsoluna erişmek için mevcut olduğunda UI Otomasyonunu kullan</H5>
@@ -3561,13 +3575,23 @@ Seçim kutusunda aşağıdaki seçenekler vardır:
 <A NAME="Annotations"></A>
 <H5>Bİlgi notları</H5>
 <P>
-ARIA bilgi notları için deneysel destek ekleyen özellikleri etkinleştirmek için kullanılır.
+Bu seçenek grubu, ARIA bilgi notları için deneysel destek ekleyen özellikleri etkinleştirmek için kullanılır.
 Bu özelliklerden bazıları eksik sunuluyor olabilir.
 Aşağıdaki seçenekler mevcuttur: 
 </P>
 <UL>
 <LI>"Tarama kipinde ayrıntıları bildir": Varsa,tarama kipinde üzerine bulunulan nesne ayrıntıları gösterilir.
 Bu ayrıntıların özeti <A HREF="#InputGestures">girdi hareketleri iletişim kutusu</A> altından atanabilecek bir kısayol tuşu ile de alınabilir.
+<LI>"Aria açıklamasını her zaman bildir":
+  <CODE>accDescription</CODE> kaynağı aria-description olduğunda, açıklama aktarılır.
+  Bu, web'deki ek açıklamalar için kullanışlıdır.
+  Not:
+  <UL>
+  <LI><CODE>accDescription</CODE> için birçok kaynak vardır, bunların birçoğu karışık veya güvenilmez anlamlara sahiptir.
+    Tarihsel olarak AT, <CODE>accDescription</CODE> kaynaklarını ayırt edemedi, tipik olarak karışık anlambilim nedeniyle konuşulmadı.
+  <LI>Bu seçenek çok erken geliştirme aşamasındadır, henüz yaygın olarak bulunmayan tarayıcı özelliklerine dayanır.
+  <LI>Chromium 92.0.4479.0+ ile çalışması beklenirr
+  </UL>
 </UL>
 
 <P></P>
@@ -3621,12 +3645,27 @@ Bu işlev NVDA 2021.1'den itibaren varsayılan olarak etkindir.
 Bu seçenek, NVDA'nın düzenleme imleci (ekleme noktası) düzenlenebilir metin kontrollerinde hareket etmesini bekleyeceği mili saniye sayısını ayarlamanızı sağlar.
 NVDA’nın, düzenleme imlecini yanlış şekilde takip ettiğini fark ederseniz, her zaman arkasında bir karakter varmış gibi görünüyor veya satırları tekrarlıyorsa, o zaman bu değeri arttırmayı deneyebilirsiniz.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Renkler için saydamlığı bildir</H5>
+<P>
+Bu seçenek, renkler saydam olduğunda bildirime  olanak tanır ve 3. taraf bir uygulamayla kullanıcı deneyimini geliştirmek için bilgi toplayan addon/appModule geliştiricileri için yararlıdır.
+Bazı GDI uygulamaları metni arka plan rengiyle vurgulayacaktır, NVDA (görüntüleme modeli aracılığıyla) bu rengi bildirmeye çalışır.
+Bazı durumlarda, metin arka planı tamamen saydam olabilir ve metin başka bir GUI öğesinde katmanlanır.
+Tarihsel olarak popüler olan birkaç GUI API'si ile metin saydam bir arka planla oluşturulabilir, ancak görsel olarak arka plan rengi doğrudur.
+</P>
 <A NAME="AdvancedSettingsDebugLoggingCategories"></A>
 <H5>Hata ayıklama kategorileri</H5>
 <P>
 Bu listedeki onay kutuları, NVDA günlüğünde belirli hata ayıklama mesajı kategorilerini etkinleştirmenize izin verir.
 Bu mesajların kaydedilmesi performansın düşmesine ve büyük günlük dosyalarının oluşturulmasına  neden olabilir.
 Bunları yalnızca, bir NVDA geliştiricisi tarafından özellikle talimat verilmişse   açın. Örneğin Bir braille ekran sürücüsünün neden doğru çalışmadığını anlamaya çalışırken.
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Günlüğe kaydedilen hatalar için ses çal</H5>
+<P>
+Bu seçenek, bir hatanın kaydedilmesi durumunda NVDA'nın ses çalıp çalmayacağını belirlemenizi sağlar.
+Yalnızca test sürümlerinde (varsayılan) seçilmesi, NVDA'nın yalnızca mevcut NVDA sürümü bir test sürümü (alfa, beta veya kaynaktan çalıştırma) olması durumunda hata seslerini çalmasına neden olur.
+Evet'i seçmek, mevcut NVDA sürümünüz ne olursa olsun hata seslerini etkinleştirmenizi sağlar.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. çeşitli Ayarlar</H3>
@@ -4235,6 +4274,7 @@ Aşağıdaki ekranlar otomatik algılama işlevini destekler.
 <LI>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series
 <LI>Eurobraille Esys/Esytime/Iris displays
 <LI>Nattiq nBraille displays
+<LI>Any Display that supports the Standard HID Braille protocol
 </UL>
 
 <P></P>
@@ -4326,7 +4366,7 @@ Lütfen bu tuşların nerede bulunacağıyla ilgili Braille ekran yardım belgel
 <TD>brailleSpaceBar+dot4</TD>
 </TR>
 <TR>
-<TD>control+leftArrow key</TD>
+<TD>Control+leftArrow key</TD>
 <TD>brailleSpaceBar+dot2</TD>
 </TR>
 <TR>
@@ -6680,6 +6720,105 @@ Lütfen <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">BRLTTY tuş komutlar�
 <TR>
 <TD>imleci parmağın üzerinde bulunduğu Braille hücresine taşıma</TD>
 <TD>route (imleci karektere götür)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Standard HID Braille displays</H3>
+<P>
+This is an experimental driver for the new Standard HID Braille Specification, agreed upon in 2018 by Microsoft, Google, Apple and several assistive technology companies including NV Access. 
+The hope is that all future Braille Display models created by any manufacturer, will use this standard protocol which will remove the need for manufacturer-specific Braille drivers.
+</P>
+<P>
+NVDA's automatic braille display detection will also recognize any display that supports this protocol.
+</P>
+<P>
+Following are the current key assignments for these displays.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Name</TH>
+<TH>Key</TH>
+</TR>
+<TR>
+<TD>Scroll braille display back</TD>
+<TD>pan left or rocker up</TD>
+</TR>
+<TR>
+<TD>Scroll braille display forward</TD>
+<TD>pan right or rocker down</TD>
+</TR>
+<TR>
+<TD>Move braille display to previous line</TD>
+<TD>space + dot1</TD>
+</TR>
+<TR>
+<TD>Move braille display to next line</TD>
+<TD>space + dot4</TD>
+</TR>
+<TR>
+<TD>Route to braille cell</TD>
+<TD>routing set 1|</TD>
+</TR>
+<TR>
+<TD>Toggle braille tethered to</TD>
+<TD>up+down</TD>
+</TR>
+<TR>
+<TD>upArrow key</TD>
+<TD>joystick up</TD>
+</TR>
+<TR>
+<TD>downArrow key</TD>
+<TD>joystick down</TD>
+</TR>
+<TR>
+<TD>leftArrow key</TD>
+<TD>space+dot3 or joystick left</TD>
+</TR>
+<TR>
+<TD>rightArrow key</TD>
+<TD>space+dot6 or joystick right</TD>
+</TR>
+<TR>
+<TD>shift+tab key</TD>
+<TD>space+dot1+dot3</TD>
+</TR>
+<TR>
+<TD>tab key</TD>
+<TD>space+dot4+dot6</TD>
+</TR>
+<TR>
+<TD>alt key</TD>
+<TD>space+dot1+dot3+dot4 (space+m)</TD>
+</TR>
+<TR>
+<TD>escape key</TD>
+<TD>space+dot1+dot5 (space+e)</TD>
+</TR>
+<TR>
+<TD>enter key</TD>
+<TD>dot8 or joystick center</TD>
+</TR>
+<TR>
+<TD>windows key</TD>
+<TD>space+dot3+dot4</TD>
+</TR>
+<TR>
+<TD>alt+tab key</TD>
+<TD>space+dot2+dot3+dot4+dot5 (space+t)</TD>
+</TR>
+<TR>
+<TD>NVDA Menu</TD>
+<TD>space+dot1+dot3+dot4+dot5 (space+n)</TD>
+</TR>
+<TR>
+<TD>windows+d key (minimize all applications)</TD>
+<TD>space+dot1+dot4+dot5 (space+d)</TD>
+</TR>
+<TR>
+<TD>Say all</TD>
+<TD>space+dot1+dot2+dot3+dot4+dot5+dot6</TD>
 </TR>
 </TABLE>
 

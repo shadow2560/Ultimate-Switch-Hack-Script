@@ -4,9 +4,9 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>NVDA 2021.2 brugervejledning</TITLE>
+<TITLE>NVDA 2021.3.1 brugervejledning</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>NVDA 2021.2 brugervejledning</H1>
+<P ALIGN="center"><CENTER><H1>NVDA 2021.3.1 brugervejledning</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
@@ -216,6 +216,7 @@
     <LI><A HREF="#Eurobraille">15.17. Eurobraille Esys/Esytime/Iris displays</A>
     <LI><A HREF="#NattiqTechnologies">15.18. Nattiq nBraille Displays</A>
     <LI><A HREF="#BRLTTY">15.19. BRLTTY</A>
+    <LI><A HREF="#HIDBraille">15.20. Standard HID Braille displays</A>
     </UL>
   <LI><A HREF="#AdvancedTopics">16. Avancerede emner</A>
     <UL>
@@ -735,7 +736,7 @@ Der er nogle nyttige kommandoer, når du flytter fokus rundt i systemet:
 <TD>Læs statuslinje</TD>
 <TD>NVDA+End</TD>
 <TD>NVDA+Shift+End</TD>
-<TD>Annoncerer statuslinjen hvis NVDA kan finde den. Det flytter også navigatorobjektet til denne position. Tryk to gange for at få stavet informationen. Et tredje tryk vil kopiere informationen til udklipsholderen.</TD>
+<TD>Annoncerer statuslinjen, hvis NVDA kan finde den. Tryk to gange for at få stavet informationen. Et tredje tryk vil kopiere informationen til udklipsholderen.</TD>
 </TR>
 </TABLE>
 
@@ -932,6 +933,13 @@ For at navigere imellem objekter, skal du benytte følgende kommandoer:
 <TD>NVDA+Del</TD>
 <TD>Ingen</TD>
 <TD>Giver information om placeringen af teksten eller objektet ved læsemarkøren. Fx. procentdel af dokumentet, afstand fra venstre kant af siden eller den præcise position på skærmen. To tryk kan give flere detaljer.</TD>
+</TR>
+<TR>
+<TD>Flyt læsemarkøren til statuslinjen</TD>
+<TD>ingen</TD>
+<TD>ingen</TD>
+<TD>ingen</TD>
+<TD>Oplyser, hvad der står på statuslinjen, hvis NVDA kan finde den. Dette flytter også læsemarkøren til statuslinjens placering.</TD>
 </TR>
 </TABLE>
 
@@ -2586,13 +2594,6 @@ Her kan du vælge, hvor mange sætningstegn og andre symboler, der skal udtales 
 Hvis du f.eks. sætter niveauet til "alt", vil alle symboler blive udtalt.
 Denne indstilling gælder for alle talesynteser og ikke kun den, der er aktiv i øjeblikket.
 </P>
-<A NAME="SpeechSettingsSymbolLevelWord"></A>
-<H5>Læs alle sætningstegn og symboler, når du gennemgår tekst ord for ord</H5>
-<P>
-Når man gennemgår en tekst ord for ord, er det ofte ønskeligt at få flere detaljer, end når man læser en hel sætning.
-Når denne indstilling er markeret (som standard), udtaler NVDA navnet på al tegnsætning og andre symboler, når det gennemgås ord for ord, som om ovenstående tegnsætningsniveau var sat til "alle".
-Bemærk: Under alle omstændigheder, ved gennemgang af en tekst tegn for tegn, rapporterer NVDA altid tegnsætningen og andre symboler.
-</P>
 <A NAME="SpeechSettingsTrust"></A>
 <H5>Brug stemmens aktuelle sprog til behandling af specialtegn og symboler</H5>
 <P>
@@ -2915,7 +2916,12 @@ Almindelige indstillinger er "Automatisk" (hvilket gør at NVDA anvender standar
 Denne indstilling er ikke tilgængelig, hvis dit display kun understøtter automatisk tilkobling.
 </P>
 <P>
-Se i dokumentationen for dit punktdisplay i afsnittet <A HREF="#SupportedBrailleDisplays">Understøttede punktdisplays</A> for at læse om de mulige tilkoblingsmuligheder og tilgængelige porte.
+Læs dokumentationen for dit punktdisplay i afsnittet <A HREF="#SupportedBrailleDisplays">Understøttede punktdisplays</A> for at læse om de mulige tilkoblingsmuligheder og tilgængelige porte.
+</P>
+<P>
+Bemærk: Hvis du forbinder to punktdisplays, der bruger den samme driver til din maskine på samme tid (f.eks. to Seika displays),
+vil det ikke i øjeblikket være muligt at fortælle NVDA, hvilket display, der skal benyttes.
+Derfor anbefales det, at du kun forbinder ét display af en bestemt type og af et bestemt mærke til din maskine ad gangen.
 </P>
 <A NAME="VisionSettings"></A>
 <H4>12.1.7. Syn</H4>
@@ -3169,10 +3175,11 @@ For at kunne slå simpel læsetilstand til og fra hvor som helst, tildel en bev�
 <H4>12.1.12. Objektpræsentation (NVDA+control+o)</H4>
 <P>
 Denne indstillingskategori benyttes til at bestemme hvor meget information NVDA skal rapportere om kontrolelementer, såsom beskrivelse og positionsinformation osv.
-Denne indstillingskategori indeholder følgende indstillingsmuligheder:
+Disse indstillinger bliver som udgangspunkt ikke anvendt, når du er i gennemsynstilstand.
+Indstillingerne gælder som udgangspunkt kun for rapportering af fokus, eller når du bruger objektnavigation, men dog ikke, når du læser tekstindhold (f.eks. gennemsynstilstand).
 </P>
 <A NAME="ObjectPresentationReportToolTips"></A>
-<H5>Oplys værktøjstips</H5>
+<H5>Oplys 	værktøjstips</H5>
 <P>
 Dette er en check box der, når den er markeret, bevirker, at NVDA oplyser værktøjstips, når de kommer til syne.
 En del vinduer og kontroller viser en lille meddelelse (eller et værktøjstip), når musemarkøren flyttes hen over dem, eller i visse tilfælde når fokus flyttes til dem.
@@ -3408,7 +3415,7 @@ Du kan tilpasse annoncering af:
  <LI>Skrifttypeattributter
  <LI>hævet og sænket skrift
  <LI>fremhævelse
- <LI>Markeret (fremhævet tekst)
+ <LI>Fremhævet (markeret) tekst
  <LI>Typografi 
  <LI>Farve
  </UL>
@@ -3526,9 +3533,9 @@ Dette har en meget negativ indflydelse på ydelsen, særligt i programmer som Mi
 Når denne indstilling er aktiveret, vil NVDA hovedsageligt begrænse registreringen af disse hændelser til systemfokus.
 Hvis du oplever at NVDA forekommer langsom, kan du forsøge dig med denne indstilling.
 </P>
-<H5>Benyt UI Automation til at få adgang til kontrolelementer for Microsoft &amp;Word-dokumenter, når disse er tilgængelige</H5>
+<H5>Benyt UI Automation til at få adgang til kontrolelementer for Microsoft &amp;Word-dokumenter, når dette er tilgængeligt</H5>
 <P>
-Når denne indstilling er aktiveret, vil NVDA forsøge at benytte Microsoft UI Automation Accessibility API for at indfange information om diverse kontrolelementer i Microsoft Word-dokumenter.
+Når denne indstilling er aktiveret, vil NVDA forsøgsvis benytte Microsoft UI Automation Accessibility API for at indfange information om diverse kontrolelementer i Microsoft Word-dokumenter. Dette gælder også ældre versioner af Microsoft Office 2016/365.
 Dette omfatter selve Microsoft Word, samt under skrivning og læsning af meddelelser i Microsoft Outlook.
 For de seneste versioner af Microsoft Office 2016/365 kørende på windows 10 og nyere er understøttelse af UI Automation komplet nok til næsten at give samme oplevelse, der allerede leveres med NVDA. Denne indstilling har også den fordel, at reaktionshastigheden er øget markant.
 Vær dog opmærksom på, at dette også kan betyde at noget information ikke er synligt, eller vises forkert, hvilket betyder at denne understøttelse ikke altid kan forekomme pålidelig.
@@ -3560,20 +3567,30 @@ Du kan vælge følgende indstillinger:
 
 <P></P>
 <A NAME="Annotations"></A>
-<H5>Aktivér eksperimentel understøttelse for ARIA-annotationer</H5>
+<H5>Annotationer</H5>
 <P>
-Denne indstilling bruges til at aktivere funktioner, der er afhængige af ARIA-annotationer.
+Denne gruppe af indstillinger bruges til at aktivere eksperimentel understøttelse af ARIA-annotationer.
 Nogle af disse funktioner er ufuldstændige.
 Følgende indstillinger er tilgængelige:
 </P>
 <UL>
-<LI>"Rapportér detaljer i gennemsynstilstand": Denne indstilling giver besked, hvis et objekt har yderligere detaljer i gennemsynstilstand.
+<LI>"Oplys detaljer i gennemsynstilstand": Denne indstilling giver besked, hvis et objekt har yderligere detaljer i gennemsynstilstand.
 Du kan få en oversigt over detaljerne, hvis du tildeler en kommando til funktionen via <A HREF="#InputGestures">dialogen "Håndtér Kommandoer"</A>.
+<LI>"Oplys altid aria-beskrivelse":
+  Når kilden af <CODE>accDescription</CODE> er aria-description, vil beskrivelsen blive oplyst.
+  Dette er brugbart for annotationer på internettet.
+  Bemærk:
+  <UL>
+  <LI>Der er mange kilder for <CODE>accDescription</CODE>, hvor flere har blandede eller upålidelig semantik.
+    Historisk set, så har hjælpeteknologier ikke været i stand til at kende forskel på diverse kilder for <CODE>accDescription</CODE>. Typisk blev dette ignoreret, navnligt pga. af de upålidelige kilder.
+  <LI>Denne funktion er under meget tidlig udvikling, hvilket betyder, at funktionaliten ikke er bredt tilgængelig i alle browsere.
+  <LI>Denne funktionalitet forventes at virke med Chromium 92.0.4479.0+
+  </UL>
 </UL>
 
 <P></P>
 <A NAME="UseUiaForExcel"></A>
-<H5>Benyt UI Automation til at få adgang til kontrolelementer for Microsoft &amp;Excel-regneark, når disse er tilgængelige</H5>
+<H5>Benyt UI Automation til at få adgang til kontrolelementer for Microsoft &amp;Excel-regneark, når dette er tilgængeligt</H5>
 <P>
 Når denne indstilling er aktiveret, vil NVDA forsøge at benytte Microsoft UI Automation Accessibility API til at få informationer fra kontrolelementer for Microsoft Excel-regneark.
 Dette er en eksperimental funktion, og nogle funktioner vil ikke være tilgængelig i denne tilstand.
@@ -3621,11 +3638,26 @@ Denne indstilling er automatisk aktiveret som standard i NVDA 2021.1.
 Denne indstilling lader dig konfigurere hvor mange millisekunder NVDA skal vente på systemmarkøren (indsættelsesmarkøren) i redigerbare tekstfelter.
 Hvis du opdager, at NVDA har problemer med at følge systemmarkøren (f.eks. hvis NVDA konsekvent er et tegn bagud eller gentager linjer), kan du forøge denne værdi.
 </P>
+<A NAME="ReportTransparentColors"></A>
+<H5>Oplys gennemsigtige farveværdier</H5>
+<P>
+Denne indstilling lader NVDA oplyse, når farver er gennemsigtige. Dette er brugbart, hvis man er ved at udvikle en tilføjelse eller et app-modul, der har til hensigt at forbedre brugeroplevelsen for tredjepartsprogrammer.
+Nogle GDI-applikationer vil fremhæve tekst med en baggrundsfarve. NVDA (via display model) vil forsøge at oplyse farven.
+I nogle tilfælde kan det være, at tekstens baggrund er fuldstændig gennemsigtig, hvor selve teksten befinder sig i lag på et andet gui-element.
+Med flere historisk populære GUI API'er kan teksten gengives med en gennemsigtig baggrund, men visuelt er baggrundsfarven nøjagtig. 
+</P>
 <H5>Aktiverede logningskategorier</H5>
 <P>
 Check boxene i denne liste lader dig vælge, hvilke logningskategorier der skal benyttes under skrivning af NVDAs logfil.
 Logning af disse hændelser kan resultere i lavere ydeevne og store logfiler.
 Slå kun dette til, hvis du er blevet bedt om det af en NVDA-udvikler (f.eks. for at finde ud af, hvorfor et punktdisplay ikke fungere som forventet).
+</P>
+<A NAME="PlayErrorSound"></A>
+<H5>Afspil en lyd, når fejl opstår</H5>
+<P>
+Denne indstilling lader dig vælge om NVDA skal afspille en lyd, når fejl logføres.
+Ved at vælge "Kun i testversioner af NVDA", vil NVDA kun afspille lyden, hvis din version er en testversion (alpha, beta eller NVDA køres fra kildekoden). Denne indstilling er standard.
+Ved at vælge "Ja" vil en lyd afspilles, uanset din version af NVDA.
 </P>
 <A NAME="MiscSettings"></A>
 <H3>12.2. Yderligere indstillinger</H3>
@@ -4225,6 +4257,7 @@ Følgende displays understøtter denne funktionalitet:
 <LI>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series
 <LI>Eurobraille Esys/Esytime/Iris displays
 <LI>Nattiq nBraille displays
+<LI>Ethvert punktdisplay, der understøtter HID Braille-protokollen.
 </UL>
 
 <P></P>
@@ -6672,6 +6705,105 @@ Se venligst <A HREF="http://mielke.cc/brltty/doc/KeyBindings/">BRLTTY dokumentat
 <TR>
 <TD>Flyt til punktcelle</TD>
 <TD>fly (bring markør til tegn)</TD>
+</TR>
+</TABLE>
+
+<A NAME="HIDBraille"></A>
+<H3>15.20. Standard HID Braille displays</H3>
+<P>
+Dette er en eksperimentel driver for den nye HID Braille standard, som firmaerne Microsoft, Google, Apple samt flere virksomheder bag hjælpeteknologier nåede til enighed om, herunder NV Access.
+Håbet er, at denne standard vil blive vedtaget og benyttet af fremtidige fabrikanter af punktdisplays, hvilket vil fjerne behovet for særskilte drivere.
+</P>
+<P>
+NVDAs automatiske tilkobling vil også automatisk genkende punktdisplays, der bruger denne standard.
+</P>
+<P>
+Følgende er tastekombinationerne ved brug af displays, der bruger denne standard.
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Navn</TH>
+<TH>Tast</TH>
+</TR>
+<TR>
+<TD>Rul punktdisplay tilbage</TD>
+<TD>panorer til venstre eller vippeknap op|</TD>
+</TR>
+<TR>
+<TD>Rul punktdisplay fremad</TD>
+<TD>panorer til højre eller vippeknap ned</TD>
+</TR>
+<TR>
+<TD>Flyt punktdisplay til forrige linje</TD>
+<TD>mellemrum + punkt1</TD>
+</TR>
+<TR>
+<TD>Flyt punktdisplay til næste linje</TD>
+<TD>mellemrum + punkt4</TD>
+</TR>
+<TR>
+<TD>Flyt til punktcelle</TD>
+<TD>markørflytteknap|</TD>
+</TR>
+<TR>
+<TD>Skift indstillingen Punkt følger</TD>
+<TD>op+ned</TD>
+</TR>
+<TR>
+<TD>Pil op</TD>
+<TD>joystick op</TD>
+</TR>
+<TR>
+<TD>Pil ned</TD>
+<TD>joystick ned</TD>
+</TR>
+<TR>
+<TD>Venstre pil</TD>
+<TD>mellemrum+punkt3 eller joystick venstre</TD>
+</TR>
+<TR>
+<TD>Højre pil</TD>
+<TD>mellemrum+punkt6 eller joystick højre</TD>
+</TR>
+<TR>
+<TD>shift+tab</TD>
+<TD>mellemrum+punkt1+punkt3</TD>
+</TR>
+<TR>
+<TD>tab</TD>
+<TD>mellemrum+punkt4+punkt6</TD>
+</TR>
+<TR>
+<TD>alt</TD>
+<TD>mellemrum+punkt1+punkt3+punkt4 (mellemrum+m)</TD>
+</TR>
+<TR>
+<TD>escape</TD>
+<TD>mellemrum+punkt1+punkt5 (mellemrum+e)</TD>
+</TR>
+<TR>
+<TD>Enter</TD>
+<TD>punkt8 eller tryk på midten af joystick|</TD>
+</TR>
+<TR>
+<TD>windows</TD>
+<TD>mellemrum+punkt3+punkt4</TD>
+</TR>
+<TR>
+<TD>alt+tab</TD>
+<TD>mellemrum+punkt2+punkt3+punkt4+punkt5 (mellemrum+t)</TD>
+</TR>
+<TR>
+<TD>NVDA-menu</TD>
+<TD>mellemrum+punkt1+punkt3+punkt4+punkt5 (mellemrum+n)</TD>
+</TR>
+<TR>
+<TD>Windows+d (minimer alle programmer og gå til skrivebordet)</TD>
+<TD>mellemrum+punkt1+punkt4+punkt5 (mellemrum+d)</TD>
+</TR>
+<TR>
+<TD>Sig alt</TD>
+<TD>Mellemrum+punkt1+punkt2+punkt3+punkt4+punkt5+punkt6</TD>
 </TR>
 </TABLE>
 

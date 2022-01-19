@@ -131,6 +131,14 @@ goto:eof
 set /p sx_launcher_use=Utilisez-vous un dongle ou une puce autre qu'un SX Core/Lite lançant directement SXOS? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:firmware_copy_choice
+set /p firmware_copy=Souhaitez-vous copier un firmware sur la SD? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:firmware_preparation_error
+echo Aucun firmware sélectionné ou une erreur s'est produite durant la préparation du firmware.
+goto:eof
+
 :general_profile_select_begin
 echo Sélection du profile général:
 goto:eof

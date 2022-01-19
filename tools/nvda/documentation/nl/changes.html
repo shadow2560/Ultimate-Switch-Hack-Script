@@ -10,6 +10,91 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+Deze release introduceert ondersteuning voor de nieuwe HID Braille-specificatie.
+Deze specificatie is bedoeld om de ondersteuning voor brailleleesregels te standaardiseren zonder dat er afzonderlijke stuurprogramma's nodig zijn.
+Er zijn updates voor eSpeak-NG en LibLouis, inclusief nieuwe Russische en Tshivenda-tabellen.
+Geluiden bij fouten kunnen worden ingeschakeld in stabiele versies van NVDA via een nieuwe optie in geavanceerde instellingen.
+Alles lezen in Word schuift nu door de weergave om de huidige positie zichtbaar te houden.
+Er zijn veel verbeteringen bij het gebruik van Office met UIA.
+Een UIA-oplossing is dat Outlook nu meer soorten lay-outtabellen in berichten negeert.
+</P>
+<P>
+Belangrijke opmerkingen:
+</P>
+<P>
+Door een update van ons beveiligingscertificaat krijgt een klein aantal gebruikers een foutmelding wanneer NVDA 2021.2 op updates controleert.
+NVDA vraagt ​​Windows nu om beveiligingscertificaten bij te werken, waardoor deze fout in de toekomst wordt voorkomen.
+Getroffen gebruikers moeten deze update handmatig downloaden.
+</P>
+<H3>Nieuwe functies</H3>
+<UL>
+<LI>Voegt een invoergebaar toe voor het schakelen tussen instellingen voor het rapporteren van de stijl van celranden. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Ondersteuning voor de nieuwe HID Braille-specificatie die tot doel heeft de ondersteuning voor brailleleesregels te standaardiseren. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+  <UL>
+  <LI>Apparaten die deze specificatie ondersteunen, worden automatisch gedetecteerd door NVDA.
+  <LI>Voor technische details over de implementatie van deze specificatie door NVDA, zie <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A>
+  </UL>
+<LI>Ondersteuning toegevoegd voor het VisioBraille Vario 4 brailleapparaat. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>Foutmeldingen kunnen worden ingeschakeld (geavanceerde instellingen) bij gebruik van elke versie van NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>In Windows 10 en later zal NVDA het aantal suggesties aankondigen bij het invoeren van zoektermen in apps zoals Instellingen en Microsoft Store. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Tabelnavigatie wordt nu ondersteund in rasterbesturingselementen die zijn gemaakt met behulp van de Out-GridView-cmdlet in PowerShell. (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>Veranderingen</H3>
+<UL>
+<LI>Espeak-ng is bijgewerkt naar 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>NVDA zal standaard eSpeak gebruiken als er geen geïnstalleerde OneCore-stemmen de NVDA-voorkeurstaal ondersteunen. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>Als OneCore-stemmen consequent niet spreken, wordt eSpeak als synthesizer gebruikt. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Bij het lezen van de statusbalk met <CODE>NVDA+end</CODE>, wordt de leescursor niet langer naar zijn locatie verplaatst.
+Als u deze functionaliteit nodig hebt, wijst u een invoerhandeling toe aan het juiste script in de categorie Objectnavigatie in het dialoogvenster Invoerhandelingen. (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Bij het openen van een instellingendialoogvenster dat al geopend is, stelt NVDA de focus in op het bestaande dialoogvenster in plaats van een foutmelding te geven. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>Liblouis braillevertaler bijgewerkt naar <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+  <UL>
+  <LI>Nieuwe brailletabellen: Russisch graad 1, Tshivenda graad 1, Tshivenda graad 2
+  </UL>
+<LI>NVDA zal niet langer proberen af ​​te sluiten wanneer dialoogvensters wachten op een vereiste actie (bijv. Bevestigen/Annuleren). (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>Opgeloste problemen</H3>
+<UL>
+<LI>Het volgen van toetsenbordmodificaties (zoals Control of Insert) is robuuster wanneer watchdog herstelt. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>Het is weer mogelijk om op bepaalde systemen te controleren op NVDA-updates; bijv. schone Windows-installaties. (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA meldt correct lege tabelcellen in Microsoft Word bij gebruik van UI automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>In ARIA-gegevensrastercellen op internet wordt de Escape-toets nu doorgegeven aan het raster en wordt de focusmodus niet langer onvoorwaardelijk uitgeschakeld. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Bij het lezen van een kopcel van een tabel in Chrome, lost het twee keer noemen van de kolomnaam op. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA rapporteert niet langer een numerieke waarde voor UIA-schuifregelaars waarvoor een tekstuele weergave van hun waarde is gedefinieerd. (UIA ValuePattern heeft nu de voorkeur boven RangeValuePattern). (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA behandelt de waarde van UIA-schuifregelaars niet langer als altijd op percentages gebaseerd.
+<LI>Het rapporteren van de locatie van een cel in Microsoft Excel bij toegang via UI automation werkt weer correct op Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA stelt niet langer ongeldige Python-landinstellingen in. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Als een uitgeschakelde add-on wordt verwijderd en vervolgens opnieuw wordt geïnstalleerd, wordt deze opnieuw ingeschakeld. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Bugs opgelost rond het updaten en verwijderen van add-ons waar de add-onmap is hernoemd of waarin bestanden zijn geopend. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Bij gebruik van UI automation om toegang te krijgen tot Microsoft Excel-spreadsheetbesturingselementen, kondigt NVDA niet langer redundant aan wanneer een enkele cel wordt geselecteerd. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>Meer dialoogtekst wordt automatisch gelezen in LibreOffice Writer, zoals in bevestigingsdialogen. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Lezen/navigeren met bladermodus in Microsoft Word via UI automation zorgt er nu voor dat het document altijd wordt gescrolld, zodat de huidige bladermoduspositie zichtbaar is en dat de cursorpositie in focusmodus de bladermoduspositie correct weerspiegelt. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Bij het uitvoeren van Alles lezen in Microsoft Word via UI automation, wordt nu automatisch door het document gescrolld en wordt de positie van de cursor correct bijgewerkt. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Bij het lezen van e-mails in Outlook terwijl NVDA toegang krijgt tot het bericht met UI Automation, worden bepaalde tabellen nu gemarkeerd als lay-outtabellen, wat betekent dat ze niet langer standaard worden gerapporteerd. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>Een zeldzame fout bij het wisselen van audioapparaten is verholpen. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Invoer met literaire brailletabellen zou zich betrouwbaarder moeten gedragen in bewerkingsvelden. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Bij het navigeren door de Windows-systeemvakkalender geeft NVDA nu de dag van de week volledig weer. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Bij gebruik van een Chinese invoermethode zoals Taiwan - Microsoft Quick in Microsoft Word, het vooruit en achteruit scrollen van de brailleleesregel blijft niet langer foutief terugspringen naar de oorspronkelijke positie van de cursor. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>Bij het lezen van Microsoft Word-documenten via UIA is navigeren per zin (alt+pijl omlaag / alt+pijl omhoog) weer mogelijk. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>Bij het openen van MS Word met UIA wordt nu het inspringen van alinea's gerapporteerd. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>Bij het openen van MS Word met UIA worden de opdracht voor het volgen van wijzigingen en enkele andere gelokaliseerde opdrachten nu gerapporteerd in Word. (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>Dubbele braille en spraak opgelost wanneer 'beschrijving' overeenkomt met 'inhoud' of 'naam'. (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>In MS Word met UIA ingeschakeld, is het afspelen van spelfoutgeluiden terwijl u typt nauwkeuriger. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>In Windows 11 zal NVDA niet langer "venster" aankondigen wanneer u op Alt+Tab drukt om tussen programma's te schakelen. (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Het nieuwe deelvenster Moderne opmerkingen aan de zijkant wordt nu ondersteund in MS Word wanneer het document niet via UIA wordt geopend. Druk op alt+f12 om tussen het deelvenster en het document te wisselen. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
+<P></P>
+<H3>Veranderingen voor ontwikkelaars</H3>
+<P>
+Deze zijn niet vertaald. We verwijzen naar <A HREF="../en/changes.html" target="_blank">de Engelstalige versie van dit document</A>.
+</P>
 <H2>2021.2</H2>
 <P>
 Deze release introduceert voorlopige ondersteuning voor Windows 11.

@@ -188,7 +188,46 @@ IF /i "%sx_core_lite_chip%"=="o" (
 	IF NOT "!sx_launcher_use!"=="" set sx_launcher_use=!sx_launcher_use:~0,1!
 	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_launcher_use" "o/n_choice"
 )
+:firmware_copy_choice
+set firmware_copy=
+set firmware_folder=
+set firmware_choice=
+call "%associed_language_script%" "firmware_copy_choice"
+IF NOT "%firmware_copy%"=="" set firmware_copy=%firmware_copy:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "firmware_copy" "o/n_choice"
+IF /i NOT "%firmware_copy%"=="o" goto:define_general_select_profile
+call tools\storage\prepare_update_on_sd.bat "firmware_download_and_extract"
+call "%associed_language_script%" "display_title"
+IF %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	goto:define_general_select_profile
+)
+IF EXIST "templogs\firmware_folder.txt" (
+	set /p firmware_folder=<templogs\firmware_folder.txt
+) else (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	goto:define_general_select_profile
+)
+IF NOT EXIST "%firmware_folder%*.*" (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	set firmware_folder=
+	goto:define_general_select_profile
+)
+IF EXIST "templogs\firmware_chosen.txt" (
+	set /p firmware_choice=<templogs\firmware_chosen.txt
+) else (
+	call "%associed_language_script%" "firmware_preparation_error"
+	pause
+	set firmware_folder=
+	goto:define_general_select_profile
+)
+call :daybreak_convertion "%firmware_folder%"
 :define_general_select_profile
+IF "%firmware_folder%"=="" set firmware_copy=
+IF "%firmware_choice%"=="" set firmware_copy=
 echo.
 call "%associed_language_script%" "general_profile_select_begin"
 set /a temp_count=0
@@ -514,6 +553,12 @@ IF /i "%copy_reinx_pack%"=="o" (
 )
 IF /i "%copy_sxos_pack%"=="o" (
 	call :verif_updatable_modules "sxos"
+)
+
+IF /i "%firmware_copy%"=="o" (
+	IF EXIST "%volume_letter%\%firmware_choice%" rmdir /s /q "%volume_letter%\%firmware_choice%" >nul
+	mkdir "%volume_letter%\Firmware %firmware_choice%"
+	%windir%\System32\Robocopy.exe "%firmware_folder% " "%volume_letter%\Firmware %firmware_choice%" /e >nul
 )
 
 IF /i "%copy_atmosphere_pack%"=="o" (
@@ -1661,8 +1706,39 @@ echo cheat_enable_key=%atmo_cheats_override_key%>>%volume_letter%\atmosphere\con
 endlocal
 exit /b
 
+:daybreak_convertion
+rem set /a count_loop = 0
+for /d %%f in ("%~1\*.nca") do (
+	move "%%f" "%%f.bak" >nul
+	move "%%f.bak\00" "%%f" >nul
+	rmdir "%%f.bak"
+)
+for %%f in ("%~1\*.nca") do (
+	set temp_file_size=%%~zf
+	IF NOT EXIST "%%f\*.*" (
+		set temp_file_name=%%f
+		IF NOT "!temp_file_name:~-9,9!"==".cnmt.nca" (
+			rem set /a count_loop = !count_loop!+1
+			IF !temp_file_size! LEQ 8192 (
+				rem echo Meta trouvé.
+				move "!temp_file_name!" "!temp_file_name:~0,-3!cnmt.nca" >nul
+			)
+		) else IF "!temp_file_name:~-9,9!"==".cnmt.nca" (
+			rem set /a count_loop = !count_loop!+1
+			IF NOT !temp_file_size! LEQ 8192 (
+				rem echo %%f
+				rem echo NCA mal nommé.
+				move "!temp_file_name!" "!temp_file_name:~0,-8!nca" >nul
+			)
+		)
+	)
+)
+rem echo %count_loop%
+exit /b
+
 :endscript
 pause
 :endscript2
 rmdir /s /q templogs
+IF EXIST firmware_temp rmdir /s /q firmware_temp
 endlocal

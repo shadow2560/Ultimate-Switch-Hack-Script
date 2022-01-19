@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.231</h2>
+<ul>
+<li>Ajout de la possibilité de copier un firmware durant le script depréparation d'une SD.</li>
+<li>Mise à jour de NVDA en version 2021.3.1.</li>
+<li>Mise à jour de Hactoolnet en version 0.15.0.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 507.</li>
+</ul>
 <h2>V4.3.230</h2>
 <ul>
 <li>Suppression de PayloadChecker, remplacé par un script en ligne de commandes créé par moi-même.</li>

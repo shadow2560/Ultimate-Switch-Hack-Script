@@ -10,6 +10,90 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2021.3</H2>
+<P>
+Bản phát hành này bất đầu hỗ trợ cho chuẩn kết nối (HID)  mới của màn hình nổi.
+Chuẩn kết nối này hướng đến tiêu chuẩn hóa việc hỗ trợ các màn hình nổi mà không cần trình điều khiển riêng biệt.
+Cập nhật cho eSpeak-NG và LibLouis, bao gồm các bảng chữ nổi mới cho tiếng Nga và tiếng Tshivenda.
+Có thể bật các âm thanh báo lỗi trong các bản dựng chính thức của NVDA thông qua một tùy chọn nâng cao mới.
+Tính năng đọc tất cả trong  Word giờ đây sẽ cuộn màn hình để hiển thị vị trí hiện tại.
+Nhiều cải tiến khi dùng các ứng dụng văn phòng với UIA.
+Một lỗi trong UIA đã được sửa là Outlook giờ đây bỏ qua nhiều kiểu bố cục bảng trong thư.
+</P>
+<H3>Các lưu ý quan trọng:</H3>
+<P>
+Vì một cập nhật trong chứng nhận bảo mật của chúng tôi, một số ít người dùng đã gặp lỗi khi NVDA 2021.2 kiểm tra cập nhật.
+NVDA đã yêu cầu Windows cập nhật chứng nhận bảo mật để sửa lỗi này trong tương lai.
+Người dùng gặp lỗi như trên sẽ phải tải bản cập nhật bằng cách thủ công.
+</P>
+<H3>Tính năng mới</H3>
+<UL>
+<LI>Thêm một thao tác để chuyển đổi giữa các cài đặt cho việc thông báo kiểu đường viền ô. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Hỗ trợ chuẩn kết nối mới của chữ nổi, hướng đến tiêu chuẩn hóa việc hỗ trợ các màn hình nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+  <UL>
+  <LI>Các thiết bị có hỗ trợ chuẩn kết nối này sẽ được NVDA tự nhận diện.
+  <LI>Để biết các chi tiết kĩ thuật về việc bổ sung công nghệ này của NVDA, xem tại <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A>
+  </UL>
+<LI>Thêm hỗ trợ cho thiết bị VisioBraille Vario 4. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>Có thể bật các thông báo lỗi (cài đặt nâng cao) khi dùng bất cứ phiên bản NVDA nào. (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>Trong Windows 10 trở lên, NVDA sẽ thông báo số đếm các gợi ý khi nhập nội dung tìm kiếm trong các ứng dụng như Settings và Microsoft Store. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Việc điều hướng trong bảng giờ đây đã hỗ trợ trong các điều khiển dạng lưới được tạo bằng cách dùng  Out-GridView cmdlet trong PowerShell. (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
+</UL>
+
+<P></P>
+<H3>Các thay đổi</H3>
+<UL>
+<LI>Espeak-ng đã được cập nhật lên 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>NVDA sẽ mặc định dùng bộ đọc eSpeak nếu không cài đặt các giọng đọc OneCore cho ngôn ngữ mà  NVDA đang dùng. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>Nếu các giọng đọc OneCore gặp lỗi và không đọc được, sẽ quay về dùng bộ đọc eSpeak. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Khi đọc thanh trạng thái với <CODE>NVDA+end</CODE>, con trỏ duyệt sẽ không còn di chuyển đến vị trí này nữa.
+Nếu cần dùng tính năng này, vui lòng gán thao tác cho kịch bản tương ứng trong phân loại đối tượng điều hướng trong hộp thoại quản lý các thao tác. (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Khi mở một hộp thoại cài đặt vốn đã được mở trước đó, NVDA sẽ đưa con trỏ đến hộp thoại thay vì báo lỗi. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>Cập nhật thư viện phiên dịch chữ nổi liblouis lên <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
+  <UL>
+  <LI>Các bảng chữ nổi mới: tiếng Nga cấp 1, Tshivenda cấp 1, Tshivenda cấp 2
+  </UL>
+<LI>Thay vì thông báo "marked content" hay "mrkd",giờ đây NVDA sẽ thông báo là "highlight" hoặc "hlght" bằng tiếng nói và chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>NVDA sẽ không còn cố gắng tắt chương trình khi có các hộp thoại đang chờ một hành động (Xác nhận / Hủy bỏ chẳng hạn). (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
+</UL>
+
+<P></P>
+<H3>Sửa lỗi</H3>
+<UL>
+<LI>Việc theo dõi các phím bổ trợ (Control, Insert chẳng hạn) đã hoạt động hiệu quả hơn. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>Đã có thể kiểm tra cập nhật NVDA trên một số hệ thống nhất định; bản Windows mới cài đặt chẳng hạn. (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA đã thông báo chính xác các ô rỗng trong Microsoft Word khi dùng UI automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Trong dữ liệu ARIA dạng lưới trên web, phím Escape sẽ bị bỏ qua khi ở trong lưới và không còn tắt chế độ focus nếu không có điều kiện. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Khi đọc một ô tiêu đề của một bảng trong Chrome, sửa lỗi đọc lại hai lần tiêu đề cột. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA không còn đọc một giá trị số cho các thanh trượt UIA đã được quy định giá trị bằng văn bản đại diện. (UIA ValuePattern được dùng thay cho RangeValuePattern). (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA không còn xem giá trị của các thanh trượt trong UIA là luôn dựa trên phần trăm.
+<LI>Việc thông báo vị trí của một ô trong Microsoft Excel khi truy cập thông qua UI Automation lại hoạt động chính xác trên Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA không còn đặt ngôn nữ bản địa hóa không hợp lệ của Python. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Nếu gỡ bỏ một add-on đã vô hiệu hóa (đã tắt) và rồi cài lại, nó sẽ được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Sửa các lỗi xung quanh việc cập nhật và gỡ bỏ add-on khi thư mục add-on đã đổi tên hoặc có tập tin đang mở. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>Khi dùng UI Automation để truy cập các điều khiển trong bảng tính của Microsoft Excel, NVDA không còn thông báo khi chỉ một ô được chọn. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>Nhiều nội dung trên hộp thoại đã tự được đọc trong LibreOffice Writer,  trong các hộp thoại xác nhận chẳng hạn. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Việc đọc / di chuyển với chế độ duyệt trong Microsoft Word thông qua UI automation giờ đây đảm bảo tài liệu luôn được cuộn để luôn hiển thị vị trí hiện tại trong chế độ duyệt, và vị trí con trỏ nháy trong chế độ focus phản ánh chính xác vị trí trong chế độ duyệt. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Khi thực hiện lệnh đọc tất cả trong Microsoft Word thông qua UI automation, tài liệu giờ đây sẽ được cuộn tự động, và vị trí con trỏ nháy đã được cập nhật một cách chính xác. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Khi đọc thư điện tử trong Outlook và NVDA truy cập nội dung thư với UI Automation, một số bảng nhất định giờ đây được đánh dấu là bảng bố cục, nghĩa là chúng sẽ mặc định không còn bị đọc lên. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>Đã sửa một lỗi hiếm gặp khi thay đổi thiết bị âm thanh. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Việc nhập liệu với các bảng chữ nổi văn học  sẽ hoạt động hiệu quả hơn khi ở trong các trường nhập liệu. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Khi di chuyển trong ứng dụng lịch của Windows từ khay hệ thống, NVDA giờ đây đọc ngày của tuần một cách đầy đủ. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Khi dùng một kiểu nhập tiếng Trung Quốc như Taiwan - Microsoft Quick trong Microsoft Word, việc cuộn màn hình chữ nổi tới lui không còn nhảy ngược một cách không chính xác về vị trí con trỏ nháy nguyên thủy. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>Khi truy cập tài liệu Microsoft Word thông qua UIA, việc di chuyển theo từng câu (alt+mũi tên xuống / alt+mũi tên lên) đã hoạt động trở lại. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>Khi truy cập MS Word với UIA, các dấu thụt lề đoạn đã được thông báo. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>Khi truy cập MS Word với UIA, việc thay đổi các lệnh theo dõi và các lệnh được bản địa hóa khác giờ đây đã được đọc trong Word . (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>Sửa lỗi lặp lại hai lần trong tiếng nói và chữ nổi khi 'description' giống với 'content' hay 'name'. (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>Trong MS Word với UIA được bật, âm báo lỗi chính tả trong khi nhập liệu được phát một cách chính xác hơn. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>Trong Windows 11, NVDA sẽ không còn đọc "pane" khi bấm Alt+Tab để chuyển giữa các chương trình. (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Bảng theo dõi chú thích kiểu mới giờ đã được hỗ trợ trong MS Word khi không truy cập tài liệu thông qua UIA. Bấm alt+f12 để di chuyển giữa bảng theo dõi và tài liệu. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
+</UL>
+
+<P></P>
+<H3>Các thay đổi cho nhà phát triển</H3>
+<P>
+Phần này không được dịch. Vui lòng xem bản tiếng Anh changes.t2t để biết thêm thông tin.
+</P>
 <H2>2021.2</H2>
 <P>
 Bản phát hành này bước đầu hỗ trợ cho Windows 11.
@@ -159,7 +243,7 @@ Lưu ý:
 <LI>NVDA sẽ không còn đọc "↑↑↑" (các dấu mũi tên lên) cho các biểu tượng cảm xúc trong một số ngôn ngữ. (<A HREF="https://github.com/nvaccess/nvda/issues/11963" target="_blank">#11963</A>)
 <LI>Espeak giờ đây lại hỗ trợ tiếng Quảng Đông và tiếng Quan Thoại. (<A HREF="https://github.com/nvaccess/nvda/issues/10418" target="_blank">#10418</A>)
  <UL>
- <LI>Trong phiên bản  Microsoft Edge mới trên nền tản Chromium, các trường nhập liệu như thanh địa chỉ giờ đã được đọc khi không có nội dung. (<A HREF="https://github.com/nvaccess/nvda/issues/12474" target="_blank">#12474</A>)
+ <LI>Trong phiên bản  Microsoft Edge mới trên nền tảng Chromium, các trường nhập liệu như thanh địa chỉ giờ đã được đọc khi không có nội dung. (<A HREF="https://github.com/nvaccess/nvda/issues/12474" target="_blank">#12474</A>)
  </UL>
 <LI>Sửa lỗi trình điều khiển của Seika Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/10787" target="_blank">#10787</A>)
 +
@@ -304,7 +388,7 @@ Có thể đọc được nội dung có tồn tại các điểm đánh dấu (
 <LI>Trong hộp thoại Quản lý các thao tác, cải thiện đáng kể hiệu suất vận hành khi lọc thao tác / phím tắt. (<A HREF="https://github.com/nvaccess/nvda/issues/10307" target="_blank">#10307</A>)(
 <LI>Giờ bạn có thể gửi các kí tự Unicode  ra U+FFFF từ một màn hình chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/10796" target="_blank">#10796</A>)
 <LI>NVDA sẽ đọc nội dung của hộp thoại Open With  trong Windows 10 May 2020 Update. (<A HREF="https://github.com/nvaccess/nvda/issues/11335" target="_blank">#11335</A>)
-<LI>Một tùy chọn thử nghiệm mới trong  cài đặt nâng cao (Bật các chọn lọc đăng kí cho các thay đổi sự kiện và thuộc tính của UI Automation) có thể cung cấp các cải thiện hiệu suất vận hành lớn trong Microsoft Visual Studio và các ứng dụng khác trên nền tản UIAutomation nếu được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+<LI>Một tùy chọn thử nghiệm mới trong  cài đặt nâng cao (Bật các chọn lọc đăng kí cho các thay đổi sự kiện và thuộc tính của UI Automation) có thể cung cấp các cải thiện hiệu suất vận hành lớn trong Microsoft Visual Studio và các ứng dụng khác trên nền tảng UIAutomation nếu được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
 <LI>Với danh sách các thành phần có thể đánh dấu chọn, thành phần đã chọn không còn bị đọc một cách dư thừa, và nếu có thể, thành phần không được chọn sẽ được đọc thay. (<A HREF="https://github.com/nvaccess/nvda/issues/8554" target="_blank">#8554</A>)
 <LI>Trên Windows 10 May 2020 Update, NVDA giờ đã hiển thị Microsoft Sound Mapper khi xem các thiết bị đầu ra từ hộp thoại chọn bộ đọc. (<A HREF="https://github.com/nvaccess/nvda/issues/11349" target="_blank">#11349</A>)
 <LI>Trong Internet Explorer, các số giờ đây đã được đọc một cách chính xác với danh sách có thứ tự nếu nó không bắt đầu với 1. (<A HREF="https://github.com/nvaccess/nvda/issues/8438" target="_blank">#8438</A>)
@@ -590,8 +674,8 @@ Các cải tiến của bản phát hành này bao gồm tự nhận các màn h
 <LI>NVDA sẽ không còn trở nên im lặng sau khi thoát khỏi ứng dụng Windows 10 Mail. (<A HREF="https://github.com/nvaccess/nvda/issues/9341" target="_blank">#9341</A>)
 <LI>NVDA không còn bị lỗi không khởi động được khi cài đặt vùng ngôn ngữ của người dùng được thiết lập là một ngôn ngữ mà NVDA không xác định, tiếng Anh Hà Lan chẳng hạn. (<A HREF="https://github.com/nvaccess/nvda/issues/8726" target="_blank">#8726</A>)
 <LI>Khi chế độ duyệt được bật trong Microsoft Excel và  bạn chuyển đến một trình duyệt trong chế độ focus hay ngược lại, trạng thái của chế độ duyệt giờ đây được thông báo một cách hợp lý. (<A HREF="https://github.com/nvaccess/nvda/issues/8846" target="_blank">#8846</A>)
-<LI>NVDA giờ đây đã đọc đúng dòng tại vị trí con trỏ chuột trong Notepad++ và các trình soạn thảo trên nền tản Scintilla khác. (<A HREF="https://github.com/nvaccess/nvda/issues/5450" target="_blank">#5450</A>)
-<LI>Trong Google Docs (và các trình soạn thảo trên nền tản web khác), không còn tình trạng chữ nổi thỉnh thoảng hiển thị "lst end" trước con trỏ giữa một mục trong danh sách. (<A HREF="https://github.com/nvaccess/nvda/issues/9477" target="_blank">#9477</A>)
+<LI>NVDA giờ đây đã đọc đúng dòng tại vị trí con trỏ chuột trong Notepad++ và các trình soạn thảo trên nền tảng Scintilla khác. (<A HREF="https://github.com/nvaccess/nvda/issues/5450" target="_blank">#5450</A>)
+<LI>Trong Google Docs (và các trình soạn thảo trên nền tảng web khác), không còn tình trạng chữ nổi thỉnh thoảng hiển thị "lst end" trước con trỏ giữa một mục trong danh sách. (<A HREF="https://github.com/nvaccess/nvda/issues/9477" target="_blank">#9477</A>)
 <LI>Trong Windows 10 May 2019 Update, NVDA không còn đọc quá nhiều thông báo âm lượng nếu thay đổi âm lượng bằng các nút bấm vật lý trong khi  File Explorer có focus. (<A HREF="https://github.com/nvaccess/nvda/issues/9466" target="_blank">#9466</A>)
 <LI>Việc gọi hộp thoại phát âm kí hiệu / dấu câu giờ đây đã nhanh nhẹn hơn khi từ điển phát âm chứa trên 1000 mục. (<A HREF="https://github.com/nvaccess/nvda/issues/8790" target="_blank">#8790</A>)
 <LI>Trong các điều khiển Scintilla  như Notepad++, NVDA có thể đọc chính xác một dòng khi tính năng wordwrap được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/9424" target="_blank">#9424</A>)
@@ -1431,7 +1515,7 @@ Các cải tiến của bản phát hành này bao gồm khả năng thông báo
 <LI>Trong chế độ duyệt, khi dùng các phím di chuyển  để đi đến các thành phần không được hỗ trợ cho một tài liệu, NVDA sẽ thông báo nó không được hỗ trợ, thay vì thông báo không có thành phần đó. (<A HREF="https://github.com/nvaccess/nvda/issues/5691" target="_blank">#5691</A>)
 <LI>Khi liệt kê các bảng tính trong danh sách các thành phần của Microsoft Excel, các bản tính chỉ có đồ thị nay đã được bao gồm trong NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/5698" target="_blank">#5698</A>)
 <LI>Giờ đây, NVDA không thông báo những thông tin không cần thiết khi chuyển cửa sổ trong một ứng dụng Java với nhiều cửa sổ như IntelliJ hay Android Studio. (<A HREF="https://github.com/nvaccess/nvda/issues/5732" target="_blank">#5732</A>)
-<LI>Trong vài phần mềm soạn thảo trên nền tản Scintilla như Notepad ++, chữ nổi đã được cập nhật một cách chính xác khi di chuyển con trỏ bằng màn hình chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/5678" target="_blank">#5678</A>)
+<LI>Trong vài phần mềm soạn thảo trên nền tảng Scintilla như Notepad ++, chữ nổi đã được cập nhật một cách chính xác khi di chuyển con trỏ bằng màn hình chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/5678" target="_blank">#5678</A>)
 <LI>NVDA không còn lỗi thỉnh thoảng bị tắt khi bật đầu ra của chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/4457" target="_blank">#4457</A>)
 <LI>Trong Microsoft Word, NVDA luôn thông báo các dấu thụt vào đầu dòng mà không bị phụ thuộc vào đơn vị đo (centimeters hay inches). (<A HREF="https://github.com/nvaccess/nvda/issues/5804" target="_blank">#5804</A>)
 <LI>Khi sử dụng màn hình chữ nổi, hiển thị được nhiều thông điệp mà trước đây chỉ được NVDA thông báo bằng giọng nói. (<A HREF="https://github.com/nvaccess/nvda/issues/5557" target="_blank">#5557</A>)
@@ -1439,7 +1523,7 @@ Các cải tiến của bản phát hành này bao gồm khả năng thông báo
 <LI>Sửa lỗi bị tắt ngang trong Mozilla Firefox và Adobe Flash Player trong vài trường hợp. (<A HREF="https://github.com/nvaccess/nvda/issues/5367" target="_blank">#5367</A>)
 <LI>Trong Google Chrome và các trình duyệt dựa trên nền tảng này, nội dung trong các hộp thoại hay một ứng dụng có thể đọc được trong chế độ duyệt. (<A HREF="https://github.com/nvaccess/nvda/issues/5818" target="_blank">#5818</A>)
 <LI>Trong Google Chrome và các trình duyệt dựa trên nền tảng này, người dùng có thể buộc NVDA chuyển sang Browse Mode trong một hộp thoại hay ứng dụng.
-Trong Google Chrome và các trình duyệt dựa trên nền tản này, giờ bạn có thể buộc NVDA chuyển sang chế độ duyệt trrong các hộp thoạii hay ứng dụng web. (<A HREF="https://github.com/nvaccess/nvda/issues/5818" target="_blank">#5818</A>)
+Trong Google Chrome và các trình duyệt dựa trên nền tảng này, giờ bạn có thể buộc NVDA chuyển sang chế độ duyệt trrong các hộp thoạii hay ứng dụng web. (<A HREF="https://github.com/nvaccess/nvda/issues/5818" target="_blank">#5818</A>)
 <LI>Trong Internet Explorer hay các điều khiển MSHTML khác, di chuyển đến các điều khiển (cụ thể, khi dùng aria-activedescendant), NVDA không bị chuyển sang chế độ duyệt. Lỗi này thường xuất hiện khi di chuyển đến các gợi ý ở trường địa chỉ khi soạn thư trong Gmail. (<A HREF="https://github.com/nvaccess/nvda/issues/5676" target="_blank">#5676</A>)
 <LI>Trong Microsoft Word, NVDA không bị đóng băng trong một bảng lớn khi bật tính năng thông báo tiêu đề cột / dòng. (<A HREF="https://github.com/nvaccess/nvda/issues/5878" target="_blank">#5878</A>)
 <LI>Trong Microsoft Word, NVDA không thông báo sai các đoạn văn bản là Outline Level (nhưng không phải tiêu đề dựng sẵn) là Heading. <A HREF="https://github.com/nvaccess/nvda/issues/5186" target="_blank">#5186</A>)
@@ -1527,7 +1611,7 @@ Các cải tiến của bản phát hành này bao gồm các cải thiện cho 
 <LI>Trong Microsoft Excel, NVDA giờ đây đã thông báo các thông điệp đầu vào được tạo bởi người tạo bảng tính trên các ô. (<A HREF="https://github.com/nvaccess/nvda/issues/5051" target="_blank">#5051</A>)
 <LI>Hỗ trợ màn hình chữ nổi  Baum Pronto! V4 và VarioUltra thông qua kết nối Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/3717" target="_blank">#3717</A>)
 <LI>Hỗ trợ soạn thảo văn bản với các ứng dụng của Mozilla, như hỗ trợ Google Docs với chế độ chữ nổi được bật trong Mozilla Firefox và HTML composition trong Mozilla Thunderbird. . (<A HREF="https://github.com/nvaccess/nvda/issues/1668" target="_blank">#1668</A>)
-<LI>Hỗ trợ soạn thảo văn bản trong Google Chrome và các ứng dụng trên nền tản Chrome như Google Docs với hỗ trợ chữ nổi được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/2634" target="_blank">#2634</A>)
+<LI>Hỗ trợ soạn thảo văn bản trong Google Chrome và các ứng dụng trên nền tảng Chrome như Google Docs với hỗ trợ chữ nổi được bật. (<A HREF="https://github.com/nvaccess/nvda/issues/2634" target="_blank">#2634</A>)
  <UL>
  <LI>Yêu cầu Chrome 47 trở lên
  </UL>
@@ -1837,7 +1921,7 @@ Phần này không được dịch. Vui lòng xem bản tiếng Anh changes.t2t 
 
 <H3>Sửa lỗi</H3>
 <UL>
-<LI>Trong Google Chrome và các trình duyệt trên nền tản Chrome, một số đoạn văn bản nhất định (như văn bản được nhấn mạnh) không còn bị lặp lại khi đọc nội dung của một thông báo hay hộp thoại. (<A HREF="https://github.com/nvaccess/nvda/issues/4066" target="_blank">#4066</A>)
+<LI>Trong Google Chrome và các trình duyệt trên nền tảng Chrome, một số đoạn văn bản nhất định (như văn bản được nhấn mạnh) không còn bị lặp lại khi đọc nội dung của một thông báo hay hộp thoại. (<A HREF="https://github.com/nvaccess/nvda/issues/4066" target="_blank">#4066</A>)
 <LI>Ở chế độ duyệt trong các ứng dụng của Mozilla, bấm enter tại một nút, v...v... không còn tình trạng không kích hoạt được (hay kích hoạt sai) trong vài trường hợp nhất định như nút bấm ở đầu trang Facebook. (<A HREF="https://github.com/nvaccess/nvda/issues/4106" target="_blank">#4106</A>)
 <LI>Không còn đọc các thông tin vô ích khi bấm tab trong iTunes. (<A HREF="https://github.com/nvaccess/nvda/issues/4128" target="_blank">#4128</A>)
 <LI>Ở một số danh sách nhất định trong iTunes như danh sách nhạc, việc chuyển tới mục kế bằng phương pháp duyệt đối tượng giờ đây đã làm việc chính xác. (<A HREF="https://github.com/nvaccess/nvda/issues/4129" target="_blank">#4129</A>)
@@ -1855,7 +1939,7 @@ Phần này không được dịch. Vui lòng xem bản tiếng Anh changes.t2t 
 <LI>NVDA không còn xảy ra lỗi khi chạy trên các phiên bản Windows gần đây nếu ngôn ngữ người dùng được thiết lập là Serbian (Latin). (<A HREF="https://github.com/nvaccess/nvda/issues/4203" target="_blank">#4203</A>)
 <LI>Bấm phím numlock khi bật trợ giúp nhập giờ đây đã bật / tắt numlock thay vì làm cho hệ thông và bàn phím trở nên không đồng bộ  ở trạng thái của phím này. (<A HREF="https://github.com/nvaccess/nvda/issues/4226" target="_blank">#4226</A>)
 <LI>Trong Google Chrome, tiêu đề của tài liệu lại được đọc khi chuyển qua các thẻ. Trong NVDA 2014.2, chức năng này không hoạt động trong vài trường hợp. (<A HREF="https://github.com/nvaccess/nvda/issues/4222" target="_blank">#4222</A>)
-<LI>Trong Google Chrome và các trình duyệt trên nền tản Chrome, URL của tài liệu không còn bị đọc khi đọc tài liệu. (<A HREF="https://github.com/nvaccess/nvda/issues/4223" target="_blank">#4223</A>)
+<LI>Trong Google Chrome và các trình duyệt trên nền tảng Chrome, URL của tài liệu không còn bị đọc khi đọc tài liệu. (<A HREF="https://github.com/nvaccess/nvda/issues/4223" target="_blank">#4223</A>)
 <LI>Khi dùng chức năng đọc tất cả mà không chọn bộ đọc nào (có tác dụng trong việc kiểm tra tự động), chế độ này sẽ hoạt động bình thường thay vì ngừng ở vài dòng đầu tiên. (<A HREF="https://github.com/nvaccess/nvda/issues/4225" target="_blank">#4225</A>)
 <LI>Hộp thoại Signature của Microsoft Outlook: trường chỉnh sửa chữ kí (signature editting) giờ đây đã tiếp cận được, cho phép theo dõi con trỏ và định dạng. (<A HREF="https://github.com/nvaccess/nvda/issues/3833" target="_blank">#3833</A>)
 <LI>Microsoft Word: khi đọc dòng cuối cùng của một bảng, toàn bộ bảng không còn bị đọc lên nữa. (<A HREF="https://github.com/nvaccess/nvda/issues/3421" target="_blank">#3421</A>)
@@ -2163,7 +2247,7 @@ Vui lòng xem <A HREF="keyCommands.html" target="_blank">Bản tham khảo các 
 <LI>Hỗ trợ các mẫu cũ của màn hình nổi Papenmeier BRAILLEX. (<A HREF="https://github.com/nvaccess/nvda/issues/2679" target="_blank">#2679</A>)
 <LI>Hỗ trợ nhập chữ nổi máy tính cho các màn hình có bàn phím chữ nổi. (<A HREF="https://github.com/nvaccess/nvda/issues/808" target="_blank">#808</A>)
 <LI>Cài đặt mới của bàn phím cho phép lựa chọn để NVDA ngừng đọc khi gõ kí tự hay phím Enter. (<A HREF="https://github.com/nvaccess/nvda/issues/698" target="_blank">#698</A>)
-<LI>Hỗ trợ vài trình duyệt web trên nền tản Google Chrome: Rockmelt, BlackHawk, Comodo Dragon và SRWare Iron. (<A HREF="https://github.com/nvaccess/nvda/issues/2236" target="_blank">#2236</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2813" target="_blank">#2813</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2814" target="_blank">#2814</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2815" target="_blank">#2815</A>)
+<LI>Hỗ trợ vài trình duyệt web trên nền tảng Google Chrome: Rockmelt, BlackHawk, Comodo Dragon và SRWare Iron. (<A HREF="https://github.com/nvaccess/nvda/issues/2236" target="_blank">#2236</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2813" target="_blank">#2813</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2814" target="_blank">#2814</A>, <A HREF="https://github.com/nvaccess/nvda/issues/2815" target="_blank">#2815</A>)
 </UL>
 
 <H3>Các thay đổi</H3>

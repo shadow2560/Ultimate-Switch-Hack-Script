@@ -10,64 +10,85 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
-<H2>2021.2</H2>
+<H2>2021.3</H2>
 <P>
-Denne udgave indeholder foreløbig understøttelse af Windows 11.
-Selvom Windows 11 ikke er udgivet endnu, har man testet med forhåndsversioner af Windows 11.
-Versionen af NVDA indeholder også en vigtig rettelse til skærmtæppefunktionen (læs vigtige bemærkninger).
-Værktøjet til løsning af almindelige problemer kan nu også løse yderligere problemer med NVDA.
-Der er opdateringer til talesyntesen eSpeak-NG og punktoversættelsen LibLouis.
-Der er desuden mange fejlrettelser, bl.a. til Windows-terminalprogrammer, emoji-panelet, udklipshistorik og lommeregner, samt punktskriftsunderstøttelse i NVDA.
+Denne version af NVDA introducerer HID Braille.
+Denne specifikation har til hensigt at standardisere understøttelse for punktdisplay uden behovet for særskilte drivere.
+Der er opdateringer til eSpeak-NG, samt LibLouis med nye russiske og Tshivenda punkttabeller.
+Der er nu en indstilling i de avancerede indstillinger, der lader dig aktivere en lyd, når fejl i NVDA opstår.
+Kommandoen "Sig alt" ruller nu dokumentet i Word, eftersom dokumentet læses op, således den nuværende position i dokumentet er synlig på skærmen.
+Der er mange forbedringer til Office, når man bruger UIA.
+En UIA-rettelse er, at NVDA nu ignorere layouttabeller i Outlook, når man læser meddelelser.
 </P>
-<H3>Vigtige bemærkninger</H3>
 <P>
-Pga. ændringer i Windows Magnification API, var det nødvendigt at opdatere skærmtæppefunktionen for at understøtte de nyeste versioner af Windows.
-Benyt NVDA 2021.2 til at aktivere skærmtæppet med Windows 10 21H2 (10.0.19044) eller nyere.
-Dette gælder også Windows 10 Insiders og Windows 11.
-Af sikkerhedsmæssige årsager kan det være en god idé at få bekræftet af en seende person, hvorvidt skærmtæppefunktionen er aktiv og gør skærmen fuldstændigt sort, når denne benyttes med nyere versioner af Windows.
+Vigtige bemærkninger:
+</P>
+<P>
+På grund af en opdatering til vores sikkerhedscertifikat, vil et lille antal af NVDA-brugere modtage en fejlmeddelelse, når de forsøger at opdatere fra NVDA 2021.2.
+NVDA vil fremover bede Windows om at opdatere sikkerhedscertifikater, hvilket vil forhindre denne fejl i at opstå i fremtiden.
+Brugere, der er påvirkede af denne fejl, skal hente opdateringen manuelt.
 </P>
 <H3>Nye funktioner</H3>
 <UL>
-<LI>Eksperimentel understøttelse for ARIA-annotationer:
+<LI>Tilføjet en kommando, der lader dig bestemme, hvordan typografier for cellekanter skal oplyses. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
+<LI>Tilføjet understøttelse for den nye HID Braille specifikation, der har til hensigt at standardisere understøttelsen for punktdisplays. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
   <UL>
-  <LI>Tilføjet en kommando, der giver en oversigt over detaljerne for et objekt med ARIA-detaljer. (<A HREF="https://github.com/nvaccess/nvda/issues/12364" target="_blank">#12364</A>)
-  <LI>Tilføjet en indstilling under "Avanceret" i NVDAs indstillinger, der bestemmer om NVDA skal oplyse, når et objekt har yderligere detaljer i gennemsynstilstand. (<A HREF="https://github.com/nvaccess/nvda/issues/12439" target="_blank">#12439</A>) 
+  <LI>Enheder, der understøtter denne standard, vil automatisk blive tilkoblet NVDA.
+  <LI>For tekniske detaljer om NVDAs implementering af denne standard, læs <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A>
   </UL>
-<LI>NVDA vil nu oplyse antallet af søgeforslag i Stifinder i Windows 10 Version 1909 og nyere, samt Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/10341" target="_blank">#10341</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12628" target="_blank">#12628</A>)
-<LI>NVDA vil nu oplyse, når du bruger kommandoerne til indrykning og hængende indrykning i Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/6269" target="_blank">#6269</A>)
+<LI>Tilføjet understøttelse for VisioBraille Vario 4 Braille Device. (<A HREF="https://github.com/nvaccess/nvda/issues/12607" target="_blank">#12607</A>)
+<LI>En lyd, når fejl opstår i NVDA, kan aktiveres under NVDAs avancerede indstillinger. (<A HREF="https://github.com/nvaccess/nvda/issues/12672" target="_blank">#12672</A>)
+<LI>NVDA vil nu oplyse antallet af forslag under en søgning i Windows 10 og nyere, når du bruger apps som Indstillinger eller Microsoft Store. (<A HREF="https://github.com/nvaccess/nvda/issues/7330" target="_blank">#7330</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12758" target="_blank">#12758</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12790" target="_blank">#12790</A>)
+<LI>Tabelnavigation understøttes nu i gitterkontroller oprettet af Out-GridView cmdlet i PowerShell. (<A HREF="https://github.com/nvaccess/nvda/issues/12928" target="_blank">#12928</A>)
 </UL>
 
 <P></P>
 <H3>Ændringer</H3>
 <UL>
-<LI>Espeak-ng er opdateret til 1.51-dev commit <CODE>ab11439b18238b7a08b965d1d5a6ef31cbb05cbb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12449" target="_blank">#12449</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12202" target="_blank">#12202</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12280" target="_blank">#12280</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12568" target="_blank">#12568</A>)
-<LI>NVDA vil annoncere "artikel" efter læsning af indholdet, hvis indstillingen er slået til under "Dokumentformatering" i indstillingspanelet. (<A HREF="https://github.com/nvaccess/nvda/issues/11103" target="_blank">#11103</A>)
-<LI>Opdaterede LibLouis punktoversættelse til <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.18.0" target="_blank">3.18.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12526" target="_blank">#12526</A>)
+<LI>Espeak-ng er opdateret til 1.51-dev commit <CODE>74068b91bcd578bd7030a7a6cde2085114b79b44</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12665" target="_blank">#12665</A>)
+<LI>NVDA vil automatisk benytte eSpeak-NG, hvis Windows OneCore ikke understøtter det foretrukne sprog. (<A HREF="https://github.com/nvaccess/nvda/issues/10451" target="_blank">#10451</A>)
+<LI>Hvis Windows OneCore konsekvent fejler, vil NVDA bruge eSpeak-NG. (<A HREF="https://github.com/nvaccess/nvda/issues/11544" target="_blank">#11544</A>)
+<LI>Når du læser statuslinjen med NVDA+end, vil læsemarkøren ikke længere flytte dertil automatisk.
+Hvis du har brug for denne funktion, skal du tildele en kommando under "Håndter kommandoer" under kategorien "Objektnavigation". (<A HREF="https://github.com/nvaccess/nvda/issues/8600" target="_blank">#8600</A>)
+<LI>Når du åbner en indstillingsdialog i NVDA, der allerede er åbnet, vil NVDA ikke længere melde fejl. (<A HREF="https://github.com/nvaccess/nvda/issues/5383" target="_blank">#5383</A>)
+<LI>Opdaterede LibLouis punktoversættelse til <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.19.0" target="_blank">3.19.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/12810" target="_blank">#12810</A>)
   <UL>
-  <LI>Nye punkttabeller: Bulgarsk niveau 1, burmesisk niveau 1, burmesisk niveau 2, kasakhisk niveau 1, Khmer niveau 1, nordkurdisk niveau 0, Sepedi niveau 1, Sepedi niveau 2, Sesotho niveau 1, Sesotho niveau 2, Setswana niveau 1, Setswana niveau 2, tatarisk niveau 1, vietnamesisk niveau 0, vietnamesisk niveau 2, sydvietnamesisk niveau 1, Xhosa niveau 1, Xhosa niveau 2, Yakut niveau 1, zulu niveau 1, zulu niveau 2 
+  <LI>Nye punkttabeller: Russisk niveau 1, Tshivenda niveau 1, Tshivenda niveau 2
   </UL>
-<LI>Windows 10 Tekstgenkendelse er blevet omdøbt til Windows Tekstgenkendelse. (<A HREF="https://github.com/nvaccess/nvda/issues/12690" target="_blank">#12690</A>)
+<LI>I stedet for "markeret indhold" eller "mrkt", vil "fremhævet" eller "frhv" henholdsvist blive benyttet for tale og punktskrift. (<A HREF="https://github.com/nvaccess/nvda/issues/12892" target="_blank">#12892</A>)
+<LI>NVDA vil ikke længere forsøge at afslutte, hvis en dialog afventer en påkrævet handling (f.eks. bekræft/annuller). (<A HREF="https://github.com/nvaccess/nvda/issues/12984" target="_blank">#12984</A>)
 </UL>
 
 <P></P>
 <H3>Fejlrettelser</H3>
 <UL>
-<LI>NVDA vil nu vise regneudtryk på et punktdisplay i Windows 10 Lommeregner. (<A HREF="https://github.com/nvaccess/nvda/issues/12268" target="_blank">#12268</A>)
-<LI>I terminalprogrammer i Windows 10 version 1607 og nyere, vil du ikke længere få tegn til højre for markøren oplæst, når du sletter eller indsætter tegn midtpå en linje. (<A HREF="https://github.com/nvaccess/nvda/issues/3200" target="_blank">#3200</A>)
-  <UL>
-  <LI>Diff Match Patch er nu aktiveret som standard. (<A HREF="https://github.com/nvaccess/nvda/issues/12485" target="_blank">#12485</A>)
-  </UL>
-<LI>Punktindtastning virker nu korrekt med følgende punkttabeller med forkortet punktskrift: Arabisk niveau 2, spansk niveau 2, urdu niveau 2, kinesisk (Kina, mandarin) niveau 2. (<A HREF="https://github.com/nvaccess/nvda/issues/12541" target="_blank">#12541</A>)
-<LI>Værktøjet til løsning af almindelige problemer løser nu endnu flere problemer, særligt med 64-bit varianter af Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12560" target="_blank">#12560</A>)
-<LI>Forbedringer til knappehåndtering på Seika-notatapparatet fra Nippon Telesoft. (<A HREF="https://github.com/nvaccess/nvda/issues/12598" target="_blank">#12598</A>)
-<LI>Forbedring til oplæsning af Emoji-panelet og historikken for udklipsholderen. (<A HREF="https://github.com/nvaccess/nvda/issues/11485" target="_blank">#11485</A>)
-<LI>Opdaterede de bengalske alfabettegnbeskrivelser. (<A HREF="https://github.com/nvaccess/nvda/issues/12502" target="_blank">#12502</A>)
-<LI>NVDA afslutter nu på en sikker måde, når en ny proces igangsættes. (<A HREF="https://github.com/nvaccess/nvda/issues/12605" target="_blank">#12605</A>)
-<LI>Genvalg af Handy Tech driveren til punktdisplays vil ikke længere fejl fra dialogen til valg af punktdisplay. (<A HREF="https://github.com/nvaccess/nvda/issues/12618" target="_blank">#12618</A>)
-<LI>Windows version 10.0.22000 eller nyere genkendes nu som Windows 11 og ikke Windows 10. (<A HREF="https://github.com/nvaccess/nvda/issues/12626" target="_blank">#12626</A>)
-<LI>Understøttelse for skærmtæppefunktionen er rettet og testet med Windows versioner  op til 10.0.22000. (<A HREF="https://github.com/nvaccess/nvda/issues/12684" target="_blank">#12684</A>)
-<LI>Hvis ingen søgeresultater vises, når du filtrerer kommandoer, vil dialogen fortsætte med at virke som forventet. (<A HREF="https://github.com/nvaccess/nvda/issues/12673" target="_blank">#12673</A>)
-<LI>Rettede en fejl, hvor første menupunkt i en undermenu ikke blev oplæst i nogle tilfælde. (<A HREF="https://github.com/nvaccess/nvda/issues/12624" target="_blank">#12624</A>)
+<LI>Sporing af funktionstaster (såsom ctrl og insert) er mere robust, når watchdog gendannes. (<A HREF="https://github.com/nvaccess/nvda/issues/12609" target="_blank">#12609</A>)
+<LI>Det er nu igen muligt at søge efter opdateringer på bestemte systemer (f.eks. rene Windows-installationer). (<A HREF="https://github.com/nvaccess/nvda/issues/12729" target="_blank">#12729</A>)
+<LI>NVDA annoncerer nu korrekt blanke tabelceller i Microsoft Word, når UI Automation benyttes. (<A HREF="https://github.com/nvaccess/nvda/issues/11043" target="_blank">#11043</A>)
+<LI>Escape-tasten vil nu blive sendt direkte igennem til Aria-gitterkontrolelementer, når du befinder dig i en datacelle i et ARIA-gitter på internettet. (<A HREF="https://github.com/nvaccess/nvda/issues/12413" target="_blank">#12413</A>)
+<LI>Når du læser en kolonneoverskrift i en tabel i Chrome, vil denne ikke længere blive oplyst to gange. (<A HREF="https://github.com/nvaccess/nvda/issues/10840" target="_blank">#10840</A>)
+<LI>NVDA rapporterer ikke længere en numerisk værdi for UIA-skydere, der har en tekstværdi defineret. (UIA ValuePattern foretrækkes nu i stedet for RangeValuePattern). (<A HREF="https://github.com/nvaccess/nvda/issues/12724" target="_blank">#12724</A>)
+<LI>NVDA behandler ikke længere UIA-skydere, som om de altid er angivet i procenter.
+<LI>Rapportering af placeringen af en celle i Microsoft Excel, når UI Automation benyttes fungerer nu igen korrekt i Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12782" target="_blank">#12782</A>)
+<LI>NVDA vil ikke længere forsøge at indstille Python til en ugyldig lokalisering. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Hvis en deaktiveret tilføjelse fjernes og bagefter geninstalleres, vil den blive genaktiveret. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>)
+<LI>Rettede fejl med opdatering og fjernelse af tilføjelser, når mappen for den pågældende tilføjelse er blevet omdøbt eller har åbne filer. (<A HREF="https://github.com/nvaccess/nvda/issues/12792" target="_blank">#12792</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12629" target="_blank">#12629</A>)
+<LI>NVDA vil ikke længere overflødigt oplyse, når blot én celle vælges, hvis regneark benyttes med UI Automation. (<A HREF="https://github.com/nvaccess/nvda/issues/12530" target="_blank">#12530</A>)
+<LI>Mere tekst i dialoger læses nu i LibreOffice Writer, såsom den tekst, der vises i dialoger, der beder dig om at bekræfte din handling. (<A HREF="https://github.com/nvaccess/nvda/issues/11687" target="_blank">#11687</A>)
+<LI>Læsning/navigering med gennemsynstilstand i Microsoft Word via UI Automation sikrer nu, at dokumentet altid rulles, så den aktuelle position i gennemsynstilstand er synlig, og at systemmarkørens position i fokustilstand korrekt afspejler placeringen i gennemsynstilstand. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Når kommandoen "Sig alt" udføres i Microsoft Word med UI Automation aktiveret, vil dokumentet automatisk rulle i takt med, at systemmarkøren bevæger sig. (<A HREF="https://github.com/nvaccess/nvda/issues/9611" target="_blank">#9611</A>)
+<LI>Når du læser meddelelser i Outlook og du har UI Automation slået til, vil bestemte tabeller nu opfattes som layouttabeller af NVDA, hvilket betyder, at disse ikke længere vil blive vist som standard under læsning. (<A HREF="https://github.com/nvaccess/nvda/issues/11430" target="_blank">#11430</A>)
+<LI>En sjælden fejl, der kunne opstå, når man skifter lydkort er rettet. (<A HREF="https://github.com/nvaccess/nvda/issues/12620" target="_blank">#12620</A>)
+<LI>Indtastning med litterære punkttabeller burde fungere mere pålideligt i redigeringsfelter. (<A HREF="https://github.com/nvaccess/nvda/issues/12667" target="_blank">#12667</A>)
+<LI>Når du navigerer Windows-kalenderen fra systembakken, vil NVDA nu korrekt oplyse hele ugen. (<A HREF="https://github.com/nvaccess/nvda/issues/12757" target="_blank">#12757</A>)
+<LI>Når du bruger en kinesisk indtastningsmetode såsom Taiwan - Microsoft Quick i Microsoft Word, vil punktdisplays ikke længere hoppe tilbage til den oprindelige position for systemmarkøren, når du panorerer frem og tilbage. (<A HREF="https://github.com/nvaccess/nvda/issues/12855" target="_blank">#12855</A>)
+<LI>Når du navigerer dokumenter i Microsoft Word med UI Automation aktiveret, vil du nu igen være i stand til at navigere mellem sætninger med Alt+pil op og Alt+pil ned. (<A HREF="https://github.com/nvaccess/nvda/issues/9254" target="_blank">#9254</A>)
+<LI>Når du bruger Microsoft Word med UI Automation aktiveret, vil indrykning af afsnit nu igen blive oplyst korrekt. (<A HREF="https://github.com/nvaccess/nvda/issues/12899" target="_blank">#12899</A>)
+<LI>Når du bruger Microsoft Word med UIA, vil kommandoer såsom den til at ændre indstillingen for sporing af ændringer, samt andre lokaliserede kommandoer blive oplyst. (<A HREF="https://github.com/nvaccess/nvda/issues/12904" target="_blank">#12904</A>)
+<LI>Rettede fejl med duplikerede meldinger på punkt og via tale, når "beskrivelse" matcher med "indhold" eller "navn". (<A HREF="https://github.com/nvaccess/nvda/issues/12888" target="_blank">#12888</A>)
+<LI>Lyden for stavefejl under skrivning afspilles nu mere konsekvent, når du har UI Automation aktiveret i Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/12161" target="_blank">#12161</A>)
+<LI>NVDA vil ikke længere konstant annoncere "rude", når du trykker Alt+Tab for at skifte mellem programmer i Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12648" target="_blank">#12648</A>)
+<LI>Den nye moderne kommentarrude i siden i Microsoft Word, vil nu være tilgængelig, når UI Automation ikke er slået til. Tryk Alt+F12 for at flytte mellem ruden og dokumentet. (<A HREF="https://github.com/nvaccess/nvda/issues/12982" target="_blank">#12982</A>)
 </UL>
 
 <P></P>
