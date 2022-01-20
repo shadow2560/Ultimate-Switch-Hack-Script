@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V508</h2>
+<ul>
+<li>Update Atmosphere to version 1.2.6.</li>
+<li>Update sig_patches.</li>
+<li>Update Hekate to version 5.7.0.</li>
+<li>Update MissionControl to version 0.6.4.</li>
+</ul>
 <h2>V507</h2>
 <ul>
 <li>Add the  Homebrew_details homebrew.</li>
