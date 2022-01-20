@@ -468,6 +468,8 @@ goto:eof
 
 :daybreak_keys_file_select_passed
 echo File containing keys not selected, Daybreak verification/conversion will not be performed.
+echo.
+set /p temp_choice=Would you like to use the file size based method to try the conversion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :daybreak_convert_begin
@@ -477,4 +479,6 @@ goto:eof
 :daybreak_convert_keys_warning
 echo Warning: Some keys seem to be missing in your key file, the conversion to Daybreak can neither be verified nor performed.
 echo For this to work, please dump the latest keys using the latest version of the Lockpick-RCM payload and then specify the file dumped as the key file.
+echo.
+set /p temp_choice=Would you like to use the file size based method to try the conversion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

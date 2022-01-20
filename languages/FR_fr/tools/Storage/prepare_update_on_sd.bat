@@ -155,17 +155,24 @@ echo Cependant, le firmware peut être téléchargé et utilisé avec ChoiDuJour
 set /p cdjnx_use=Souhaitez-vous seulement télécharger le firmware pour l'utiliser avec ChoiDuJourNX? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:daybreak_convert_choice
+echo Comment souhaitez-vous convertir le firmware pour Daybreak:
+echo 1: Méthode via Hactoolnet ^(plus fiable mais nécessite un fichier de clés à jour^)?
+echo 2: Méthode basée sur la taille des fichiers ^(moins fiable mais ne nécessite pas de fichier de clés^)?
+echo Tout autre choix: Ne pas effectuer la convertion?
+echo.
+set /p daybreak_method_choice=Faites votre choix: 
+goto:eof
+
 :daybreak_keys_file_select
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous indiquer un fichier de clés pour vérifier/convertir le firmware pour être utilisé avec Daybreak? ^(%lng_yes_choice%/%lng_no_choice%^): "
-IF %errorlevel% EQU 2 goto:eof
-IF %errorlevel% EQU 1 (
-	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les clés" "templogs\tempvar.txt"
-	set /p keys_file_path=<"templogs\tempvar.txt"
-)
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier contenant les clés" "templogs\tempvar.txt"
+set /p keys_file_path=<"templogs\tempvar.txt"
 goto:eof
 
 :daybreak_keys_file_select_passed
 echo Aucun fichier de clés indiqué, la vérification/conversion du firmware pour Daybreak ne sera pas faite.
+echo.
+set /p temp_choice=Souhaitez-vous utiliser la méthode basée sur la taille des fichiers pour tenter la convertion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :daybreak_convert_begin
@@ -175,4 +182,6 @@ goto:eof
 :daybreak_convert_keys_warning
 echo Attention: Des clés semblent être manquantes dans votre fichiers de clés, la conversion pour Daybreak ne peut être ni vérifiée ni effectuée.
 echo Pour que cela fonctionne, veuillez dumper les dernières clés grâce à la dernière version du payload Lockpick-RCM et indiquez ensuite le fichier dumpé comme fichier de clés.
+echo.
+set /p temp_choice=Souhaitez-vous utiliser la méthode basée sur la taille des fichiers pour tenter la convertion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

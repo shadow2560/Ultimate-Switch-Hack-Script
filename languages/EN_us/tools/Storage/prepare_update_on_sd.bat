@@ -161,17 +161,24 @@ echo But, the firmware could be downloaded and used with ChoiDuJourNX.
 set /p cdjnx_use=Do you want to download and use this firmware with ChoiDuJourNX only? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:daybreak_convert_choice
+echo How do you want to convert the firmware for Daybreak:
+echo 1: Method via Hactoolnet ^(more reliable but requires an up to date keys file^)?
+echo 2: Method based on the files size ^(less reliable but does not require a keys file^)?
+echo All other choices: Don't convert?
+echo.
+set /p daybreak_method_choice=Make your choice: 
+goto:eof
+
 :daybreak_keys_file_select
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to provide a keys files to verify/convert the firmware  to use it with Daybreak? ^(%lng_yes_choice%/%lng_no_choice%^): "
-IF %errorlevel% EQU 2 goto:eof
-IF %errorlevel% EQU 1 (
-	%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "Select the file containing the keys" "templogs\tempvar.txt"
-	set /p keys_file_path=<"templogs\tempvar.txt"
-)
+%windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "All files ^(*.*^)|*.*|" "Select the file containing the keys" "templogs\tempvar.txt"
+set /p keys_file_path=<"templogs\tempvar.txt"
 goto:eof
 
 :daybreak_keys_file_select_passed
 echo File containing keys not selected, Daybreak verification/conversion will not be performed.
+echo.
+set /p temp_choice=Would you like to use the file size based method to try the conversion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :daybreak_convert_begin
@@ -181,4 +188,6 @@ goto:eof
 :daybreak_convert_keys_warning
 echo Warning: Some keys seem to be missing in your key file, the conversion to Daybreak can neither be verified nor performed.
 echo For this to work, please dump the latest keys using the latest version of the Lockpick-RCM payload and then specify the file dumped as the key file.
+echo.
+set /p temp_choice=Would you like to use the file size based method to try the conversion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

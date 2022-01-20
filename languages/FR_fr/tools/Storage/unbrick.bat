@@ -462,6 +462,8 @@ goto:eof
 
 :daybreak_keys_file_select_passed
 echo Aucun fichier de clés indiqué, la vérification/conversion du firmware pour Daybreak ne sera pas faite.
+echo.
+set /p temp_choice=Souhaitez-vous utiliser la méthode basée sur la taille des fichiers pour tenter la convertion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :daybreak_convert_begin
@@ -471,4 +473,6 @@ goto:eof
 :daybreak_convert_keys_warning
 echo Attention: Des clés semblent être manquantes dans votre fichiers de clés, la conversion pour Daybreak ne peut être ni vérifiée ni effectuée.
 echo Pour que cela fonctionne, veuillez dumper les dernières clés grâce à la dernière version du payload Lockpick-RCM et indiquez ensuite le fichier dumpé comme fichier de clés.
+echo.
+set /p temp_choice=Souhaitez-vous utiliser la méthode basée sur la taille des fichiers pour tenter la convertion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

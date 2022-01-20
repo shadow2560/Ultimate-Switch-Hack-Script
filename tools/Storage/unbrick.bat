@@ -1096,7 +1096,11 @@ goto:endscript
 :daybreak_convert
 IF NOT EXIST "tools\Hactool_based_programs\keys.txt" (
 	call "%associed_language_script%" "daybreak_keys_file_select_passed"
-	pause
+	IF NOT "!temp_choice!"=="" set temp_choice=!temp_choice:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "temp_choice" "o/n_choice"
+	IF /i "!temp_choice!"=="O" (
+		call :daybreak_convert_2 "%~1"
+	)
 	exit /b
 )
 call "%associed_language_script%" "daybreak_convert_begin"
@@ -1117,7 +1121,11 @@ for %%f in ("%~1\*.nca") do (
 			set /p temp_count=<templogs\tempvar.txt
 			IF NOT "!temp_count!"=="0" (
 				call "%associed_language_script%" "daybreak_convert_keys_warning"
-				pause
+				IF NOT "!temp_choice!"=="" set temp_choice=!temp_choice:~0,1!
+				call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "temp_choice" "o/n_choice"
+				IF /i "!temp_choice!"=="O" (
+					call :daybreak_convert_2 "%~1"
+				)
 				exit /b
 			)
 			rem pause
@@ -1136,7 +1144,11 @@ for %%f in ("%~1\*.nca") do (
 			set /p temp_count=<templogs\tempvar.txt
 			IF NOT "!temp_count!"=="0" (
 				call "%associed_language_script%" "daybreak_convert_keys_warning"
-				pause
+				IF NOT "!temp_choice!"=="" set temp_choice=!temp_choice:~0,1!
+				call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "temp_choice" "o/n_choice"
+				IF /i "!temp_choice!"=="O" (
+					call :daybreak_convert_2 "%~1"
+				)
 				exit /b
 			)
 			rem pause
@@ -1146,6 +1158,36 @@ for %%f in ("%~1\*.nca") do (
 			IF "!temp_count!"=="0" (
 			rem echo NCA mal nommé.
 			move "!temp_file_name!" "!temp_file_name:~0,-8!nca" >nul
+			)
+		)
+	)
+)
+rem echo %count_loop%
+exit /b
+
+:daybreak_convert_2
+rem set /a count_loop = 0
+for /d %%f in ("%~1\*.nca") do (
+	move "%%f" "%%f.bak" >nul
+	move "%%f.bak\00" "%%f" >nul
+	rmdir "%%f.bak"
+)
+for %%f in ("%~1\*.nca") do (
+	set temp_file_size=%%~zf
+	IF NOT EXIST "%%f\*.*" (
+		set temp_file_name=%%f
+		IF NOT "!temp_file_name:~-9,9!"==".cnmt.nca" (
+			rem set /a count_loop = !count_loop!+1
+			IF !temp_file_size! LEQ 8192 (
+				rem echo Meta trouvé.
+				move "!temp_file_name!" "!temp_file_name:~0,-3!cnmt.nca" >nul
+			)
+		) else IF "!temp_file_name:~-9,9!"==".cnmt.nca" (
+			rem set /a count_loop = !count_loop!+1
+			IF NOT !temp_file_size! LEQ 8192 (
+				rem echo %%f
+				rem echo NCA mal nommé.
+				move "!temp_file_name!" "!temp_file_name:~0,-8!nca" >nul
 			)
 		)
 	)
