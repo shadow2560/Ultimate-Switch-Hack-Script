@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.234</h2>
+<ul>
+<li>Fix important bugs in the SD preparation  script to improve the copy to a specified directory.</li>
+</ul>
 <h2>V4.3.233</h2>
 <ul>
 <li>Support of the firmware 13.2.1.</li>
