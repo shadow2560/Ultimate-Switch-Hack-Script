@@ -1,5 +1,15 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.236</h2>
+<ul>
+<li>Le firmware 13.2.1 est maintenant téléchargé/vérifié par rapport à la source sur Darthsternie.net.</li>
+</ul>
+<h2>V4.3.235</h2>
+<ul>
+<li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
+<li>Mise à jour de NxFileViewer en version 2.5.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 509.</li>
+</ul>
 <h2>V4.3.234</h2>
 <ul>
 <li>Correction de bugs importants dans le script de préparation d'une SD pour améliorer la copie vers un répertoire spécifié.</li>

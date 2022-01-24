@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V509</h2>
+<ul>
+<li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.10.0.</li>
+<li>Mise à jour de Haku33 en version 4.7.</li>
+</ul>
 <h2>V508</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 1.2.6.</li>
