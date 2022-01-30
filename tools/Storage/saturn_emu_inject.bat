@@ -459,7 +459,7 @@ call "%associed_language_script%" "extract_nsp_step"
 if not exist "%CD%\nsp" (
 	mkdir "%CD%\nsp"
 )
-Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" --Read_cnmt "%br%" > "%ushs_base_path%templogs\cnmt_infos.txt"
+..\python3_scripts\squirrel_rewrite\bin\squirrel.exe -k "%keys_path:)=^)%" --Read_cnmt "%br%" > "%ushs_base_path%templogs\cnmt_infos.txt"
 "%ushs_base_path%tools\gnuwin32\bin\grep.exe" "Number of content =" "%ushs_base_path%templogs\cnmt_infos.txt" | "%ushs_base_path%tools\gnuwin32\bin\cut.exe" -d = -f 2 > "%ushs_base_path%templogs\tempvar.txt"
 set /p tempcount=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%tempcount%"=="" (
@@ -495,9 +495,9 @@ IF %nca_count% EQU 0 (
 )
 call :get_nsp_source_file_name "%br%"
 IF /i "%ushs_debug_mode%"=="on" (
-	Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%"
+	..\python3_scripts\squirrel_rewrite\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%"
 ) else (
-	Tools\squirrel\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%" >nul 2>&1
+	..\python3_scripts\squirrel_rewrite\bin\squirrel.exe -k "%keys_path:)=^)%" -o "%CD%\nsp" -nfx "%br%" >nul 2>&1
 )
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "conversion_error"

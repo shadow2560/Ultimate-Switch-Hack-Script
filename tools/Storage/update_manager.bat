@@ -2106,11 +2106,14 @@ call :verif_folder_version "tools\python3_scripts\npdm_and_nacp_rewrite"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\python3_scripts\squirrel_rewrite"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\Saturn_emu_inject"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-
 exit /b
 
 :update_save_configs.bat

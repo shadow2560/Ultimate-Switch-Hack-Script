@@ -44,9 +44,9 @@ if "%begin%"=="1" (
 )
 
 :Start
-set br=
-call "%associed_language_script%" "nsp_source_choice"
-set /p br=<"%ushs_base_path%templogs\tempvar.txt"
+set br=%cd%\Tools\source.nsp
+rem call "%associed_language_script%" "nsp_source_choice"
+rem set /p br=<"%ushs_base_path%templogs\tempvar.txt"
 IF "%br%"=="" (
 	goto:menu
 )
@@ -226,7 +226,7 @@ move /y "%CD%\Game_inject\*.*" "%CD%\nca\romfs\" >nul
 if exist .\nca\control\icon_AmericanEnglish.dat (
 	del .\nca\control\icon_AmericanEnglish.dat >nul
 )
-
+pause
 echo.
 call "%associed_language_script%" "icon_step"
 IF /i "%bs%"=="o" (
@@ -295,17 +295,22 @@ IF %errorlevel% NEQ 0 (
 
 move .\control.nacp .\nca\control\ >nul
 move .\main.npdm .\nca\exefs\ >nul
+IF NOT EXIST "nca\logo" mkdir "nca\logo"
+%windir%\System32\Robocopy.exe "Tools\logo " "nca\logo" /e >nul
 rem set /p td=<ID.txt
 set td=%id%
 
 mkdir .\nca\out
-.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ >nul 2>&1
-.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul.txt 2>&1
+.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\program\ --type nca --ncatype program --titleid %td% --exefsdir .\nca\exefs\ --romfsdir .\nca\romfs\ --logodir .\nca\logo\ >nul 2>&1
+.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\control\ --type nca --ncatype control --titleid %td% --romfsdir .\nca\control\ >nul 2>&1
 if exist .\nca\out\program\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
-)
-if exist .\nca\out\control\*.nca (
-	.\Tools\hacpack.exe -k "%keys_path%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+	if exist .\nca\out\control\*.nca (
+		IF /i "%ushs_debug_mode%"=="on" (
+			.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca
+		) else (
+			.\Tools\hacpack.exe -k "%keys_path:)=^)%" -o .\nca\out\ --titletype application --type nca --ncatype meta --titleid %td% --programnca .\nca\out\program\*.nca --controlnca .\nca\out\control\*.nca >nul 2>&1
+		)
+	)
 )
 
 mkdir .\nca\out\ncas
@@ -326,7 +331,7 @@ IF %errorlevel% NEQ 0 (
 	call :del_temp_files
 	goto:menu
 )
-call ::del_temp_files
+call :del_temp_files
 rename "%nsp_path%%id%.nsp" "%name%_%id%.nsp" >nul
 echo.
 call "%associed_language_script%" "end_process"
@@ -362,7 +367,7 @@ for /l %%n in (1,1,12) do (
 set id=01%rand1%%rand2%%rand3%%rand4%%rand5%%rand6%%rand7%%rand8%%rand9%%rand10%%rand11%000
 exit /b
 
-::del_temp_files
+:del_temp_files
 rem del "ID.txt" >nul 2>&1
 rmdir /s /q "nca\" >nul 2>&1
 rmdir /s /q "nsp\" >nul 2>&1

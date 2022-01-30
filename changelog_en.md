@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.237</h2>
+<ul>
+<li>Ameliorate the  GameMaker game injection script.</li>
+<li>Moved my Squirrel rewrite to the Python 3 scripts directory, so the Saturn game injection script has been modified accordingly.</li>
+</ul>
 <h2>V4.3.236</h2>
 <ul>
 <li>The firmware 13.2.1 is now downloaded/verified with the source on Darthsternie.net.</li>
