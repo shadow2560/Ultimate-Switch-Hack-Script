@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.238</h2>
+<ul>
+<li>Ajout d'une fonction pour flasher le firmware Spacecraft via la SD dans la gestion des puces.</li>
+<li>Mise à jour de Incognito-RCM en version 0.7.1.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 510.</li>
+</ul>
 <h2>V4.3.237</h2>
 <ul>
 <li>Améliorations du script d'injection d'un jeu GameMaker.</li>

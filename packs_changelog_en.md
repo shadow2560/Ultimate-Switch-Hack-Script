@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V510</h2>
+<ul>
+<li>Update Incognito-RCM to version 0.7.1.</li>
+<li>Update AtmoXL-Titel-Installer to version 1.7.0.</li>
+<li>Update Tinfoil to version 13.0 V9.</li>
+</ul>
 <h2>V509</h2>
 <ul>
 <li>Update my version of TegraExplorer to include the last modifications of the official project.</li>

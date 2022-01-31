@@ -398,6 +398,15 @@ IF "%sx_core_lite_action_choice%"=="7" (
 	goto:sx_core_lite_flash
 )
 IF "%sx_core_lite_action_choice%"=="8" (
+	call "%associed_language_script%" "select_sd_device"
+	call :define_volume_letter "sd"
+	IF "!sd_volume_letter!"=="" goto:sx_core_lite_flash
+	echo.>!sd_volume_letter!:\.force_update
+	copy "tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin" "!sd_volume_letter!:\firmware.bin" >nul
+	call "%associed_language_script%" "flash_spacecraft_sd_instructions""
+	pause
+)
+IF "%sx_core_lite_action_choice%"=="9" (
 	call "%associed_language_script%" "repair_usb_debug_firmware_begin_flash"
 	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\oled_debug_usb_problem\firmware_oled_chip_only.bin
 	IF !errorlevel! NEQ 0 (

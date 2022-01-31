@@ -150,7 +150,8 @@ echo 4: Flasher le firmware de SXOS?
 echo 5: Flasher le bootloader de Spacecraft?
 echo 6: Flasher le firmware de Spacecraft?
 echo 7: Vérifier le firmware de Spacecraft dans un fichier BOOT0 dumpé sur une console?
-echo 8: Flasher le firmware réparant le bug de débogage USB présent sur certaines puces pour consoles Oled?
+echo 8: Flasher le firmware Spacecraft via la SD ^(Spacecraft doit déjà être mis en place sur la puce, fonction instable, n'est pas compatible avec toutes les puces donc préférer l'utiliser sur les puces SX Core/Lite^)?
+echo 9: Flasher le firmware réparant le bug de débogage USB présent sur certaines puces pour consoles Oled ^(non testé^)?
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
 set /p sx_core_lite_action_choice=Faites votre choix: 
@@ -219,6 +220,11 @@ goto:eof
 
 :spacecraft_firmware_end_flash
 echo Flash de la puce avec le firmware de Spacecraft terminé avec succès.
+goto:eof
+
+:flash_spacecraft_sd_instructions
+echo Maintenant il suffit de démarrer la console avec la SD et le firmware Spacecraft devrait se mettre à jour.
+echo En cas de problèmes, reflasher via l'USB de la puce ou via une autre méthode.
 goto:eof
 
 :repair_usb_debug_firmware_begin_flash

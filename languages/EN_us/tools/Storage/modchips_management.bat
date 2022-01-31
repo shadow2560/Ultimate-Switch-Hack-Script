@@ -159,7 +159,8 @@ echo 4: Flash SXOS firrmware?
 echo 5: Flash Spacecraft bootloader?
 echo 6: Flash Spacecraft firrmware?
 echo 7: Verify the Spacecraft firmware in a BOOT0 file dumped on a console?
-echo 8: Flash the firmware witch repair the USB debug problem on some modchips for Oled consoles?
+echo 8: Flash the Spacecraft firmware via the SD ^(Spacecraft should be installed on the modchip, function not stable, is not compatible with all modchips so prefer to use this on SX Core/Lite chips^)?
+echo 9: Flash the firmware witch repair the USB debug problem on some modchips for Oled consoles?
 echo All other choices: Go back to main actions choice of this script?
 echo.
 set /p sx_core_lite_action_choice=Make your choice: 
@@ -228,6 +229,11 @@ goto:eof
 
 :spacecraft_firmware_end_flash
 echo Modship flash with Spacecraft firmware success.
+goto:eof
+
+:flash_spacecraft_sd_instructions
+echo Now you just have to boot the console with the SD and the Spacecraft firmware should update.
+echo If you have some problems, reflash the modchip via the USB or an other method.
 goto:eof
 
 :repair_usb_debug_firmware_begin_flash

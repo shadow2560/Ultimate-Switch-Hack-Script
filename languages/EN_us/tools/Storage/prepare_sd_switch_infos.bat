@@ -283,14 +283,14 @@ IF "%pass_copy_mixed_pack%"=="Y" (
 	echo No optional homebrew will be copied.
 ) else (
 	tools\gnuwin32\bin\sort.exe -n "%mixed_profile_path%"
-		tools\gnuwin32\bin\grep.exe -c "Tinfoil" <"%mixed_profile_path%" >templogs\tempvar.txt
-	set /p temp_count=<templogs\tempvar.txt
-)
-IF NOT "%pass_copy_mixed_pack%"=="Y" (
-	IF "%temp_count%"=="1" (
-		echo Tinfoil will be copied, if you don't have a valid pay version of SX OS for the console it won't be possible to launch Tinfoil via Hekate and launching Atmosphere via Hekate's configurations might be impossible ^(Tinfoil removes the folder "atmosphere\kips" and the file "bootloader\patch.ini"^), to launch Atmosphere you will have to go through the payload Fusee-primary.
-	)
-)
+		rem tools\gnuwin32\bin\grep.exe -c "Tinfoil" <"%mixed_profile_path%" >templogs\tempvar.txt
+	rem set /p temp_count=<templogs\tempvar.txt
+rem )
+rem IF NOT "%pass_copy_mixed_pack%"=="Y" (
+	rem IF "%temp_count%"=="1" (
+		rem echo Tinfoil will be copied, if you don't have a valid pay version of SX OS for the console it won't be possible to launch Tinfoil via Hekate and launching Atmosphere via Hekate's configurations might be impossible ^(Tinfoil removes the folder "atmosphere\kips" and the file "bootloader\patch.ini"^), to launch Atmosphere you will have to go through the payload Fusee-primary.
+	rem )
+rem )
 echo.
 IF /i "%copy_emu%"=="o" (
 	echo Emulators:
