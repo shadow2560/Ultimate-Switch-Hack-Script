@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.240</h2>
+<ul>
+<li>Update NXNandManager to version 5.1.</li>
+</ul>
 <h2>V4.3.239</h2>
 <ul>
 <li>Fix a bug in the modechips management.</li>

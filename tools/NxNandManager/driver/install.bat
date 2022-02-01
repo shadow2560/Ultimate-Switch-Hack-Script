@@ -1,1 +1,0 @@
-dpinst_x64.exe /path .\ /p
