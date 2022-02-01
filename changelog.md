@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.239</h2>
+<ul>
+<li>Correction d'un bug dans la gestion des puces.</li>
+</ul>
 <h2>V4.3.238</h2>
 <ul>
 <li>Ajout d'une fonction pour flasher le firmware Spacecraft via la SD dans la gestion des puces.</li>

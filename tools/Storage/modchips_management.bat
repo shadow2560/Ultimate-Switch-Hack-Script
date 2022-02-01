@@ -333,7 +333,7 @@ IF "%sx_core_lite_action_choice%"=="2" (
 		pause
 		goto:sx_core_lite_flash
 	)
-	timeout /t 15 /nobreak > NUL
+	"%windir%\system32\timeout.exe" /t 15 /nobreak > NUL
 	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "spacecraft_error_flash"
