@@ -7,6 +7,7 @@
 <li>Mise à jour de Goldleaf en version 0.10.</li>
 <li>Mise à jour de AtmoXL-Titel-Installer en version 1.7.1.</li>
 <li>Mise à jour de Emuiibo en version 0.6.4.</li>
+<li>Mise à jour de uLaunch en version 0.3.2.</li>
 </ul>
 <h2>V510</h2>
 <ul>
