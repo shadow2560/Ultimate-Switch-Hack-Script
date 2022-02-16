@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.242</h2>
+<ul>
+<li>Reusing the version of NXNandManager before version 4.3.140 because the last version has problems with the nand dump.</li>
+</ul>
 <h2>V4.3.241</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 511.</li>
