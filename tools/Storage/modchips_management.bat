@@ -403,20 +403,12 @@ IF "%sx_core_lite_action_choice%"=="8" (
 	IF "!sd_volume_letter!"=="" goto:sx_core_lite_flash
 	echo.>!sd_volume_letter!:\.force_update
 	copy "tools\SX_Core_Lite\SPACECRAFT\firmware\firmware.bin" "!sd_volume_letter!:\firmware.bin" >nul
+	copy "tools\SX_Core_Lite\SPACECRAFT\firmware\sdloader.enc" "!sd_volume_letter!:\sdloader.enc" >nul
+	IF NOT EXIST "!sd_volume_letter!:\bootloader" mkdir "!sd_volume_letter!:\bootloader"
+	IF NOT EXIST "!sd_volume_letter!:\bootloader\payloads" mkdir "!sd_volume_letter!:\bootloader\payloads"
+	copy "tools\SX_Core_Lite\SPACECRAFT\firmware\hwfly_toolbox.bin" "!sd_volume_letter!:\bootloader\payloads\hwfly_toolbox.bin" >nul
 	call "%associed_language_script%" "flash_spacecraft_sd_instructions""
 	pause
-)
-IF "%sx_core_lite_action_choice%"=="9" (
-	call "%associed_language_script%" "repair_usb_debug_firmware_begin_flash"
-	tools\SX_Core_Lite\SPACECRAFT\tools\FirmwareUpdater.exe tools\SX_Core_Lite\SPACECRAFT\oled_debug_usb_problem\firmware_oled_chip_only.bin
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "repair_usb_debug_firmware_error_flash"
-		pause
-		goto:sx_core_lite_flash
-	)
-	call "%associed_language_script%" "repair_usb_debug_firmware_end_flash"
-	pause
-	goto:sx_core_lite_flash
 )
 goto:define_action_type
 

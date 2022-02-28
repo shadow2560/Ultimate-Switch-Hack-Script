@@ -223,20 +223,8 @@ echo Flash de la puce avec le firmware de Spacecraft terminé avec succès.
 goto:eof
 
 :flash_spacecraft_sd_instructions
-echo Maintenant il suffit de démarrer la console avec la SD et le firmware Spacecraft devrait se mettre à jour.
+echo Maintenant il suffit de démarrer la console avec la SD et le firmware Spacecraft devrait se mettre à jour. Sinon, il faut utiliser le payload "hwfly_toolbox.bin" via Hekate, mettre à jour le Sdloader, éteindre la console, relancer le payload "hwfly_toolbox.bin" et flasher le firmware.
 echo En cas de problèmes, reflasher via l'USB de la puce ou via une autre méthode.
-goto:eof
-
-:repair_usb_debug_firmware_begin_flash
-echo Flash de la puce avec le firmware réparant le bug de débogage USB en cours...
-goto:eof
-
-:repair_usb_debug_firmware_error_flash
-echo Erreur durant le flash de la puce avec le firmware réparant le bug de débogage USB.
-goto:eof
-
-:repair_usb_debug_firmware_end_flash
-echo Flash de la puce avec le firmware réparant le bug de débogage USB terminé avec succès.
 goto:eof
 
 :select_boot0_file

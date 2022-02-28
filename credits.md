@@ -151,7 +151,7 @@
 <li><a target="_blank" href="https://github.com/shadowninja108/STD">Std</a>, Saturn Tribute Decryption tool.</li>
 <li>GNU Win32 tools (Md5sum, Cut, DiffUtils, FindUtils, Grep, Head, Sed, split, Tail, Wc, Dd, Fdisk, Ls): See <a target="_blank" href="http://gnuwin32.sourceforge.net/">This page</a>. For Sed, see <a target="_blank" href="https://github.com/mbuilov/sed-windows/">this page</a>. For Split, dd and ls they come from portable Git, see <a target="_blank" href="https://git-scm.com/download/win">this page</a> and also thanks to  MSYS devs for the GNU tools that they have ported to Windows like fdisk.</li>
 <li><a target="_blank" href="https://gist.github.com/cd40c3d1b5dfafbf1fe8f7e5cf13f91e">Gw_flash</a></li>
-<li><a target="_blank" href="https://github.com/Spacecraft-NX">Spacecraft-NX projects</a></li>
+<li><a target="_blank" href="https://github.com/Spacecraft-NX">Spacecraft-NX projects</a>, replaced by <a target="_blank" href="https://github.com/hwfly-nx/">HWFly project</a></li>
 <li><a target="_blank" href="https://github.com/SciresM/hactool">Hactool</a></li>
 <li><a target="_blank" href="https://github.com/The-4n/hacBrewPack">HacBrewPack</a></li>
 <li><a target="_blank" href="https://www.imagemagick.org">ImageMagick</a></li>

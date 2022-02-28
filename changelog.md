@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.243</h2>
+<ul>
+<li>Utilisation du firmware HWFly à la place de Spacecraft lors du flash de puces.</li>
+<li>dans la préparation d'une SD, copie du payload HWfly_toolbox dans les payloads de Hekate si une puce type SX Core/Lite est sélectionnée ainsi que le pack Atmosphere.</li>
+<li>Mise à jour de Hactoolnet en version 0.16.0.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 512.</li>
+</ul>
 <h2>V4.3.242</h2>
 <ul>
 <li>Réutilisation de la version de NXNandManager avant la version 4.3.140 car la dernière version pose des problèmes avec le dump de nand.</li>

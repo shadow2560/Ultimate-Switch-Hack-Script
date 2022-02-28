@@ -232,20 +232,8 @@ echo Modship flash with Spacecraft firmware success.
 goto:eof
 
 :flash_spacecraft_sd_instructions
-echo Now you just have to boot the console with the SD and the Spacecraft firmware should update.
+echo Now you just have to boot the console with the SD and the Spacecraft firmware should update. If it doesn't work, use the "hwfly_toolbox.bin" payload with Hekate to flash the sdloader first, then shut down the console, reload the "hwfly_toolbox.bin" payload and flash the firmware.
 echo If you have some problems, reflash the modchip via the USB or an other method.
-goto:eof
-
-:repair_usb_debug_firmware_begin_flash
-echo Modship flashing with USB debug reparation firmware...
-goto:eof
-
-:repair_usb_debug_firmware_error_flash
-echo Error during the modship flash  with USB debug reparation firmware.
-goto:eof
-
-:repair_usb_debug_firmware_end_flash
-echo Modship flash with USB debug reparation firmware success.
 goto:eof
 
 :select_boot0_file

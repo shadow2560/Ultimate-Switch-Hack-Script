@@ -586,6 +586,9 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	copy /V /B "TOOLS\sd_switch\payloads\Atmosphere_fusee.bin" "%volume_letter%\bootloader\payloads\Atmosphere_fusee.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\bootloader\payloads\Hekate.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\bootloader\update.bin" >nul
+	IF /i "%sx_core_lite_chip%"=="o" (
+		copy /V /B "TOOLS\sd_switch\payloads\hwfly_toolbox.bin" "%volume_letter%\bootloader\payloads\hwfly_toolbox.bin" >nul
+	)
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\payload.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\start.bin" >nul
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000000D"
