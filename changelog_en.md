@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.244</h2>
+<ul>
+<li>In the SD preparation, add a question to ask if the Spacecraft firmware should be copied.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 513.</li>
+</ul>
 <h2>V4.3.243</h2>
 <ul>
 <li>Use the HWFly firmware replacing Spacecraft for flashing modchips.</li>

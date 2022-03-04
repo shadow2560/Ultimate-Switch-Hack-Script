@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V513</h2>
+<ul>
+<li>Ajout du firmware Hwfly.</li>
+</ul>
 <h2>V512</h2>
 <ul>
 <li>Ajout du payload Hwfly_toolbox.</li>

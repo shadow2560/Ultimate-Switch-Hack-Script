@@ -114,6 +114,10 @@ goto:eof
 set /p sx_core_lite_chip=La console est-elle équipée d'une puce SX Core/Lite? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:hwfly_copy_choice
+set /p hwfly_copy=Souhaitez-vous copier le firmware de Spacecraft pour le mettre à jour sur la puce SX Core/Lite via le payload hwfly_toolbox? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :mariko_console_choice
 set /p mariko_console=La console est-elle un modèle Mariko ^(numéro de série ne commençant pas par "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

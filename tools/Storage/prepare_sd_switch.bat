@@ -174,12 +174,16 @@ IF %nb% EQU 1 (
 	IF "%volume_letter:~-1,1%"=="\" set volume_letter=%volume_letter:~0,-1%
 )
 set sx_core_lite_chip=
+set hwfly_copy=
 set mariko_console=
 set sx_launcher_use=
 call "%associed_language_script%" "sx_core_lite_chip_choice"
 IF NOT "%sx_core_lite_chip%"=="" set sx_core_lite_chip=%sx_core_lite_chip:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_core_lite_chip" "o/n_choice"
 IF /i "%sx_core_lite_chip%"=="o" (
+	call "%associed_language_script%" "hwfly_copy_choice"
+IF NOT "!hwfly_copy!"=="" set hwfly_copy=!hwfly_copy:~0,1!
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "hwfly_copy" "o/n_choice"
 	call "%associed_language_script%" "mariko_console_choice"
 	IF NOT "!mariko_console!"=="" set mariko_console=!mariko_console:~0,1!
 	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
@@ -587,6 +591,10 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\bootloader\payloads\Hekate.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\bootloader\update.bin" >nul
 	IF /i "%sx_core_lite_chip%"=="o" (
+	IF /i "%hwfly_copy%"=="o" (
+		%windir%\System32\Robocopy.exe "TOOLS\sd_switch\hwfly_firmware " "%volume_letter%\ " /e >nul
+		echo.>"%volume_letter%\.force_update"
+	)
 		copy /V /B "TOOLS\sd_switch\payloads\hwfly_toolbox.bin" "%volume_letter%\bootloader\payloads\hwfly_toolbox.bin" >nul
 	)
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\payload.bin" >nul

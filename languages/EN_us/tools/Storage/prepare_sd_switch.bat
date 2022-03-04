@@ -121,6 +121,10 @@ goto:eof
 set /p sx_core_lite_chip=The console is equiped with a SX Core/Lite modchip? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:hwfly_copy_choice
+set /p hwfly_copy=Do you want to copy the  Spacecraft firmware to update it on the SX Core/Lite modchip via the hwfly_toolbox payload? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :mariko_console_choice
 set /p mariko_console=The console is a Mariko model ^(serial number witch doesn't start with "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

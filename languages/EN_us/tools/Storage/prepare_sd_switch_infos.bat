@@ -349,6 +349,11 @@ IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
 IF "%profile_selected%"=="" (
 	echo.
 	IF /i "%sx_core_lite_chip%"=="o" (
+		IF /i "%hwfly_copy%"=="o" (
+			echo The Spacecraft firmware will be copied.
+		) else (
+			echo The Spacecraft firmware will not be copied.
+		)
 		IF /i "%mariko_console%"=="o" (
 			echo SX Core/Lite modchip present on Mariko console.
 		) else (
@@ -362,12 +367,12 @@ IF "%profile_selected%"=="" (
 	) else (
 	echo The SX Gear files will not be copied.
 	)
-)
 echo.
-IF /i "%firmware_copy%"=="o" (
-	echo The  firmware %firmware_choice% will be copied.
-) else (
-	echo No firmware will be copied.
+	IF /i "%firmware_copy%"=="o" (
+		echo The  firmware %firmware_choice% will be copied.
+	) else (
+		echo No firmware will be copied.
+	)
 )
 echo.
 IF /i "%del_files_dest_copy%"=="1" echo Be careful: All CFWs folder will be cleaned, included the "titles" folder of them.

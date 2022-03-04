@@ -1833,6 +1833,10 @@ call :verif_folder_version "tools\sd_switch\atmosphere_patches_nogc"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\sd_switch\hwfly_firmware"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\sd_switch\payloads"
 IF "!update_finded!"=="Y" (
 	call :update_folder

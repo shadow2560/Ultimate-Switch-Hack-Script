@@ -345,6 +345,11 @@ IF "%profile_selected%"=="" (
 		) else (
 			echo Puce SX Core/Lite présente sur console Erista.
 		)
+		IF /i "%hwfly_copy%"=="o" (
+			echo Le firmware Spacecraft sera copié.
+		) else (
+			echo Le firmware Spacecraft ne sera pas copié.
+		)
 	) else (
 	echo Puce SX Core/Lite non présente.
 	)
@@ -353,12 +358,12 @@ IF "%profile_selected%"=="" (
 	) else (
 	echo Les fichiers du SX Gear ne seront pas copiés.
 	)
-)
-echo.
-IF /i "%firmware_copy%"=="o" (
-	echo Le  firmware %firmware_choice% sera copié.
-) else (
-	echo Aucun firmware  ne sera copié.
+	echo.
+	IF /i "%firmware_copy%"=="o" (
+		echo Le  firmware %firmware_choice% sera copié.
+	) else (
+		echo Aucun firmware  ne sera copié.
+	)
 )
 echo.
 IF /i "%del_files_dest_copy%"=="1" echo Attention: Les fichiers de tous les CFWs seront réinitialisé avant la copie, dossier "titles" de ceux-ci inclus.
