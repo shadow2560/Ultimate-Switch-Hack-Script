@@ -3,6 +3,7 @@
 <h2>V4.3.244</h2>
 <ul>
 <li>Dans la préparation d'une SD, ajout d'une question pour demander si la copie du firmware Spacecraft doit être faite.</li>
+<li>Correction d'un bug dans le script TegraExplorer de débrickage sur la fonction de copie des paramètres des joycons de la sysnand vers l'emunand.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 513.</li>
 </ul>
 <h2>V4.3.243</h2>

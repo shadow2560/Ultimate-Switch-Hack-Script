@@ -3,6 +3,7 @@
 <h2>V4.3.244</h2>
 <ul>
 <li>In the SD preparation, add a question to ask if the Spacecraft firmware should be copied.</li>
+<li>Fix a bug in the unbrick script for TegraExplorer in the function that copy the joycons synchronization  settings from the sysnand to the emunand.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 513.</li>
 </ul>
 <h2>V4.3.243</h2>
