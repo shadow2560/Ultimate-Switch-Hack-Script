@@ -1,6 +1,12 @@
-HWFLY firmware 0.6.1
+HWFLY firmware 0.6.2
 
 Changelog:
+
+0.6.2
+ - add led pattern to indicate all attempts exhausted (red pulsing)
+ - improve reflashing check
+ - glitch mechanism: move on slightly faster to next known offset
+ - no need to update if your device trained fine
 
 0.6.1
  - glitching mechanism improvement: do not reset pulse width initial training but adjust until correct
