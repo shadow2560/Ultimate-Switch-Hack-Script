@@ -29,7 +29,7 @@ IF EXIST templogs (
 )
 mkdir templogs
 call "%associed_language_script%" "display_title"
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% EQU 0 (
 	call "%associed_language_script%" "language_list_downloading"
 	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -d "tools\default_configs\Lists" -o "languages.list" "%files_url_project_base%/tools/default_configs/Lists/languages.list"
@@ -102,7 +102,7 @@ start /i "" "%windir%\system32\cmd.exe" /c call "Ultimate-Switch-Hack-Script.bat
 exit
 
 :init_language
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF !errorlevel! NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	exit /b 404

@@ -29,7 +29,7 @@ IF NOT EXIST templogs (
 )
 IF EXIST "firmware_temp" rmdir /s /q "firmware_temp" 2>nul
 call "%associed_language_script%" "display_title"
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	goto:end_script

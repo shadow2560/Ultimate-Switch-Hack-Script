@@ -34,7 +34,7 @@ pause
 :begin_script
 echo.
 call "%associed_language_script%" "begin_update_database"
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	IF NOT EXIST "tools\python3_scripts\ssnc\serials.json" (
 		call "%associed_language_script%" "no_database_and_no_internet_connection_error"

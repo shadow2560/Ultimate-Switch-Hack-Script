@@ -46,7 +46,7 @@ IF "%action_choice%"=="7" (
 )
 goto:end_script
 :display_changelog_general
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection"
 	IF EXIST "%language_path%\doc\files\changelog.html" start "%language_path%\doc\files\changelog.html"
@@ -56,7 +56,7 @@ IF %errorlevel% NEQ 0 (
 start "" "templogs\changelog.html"
 goto:define_action_choice
 :display_changelog_packs
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection"
 	IF EXIST "%language_path%\doc\files\packs_changelog.html" start "%language_path%\doc\files\packs_changelog.html"
@@ -66,7 +66,7 @@ IF %errorlevel% NEQ 0 (
 start "" "templogs\packs_changelog.html"
 goto:define_action_choice
 :display_credits
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection"
 	IF EXIST "%language_path%\doc\files\credits.html" start "%language_path%\doc\files\credits.html"

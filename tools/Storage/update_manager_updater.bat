@@ -51,7 +51,7 @@ IF NOT "%language_path%"=="" (
 	echo.
 	echo Updating script Update Manager...
 )
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	IF NOT "%language_path%"=="" (
 		call "%associed_language_script%" "no_internet_connection_error"

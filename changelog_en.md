@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.245</h2>
+<ul>
+<li>Fix possible bugs with the "ping" command, now the full path to the executable is given to avoid possible problems of command confusion by the system.</li>
+</ul>
 <h2>V4.3.244</h2>
 <ul>
 <li>In the SD preparation, add a question to ask if the Spacecraft firmware should be copied.</li>

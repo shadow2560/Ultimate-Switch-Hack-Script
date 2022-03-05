@@ -114,7 +114,7 @@ exit /b
 
 :update_adb
 call "%associed_language_script%" "update_tools_begin_message"
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.google.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "update_tools_no_internet_connection"
 	exit /b 404

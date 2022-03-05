@@ -22,7 +22,7 @@ IF EXIST "%~0.version" (
 	set this_script_version=1.00.00
 )
 call "%associed_language_script%" "display_title"
-ping /n 2 www.google.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "no_internet_connection_error"
 	goto:end_script

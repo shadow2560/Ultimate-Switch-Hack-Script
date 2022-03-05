@@ -18,7 +18,7 @@ set atmo_folders_sigpatches_url_project_base=https://github.com/THZoria/patches/
 set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/THZoria/patches/master
 set what_to_update=%~1
 IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
-	ping /n 2 www.github.com >nul 2>&1
+	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 	IF !errorlevel! NEQ 0 (
 		echo Dependancy error, you have to connect to internet, script will close.
 		pause
@@ -30,7 +30,7 @@ IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	)
 )
 IF NOT EXIST "tools\aria2\aria2c.exe" (
-	ping /n 2 www.github.com >nul 2>&1
+	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 	IF !errorlevel! NEQ 0 (
 		echo Dependancy error, you have to connect to internet, script will close.
 		pause
@@ -98,7 +98,7 @@ IF "%what_to_update%"=="update_launch_nsusbloader.bat" (
 call "%associed_language_script%" "display_title"
 IF "%lng_yes_choice%"=="" (
 	IF "%language_custom%"=="0" (
-		ping /n 2 www.github.com >nul 2>&1
+		"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 		IF !errorlevel! EQU 0 (
 			call :verif_file_version "%language_path%\language_general_config.bat"
 			IF "!update_finded!"=="Y" (
@@ -218,7 +218,7 @@ IF "%what_to_update%"=="update_all" goto:skip_new_script_install
 IF "%what_to_update%"=="general_content_update" goto:skip_new_script_install
 IF "%~2"=="force" (
 	IF NOT "%verified_internet_connexion%"=="Y" (
-		ping /n 2 www.github.com >nul 2>&1
+		"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 		set error_level=!errorlevel!
 	) else (
 		set error_level=0
@@ -268,7 +268,7 @@ IF "%~2"=="force" (
 )
 :skip_new_script_install
 IF NOT "%verified_internet_connexion%"=="Y" (
-	ping /n 2 www.github.com >nul 2>&1
+	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 	set error_level=!errorlevel!
 ) else (
 	set error_level=0
@@ -2989,7 +2989,7 @@ exit
 exit /b
 
 :initialize_language
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	echo No internet connection and the language is not initialized, script will close.
 	pause
@@ -3048,13 +3048,13 @@ exit /b
 
 :retroarch_update
 IF NOT EXIST "failed_updates" mkdir "failed_updates" >nul
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "retroarch_no_internet_connection"
 	pause
 	exit /b 500
 )
-ping /n 2 buildbot.libretro.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 buildbot.libretro.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "retroarch_no_internet_connection"
 	pause
@@ -3078,13 +3078,13 @@ exit /b
 
 :java_update
 IF NOT EXIST "failed_updates" mkdir "failed_updates" >nul
-ping /n 2 www.github.com >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "java_no_internet_connection"
 	pause
 	exit /b 500
 )
-ping /n 2 downloads.sourceforge.net >nul 2>&1
+"%windir%\system32\ping.exe" /n 2 downloads.sourceforge.net >nul 2>&1
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "java_no_internet_connection"
 	pause
