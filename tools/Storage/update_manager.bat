@@ -420,6 +420,7 @@ call :update_biskey_dump.bat
 call ::update_auto_ips_menu.bat
 call :update_convert_BOTW.bat
 call :update_convert_game_to_nsp.bat
+call :update_create_bootlogos.bat
 call :update_custom_boot.dat_maker.bat
 call :update_detect_firmware_titles.bat
 call :update_donate.bat
@@ -688,6 +689,37 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 	)
 )
 call :verif_folder_version "tools\Hactool_based_programs"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+exit /b
+
+:update_create_bootlogos.bat
+call :verif_file_version "tools\Storage\create_bootlogos.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\create_bootlogos.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\create_bootlogos.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\ImageMagick"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\Insert_splash_screen"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\python3_scripts\Switch-logo-patcher"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -1826,6 +1858,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\sd_switch\atmosphere_fs_and_es_patches"
+IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\exefs_patches\es_patches" set update_finded=Y
+IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\fs_patches" set update_finded=Y
+IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\loader_patches" set update_finded=Y
+IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\bootloader\patches.ini" set update_finded=Y
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2410,6 +2446,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\unbrick_special_SD_files"
+IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\exefs_patches\es_patches" set update_finded=Y
+IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\fs_patches" set update_finded=Y
+IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\loader_patches" set update_finded=Y
+IF NOT EXIST "tools\unbrick_special_SD_files\bootloader\patches.ini" set update_finded=Y
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -3061,8 +3101,10 @@ IF %errorlevel% NEQ 0 (
 	exit /b 500
 )
 call :verif_folder_version "tools\sd_switch\emulators\pack\RetroArch"
-IF NOT EXIST "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" (
-	set update_finded=Y
+IF NOT "%~1"=="main_update_only" (
+	IF NOT EXIST "tools\sd_switch\emulators\pack\RetroArch\RetroArch.7z" (
+		set update_finded=Y
+	)
 )
 IF "!update_finded!"=="Y" (
 	call "%associed_language_script%" "retroarch_updating"

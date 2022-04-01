@@ -134,6 +134,7 @@ echo 13.0.0?
 echo 13.1.0?
 echo 13.2.0?
 echo 13.2.1?
+echo 14.0.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -531,6 +532,15 @@ IF "%firmware_choice%"=="13.2.1" (
 	set expected_md5=881379299c1c9cd2a4b7a90c18c9ea82
 	set "firmware_link=https://mega.nz/file/xYYkyT7K#I0Xr60_co04X_JWUirfVyswg0pR_XnlxeIDMK5YHEYQ"
 	set firmware_file_name=Firmware 13.2.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="14.0.0" (
+	set expected_md5=816010565838f30b047d0059efa8c3ea
+	set "firmware_link=https://mega.nz/file/wEJi0IRQ#p1S-t8LkSUa5xjDoCc_brveXlk6JniZVcmRLCVt-x_8"
+	set firmware_file_name=Firmware 14.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

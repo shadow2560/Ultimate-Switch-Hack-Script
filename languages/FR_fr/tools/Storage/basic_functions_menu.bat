@@ -35,6 +35,8 @@ echo 12: Convertir un payload en fichier "boot.dat"?
 echo.
 echo 13: Migration d'emunand ^(fonction en Beta^)?
 echo.
+echo 14: Création de bootlogos?
+echo.
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 echo.

@@ -44,6 +44,8 @@ echo 12: Convert a payload to a "boot.dat" file?
 echo.
 echo 13: Emunand migration ^(function in beta^)?
 echo.
+echo 14: Bootlogos creation?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.

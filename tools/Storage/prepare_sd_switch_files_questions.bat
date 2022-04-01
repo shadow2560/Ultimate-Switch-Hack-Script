@@ -625,6 +625,10 @@ set atmo_ease_nro_restriction=
 call "%associed_language_script2%" "atmosphere_manual_config_nro-restrict_param_choice"
 IF NOT "%atmo_ease_nro_restriction%"=="" set atmo_ease_nro_restriction=%atmo_ease_nro_restriction:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_ease_nro_restriction" "o/n_choice"
+set atmo_disable_automatic_report_cleanup=
+call "%associed_language_script2%" "atmosphere_manual_config_disable_automatic_report_cleanup_param_choice"
+IF NOT "%atmo_disable_automatic_report_cleanup%"=="" set atmo_disable_automatic_report_cleanup=%atmo_disable_automatic_report_cleanup:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_disable_automatic_report_cleanup" "o/n_choice"
 :define_atmo_fatal_auto_reboot_interval
 set atmo_fatal_auto_reboot_interval=
 call "%associed_language_script2%" "atmosphere_manual_config_fatal-reboot_interval_param_choice"

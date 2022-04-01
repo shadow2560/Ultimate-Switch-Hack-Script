@@ -212,6 +212,10 @@ goto:eof
 set /p atmo_ease_nro_restriction=Activer les restrictions NRO ^(non recommandé^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_config_disable_automatic_report_cleanup_param_choice
+set /p atmo_disable_automatic_report_cleanup=Désactiver le nettoyage automatique des logs Erpt ^(non recommandé^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_config_fatal-reboot_interval_param_choice
 set /p atmo_fatal_auto_reboot_interval=Temps à partir duquel la console redémarrera automatiquement en cas de crash ^(0 pour attendre indéfiniement jusqu'à l'appuie d'une touche par l'utilisateur^) ^(temps en milisecondes^): 
 goto:eof

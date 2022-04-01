@@ -52,6 +52,10 @@ goto:eof
 set /p mariko_console=Do you want to create a package for a Mariko console ^(serial number witch doesn't start with "XA"^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:autorcm_param_choice
+set /p autorcm=Do you want to disable auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :package_creation_success
 echo Firmware creation success.
 goto:eof

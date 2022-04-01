@@ -53,6 +53,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo NRO restrictions disabled.
 		)
+		IF /i "%atmo_disable_automatic_report_cleanup%"=="o" (
+			echo The Erpt logs automatic cleanup i disabled.
+		) else (
+			echo The Erpt logs automatic cleanup i enabled.
+		)
 		IF /i "%atmo_dmnt_cheats_enabled_by_default%"=="o" (
 			echo Cheats state by defaults: enabled.
 		) else (

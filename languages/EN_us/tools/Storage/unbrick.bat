@@ -266,6 +266,10 @@ echo A problem occurred during firmware creation.
 echo Check that you have all the required keys in the "keys.txt" file.
 goto:eof
 
+:autorcm_param_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to disable auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
 :emmchaccgen_package_creation_first_error
 echo A problem occurred during firmware creation.
 echo Check that you have all the required keys in the "keys.txt" file.

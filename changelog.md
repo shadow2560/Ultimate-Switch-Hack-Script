@@ -1,5 +1,27 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.246</h2>
+<ul>
+<li>Support du firmware 14.0.0.</li>
+<li>Ajout des dernières clés dans la vérification d'un fichier de clés.</li>
+<li>Le nouveau paramètre "disable_automatic_report_cleanup" est supporté dans le réglage manuel des paramètres d'Atmosphere.</li>
+<li>Correction de petits bugs dans le gestionnaire de mises à jour.</li>
+<li>Ajout d'une option pour désactiver l'auto-RCM lors de la création d'un package via EmmcHaccGen dans tous les scripts concernés.</li>
+<li>Ajout d'une nouvelle fonction permettant de créer les bootlogos pour Atmosphere.</li>
+<li>Ajout de Nstool, pour l'instant non utilisé.</li>
+<li>Ajout de Switch-logo-patcher.</li>
+<li>Ajout du script python Insert_splash_screen d'Atmosphere.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.0.0 et le support des consoles Mariko pour appliquer Incognito.</li>
+<li>Mise à jour de SwitchThemeInjector en version 4.7.</li>
+<li>Mise à jour de NxFileViewer en version 2.6.1.</li>
+<li>Mise à jour d'Atmosphere en version 1.3.0.</li>
+<li>Mise à jour de Hekate en version 5.7.2.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.7.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 14.0.0.</li>
+<li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 514.</li>
+</ul>
 <h2>V4.3.245</h2>
 <ul>
 <li>Correction de bugs éventuels à cause de la commande "ping", maintenant le chemin complet vers l'exécutable est donné pour éviter d'éventuels problèmes de confusion de commande par le système.</li>

@@ -1498,6 +1498,11 @@ IF /i "%atmo_ease_nro_restriction%"=="o" (
 ) else (
 	set atmo_ease_nro_restriction=0x0
 )
+IF /i "%atmo_disable_automatic_report_cleanup%"=="o" (
+	set atmo_disable_automatic_report_cleanup=0x1
+) else (
+	set atmo_disable_automatic_report_cleanup=0x0
+)
 IF /i "%atmo_dmnt_cheats_enabled_by_default%"=="o" (
 	set atmo_dmnt_cheats_enabled_by_default=0x1
 ) else (
@@ -1636,6 +1641,9 @@ echo ; Control the output directory for SD card logs.>>"%volume_letter%\atmosphe
 echo ; Note that this setting does nothing when log manager is not enabled/sd card logging is not enabled.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo sd_card_log_output_directory = str!%atmo_sd_card_log_output_directory%>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; Atmosphere custom settings>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo [erpt]>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo ; Control whether erpt reports should always be preserved, instead of automatically cleaning periodically.>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo disable_automatic_report_cleanup = u8!%atmo_disable_automatic_report_cleanup%>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo [atmosphere]>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; Reboot from fatal automatically after some number of milliseconds.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; If field is not present or 0, fatal will wait indefinitely for user input.>>"%volume_letter%\atmosphere\config\system_settings.ini"

@@ -261,6 +261,10 @@ echo Un problème est survenu pendant la création du firmware.
 echo Vérifiez que vous avez bien toutes les clés requises.
 goto:eof
 
+:autorcm_param_choice
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous désactiver l'auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
 :emmchaccgen_package_creation_first_error
 echo Un problème est survenu pendant la création du firmware.
 echo Vérifiez que vous avez bien toutes les clés requises.

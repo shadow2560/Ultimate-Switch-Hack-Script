@@ -32,6 +32,9 @@ IF /i NOT "%atmo_usb30_force_enabled%"=="o" (
 IF /i NOT "%atmo_ease_nro_restriction%"=="o" (
 	set atmo_ease_nro_restriction=n
 )
+IF /i NOT "%atmo_disable_automatic_report_cleanup%"=="o" (
+	set atmo_disable_automatic_report_cleanup=n
+)
 IF /i NOT "%atmo_dmnt_cheats_enabled_by_default%"=="o" (
 	set atmo_dmnt_cheats_enabled_by_default=n
 )

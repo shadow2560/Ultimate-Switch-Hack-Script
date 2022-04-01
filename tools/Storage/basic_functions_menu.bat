@@ -39,6 +39,7 @@ IF "%action_choice%"=="10" goto:create_sig_patches
 IF "%action_choice%"=="11" goto:spoof_sxos_licence
 IF "%action_choice%"=="12" goto:custom_boot.dat_maker
 IF "%action_choice%"=="13" goto:migrate_emunand
+IF "%action_choice%"=="14" goto:create_bootlogos
 goto:end_script
 
 :launch_payload
@@ -195,6 +196,18 @@ IF EXIST "tools\Storage\emunand_migrate.bat" (
 	call tools\Storage\update_manager.bat "update_emunand_migrate.bat" "force"
 )
 call TOOLS\Storage\emunand_migrate.bat
+@echo off
+goto:define_action_choice
+:create_bootlogos
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\create_bootlogos.bat" (
+	call tools\Storage\update_manager.bat "update_create_bootlogos.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_create_bootlogos.bat" "force"
+)
+call TOOLS\Storage\create_bootlogos.bat
 @echo off
 goto:define_action_choice
 :end_script
