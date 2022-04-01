@@ -77,7 +77,7 @@ call "%associed_language_script%" "mariko_console_param_choice"
 IF NOT "%mariko_console%"=="" set mariko_console=%mariko_console:~0,1%
 call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
 IF /i "%mariko_console%"=="o" set mariko_console_param=--mariko --no-autorcm
-IF /i NOT "%mariko_console%"=="o"
+IF /i NOT "%mariko_console%"=="o" (
 	set autorcm=
 	call "%associed_language_script%" "autorcm_param_choice"
 	IF NOT "!autorcm!"=="" set autorcm=!autorcm:~0,1!

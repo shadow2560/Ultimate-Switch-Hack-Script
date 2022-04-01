@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.247</h2>
+<ul>
+<li>Correction d'un bug important.</li>
+</ul>
 <h2>V4.3.246</h2>
 <ul>
 <li>Support du firmware 14.0.0.</li>
