@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.248</h2>
+<ul>
+<li>Mise à jour de Prodinfo_gen en version 1.1.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 515.</li>
+</ul>
 <h2>V4.3.247</h2>
 <ul>
 <li>Correction d'un bug important.</li>

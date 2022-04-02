@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V515</h2>
+<ul>
+<li>Update Prodinfo_gen to version 1.1.0.</li>
+</ul>
 <h2>V514</h2>
 <ul>
 <li>Update Atmosphere to version 1.3.0.</li>
