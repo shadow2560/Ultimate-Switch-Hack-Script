@@ -39,7 +39,7 @@ size = 0
 end = 0
 loader = ConstBitStream(filename=filename)
 findloader = loader.find('0xCCCCCCCC4C6F61646572')
-if sys.argv[2] == "":
+if len(sys.argv) < 3:
     workingdir = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'output')
 else:
     workingdir = sys.argv[2]

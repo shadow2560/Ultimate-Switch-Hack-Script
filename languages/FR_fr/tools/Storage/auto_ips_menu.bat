@@ -91,6 +91,14 @@ goto:eof
 echo ES_patches créés avec succès.
 goto:eof
 
+:NFIM_patches_creation_error
+echo Erreur durant la création des NFIM_patches, vérifiez que vous avez bien dumpé et indiqué les dernières clés de votre console et vérifiez le dossier du firmware source.
+goto:eof
+
+:NFIM_patches_creation_success
+echo NFIM_patches créés avec succès.
+goto:eof
+
 :ES_patches_creation_error
 echo Erreur durant la création des ES_patches, vérifiez que vous avez bien dumpé et indiqué les dernières clés de votre console et vérifiez le dossier du firmware source.
 goto:eof

@@ -104,6 +104,14 @@ goto:eof
 echo Error during the creation of ES_patches, check that you have dumpled and indicated the last keys of your console and check the source firmware folder.
 goto:eof
 
+:NFIM_patches_creation_error
+echo Error during the creation of NFIM_patches, check that you have dumpled and indicated the last keys of your console and check the source firmware folder.
+goto:eof
+
+:NFIM_patches_creation_success
+echo NFIM_patches creation success.
+goto:eof
+
 :firmware_preparation_error
 echo No firmware selected or an error occurred during firmware preparation.
 goto:eof

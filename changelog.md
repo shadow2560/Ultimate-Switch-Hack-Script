@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.249</h2>
+<ul>
+<li>Mise à jour des scripts python pour créer les ES_patches et FS_patches.</li>
+</ul>
 <h2>V4.3.248</h2>
 <ul>
 <li>Mise à jour de Prodinfo_gen en version 1.1.0.</li>

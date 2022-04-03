@@ -21,7 +21,7 @@ import time
 
 hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
 hactoolnet = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactoolnet.exe')
-keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys')
+keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod.keys')
 FIRMWARE_DIR = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware')
 if len(sys.argv) < 2:
     print("You didn't type any arguements, trying default firmware folder and prod.keys\n")
@@ -41,8 +41,8 @@ else:
     sys.exit(1)    
 
 start = time.time()
-if sys.argv[3] == "":
-    root_dir = "output/"
+if len(sys.argv) < 4:
+    root_dir = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'output/')
 else:
     root_dir = sys.argv[3] + "/".replace("\\", "/")
 ES_NCA = ""
@@ -72,6 +72,7 @@ patterns3 = [common1, common2, '0xe023009168edff97'] #firmware 12.0.x
 patterns4 = [common1, common2, '0xe023009140edff97'] #firmware 12.1.1
 patterns5 = [common1, common2, '0xe02300916de9ff97'] #firmware 13.0.0
 patterns6 = [common1, common2, '0xe02300910de9ff97'] #firmware 13.0.1
+patterns7 = [common1, common2, '0xe023009111e8ff97'] #firmware 14.0.0
 
 '''
 Note to find the new pattern for the 3rd pattern, use hex probe software and use this wildcard
@@ -84,7 +85,7 @@ def List_files():
     files = os.listdir(directory)
     for filelist in files:
         getsize = os.stat(directory + '/' + filelist).st_size
-        if (262144 < getsize < 524288):
+        if (262144 < getsize < 687265): #set size limit to make the search faster.
             shortlist.append(filelist)
 
 def cleanup():
@@ -112,7 +113,7 @@ def extract():
     # print(shortlist)
     for filename in shortlist:
         if filename.endswith(".nca"):
-            outlines = subprocess.check_output([hactoolnet,'-k', keyset, FIRMWARE_DIR + '/' + filename])
+            outlines = subprocess.check_output([hactoolnet,'-k', keyset, '--disablekeywarns', FIRMWARE_DIR + '/' + filename])
 
             for line in outlines.splitlines():
                 # line = line.decode('ascii').replace(" ","")
@@ -129,15 +130,15 @@ def extract():
             
             if ES_NCA:
                 print("Using hactoolnet to extract exefsdir")
-                subprocess.run([hactoolnet, '-k', keyset, '-t', 'nca', '--exefsdir', '.', FIRMWARE_DIR + '/' + filename], stdout=subprocess.DEVNULL)
+                subprocess.run([hactoolnet, '-k', keyset, '--disablekeywarns', '-t', 'nca', '--exefsdir', '.', FIRMWARE_DIR + '/' + filename], stdout=subprocess.DEVNULL)
                 if os.path.exists("main"):
                     print("Using hactool to decompress main")
-                    outlines = subprocess.check_output([hactool, '-k', keyset, '-t', 'nso', '--uncompressed', 'main_dec', 'main'])
+                    outlines = subprocess.check_output([hactool, '-k', keyset, '--disablekeywarns', '-t', 'nso', '--uncompressed', 'main_dec', 'main'])
                     cleanup()
                     makedumped()
                     movefiles()
 
-                outlines = subprocess.check_output([hactoolnet,'-k', keyset, FIRMWARE_DIR + '/' + ES_NCA])
+                outlines = subprocess.check_output([hactoolnet,'-k', keyset, '--disablekeywarns', FIRMWARE_DIR + '/' + ES_NCA])
                 for line in outlines.splitlines():
                     # line = line.decode('ascii').replace(" ","")
                     line = line.decode('utf-8').replace(" ","")
@@ -182,12 +183,15 @@ def checkfiles():
     elif value == 13300:
         patterns = patterns5 # for firmware 13.0.0
         print ("Using pattern 5")
-    elif value == 13400:
+    elif value >= 13400 and value < 14300:
         patterns = patterns6 # for firmware 13.0.1
-        print ("Using pattern 6")    
+        print ("Using pattern 6")
+    elif value == 14300:
+        patterns = patterns7 # for firmware 14.0.0
+        print ("Using pattern 7 + wildcardsearch")
     else:
-        patterns = patterns6
-        print ("Unable to find sdk so just using pattern 6")
+        patterns = patterns7
+        print ("Unable to find sdk so just using pattern 7")
 
 def clean_sdk():
     if Path(sdk).exists():
@@ -240,7 +244,7 @@ def find_offsets():
         # Fix offset
         off_fix = int(off / 8)
 
-        if off_fix < 0x10000 or off_fix > 0x3FFFC: # Limit range
+        if off_fix < 0x10000 or off_fix > 0xFFFFC: # Limit range
             continue
 
         # Calculate instruction offset
@@ -250,22 +254,37 @@ def find_offsets():
         hexval = '0x{0:0{1}X}'.format(final, 6) #change int back to uppercase hex (make sure we also print leading zero)
 
 def wildcard_offsets(): #wildcard test search for patch 3
-    with open(filename, 'rb') as file:
-        f1 = re.search(b'\xE0\x23\x00\x91..\xFF\x97', file.read())
-        # Calculate instruction offset
-        global final
-        global hexval
-        final = (f1 .start() - 4)
-        hexval = '0x{0:0{1}X}'.format(final, 6) #change int back to uppercase hex (make sure we also print leading zero)
+    try:
+        with open(filename, 'rb') as file:
+            global value
+            if value >= 14300:
+                f1 = re.search(b'\xE0\x23\x00\x91..\xFF\x97\xf3', file.read())
+            elif value < 14300:
+                f1 = re.search(b'\xE0\x23\x00\x91..\xFF\x97', file.read())
+            # Calculate instruction offset
+            global final
+            global hexval
+            global address3
+            global addressdec
+            final = (f1.start() - 4)
+            hexval = '0x{0:0{1}X}'.format(final, 6) #change int back to uppercase hex (make sure we also print leading zero)
+            #print("Patch 3 offset to patch:"+ hexval) #just used for degugging
+            address3 = hexval
+            addressdec = final
+    except OSError as e:
+        print("Error: %s : %s" % ("dumped", e.strerror))
 
 def patch_address():
     global patchloc
     global idx
-    for idx in range(len(patterns)):
+    global address3
+    global addressdec
+    for idx in range(len(patterns)-1):
         patchloc = idx
         find_offsets()
         print("Probable patch address "+ str(idx+1) + " " + str(hexval) + " (Decimal:" + str(final) + ")") #show offset...debug
     pass
+    print("Probable patch address 3" + " " + str(address3) + " (Decimal:" + str(addressdec) + ")") #show offset...debug
 
 def patch1():
     global patchloc

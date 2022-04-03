@@ -9,8 +9,9 @@ from pathlib import Path
 import sys
 import time
 import struct
+
 hactool = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'hactool.exe')
-keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod_keys')
+keyset = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'prod.keys')
 FIRMWARE_DIR = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'firmware')
 if len(sys.argv) < 2:
     print("You didn't type any arguements, trying default firmware folder and prod.keys\n")
@@ -30,8 +31,8 @@ else:
     sys.exit(1)    
 
 start = time.time()
-if sys.argv[3] == "":
-    root_dir = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'output')
+if len(sys.argv) < 4:
+    root_dir = os.path.join(os.path.dirname(os.path.abspath(os.path.realpath(sys.argv[0]))), 'output/')
 else:
     root_dir = sys.argv[3] + "/".replace("\\", "/")
 find = ""
@@ -39,6 +40,7 @@ compkip = "temp/FS.kip1"
 kipname = "temp/FS-dec.kip1"
 pattern = '0x1e42b91fc14271'
 pattern2 = '0x0194081C00121F05007181000054' #added for extra patch....
+pattern3 = '0x0294081C00121F05007181000054' #test added for extra patch....
 rootloc = root_dir + "atmosphere/kip_patches/fs_patches/"
 file = ""
 shortlist = []
@@ -63,7 +65,7 @@ def List_files():
         files = os.listdir(directory)
         for filelist in files:
             getsize = os.stat(directory + '/' + filelist).st_size
-            if (3000000 < getsize < 3500000):
+            if (getsize > 3000000 and getsize < 3500000):
                 shortlist.append(filelist)
     except OSError as e:
         print("Error: %s : %s" % ("Listing files: ", e.strerror))
@@ -82,6 +84,8 @@ def search():
         find = s.find(pattern)
         global findnew
         findnew = s.find(pattern2)
+        global findnew_alt
+        findnew_alt = s.find(pattern3)
 
     except OSError as e:
         print("Error: %s : %s" % ("Search: ", e.strerror))    
@@ -96,8 +100,17 @@ def makepatches():
             newfinal =  int(newval - addpos)
             newfinal2 =  int(newfinal - addpos2)
         else:
-            print("Unable to find pattern2 - exiting script to avoid a crash")
-            sys.exit(1)
+            print("Unable to find pattern2 - trying pattern3")
+            if findnew_alt:
+                res = int(''.join(map(str, findnew_alt)))
+                newval =  res / 8
+                addpos = int(2) #byte position in find hex
+                addpos2 = int(256)
+                newfinal =  int(newval - addpos)
+                newfinal2 =  int(newfinal - addpos2)
+            else:
+                print("Unable to find pattern3 - quitting to avoid a crash")
+                sys.exit(1)
 
         if find:
             res = int(''.join(map(str, find)))
@@ -107,7 +120,7 @@ def makepatches():
             final =  int(newval - addpos)
             final2 =  int(final - addpos2)
             # print("IPS Offset patch address: 0x%X" % final)
-        
+
             deckip = (compkip)
             if os.path.isfile(deckip): 
                 sha256_hash = hashlib.sha256()
@@ -127,7 +140,7 @@ def makepatches():
                     filekip.seek(newfinal, 0)
                     yyy =  filekip.read(4)
                     newhexstring =  yyy.hex().upper() #CAD10194
-
+                    #
                     filekip.close()
                     
                     outputdirs() # Create some directories so we can store our files...
@@ -182,7 +195,7 @@ def extract():
             x.close()
             if address == 2573934072: # if hex equals 0x996B1DF8
                 #extract hdr file and check the size is equal to 3072 bytes
-                subprocess.run(['hactool.exe', '--keyset=' + keyset, '-t', 'nca', '--header=temp/hdr.bin', '--romfsdir=temp/', FIRMWARE_DIR + '/' + file], stdout=subprocess.DEVNULL)
+                subprocess.run(['hactool.exe', '--keyset=' + keyset, '--disablekeywarns', '-t', 'nca', '--header=temp/hdr.bin', '--romfsdir=temp/', FIRMWARE_DIR + '/' + file], stdout=subprocess.DEVNULL)
                 x = os.path.getsize("temp/hdr.bin")
                 if x == 3072:
                     #print ("File size is correct: " + str(x) + " Bytes")
@@ -199,14 +212,11 @@ def extract():
                             fatver = "Fat"
                 else:
                     run()
-                outlines = subprocess.run([hactool, '-k', keyset, '-t', 'nca', '--romfsdir', 'temp/', FIRMWARE_DIR + '/' + file], capture_output=True)
-                if B"Invalid NCA header!" in outlines.stderr:
-                    print("Error, verify your keys file.")
-                    sys.exit(1)
+                # outlines = subprocess.run([hactool, '-k', keyset, '--disablekeywarns', '-t', 'nca', '--romfsdir', 'temp/', FIRMWARE_DIR + '/' + file], capture_output=True)
                 if os.path.isfile('temp/nx/package2'):
-                    subprocess.run([hactool, '-k', keyset, '-t', 'pk21', 'temp/nx/package2', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
-                    subprocess.run([hactool, '-k', keyset, '-t', 'ini1', 'temp/INI1.bin', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
-                    subprocess.run([hactool, '-t', 'kip1', '--uncompressed', 'temp/FS-dec.kip1', 'temp/FS.kip1'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '-k', keyset, '--disablekeywarns', '-t', 'pk21', 'temp/nx/package2', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '-k', keyset, '--disablekeywarns', '-t', 'ini1', 'temp/INI1.bin', '--outdir', 'temp/'], stdout=subprocess.DEVNULL)
+                    subprocess.run([hactool, '--disablekeywarns', '-t', 'kip1', '--uncompressed', 'temp/FS-dec.kip1', 'temp/FS.kip1'], stdout=subprocess.DEVNULL)
                     os.remove("temp/nx/package2")
                     search()
                     makepatches()
