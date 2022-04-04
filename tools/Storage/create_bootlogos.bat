@@ -91,6 +91,7 @@ IF %errorlevel% EQU 0 (
 			mkdir "!outdir_path!\atmosphere\exefs_patches\logo"
 		)
 		set outdir_path=!outdir_path!\atmosphere\exefs_patches\logo
+		del /q !outdir_path!\*.* >nul
 		tools\python3_scripts\Switch-logo-patcher\gen_patches.exe "!outdir_path:\=\\!" "!logo_file_path:\=\\!" >nul 2>&1
 		IF !errorlevel! EQU 0 (
 			call "%associed_language_script%" "logo_creation_success"

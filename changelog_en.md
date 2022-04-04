@@ -3,6 +3,7 @@
 <h2>V4.3.249</h2>
 <ul>
 <li>Update the python scripts to create FS_patches and ES_patches.</li>
+<li>Update the bootlogos creation script.</li>
 </ul>
 <h2>V4.3.248</h2>
 <ul>
