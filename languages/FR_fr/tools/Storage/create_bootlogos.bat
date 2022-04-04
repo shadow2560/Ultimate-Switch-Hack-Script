@@ -7,17 +7,17 @@ goto:eof
 :intro
 echo Ce script permet de créer des bootlogos pour Atmosphere.
 echo.
-echo Vous devez refaire le logo  pour Atmosphere à chaque fois que vous mettez à jour Atmosphere en vous basant sur le fichier "fusee-secondary.bin" ou "package3" de celui-ci.
+echo Vous devez refaire le logo  pour Atmosphere à chaque fois que vous mettez à jour Atmosphere en vous basant sur le fichier "fusee-secondary.bin" ou "package3" de celui-ci. La taille du logo est de 1250X720, il sera redimensionné s'il n'est pas à la bonne taille mais il est recommandé d'utilisé un logo déjà correctement dimensionné.
 echo.
-echo Pour le logo Nintendo, il devra être refait si vous changez de firmware.
+echo Pour le logo Nintendo Switch, il devra être refait si vous changez de firmware. La taille du logo est de 308X350, il pourra être redimensionné s'il n'est pas à la bonne taille mais il est recommandé d'utilisé un logo déjà correctement dimensionné.
 echo.
 echo Notez que les logos seront créés en respectant l'arborescence nécessaire pour qu'ils soient utilisés sur la SD, je conseille donc d'utiliser la racine de la SD comme dossier de sortie.
 goto:eof
 
 :action_choice
 echo Que souhaitez-vous faire:
-echo 1: Créer un logo pour remplacer le logo d'Atmosphere?
-echo 2: Créer un logo pour remplacer le logo Nintendo?
+echo 1: Créer un logo pour remplacer le logo d'Atmosphere ^(logo Nintendo^)?
+echo 2: Créer un logo pour remplacer le logo Nintendo Switch?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
 set /p action_choice=Faites votre choix: 
@@ -26,7 +26,7 @@ goto:eof
 :logo_file_selection
 echo Veuillez renseigner le fichier  de l'image à utiliser pour le nouveau logo dans la fenêtre suivante.
 pause
-%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichiers image^(*.jpg;*.png^)|*.jpg;*.png|" "Sélection du fichier du logo" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Fichiers image^(*.jpg;*.png;*.bmp^)|*.jpg;*.png;*.bmp|" "Sélection du fichier du logo" "templogs\tempvar.txt"
 goto:eof
 
 :no_logo_file_selected_error

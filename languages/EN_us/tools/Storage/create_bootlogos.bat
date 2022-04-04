@@ -16,17 +16,17 @@ goto:eof
 :intro
 echo This script allow to create bootlogos for Atmosphere.
 echo.
-echo You have to redo the logo for Atmosphere each time you update Atmosphere based on the file "fusee-secondary.bin" or "package3" of it.
+echo You have to redo the logo for Atmosphere each time you update Atmosphere based on the file "fusee-secondary.bin" or "package3" of it. The size of the logo is 1250X720, it will be resized if it is not at the right size but it is recommended to use a logo already correctly sized.
 echo.
-echo For the Nintendo logo, it will have to be redone if you change the firmware.
+echo For the Nintendo logo, it will have to be redone if you change the firmware. The size of the logo is 308X350, it can be resized if it is not the right size but it is recommended to use a logo already correctly sized.
 echo.
 echo Note that the logos will be created respecting the tree structure necessary for them to be used on the SD, so I advise to use the root of the SD as output folder.
 goto:eof
 
 :action_choice
 echo What do you want to do:
-echo 1: Create a logo to replace the logo of Atmosphere?
-echo 2: Create a logo to replace the Nintendo logo?
+echo 1: Create a logo to replace the logo of Atmosphere ^(Nintendo logo^)?
+echo 2: Create a logo to replace the Nintendo Switch logo?
 echo All other choices: Back to previous menu?
 echo.
 set /p action_choice=Make your choice: 
@@ -35,7 +35,7 @@ goto:eof
 :logo_file_selection
 echo Please select the image file to be used for the new logo in the next window.
 pause
-%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "image files^(*.jpg;*.png^)|*.jpg;*.png|" "Logo file selection" "templogs\tempvar.txt"
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "image files^(*.jpg;*.png;*.bmp^)|*.jpg;*.png;*.bmp|" "Logo file selection" "templogs\tempvar.txt"
 goto:eof
 
 :no_logo_file_selected_error
