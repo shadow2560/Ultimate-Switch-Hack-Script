@@ -16,7 +16,7 @@ goto:eof
 
 :action_choice
 echo Que souhaitez-vous faire:
-echo 1: Créer un logo pour remplacer le logo d'Atmosphere ^(logo Nintendo^)?
+echo 1: Créer un logo pour remplacer le logo d'Atmosphere ^(lancement via fusee.bin^)?
 echo 2: Créer un logo pour remplacer le logo Nintendo Switch?
 echo N'importe quel autre choix: Revenir au menu précédent?
 echo.
