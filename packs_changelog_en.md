@@ -6,6 +6,7 @@
 <li>Update the sig_patches.</li>
 <li>Update Lockpick-RCM to version 1.9.8.</li>
 <li>Update MissionControl to version 0.7.0.</li>
+<li>Update Tinfoil to version 14.0.</li>
 </ul>
 <h2>V515</h2>
 <ul>
