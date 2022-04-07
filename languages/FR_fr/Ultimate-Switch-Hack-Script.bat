@@ -22,7 +22,7 @@ echo.
 echo Mode de journaux d'information.
 echo.
 echo Pour cette cession:
-echo 1: Mode journal intermédiaire ^(rend le script un peu plus verveux à l'affichage et écrit les résultats des sorties dans un fichier de journal^)
+echo 1: Mode journal intermédiaire ^(rend le script un peu plus verbeux à l'affichage et écrit les résultats des sorties dans un fichier de journal^)
 echo 2: Mode journal complet ^(affichage très verbeux et enregistrements plus grand du fichier de journal^)
 echo Tout autre choix: Mode sans journal ^(recommandé^).
 echo.
