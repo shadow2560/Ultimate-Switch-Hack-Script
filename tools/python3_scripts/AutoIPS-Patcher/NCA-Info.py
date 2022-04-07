@@ -1,6 +1,7 @@
 '''
 Use Python 3.x
 Script By MrDude
+Modified by shadow256
 Manually extract example:
 hactool --keyset=keys.dat --intype=nca --exefsdir=. --disablekeywarns firmware/f8a5837382d57047b51f9d0375b59845.nca
 hactool --keyset=keys.dat --intype=nso --disablekeywarns --uncompressed=main_dec main
@@ -81,7 +82,9 @@ def extract():
                     # line = line.decode('ascii').replace(" ","")
                     line = line.decode('utf-8').replace(" ","")
                     if line.startswith("TitleName:"):
-                        print((line).replace("TitleName:", "\nTitleName: ").replace(".", ""))
+                        print((line).replace("TitleName:", "TitleName: ").replace(".", ""))
+                    if line.startswith("TitleID:"):
+                        print((line).replace("TitleID:", "\nTitleID: ").replace(".", ""))
                 
                 for line in outlines.splitlines():
                     # line = line.decode('ascii').replace(" ","")
@@ -89,7 +92,7 @@ def extract():
                     if line.startswith("ContentType:"):
                         if "Data" in line:
                             line = line.replace("Data", "Data")                        
-                            print((line).replace("ContentType:", "\nContentType: ").replace(".", ""))
+                            print((line).replace("ContentType:", "ContentType: ").replace(".", ""))
                         else:
                             print((line).replace("ContentType:", "ContentType: ").replace(".", ""))
                 
