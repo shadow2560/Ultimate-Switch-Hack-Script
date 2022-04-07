@@ -7,6 +7,7 @@
 <li>Mise à jour de Lockpick-RCM en version 1.9.8.</li>
 <li>Mise à jour de MissionControl en version 0.7.0.</li>
 <li>Mise à jour de Tinfoil en version 14.0.</li>
+<li>Mise à jour d'Amiigo en version 2.2.0.</li>
 </ul>
 <h2>V515</h2>
 <ul>
