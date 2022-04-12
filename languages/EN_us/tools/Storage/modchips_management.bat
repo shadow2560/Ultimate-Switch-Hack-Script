@@ -32,15 +32,24 @@ echo 7: Flash Switchboot on a modchip or on some dongles?
 echo 8: Prepare the base files on the SD for Switchboot?
 echo 0: Go to the  Gbatemp subject of Fusee_Suite?
 echo 00: Go to the  Gbatemp subject of Switchboot?
-echo All other choices: Go back to previous menu.
+echo All other choices: Go back to previous menu?
 echo.
 echo.
 set /p action_choice=Make your choice: 
 goto:eof
 
+:begin_uf2_choice
+echo Choose a UF2 file to copy:
+goto:eof
+
+:end_uf2_choice
+echo 0: Choose a UF2 file?
+echo All other choices: Go back to previous menu?
+echo.
+set /p uf2_number=Enter the UF2 file number to copy: 
+goto:eof
+
 :select_uf2_file
-echo You will have to select an UF2 file to copy.
-pause
 %windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "uf2 file ^(*.uf2^)|*.uf2|" "Select UF2 file" "templogs\tempvar.txt"
 goto:eof
 
@@ -277,7 +286,13 @@ goto:eof
 echo This volume letter is not in the list.
 goto:eof
 
+:copy_uf2_file_error
+echo An error occured during copy of the UF2 file.
+goto:eof
+
 :reset_uf2_device_to_flash
-echo Press the  "reset" button of the modchip to flash the UF2 file.
+echo Copy successful.
+echo.
+echo If the UF2 device haven't been automaticaly disconnected, press the  "reset" button of the modchip to flash the UF2 file.
 pause
 goto:eof

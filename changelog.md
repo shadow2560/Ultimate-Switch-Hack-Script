@@ -1,6 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
-<h2>V4.3.249</h2>
+<h2>V4.3.251</h2>
+<ul>
+<li>Une liste de fichiers est maintenant proposée lors du flash d'un fichier UF2 sur une puce.</li>
+<li>Bug mineur corrigé dans le script de lancement d'un payload.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 517.</li>
+</ul>
+<h2>V4.3.250</h2>
 <ul>
 <li>Support du firmware 14.1.0.</li>
 <li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.1.0.</li>

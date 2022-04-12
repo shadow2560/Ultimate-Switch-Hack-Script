@@ -53,13 +53,58 @@ IF "%action_choice%"=="00" (
 goto:end_script
 
 :flash_UF2_file
-call "%associed_language_script%" "select_uf2_file"
+copy nul templogs\uf2_list.txt >nul
+set max_uf2=1
+cd tools\UF2
+for %%z in (*.uf2) do (
+	echo !max_uf2!: %%z >>..\..\templogs\uf2_list.txt
+	set /a max_uf2+=1
+)
+cd ..\..
+:select_uf2
+set uf2_number=
+set uf2_file=
+call "%associed_language_script%" "begin_uf2_choice"
+echo.
+TOOLS\gnuwin32\bin\tail.exe -q -n+0 templogs\uf2_list.txt 
+call "%associed_language_script%" "end_uf2_choice"
+IF "%uf2_number%"=="" goto:define_action_type
+call TOOLS\Storage\functions\strlen.bat nb "%uf2_number%"
+set i=0
+:check_chars_uf2_number
+IF %i% NEQ %nb% (
+	set check_chars=0
+	FOR %%z in (0 1 2 3 4 5 6 7 8 9) do (
+		IF "!uf2_number:~%i%,1!"=="%%z" (
+			set /a i+=1
+			set check_chars=1
+			goto:check_chars_uf2_number
+		)
+	)
+	IF "!check_chars!"=="0" (
+		goto:define_action_type
+	)
+)
+IF "%uf2_number%"=="0" (
+	call "%associed_language_script%" "select_uf2_file"
+	set /p uf2_file=<templogs\tempvar.txt
+)
+IF "%uf2_number%"=="0" (
+	IF "%uf2_file%"=="" (
+		call "%associed_language_script%" "uf2_file_empty_error"
+		pause
+		goto:select_uf2
+	)
+	goto:skip_uf2_file_choice
+)
+TOOLS\gnuwin32\bin\grep.exe -e "^%uf2_number%: " <templogs\uf2_list.txt | TOOLS\gnuwin32\bin\cut.exe -d : -f 2 > templogs\tempvar.txt
 set /p uf2_file=<templogs\tempvar.txt
 IF "%uf2_file%"=="" (
-	call "%associed_language_script%" "uf2_file_empty_error"
-	pause
 	goto:define_action_type
 )
+set uf2_file=%uf2_file:~1,-1%
+set uf2_file=tools\UF2\%uf2_file%
+:skip_uf2_file_choice
 call "%associed_language_script%" "select_uf2_device"
 call :define_volume_letter "uf2"
 IF "%uf2_volume_letter%"=="" goto:define_action_type
@@ -543,6 +588,11 @@ exit /b 0
 
 :copy_uf2_file_on_uf2_device
 copy /v /b "%uf2_file%" "%uf2_volume_letter%:\" >nul
+if %errorlevel% NEQ 0 (
+	call "%associed_language_script%" "copy_uf2_file_error"
+	pause
+	exit /b
+)
 call "%associed_language_script%" "reset_uf2_device_to_flash"
 set uf2_volume_letter=
 set uf2_file=

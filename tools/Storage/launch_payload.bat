@@ -37,7 +37,7 @@ IF NOT "%~1"=="" (
 )
 call "%associed_language_script%" "display_title"
 :list_payloads
-copy nul templogs\payload_list.txt >nul
+copy nul templogs\payloads_list.txt >nul
 set max_payload=1
 cd Payloads
 for %%z in (*.bin) do (

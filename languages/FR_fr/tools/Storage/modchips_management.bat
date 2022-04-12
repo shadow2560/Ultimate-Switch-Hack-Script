@@ -29,9 +29,18 @@ echo.
 set /p action_choice=Faites votre choix: 
 goto:eof
 
+:begin_uf2_choice
+echo Choisir un fichier UF2 à copier.
+goto:eof
+
+:end_uf2_choice
+echo 0: Choisir un fichier UF2?
+echo N'importe quel autre choix: Revenir au menu précédent?
+echo.
+set /p uf2_number=Entrez le numéro du fichier UF2 à copier: 
+goto:eof
+
 :select_uf2_file
-echo Vous allez devoir sélectionner un fichier UF2 à copier.
-pause
 %windir%\system32\wscript.exe //Nologo TOOLS\Storage\functions\open_file.vbs "" "Fichiers uf2 ^(*.uf2^)|*.uf2|" "Sélection du fichier UF2" "templogs\tempvar.txt"
 goto:eof
 
@@ -268,7 +277,13 @@ goto:eof
 echo Cette lettre de volume n'est pas dans la liste. Recommencez. 
 goto:eof
 
+:copy_uf2_file_error
+echo Une erreur s'est produite durant la copie du fichier UF2.
+goto:eof
+
 :reset_uf2_device_to_flash
-echo Appuyez sur le bouton "reset" de la puce pour flasher le fichier UF2.
+echo Copie terminée avec succès.
+echo.
+echo Si le périphérique UF2 n'a pas été automatiquement déconnecté durant l'opération, appuyez sur le bouton "reset" de la puce pour flasher le fichier UF2.
 pause
 goto:eof

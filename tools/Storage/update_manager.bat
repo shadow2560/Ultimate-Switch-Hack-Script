@@ -1372,6 +1372,10 @@ call :verif_folder_version "tools\Switchboot"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\UF2"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 call :verif_folder_version "tools\SX_Core_Lite"
 IF "!update_finded!"=="Y" (
 	call :update_folder
@@ -2849,6 +2853,26 @@ IF "%temp_folder_path%"=="Payloads" (
 			mkdir "%temp_folder_path%">nul 2>&1
 		)
 		move "templogs\Payloads\*.*" "%temp_folder_path%" >nul 2>&1
+		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
+call "%associed_language_script%" "update_folder_success"
+		exit /b
+	)
+)
+IF "%temp_folder_path%"=="tools\UF2" (
+	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\UF2 --force >nul
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	) else (
+		IF NOT EXIST "%temp_folder_path%\*.*" (
+			IF EXIST ""%temp_folder_path%"" del /q "%temp_folder_path%" >nul 2>&1
+			mkdir "%temp_folder_path%">nul 2>&1
+		)
+		move "templogs\UF2\*.*" "%temp_folder_path%" >nul 2>&1
 		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
 call "%associed_language_script%" "update_folder_success"
 		exit /b
