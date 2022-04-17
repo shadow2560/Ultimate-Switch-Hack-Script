@@ -1,5 +1,13 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V518</h2>
+<ul>
+<li>Update Ldn_mitm to version 1.13.0.</li>
+<li>Update Haku33 to version 4.9.</li>
+<li>Update Sys-Botebase to version 2.2.</li>
+<li>Update uLaunch to version 0.3.4.</li>
+<li>Update Edizon-SE to version 3.8.35.</li>
+</ul>
 <h2>V517</h2>
 <ul>
 <li>Update  Retroarch download link to version 1.10.3.</li>

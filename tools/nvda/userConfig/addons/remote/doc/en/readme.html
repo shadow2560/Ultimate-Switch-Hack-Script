@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen"/>
-<title>Remote Support 2.3</title>
+<title>Remote Support 2.5</title>
 </head>
 <body>
 <h1>NVDA Remote Access</h1>
-<p>Version 2.3</p>
+<p>Version 2.5</p>
 <p>Welcome to the NVDA Remote Access addon, which will allow you to connect to another computer running the free NVDA screen reader. It makes no difference whether you are across the room or across the world. Connecting is simple, and there are very few commands to remember. You can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training.</p>
 <h2>Before You Begin</h2>
 <p>You will need to have installed NVDA on both computers, and obtain the NVDA Remote Access addon.
@@ -39,6 +39,9 @@ The machine being controlled and all its clients need to use the same key.</li>
 The machine being controlled and all its clients need to use the same key.</li>
 <li>Press ok. Once done, you will hear a tone and connected.</li>
 </ol>
+<h3>Connection security warning</h3>
+<p>If you connect to a server without a valid SSL certificate, you will receive a connection security warning.
+This may mean that your connection is insecure. If you trust this server fingerprint, you can press "Connect" to connect once, or "Connect and do not ask again for this server" to connect and save the fingerprint.</p>
 <h2>Direct connections</h2>
 <p>The server option in the connect dialog allows you to set up a direct connection.
 Once selecting this, select which mode your end of the connection will be in.
@@ -96,6 +99,8 @@ when activated, any text on the clipboard will be pushed to the other machines.<
 </ol>
 <p>Once NVDA Remote is installed on the secure desktop, if you are currently being controlled in a remote session,
 you will have speech and braille access to the secure desktop when switched to.</p>
+<h2>Clearing SSL certificate fingerprints</h2>
+<p>If you no longer want to trust the server fingerprints you've trusted, you can clear all of the trusted fingerprints by pressing the "Delete all trusted fingerprints" button in the Options dialog.</p>
 <h2>Contributions</h2>
 <p>We would like to acknowledge the following contributors, among others, who helped make the NVDA Remote project a reality.</p>
 <ul>
@@ -116,6 +121,21 @@ you will have speech and braille access to the secure desktop when switched to.<
 <li>Reef Turner</li>
 </ul>
 <h2>Change Log</h2>
+<h3>Version 2.5</h3>
+<ul>
+<li>Fix SSL stability</li>
+<li>Fix secure desktop support</li>
+<li>Fix the initial focus in the Connect dialog</li>
+<li>Support pausing of remote speech</li>
+<li>Replace the host edit box with an edit combo allowing for history</li>
+<li>Automatically remove corrupted configs</li>
+</ul>
+<h3>Version 2.4</h3>
+<ul>
+<li>Added sounds</li>
+<li>Updated for NVDA 2021.1</li>
+<li>Verify the SSL certificates of hosts we connect to</li>
+</ul>
 <h3>Version 2.3</h3>
 <ul>
 <li>Migrated to Python 3</li>

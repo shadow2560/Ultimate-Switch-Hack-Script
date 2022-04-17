@@ -44,6 +44,8 @@ from . import bridge
 from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
 import api
 import ssl
+import configobj
+import queueHandler
 
 class GlobalPlugin(_GlobalPlugin):
 	scriptCategory = _("NVDA Remote")
@@ -66,8 +68,16 @@ class GlobalPlugin(_GlobalPlugin):
 		self.sd_server = None
 		self.sd_relay = None
 		self.sd_bridge = None
+		try:
+			configuration.get_config()
+		except configobj.ParseError:
+			os.remove(os.path.abspath(os.path.join(globalVars.appArgs.configPath, configuration.CONFIG_FILE_NAME)))
+			queueHandler.queueFunction(queueHandler.eventQueue, wx.CallAfter, wx.MessageBox, _("Your NVDA Remote configuration was corrupted and has been reset."), _("NVDA Remote Configuration Error"), wx.OK|wx.ICON_EXCLAMATION)
 		cs = configuration.get_config()['controlserver']
-		self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
+		if hasattr(shlobj, 'SHGetKnownFolderPath'):
+			self.temp_location = os.path.join(shlobj.SHGetKnownFolderPath(shlobj.FolderId.PROGRAM_DATA), 'temp')
+		else:
+			self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
 		self.ipc_file = os.path.join(self.temp_location, 'remote.ipc')
 		if globalVars.appArgs.secure:
 			self.handle_secure_desktop()
@@ -287,13 +297,10 @@ class GlobalPlugin(_GlobalPlugin):
 	def do_connect(self, evt):
 		evt.Skip()
 		last_cons = configuration.get_config()['connections']['last_connected']
-		last = ''
-		if last_cons:
-			last = last_cons[-1]
 		# Translators: Title of the connect dialog.
 		dlg = dialogs.DirectConnectDialog(parent=gui.mainFrame, id=wx.ID_ANY, title=_("Connect"))
-		dlg.panel.host.SetValue(last)
-		dlg.panel.host.SelectAll()
+		dlg.panel.host.SetItems(list(reversed(last_cons)))
+		dlg.panel.host.SetSelection(0)
 		def handle_dlg_complete(dlg_result):
 			if dlg_result != wx.ID_OK:
 				return
@@ -469,7 +476,7 @@ class GlobalPlugin(_GlobalPlugin):
 		server_thread = threading.Thread(target=self.sd_server.run)
 		server_thread.daemon = True
 		server_thread.start()
-		self.sd_relay = RelayTransport(address=('127.0.0.1', port), serializer=serializer.JSONSerializer(), channel=channel)
+		self.sd_relay = RelayTransport(address=('127.0.0.1', port), serializer=serializer.JSONSerializer(), channel=channel, insecure=True)
 		self.sd_relay.callback_manager.register_callback('msg_client_joined', self.on_master_display_change)
 		self.slave_transport.callback_manager.register_callback('msg_set_braille_info', self.on_master_display_change)
 		self.sd_bridge = bridge.BridgeTransport(self.slave_transport, self.sd_relay)
@@ -495,6 +502,7 @@ class GlobalPlugin(_GlobalPlugin):
 	def on_master_display_change(self, **kwargs):
 		self.sd_relay.send(type='set_display_size', sizes=self.slave_session.master_display_sizes)
 
+	SD_CONNECT_BLOCK_TIMEOUT = 1
 	def handle_secure_desktop(self):
 		try:
 			with open(self.ipc_file) as fp:
@@ -506,6 +514,11 @@ class GlobalPlugin(_GlobalPlugin):
 			test_socket.connect(('127.0.0.1', port))
 			test_socket.close()
 			self.connect_as_slave(('127.0.0.1', port), channel, insecure=True)
+			# So we don't miss the first output when switching to a secure desktop,
+			# block the main thread until the connection is established. We're
+			# connecting to localhost, so this should be pretty fast. Use a short
+			# timeout, though.
+			self.slave_transport.connected_event.wait(self.SD_CONNECT_BLOCK_TIMEOUT)
 		except:
 			pass
 

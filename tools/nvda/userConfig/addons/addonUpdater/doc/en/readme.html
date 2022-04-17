@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen">
+<title>Add-on Updater 22.03.1</title>
+</head>
+<body>
+<h1>Add-on Updater</h1>
+<ul>
+<li>Author: Joseph Lee</li>
+<li>Download <a href="https://addons.nvda-project.org/files/get.php?file=nvda3208">stable version</a></li>
+<li>NVDA compatibility: 2021.3 and later</li>
+</ul>
+<p>This add-on brings NVDA Core issue 3208 to life: ability to check for, download, and apply add-on updates.</p>
+<p>To check for updates after installing this add-on, go to NVDA menu/Tools/Check for add-on updates. If updates are available, a list of add-on updates will be shown, with each entry consisting of description, current version, and the new version. Select Update, and NVDA will download and apply updates in sequence, with a prompt to restart your NVDA shown afterwards.</p>
+<p>The following add-ons provide built-in update feature and thus updates will not be checked via this add-on:</p>
+<ul>
+<li>Braille Extender</li>
+<li>WeatherPlus</li>
+</ul>
+<p>IMPORTANT NOTES:</p>
+<ul>
+<li>This is a proof of concept add-on. Once the <a href="https://github.com/nvaccess/nvda/issues/3208">relevant feature is included in NVDA</a>, this add-on will be discontinued.</li>
+<li>This add-on is not intended to be used in secure screens. If you have add-ons installed in the secure screen, even if you copy Add-on Updater to secure screen mode, Add-on Updater will not work.</li>
+<li>If the new add-on updates specify a compatibility range (minimum and last tested NVDA versions) and if the NVDA version you are running does not fall within the compatibility range according to NVDA, add-on updating will not proceed.</li>
+<li>Not all add-ons come with development releases. If you are not getting updates after choosing to install development versions of an add-on, switch to stable channel for affected add-ons.</li>
+<li>On some systems (particularly computers joined to a corporate domain), add-on update check functionality may not work properly, therefore add-on updates must be downloaded manually.</li>
+</ul>
+<h2>Version 22.03</h2>
+<ul>
+<li>Improved security by not loading the add-on when NVDA is running in secure mode.</li>
+</ul>
+<h2>Version 22.02</h2>
+<ul>
+<li>NVDA 2021.3 or later is required.</li>
+<li>On Windows 10, add-on update toast notifications are localized.</li>
+</ul>
+<h2>Version 22.01</h2>
+<ul>
+<li>NVDA 2021.2 or later is required.</li>
+<li>On server systems running Windows Server 2016 and later, add-on updates will be presented in a dialog instead of using toast notifications.</li>
+</ul>
+<h2>Version 21.10</h2>
+<ul>
+<li>It is again possible to check for add-on updates on some systems, notably after a clean Windows installation.</li>
+</ul>
+<h2>Version 21.09</h2>
+<ul>
+<li>NVDA 2021.1 or later is required.</li>
+<li>on Windows 10 and later, it is possible to select add-on update notification between a toast message and an update dialog. This can be configured from Add-on Updater settings found in NVDA Settings screen.</li>
+<li>Add-on Updater will no longer check minimum Windows release information for add-ons as add-ons such as Windows App Essentials provide better Windows compatibility information.</li>
+</ul>
+<h2>Version 21.07</h2>
+<ul>
+<li>On Windows 10 and later, a toast notification will be shown when add-on updates are available. Note that you cannot click this notification - you must open NvDA menu/Tools/Check for add-on updates to review updates.</li>
+<li>When legacy add-ons dialog is shown at startup, you can now review legacy add-ons and reasons just like add-on updates.</li>
+<li>Improved add-on update check internals, including use of add-on metadata collection provided by the community to validate add-on compatibility. Among other things, this eliminates add-on releases for adding update checks for new add-ons.</li>
+</ul>
+<h2>Version 21.05</h2>
+<ul>
+<li>NvDA will no longer play error tones if trying to check updates while using NVDA 2021.1 alpha snapshots, caused by changes to wxPython GUI toolkit.</li>
+</ul>
+<h2>Version 21.03</h2>
+<ul>
+<li>NVDA 2020.4 or later is required.</li>
+<li>NVDA will present an error dialog if errors occur while checking for add-on updates such as loss of Internet connection.</li>
+</ul>
+<h2>Version 20.11</h2>
+<ul>
+<li>NVDA 2020.3 or later is required.</li>
+<li>Resolved more coding style issues and potential bugs with Flake8.</li>
+<li>NVDA will no longer play error tones or appear to do nothing when using the add-on while NVDA is running from source code. A message about this fact will be recorded in the log instead.</li>
+</ul>
+<h2>Version 20.07</h2>
+<ul>
+<li>NVDA 2020.1 or later is required.</li>
+<li>If one or more legacy add-ons (such as Screen Curtain) are installed, Add-on Updater will present a message asking you to disable or uninstall the add-ons listed.</li>
+<li>You can now save, reload, or reset Add-on Updater settings by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively.</li>
+</ul>
+<h2>Version 20.06</h2>
+<ul>
+<li>Resolved many coding style issues and potential bugs with Flake8.</li>
+</ul>
+<h2>Version 20.04</h2>
+<ul>
+<li>NVDA will no longer appear to do nothing or play error tones when trying to update add-ons through Add-on Updater.</li>
+<li>Resolved an issue where "check for add-on updates" item wasn't present in NVDA Tools menu.</li>
+</ul>
+<h2>Version 20.03</h2>
+<ul>
+<li>NVDA 2019.3 or later is required.</li>
+<li>When installing add-on updates, Add-on Updater will no longer check for compatibility range. NVDA itself will check add-on compatibility.</li>
+</ul>
+<h2>Version 19.11</h2>
+<ul>
+<li>When add-on updates are available, NVDA will announce how many updates are available.</li>
+</ul>
+<h2>Version 19.09</h2>
+<ul>
+<li>Requires NVDA 2019.2 or later.</li>
+<li>Timeout errors seen when attempting to download some add-on updates (notably add-on files hosted on GitHub) has been resolved.</li>
+</ul>
+<h2>Version 19.04</h2>
+<ul>
+<li>Requires NVDA 2019.1 or later.</li>
+<li>When installing add-on updates, both minimum and last tested versions will be checked.</li>
+</ul>
+<h2>Version 19.01</h2>
+<ul>
+<li>Requires NVDA 2018.4 or later.</li>
+<li>Improved responsiveness when checking for add-on updates.</li>
+<li>Made the add-on more compatible with Python 3.</li>
+</ul>
+<h2>Version 18.12.2</h2>
+<ul>
+<li>Python 3 ready.</li>
+<li>Fixed compatibility with recent NVDA alpha snapshots where add-on updates would not download.</li>
+</ul>
+<h2>Version 18.12.1</h2>
+<ul>
+<li>Added localizations.</li>
+</ul>
+<h2>Version 18.12</h2>
+<ul>
+<li>Updates for disabled add-ons can be checked. They will stay disabled after updating them.</li>
+<li>During updates, if an add-on requires specific NVDA version and/or Windows release, these will be checked, and if one of these does not match, an error message will be shown and update will be aborted, resulting in no changes to already installed add-on version.</li>
+<li>When automatic update check is enabled and when updates are ready, NVDA will present the updates list instead of asking if you wish to review updates.</li>
+</ul>
+<h2>Version 18.10</h2>
+<ul>
+<li>Initial stable release (still marked as proof of concept).</li>
+</ul>
+</body>
+</html>
