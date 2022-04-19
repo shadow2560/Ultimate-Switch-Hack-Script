@@ -4,6 +4,7 @@
 <ul>
 <li>Update Hactoolnet to version 0.16.1.</li>
 <li>Update the NVDA's modules.</li>
+<li>Update credits.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 518.</li>
 </ul>
 <h2>V4.3.251</h2>

@@ -7,6 +7,7 @@
 <li>Update Sys-Botebase to version 2.2.</li>
 <li>Update uLaunch to version 0.3.4.</li>
 <li>Update Edizon-SE to version 3.8.35.</li>
+<li>Update Bootsound-NX to version 1.3.0.</li>
 </ul>
 <h2>V517</h2>
 <ul>
