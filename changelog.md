@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.253</h2>
+<ul>
+<li>Support du firmware 14.1.1.</li>
+<li>Mise à jour de Rekado en version 5.0.1.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.1.1.</li>
+</ul>
 <h2>V4.3.252</h2>
 <ul>
 <li>Mise à jour de Hactoolnet en version 0.16.1.</li>

@@ -26,7 +26,7 @@ echo 3: Restaurer la nand ou une partition de la nand de la console sur la conso
 echo 4: Créer une emunand sur une SD?
 echo 5: Activer/désactiver l'auto-RCM d'une partition BOOT0 ^(ne pas utiliser sur les consoles Erista patchées ou Mariko^)?
 echo 6: Installer  le driver EXFAT d'un firmware spécifique?
-echo 7: Supprimer les informations d'identification de la console dans PRODINFO ^(fonction identique à Incognito^) ^(ne pas utiliser sur les consoles Mariko^)?
+echo 7: Supprimer les informations d'identification de la console dans PRODINFO ^(fonction identique à Incognito^)?
 echo 8: Joindre un dump de la rawnand fait en plusieurs parties, par exemple un dump fait via Hekate sur une SD formatée en FAT32?
 echo 9: Spliter un dump de la rawnand?
 echo 10: Créer un fichier à partir d'un dump complet de la nand qui pourra ensuite être utilisé pour la création d'une Emunand via une partition dédiée de la SD?

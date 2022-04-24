@@ -136,6 +136,7 @@ echo 13.2.0?
 echo 13.2.1?
 echo 14.0.0?
 echo 14.1.0?
+echo 14.1.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -556,14 +557,23 @@ IF "%firmware_choice%"=="14.1.0" (
 	IF !errorlevel! EQU 1 goto:define_firmware_choice
 	goto:download_firmware
 )
-			IF "%action_param%"=="firmware_download" (
-				endlocal
-				exit /b 400
-			)
-			IF "%action_param%"=="firmware_download_and_extract" (
-				endlocal
-				exit /b 400
-			)
+IF "%firmware_choice%"=="14.1.1" (
+	set expected_md5=4e864e134318aa80ac06e7a676eb96d8
+	set "firmware_link=https://mega.nz/file/dZwzzCKT#LzuAFUKvUQIzw-LQ6rP77EVswGNsRUH5bDQVvVVAy84"
+	set firmware_file_name=Firmware 14.1.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%action_param%"=="firmware_download" (
+	endlocal
+	exit /b 400
+)
+IF "%action_param%"=="firmware_download_and_extract" (
+	endlocal
+	exit /b 400
+)
 goto:define_action_type
 
 :download_firmware

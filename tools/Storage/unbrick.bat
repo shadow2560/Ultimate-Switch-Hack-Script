@@ -400,6 +400,7 @@ echo 13.2.0?
 echo 13.2.1?
 echo 14.0.0?
 echo 14.1.0?
+echo 14.1.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -735,6 +736,13 @@ IF "%firmware_choice%"=="14.1.0" (
 	set expected_md5=778b4e7854afa1a0baa98c44988e68ac
 	set "firmware_link=https://mega.nz/file/YIonGbxR#Ca49NIXk6ktJPmwaqazxDCypA_WsYmizNjFFijmxhv0"
 	set firmware_file_name=Firmware 14.1.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="14.1.1" (
+	set expected_md5=4e864e134318aa80ac06e7a676eb96d8
+	set "firmware_link=https://mega.nz/file/dZwzzCKT#LzuAFUKvUQIzw-LQ6rP77EVswGNsRUH5bDQVvVVAy84"
+	set firmware_file_name=Firmware 14.1.1.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
