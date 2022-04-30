@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V519</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 1.3.2.</li>
+<li>Mise à jour des sig_patches.</li>
+<li>Mise à jour de Tinwoo-installer en version 1.0.5.</li>
+</ul>
 <h2>V518</h2>
 <ul>
 <li>Mise à jour de Ldn_mitm en version 1.13.0.</li>
