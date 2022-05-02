@@ -5,6 +5,7 @@
 <li>Update Atmosphere to version 1.3.2.</li>
 <li>Update sig_patches.</li>
 <li>Update Tinwoo-installer to version 1.0.5.</li>
+<li>Update AIO-Switch-Updater to version 2.18.1.</li>
 </ul>
 <h2>V518</h2>
 <ul>
