@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V520</h2>
+<ul>
+<li>Ajout du homebrew Pgen.</li>
+<li>Mise à jour de PFBA (Pneo), Pnes et Psnes en version 6.1.</li>
+<li>Mise à jour de Tinwoo en version 1.0.7.</li>
+</ul>
 <h2>V519</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 1.3.2.</li>
