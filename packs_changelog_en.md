@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V521</h2>
+<ul>
+<li>Update Hwfly-toolbox to version 1.1.1.</li>
+<li>Update PFBA (Pneo), Pgen, Pnes and Psnes to version 6.3.</li>
+</ul>
 <h2>V520</h2>
 <ul>
 <li>Add Pgen homebrew.</li>

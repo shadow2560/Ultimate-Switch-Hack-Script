@@ -1,6 +1,11 @@
-HWFLY firmware 0.6.2
+HWFLY firmware 0.7.0
 
 Changelog:
+
+0.7.0
+ - prevent multiple payload writes during training
+ - improved loading times for sdloader
+ - prevent battery drain on OLED after power off from sdloader
 
 0.6.2
  - add led pattern to indicate all attempts exhausted (red pulsing)

@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.256</h2>
+<ul>
+<li>Update firmware and tools for HWFly to version 0.7.0.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 521.</li>
+</ul>
 <h2>V4.3.255</h2>
 <ul>
 <li>Update documentation and credits.</li>
