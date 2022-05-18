@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.257</h2>
+<ul>
+<li>Correction de deux bugs mineurs dans le script pour TegraExplorer.</li>
+</ul>
 <h2>V4.3.256</h2>
 <ul>
 <li>Mise à jour du firmware et des outils HWFly en version 0.7.0.</li>

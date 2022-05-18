@@ -793,19 +793,21 @@ restore_file_verif= {
 	RESULT = fsexists(SYSTEM_Contents_path)
 	if (RESULT == 0){
 		restoreFileExist = 0
-	}
-	RESULT = readdir(SYSTEM_Contents_path)
-	if (RESULT.files.len() == 0){
-		restoreFileExist = 0
+	} .else() {
+		RESULT = readdir(SYSTEM_Contents_path)
+		if (RESULT.files.len() == 0){
+			restoreFileExist = 0
+		}
 	}
 	SYSTEM_save_path = combinepath(restoreFolderPath, "SYSTEM/save")
 	RESULT = fsexists(SYSTEM_save_path)
 	if (RESULT == 0){
 		restoreFileExist = 0
-	}
-	RESULT = readdir(SYSTEM_save_path)
-	if (RESULT.files.len() == 0){
-		restoreFileExist = 0
+	} .else() {
+		RESULT = readdir(SYSTEM_save_path)
+		if (RESULT.files.len() == 0){
+			restoreFileExist = 0
+		}
 	}
 	if (restoreFileExist == 1){
 		color(0xFF0000)
