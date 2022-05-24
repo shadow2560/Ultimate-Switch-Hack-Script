@@ -7,6 +7,7 @@
 <li>Update Tinwoo to version 1.0.11.</li>
 <li>Update Tesla-Menu to version 1.2.0.</li>
 <li>Update Lockpick-RCM to the master version of the Github, compiled by myself.</li>
+<li>Add configurations and   configurations examples for the Tesla menu and for SimpleModManager.</li>
 </ul>
 <h2>V521</h2>
 <ul>
