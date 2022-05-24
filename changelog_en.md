@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.258</h2>
+<ul>
+<li>Update Lockpick-RCM to the master version of the Github, compiled by myself.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 522.</li>
+</ul>
 <h2>V4.3.257</h2>
 <ul>
 <li>Fix two minor bugs in the script for TegraExplorer.</li>
