@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V523</h2>
+<ul>
+<li>Mise à jour de DBI en version 368.</li>
+</ul>
 <h2>V522</h2>
 <ul>
 <li>Mise à jour de PFBA (Pneo), Pgen, Pnes et Psnes en version 6.5.</li>

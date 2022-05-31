@@ -336,6 +336,74 @@ def rewrite_prodinfo_hashes(prodinfo_file_src_path, prodinfo_file_dest_path):
 		return(101)
 	return(0)
 
+def extract_prodinfo(prodinfo_file_src_path, prodinfo_file_dest_path, input_nand_type=0):
+	try:
+		with open(prodinfo_file_src_path, 'rb') as prodinfo_file_src:
+			if (input_nand_type == 0):
+				prodinfo_file_src.seek(17408)
+				temp_prodinfo=prodinfo_file_src.read(4176896)
+			elif (input_nand_type == 1):
+				prodinfo_file_src.seek(17408+9216)
+				temp_prodinfo=prodinfo_file_src.read(4176896)
+			elif (input_nand_type == 2):
+				prodinfo_file_src.seek(17408+8192)
+				temp_prodinfo=prodinfo_file_src.read(4176896)
+			else:
+				prodinfo_file_src.close()
+				print('Paramètre incorrect pour le type de nand.');
+				return(101)
+			prodinfo_file_src.close()
+	except:
+		print ('Le fichier "' + prodinfo_file_src_path + '" n\'existe pas.')
+		raise
+		return(101)
+	try:
+		with open(prodinfo_file_dest_path, 'wb+') as prodinfo_file_dest:
+			# filesize = 0x3fbc00
+			# prodinfo_file_dest.write(b'\0'*filesize)
+			# prodinfo_file_dest.seek(0)
+			prodinfo_file_dest.write(temp_prodinfo)
+			prodinfo_file_dest.close()
+	except:
+		print ('Le fichier "' + prodinfo_file_dest_path + '" n\'existe pas.')
+		raise
+		return(101)
+	return(0)
+
+def extract_prodinfof(prodinfo_file_src_path, prodinfo_file_dest_path, input_nand_type=0):
+	try:
+		with open(prodinfo_file_src_path, 'rb') as prodinfo_file_src:
+			if (input_nand_type == 0):
+				prodinfo_file_src.seek(17408+4176896)
+				temp_prodinfo=prodinfo_file_src.read(4194304)
+			elif (input_nand_type == 1):
+				prodinfo_file_src.seek(17408+4176896+9216)
+				temp_prodinfo=prodinfo_file_src.read(4194304)
+			elif (input_nand_type == 2):
+				prodinfo_file_src.seek(17408+4176896+8192)
+				temp_prodinfo=prodinfo_file_src.read(4194304)
+			else:
+				prodinfo_file_src.close()
+				print('Paramètre incorrect pour le type de nand.');
+				return(101)
+			prodinfo_file_src.close()
+	except:
+		print ('Le fichier "' + prodinfo_file_src_path + '" n\'existe pas.')
+		raise
+		return(101)
+	try:
+		with open(prodinfo_file_dest_path, 'wb+') as prodinfo_file_dest:
+			# filesize = 0x3fbc00
+			# prodinfo_file_dest.write(b'\0'*filesize)
+			# prodinfo_file_dest.seek(0)
+			prodinfo_file_dest.write(temp_prodinfo)
+			prodinfo_file_dest.close()
+	except:
+		print ('Le fichier "' + prodinfo_file_dest_path + '" n\'existe pas.')
+		raise
+		return(101)
+	return(0)
+
 def help():
 	print ('Utilisation:')
 	print ()
@@ -344,6 +412,12 @@ def help():
 	print("get_infos: Obtenir des infos détaillées sur un fichier PRODINFO dans un fichier texte.")
 	print("rewrite_hashes: Réécrire les différents hashes (sha256 et crc_16) d'un fichier PRODINFO dans un nouveau fichier.")
 	print("verif_hashes: Seulement vérifier les hashes du fichier source, le paramètre -o n'est donc pas requis.")
+	print("extract: Extraire PRODINFO (fichier de destination) d'un dump d'une RAWNAND partiel (fichier source).")
+	print("extract_from_sx_emunand_partition: Extraire PRODINFO (fichier de destination) d'un dump d'une emunand via partition SXOS partiel (fichier source).")
+	print("extract_from_fullnand: Extraire PRODINFO (fichier de destination) d'un dump d'une FULLNAND (emunand via partition Atmosphere ou dump contenant BOOT0 et BOOT1) partiel (fichier source).")
+	print("extract_f: Extraire PRODINFOF (fichier de destination) d'un dump d'une RAWNAND partiel (fichier source).")
+	print("extract_f_from_sx_emunand_partition: Extraire PRODINFOF (fichier de destination) d'un dump d'une emunand via partition SXOS partiel (fichier source).")
+	print("extract_f_from_fullnand: Extraire PRODINFOF (fichier de destination) d'un dump d'une FULLNAND (emunand via partition Atmosphere ou dump contenant BOOT0 et BOOT1) partiel (fichier source).")
 	return(0)
 
 action = ''
@@ -391,12 +465,26 @@ if (prodinfo_file_src_path == prodinfo_file_dest_path):
 	help()
 	sys.exit(301)
 
-read_prodinfo(prodinfo_file_src_path)
 if (action == 'get_infos'):
+	read_prodinfo(prodinfo_file_src_path)
 	return_code = get_prodinfo_infos(prodinfo_file_src_path, prodinfo_file_dest_path)
 elif (action == 'rewrite_hashes'):
+	read_prodinfo(prodinfo_file_src_path)
 	return_code = rewrite_prodinfo_hashes(prodinfo_file_src_path, prodinfo_file_dest_path)
+elif (action == 'extract'):
+	return_code = extract_prodinfo(prodinfo_file_src_path, prodinfo_file_dest_path, 0)
+elif (action == 'extract_from_sx_emunand_partition'):
+	return_code = extract_prodinfo(prodinfo_file_src_path, prodinfo_file_dest_path, 1)
+elif (action == 'extract_from_fullnand'):
+	return_code = extract_prodinfo(prodinfo_file_src_path, prodinfo_file_dest_path, 2)
+elif (action == 'extract_f'):
+	return_code = extract_prodinfof(prodinfo_file_src_path, prodinfo_file_dest_path, 0)
+elif (action == 'extract__f_from_sx_emunand_partition'):
+	return_code = extract_prodinfof(prodinfo_file_src_path, prodinfo_file_dest_path, 1)
+elif (action == 'extract_f_from_fullnand'):
+	return_code = extract_prodinfof(prodinfo_file_src_path, prodinfo_file_dest_path, 2)
 elif (action == 'verif_hashes'):
+	read_prodinfo(prodinfo_file_src_path)
 	return_code = verif_prodinfo_hashes(prodinfo_file_src_path)
 else:
 	help()
