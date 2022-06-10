@@ -34,7 +34,7 @@
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick_RCM">Lockpick-RCM</a></li>
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick">Lockpick</a></li>
 <li><a target="_blank" href="https://github.com/CaramelDunes/prodinfo_gen/">Prodinfo_gen</a></li>
-<li><a target="_blank" href="https://github.com/GaryOderNichts/udpih_nxpayload">Udpih_nxpayload</a></li>
+<li><a target="_blank" href="https://github.com/GaryOderNichts/udpih_nxpayload/">Udpih_nxpayload</a>, usful payload to launch the <a target="_blank" href="https://github.com/GaryOderNichts/recovery_menu/">Recovery Menu</a> with the <a target="_blank" href="https://github.com/GaryOderNichts/udpih/">Udpih exploit</a> for the Wii U.</li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/TegraExplorer">TegraExplorer</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/TegraScript">Some Tegraexplorer scripts</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/guide-pairing-the-joy-con-on-emunand-and-sysnand.562519/">Tegraexplorer scripts to fix joycon synch between sysnand and emunand</a></li>
