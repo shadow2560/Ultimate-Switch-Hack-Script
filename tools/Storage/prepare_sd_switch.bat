@@ -653,6 +653,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\atmosphere\reboot_payload.bin" >nul
 	rem copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%\switch\HekateBrew\payload.bin >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\bootloader\payloads\Lockpick_RCM.bin" >nul
+	copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\bootloader\payloads\udpih_nxpayload.bin" >nul
 	IF /i NOT "%mariko_console%"=="o" (
 		copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\bootloader\payloads\Incognito_RCM.bin" >nul
 	)
@@ -1035,6 +1036,7 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF NOT EXIST "%volume_letter%\payloads\*.*" mkdir "%volume_letter%\payloads"
 				copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\payloads\Lockpick_RCM.bin" >nul
+				copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\payloads\udpih_nxpayload.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\payloads\Incognito_RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\payloads\Prodinfo_gen.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\TegraExplorer.bin" "%volume_letter%\payloads\TegraExplorer.bin" >nul
@@ -1080,6 +1082,7 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF NOT EXIST "%volume_letter%\payloads\*.*" mkdir "%volume_letter%\payloads"
 				copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\payloads\Lockpick_RCM.bin" >nul
+				copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\payloads\udpih_nxpayload.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\payloads\Incognito_RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\payloads\Prodinfo_gen.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\TegraExplorer.bin" "%volume_letter%\payloads\TegraExplorer.bin" >nul
@@ -1143,6 +1146,11 @@ for /l %%i in (1,1,%temp_count%) do (
 					echo [TegraExplorer]>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo name=TegraExplorer>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo path=/payloads/TegraExplorer.bin>>"%volume_letter%\config\fastCFWSwitch\config.ini"
+					echo.>>"%volume_letter%\config\fastCFWSwitch\config.ini"
+					copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\payloads\udpih_nxpayload.bin" >nul
+					echo [Udpih_nxpayload]>>"%volume_letter%\config\fastCFWSwitch\config.ini"
+					echo name=Udpih_nxpayload>>"%volume_letter%\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/udpih_nxpayload.bin>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo.>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					IF /i "%copy_memloader%"=="o" (
 						copy /V /B "TOOLS\sd_switch\payloads\memloader.bin" "%volume_letter%\payloads\memloader.bin" >nul

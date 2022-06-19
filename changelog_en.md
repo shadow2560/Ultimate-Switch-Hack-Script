@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.261</h2>
+<ul>
+<li>Update Udpih_nxpayload to version 2.</li>
+<li>Support of the firmware 14.1.2.</li>
+<li>The Udpih_nxpayload payload is copied during the SD preparation when it is possible to launch it via the console.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 524.</li>
+</ul>
 <h2>V4.3.260</h2>
 <ul>
 <li>Add Udpih_nxpayload payload to the payloads list.</li>
