@@ -1020,11 +1020,20 @@ for /l %%i in (1,1,%temp_count%) do (
 			)
 		)
 		IF "!temp_homebrew!"=="ChoiDuJourNX" (
+			IF /i not "%copy_sxos_pack%"=="o" (
+				IF /i "%copy_atmosphere_pack%"=="o" (
+					set temp_special_homebrew=Y
+				)
+			)
 			IF /i "%mariko_console%"=="o" (
 				set temp_special_homebrew=Y
-			) else (
+			)
+			IF /i not "!temp_special_homebrew!"=="Y" (
 				call "%associed_language_script%" "choidujournx_alert_message"
 			)
+		)
+		IF "!temp_homebrew!"=="Battery_desync_fix_nx" (
+			call "%associed_language_script%" "battery_desync_fix_nx_alert_message"
 		)
 		IF "!temp_homebrew!"=="MiiPort" (
 			IF EXIST "%volume_letter%\MiiPort\qrkey.txt" (

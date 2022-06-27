@@ -239,7 +239,11 @@ echo The uLaunch module isn't officialy compatible with SX OS for now, the modul
 goto:eof
 
 :choidujournx_alert_message
-echo Warning, don't use ChoiDuJour-NX on a Mariko console cause it will brick it.
+echo Warning, don't use ChoiDuJour-NX on a Mariko console cause it will brick it. Also, this homebrew can't be used on recent Atmosphere's versions.
+goto:eof
+
+:battery_desync_fix_nx_alert_message
+echo Be careful when using the Battery_desync_fix_nx homebrew, see the readme on the Github of the project to know how to use it correctly.
 goto:eof
 
 :miiport_alert_message
