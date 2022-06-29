@@ -635,7 +635,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF EXIST "%volume_letter%\atmosphere\config_templates\BCT.ini" del /q "%volume_letter%\atmosphere\config_templates\BCT.ini" >nul
 	IF EXIST "%volume_letter%\atmosphere\fusee-secondary.bin" del /q "%volume_letter%\atmosphere\fusee-secondary.bin" >nul
 	IF EXIST "%volume_letter%\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" del /q "%volume_letter%\atmosphere\flags\clean_stratosphere_for_0.19.0.flag" >nul
-	del /Q /S "%volume_letter%\Atmosphere_fusee-primary.bin" >nul 2>&1
+	IF EXIST "%volume_letter%\Atmosphere_fusee-primary.bin" del /Q /S "%volume_letter%\Atmosphere_fusee-primary.bin" >nul 2>&1
 	IF /i "%atmosphere_enable_nogc_patch%"=="O" (
 		%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_patches_nogc " "%volume_letter%\ " /e >nul
 	)
@@ -1718,27 +1718,27 @@ echo ; for usage by other applets. This setting has no effect if>>"%volume_lette
 echo ; applet_heap_size is non-zero. The default is zero.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo applet_heap_reservation_size = u64!%atmo_applet_heap_reservation_size%>>"%volume_letter%\atmosphere\config\system_settings.ini"
 
-echo [hbl_config]>%volume_letter%\atmosphere\config\override_config.ini
-echo ; Program Specific Config>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; Up to 8 program-specific configurations can be set.>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; These use `program_id_#` and `override_key_#`>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; where # is in range [0,7].>>%volume_letter%\atmosphere\config\override_config.ini
-echo program_id_0=010000000000100D>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_address_space_0=%atmo_override_address_space%>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_key_0=%atmo_hbl_override_key%>>%volume_letter%\atmosphere\config\override_config.ini
-echo.>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; Any Application Config>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; Note that this will only apply to program IDs that>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; are both applications and not specified above>>%volume_letter%\atmosphere\config\override_config.ini
-echo ; by a program specific config.>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_any_app=true>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_any_app_key=%atmo_hbl_override_any_app_key%>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_any_app_address_space=%atmo_override_any_app_address_space%>>%volume_letter%\atmosphere\config\override_config.ini
-echo path=atmosphere/hbl.nsp>>%volume_letter%\atmosphere\config\override_config.ini
-echo.>>%volume_letter%\atmosphere\config\override_config.ini
-echo [default_config]>>%volume_letter%\atmosphere\config\override_config.ini
-echo override_key=%atmo_layeredfs_override_key%>>%volume_letter%\atmosphere\config\override_config.ini
-echo cheat_enable_key=%atmo_cheats_override_key%>>%volume_letter%\atmosphere\config\override_config.ini
+echo [hbl_config]>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; Program Specific Config>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; Up to 8 program-specific configurations can be set.>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; These use `program_id_#` and `override_key_#`>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; where # is in range [0,7].>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo program_id_0=010000000000100D>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_address_space_0=%atmo_override_address_space%>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_key_0=%atmo_hbl_override_key%>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo.>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; Any Application Config>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; Note that this will only apply to program IDs that>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; are both applications and not specified above>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo ; by a program specific config.>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_any_app=true>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_any_app_key=%atmo_hbl_override_any_app_key%>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_any_app_address_space=%atmo_override_any_app_address_space%>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo path=atmosphere/hbl.nsp>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo.>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo [default_config]>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo override_key=%atmo_layeredfs_override_key%>>"%volume_letter%\atmosphere\config\override_config.ini"
+echo cheat_enable_key=%atmo_cheats_override_key%>>"%volume_letter%\atmosphere\config\override_config.ini"
 endlocal
 exit /b
 

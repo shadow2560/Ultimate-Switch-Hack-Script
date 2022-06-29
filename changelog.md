@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.263</h2>
+<ul>
+<li>Correction d'un bug présent depuis longtemps dans la gestion de profile d'emunand, merci @Nilecna de Logic-sunrise pour me l'avoir signalé.</li>
+<li>Correction d'un bug dans la préparation d'une SD avec la configuration manuelle d'Atmosphere.</li>
+<li>Correction d'une faute d'orthographe dans la sélection du mode de journal, merci @Nilecna de Logic-sunrise pour me l'avoir signalée.</li>
+<li>Mise à jour des valeurs pour le téléchargement du firmware 14.1.2 (récupération avec la mise à jour scileencieuse du firmware).</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 526.</li>
+</ul>
 <h2>V4.3.262</h2>
 <ul>
 <li>Ajout et modification de messages concernant certains homebrews durant la préparation d'une SD. La copie du homebrew ChoiDuJour-NX a également été soumise à des conditions plus strictes.</li>

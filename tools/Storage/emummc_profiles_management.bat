@@ -251,7 +251,7 @@ call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "emunand_enab
 IF /i NOT "%emunand_enable%"=="o" goto:skip_emunand_config
 :define_emummc_id
 set emummc_id=
-call "%associed_language_script%" "emummc_config_enable_choice"
+call "%associed_language_script%" "emummc_id_choice"
 IF "%emummc_id%"=="" goto:skip_define_emummc_id
 call TOOLS\Storage\functions\strlen.bat nb "%emummc_id%"
 IF %nb% GTR 4 (

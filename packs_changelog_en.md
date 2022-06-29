@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V526</h2>
+<ul>
+<li>Add the homebrew Switch-90dns-setter.</li>
+</ul>
 <h2>V525</h2>
 <ul>
 <li>Add the homebrew Battery_desync_fix_nx.</li>

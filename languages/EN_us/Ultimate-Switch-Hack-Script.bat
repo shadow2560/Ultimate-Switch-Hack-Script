@@ -30,7 +30,7 @@ goto:eof
 echo.
 echo Log mode choice.
 echo.
-echo For this cession:
+echo For this session:
 echo 1: Intermediate log mode ^(make the script more verbose on screen and write the outputs to a log file^)
 echo 2: Full log mode ^(display a lots of thing on screen and write the outputs to a log file^)
 echo All other choices: No log mode ^(recommanded^).
