@@ -3,6 +3,7 @@
 <h2>V527</h2>
 <ul>
 <li>Update Hekate to version 5.8.0.</li>
+<li>Update NXMP to version 0.6.3_Rev7_Nightly.</li>
 </ul>
 <h2>V526</h2>
 <ul>
