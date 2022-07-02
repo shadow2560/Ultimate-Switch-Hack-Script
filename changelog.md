@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.264</h2>
+<ul>
+<li>Mise à jour de Hekate en version 5.8.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 527.</li>
+</ul>
 <h2>V4.3.263</h2>
 <ul>
 <li>Correction d'un bug présent depuis longtemps dans la gestion de profile d'emunand, merci @Nilecna de Logic-sunrise pour me l'avoir signalé.</li>
