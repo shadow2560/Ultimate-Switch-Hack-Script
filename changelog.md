@@ -3,6 +3,7 @@
 <h2>V4.3.266</h2>
 <ul>
 <li>Mise à jour de EmmcHaccGen avec une version compilée par mes soins pour être plus précise dans le retour de codes d'erreurs dans les scripts.</li>
+<li>Mise à jour de NSTool en version 1.6.5.</li>
 </ul>
 <h2>V4.3.265</h2>
 <ul>

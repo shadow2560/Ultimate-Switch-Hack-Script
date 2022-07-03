@@ -3,6 +3,7 @@
 <h2>V4.3.266</h2>
 <ul>
 <li>Update EmmcHaccGen with a version compiled by me to be more accurate in returning error codes in scripts.</li>
+<li>Update NSTool to version 1.6.5.</li>
 </ul>
 <h2>V4.3.265</h2>
 <ul>
