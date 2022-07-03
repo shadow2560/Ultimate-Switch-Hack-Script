@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.265</h2>
+<ul>
+<li>Update EmmcHaccGen with a version compiled by me to be more accurate in returning error codes in scripts.</li>
+<li>Update credits.</li>
+</ul>
 <h2>V4.3.264</h2>
 <ul>
 <li>Update Hekate to version 5.8.0.</li>
