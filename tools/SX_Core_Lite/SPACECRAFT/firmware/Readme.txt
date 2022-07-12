@@ -1,6 +1,11 @@
-HWFLY firmware 0.7.0
+HWFLY firmware 0.7.1
 
 Changelog:
+
+0.7.1
+ - auto power off after 2 minutes on sdloader error screen if no action is taken
+ - better support for some SD card brands (lexar)
+ - support for sdsc cards (<= 2GB)
 
 0.7.0
  - prevent multiple payload writes during training

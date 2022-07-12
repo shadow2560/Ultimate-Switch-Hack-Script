@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V528</h2>
+<ul>
+<li>Mise à jour des configurations de Hekate.</li>
+</ul>
 <h2>V527</h2>
 <ul>
 <li>Mise à jour de Hekate en version 5.8.0.</li>

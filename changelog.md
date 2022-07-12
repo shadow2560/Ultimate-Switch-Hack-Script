@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.267</h2>
+<ul>
+<li>Mise à jour du firmware et des outils HWFly en version 0.7.1.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 528.</li>
+</ul>
 <h2>V4.3.266</h2>
 <ul>
 <li>Mise à jour de EmmcHaccGen avec une version compilée par mes soins pour être plus précise dans le retour de codes d'erreurs dans les scripts.</li>
