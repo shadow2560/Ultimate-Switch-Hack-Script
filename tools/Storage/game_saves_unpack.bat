@@ -75,7 +75,7 @@ goto:define_main_action_choice
 exit /b
 
 :folder_unpack
-for /r . %%a in (0000000*) do (
+for /r "%input_folder%" %%a in (0000000*) do (
 	"tools\Hactool_based_programs\hactoolnet.exe" -t save "%input_folder%\%%~na" --outdir "%output_folder%\%%~na" >nul
 )
 exit /b

@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V529</h2>
+<ul>
+<li>Ajout de l'overlay QuickNTP.</li>
+</ul>
 <h2>V528</h2>
 <ul>
 <li>Mise à jour des configurations de Hekate.</li>

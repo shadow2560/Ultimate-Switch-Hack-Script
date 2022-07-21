@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.268</h2>
+<ul>
+<li>Fix a major bug in the game saves extraction function.</li>
+<li>Change the name of the Tegraexplorer's script.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 529.</li>
+</ul>
 <h2>V4.3.267</h2>
 <ul>
 <li>Update firmware and tools for HWFly to version 0.7.1.</li>
