@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V530</h2>
+<ul>
+<li>Update DBI to version 389.</li>
+<li>Update AIO-Switch-Updater to version 2.19.3.</li>
+</ul>
 <h2>V529</h2>
 <ul>
 <li>Add QuickNTP overlay.</li>

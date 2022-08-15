@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.269</h2>
+<ul>
+<li>Update Ns-usb-loader to version 6.0.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 530.</li>
+</ul>
 <h2>V4.3.268</h2>
 <ul>
 <li>Fix a major bug in the game saves extraction function.</li>
