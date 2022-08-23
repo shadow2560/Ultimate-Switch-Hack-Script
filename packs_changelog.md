@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V531</h2>
+<ul>
+<li>Mise à jour des forwarders pour le Homebrew Menu, ils ont été recompilés par moi-même avec la dernière version du HB Loader.</li>
+</ul>
 <h2>V530</h2>
 <ul>
 <li>Mise à jour de DBI en version 389.</li>
