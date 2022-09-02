@@ -262,7 +262,7 @@ echo Vérifiez que vous avez bien toutes les clés requises.
 goto:eof
 
 :autorcm_param_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous désactiver l'auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Souhaitez-vous activer l'auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :emmchaccgen_package_creation_first_error
@@ -375,7 +375,15 @@ IF "%restore_method%"=="1" (
 )
 echo Attention, ce script de TegraExplorer nécessite des fichiers précédemment copiés par ce script, ne jamais l'exécuter autrement que durant cette procédure.
 echo Attention également, n'utiliser la possibilité de choix du dossier à restaurer que si vous savez se que vous faites, sinon gardez les actions par défaut.
-echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
+IF "%restore_method%"=="1" (
+	echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
+) else IF "%restore_method%"=="2" (
+	IF /i NOT "%patched_console%"=="O" (
+		IF NOT "%autorcm%"=="--no-autorcm" (
+			echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
+		)
+	)
+)
 echo.
 IF "%restore_method%"=="1" (
 	echo Une fois le script sur la console terminé sans erreur, éteindre la console ou redémarrer sur le payload Hekate via TegraExplorer.

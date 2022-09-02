@@ -853,9 +853,14 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	cd ..
 ) else if "%method_creation_firmware_unbrick_choice%"=="2" (
 	IF /i NOT "%mariko_console%"=="O" (
-		set autorcm=
-		call "%associed_language_script%" "autorcm_param_choice"
-		IF !errorlevel! EQU 2 set autorcm=--no-autorcm
+		IF /i NOT "%patched_console%"=="O" (
+			set autorcm=
+			call "%associed_language_script%" "autorcm_param_choice"
+			IF !errorlevel! EQU 2 set autorcm=--no-autorcm
+		) else (
+			set autorcm=--no-autorcm
+			
+		)
 	)
 	copy /v "..\tools\EmmcHaccGen\save.stub.v4" save.stub.v4 >nul
 	copy /v "..\tools\EmmcHaccGen\save.stub.v5" save.stub.v5 >nul

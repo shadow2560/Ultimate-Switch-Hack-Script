@@ -60,6 +60,7 @@
 <li><a target="_blank" href="https://github.com/tallbl0nde/TriPlayer">Triplayer</a></li>
 <li><a target="_blank" href="https://github.com/XorTroll/uLaunch">uLaunch</a></li>
 <li><a target="_blank" href="https://easyrpg.org/player">Easyrpg-player</a></li>
+<li><a target="_blank" href="https://github.com/flyinghead/flycast">Flycast</a></li>
 <li><a target="_blank" href="https://github.com/khedoros/khedgb">Khedgb</a></li>
 <li><a target="_blank" href="https://github.com/RSDuck/melonDS">MelonDS</a></li>
 <li><a target="_blank" href="https://github.com/mgba-emu/mgba">Mgba</a></li>

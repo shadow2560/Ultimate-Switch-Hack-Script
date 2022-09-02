@@ -72,17 +72,26 @@ IF NOT "%no_exfat%"=="" set no_exfat=%no_exfat:~0,1%
 call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "no_exfat" "o/n_choice"
 :skip_exfat_param_choice
 IF /i "%no_exfat%"=="o" set no_exfat_param=--no-exfat
+call "%associed_language_script%" "patched_console_choice"
+IF NOT "%patched_console%"=="" set patched_console=%patched_console:~0,1%
+call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "patched_console" "o/n_choice"
 set mariko_console=
-call "%associed_language_script%" "mariko_console_param_choice"
-IF NOT "%mariko_console%"=="" set mariko_console=%mariko_console:~0,1%
-call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
-IF /i "%mariko_console%"=="o" set mariko_console_param=--mariko --no-autorcm
+IF /i "%patched_console%"=="o" (
+	call "%associed_language_script%" "mariko_console_param_choice"
+	IF NOT "!mariko_console!"=="" set mariko_console=!mariko_console:~0,1!
+	call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
+	IF /i "!mariko_console!"=="o" set mariko_console_param=--mariko
+)
+set autorcm=
 IF /i NOT "%mariko_console%"=="o" (
-	set autorcm=
-	call "%associed_language_script%" "autorcm_param_choice"
-	IF NOT "!autorcm!"=="" set autorcm=!autorcm:~0,1!
-	call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "autorcm" "o/n_choice"
-	IF /i "!autorcm!"=="o" set autorcm_param=--no-autorcm
+	IF /i NOT "%patched_console%"=="o" (
+		call "%associed_language_script%" "autorcm_param_choice"
+		IF NOT "!autorcm!"=="" set autorcm=!autorcm:~0,1!
+		call "%this_script_dir%\functions\modify_yes_no_always_never_vars.bat" "autorcm" "o/n_choice"
+		IF /i "!autorcm!"=="o" set autorcm_param=--no-autorcm
+	) else (
+		set autorcm_param=--no-autorcm
+	)
 )
 :start_update_creation
 IF NOT EXIST "%calling_script_dir%\update_packages\*.*" (

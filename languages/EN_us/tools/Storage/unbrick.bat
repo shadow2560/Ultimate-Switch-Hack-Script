@@ -267,7 +267,7 @@ echo Check that you have all the required keys in the "keys.txt" file.
 goto:eof
 
 :autorcm_param_choice
-choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to disable auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you want to enable auto-RCM? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 
 :emmchaccgen_package_creation_first_error
@@ -381,7 +381,14 @@ IF "%restore_method%"=="1" (
 )
 echo Warning, this script of TegraExplorer requires files previously copied by this script, never execute it otherwise than during this procedure.
 echo An other warning, only use the restore from a chosen folder only if you know what you're doing, else prefer the default options.
-echo Also note that the console, if the script worked well, is now in auto-RCM so simply pressing the "Power" button at startup or plugging the off console into a USB outlet will start the console in RCM.
+IF "%restore_method%"=="1" (
+	echo Also note that the console, if the script worked well, is now in auto-RCM so simply pressing the "Power" button at startup or plugging the off console into a USB outlet will start the console in RCM.
+) else IF "%restore_method%"=="2" (
+	IF /i NOT "%patched_console%"=="O" (
+		IF NOT "%autorcm%"=="--no-autorcm" (
+			echo Also note that the console, if the script worked well, is now in auto-RCM so simply pressing the "Power" button at startup or plugging the off console into a USB outlet will start the console in RCM.
+	)
+)
 echo.
 IF "%restore_method%"=="1" (
 	echo Once the script on the console finished without error, shut down the console or reboot on the payload Hekate via TegraExplorer.

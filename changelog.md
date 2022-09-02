@@ -1,5 +1,16 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.272</h2>
+<ul>
+<li>Correction d'un bug concernant le choix de l'activation de l'auto-rcm avec la méthode EmmcHaccGen dans le script de débrickage. La question à ce sujet ne sera également plus posé et l'auto-rcm désactivé si le travail est effectué sur une console patchée.</li>
+<li>Ajout du choix du type de console (patché ou non) dans la fonction permettant de créer un package via EmmcHaccGen. Les règles sont maintenant les mêmes que pour le script de débrickage.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 533.</li>
+</ul>
+<h2>V4.3.271</h2>
+<ul>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 532.</li>
+</ul>
 <h2>V4.3.270</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 531.</li>
