@@ -28,7 +28,8 @@ echo.
 set action_choice=
 call "%associed_language_script%" "action_choice"
 IF "%action_choice%"=="1" (
-	start https://www.paypal.me/shadow256
+	rem start https://www.paypal.me/shadow256
+	start https://www.paypal.com/donate/?hosted_button_id=XZXKWXNX5V3KN 
 	goto:define_action_choice
 )
 IF "%action_choice%"=="2" (
@@ -36,7 +37,7 @@ IF "%action_choice%"=="2" (
 	goto:define_action_choice
 )
 IF "%action_choice%"=="3" (
-	start "" "http://rover.ebay.com/rover/1/709-53476-19255-0/1?icep_ff3=2&pub=5575378759&campid=5338273189&customid=&icep_item=114781401313&ipn=psmain&icep_vectorid=229480&kwid=902099&mtid=824&kw=lg&toolid=11111"
+	start https://www.ebay.fr/itm/114781401313?mkcid=16&mkevt=1&mkrid=709-127639-2357-0&ssspo=dLN2rzZeQ_y&sssrc=2524149&ssuid=dLN2rzZeQ_y&widget_ver=artemis&media=COPY
 	goto:define_action_choice
 )
 goto:end_script

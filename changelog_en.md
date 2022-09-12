@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.273</h2>
+<ul>
+<li>Update donation links.</li>
+<li>Fix some spelling mistakes.</li>
+</ul>
 <h2>V4.3.272</h2>
 <ul>
 <li>Fix a bug concerning the activation of the auto-rcm with the EmmcHaccGen method in the unbrick script. The question about this will also not be asked and the auto-rcm will be disabled if the work is done for a patched console.</li>

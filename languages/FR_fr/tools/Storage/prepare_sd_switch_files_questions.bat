@@ -70,7 +70,7 @@ set /p copy_emu=Souhaitez-vous copier le pack d'émulateurs? ^(%lng_yes_choice%/
 goto:eof
 
 :emulators_kip_configs_choice
-set /p keep_emu_configs=Souhaitez-vous concerver vos anciens fichiers de configurations d'émulateurs? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p keep_emu_configs=Souhaitez-vous conserver vos anciens fichiers de configurations d'émulateurs? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :emulators_profile_select_begin
@@ -162,7 +162,7 @@ goto:eof
 
 :del_files_dest_copy_choice
 echo Suppression de données de la SD:
-echo 1: Remettre les données de tous les CFWs à zéro sur la SD ^(supprimera les thèmes, configurations personnels, mods de jeux car les dossiers "titles" ^(ou "contents" pour Atmosphere^) seront remis à zéro... donc bien sauvegarder vos données personnelles si vous souhaitez les concerver^)?
+echo 1: Remettre les données de tous les CFWs à zéro sur la SD ^(supprimera les thèmes, configurations personnels, mods de jeux car les dossiers "titles" ^(ou "contents" pour Atmosphere^) seront remis à zéro... donc bien sauvegarder vos données personnelles si vous souhaitez les conserver^)?
 echo 2: Supprimer toutes les données de la SD?
 echo 0: Copier normalement les fichiers sans supprimer de données de la SD?
 echo.

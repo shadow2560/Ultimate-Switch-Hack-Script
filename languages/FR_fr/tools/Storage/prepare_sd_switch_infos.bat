@@ -267,7 +267,7 @@ IF /i "%copy_memloader%"=="o" (
 )
 IF /i "%copy_emu%"=="o" (
 	IF /i "%keep_emu_configs%"=="o" (
-		echo Pack d'émulateurs avec concervation des fichiers de configurations de ceux-ci sur la SD
+		echo Pack d'émulateurs avec conservation des fichiers de configurations de ceux-ci sur la SD
 	) else (
 		echo Pack d'émulateurs avec suppression des fichiers de configurations de ceux-ci sur la SD
 	)
@@ -373,5 +373,5 @@ IF "%profile_selected%"=="" (
 echo.
 IF /i "%del_files_dest_copy%"=="1" echo Attention: Les fichiers de tous les CFWs seront réinitialisé avant la copie, dossier "titles" de ceux-ci inclus.
 IF /i "%del_files_dest_copy%"=="2" echo Attention: Les fichiers de la SD seront intégralement supprimés avant la copie.
-IF /i "%del_files_dest_copy%"=="0" echo Les fichiers de la SD seront concervés et seul les fichiers mis à jour seront remplacés.
+IF /i "%del_files_dest_copy%"=="0" echo Les fichiers de la SD seront conservés et seul les fichiers mis à jour seront remplacés.
 goto:eof
