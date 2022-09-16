@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.274</h2>
+<ul>
+<li>Modification du message d'introduction pour ajouter des instructions dans le cas où l'affichage ne se comporte pas correctement.</li>
+</ul>
 <h2>V4.3.273</h2>
 <ul>
 <li>Mise à jour des liens de donation.</li>

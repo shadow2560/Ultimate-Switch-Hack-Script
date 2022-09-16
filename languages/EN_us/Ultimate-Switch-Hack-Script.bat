@@ -24,6 +24,8 @@ echo Go to the "fonts" tab, select the "Lucida Console" font and click the "OK" 
 echo.
 echo If everything is configured correctly, the script should work without issue.
 echo If the script fails and force closes, the font selected is not compatible with UTF-8 encoding.
+echo.
+echo If you have problems displaying the content, you can also change the number of lines options in the "Options" and "Configuration" tabs.
 goto:eof
 
 :set_debug_flag
