@@ -14,8 +14,8 @@ Setlocal enabledelayedexpansion
 set base_script_path="%~dp0\..\.."
 set folders_url_project_base=https://github.com/shadow2560/Ultimate-Switch-Hack-Script/trunk
 set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
-set atmo_folders_sigpatches_url_project_base=https://github.com/THZoria/patches/trunk
-set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/THZoria/patches/master
+set atmo_folders_sigpatches_url_project_base=https://github.com/shadow2560/patches/trunk
+set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/shadow2560/patches/main
 set what_to_update=%~1
 IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
