@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.276</h2>
+<ul>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 534.</li>
+</ul>
 <h2>V4.3.275</h2>
 <ul>
 <li>Correction d'un bug important dans la mise à jour de la fonction de préparation d'une SD et pourr probablement d'autres fonctions.</li>
