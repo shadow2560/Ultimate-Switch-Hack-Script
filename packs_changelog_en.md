@@ -1,6 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
-<h2>V533</h2>
+<h2>V535</h2>
+<ul>
+<li>Update AIO-Switch-Updater to version 2.20.1.</li>
+</ul>
+<h2>V534</h2>
 <ul>
 <li>Update AIO-Switch-Updater to version 2.20.0.</li>
 <li>Update DBI to version 415.</li>

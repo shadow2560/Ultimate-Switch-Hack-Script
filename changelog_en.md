@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.277</h2>
+<ul>
+<li>Update Ns-usbloader to version 6.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 535.</li>
+</ul>
 <h2>V4.3.276</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 534.</li>
