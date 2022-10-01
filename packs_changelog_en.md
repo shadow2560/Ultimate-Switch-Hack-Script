@@ -3,6 +3,7 @@
 <h2>V535</h2>
 <ul>
 <li>Update AIO-Switch-Updater to version 2.20.1.</li>
+<li>Update  Retroarch download link to version 1.11.0.</li>
 </ul>
 <h2>V534</h2>
 <ul>
