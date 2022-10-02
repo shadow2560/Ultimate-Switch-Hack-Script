@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.278</h2>
+<ul>
+<li>Mise à jour des liens et MD5 pour le firmware 14.1.2.</li>
+</ul>
 <h2>V4.3.277</h2>
 <ul>
 <li>Mise à jour de Ns-usbloader en version 6.1.</li>

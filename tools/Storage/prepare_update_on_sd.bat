@@ -568,8 +568,8 @@ IF "%firmware_choice%"=="14.1.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="14.1.2" (
-	set expected_md5=bbefda8a9d00fc8a53800b4154d14e4d
-	set "firmware_link=https://mega.nz/file/kJRyEALI#9BwMfPvDhxUdVAa6cP8dy7Na1-yWvRYufBHUG8lQpa0"
+	set expected_md5=f21375202bc25d55733a41d7a2d8978c
+	set "firmware_link=https://mega.nz/file/ZJQ1WDCI#sKNXu8MAJIAC824cPEM6DD5xjBvGnc3bzjLEa6bneWw"
 	set firmware_file_name=Firmware 14.1.2.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
