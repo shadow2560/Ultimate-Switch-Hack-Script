@@ -41,6 +41,8 @@ kipname = "temp/FS-dec.kip1"
 pattern = '0x1e42b91fc14271'
 pattern2 = '0x0194081C00121F05007181000054' #added for extra patch....
 pattern3 = '0x0294081C00121F05007181000054' #test added for extra patch....
+pattern4 = '0x1C00121F0500714101' # find patch for firmware 15.0.0 and up
+pattern5 = '0x0036883E' # also FW 15.0.0 and up
 rootloc = root_dir + "atmosphere/kip_patches/fs_patches/"
 file = ""
 shortlist = []
@@ -86,34 +88,57 @@ def search():
         findnew = s.find(pattern2)
         global findnew_alt
         findnew_alt = s.find(pattern3)
+        global find_15
+        find_15 = s.find(pattern4)
+        global findnew_15
+        findnew_15 = s.find(pattern5)
 
     except OSError as e:
         print("Error: %s : %s" % ("Search: ", e.strerror))    
     
 def makepatches():
     try:
-        if findnew:
-            res = int(''.join(map(str, findnew)))
-            newval =  res / 8
-            addpos = int(2) #byte position in find hex
-            addpos2 = int(256)
-            newfinal =  int(newval - addpos)
-            newfinal2 =  int(newfinal - addpos2)
-        else:
-            print("Unable to find pattern2 - trying pattern3")
-            if findnew_alt:
-                res = int(''.join(map(str, findnew_alt)))
+        if find:
+            if findnew:
+                res = int(''.join(map(str, findnew)))
                 newval =  res / 8
                 addpos = int(2) #byte position in find hex
                 addpos2 = int(256)
                 newfinal =  int(newval - addpos)
                 newfinal2 =  int(newfinal - addpos2)
             else:
-                print("Unable to find pattern3 - quitting to avoid a crash")
-                sys.exit(1)
-
-        if find:
+                print("Unable to find pattern2 - trying pattern3")
+                if findnew_alt:
+                    res = int(''.join(map(str, findnew_alt)))
+                    newval =  res / 8
+                    addpos = int(2) #byte position in find hex
+                    addpos2 = int(256)
+                    newfinal =  int(newval - addpos)
+                    newfinal2 =  int(newfinal - addpos2)
+                else:
+                    print("Unable to find pattern3 - quitting to avoid a crash")
+                    sys.exit(1)
             res = int(''.join(map(str, find)))
+            newval =  res / 8
+            addpos = int(5) #byte position in find hex
+            addpos2 = int(256)
+            final =  int(newval - addpos)
+            final2 =  int(final - addpos2)
+            # print("IPS Offset patch address: 0x%X" % final)
+        else:
+            print("Unable to find pattern - trying pattern4")
+        if find_15:
+            if findnew_15:
+                res = int(''.join(map(str, findnew_15)))
+                newval =  res / 8
+                addpos = int(2) #byte position in find hex
+                addpos2 = int(256)
+                newfinal =  int(newval - addpos)
+                newfinal2 =  int(newfinal - addpos2)
+            else:
+                print("Unable to find pattern5 - quitting to avoid a crash")
+                sys.exit(1)
+            res = int(''.join(map(str, find_15)))
             newval =  res / 8
             addpos = int(5) #byte position in find hex
             addpos2 = int(256)

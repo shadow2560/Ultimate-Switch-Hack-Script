@@ -29,10 +29,11 @@ goto:eof
 
 :action_choice
 echo What do you want to do:
-echo 1: Create the loader_patches?
-echo 2: Create the FS_patches and ES_patches?
-echo 3: Create the FS_patches?
-echo 4: Create the ES_patches?
+echo 1: Launch IPS_patch_creator ^(recommanded^)?
+echo 2: Create the loader_patches?
+echo 3: Create the FS_patches and ES_patches?
+echo 4: Create the FS_patches?
+echo 5: Create the ES_patches?
 echo All other choices: Back to previous menu?
 echo.
 set /p action_choice=Make your choice: 

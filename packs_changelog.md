@@ -1,5 +1,26 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V537</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 1.4.0.</li>
+<li>Mise à jour de Hekate en version 5.9.0.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.9.</li>
+<li>Mise à jour de DBI en version 439.</li>
+<li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 15.0.0 et 15.0.1.</li>
+<li>Mise à jour de MGBA en version 0.10.0.</li>
+<li>Mise à jour de Linkalho en version 2.0.1.</li>
+<li>Mise à jour de l'overlay d'EdiZon par la version de @proferabg.</li>
+<li>Mise à jour de Ldn_mitm en version 1.14.0.</li>
+<li>Mise à jour de Ovl-sysmodules en version 1.3.0.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.21.1.</li>
+<li>Mise à jour de MissionControl en version 0.8.0.</li>
+<li>Mise à jour de SwitchIdent vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 0.7.</li>
+<li>Mise à jour de Fiseau en version 2.4.0.</li>
+<li>Mise à jour de Tinfoil en version 15.0 V1.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.12.0.</li>
+</ul>
 <h2>V536</h2>
 <ul>
 <li>Mise à jour de MissionControl en version 0.7.1.</li>

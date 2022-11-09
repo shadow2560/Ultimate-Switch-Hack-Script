@@ -1,5 +1,20 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.280</h2>
+<ul>
+<li>Support des firmwares 15.0.0 et 15.0.1.</li>
+<li>Mise à jour des liens et MD5 pour le firmware 14.1.2.</li>
+<li>Ajout de IPS_Patch_Creator pour la fonction de création de patches.</li>
+<li>Ajout d'une fonction permettant de flasher un PRODINFO généré par ProdinfoGen dans le script TegraExplorer de débrickage.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour les firmwares 15.0.0 et 15.0.1.</li>
+<li>Mise à jour d'Atmosphere en version 1.4.0.</li>
+<li>Mise à jour de Hekate en version 5.9.0.</li>
+<li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 15.0.0 et 15.0.1.</li>
+<li>Mise à jour de Lockpick-RCM en version 1.9.9.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 537.</li>
+</ul>
 <h2>V4.3.279</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 536.</li>

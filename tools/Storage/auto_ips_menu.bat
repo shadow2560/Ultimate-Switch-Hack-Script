@@ -34,22 +34,35 @@ echo.
 set action_choice=
 call "%associed_language_script%" "action_choice"
 IF "%action_choice%"=="1" (
-	call :create_loader_patches
+	call :launch_ips_patch_creator
 	goto:menu_choice
 )
 IF "%action_choice%"=="2" (
-	call :create_fs_and_es_patches
+	call :create_loader_patches
 	goto:menu_choice
 )
 IF "%action_choice%"=="3" (
-	call :create_fs_patches
+	call :create_fs_and_es_patches
 	goto:menu_choice
 )
 IF "%action_choice%"=="4" (
+	call :create_fs_patches
+	goto:menu_choice
+)
+IF "%action_choice%"=="5" (
 	call :create_es_patches
 	goto:menu_choice
 )
 goto:end_script
+
+:launch_ips_patch_creator
+call :keys_file_choice
+IF %errorlevel% EQU 0 (
+	copy "!keys_file_path!" "tools\IPS_Patch_Creator\tools\keys.dat" >nul
+	start "" /d "tools\IPS_Patch_Creator" "tools\IPS_Patch_Creator\IPS_Patch_Creator.exe"
+)
+echo.
+exit /b
 
 :create_loader_patches
 call :fusee-secondary_choice

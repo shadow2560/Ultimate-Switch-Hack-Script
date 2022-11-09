@@ -87,7 +87,7 @@
 <li><a target="_blank" href="https://github.com/rashevskyv/switch">DBI, part of Kefir project</a></li>
 <li><a target="_blank" href="https://github.com/noirscape/delve">Delve</a></li>
 <li><a target="_blank" href="https://github.com/SegFault42/ebookViewerNX">EbookViewerNX</a></li>
-<li><a target="_blank" href="https://github.com/WerWolv/EdiZon">EdiZon</a>, replaced by <a target="_blank" href="https://github.com/tomvita/EdiZon-SE">EdiZon-SE</a>.</li>
+<li><a target="_blank" href="https://github.com/WerWolv/EdiZon">EdiZon</a>, replaced by <a target="_blank" href="https://github.com/tomvita/EdiZon-SE">EdiZon-SE</a> and for the overlay it's replaced by <a target="_blank" href="https://github.com/proferabg/EdiZon-Overlay">this fork</a>.</li>
 <li><a target="_blank" href="https://github.com/noirscape/emummc-toggler">EmuMMC-Toggle</a></li>
 <li><a target="_blank" href="https://github.com/noahc3/fakenews-injector">Fakenews-injector</a></li>
 <li><a target="_blank" href="https://github.com/averne/Fizeau">Fizeau</a></li>
@@ -161,6 +161,7 @@
 <li><a target="_blank" href="https://github.com/SciresM/hactool">Hactool</a></li>
 <li><a target="_blank" href="https://github.com/The-4n/hacBrewPack">HacBrewPack</a></li>
 <li><a target="_blank" href="https://www.imagemagick.org">ImageMagick</a></li>
+<li><a target="_blank" href="https://github.com/mrdude2478/IPS_Patch_Creator">IPS_Patch_Creator</a></li>
 <li><a target="_blank" href="https://github.com/Thealexbarney/LibHac">Hactoolnet</a></li>
 <li>Imx_load Windows binary: rajkosto</li>
 <li><a target="_blank" href="https://github.com/MegatonHammer/linkle">Linkle</a></li>

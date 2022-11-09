@@ -138,6 +138,8 @@ echo 14.0.0?
 echo 14.1.0?
 echo 14.1.1?
 echo 14.1.2?
+echo 15.0.0?
+echo 15.0.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -568,9 +570,27 @@ IF "%firmware_choice%"=="14.1.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="14.1.2" (
-	set expected_md5=f21375202bc25d55733a41d7a2d8978c
-	set "firmware_link=https://mega.nz/file/ZJQ1WDCI#sKNXu8MAJIAC824cPEM6DD5xjBvGnc3bzjLEa6bneWw"
+	set expected_md5=36808cdb78b5986d02817e6667dfe15b
+	set "firmware_link=https://mega.nz/file/gJhWCTQS#Icf6wBAAS30mEZHnvCxTy_tWizbQI2KDcvPVUmpeXyM"
 	set firmware_file_name=Firmware 14.1.2.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="15.0.0" (
+	set expected_md5=a7023429f85fdd3a40b4661188f5b65a
+	set "firmware_link=https://mega.nz/file/tV5TRIiS#4poFRNnZOwpKsNd-3vvxlYRr1VX0sx-pcTL--agBG4Y"
+	set firmware_file_name=Firmware 15.0.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="15.0.1" (
+	set expected_md5=69735562cebf54ec61aad54cfefc9a5d
+	set "firmware_link=https://mega.nz/file/8JwUQK6R#CpNCgmtQrjpNgem6Omo51qDEYw7MhrNF7jcZSNmprRo"
+	set firmware_file_name=Firmware 15.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

@@ -154,13 +154,21 @@ def checkfiles():
             else:
                 print ("Hex match not found")
     
-    elif value >= 12300:
+    elif value >= 12300 and value < 15300:
         with open('dumped/main_dec', 'rb') as file:
             f1 = re.search(b'\xFD\x7B\xBD\xA9\xF5\x0B\x00\xF9\xFD\x03\x00\x91\xF4\x4F\x02\xA9\xF5\x03\x01\xAA\xF4\x03\x00\xAA.\xFB\xFF\x97\xF3\x03\x14\xAA\xE0\x03\x14\xAA\x9F', file.read()) #(fw >12.x.x)
             if f1:
                 doit()
             else:
                 print ("Hex match not found")        
+    elif value >= 15300:
+        with open('dumped/main_dec', 'rb') as file:
+            f1 = re.search(b'\xFD...........................\xF3\x03\x14\xAA\xE0\x03\x14\xAA\x9F', file.read()) #(fw >15.x.x)
+            if f1:
+                doit()
+            else:
+                print ("Hex match not found")        
+
 def doit():
     global f1
     global final
