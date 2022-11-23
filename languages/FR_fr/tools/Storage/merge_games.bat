@@ -23,11 +23,11 @@ goto:eof
 echo Vous allez devoir sélectionner le premier fichier du jeu splitté.
 pause
 IF "%game_type%"=="1" (
-	%windir%\system32\wscript.exe //Nologo tools\Storage\functions\open_file.vbs "" "Premier fichier d'un jeu NSP splitté ^(*.ns0^)|*.ns0|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
+	%windir%\system32\wscript.exe //Nologo "tools\Storage\functions\open_file.vbs" "" "Premier fichier d\'un jeu NSP splitté ^(*.ns0^)|*.ns0|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
 ) else IF "%game_type%"=="2" (
-	%windir%\system32\wscript.exe //Nologo tools\Storage\functions\open_file.vbs "" "Premier fichier d'un jeu XCI splitté ^(*.xc0^)|*.xc0|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
+	%windir%\system32\wscript.exe //Nologo "tools\Storage\functions\open_file.vbs" "" "Premier fichier d\'un jeu XCI splitté ^(*.xc0^)|*.xc0|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
 ) else (
-	%windir%\system32\wscript.exe //Nologo tools\Storage\functions\open_file.vbs "" "Premier fichier d'un jeu NSP ou XCI splitté via dossier ^(00^)|00|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
+	%windir%\system32\wscript.exe //Nologo "tools\Storage\functions\open_file.vbs" "" "Premier fichier d\'un jeu NSP ou XCI splitté via dossier ^(00^)|00|" "Sélection du premier fichier du contenu" "templogs\tempvar.txt"
 )
 goto:eof
 

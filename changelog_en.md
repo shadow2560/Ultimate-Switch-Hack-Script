@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.281</h2>
+<ul>
+<li>Fix a bug in the function witch can merge XCI/NSP splited files.</li>
+<li>Update Hactoolnet to version 0.17.0.</li>
+<li>Update XCI_explorer to version 2.0.0.</li>
+<li>Update Rekado to version 5.1.</li>
+<li>Update the GUI for creating forwarders to version 0.12 Beta.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 538.</li>
+</ul>
 <h2>V4.3.280</h2>
 <ul>
 <li>Support of the firmwares 15.0.0 and 15.0.1.</li>

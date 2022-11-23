@@ -1,17 +1,15 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Outfile=Menu_v0.11B.exe
+#AutoIt3Wrapper_Icon=..\OneDrive\Pictures\Icons\Programs\PortableApps_v3.ico
 #AutoIt3Wrapper_UseX64=n
-#AutoIt3Wrapper_Res_Comment=Gui for NSP Forwarder Tool for 12+ Firmwares
-#AutoIt3Wrapper_Res_Description=Gui for NSP Forwarder Tool for 12+ Firmwares
-#AutoIt3Wrapper_Res_Fileversion=0.11.0.0
-#AutoIt3Wrapper_Res_ProductVersion=0.11
+#AutoIt3Wrapper_Res_Comment=https://gbatemp.net/threads/gui-for-nsp-forwarder-tool-for-12.588018/
+#AutoIt3Wrapper_Res_ProductVersion=0.12
 #AutoIt3Wrapper_Res_CompanyName=EddCase
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #cs ----------------------------------------------------------------------------
 
  AutoIt Version: 3.3.14.5
  Author:         EddCase & Shadow256
- Script Version: 0.11Beta
+ Script Version: 0.12Beta
 
  Script Function:
 	GUI for mpham's NSP Forwarder tool for 12+
@@ -65,14 +63,15 @@ Changelog
 		Prod.keys should work properly.
 		Special characters should be displayed correctly
 		Fix some other bugs
-		0.11 Beta (Shadow256)
-			Default logo file and his backup will not be deleted anymore at the end of the process, should prevent for some big problems
+	0.11 Beta (Shadow256)
+		Default logo file and his backup will not be deleted anymore at the end of the process, should prevent for some big problems
+	0.12 Beta (EddCase)
+		Tidied up Menu Title
+		Added option to disable icon conversion, Tick the checkbox BEFORE selecting your images (I need to rework the menu to make this option easier)
+		Cleanup of files also added to the close (X) button
 
 Known Issues
-	0.6
-		Fixed in 0.10; Adds " " around Title and Author names when using non english characters (Pokémon), needs investigation if this is an issue with the GUI or hacBrewPack, Also does this behavior effect standard or only RetroArch forwarders
-	0.8
-		Fixed in 0.10; Custom Prod.Keys Location not working 100% for now place your prod.keys in the same location as Menu.exe (root folder)
+	Some forwarders are created with ? logo when installed on the switch, 0.12 Beta adds an option to disable the image conversion completely as a workaround as no rootcause has been identified
 
 #ce ----------------------------------------------------------------------------
 
@@ -90,8 +89,8 @@ Known Issues
 
 
 ;Global Declerations
-$version = "0.11 Beta"
-$Title = "NSP Forwarder Tool for 12+" & "                                -=Menu v" & $version & "=-"
+$version = "0.12 Beta"
+$Title = "-=Menu v" & $version & "=-"
 $Credits = "Thank You To" & @LF & @LF & "The-4n for hacBrewPack" & @LF & "mpham for NSP Forwarder tool for 12+" & @LF & @LF & "This Gui would not be possible without their work"
 $hacbrewpac = '"' & @ScriptDir & "\hacbrewpack.exe" & '"'
 $titleid = "05000A0000000000" ;16 characters long
@@ -136,6 +135,7 @@ $lblIcon = GUICtrlCreateLabel("Icon Path:", 16, 131, 59, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpIcon = GUICtrlCreateInput("Icon Path", 144, 131, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
+GUICtrlSetTip(-1, "256 x 256 PNG")
 $btnIcon = GUICtrlCreateButton("Browse", 521, 131, 75, 25)
 $lblLogo = GUICtrlCreateLabel("Logo Path:", 16, 164, 65, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
@@ -147,6 +147,8 @@ $chkProd = GUICtrlCreateCheckbox("Custom prod.key location", 240, 208, 153, 17)
 GUICtrlSetTip(-1, "By default it will use prod.keys in the same directory as Menu.exe")
 $lblProd = GUICtrlCreateLabel("Prod.keys path:", 16, 236, 65, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
+$chkCon = GUICtrlCreateCheckbox("Disable Image Conversion", 16, 208, 153, 17)
+GUICtrlSetTip(-1, "If Checked, image conversion will be disabled" & @LF & @LF & "You will need to provide a 256x256 Pixel jpg for the icon" & @LF & "You will need to provide a 160x40 Pixel png for the logo")
 $inpProd = GUICtrlCreateInput(@ScriptDir & "\prod.keys", 144, 236, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $btnProd = GUICtrlCreateButton("Browse", 521, 236, 75, 25)
@@ -199,6 +201,7 @@ While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
+			Call ("tidy")
 			Exit
 		Case $chkProd
 			Call ("prodkeyscheck")
@@ -494,54 +497,66 @@ EndFunc
 
 
 Func iconconvert()
+		;Check if the Disable Image Conversion checkbox is checked
+	If $chkCon = $GUI_CHECKED Then
+		;Copy and name file correctly
+		FileCopy (GUICtrlRead ($inpIcon), @ScriptDir & "\TempIcon.jpg",1)
+	Else
 
-    _GDIPlus_Startup()
+		_GDIPlus_Startup()
 
-	Local $hBitmap = _GDIPlus_ImageLoadFromFile ( GUICtrlRead ($inpIcon) )
-    Local $hBitmap_Scaled = _GDIPlus_ImageResize($hBitmap, 256, 256) ;resize image
+		Local $hBitmap = _GDIPlus_ImageLoadFromFile ( GUICtrlRead ($inpIcon) )
+		Local $hBitmap_Scaled = _GDIPlus_ImageResize($hBitmap, 256, 256) ;resize image
 
-    	_GDIPlus_ImageSaveToFile ( $hBitmap_Scaled, @ScriptDir & "\TempIcon.jpg" )
+			_GDIPlus_ImageSaveToFile ( $hBitmap_Scaled, @ScriptDir & "\TempIcon.jpg" )
 
 
-    ;cleanup resources
-    _GDIPlus_BitmapDispose($hBitmap)
-    _GDIPlus_BitmapDispose($hBitmap_Scaled)
-    _GDIPlus_Shutdown()
+		;cleanup resources
+		_GDIPlus_BitmapDispose($hBitmap)
+		_GDIPlus_BitmapDispose($hBitmap_Scaled)
+		_GDIPlus_Shutdown()
 
-	If FileExists (@ScriptDir & "\TempIcon.jpg") = 0 Then
-		Local $YesNo = MsgBox (4, "Error, Conversion Failed", "Icon Image Format Incorrect!" & @LF & @LF & "Would you like me to try and open it in MSPaint?" & @LF & @LF & "If it opens please save it as a PNG" & @LF & "with a different name & try again")
-		If $YesNo = 6 Then
-			ShellExecute ("mspaint", '"' & GUICtrlRead ($inpIcon) & '"')
-		ElseIf $YesNo = 7 Then
-			Return
-		EndIF
+		If FileExists (@ScriptDir & "\TempIcon.jpg") = 0 Then
+			Local $YesNo = MsgBox (4, "Error, Conversion Failed", "Icon Image Format Incorrect!" & @LF & @LF & "Would you like me to try and open it in MSPaint?" & @LF & @LF & "If it opens please save it as a PNG" & @LF & "with a different name & try again")
+			If $YesNo = 6 Then
+				ShellExecute ("mspaint", '"' & GUICtrlRead ($inpIcon) & '"')
+			ElseIf $YesNo = 7 Then
+				Return
+			EndIF
+		EndIf
 	EndIf
 EndFunc
 
 
 Func logoconvert()
+		;Check if the Disable Image Conversion checkbox is checked
+	If $chkCon = $GUI_CHECKED Then
+		;Copy and name file correctly
+		FileCopy (GUICtrlRead ($inpLogo), @ScriptDir & "\TempLogo.png",1)
+	Else
 
-    _GDIPlus_Startup()
+		_GDIPlus_Startup()
 
-	Local $hBitmap = _GDIPlus_ImageLoadFromFile ( GUICtrlRead ($inpLogo) )
-    Local $hBitmap_Scaled = _GDIPlus_ImageResize($hBitmap, 160, 40) ;resize image
+		Local $hBitmap = _GDIPlus_ImageLoadFromFile ( GUICtrlRead ($inpLogo) )
+		Local $hBitmap_Scaled = _GDIPlus_ImageResize($hBitmap, 160, 40) ;resize image
 
-    	_GDIPlus_ImageSaveToFile ( $hBitmap_Scaled, @ScriptDir & "\TempLogo.png" )
+			_GDIPlus_ImageSaveToFile ( $hBitmap_Scaled, @ScriptDir & "\TempLogo.png" )
 
 
-    ;cleanup resources
-    _GDIPlus_BitmapDispose($hBitmap)
-    _GDIPlus_BitmapDispose($hBitmap_Scaled)
-    _GDIPlus_Shutdown()
+		;cleanup resources
+		_GDIPlus_BitmapDispose($hBitmap)
+		_GDIPlus_BitmapDispose($hBitmap_Scaled)
+		_GDIPlus_Shutdown()
 
-	If FileExists (@ScriptDir & "\TempLogo.png") = 0 Then
-		Local $YesNo = MsgBox (4, "Error, Conversion Failed", "Logo Image Format Incorrect!" & @LF & @LF & "Would you like me to try and open it in MSPaint?" & @LF & @LF & "If it opens please save it as a PNG" & @LF & "with a different name & try again")
-		If $YesNo = 6 Then
-			ShellExecute ("mspaint", '"' & GUICtrlRead ($inpLogo) & '"')
-		ElseIf $YesNo = 7 Then
-			Return
-		EndIF
-	EndIf
+		If FileExists (@ScriptDir & "\TempLogo.png") = 0 Then
+			Local $YesNo = MsgBox (4, "Error, Conversion Failed", "Logo Image Format Incorrect!" & @LF & @LF & "Would you like me to try and open it in MSPaint?" & @LF & @LF & "If it opens please save it as a PNG" & @LF & "with a different name & try again")
+			If $YesNo = 6 Then
+				ShellExecute ("mspaint", '"' & GUICtrlRead ($inpLogo) & '"')
+			ElseIf $YesNo = 7 Then
+				Return
+			EndIF
+		EndIf
+	Endif
 EndFunc
 
 
