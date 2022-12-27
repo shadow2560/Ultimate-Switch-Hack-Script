@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V539</h2>
+<ul>
+<li>Add the homebrew Switch-ftp-client.</li>
+<li>Update Hekate to version 6.0.1.</li>
+<li>Update Atmoxl-titel-installer to version 1.7.2.</li>
+<li>Update AIO-switch-updater to version 2.21.3.</li>
+<li>Update DBI to version 462.</li>
+<li>Update Awoo-Installer to version 1.3.5.</li>
+<li>Update Tinwoo to version 1.0.12.</li>
+</ul>
 <h2>V538</h2>
 <ul>
 <li>Update Haku33 to version 5.1.</li>

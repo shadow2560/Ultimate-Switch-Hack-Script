@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.282</h2>
+<ul>
+<li>Update Hekate to version 6.0.1.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 539.</li>
+</ul>
 <h2>V4.3.281</h2>
 <ul>
 <li>Fix a bug in the function witch can merge XCI/NSP splited files.</li>
