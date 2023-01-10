@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V540</h2>
+<ul>
+<li>Mise à jour de DBI en version 467.</li>
+</ul>
 <h2>V539</h2>
 <ul>
 <li>Ajout du homebrew Switch-ftp-client.</li>

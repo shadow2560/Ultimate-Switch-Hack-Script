@@ -1,6 +1,10 @@
-HWFLY firmware 0.7.1
+HWFLY firmware 0.7.2
 
 Changelog:
+
+0.7.2
+ - updated BCTs
+ - should now work on Erista switches
 
 0.7.1
  - auto power off after 2 minutes on sdloader error screen if no action is taken
