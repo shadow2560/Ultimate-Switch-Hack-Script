@@ -21,10 +21,5 @@ goto:eof
 echo This script will just launch Ns-usbloader, a software witch can install content on the Switch via NSA-Installer, Awoo-Installer, Tinleaf or Goldleaf.
 echo.
 echo By using this program, you accept the license to use Java for personal, non-commercial use of the product.
-echo.
-echo 0: Display the Java's license?
-echo 1: Decline  the Java's license and go back to menu?
-echo All other choices: Accept the Java's license and use Ns-usbloader?
-echo.
-set /p action_choice=Make your choice: 
+pause
 goto:eof

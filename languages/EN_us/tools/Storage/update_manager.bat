@@ -167,15 +167,3 @@ goto:eof
 :retroarch_end_updating
 echo Retroarch download success.
 goto:eof
-
-:java_no_internet_connection
-echo No internet connection, Java couldn't be downloaded.
-goto:eof
-
-:java_updating
-echo Downloading Java, this could take some time...
-goto:eof
-
-:java_end_updating
-echo Java download success.
-goto:eof

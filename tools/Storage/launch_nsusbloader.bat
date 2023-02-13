@@ -22,25 +22,9 @@ IF EXIST "%~0.version" (
 	set this_script_version=1.00.00
 )
 call "%associed_language_script%" "display_title"
-IF NOT EXIST "tools\java\jre1.8.0_261\*.*" (
-	call "tools\Storage\update_manager.bat" "update_launch_nsusbloader.bat"
-)
-IF NOT EXIST "tools\java\jre1.8.0_261\*.*" (
-	call "%associed_language_script%" "java_error"
-	pause
-	goto:end_script
-)
-:define_action_choice
-set action_choice=
-cls
 call "%associed_language_script%" "intro"
-IF "%action_choice%"=="1" goto:end_script
-IF "%action_choice%"=="0" (
-	start https://java.com/otnlicense
-	goto:define_action_choice
-)
-ECHO.
-start "" /i /b tools\java\jre1.8.0_261\bin\java.exe -jar tools\Ns-usbloader\ns-usbloader.jar
-ECHO.
+echo.
+start "" /i /b tools\Ns-usbloader\jdk\bin\java.exe -jar tools\Ns-usbloader\ns-usbloader.jar
+echo.
 :end_script
 endlocal

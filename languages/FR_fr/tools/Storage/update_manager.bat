@@ -158,15 +158,3 @@ goto:eof
 :retroarch_end_updating
 echo Téléchargement de Retroarch effectué avec succès.
 goto:eof
-
-:java_no_internet_connection
-echo Aucune connexion à internet disponible,  Java ne peut être téléchargée.
-goto:eof
-
-:java_updating
-echo Téléchargement de Java, ceci peut prendre du temps...
-goto:eof
-
-:java_end_updating
-echo Téléchargement de Java effectué avec succès.
-goto:eof

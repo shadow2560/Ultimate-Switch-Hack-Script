@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.285</h2>
+<ul>
+<li>Update NS-usbloader to version 7.0.</li>
+<li>Remove the JRE of java, replaced by open-JDK integrate to the last version of NS-usbloader.</li>
+<li>Update the Update Manager and  some language files.</li>
+</ul>
 <h2>V4.3.284</h2>
 <ul>
 <li>Update Atmosphere to version 1.4.1.</li>
