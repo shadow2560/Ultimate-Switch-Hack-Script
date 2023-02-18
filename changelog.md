@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.286</h2>
+<ul>
+<li>Mise à jour de Hactoolnet en version 0.18.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 542.</li>
+</ul>
 <h2>V4.3.285</h2>
 <ul>
 <li>Mise à jour de NS-usbloader en version 7.0.</li>

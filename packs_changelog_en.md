@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V542</h2>
+<ul>
+<li>Update DBI to version 490.</li>
+<li>Update Flycast to version 2.1.</li>
+</ul>
 <h2>V541</h2>
 <ul>
 <li>Add patches used by NXThemesInstaller when copying it.</li>
