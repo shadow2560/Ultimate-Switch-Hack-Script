@@ -2,8 +2,29 @@
 &nbsp;
 <h2>V542</h2>
 <ul>
-<li>Mise à jour de DBI en version 490.</li>
+<li>Mise à jour d'Atmosphere en version 1.5.1.</li>
+<li>Mise à jour de Hekate en version 6.0.2.</li>
+<li>Mise à jour de Lockpick-rcm en version 1.9.10.</li>
+<li>Mise à jour de Incognito-rcm et de TegraExplorer pour suporter le firmware 16.0.0.</li>
+<li>Mise à jour de JKSV en version 02/23/2023.</li>
+<li>Mise à jour de FastCFWswitch en version 1.3.1.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 0.8.1.</li>
+<li>Mise à jour de Ovlmenu pour suporter le firmware 16.0.0.</li>
+<li>Mise à jour de DBI en version 519.</li>
+<li>Mise à jour de MissionControl en version 0.9.0.</li>
 <li>Mise à jour de Flycast en version 2.1.</li>
+<li>Mise à jour de QuickNTP en version 1.2.7.</li>
+<li>Mise à jour de Sys-tune en version 1.2.2.</li>
+<li>Mise à jour de l'overlay EdiZon en version 1.0.4.</li>
+<li>Mise à jour de EdiZon-SE en version 3.8.37.</li>
+<li>Mise à jour de ScummVM en version 2.7.0.</li>
+<li>Mise à jour de SaltyNX en version 0.5.1.</li>
+<li>Mise à jour de UnityGraphics en version 0.2.1.</li>
+<li>Mise à jour de NX-FPS en version 1.0.</li>
+<li>Mise à jour de Fizeau en version 2.4.1.</li>
+<li>Mise à jour de TextReaderOverlay-NX pour suporter le firmware 16.0.0.</li>
+<li>Ajout d'une version de l'overlay de SimpleModManager pour suporter le firmware 16.0.0.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.15.0.</li>
 </ul>
 <h2>V541</h2>
 <ul>
@@ -40,7 +61,7 @@
 <li>Mise à jour de Lockpick-RCM en version 1.9.9.</li>
 <li>Mise à jour de DBI en version 439.</li>
 <li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
-<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 15.0.0 et 15.0.1.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le suport du firmware 15.0.0 et 15.0.1.</li>
 <li>Mise à jour de MGBA en version 0.10.0.</li>
 <li>Mise à jour de Linkalho en version 2.0.1.</li>
 <li>Mise à jour de l'overlay d'EdiZon par la version de @proferabg.</li>
@@ -179,7 +200,7 @@
 <li>Mise à jour de NX-hbmenu vers la dernière version du Github, compilé par moi-même.</li>
 <li>Mise à jour de DeepSea-Toolbox en version 6.0.0.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.9.7.</li>
-<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 14.0.0.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le suport du firmware 14.0.0.</li>
 <li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
 <li>Mise à jour de MissionControl en version 0.6.4-develop-33d3a39.</li>
 <li>Mise à jour de Sys-clk en version 1.0.2.</li>
@@ -316,7 +337,7 @@
 </ul>
 <h2>V492</h2>
 <ul>
-<li>Mise à jour de TegraExplorer pour supporter les consoles OLED, voir <a target="_blank" href="https://github.com/dezem/TegraExplorer">ce projet Github</a>.</li>
+<li>Mise à jour de TegraExplorer pour suporter les consoles OLED, voir <a target="_blank" href="https://github.com/dezem/TegraExplorer">ce projet Github</a>.</li>
 <li>Mise à jour du lien de Retroarch pour la version 1.9.13.</li>
 </ul>
 <h2>V491</h2>
@@ -2555,7 +2576,7 @@
 <h2>V80</h2>
 <ul>
 <li>Mis à jour de SX OS en version 2.5.3.</li>
-<li>Mise à jour des patches "nogc" pour le pack Atmosphere (support du patch pour le firmware 7.0.0 mais le CFW ne supporte pas encore ce firmware de manière simple).</li>
+<li>Mise à jour des patches "nogc" pour le pack Atmosphere (suport du patch pour le firmware 7.0.0 mais le CFW ne supporte pas encore ce firmware de manière simple).</li>
 </ul>
 <h2>V79</h2>
 <ul>

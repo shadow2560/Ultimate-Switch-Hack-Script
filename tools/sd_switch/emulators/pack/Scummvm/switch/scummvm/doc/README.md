@@ -22,7 +22,7 @@ For the impatient among you, here is how to get ScummVM running in five simple s
 
 3. Start ScummVM, choose 'Add game', select the directory containing the game datafiles (do not try to select the datafiles themselves!) and press Choose.
 
-4. The Edit Game dialog opens to allow configuration of various settings for the game. These can be reconfigured at any time, but for now everything should be OK at the default settings.
+4. The Game Options dialog opens to allow configuration of various settings for the game. These can be reconfigured at any time, but for now everything should be OK at the default settings.
 
 5. Select the game you want to play in the list, and press Start. To play a game next time, skip to step 5, unless you want to add more games.
 
@@ -37,7 +37,7 @@ For the impatient among you, here is how to get ScummVM running in five simple s
 
 To report a bug, go to the ScummVM [Issue Tracker](https://bugs.scummvm.org/) and log in with your GitHub account.
 
-Please make sure the bug is reproducible, and still occurs in the latest git/Daily build version. Also check the [compatibility list](https://www.scummvm.org/compatibility/) for that game, to ensure the issue is not already known. Please do not report bugs for games that are not listed as completable on the [Supported Games](https://wiki.scummvm.org/index.php?title=Category:Supported_Games>) wiki page, or on the compatibility list. We already know those games have bugs!
+Please make sure the bug is reproducible, and still occurs in the latest git/Daily build version. Also check the [compatibility list](https://www.scummvm.org/compatibility/) for that game, to ensure the issue is not already known. Please do not report bugs for games that are not listed as completable on the [Supported Games](https://wiki.scummvm.org/index.php?title=Category:Supported_Games) wiki page, or on the compatibility list. We already know those games have bugs!
 
 Please include the following information in the bug report:
 
@@ -64,6 +64,10 @@ For everything you need to know about how to use ScummVM, see our [user document
 ### Changelog
 
 Our extensive change log is available [here](NEWS.md).
+
+## SAST Tools
+
+[PVS-Studio](https://pvs-studio.com/en/pvs-studio/?utm_source=github&utm_medium=organic&utm_campaign=open_source) - static analyzer for C, C++, C#, and Java code.
 
 ## Credits
 

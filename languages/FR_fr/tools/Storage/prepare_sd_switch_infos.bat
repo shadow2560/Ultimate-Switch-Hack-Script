@@ -100,9 +100,14 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 			echo Service HTC: désactivée.
 		)
 						IF /i "%atmo_enable_log_manager%"=="o" (
-			echo service de gestion du journal: activé.
+			echo Service de gestion du journal: activé.
 		) else (
-			echo service de gestion du journal: désactivé.
+			echo Service de gestion du journal: désactivé.
+		)
+						IF /i "%atmo_enable_external_bluetooth_db%"=="o" (
+			echo Base de données Bluetooth externe: activé.
+		) else (
+			echo Base de données Bluetooth externe: désactivé.
 		)
 						IF /i "%atmo_enable_sd_card_logging%"=="o" (
 			echo Enregistrement du journal sur la carte SD: activé.

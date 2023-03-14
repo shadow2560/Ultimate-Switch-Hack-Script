@@ -113,6 +113,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Log Manager service: disabled.
 		)
+						IF /i "%atmo_enable_external_bluetooth_db%"=="o" (
+			echo External Bluetooth database: enabled.
+		) else (
+			echo External Bluetooth database: disabled.
+		)
 						IF /i "%atmo_enable_sd_card_logging%"=="o" (
 			echo SD card Logging: enabled.
 			echo SD card logging path: %atmo_sd_card_log_output_directory%

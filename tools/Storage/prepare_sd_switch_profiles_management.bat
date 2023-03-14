@@ -189,6 +189,7 @@ echo set "atmo_enable_htc=%atmo_enable_htc%">>"%profile_path%"
 echo set "atmo_enable_log_manager=%atmo_enable_log_manager%">>"%profile_path%"
 echo set "atmo_enable_sd_card_logging=%atmo_enable_sd_card_logging%">>"%profile_path%"
 echo set "atmo_sd_card_log_output_directory=%atmo_sd_card_log_output_directory%">>"%profile_path%"
+echo set "atmo_enable_external_bluetooth_db=%atmo_enable_external_bluetooth_db%">>"%profile_path%"
 echo set "atmo_applet_heap_size=%atmo_applet_heap_size%">>"%profile_path%"
 echo set "atmo_applet_heap_reservation_size=%atmo_applet_heap_reservation_size%">>"%profile_path%"
 

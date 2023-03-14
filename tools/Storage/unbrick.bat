@@ -404,6 +404,7 @@ echo 14.1.1?
 echo 14.1.2?
 echo 15.0.0?
 echo 15.0.1?
+echo 16.0.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -764,9 +765,16 @@ IF "%firmware_choice%"=="15.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="15.0.1" (
-	set expected_md5=69735562cebf54ec61aad54cfefc9a5d
-	set "firmware_link=https://mega.nz/file/8JwUQK6R#CpNCgmtQrjpNgem6Omo51qDEYw7MhrNF7jcZSNmprRo"
+	set expected_md5=4fe164705b2392592553586f7cf9d03e
+	set "firmware_link=https://mega.nz/file/Id5jyRTB#PulAyz8IcSyiR-s6KYb-TwG719YxmxpzvO4utrEMaIs"
 	set firmware_file_name=Firmware 15.0.1.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="16.0.0" (
+	set expected_md5=9feda64cab86f851f1630979ae33a6d5
+	set "firmware_link=https://mega.nz/file/IB5SyYYJ#ZES4plxEGqLzsN2sX8spGF0KGhqcNWvh6VxY2WQIlIQ"
+	set firmware_file_name=Firmware 16.0.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )

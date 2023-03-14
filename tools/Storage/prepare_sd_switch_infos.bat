@@ -70,6 +70,9 @@ IF /i NOT "%atmo_enable_htc%"=="o" (
 IF /i NOT "%atmo_enable_log_manager%"=="o" (
 	set atmo_enable_log_manager=n
 )
+IF /i NOT "%atmo_enable_external_bluetooth_db%"=="o" (
+	set atmo_enable_external_bluetooth_db=n
+)
 IF /i NOT "%atmo_enable_sd_card_logging%"=="o" (
 	set atmo_enable_sd_card_logging=n
 )

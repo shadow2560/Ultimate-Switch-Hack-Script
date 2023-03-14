@@ -277,6 +277,10 @@ goto:eof
 set /p atmo_enable_dns_mitm_debug_log=Activer le mode débogage du service DNS_mitm ^(non recommandé sauf si vous êtes un développeur^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_enable_external_bluetooth_db_param_choice
+set /p atmo_enable_external_bluetooth_db=Activer la base de données Bluetooth externe? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_enable_htc_param_choice
 set /p atmo_enable_htc=Activer le service HTC? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

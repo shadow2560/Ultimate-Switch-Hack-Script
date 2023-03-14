@@ -1576,6 +1576,11 @@ IF /i "%atmo_enable_log_manager%"=="o" (
 ) else (
 	set atmo_enable_log_manager=0x0
 )
+IF /i "%atmo_enable_external_bluetooth_db%"=="o" (
+	set atmo_enable_external_bluetooth_db=0x1
+) else (
+	set atmo_enable_external_bluetooth_db=0x0
+)
 IF /i "%atmo_enable_sd_card_logging%"=="o" (
 	set atmo_enable_sd_card_logging=0x1
 ) else (
@@ -1708,6 +1713,10 @@ echo ; Controls whether atmosphere's log manager is enabled>>"%volume_letter%\at
 echo ; Note that this setting is ignored (and treated as 1) when htc is enabled.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; 0 = Disabled, 1 = Enabled>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo enable_log_manager = u8!%atmo_enable_log_manager%>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo ; Controls whether the bluetooth pairing database is redirected to the SD card (shared across sysmmc/all emummcs)>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo ; NOTE: On <13.0.0, the database size was 10 instead of 20; booting pre-13.0.0 will truncate the database.>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo ; 0 = Disabled, 1 = Enabled>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo enable_external_bluetooth_db = u8!%atmo_enable_external_bluetooth_db% >>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo [hbloader]>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; Controls the size of the homebrew heap when running as applet.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; If set to zero, all available applet memory is used as heap.>>"%volume_letter%\atmosphere\config\system_settings.ini"
