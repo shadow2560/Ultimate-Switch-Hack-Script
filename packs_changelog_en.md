@@ -5,7 +5,7 @@
 <li>Update Atmosphere to version 1.5.1.</li>
 <li>Update Hekate to version 6.0.2.</li>
 <li>Update Lockpick-rcm to version 1.9.10.</li>
-<li>Update Incognito-rcm and  TegraExplorer to suport the firmware 16.0.0.</li>
+<li>Update Goldleaf, Incognito-rcm and  TegraExplorer to suport the firmware 16.0.0.</li>
 <li>Update JKSV to version 02/23/2023.</li>
 <li>Update FastCFWswitch to version 1.3.1.</li>
 <li>Update Status-Monitor-Overlay to version 0.8.1.</li>
