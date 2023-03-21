@@ -24,7 +24,7 @@
 <li><a target="_blank" href="https://github.com/masagrator/SaltyNX">SaltyNX</a> and <a target="_blank" href="https://github.com/masagrator/SaltyNX-Tool">SaltyNX-Tool</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/ReverseNX">ReverseNX</a></li>
 <li><a target="_blank" href="https://github.com/masagrator/UnityGraphics">UnityGraphics</a> and <a target="_blank" href="https://github.com/masagrator/UnityGraphicsWarehouse">UnityGraphicsWarehouse</a></li>
-<li><a target="_blank" href="https://github.com/masagrator/NX-FPS">NX-FPS</a></li>
+<li><a target="_blank" href="https://github.com/masagrator/NX-FPS">NX-FPS</a>, <a target="_blank" href="https://github.com/masagrator/FPSLocker">FPSLocker</a> and <a target="_blank" href="https://github.com/masagrator/FPSLocker-Warehouse">FPSLocker-Warehouse</a></li>
 <li><a target="_blank" href="https://switchtools.sshnuke.net/">Biskeydump, Memloader, Briccmii, Gptrestore, Romdump, ChoiDuJour, HacDiskMount, PartialAesKeyCrack, ChoiDuJourNX</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/EmmcHaccGen">EmmcHaccGen</a>, replaced by <a target="_blank" href="https://github.com/shadow2560/EmmcHaccGen">my version</a> witch return basic error codes, better when using in a script.</li>
 <li><a target="_blank" href="https://github.com/CTCaer/hekate">Hekate</a></li>
