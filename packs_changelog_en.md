@@ -5,7 +5,7 @@
 <li>Add FPSLocker overlay and  patches of the project FPSLocker-Warehouse during the copy of NX-FPS.</li>
 <li>Update Tesla-Menu to version 1.2.1.</li>
 <li>Update OvlSysmodules to version 1.3.1.</li>
-<li>Update Haku33 to version 5.2.</li>
+<li>Update Haku33 to version 5.3.</li>
 <li>Update the file "exceptions.txt" of SaltyNX.</li>
 <li>Update NX-FPS to version 1.1.</li>
 </ul>
