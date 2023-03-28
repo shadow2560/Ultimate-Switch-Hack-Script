@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.288</h2>
+<ul>
+<li>Suport du firmware 16.0.1.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 544.</li>
+</ul>
 <h2>V4.3.287</h2>
 <ul>
 <li>Mise à jour de IPS_Patch_Creator en version 1.5.6-5.</li>

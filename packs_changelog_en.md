@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V544</h2>
+<ul>
+<li>Update Ldn_mitm to version 1.15.0.</li>
+<li>Update Hb-appstore to version 2.3.2.</li>
+</ul>
 <h2>V543</h2>
 <ul>
 <li>Add FPSLocker overlay and  patches of the project FPSLocker-Warehouse during the copy of NX-FPS.</li>
