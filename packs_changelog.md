@@ -1,5 +1,19 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V545</h2>
+<ul>
+<li>Mise à jour de ULaunch en version 0.3.5.</li>
+<li>Mise à jour de Haku33 en version 5.4.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 0.8.2.</li>
+<li>Mise à jour de QuickNTP en version 1.2.8.</li>
+<li>Mise à jour de BootSoundNX en version 1.4.0-beta.</li>
+<li>Mise à jour de Sys-botbase en version 2.3.</li>
+<li>Mise à jour de Salty-nx en version 0.5.2.</li>
+<li>Mise à jour de NXFPS en version 1.2.1.</li>
+<li>Mise à jour de FPSLocker en version 1.1.2, les profiles ont également été mis à jour.</li>
+<li>Mise à jour de FastCFWSwitch, de OvlSysmodules, de TextReaderOverlay-NX, de EdiZon-overlay, de l'overlay de UnityGraphics et de TeslaMenu pour intégrer les derniers changements de la Libtesla.</li>
+<li>Mise à jour de Sys-tune vers la version master du Github, compilé par moi-même.</li>
+</ul>
 <h2>V544</h2>
 <ul>
 <li>Mise à jour de Ldn_mitm en version 1.15.0.</li>

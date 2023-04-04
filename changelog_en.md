@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.289</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 545.</li>
+</ul>
 <h2>V4.3.288</h2>
 <ul>
 <li>Suport of the firmware 16.0.1.</li>
