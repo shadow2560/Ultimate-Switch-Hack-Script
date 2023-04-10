@@ -1339,6 +1339,53 @@ for /l %%i in (1,1,%temp_count%) do (
 				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
 			)
 		)
+		IF "!temp_salty-nx!"=="NX-FPS" (
+			set temp_special_salty-nx=Y
+			IF EXIST "%volume_letter%\atmosphere\contents" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "atmosphere"
+				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
+			)
+			IF EXIST "%volume_letter%\sxos\titles" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "sxos"
+				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+			)
+			IF EXIST "%volume_letter%\boot.dat" (
+				IF NOT "%sx_gear_present_on_sd%"=="Y" (
+					set one_cfw_chosen=Y
+					IF NOT EXIST "%volume_letter%\sxos" (
+						mkdir "%volume_letter%\sxos"
+						mkdir "%volume_letter%\sxos\titles"
+					)
+					call :force_copy_overlays_base_files "sxos"
+					%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+				)
+			)
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%\atmosphere" (
+					mkdir "%volume_letter%\atmosphere"
+					mkdir "%volume_letter%\contents
+				)
+				call :force_copy_overlays_base_files "atmosphere"
+				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
+			)
+			IF /i "%copy_sxos_pack%"=="o" (
+				set one_cfw_chosen=Y
+				IF NOT EXIST "%volume_letter%\sxos" (
+					mkdir "%volume_letter%\sxos"
+					mkdir "%volume_letter%\sxos\titles"
+				)
+				call :force_copy_overlays_base_files "sxos"
+				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+			)
+			IF "!one_cfw_chosen!"=="Y" (
+				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\others " "%volume_letter%\ " /e >nul
+			) else (
+				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+			)
+		)
 		IF "!temp_special_salty-nx!"=="N" %windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx! " "%volume_letter%\ " /e >nul
 	) else (
 		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%salty-nx_profile_path%"
