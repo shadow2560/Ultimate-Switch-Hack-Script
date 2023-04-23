@@ -16,7 +16,7 @@ goto:eof
 :intro
 echo This script allow to create bootlogos for Atmosphere.
 echo.
-echo You have to redo the logo for Atmosphere each time you update Atmosphere based on the file "fusee-secondary.bin" or "package3" of it. The size of the logo is 1250X720, it will be resized if it is not at the right size but it is recommended to use a logo already correctly sized.
+echo You have to redo the logo for Atmosphere each time you update Atmosphere based on the file "fusee-secondary.bin" or "package3" of it. The size of the logo is 1280X720, it can be resized if it is not the right size but it is recommended to use a logo already correctly sized.
 echo.
 echo For the Nintendo logo, it will have to be redone if you change the firmware. The size of the logo is 308X350, it can be resized if it is not the right size but it is recommended to use a logo already correctly sized.
 echo.

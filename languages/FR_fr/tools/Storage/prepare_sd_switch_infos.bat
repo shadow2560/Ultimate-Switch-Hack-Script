@@ -351,22 +351,37 @@ IF "%profile_selected%"=="" (
 	echo.
 	IF /i "%sx_core_lite_chip%"=="o" (
 		IF /i "%mariko_console%"=="o" (
-			echo Puce SX Core/Lite présente sur console Mariko.
+			echo Puce SX Core/Lite ou HWFly présente sur console Mariko.
 		) else (
-			echo Puce SX Core/Lite présente sur console Erista.
+			echo Puce SX Core/Lite ou HWFly présente sur console Erista.
 		)
 		IF /i "%hwfly_copy%"=="o" (
-			echo Le firmware Spacecraft sera copié.
+			echo Le firmware HWFly sera copié.
 		) else (
-			echo Le firmware Spacecraft ne sera pas copié.
+			echo Le firmware HWFly ne sera pas copié.
 		)
 	) else (
-	echo Puce SX Core/Lite non présente.
+	echo Puce SX Core/Lite ou HWFly non présente.
 	)
 	IF "%sx_gear_copy%"=="Y" (
 	echo Les fichiers du SX Gear seront copiés pour lancer le payload nommé "payload.bin" situé à la racine de la SD.
 	) else (
 	echo Les fichiers du SX Gear ne seront pas copiés.
+	)
+	echo.
+		IF /i "%pico_chip%"=="o" (
+		IF /i "%mariko_console%"=="o" (
+			echo Puce Picofly présente sur console Mariko.
+		) else (
+			echo Puce Picofly présente sur console Erista.
+		)
+		IF /i "%pico_copy%"=="o" (
+			echo Le firmware Picofly sera copié.
+		) else (
+			echo Le firmware Picofly ne sera pas copié.
+		)
+	) else (
+	echo Puce Picofly non présente.
 	)
 	echo.
 	IF /i "%firmware_copy%"=="o" (

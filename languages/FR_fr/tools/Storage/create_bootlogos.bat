@@ -7,7 +7,7 @@ goto:eof
 :intro
 echo Ce script permet de créer des bootlogos pour Atmosphere.
 echo.
-echo Vous devez refaire le logo  pour Atmosphere à chaque fois que vous mettez à jour Atmosphere en vous basant sur le fichier "fusee-secondary.bin" ou "package3" de celui-ci. La taille du logo est de 1250X720, il sera redimensionné s'il n'est pas à la bonne taille mais il est recommandé d'utilisé un logo déjà correctement dimensionné.
+echo Vous devez refaire le logo  pour Atmosphere à chaque fois que vous mettez à jour Atmosphere en vous basant sur le fichier "fusee-secondary.bin" ou "package3" de celui-ci. La taille du logo est de 1280X720, il pourra être redimensionné s'il n'est pas à la bonne taille mais il est recommandé d'utilisé un logo déjà correctement dimensionné.
 echo.
 echo Pour le logo Nintendo Switch, il devra être refait si vous changez de firmware. La taille du logo est de 308X350, il pourra être redimensionné s'il n'est pas à la bonne taille mais il est recommandé d'utilisé un logo déjà correctement dimensionné.
 echo.

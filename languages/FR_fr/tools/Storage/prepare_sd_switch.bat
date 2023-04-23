@@ -111,11 +111,11 @@ echo Le formatage a été annulé par l'utilisateur.
 goto:eof
 
 :sx_core_lite_chip_choice
-set /p sx_core_lite_chip=La console est-elle équipée d'une puce SX Core/Lite? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p sx_core_lite_chip=La console est-elle équipée d'une puce SX Core/Lite ou HWFly? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :hwfly_copy_choice
-set /p hwfly_copy=Souhaitez-vous copier le firmware de Spacecraft pour le mettre à jour sur la puce SX Core/Lite via le payload hwfly_toolbox? ^(%lng_yes_choice%/%lng_no_choice%^): 
+set /p hwfly_copy=Souhaitez-vous copier le firmware de HWFly pour le mettre à jour sur la puce SX Core/Lite ou HWFly via le payload hwfly_toolbox? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :mariko_console_choice
@@ -133,6 +133,14 @@ goto:eof
 
 :sx_launcher_use_choice
 set /p sx_launcher_use=Utilisez-vous un dongle ou une puce autre qu'un SX Core/Lite lançant directement SXOS? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:pico_chip_choice
+set /p pico_chip=La console est-elle équipée d'une puce Picofly? ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
+:pico_copy_choice
+set /p pico_copy=Souhaitez-vous copier le firmware de Picofly pour le mettre à jour sur la puce Picofly via le payload picofly_toolbox? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
 :firmware_copy_choice

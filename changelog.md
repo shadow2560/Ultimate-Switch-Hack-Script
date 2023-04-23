@@ -1,5 +1,18 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.291</h2>
+<ul>
+<li>Suport du firmware 16.0.2.</li>
+<li>Suport de la puce Picofly durant la préparation d'une SD.</li>
+<li>Mise à jour de certains messages dans la fonction de préparation d'une SD.</li>
+<li>Ajout de l'UF2 du firmware Picofly dans la fonction de flash de fichier UF2 de la gestion des puces.</li>
+<li>Mise à jour de certains messages dans la fonction de gestion des puces.</li>
+<li>Dans le script de création de bootlogos, ajout de la possibilité de redimensionner l'image source à la bonne taille pour le bootlogo d'Atmosphere.</li>
+<li>Mise à jour du message d'introduction du script de création de bootlogos, la taille du bootlogo pour Atmosphere était incorrectement spécifiée.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour les firmwares 16.0.1 et 16.0.2.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 547.</li>
+</ul>
 <h2>V4.3.290</h2>
 <ul>
 <li>Dans la préparation d'une SD, modification de la façon de copier le module Salty-NX NX-FPS pour intégrer la copie de la base pour gérer les overlays et pour s'adapter aux spécificités du module FpsLocker.</li>

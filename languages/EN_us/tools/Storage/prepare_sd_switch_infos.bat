@@ -359,18 +359,18 @@ IF /i NOT "%sd_folder_structure_to_copy_choice%"=="o" (
 IF "%profile_selected%"=="" (
 	echo.
 	IF /i "%sx_core_lite_chip%"=="o" (
-		IF /i "%hwfly_copy%"=="o" (
-			echo The Spacecraft firmware will be copied.
-		) else (
-			echo The Spacecraft firmware will not be copied.
-		)
 		IF /i "%mariko_console%"=="o" (
-			echo SX Core/Lite modchip present on Mariko console.
+			echo SX Core/Lite or HWFly modchip present on Mariko console.
 		) else (
-			echo SX Core/Lite modchip present on Erista console.
+			echo SX Core/Lite or HWFly modchip present on Erista console.
+		)
+		IF /i "%hwfly_copy%"=="o" (
+			echo The HWFly firmware will be copied.
+		) else (
+			echo The HWFly firmware will not be copied.
 		)
 	) else (
-	echo SX Core/Lite modchip not present.
+	echo SX Core/Lite or HWFly modchip not present.
 	)
 	IF "%sx_gear_copy%"=="Y" (
 	echo The SX Gear files will be copied to launch the payload named "payload.bin" located at the root of the SD.
@@ -378,6 +378,21 @@ IF "%profile_selected%"=="" (
 	echo The SX Gear files will not be copied.
 	)
 echo.
+	IF /i "%pico_chip%"=="o" (
+		IF /i "%mariko_console%"=="o" (
+			echo Picofly modchip present on Mariko console.
+		) else (
+			echo Picofly modchip present on Erista console.
+		)
+		IF /i "%pico_copy%"=="o" (
+			echo The Picofly firmware will be copied.
+		) else (
+			echo The Picofly firmware will not be copied.
+		)
+	) else (
+	echo Picofly modchip not present.
+	)
+	echo.
 	IF /i "%firmware_copy%"=="o" (
 		echo The  firmware %firmware_choice% will be copied.
 	) else (

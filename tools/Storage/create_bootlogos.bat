@@ -44,8 +44,21 @@ IF "%action_choice%"=="2" (
 goto:end_script
 
 :create_atmosphere_logo
+set resize_image=
 call :logo_file_choice
 IF %errorlevel% EQU 0 (
+	call "%associed_language_script%" "resize_image_choice"
+	IF NOT "!resize_image!"=="" set resize_image=!resize_image:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "resize_image" "o/n_choice"
+	if /i "!resize_image!"=="o" (
+		call :copy_logo "!logo_file_path!"
+		"tools\ImageMagick\magick.exe" mogrify -resize 1280x720^^! "!logo_file_path!"
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "image_conversion_error"
+			pause
+			exit /b
+		)
+	)
 	call :fusee-secondary_choice
 	IF !errorlevel! EQU 0 (
 		call :outdir_choice

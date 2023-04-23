@@ -174,7 +174,9 @@ IF %nb% EQU 1 (
 	IF "%volume_letter:~-1,1%"=="\" set volume_letter=%volume_letter:~0,-1%
 )
 set sx_core_lite_chip=
+set pico_chip=
 set hwfly_copy=
+set pico_copy=
 set mariko_console=
 set sx_launcher_use=
 call "%associed_language_script%" "sx_core_lite_chip_choice"
@@ -191,6 +193,19 @@ call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "hwfly_copy" 
 	call "%associed_language_script%" "sx_launcher_use_choice"
 	IF NOT "!sx_launcher_use!"=="" set sx_launcher_use=!sx_launcher_use:~0,1!
 	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sx_launcher_use" "o/n_choice"
+)
+IF /i NOT "%sx_core_lite_chip%"=="o" (
+	call "%associed_language_script%" "pico_chip_choice"
+	IF NOT "!pico_chip!"=="" set pico_chip=!pico_chip:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "pico_chip" "o/n_choice"
+)
+IF /i "%pico_chip%"=="o" (
+	call "%associed_language_script%" "pico_copy_choice"
+IF NOT "!pico_copy!"=="" set pico_copy=!pico_copy:~0,1!
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "pico_copy" "o/n_choice"
+	call "%associed_language_script%" "mariko_console_choice"
+	IF NOT "!mariko_console!"=="" set mariko_console=!mariko_console:~0,1!
+	call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "mariko_console" "o/n_choice"
 )
 :firmware_copy_choice
 set firmware_copy=
@@ -597,6 +612,12 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	)
 		copy /V /B "TOOLS\sd_switch\payloads\hwfly_toolbox.bin" "%volume_letter%\bootloader\payloads\hwfly_toolbox.bin" >nul
 	)
+	IF /i "%pico_chip%"=="o" (
+	IF /i "%pico_copy%"=="o" (
+		%windir%\System32\Robocopy.exe "TOOLS\sd_switch\picofly_firmware " "%volume_letter%\ " /e >nul
+	)
+		copy /V /B "TOOLS\sd_switch\payloads\picofly_toolbox.bin" "%volume_letter%\bootloader\payloads\picofly_toolbox.bin" >nul
+	)
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\payload.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\start.bin" >nul
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000000D"
@@ -654,9 +675,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	rem copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%\switch\HekateBrew\payload.bin >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\bootloader\payloads\Lockpick_RCM.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\bootloader\payloads\udpih_nxpayload.bin" >nul
-	IF /i NOT "%mariko_console%"=="o" (
 		copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\bootloader\payloads\Incognito_RCM.bin" >nul
-	)
 	copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\bootloader\payloads\Prodinfo_gen.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\TegraExplorer.bin" "%volume_letter%\bootloader\payloads\TegraExplorer.bin" >nul
 	del /Q /S "%volume_letter%\atmosphere\.emptydir" >nul 2>&1
@@ -783,6 +802,10 @@ IF /I "%mariko_console%"=="o" (
 )
 IF EXIST "%volume_letter%\switch\ChoiDuJourNX.nro" del /q "%volume_letter%\switch\ChoiDuJourNX.nro" >nul
 IF /i "%sx_core_lite_chip%"=="o" (
+	IF EXIST "%volume_letter%\0" rmdir /s /q "%volume_letter%\0"
+	IF EXIST "%volume_letter%\start.bin" del  /q "%volume_letter%\start.bin" >nul
+)
+IF /i "%pico_chip%"=="o" (
 	IF EXIST "%volume_letter%\0" rmdir /s /q "%volume_letter%\0"
 	IF EXIST "%volume_letter%\start.bin" del  /q "%volume_letter%\start.bin" >nul
 )

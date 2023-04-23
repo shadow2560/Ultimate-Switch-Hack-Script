@@ -22,14 +22,14 @@ echo Modchips management
 echo.
 echo What do you want to do:
 echo.
-echo 1: Switch the modchip in  UF2 mod using a payload ^(you will have to press twice the   "reset" buton of the modchip after the payload launch^)?
-echo 2: Launch the Switchboot payload?
+echo 1: Switch the Trinket type modchip in  UF2 mod using a payload ^(you will have to press twice the   "reset" buton of the modchip after the payload launch^)?
+echo 2: Launch the Switchboot payload ^(Trinket type modchips^)?
 echo 3: Flash an UF2 file on a modchip or on some dongles?
-echo 7: Flash Fusee_Suite on a modchip?
-echo 5: Organize the payloads on the SD for Switchboot or Fusee_Suite?
-echo 6: Flash a SX Core or SX Lite modchip?
-echo 7: Flash Switchboot on a modchip or on some dongles?
-echo 8: Prepare the base files on the SD for Switchboot?
+echo 7: Flash Fusee_Suite on a modchip ^(Trinket type modchips^)?
+echo 5: Organize the payloads on the SD for Switchboot or Fusee_Suite ^(Trinket type modchips^)?
+echo 6: Flash a SX Core or SX Lite or HWFly modchip?
+echo 7: Flash Switchboot on a Trinket type modchip or on some dongles?
+echo 8: Prepare the base files on the SD for Switchboot ^(Trinket type modchips^)?
 echo 0: Go to the  Gbatemp subject of Fusee_Suite?
 echo 00: Go to the  Gbatemp subject of Switchboot?
 echo All other choices: Go back to previous menu?
@@ -156,19 +156,19 @@ echo No payload selected, back to the select payload choice.
 goto:eof
 
 :sx_flasher_launch_intro
-echo This allows you to flash an SX Core or SX Lite modchip.
-echo To do this, you need to connect your console via USB.
+echo This allows you to flash an SX Core or SX Lite or HWFly modchip.
+echo To do this, you need to connect your modchip via USB.
 echo.
 echo What do you want to do:
 echo.
-echo 1: Use SX_Flasher to flash an opfficial firmware?
-echo 2: Flash Spacecraft?
-echo 3: Flash SXOS bootloader?
-echo 4: Flash SXOS firrmware?
-echo 5: Flash Spacecraft bootloader?
-echo 6: Flash Spacecraft firrmware?
+echo 1: Use SX_Flasher to flash an opfficial firmware ^(SX core/lite only^)?
+echo 2: Flash HWFly bootloader and firmware?
+echo 3: Flash SXOS bootloader ^(SX core/lite only^)?
+echo 4: Flash SXOS firrmware ^(SX core/lite only^)?
+echo 5: Flash HWFly bootloader?
+echo 6: Flash HWFly firrmware?
 echo 7: Verify the Spacecraft firmware in a BOOT0 file dumped on a console?
-echo 8: Flash the Spacecraft firmware via the SD ^(Spacecraft should be installed on the modchip, function not stable, is not compatible with all modchips so prefer to use this on SX Core/Lite chips^)?
+echo 8: Flash the HWFly firmware via the SD ^(HWFly should be installed on the modchip, function not stable, is not compatible with all modchips so prefer to use this on SX Core/Lite chips^)?
 echo 9: Flash the firmware witch repair the USB debug problem on some modchips for Oled consoles?
 echo All other choices: Go back to main actions choice of this script?
 echo.
@@ -181,15 +181,15 @@ echo You can find the available firmwares in the "tools\SX_Core_Lite\firmwares" 
 goto:eof
 
 :spacecraft_begin_flash
-echo Modship flashing with Spacecraft...
+echo Modship flashing with HWFly...
 goto:eof
 
 :spacecraft_error_flash
-echo Error during the modship flash  with Spacecraft.
+echo Error during the modship flash  with HWFly.
 goto:eof
 
 :spacecraft_end_flash
-echo Modship flash with Spacecraft success.
+echo Modship flash with HWFly success.
 goto:eof
 
 :sx_bootloader_begin_flash
@@ -217,31 +217,31 @@ echo Modship flash with SXOS firmware success.
 goto:eof
 
 :spacecraft_bootloader_begin_flash
-echo Modship flashing with Spacecraft bootloader...
+echo Modship flashing with HWFly bootloader...
 goto:eof
 
 :spacecraft_bootloader_error_flash
-echo Error during the modship flash  with Spacecraft bootloader.
+echo Error during the modship flash  with HWFly bootloader.
 goto:eof
 
 :spacecraft_bootloader_end_flash
-echo Modship flash with Spacecraft bootloader success.
+echo Modship flash with HWFly bootloader success.
 goto:eof
 
 :spacecraft_firmware_begin_flash
-echo Modship flashing with Spacecraft firmware...
+echo Modship flashing with HWFly firmware...
 goto:eof
 
 :spacecraft_firmware_error_flash
-echo Error during the modship flash  with Spacecraft firmware.
+echo Error during the modship flash  with HWFly firmware.
 goto:eof
 
 :spacecraft_firmware_end_flash
-echo Modship flash with Spacecraft firmware success.
+echo Modship flash with HWFly firmware success.
 goto:eof
 
 :flash_spacecraft_sd_instructions
-echo Now you just have to boot the console with the SD and the Spacecraft firmware should update. If it doesn't work, use the "hwfly_toolbox.bin" payload with Hekate to flash the sdloader first, then shut down the console, reload the "hwfly_toolbox.bin" payload and flash the firmware.
+echo Now you just have to boot the console with the SD and the HWFly firmware should update. If it doesn't work, use the "hwfly_toolbox.bin" payload with Hekate to flash the sdloader first, then shut down the console, boot the console maintaining "VOL+" during power on to boot the modchip in flash mode, reload the "hwfly_toolbox.bin" payload and flash the firmware.
 echo If you have some problems, reflash the modchip via the USB or an other method.
 goto:eof
 

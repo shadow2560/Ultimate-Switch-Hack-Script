@@ -1880,6 +1880,10 @@ call :verif_folder_version "tools\sd_switch\payloads"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\sd_switch\picofly_firmware"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 rem call :verif_folder_version "tools\sd_switch\reinx"
 rem IF "!update_finded!"=="Y" (
 	rem call :update_folder

@@ -13,14 +13,14 @@ echo Gestion des puces
 echo.
 echo Que souhaitez-vous faire:
 echo.
-echo 1: Passer la puce en mode UF2 grâce au lancement d'un payload ^(vous devrez appuyer sur le bouton "reset" de la puce deux fois une fois le payload lancé^)?
-echo 2: Lancer le payload de Switchboot?
+echo 1: Passer la puce type Trinket en mode UF2 grâce au lancement d'un payload ^(vous devrez appuyer sur le bouton "reset" de la puce deux fois une fois le payload lancé^)?
+echo 2: Lancer le payload de Switchboot ^(puces type Trinket uniquement^)?
 echo 3: Flasher un fichier UF2 sur la puce ou sur certains dongles?
-echo 4: Flasher Fusee_Suite sur la puce?
-echo 5: Organiser les payloads de la SD pour Switchboot ou Fusee_Suite?
-echo 6: Flasher une puce SX_Core ou SX_Lite?
-echo 7: Flasher Switchboot sur la puce ou sur certains dongles?
-echo 8: Préparer les fichiers de base sur la SD pour Switchboot?
+echo 4: Flasher Fusee_Suite sur la puce type Trinket?
+echo 5: Organiser les payloads de la SD pour Switchboot ou Fusee_Suite ^(puces type Trinket uniquement^)?
+echo 6: Flasher une puce SX_Core ou SX_Lite ou HWFly?
+echo 7: Flasher Switchboot sur la puce type Trinket ou sur certains dongles?
+echo 8: Préparer les fichiers de base sur la SD pour Switchboot ^(puces type Trinket uniquement^)?
 echo 0: Voir le sujet consacré à Fusee_Suite sur Gbatemp?
 echo 00: Voir le sujet consacré à Switchboot sur Gbatemp?
 echo N'importe quel autre choix: Revenir au menu précédent?
@@ -147,19 +147,19 @@ echo Aucun payload sélectionné, retour à la sélection de payloads.
 goto:eof
 
 :sx_flasher_launch_intro
-echo Ceci permet de flasher une puce SX Core ou SX Lite.
-echo Pour cela, vous devez connecter votre console en USB.
+echo Ceci permet de flasher une puce SX Core ou SX Lite ou HWFly.
+echo Pour cela, vous devez connecter votre puce en USB.
 echo.
 echo Que souhaitez-vous faire:
 echo.
-echo 1: Utiliser SX_Flasher pour flasher un firmware officiel?
-echo 2: Flasher Spacecraft?
-echo 3: Flasher le bootloader de SXOS?
-echo 4: Flasher le firmware de SXOS?
-echo 5: Flasher le bootloader de Spacecraft?
-echo 6: Flasher le firmware de Spacecraft?
+echo 1: Utiliser SX_Flasher pour flasher un firmware officiel ^(seulement SX Core/lite^)?
+echo 2: Flasher HWFly bootloader/firmware?
+echo 3: Flasher le bootloader de SXOS ^(seulement SX Core/lite^)?
+echo 4: Flasher le firmware de SXOS ^(seulement SX Core/lite^)?
+echo 5: Flasher le bootloader de HWFly?
+echo 6: Flasher le firmware de HWFly?
 echo 7: Vérifier le firmware de Spacecraft dans un fichier BOOT0 dumpé sur une console?
-echo 8: Flasher le firmware Spacecraft via la SD ^(Spacecraft doit déjà être mis en place sur la puce, fonction instable, n'est pas compatible avec toutes les puces donc préférer l'utiliser sur les puces SX Core/Lite^)?
+echo 8: Flasher le firmware HWFly via la SD ^(HWFly doit déjà être mis en place sur la puce, fonction instable, n'est pas compatible avec toutes les puces donc préférer l'utiliser sur les puces SX Core/Lite^)?
 echo 9: Flasher le firmware réparant le bug de débogage USB présent sur certaines puces pour consoles Oled ^(non testé^)?
 echo N'importe quel autre choix: Revenir aux actions principales?
 echo.
@@ -172,15 +172,15 @@ echo Vous pourez trouver les firmwares disponibles dans le dossier "tools\SX_Cor
 goto:eof
 
 :spacecraft_begin_flash
-echo Flash de la puce avec Spacecraft en cours...
+echo Flash de la puce avec HWFly en cours...
 goto:eof
 
 :spacecraft_error_flash
-echo Erreur durant le flash de la puce avec Spacecraft.
+echo Erreur durant le flash de la puce avec HWFly.
 goto:eof
 
 :spacecraft_end_flash
-echo Flash de la puce avec Spacecraft terminé avec succès.
+echo Flash de la puce avec HWFly terminé avec succès.
 goto:eof
 
 :sx_bootloader_begin_flash
@@ -208,31 +208,31 @@ echo Flash de la puce avec le firmware de SXOS terminé avec succès.
 goto:eof
 
 :spacecraft_bootloader_begin_flash
-echo Flash de la puce avec le bootloader de Spacecraft en cours...
+echo Flash de la puce avec le bootloader de HWFly en cours...
 goto:eof
 
 :spacecraft_bootloader_error_flash
-echo Erreur durant le flash de la puce avec le bootloader de Spacecraft.
+echo Erreur durant le flash de la puce avec le bootloader de HWFly.
 goto:eof
 
 :spacecraft_bootloader_end_flash
-echo Flash de la puce avec le bootloader de Spacecraft terminé avec succès.
+echo Flash de la puce avec le bootloader de HWFly terminé avec succès.
 goto:eof
 
 :spacecraft_firmware_begin_flash
-echo Flash de la puce avec le firmware de Spacecraft en cours...
+echo Flash de la puce avec le firmware de HWFly en cours...
 goto:eof
 
 :spacecraft_firmware_error_flash
-echo Erreur durant le flash de la puce avec le firmware de Spacecraft.
+echo Erreur durant le flash de la puce avec le firmware de HWFly.
 goto:eof
 
 :spacecraft_firmware_end_flash
-echo Flash de la puce avec le firmware de Spacecraft terminé avec succès.
+echo Flash de la puce avec le firmware de HWFly terminé avec succès.
 goto:eof
 
 :flash_spacecraft_sd_instructions
-echo Maintenant il suffit de démarrer la console avec la SD et le firmware Spacecraft devrait se mettre à jour. Sinon, il faut utiliser le payload "hwfly_toolbox.bin" via Hekate, mettre à jour le Sdloader, éteindre la console, relancer le payload "hwfly_toolbox.bin" et flasher le firmware.
+echo Maintenant il suffit de démarrer la console avec la SD et le firmware HWFly devrait se mettre à jour. Sinon, il faut utiliser le payload "hwfly_toolbox.bin" via Hekate, mettre à jour le Sdloader, éteindre la console, démarrer la console en maintenant "VOL+" pour passer la puce en mode flash, relancer le payload "hwfly_toolbox.bin" et flasher le firmware.
 echo En cas de problèmes, reflasher via l'USB de la puce ou via une autre méthode.
 goto:eof
 
