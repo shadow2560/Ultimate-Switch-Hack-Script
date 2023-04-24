@@ -5,7 +5,7 @@
 <li>Add the Picofly firmware and the Picofly_toolbox payload.</li>
 <li>Update Atmosphere to version 1.5.2.</li>
 <li>Update Haku33 to version 5.5.</li>
-<li>Update Status-Monitor-Overlay to version 0.8.3.</li>
+<li>Update Status-Monitor-Overlay to version 0.9.0.</li>
 <li>Update NXFPS to version 1.4.0.</li>
 <li>Update the  configuration files for FPS-Locker.</li>
 <li>Update MissionControl to version 0.9.1.</li>
