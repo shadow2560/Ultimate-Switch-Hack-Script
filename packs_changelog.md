@@ -11,6 +11,7 @@
 <li>Mise à jour de MissionControl en version 0.9.1.</li>
 <li>Mise à jour de Sys-clk en version 1.0.3.</li>
 <li>Mise à jour de DBI en version 551.</li>
+<li>Mise à jour de MGBA en version 0.10.2.</li>
 </ul>
 <h2>V546</h2>
 <ul>
