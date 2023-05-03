@@ -1,5 +1,14 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V548</h2>
+<ul>
+<li>Mise à jour de MissionControl en version 0.9.2.</li>
+<li>Mise à jour du firmware Picofly en version 2.67.</li>
+<li>Mise à jour de Tinfoil en version 16.0 V2.</li>
+<li>Mise à jour de SimpleModManager en version 2.1.0.</li>
+<li>Mise à jour de AIO-switch-updater en version 2.21.4.</li>
+<li>Mise à jour des fichiers de configuration pour FPS-Locker.</li>
+</ul>
 <h2>V547</h2>
 <ul>
 <li>Ajout du firmware Picofly et du payload Picofly_toolbox.</li>
