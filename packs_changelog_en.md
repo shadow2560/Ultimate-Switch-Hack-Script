@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V549</h2>
+<ul>
+<li>Update Emuiibo to version 1.0.0.</li>
+<li>Update Tesla-Menu to version 1.2.2.</li>
+<li>Update nx-ovlloader to version 1.0.7.</li>
+<li>Update NX-FPS to version 1.4.1.</li>
+<li>Update FPSLocker to version 1.1.4.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V548</h2>
 <ul>
 <li>Update MissionControl to version 0.9.2.</li>
@@ -7,7 +16,7 @@
 <li>Update Tinfoil to version 16.0 V2.</li>
 <li>Update SimpleModManager to version 2.1.0.</li>
 <li>Update AIO-switch-updater to version 2.21.4.</li>
-<li>Update the  configuration files for FPS-Locker.</li>
+<li>Update the  configuration files for FPSLocker.</li>
 </ul>
 <h2>V547</h2>
 <ul>
@@ -16,7 +25,7 @@
 <li>Update Haku33 to version 5.5.</li>
 <li>Update Status-Monitor-Overlay to version 0.9.0.</li>
 <li>Update NXFPS to version 1.4.0.</li>
-<li>Update the  configuration files for FPS-Locker.</li>
+<li>Update the  configuration files for FPSLocker.</li>
 <li>Update MissionControl to version 0.9.1.</li>
 <li>Update Sys-clk to version 1.0.3.</li>
 <li>Update DBI to version 551.</li>

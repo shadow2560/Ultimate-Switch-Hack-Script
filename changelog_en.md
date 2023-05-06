@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.293</h2>
+<ul>
+<li>Update Emuiibo Emutool to version 1.0.0.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 549.</li>
+</ul>
 <h2>V4.3.292</h2>
 <ul>
 <li>Update the Picofly firmware to version 2.67.</li>
