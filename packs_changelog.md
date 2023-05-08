@@ -7,7 +7,7 @@
 <li>Mise à jour de nx-ovlloader en version 1.0.7.</li>
 <li>Mise à jour de NX-FPS en version 1.4.1.</li>
 <li>Mise à jour de FPSLocker en version 1.1.4.</li>
-<li>Mise à jour de SimpleModManager en version 2.1.1.</li>
+<li>Mise à jour de SimpleModManager en version 2.1.2.</li>
 <li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
 </ul>
 <h2>V548</h2>
