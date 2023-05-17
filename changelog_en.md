@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.294</h2>
+<ul>
+<li>Suport the firmware 16.0.3.</li>
+<li>Update Atmosphere to version 1.5.4.</li>
+<li>Update Hekate to version 6.0.4.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 550.</li>
+</ul>
 <h2>V4.3.293</h2>
 <ul>
 <li>Update Emuiibo Emutool to version 1.0.0.</li>

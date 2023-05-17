@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.294</h2>
+<ul>
+<li>Support du firmware 16.0.3.</li>
+<li>Mise à jour d'Atmosphere en version 1.5.4.</li>
+<li>Mise à jour de Hekate en version 6.0.4.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 550.</li>
+</ul>
 <h2>V4.3.293</h2>
 <ul>
 <li>Mise à jour de Emuiibo Emutool en version 1.0.0.</li>
@@ -12,8 +19,8 @@
 </ul>
 <h2>V4.3.291</h2>
 <ul>
-<li>Suport du firmware 16.0.2.</li>
-<li>Suport de la puce Picofly durant la préparation d'une SD.</li>
+<li>Support du firmware 16.0.2.</li>
+<li>Support de la puce Picofly durant la préparation d'une SD.</li>
 <li>Mise à jour de certains messages dans la fonction de préparation d'une SD.</li>
 <li>Ajout de l'UF2 du firmware Picofly dans la fonction de flash de fichier UF2 de la gestion des puces.</li>
 <li>Mise à jour de certains messages dans la fonction de gestion des puces.</li>
@@ -35,7 +42,7 @@
 </ul>
 <h2>V4.3.288</h2>
 <ul>
-<li>Suport du firmware 16.0.1.</li>
+<li>Support du firmware 16.0.1.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 544.</li>
 </ul>
 <h2>V4.3.287</h2>
@@ -46,8 +53,8 @@
 </ul>
 <h2>V4.3.286</h2>
 <ul>
-<li>Suport du firmware 16.0.0.</li>
-<li>Ajout du suport du paramètre "enable_external_bluetooth_db" d'Atmosphere dans la préparation d'une SD.</li>
+<li>Support du firmware 16.0.0.</li>
+<li>Ajout du support du paramètre "enable_external_bluetooth_db" d'Atmosphere dans la préparation d'une SD.</li>
 <li>Mise à jour de Hactoolnet en version 0.18.0.</li>
 <li>Mise à jour de IPS_Patch_Creator en version 1.5.6-4.</li>
 <li>Mise à jour de Switch-logo-patcher pour suporter le firmware 16.0.0.</li>
@@ -93,7 +100,7 @@
 </ul>
 <h2>V4.3.280</h2>
 <ul>
-<li>Suport des firmwares 15.0.0 et 15.0.1.</li>
+<li>Support des firmwares 15.0.0 et 15.0.1.</li>
 <li>Mise à jour des liens et MD5 pour le firmware 14.1.2.</li>
 <li>Ajout de IPS_Patch_Creator pour la fonction de création de patches.</li>
 <li>Ajout d'une fonction permettant de flasher un PRODINFO généré par ProdinfoGen dans le script TegraExplorer de débrickage.</li>
@@ -101,7 +108,7 @@
 <li>Mise à jour d'Atmosphere en version 1.4.0.</li>
 <li>Mise à jour de Hekate en version 5.9.0.</li>
 <li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
-<li>Mise à jour de Incognito-RCM pour ajouter le suport du firmware 15.0.0 et 15.0.1.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 15.0.0 et 15.0.1.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.9.9.</li>
 <li>Mise à jour des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 537.</li>
@@ -202,7 +209,7 @@
 <h2>V4.3.261</h2>
 <ul>
 <li>Mise à jour de Udpih_nxpayload en version 2.</li>
-<li>Suport du firmware 14.1.2.</li>
+<li>Support du firmware 14.1.2.</li>
 <li>Le payload Udpih_nxpayload est copié durant la préparation d'une SD lorsque cela est possible de le lancer via la console.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 524.</li>
 </ul>
@@ -241,7 +248,7 @@
 </ul>
 <h2>V4.3.253</h2>
 <ul>
-<li>Suport du firmware 14.1.1.</li>
+<li>Support du firmware 14.1.1.</li>
 <li>Mise à jour de Rekado en version 5.0.1.</li>
 <li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.1.1.</li>
 </ul>
@@ -260,7 +267,7 @@
 </ul>
 <h2>V4.3.250</h2>
 <ul>
-<li>Suport du firmware 14.1.0.</li>
+<li>Support du firmware 14.1.0.</li>
 <li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.1.0.</li>
 <li>Mise à jour d'Atmosphere en version 1.3.1.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.9.8.</li>
@@ -282,7 +289,7 @@
 </ul>
 <h2>V4.3.246</h2>
 <ul>
-<li>Suport du firmware 14.0.0.</li>
+<li>Support du firmware 14.0.0.</li>
 <li>Ajout des dernières clés dans la vérification d'un fichier de clés.</li>
 <li>Le nouveau paramètre "disable_automatic_report_cleanup" est supporté dans le réglage manuel des paramètres d'Atmosphere.</li>
 <li>Correction de petits bugs dans le gestionnaire de mises à jour.</li>
@@ -291,13 +298,13 @@
 <li>Ajout de Nstool, pour l'instant non utilisé.</li>
 <li>Ajout de Switch-logo-patcher.</li>
 <li>Ajout du script python Insert_splash_screen d'Atmosphere.</li>
-<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.0.0 et le suport des consoles Mariko pour appliquer Incognito.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 14.0.0 et le support des consoles Mariko pour appliquer Incognito.</li>
 <li>Mise à jour de SwitchThemeInjector en version 4.7.</li>
 <li>Mise à jour de NxFileViewer en version 2.6.1.</li>
 <li>Mise à jour d'Atmosphere en version 1.3.0.</li>
 <li>Mise à jour de Hekate en version 5.7.2.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.9.7.</li>
-<li>Mise à jour de Incognito-RCM pour ajouter le suport du firmware 14.0.0.</li>
+<li>Mise à jour de Incognito-RCM pour ajouter le support du firmware 14.0.0.</li>
 <li>Mise à jour de ma version de TegraExplorer pour inclure les dernières modifications du projet officiel.</li>
 <li>Mise à jour des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 514.</li>
@@ -363,7 +370,7 @@
 </ul>
 <h2>V4.3.233</h2>
 <ul>
-<li>Suport du firmware 13.2.1.</li>
+<li>Support du firmware 13.2.1.</li>
 <li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 13.2.1.</li>
 <li>Mise à jour d'Atmosphere en version 1.2.6.</li>
 <li>Mise à jour de Hekate en version 5.7.0.</li>
@@ -447,7 +454,7 @@
 </ul>
 <h2>V4.3.219</h2>
 <ul>
-<li>Suport du firmware 13.2.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du firmware 13.2.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
 <li>Le pack Atmosphere sera toujours inclus par défaut dans la préparation d'une SD, les profiles généraux créés avant cette version et n'incluant pas le pack Atmosphere seront toujours utilisables comme avant.</li>
 <li>Mise à jour de Aria2C en version 1.36.0.</li>
 <li>Mise à jour de Megatools en version 1.11.0-git-20211030.</li>
@@ -537,7 +544,7 @@
 <li>Mise à jour du script de création des es_patches pour suporter le firmware 13.1.0.</li>
 <li>Ajout de quelques éléments de configuration dans le fichier ini par défaut pour l'injection d'un jeu Saturn.</li>
 <li>Amélioration du script d'injection d'un jeu saturn et corrections de bugs dans celui-ci.</li>
-<li>Suport du firmware 13.1.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du firmware 13.1.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
 <li>Mise à jour de SwitchThemeInjector en version 4.6.4.</li>
 <li>Mise à jour d'Atmosphere en version 1.2.1.</li>
 <li>Mise à jour de Hekate en version 5.6.5.</li>
@@ -723,8 +730,8 @@
 </ul>
 <h2>V4.3.165</h2>
 <ul>
-<li>Suport pour les nouveaux paramètres d'Atmosphere pour les réglages manuels et automatiques.</li>
-<li>Suport du firmware 13.0.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares et correction d'un bug dans ceux-ci.</li>
+<li>Support pour les nouveaux paramètres d'Atmosphere pour les réglages manuels et automatiques.</li>
+<li>Support du firmware 13.0.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares et correction d'un bug dans ceux-ci.</li>
 <li>Mise à jour d'Atmosphere en version 1.1.1.</li>
 <li>Mise à jjour de Hekate en version 5.6.2.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.9.6.</li>
@@ -910,7 +917,7 @@
 </ul>
 <h2>V4.3.132</h2>
 <ul>
-<li>Suport du firmware 12.1.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du firmware 12.1.0 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
 <li>Correction de bugs dans le script de création des sig_patches.</li>
 <li>Mise à jour d'Atmosphere en version 0.19.5.</li>
 <li>Mise à jour de Hekate en version 5.5.8.</li>
@@ -942,7 +949,7 @@
 </ul>
 <h2>V4.3.127</h2>
 <ul>
-<li>Suport du firmware 12.0.3 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du firmware 12.0.3 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
 <li>Mise à jour de Hekate en version 5.5.7.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 452.</li>
 </ul>
@@ -974,7 +981,7 @@
 </ul>
 <h2>V4.3.122</h2>
 <ul>
-<li>Suport du firmware 12.0.2 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du firmware 12.0.2 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
 <li>Gestion du paramètre "enable_htc"  dans la configuration manuelle d'Atmosphere dans la préparation d'une SD.</li>
 <li>Mise à jour de NXNandManager vers la version master du Github, compilé par moi-même.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 448.</li>
@@ -998,8 +1005,8 @@
 <ul>
 <li>Ajout d'une fonction permettant de déchiffrer les clés partielles d'une console Mariko récupérées via Lockpick-RCM sur celle-ci (fichier "partialaes.keys").</li>
 <li>Dans la préparation d'une SD, Edizon-SE sera copié avec ses modules associés.</li>
-<li>Suport des firmwares 12.0.0 et 12.0.1 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
-<li>Suport du débrickage et de la création d'un package via EmmcHaccGen pour les consoles Mariko.</li>
+<li>Support des firmwares 12.0.0 et 12.0.1 dans les différents scripts permettant d'effectuer des actions sur les firmwares.</li>
+<li>Support du débrickage et de la création d'un package via EmmcHaccGen pour les consoles Mariko.</li>
 <li>Dans la Nand Toolbox, ajout d'une fonction permettant de passer la première  configuration d'une console (merci à @eliboa pour les nouvelles fonctionnalités dans NXNandManager).</li>
 <li>Correction d'un bug dans la restauration de la nand dans certains cas très spécifiques.</li>
 <li>Ajout du payload Prodinfo_gen.</li>
@@ -1074,8 +1081,8 @@
 </li>
 <h2>V4.3.106</h2>
 <ul>
-<li>Ajout du suport du projet Fusee_Suite dans la gestion des puces.</li>
-<li>Ajout du suport du flash de Spacecraft pour les puces SX Core/Lite dans la gestion des puces.</li>
+<li>Ajout du support du projet Fusee_Suite dans la gestion des puces.</li>
+<li>Ajout du support du flash de Spacecraft pour les puces SX Core/Lite dans la gestion des puces.</li>
 </ul>
 <h2>V4.3.105</h2>
 <ul>
@@ -1086,7 +1093,7 @@
 <h2>V4.3.104</h2>
 <ul>
 <li>Ajout de la possibilité de switcher entre la sysnand et l'emunand dans le script TegraExplorer de débrickage.</li>
-<li>Suport des nouveaux paramètres DNS_mitm d'Atmosphere 0.18.0 dans la préparation d'une SD.</li>
+<li>Support des nouveaux paramètres DNS_mitm d'Atmosphere 0.18.0 dans la préparation d'une SD.</li>
 <li>Mise à jour de la documentation et des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 433.</li>
 </ul>
@@ -1175,7 +1182,7 @@
 </ul>
 <h2>V4.3.87</h2>
 <ul>
-<li>Suport du firmware 11.0.1 dans la préparation d'une mise à jour et dans le script de débrickage.</li>
+<li>Support du firmware 11.0.1 dans la préparation d'une mise à jour et dans le script de débrickage.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 420.</li>
 </ul>
 <h2>V4.3.86</h2>
@@ -1204,7 +1211,7 @@
 <ul>
 <li>Correction de nombreux bugs dans les gestions de profiles et dans la préparation d'une SD.</li>
 <li>Correction d'un bug pour la méthode "2" dans le script de débrickage.</li>
-<li>Suport du firmware 11.0.0 dans la préparation d'une mise à jour et dans le script de débrickage.</li>
+<li>Support du firmware 11.0.0 dans la préparation d'une mise à jour et dans le script de débrickage.</li>
 <li>Mise à jour de NXNandManager vers la version master du Github, compilé par moi-même.</li>
 <li>Mise à jour d'Atmosphere en version 0.16.0-p2 EXPERIMENTAL.</li>
 <li>Mise à jour de Hekate en version 5.5.0.</li>
@@ -1279,7 +1286,7 @@
 </ul>
 <h2>V4.3.69</h2>
 <ul>
-<li>Ajout du suport de Salty-NX et de ses modules dans la préparation d'une SD.</li>
+<li>Ajout du support de Salty-NX et de ses modules dans la préparation d'une SD.</li>
 <li>Mise à jour de EmuGUIibo (AKA Emutool) en version 0.6.1.</li>
 <li>Mise à jour de la documentation et des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 411.</li>
@@ -1356,7 +1363,7 @@
 </ul>
 <h2>V4.3.54</h2>
 <ul>
-<li>Ajout du suport pour le téléchargement du firmware 10.2.0.</li>
+<li>Ajout du support pour le téléchargement du firmware 10.2.0.</li>
 <li>Ajout des fonctions permettant de supprimer le contrôle parental et de réinitialiser la console dans le script de débrickage de TegraExplorer.</li>
 <li>mise à jour de Hekate en version 5.3.3.</li>
 <li>Mise à jour des crédits.</li>
@@ -1419,7 +1426,7 @@
 </ul>
 <h2>V4.3.43</h2>
 <ul>
-<li>Ajout du suport pour le téléchargement du firmware 10.1.0.</li>
+<li>Ajout du support pour le téléchargement du firmware 10.1.0.</li>
 <li>Mise à jour de Hekate en version 5.3.2.</li>
 <li>Mise à jour de SwitchPresence-Rewritten par le programme PresenceClient.</li>
 <li>Mise à jour des crédits.</li>
@@ -1475,7 +1482,7 @@
 </ul>
 <h2>V4.3.32</h2>
 <ul>
-<li>Suport du flash des puces SX Core et SX Lite dans le script de gestion des puces, les firmwares sont aussi inclus.</li>
+<li>Support du flash des puces SX Core et SX Lite dans le script de gestion des puces, les firmwares sont aussi inclus.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 383.</li>
 </ul>
 <h2>V4.3.31</h2>
@@ -1538,7 +1545,7 @@
 <ul>
 <li>Grosses améliorations dans le script de débrickage.</li>
 <li>L'Overlays Menu ne peut plus être copié pour SX OS pour l'instant car la version 3.0.0 beta pose problème avec ce module.</li>
-<li>Ajout du suport pour le téléchargement du firmware 10.0.4.</li>
+<li>Ajout du support pour le téléchargement du firmware 10.0.4.</li>
 <li>Mise à jour de la documentation et des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 378.</li>
 </ul>
@@ -1612,7 +1619,7 @@
 </ul>
 <h2>V4.3.5</h2>
 <ul>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.3.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.3.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 370.</li>
 </ul>
 <h2>V4.3.4</h2>
@@ -1736,7 +1743,7 @@
 <h2>V4.1.80</h2>
 <ul>
 <li>Mise à jour de Megatools en version 1.11.0-git-20200404.</li>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.2 et correction de l'ancienne ligne de commande utilisée pour le téléchargement du firmware pour l'adapter à la nouvelle version de Megatools.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.2 et correction de l'ancienne ligne de commande utilisée pour le téléchargement du firmware pour l'adapter à la nouvelle version de Megatools.</li>
 <li>Dans le gestionnaire de mises à jour, certains messages inutiles ne sont plus affichés.</li>
 </ul>
 <h2>V4.1.79</h2>
@@ -1769,7 +1776,7 @@
 </ul>
 <h2>V4.1.73</h2>
 <ul>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.1.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.1.</li>
 </ul>
 <h2>V4.1.72</h2>
 <ul>
@@ -1802,7 +1809,7 @@
 <h2>V4.1.67</h2>
 <ul>
 <li>Dans le script de préparation d'une SD, si la copie du module Ovl-menu est sélectionnée ou si un overlay est sélectionné, suppression de l'ancien répertoire du module pour le module NX-ovlmenu s'il existe sur la SD.</li>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.0.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.0.</li>
 <li>Mise à jour de Hekate en version 5.1.4.</li>
 <li>Mise à jour de Fusee-primary en version 0.11.1.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.8.2.</li>
@@ -1897,7 +1904,7 @@
 </ul>
 <h2>V4.1.47</h2>
 <ul>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 9.2.0.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 9.2.0.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 333.</li>
 </ul>
 <h2>V4.1.46</h2>
@@ -1952,7 +1959,7 @@
 </ul>
 <h2>V4.1.37</h2>
 <ul>
-<li>Dans la préparation d'une SD, ajout du suport de la copie d'overlays indépendamment de l'Ovl-menu et ajout de la gestion de profiles pour ceux-ci. De fait, si vous utilisez des profils généraux pendant la préparation d'une SD, il faudra les refaire car ils ne fonctionneront plus.</li>
+<li>Dans la préparation d'une SD, ajout du support de la copie d'overlays indépendamment de l'Ovl-menu et ajout de la gestion de profiles pour ceux-ci. De fait, si vous utilisez des profils généraux pendant la préparation d'une SD, il faudra les refaire car ils ne fonctionneront plus.</li>
 <li>Dans la gestion des profils de homebrews, correction d'un bug mineur.</li>
 <li>Mise à jour de la documentation.</li>
 </ul>
@@ -2104,7 +2111,7 @@
 </ul>
 <h2>V4.1.11</h2>
 <ul>
-<li>Suport du firmware 9.1.0 dans la préparation d'une SD pour ChoiDuJourNX.</li>
+<li>Support du firmware 9.1.0 dans la préparation d'une SD pour ChoiDuJourNX.</li>
 <li>Mise à jour de Hekate en version 5.1.0.</li>
 <li>Mise à jour de Lockpick-RCM en version 1.8.0.</li>
 <li>Mise à jour de Rekado en version 3.3.</li>
@@ -2307,7 +2314,7 @@
 </ul>
 <h2>V4.0.69</h2>
 <ul>
-<li>Ajout du suport du firmware 9.0.1 lors de la préparation d'une SD pour ChoiDuJour/ChoiDuJourNX.</li>
+<li>Ajout du support du firmware 9.0.1 lors de la préparation d'une SD pour ChoiDuJour/ChoiDuJourNX.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/payloads_utiles en version 277.</li>
 </ul>
 <h2>V4.0.68</h2>
@@ -2474,7 +2481,7 @@
 <ul>
 <li>Dans les profiles généraux de CFWs, Tinfoil ne sera plus copié (Lithium le remplace) car il modifie trop la façon de se comporter des CFWS.</li>
 <li>Dans la préparation d'une SD, un avertissement informant du changement de fonctionnement de ReiNX ou d'Atmosphere si le homebrew Tinfoil est copié s'affichera.</li>
-<li>Ajout du suport du firmware 9.0.0 dans le script de préparation de ChoiDuJourNX.</li>
+<li>Ajout du support du firmware 9.0.0 dans le script de préparation de ChoiDuJourNX.</li>
 <li>Suppression de Retro_reloaded.</li>
 <li>Suppression de Simple-UF2_Universal_Hekate.</li>
 <li>Mise à jour de Hekate en version 5.0.2.</li>
@@ -3127,7 +3134,7 @@
 </ul>
 <h2>V2.11.07</h2>
 <ul>
-<li>Ajout du suport du lancement de PegaSwitch en mode Webapplet, utile pour le firmware 1.0.0 avec la version japonaise de Puyo Puyo Tetris ou via l'utilisation du point d'entrée Fake News.</li>
+<li>Ajout du support du lancement de PegaSwitch en mode Webapplet, utile pour le firmware 1.0.0 avec la version japonaise de Puyo Puyo Tetris ou via l'utilisation du point d'entrée Fake News.</li>
 </ul>
 <h2>V2.11.06 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
@@ -3135,7 +3142,7 @@
 </ul>
 <h2>V2.11.05 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
-<li>Le script utilisant l'exploit Nereba a été mis à jour pour également utiliser Caffeine pour lancer un payload pour les firmwares 4.1.0, voir <a target="_blank" href="https://gbatemp.net/threads/caffeine-updated-to-suport-fw-4-1-0-works-on-patched-switches.541826/">ces infos</a> pour comprendre un peu mieux comment cela fonctionne. PegaSwitch a également été mis à jour pour suporter tout cela. Cette fonctionnalité n'a pas été testée, vous pouvez me faire des retours sur son bon fonctionnement ou non sur le sujet dédié à mon script.</li>
+<li>Le script utilisant l'exploit Nereba a été mis à jour pour également utiliser Caffeine pour lancer un payload pour les firmwares 4.1.0, voir <a target="_blank" href="https://gbatemp.net/threads/caffeine-updated-to-support-fw-4-1-0-works-on-patched-switches.541826/">ces infos</a> pour comprendre un peu mieux comment cela fonctionne. PegaSwitch a également été mis à jour pour suporter tout cela. Cette fonctionnalité n'a pas été testée, vous pouvez me faire des retours sur son bon fonctionnement ou non sur le sujet dédié à mon script.</li>
 </ul>
 <h2>V2.11.04 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
@@ -3148,7 +3155,7 @@
 </ul>
 <h2>V2.11.02</h2>
 <ul>
-<li>Suport des clés du firmware 8.1.0 pour la fonctionnalité de vérification d'un fichier de clés.</li>
+<li>Support des clés du firmware 8.1.0 pour la fonctionnalité de vérification d'un fichier de clés.</li>
 </ul>
 <h2>V2.11.01</h2>
 <ul>
@@ -3156,7 +3163,7 @@
 </ul>
 <h2>V2.11.00</h2>
 <ul>
-<li>Suport du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 8.1.0.</li>
+<li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 8.1.0.</li>
 <li>Mise à jour de NSC_Builder en version 0.86E traduite en français.</li>
 </ul>
 <h2>V2.10.99 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
@@ -3502,7 +3509,7 @@
 </ul>
 <h2>V2.10.29 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
-<li>Suport du payload de <a target="_blank" href="https://github.com/RetroGamer74/RR_RetroReloaded/releases">Retro_reloaded</a> pour la fonctionnalité de lancement de payload ainsi que dans la préparation d'une SD, celui-ci sera copié aux endroits importants selon les choix effectués. Cette modification apporte donc pas mal de modifications dans les packs qui passent en version 119.</li>
+<li>Support du payload de <a target="_blank" href="https://github.com/RetroGamer74/RR_RetroReloaded/releases">Retro_reloaded</a> pour la fonctionnalité de lancement de payload ainsi que dans la préparation d'une SD, celui-ci sera copié aux endroits importants selon les choix effectués. Cette modification apporte donc pas mal de modifications dans les packs qui passent en version 119.</li>
 </ul>
 <h2>V2.10.28 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
@@ -4017,7 +4024,7 @@
 </ul>
 <h2>V1.77 (ne pas écraser une ancienne version car certains remaniements de dossiers/fichiers)</h2>
 <ul>
-<li>Mise à jour de ReiNX vers la dernière version, compilée par moi-même. Cette version apporte donc le suport du firmware 6.2.0.</li>
+<li>Mise à jour de ReiNX vers la dernière version, compilée par moi-même. Cette version apporte donc le support du firmware 6.2.0.</li>
 <li>Correction du script de réunification d'un dump, le dump splitté via SX OS ne fonctionnait pas.</li>
 <li>Mise à jour de certains fichiers du pack Kosmos.</li>
 <li>Suppression de Kezplez-NX qui est maintenant remplacé par Lockpick, j'ai compilé la toute dernière version au passage.</li>
@@ -4475,7 +4482,7 @@
 <li>Changement du nom de l'application en Shadow256 Ultimate Switch Hack Script.</li>
 <li>Ajout du homebrew ChoiDuJourNX dans les homebrews copiés pendant la préparation d'une SD. Attention, bien se renseigner sur le fonctionnement de ce homebrew avant de l'utiliser.</li>
 <li>Ajout du homebrew RomMenu pour Atmosphere et ReiNX dans la préparation d'une SD.</li>
-<li>Mise à jour des différents fichiers basés sur la version SDFilesSwitch 6.1 de TumGER dans la préparation d'une SD, l'ancien fichier "Hekate.ini" que j'avais personnalisé a été remplacé (plus de suport pour le patch "nogc" via Hekate pour l'instant). Pour accéder au homebrew loader sous Hekate et ReiNX, il faut maintenant rester appuyer sur "R" et cliquer sur l'album, comme pour SXOS.</li>
+<li>Mise à jour des différents fichiers basés sur la version SDFilesSwitch 6.1 de TumGER dans la préparation d'une SD, l'ancien fichier "Hekate.ini" que j'avais personnalisé a été remplacé (plus de support pour le patch "nogc" via Hekate pour l'instant). Pour accéder au homebrew loader sous Hekate et ReiNX, il faut maintenant rester appuyer sur "R" et cliquer sur l'album, comme pour SXOS.</li>
 <li>Ajout de plus de firmwares sur lesquels activer les sig_patches pour ReiNX dans la préparation d'une SD.</li>
 <li>Toujours dans la préparation d'une SD, retrait des fichiers de sig_patches pour Atmosphere car ceux-ci ne semblent plus nécessaire.</li>
 <li>Retrait de certains homebrew de certains packs copiés pendant la préparation d'une SD, de grosses modifications ont été faites.</li>
