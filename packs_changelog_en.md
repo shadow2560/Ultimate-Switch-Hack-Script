@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V551</h2>
+<ul>
+<li>Update DBI to version 569.</li>
+<li>Update AIO-switch-updater to version 2.22.0.</li>
+<li>Update NX-FPS to version 1.5.3.</li>
+<li>Update FPSLocker to version 1.2.2.</li>
+</ul>
 <h2>V550</h2>
 <ul>
 <li>Update Atmosphere to version 1.5.4.</li>

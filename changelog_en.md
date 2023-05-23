@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.295</h2>
+<ul>
+<li>Update SwitchLayoutEditor to version 15.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 551.</li>
+</ul>
 <h2>V4.3.294</h2>
 <ul>
 <li>Suport the firmware 16.0.3.</li>
