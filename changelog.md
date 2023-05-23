@@ -3,6 +3,7 @@
 <h2>V4.3.295</h2>
 <ul>
 <li>Mise à jour de SwitchLayoutEditor en version 15.</li>
+<li>Mise à jour du firmware Picofly en version 2.73.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 551.</li>
 </ul>
 <h2>V4.3.294</h2>
