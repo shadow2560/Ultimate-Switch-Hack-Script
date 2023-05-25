@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V551</h2>
 <ul>
+<li>Default backlight param in Hekate mmodified.</li>
 <li>Update the Picofly firmware to version 2.73.</li>
 <li>Update DBI to version 569.</li>
 <li>Update AIO-switch-updater to version 2.22.0.</li>
