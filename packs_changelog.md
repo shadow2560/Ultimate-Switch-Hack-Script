@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V552</h2>
+<ul>
+<li>Ajout du module Sys-patch.</li>
+</ul>
 <h2>V551</h2>
 <ul>
 <li>Luminosité par défaut de Hekate modifiée.</li>

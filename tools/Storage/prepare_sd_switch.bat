@@ -951,6 +951,9 @@ for /l %%i in (1,1,%temp_count%) do (
 			call :force_copy_overlays_base_files "%~1"
 			IF EXIST "%volume_letter%\switch\AmiiSwap\*.*" rmdir /s /q "%volume_letter%\switch\AmiiSwap"
 		)
+		IF "!temp_module!"=="Sys-patch" (
+			call :force_copy_overlays_base_files "%~1"
+		)
 			IF "!temp_module!"=="Ldn_mitm" (
 			call :force_copy_overlays_base_files "%~1"
 		)

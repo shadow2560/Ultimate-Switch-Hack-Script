@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V552</h2>
+<ul>
+<li>Add the module Sys-patch.</li>
+</ul>
 <h2>V551</h2>
 <ul>
 <li>Default backlight param in Hekate mmodified.</li>
