@@ -1,5 +1,15 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V553</h2>
+<ul>
+<li>Mise à jour de Tesla-Menu en version 1.2.3.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 0.9.1.</li>
+<li>Mise à jour de DBI en version 576.</li>
+<li>Mise à jour de Sys-patch en version 1.4.2.</li>
+<li>Mise à jour du firmware Picofly en version 2.74.</li>
+<li>Mise à jour de FPSLocker en version 1.2.3.</li>
+<li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
+</ul>
 <h2>V552</h2>
 <ul>
 <li>Ajout du module Sys-patch.</li>

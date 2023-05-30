@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.297</h2>
+<ul>
+<li>Mise à jour du firmware Picofly en version 2.74.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 553.</li>
+</ul>
 <h2>V4.3.296</h2>
 <ul>
 <li>Mise à jour de la documentation et des crédits.</li>
