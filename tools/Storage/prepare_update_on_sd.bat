@@ -112,6 +112,7 @@ echo 7.0.1?
 echo 8.0.0?
 echo 8.0.1?
 echo 8.1.0?
+echo 8.1.1?
 echo 9.0.0?
 echo 9.0.1?
 echo 9.1.0?
@@ -225,8 +226,8 @@ IF "%firmware_choice%"=="3.0.2" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="4.0.0" (
-	set expected_md5=69ac6dbac1bd0a12ea9e12c97bc82907
-	set "firmware_link=https://mega.nz/#^!EBIDFCrZ^!NaIuX7dvC3skUBAfb113qxhh0hJYzY3mm1mWou7Casc"
+	set expected_md5=3cde6a57ebf6c61e8fc8e858cf7614da
+	set "firmware_link=https://mega.nz/file/FcxTWYaJ#zHPCMpxuzK8dLj0-_hXt0Mgdpk3GxrdbUvE5lHCQO4M"
 	set firmware_file_name=Firmware 4.0.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
@@ -288,15 +289,15 @@ IF "%firmware_choice%"=="6.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="6.1.0" (
-	set expected_md5=320bd423e073a92b74dff30d92bcffa8
-	set "firmware_link=https://mega.nz/#^!QAQ3ha4Y^!7fI6dJmhk3SUwyEl9cj9orRSE7Fjb1rghJxCnliXZRU"
+	set expected_md5=0547222834a00891ed82d4f58d1b2c7b
+	set "firmware_link=https://mega.nz/file/wAJQWYqa#X1LYmiJ7HrLyTo97lKuw8wzs6h2M_Ks-Jxf9NUXnFTw"
 	set firmware_file_name=Firmware 6.1.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="6.2.0" (
-	set expected_md5=602826f8ad0ed04452a1092fc6d73c8c
-	set "firmware_link=https://mega.nz/#^!9F5XFabb^!UdZmY8qpMbDuo-rrn0jI-JCpXrTWKoshKhClZ_H7tkA"
+	set expected_md5=30e4a67c2943465c5441f203bd169ba8
+	set "firmware_link=https://mega.nz/file/AUZ20CjD#6qWImbigauDPA8hYNt6F_Uv82uvDKsOVuNZudx551Es"
 	set firmware_file_name=Firmware 6.2.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -304,8 +305,8 @@ IF "%firmware_choice%"=="6.2.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="7.0.0" (
-	set expected_md5=550b0091304d54b67e3e977900c83dcc
-	set "firmware_link=https://mega.nz/#^!kdJWQKBT^!G15TiWusLkrS7JT2KHNYXOfNAUOb2PWdhXsfe-kRtxg"
+	set expected_md5=7faf4c721a96767f11ddf83d1ea06b4a
+	set "firmware_link=https://mega.nz/file/5BQmhADI#GGx9xvwrF9Ayn4u_UvpIR2GbRCHAA-_6V8tG5rci0XE"
 	set firmware_file_name=Firmware 7.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -313,8 +314,8 @@ IF "%firmware_choice%"=="7.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="7.0.1" (
-	set expected_md5=c5440e557b8b62eabedf754e508ded2f
-	set "firmware_link=https://mega.nz/#^!EERwCayT^!KPGACrRhEVQdhsaqbfqpNTwzAyRIoZRLvfqqmxhNT80"
+	set expected_md5=589ab86da5f6028a7f3d39e85e043d4a
+	set "firmware_link=https://mega.nz/file/NNRQHKyB#NGCWLzso_10m9qdZu81-utveT9QXQ3dfQZYfxy42uBc"
 	set firmware_file_name=Firmware 7.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -322,8 +323,8 @@ IF "%firmware_choice%"=="7.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="8.0.0" (
-	set expected_md5=c0dab852378c289dc1fb135ed2a36f01
-	set "firmware_link=https://mega.nz/#^!gU4B3KDa^!H5QKqthWmIAc5IM-pouiRFp-vOSkEfDTSMoSDFTUPps"
+	set expected_md5=e1641978fc281f3ce6b033398ae520dd
+	set "firmware_link=https://mega.nz/file/pZhRxYLR#9kiA-fiyXiGQEszvHMJ1Qgi6om5-MHj_rn-48M61n9s"
 	set firmware_file_name=Firmware 8.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -331,8 +332,8 @@ IF "%firmware_choice%"=="8.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="8.0.1" (
-	set expected_md5=c3a2a6ac6ef5956cdda6ce172ccd2053
-	set "firmware_link=https://mega.nz/#^!lM4wSKCL^!_-38B-DFq9dqqUqu4EorS0hnBi099dY6JbkXYard51A"
+	set expected_md5=1bd7a32f9a2a67ffda6a245f76f06609
+	set "firmware_link=https://mega.nz/file/tBphDAJT#sWxKqBScpS2lpHOz9F6FYP-mnW1ZXr_GsmXHx85vLD0"
 	set firmware_file_name=Firmware 8.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -340,17 +341,26 @@ IF "%firmware_choice%"=="8.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="8.1.0" (
-	set expected_md5=31c69ecb30326193afb141e1da8ff053
-	set "firmware_link=https://mega.nz/#^!NQZnUKiJ^!IF9MawZaDgTWcszyu3zzuE4RRM1Kdo_4OKII93VBbQw"
+	set expected_md5=85907ab512b028d6a81a2e1b414b59b9
+	set "firmware_link=https://mega.nz/file/BZh3BahL#HAprgXGPwnFLNg7zFKZoOLsxLRoP2hBd161KQojfSmA"
 	set firmware_file_name=Firmware 8.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="8.1.1" (
+	set expected_md5=4fc67d5be86e4880612fbca76f6d8e70
+	set "firmware_link=https://mega.nz/file/8EQHWKDJ#-ABxIrFEj_1V5N4t-m-MgzSCDdV-w79jotNdNYl0nZs"
+	set firmware_file_name=Firmware 8.1.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
 IF "%firmware_choice%"=="9.0.0" (
-	set expected_md5=2e9d6fceed9f698a7625b1ea97986bde
-	set "firmware_link=https://mega.nz/#^!sI5xyYqB^!3K1L3HsHmNkhvEoCiZvQp-GlUi9wUEx_9nU3wnuuOYY"
+	set expected_md5=0ec9d07322ae98fc1163674d40437305
+	set "firmware_link=https://mega.nz/file/IQxhkS4I#JI8zsR6B5ZxE0vucpIf-zHXX8Bh6nVg0XtT9XHd8B7w"
 	set firmware_file_name=Firmware 9.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -358,8 +368,8 @@ IF "%firmware_choice%"=="9.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="9.0.1" (
-	set expected_md5=f0a42373f582cc13b0b26cff09812714
-	set "firmware_link=https://mega.nz/#^!4Z4BBIjR^!c8XwjWGeSQUTAuqk2d9ulK571_-BvRlItIv1Jx0S1so"
+	set expected_md5=6c428005c384072e32dcf0bddf971817
+	set "firmware_link=https://mega.nz/file/FEhVwSzJ#XmIOiLtThdg-zxXhai7PMFTRpf7S6WpH2pCgyKx-B_4"
 	set firmware_file_name=Firmware 9.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -367,8 +377,8 @@ IF "%firmware_choice%"=="9.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="9.1.0" (
-	set expected_md5=9936bae12d9ada861a160a6a29c0b6dc
-	set "firmware_link=https://mega.nz/#^!oJo2RCRb^!xMklUfjgiIXiDrCF4QLwtU0oQzMKqbVKbwuV4tGToY4"
+	set expected_md5=b0ed3ce315918e05bccbf31694d52584
+	set "firmware_link=https://mega.nz/file/cAhxhQIY#We6qCI1ZYs7LzA8gAh5k_ZVNkDdSO3GlSb90GGYLwCE"
 	set firmware_file_name=Firmware 9.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -376,8 +386,8 @@ IF "%firmware_choice%"=="9.1.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="9.2.0" (
-	set expected_md5=1a83c5642eb66acc44aa02fafa16b770
-	set "firmware_link=https://mega.nz/#^!tRo0UahC^!Z5MntwPeB4Dv1643Q5novzsuZrhNQWxEND2sIzXg4aI"
+	set expected_md5=64ffa81de3a4b7bda973036520113cda
+	set "firmware_link=https://mega.nz/file/UIxHGIDT#fXNAntIt8HahMeclTXILwM5N2wrQcG1umT-pV7mfgkI"
 	set firmware_file_name=Firmware 9.2.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -385,8 +395,8 @@ IF "%firmware_choice%"=="9.2.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.0.0" (
-	set expected_md5=1b86a71fb9488bb2783a19d94f77e978
-	set "firmware_link=https://mega.nz/file/wJplVTzS#49uqh5vyjgb8ZB_eZsmuQBk9ouRlHgwIQnd7MCwh1l8"
+	set expected_md5=ca88f99be9fadc0088210ef9a4b3986a
+	set "firmware_link=https://mega.nz/file/xYwVQChQ#dwwNHT_nax71wVzW8oo47Tf6eMhJVTVFxJhxtwX1hBE"
 	set firmware_file_name=Firmware 10.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -394,8 +404,8 @@ IF "%firmware_choice%"=="10.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.0.1" (
-	set expected_md5=946b52949dc35dab7a029adea14e99f8
-	set "firmware_link=https://mega.nz/file/YRgBhB7b#gck6TCgkvaOL4rlTazJgkbALmTUCjg8fXmhTaaTOv-I"
+	set expected_md5=ddaec6ef4674887c53b9f153eda7e9b6
+	set "firmware_link=https://mega.nz/file/URwTCALJ#keo-5YxST1sBsNWEXyY4cYLEZZ57qCbK5WvHZ_7Aynw"
 	set firmware_file_name=Firmware 10.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -403,8 +413,8 @@ IF "%firmware_choice%"=="10.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.0.2" (
-	set expected_md5=78702cba5d6024bc1c70870058b4dbb4
-	set "firmware_link=https://mega.nz/file/kQBRnYzL#AxCTCgZf4kEjtUW5z1MUSSnlcwjEe6AptanmYtr1WN8"
+	set expected_md5=4b795c906abf70439fe53ee4a6fc636c
+	set "firmware_link=https://mega.nz/file/VFYSTSQA#NK2NeduFhA9RPBR98N55nHVYUxfEK5ZCrF4BIyYAF20"
 	set firmware_file_name=Firmware 10.0.2.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -412,8 +422,8 @@ IF "%firmware_choice%"=="10.0.2" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.0.3" (
-	set expected_md5=94d60ba229a00c16e11f2ea959a64123
-	set "firmware_link=https://mega.nz/file/QRpGBI7C#UQZGw-FD8dfzIJg-Dw6PJeV0nFd8DNOQzZ5smriA32s"
+	set expected_md5=f15f82570701868246016616979147d8
+	set "firmware_link=https://mega.nz/file/UYhz1SbC#ZHr9axJryu5a0QCIcMH4jgLcteDy4CnkabHwBlMmuIE"
 	set firmware_file_name=Firmware 10.0.3.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -421,8 +431,8 @@ IF "%firmware_choice%"=="10.0.3" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.0.4" (
-	set expected_md5=b39d012222fc5a9d236c9fa1c887b287
-	set "firmware_link=https://mega.nz/file/FFRjyAwa#qeFAOzFjAecKVhaPTbZCKiajnVpYPplexG6X72vDO_0"
+	set expected_md5=9816b980f84b1cef8a91f5ce3a697678
+	set "firmware_link=https://mega.nz/file/xVwVFazC#sFkKEKkHhp2YEcqR5UQhAg_qxEPfZq8oRUalgleKVDA"
 	set firmware_file_name=Firmware 10.0.4.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -430,8 +440,8 @@ IF "%firmware_choice%"=="10.0.4" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="10.1.0" (
-	set expected_md5=ef4e13f1842b0a0472359d0d4de80145
-	set "firmware_link=https://mega.nz/file/wQ4WBShJ#Tw7k2pCqB5IkkPPwFnwC7UAmQWvXzNs2-4D2Ldj267Q"
+	set expected_md5=a2ccac10398351ea0f9d3af30534297c
+	set "firmware_link=https://mega.nz/file/wJpxySRI#dc8o9otnt_KHJJaeuxAdoT1nQBQyCsdlD7xO8rzkCrw"
 	set firmware_file_name=Firmware 10.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -457,8 +467,8 @@ IF "%firmware_choice%"=="11.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="11.0.1" (
-	set expected_md5=73200c7e53c864f06f648c121ee78677
-	set "firmware_link=https://mega.nz/file/Yd5V0KgT#TYiu_F0Pmvqm758JHlqxivv9geMn7RQ7N2L4MCRo10g"
+	set expected_md5=53f68ddd2a2f4f79e98edc02ff2ad0bd
+	set "firmware_link=https://mega.nz/file/sJRiXTTa#9EDwT_dBFUVmpOvQnvKrLmMsk1RiLVczcOREHkqp3fM"
 	set firmware_file_name=Firmware 11.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -628,8 +638,8 @@ IF "%firmware_choice%"=="16.0.2" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="16.0.3" (
-	set expected_md5=ebb152b356b94eb95ed4a5ab9d4145f1
-	set "firmware_link=https://mega.nz/file/5UpU2bpZ#LWlP7el4KzX9BlP_gQPHdfFIokBYV1m-pNLCz1GpIuA"
+	set expected_md5=2c826b4df34a48660d923cc6f47ec949
+	set "firmware_link=https://mega.nz/file/8ERnDTLC#QajQWkb6GBrpCmDw4NhhX4ztumSaXU1PK4SrMbKDy4k"
 	set firmware_file_name=Firmware 16.0.3.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
