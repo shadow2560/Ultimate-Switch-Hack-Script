@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V554</h2>
+<ul>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V553</h2>
 <ul>
 <li>Update Tesla-Menu to version 1.2.3.</li>
