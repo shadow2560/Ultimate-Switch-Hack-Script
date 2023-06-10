@@ -2,6 +2,9 @@
 &nbsp;
 <h2>V554</h2>
 <ul>
+<li>Update Hekate to version 6.0.5.</li>
+<li>Update Amiigo to version 2.3.2.</li>
+<li>Update SwitchIdent to version 0.4.</li>
 <li>Update the  configuration files for FPSLocker.</li>
 </ul>
 <h2>V553</h2>
