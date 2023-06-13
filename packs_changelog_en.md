@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V555</h2>
+<ul>
+<li>Update Battery_desync_fix_nx to version 1.2.2.</li>
+<li>Update NX-FPS to version 1.5.4.</li>
+<li>Update FPSLocker to version 1.2.4.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V554</h2>
 <ul>
 <li>Update Hekate to version 6.0.5.</li>
