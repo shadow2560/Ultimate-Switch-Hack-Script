@@ -202,7 +202,7 @@ set /a temp_count+=1
 goto:listing_themes
 :skip_listing_themes
 set /a temp_count-=1
-set temp_language_number=
+set temp_theme_number=
 call "%associed_language_script%" "theme_number_set"
 IF "%temp_theme_number%"=="" (
 	call "%associed_language_script%" "empty_theme_number_error"

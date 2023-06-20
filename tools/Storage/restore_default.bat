@@ -26,6 +26,7 @@ IF EXIST templogs\*.* rmdir /s /q templogs
 IF EXIST downloads\*.* rmdir /s /q downloads
 IF EXIST update_packages\*.* rmdir /s /q update_packages
 IF EXIST "Ultimate-Switch-Hack-Script.bat.lng" del /q "Ultimate-Switch-Hack-Script.bat.lng"
+IF EXIST "Ultimate-Switch-Hack-Script.bat.theme" del /q "Ultimate-Switch-Hack-Script.bat.theme"
 IF EXIST "%language_path%\script_general_config.bat" del /q "%language_path%\script_general_config.bat"
 IF EXIST TOOLS\Hactool_based_programs\keys.txt del /q TOOLS\Hactool_based_programs\keys.txt
 IF EXIST TOOLS\Hactool_based_programs\keys.dat del /q TOOLS\Hactool_based_programs\keys.dat

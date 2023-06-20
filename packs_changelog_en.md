@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V556</h2>
+<ul>
+<li>Update SwitchIdent to version 0.5.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V555</h2>
 <ul>
 <li>Update Battery_desync_fix_nx to version 1.2.2.</li>

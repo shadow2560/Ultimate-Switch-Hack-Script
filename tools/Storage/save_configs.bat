@@ -61,6 +61,7 @@ echo.
 call "%associed_language_script%" "save_begin"
 IF NOT EXIST KEY_SAVES mkdir KEY_SAVES
 IF EXIST "Ultimate-Switch-Hack-Script.bat.lng" copy /v "Ultimate-Switch-Hack-Script.bat.lng" "KEY_SAVES\Ultimate-Switch-Hack-Script.bat.lng" >nul 2>&1
+IF EXIST "Ultimate-Switch-Hack-Script.bat.theme" copy /v "Ultimate-Switch-Hack-Script.bat.theme" "KEY_SAVES\Ultimate-Switch-Hack-Script.bat.theme" >nul 2>&1
 IF NOT EXIST KEY_SAVES\languages mkdir KEY_SAVES\languages
 cd languages
 for /d %%p in ("*") do (
