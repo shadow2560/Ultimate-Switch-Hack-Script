@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.302</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 557.</li>
+</ul>
 <h2>V4.3.301</h2>
 <ul>
 <li>The theme is now saved by the function witch save the important files of the script and deleted in the function that restore the script to it default state.</li>
