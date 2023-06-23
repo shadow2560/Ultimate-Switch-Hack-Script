@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.302</h2>
 <ul>
+<li>La fonction de restauration des paramètres par défaut du script a été améliorée.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 557.</li>
 </ul>
 <h2>V4.3.301</h2>

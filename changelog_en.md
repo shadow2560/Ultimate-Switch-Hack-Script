@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.302</h2>
 <ul>
+<li>The restore default of the script's settings has been improved.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 557.</li>
 </ul>
 <h2>V4.3.301</h2>
