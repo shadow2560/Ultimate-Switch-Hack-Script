@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.304</h2>
+<ul>
+<li>Fix a bug when making a full update of the script.</li>
+</ul>
 <h2>V4.3.303</h2>
 <ul>
 <li>Fix a small bug.</li>

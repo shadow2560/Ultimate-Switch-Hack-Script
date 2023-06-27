@@ -81,6 +81,8 @@ echo.
 cls
 call TOOLS\Storage\update_manager.bat "update_all" "force"
 @echo off
+start /i "" "%windir%\system32\cmd.exe" /c call "Ultimate-Switch-Hack-Script.bat"
+IF /i "%language_echo%"=="on" pause
 exit
 :full_update
 set action_choice=
@@ -88,11 +90,15 @@ echo.
 del /s /q folder_version.txt >nul
 del /q Ultimate-Switch-Hack-Script.bat.version >nul
 move "tools\Storage\update_manager.bat.version" "templogs\update_manager.bat.version" >nul
+del /q tools\version.txt
+del /q tools\general_update_version.txt
 del /q tools\Storage\*.version >nul
 move "templogs\update_manager.bat.version" "tools\Storage\update_manager.bat.version" >nul
 cls
 call TOOLS\Storage\update_manager.bat "update_all" "force"
 @echo off
+start /i "" "%windir%\system32\cmd.exe" /c call "Ultimate-Switch-Hack-Script.bat"
+IF /i "%language_echo%"=="on" pause
 exit
 :donate
 set action_choice=
