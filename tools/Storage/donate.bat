@@ -28,15 +28,18 @@ echo.
 set action_choice=
 call "%associed_language_script%" "action_choice"
 IF "%action_choice%"=="1" (
-	rem start https://www.paypal.me/shadow256
-	start https://www.paypal.com/donate/?hosted_button_id=XZXKWXNX5V3KN 
+	start https://www.paypal.me/shadow256
 	goto:define_action_choice
 )
 IF "%action_choice%"=="2" (
-	start https://commerce.coinbase.com/checkout/08c16541-bf06-4d7b-baf7-7e84e6da06ad
+	start https://www.paypal.com/donate/?hosted_button_id=XZXKWXNX5V3KN 
 	goto:define_action_choice
 )
 IF "%action_choice%"=="3" (
+	start https://commerce.coinbase.com/checkout/08c16541-bf06-4d7b-baf7-7e84e6da06ad
+	goto:define_action_choice
+)
+IF "%action_choice%"=="4" (
 	start https://www.ebay.fr/itm/114781401313?mkcid=16&mkevt=1&mkrid=709-127639-2357-0&ssspo=dLN2rzZeQ_y&sssrc=2524149&ssuid=dLN2rzZeQ_y&widget_ver=artemis&media=COPY
 	goto:define_action_choice
 )

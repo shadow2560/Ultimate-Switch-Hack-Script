@@ -10,6 +10,677 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H3>Zmiany dla programistów</H3>
+<P>
+Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
+</P>
+<H2>2023.1</H2>
+<P>
+Dodano nową opcję do kategorii "nawigacja po dokumencie", "styl akapitu".
+Ta opcja może być używana w edytorach tekstu, niewspierających nawigację po akapitach natywnie, na przykład Notepad i Notepad plus plus.
+</P>
+<P>
+Dodano polecenie globalne do odczytu docelowej lokalizacji linku, <CODE>NVDA+k</CODE>.
+</P>
+<P>
+Ulepszone wsparcie dla adnotowanej treści webowej (takiej jak komentarze i przypisy końcowe).
+Naciśnij <CODE>NVDA+d</CODE> aby przemieszczać się po streszczeniach gdy adnotacje są odczytywane (na przykład: "ma komentarz, ma przypis końcowy").
+</P>
+<P>
+Monitory brajlowskie Tivomatic Caiku Albatross 46/80 są od teraz wspierane.
+</P>
+<P>
+Ulepszono wsparcie dla architektur ARM64 i AMD64 wersji systemu operacyjnego Windows.
+</P>
+<P>
+Naprawiono liczne błędy, zwłaszcza w systemie operacyjnym Windows 11.
+</P>
+<P>
+eSpeak, LibLouis, Sonic rate boost i Unicode CLDR zostały zaktualizowane.
+Dodano nowe tablice brajlowskie dla języków:  gruzińskiego, Swahili (Kenia) i Cziczewa (Malawi).
+</P>
+<P>
+Uwaga:
+</P>
+<UL>
+<LI>W tej wersji istniejące wersje dodatków są niezgodne.
+</UL>
+
+<P></P>
+<H3>Nowe funkcje</H3>
+<UL>
+<LI>Microsoft Excel z UI Automation: Automatyczny odczyt nagłówków kolumn i wierszy w tabelach. (<A HREF="https://github.com/nvaccess/nvda/issues/14228" target="_blank">#14228</A>)
+  <UL>
+  <LI>Uwaga: dotyczy to tabel formatowanych za pomocą  przycisku "tabela" na karcie właściwości wstaw wstążki.
+  Opcje "pierwsza kolumna" i "nagłówek wiersza" w "opcjach stylu tabeli" równoznaczne są z nagłówkami kolumn i wierszy.
+  <LI>Nie odnosi się to do nagłówków specyficznych dla czytnika ekranu, które używają nazwanych  rozpiętości.
+  </UL>
+<LI>Dodano nieprzydzielone zdarzenie wejścia do włączania i wyłączania opisów znaków po ruchu kursora. (<A HREF="https://github.com/nvaccess/nvda/issues/14267" target="_blank">#14267</A>)
+<LI>Dodano eksperymentalną opcję do używania wsparcia powiadomie UIA w programie Windows terminal w celu odczytu nowego oraz zmienionego tekstu w konsoli, skutkując lepszą stabilnością i wydajnością. (<A HREF="https://github.com/nvaccess/nvda/issues/13781" target="_blank">#13781</A>)
+  <UL>
+  <LI>O ograniczeniach tej opcji można przeczytać w podręczniku użytkownika.
+  </UL>
+<LI>W systemie Windows 11 ARM64, tryb czytania od teraz jest dostępny w aplikacjach AMD64 takich jak Firefox, Google Chrome i 1Password. (<A HREF="https://github.com/nvaccess/nvda/issues/14397" target="_blank">#14397</A>)
+<LI>Dodano nową opcję, "styl akapitu" w kategorii "nawigacja po dokumentach".
+To dodaje wsparcie dla nawigacji po akapitach w stylach pojedyńczej nowej linii (normalnej) i wieloliniowej przerwy (blokowej).
+Ta opcja może być używana z edytorami tekstu, które nie wspierają  natywną nawigację po akapitach, takimi jak Notepad i Notepad++. (<A HREF="https://github.com/nvaccess/nvda/issues/13797" target="_blank">#13797</A>)
+<LI>Istnienie wielu adnotacji teraz jest odczytywane.
+<CODE>nvda+d</CODE> od teraz przełącza pomiędzy odczytu streszczenia każdego celu adnotacji dla więcej źródeł celnych.
+Na przykład, gdy tekst zawiera komentarz i przypis końcowy związany z nim. (<A HREF="https://github.com/nvaccess/nvda/issues/14507" target="_blank">#14507</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14480" target="_blank">#14480</A>)
+<LI>Dodano wsparcie dla monitorów brajlowskich Tivomatic Caiku Albatross 46/80. (<A HREF="https://github.com/nvaccess/nvda/issues/13045" target="_blank">#13045</A>)
+<LI>Nowe polecenie globalne: odczytaj docelową lokalizacje linku (<CODE>NVDA+k</CODE>).
+Gdy skrót jest naciśnięty jeden raz lokalizacja linku w obiekcie nawigatora będzie pokazana na monitorze brajlowskim i wymówiona.
+Gdy skrót jest naciśnięty dwukrotnie, docelowa lokalizacja będzie pokazana w oknie w celu dokładniejszego odczytu. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+<LI>Dodano nowe nieprzydzielone polecenie (kategoria narzędzia): pokaż lokalizację linku w oknie.
+To polecenie jest równoważne dwukrotnym naciśnięciem skrótu <CODE>NVDA+k</CODE> ale z tą różnicą, że może być bardziej użyteczne dla użytkowników monitorów brajlowskich. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+</UL>
+
+<P></P>
+<H3>Zmiany</H3>
+<UL>
+<LI>Zaktualizowano LibLouis tłumacz brajla do <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.24.0" target="_blank">wersji 3.24.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14436" target="_blank">#14436</A>)
+  <UL>
+  <LI>Drastycznie zaktualizowano tablice brajlowskie dla węgierskiego, ujednoliconego angielskiego brajla, i chińskiego bopomofo.
+  <LI>Wsparcie dla nowego duńskiego standartu brajla wydanego w 2022 roku.
+  <LI>Nowe tablice brajlowskie dla gruzińskiego brajla literackiego, Swahili (Kenia) i Chichewa (Malawi).
+  </UL>
+<LI>Zaktualizowano bibliotekę do przyśpieszania mowy Sonic  do wersji commit <CODE>1d70513</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14180" target="_blank">#14180</A>)
+<LI>Baza znaków unicode CLDR została zaktualizowana do wersji 42.0. (<A HREF="https://github.com/nvaccess/nvda/issues/14273" target="_blank">#14273</A>)
+<LI>eSpeak NG zostałzaktualizowany do wersji 1.52-dev commit <CODE>f520fecb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14281" target="_blank">#14281</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14675" target="_blank">#14675</A>)
+  <UL>
+  <LI>Naprawiono odczyt wielkich liczb. (<A HREF="https://github.com/nvaccess/nvda/issues/14241" target="_blank">#14241</A>)
+  </UL>
+<LI>Aplikacje java z kontrolkami używającymi  stanu zaznaczenia od teraz będą zgłaszały stan elementu niezaznaczony zamiast stanu zaznaczonego. (<A HREF="https://github.com/nvaccess/nvda/issues/14336" target="_blank">#14336</A>)
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Poprawki Windows 11:
+  <UL>
+  <LI>NVDA od teraz odczyta podpowiedzi wyszukiwania podczas otwierania menu start. (<A HREF="https://github.com/nvaccess/nvda/issues/13841" target="_blank">#13841</A>)
+  <LI>Na architekturze ARM, aplikacje x64 już nie są identyfikowane jako aplikacje ARM64. (<A HREF="https://github.com/nvaccess/nvda/issues/14403" target="_blank">#14403</A>)
+  <LI>Elementy menu historii schowka , takie jak ""przypnij element" od teraz są osiągalne. (<A HREF="https://github.com/nvaccess/nvda/issues/14508" target="_blank">#14508</A>)
+  <LI>W systemie Windows 11 22H2 i nowszych wersjach, od teraz znowu możliwa jest interakcja za pomocą myszy i klawiatury z elementami takie jak obszar powiadomień dodatkowych i okno dialogowe "otwórz za pomocą". (<A HREF="https://github.com/nvaccess/nvda/issues/14538" target="_blank">#14538</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14539" target="_blank">#14539</A>)
+  </UL>
+<LI>Od teraz dostępne są podpowiedzi podczas wpisywania @wzmianek w komentarzach Microsoft Excel. (<A HREF="https://github.com/nvaccess/nvda/issues/13764" target="_blank">#13764</A>)
+<LI>Na pasku adresu Google Chrome, kontrolki podpowiedzi takie jak (przełącz do karty, usuń podpowiedź itd.) od teraz są odczytywane po zaznaczeniu. (<A HREF="https://github.com/nvaccess/nvda/issues/13522" target="_blank">#13522</A>)
+<LI>Podczas dostarczania informacji o formatowaniu, kolory są ściśle odczytywane w programach Wordpad i podglądzie logu, co jest lepsze niż odczyt "kolor domyślny". (<A HREF="https://github.com/nvaccess/nvda/issues/13959" target="_blank">#13959</A>)
+<LI>W przeglądarce Firefox, aktywowanie przycisku "Show options" na stronach problemów Github od teraz działa niezawodnie. (<A HREF="https://github.com/nvaccess/nvda/issues/14269" target="_blank">#14269</A>)
+<LI>Kontrolki wyboru daty w oknie dialogowym zaawansowanego wyszukiwania programu Outlook 2016 / 365 od teraz są odczytywane z właściwymi oznakami i wartościami. (<A HREF="https://github.com/nvaccess/nvda/issues/12726" target="_blank">#12726</A>)
+<LI>Kontrolki ARIA przełączników od teraz są rozpoznawane jako przełączniki w przeglądarkach Firefox, Chrome i Edge, co jest dokładniejsze w porównaniu z odczytem tych kontrolek jako pola wyboru. (<A HREF="https://github.com/nvaccess/nvda/issues/11310" target="_blank">#11310</A>)
+<LI>NVDA od teraz automatycznie przeczyta stan sortowania w nagłówku kolumny tabeli HTML po zmianie naciskając przycisk wewnętrzny. (<A HREF="https://github.com/nvaccess/nvda/issues/10890" target="_blank">#10890</A>)
+<LI>Nazwa regionu oraz punktu orientacyjnego jest automatycznie wymawiana podczas przeskakiwania wewnątrz regionu z zewnątrz używając klawiszy szybkiej nawigacji . (<A HREF="https://github.com/nvaccess/nvda/issues/13307" target="_blank">#13307</A>)
+<LI>Gdy opcje Odtwarzaj dźwięk, oraz lub wymawiaj 'duże' przed dużymi literami są włączone w kombinacji z opisami po nazwie liter, NVDA więcej nie odtworzy sygnał dźwiękowy lub odczyta 'duże' dwukrotnie. (<A HREF="https://github.com/nvaccess/nvda/issues/14239" target="_blank">#14239</A>)
+<LI>Od teraz kontrolki tabel w aplikacjach Java będą odczytywane precyzyjniej przez NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14347" target="_blank">#14347</A>)
+<LI>Od teraz niektóre ustawienia już nie będą inne podczas używania więcej profili. (<A HREF="https://github.com/nvaccess/nvda/issues/14170" target="_blank">#14170</A>)
+  <UL>
+  <LI>Następujące ustawienia zostały naprawione:
+    <UL>
+    <LI>Wcięcie linii w ustawieniach formatowania.
+    <LI>Obramowania komórek w ustawieniach formatowania
+    <LI>Pokazywanie wiadomości w ustawieniach brajla
+    <LI>Przywiązanie brajla w ustawieniach brajla
+    </UL>
+  <LI>W niektórych rzadkich przypadkach, te ustawienia, gdy używane są w profilach mogą być nieoczekiwanie zmodyfikowane gdy ta wersja NVDA zostanie zainstalowana.
+  <LI>Prosimy sprawdzić te ustawienia w profilach po zaktualizowaniu NVDA do tej wersji.
+  </UL>
+<LI>Znaki emoji będą odczytywane w coraz więcej języków. (<A HREF="https://github.com/nvaccess/nvda/issues/14433" target="_blank">#14433</A>)
+<LI>Istnienie adnotacji od teraz jest pokazywane także w brajlu dla niektórych elementów. (<A HREF="https://github.com/nvaccess/nvda/issues/13815" target="_blank">#13815</A>)
+<LI>Naprawiono błąd który spowodował nie zapisywanie zmian w poprawny sposób, gdy zmieniamy opcje "domyślną" i wartość opcji "domyślnej". (<A HREF="https://github.com/nvaccess/nvda/issues/14133" target="_blank">#14133</A>)
+<LI>Podczas konfiguracji NVDA zawsze będzie zdefiniowany jeden klawisz modyfikatora NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14527" target="_blank">#14527</A>)
+<LI>Podczas otwierania  menu NVDA używając obszaru powiadomień, NVDA już nie pokaże nieistniejącej oczekującej aktualizacji. (<A HREF="https://github.com/nvaccess/nvda/issues/14523" target="_blank">#14523</A>)
+<LI>W Foobarze 2000, Pozostały, upłyneły i całkowity czas jest od teraz odczytywany prawidłowo w przypadku plików audio trwających ponad jeden dzień. (<A HREF="https://github.com/nvaccess/nvda/issues/14127" target="_blank">#14127</A>)
+<LI>W przeglądarkach, takich jak Chrome i Firefox, alerty o pobieraniu pliku będą także wyświetlane na monitorze brajlowskim. Dotyczy to także innych alertów aria. (<A HREF="https://github.com/nvaccess/nvda/issues/14562" target="_blank">#14562</A>)
+<LI>Naprawiono błąd niemożliwej nawigacji pomiędzy pierwszej i ostatniej  kolumny w tabelach w przeglądarce Firefox (<A HREF="https://github.com/nvaccess/nvda/issues/14554" target="_blank">#14554</A>)
+<LI>Gdy NVDA jest uruchomiony z parametrem <CODE>--lang=Windows</CODE>, otwieranie ustawień ogólnych jest znowu możliwe. (<A HREF="https://github.com/nvaccess/nvda/issues/14407" target="_blank">#14407</A>)
+</UL>
+
+<P></P>
+<H2>2022.4</H2>
+<P>
+To wydanie w sobie zawiera kilka nowych skrótów klawiszowych, włączając w to skróty do czytania całych tabel.
+Do podręcznika użytkownika został dodany roździał "szybki start".
+Naprawiono także niektóre błędy.
+</P>
+<P>
+Liblouis i Espeak-ng zostały zaktualizowane.
+Dodano nowe tablice brajlowskie dla chińskiego, szwedzkiego, języka luganda i języka Kinyarwanda.
+</P>
+<H3>Nowe funkcje</H3>
+<UL>
+<LI>Dodano rozdział "szybki start" do podręcznika użytkownika. (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>Dodano nowy skrót klawiszowy do sprawdzania skrótu klawiszowego bieżącego obiektu pod fokusem. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+  <UL>
+  <LI>Skrót dla komputerów stacjonarnych: <CODE>shift+numeryczny2</CODE>.
+  <LI>Skrót dla komputerów przenośnych: <CODE>NVDA+ctrl+shift+.</CODE>.
+  </UL>
+<LI>Dodano nowe skróty do przemieszczania kursoru przeglądu po stronie gdzie jest to wspierane przez program. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+  <UL>
+  <LI>Przechodzi do poprzedniej strony:
+    <UL>
+    <LI>Skrót dla komputerów stacjonarnych: <CODE>NVDA+pageUp</CODE>.
+    <LI>Skrót dla komputerów przenośnych: <CODE>NVDA+shift+pageUp</CODE>.
+    </UL>
+  <LI>Przechodzi do następnej strony:
+    <UL>
+    <LI>Skrót dla komputerów stacjonarnych: <CODE>NVDA+pageDown</CODE>.
+    <LI>Skrót dla komputerów przenośnych: <CODE>NVDA+shift+pageDown</CODE>.
+    </UL>
+  </UL>
+<LI>Dodano następujące skróty klawiszowe do tabel. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+  <UL>
+  <LI>Czytaj wszystko w kolumnie: <CODE>NVDA+control+alt+strzałka w dół</CODE>
+  <LI>Czytaj wszystko w wierszu: <CODE>NVDA+control+alt+strzałka w prawo</CODE>
+  <LI>Czytaj całą kolumnę: <CODE>NVDA+control+alt+strzałka w górę</CODE>
+  <LI>Czytaj cały wiersz: <CODE>NVDA+control+alt+Strzałka w lewo</CODE>
+  </UL>
+<LI>W Microsoft Excel który jest używany za pomocą interfejsu Ui Automation, NVDA od teraz ogłasza przemieszczenie spoza tabelą arkusza kalkulacyjnego. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+<LI>Czytanie nagłówków tabeli od teraz może być oddzielnie konfigurowane dla kolumn i wierszy. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>Zmiany</H3>
+<UL>
+<LI>eSpeak NG został zaktualizowany do wersji 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+  <UL>
+  <LI>Naprawiono czytanie znaków alfabetu łacińskiego podczas używania języka mandaryńskiego. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+  </UL>
+<LI>Zaktualizowany LibLouis tłumacz znaków brajlowskich do wersji <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank">3.23.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+  <UL>
+  <LI>Dodano następujące tablice brajlowskie:
+    <UL>
+    <LI>Chiński ogólny alfabet Braille'a (uproszczone chińskie znaki)
+    <LI>Kinyarwanda brajl literacki
+    <LI>Luganda brajl literacki
+    <LI>Szwedzkie pismo podstawowe
+    <LI>Szwedzkie pismo pełne
+    <LI>Szwedzkie skróty
+    <LI>Chiński (Chiny, mandaryński) aktualny standard brajlowski (bez tonów) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+    </UL>
+  </UL>
+<LI>NVDA od teraz włącza do statystyki użytkowania architekturę systemu operacyjnego. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Podczas aktualizowania NVDA przy użyciu menedżeru pakietów systemu Windows z poziomu wiersza poleceń, czyli winget, stabilna wersja NVDA więcej nie jest zawsze traktowana jako nowsza niż jakakolwiek wersja Alpha zainstalowana w systemie. (<A HREF="https://github.com/nvaccess/nvda/issues/12469" target="_blank">#12469</A>)
+<LI>NVDA od teraz poprawnie odczytuje grupowania w aplikacjach Java. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>Kursor od teraz sprawnie śledzi wymawiany tekst podczas ciągłego czytania w aplikacjach takich jak Bookworm, WordPad, lub NVDA podglądu loga. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>W programach używających UI Automation, połowicznei zaznaczone pola wyboru od teraz będą zgłaszane poprawnie. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>Ulepszona wydajność i stabilność w programach: Microsoft Visual Studio, Windows Terminal, a także innych programach używających interfejsu UI automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+  <UL>
+  <LI>Te poprawki błędów stosowane są do wersji Windows 11 Sun Valley 2 (versja 22H2) i nowszych.
+  <LI>Rejestracja selektywna dla zmian właściwości i zdarzeń UIA od teraz jest domyślnie włączona.
+  </UL>
+<LI>Odczytywanie tekstu, wyjście brajla, a także nieodczytywanie haseł od teraz działają poprawnie w zagnieżdżonej kontrolce Windows terminal w programie Visual Studio 2022. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>NVDA od teraz jest DPI świadomy podczas używania więcej niż jednego monitora.
+Wdrożono kilka poprawek dla używania ustawienia DPI wyższego niż 100% oraz używania więcej monitorów.
+Mogą jeszcze pojawiać się problemy w wersjach systemu operacyjnego Windows starszych niż Windows 10 1809.
+Aby te poprawki działały, aplikacje z którymi NVDA współpracuje także powinne być DPI świadome.
+Trzeba mieć na uwadzę, że nadal istnieją problemy z przeglądarkami Chrome i Edge. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>Ramki podświetlenia wizualnego od teraz powinny się poprawnie umieszczać w większości aplikacji. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>Współpraca z ekranami dotykowymi od teraz powina być dokładniejsza dla większości programów. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>Śledzenie myszy od teraz powinno być dokładniejsze dla większości programów. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>Zmiany stanu orientacji (pionowa/pozioma) od teraz są poprawnie ignorowane gdy nie ma żadnych zmian (na przykład, zmiany monitora). (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>NVDA od teraz będzie oznajmiał przeciąganie elementów na ekranie w miejscach, takich jak przemieszczanie kafelek w Menu start w systemie operacyjnym Windows 10 i pulpitów wirtualnych w systemie Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>W ustawieniach zaawansowanych, opcja "Odtwarzaj dźwięk do zapisanych błędów" jest teraz prawidłowo resetowana do domyślnej wartości po naciśnięciu przycisku "Przywróć do ustawień domyślnych". (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>NVDA od teraz może zaznaczać tekst używając skrótu <CODE>NVDA+f10</CODE> w aplikacjach Java. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>NVDA od teraz nie będzie się zawieszac w menu podczas poruszania się strzałkami w górę i w dół w konwersachach wątkowanych w programie  Microsoft Teams. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.3</H2>
+<P>
+Jest to pomniejsze wydanie naprawiające problemy wersji 2022.3.2, 2022.3.1 i 2022.3.
+To wydanie także naprawia błędy bezpieczeństwa.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<UL>
+<LI>Zapobiega niechcianemu dostępowi dla nieautoryzowanych użytkowników do np. konsoli python.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-fpwc-2gxx-j9v7" target="_blank">GHSA-fpwc-2gxx-j9v7</A>)
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Naprawiono błąd podczas zamrażania NVDA na ekranie blokady, przy którym NVDA umożliwi dostęp do pulpitu użytkownika z poziomu ekranu blokady. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Naprawiono błąd podczas którego NVDA się NVDA zawiesza podczas logowania i NVDA się zachowa niepoprawnie, tak jak by użądzenie było jeszcze zablokowane. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Naprawiono błędy dostępności z Windows doświadczeniami "zapomniałem numer Pin" i instalacji Windows Update. (<A HREF="https://github.com/nvaccess/nvda/issues/14368" target="_blank">#14368</A>)
+<LI>Naprawiono błąd podczas próby instalacji NVDA w niektórych środowiskach Windows, Np. Windows Server. (<A HREF="https://github.com/nvaccess/nvda/issues/14379" target="_blank">#14379</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.2</H2>
+<P>
+Jest to pomniejsze wydanie naprawiające regresje z wersji 2022.3.1 i naprawiające incydenty bezpieczeństwa.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<UL>
+<LI>Zapobiega możliwemu dostępowi na poziomie systemowym dla użytkowników nieuwierzytelnionych.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-3jj9-295f-h69w" target="_blank">GHSA-3jj9-295f-h69w</A>)
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Naprawiono regresję z wersji NVDA 2022.3.1 w której większość wyłączono na bezpiecznych ekranach. (<A HREF="https://github.com/nvaccess/nvda/issues/14286" target="_blank">#14286</A>)
+<LI>Naprawiono regresję z wersji NVDA 2022.3.1 w której większość funkcjonalności było wyłączone po zalogowaniu, jeżeli NVDA została uruchomiona na ekranie blokady. (<A HREF="https://github.com/nvaccess/nvda/issues/14301" target="_blank">#14301</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.1</H2>
+<P>
+Jest to pomniejsze wydanie naprawiające kilka incydentów bezpieczeństwa.
+Prosimy o odpowiednie zgłoszenie incydentów bezpieczeństwa na adres <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<UL>
+<LI>Naprawiono eksploit za pomocą którego można było podnieść uprawnienia z użytkownika do systemu.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-q7c2-pgqm-vvw5" target="_blank">GHSA-q7c2-pgqm-vvw5</A>)
+<LI>Naprawiono incydent bezpieczeństwa umożliwiający dostępu do konsoli Pythona na ekranie logowania poprzez hazard uruchomienia NVDA.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-72mj-mqhj-qh4w" target="_blank">GHSA-72mj-mqhj-qh4w</A>)
+<LI>Naprawiono problem w którym tekst przeglądu mowy był przechowywany w pamięci poczas blokowania systemu operacyjnego.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Od teraz zapobiegane jest zmienianie ustawień  przeglądu brajla i mowy na ekranie blokady przez nieuprawnionego użytkownika. (<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H2>2022.3</H2>
+<P>
+ Znaczna część tej wersji została opracowana przez społeczność programistów NVDA.
+Zawiera ona opisy liter po ich nazwach  oraz poprawione wsparcie dla konsoli systemu operacyjnego Windows.
+</P>
+<P>
+Dodano również kilka poprawek błędów.
+Najistotniejsza poprawka błędów dla najnowszych wersji programów Adobe Acrobat/Reader zapobiega niespodziewanemu zamykaniu się programu z raportem o błędzie podczas wyświetlania dokumentu PDF.
+</P>
+<P>
+Do najnowszej wersji syntezatora mowy eSpeak dodano 3 nowe języki: białoruski, luksemburski i Totontepec Mixe.
+</P>
+<H3>Nowe funkcje</H3>
+<UL>
+<LI>W Hoście konsoli używanym przez wiersz poleceń, PowerShell oraz podsystem Linux dla systemu Windows 11 w wersji 22H2 (Sun Valley 2) i nowszych:
+  <UL>
+  <LI>znacząco poprawiono wydajność i stabilność. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+  <LI>Po naciśnięciu "control+f", aby znaleźć tekst, pozycja kursora recenzji jest aktualizowana zgodnie ze znalezionym terminem. (<A HREF="https://github.com/nvaccess/nvda/issues/11172" target="_blank">#11172</A>)
+  <LI>Raportowanie wpisanego tekstu, który nie pojawia się na ekranie (np. hasła), jest domyślnie wyłączone.
+Można go ponownie włączyć w panelu ustawień zaawansowanych NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/11554" target="_blank">#11554</A>)
+  <LI>Tekst, który został przewinięty poza ekranem, można przeglądać bez przewijania okna konsoli.. (<A HREF="https://github.com/nvaccess/nvda/issues/12669" target="_blank">#12669</A>)
+  <LI>Dostępne są bardziej szczegółowe informacje o formatowaniu tekstu (<A HREF="https://github.com/microsoft/terminal/pull/10336" target="_blank">microsoft/terminal PR 10336</A>)
+  </UL>
+<LI>Dodano nową opcję Mowy, aby czytać opisy znaków po literowaniu. (<A HREF="https://github.com/nvaccess/nvda/issues/13509" target="_blank">#13509</A>)
+<LI>Dodano nową opcję alfabetu Braille'a, aby określić, czy przewijanie wyświetlacza do przodu/do tyłu powinno przerywać mowę. (<A HREF="https://github.com/nvaccess/nvda/issues/2124" target="_blank">#2124</A>)
+</UL>
+
+<P></P>
+<H3>Zmiany</H3>
+<UL>
+<LI>eSpeak NG został zaktualizowany do wersji 1.52-dev commit <CODE>9de65fcb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13295" target="_blank">#13295</A>)
+  <UL>
+  <LI>Dodane języki:
+    <UL>
+    <LI>Białoruski
+    <LI>Luksemburgski
+    <LI>Totontepec Mixe
+    </UL>
+  </UL>
+<LI>Używając Uia w celu uzyskania dostępu do kontrolek arkusza kalkulacyjnego programu Microsoft Excel, NVDA może teraz raportować, kiedy komórka jest scalona. (<A HREF="https://github.com/nvaccess/nvda/issues/12843" target="_blank">#12843</A>)
+<LI>Zamiast zgłaszania "ma szczegóły" cel szczegółów jest zawarty tam, gdzie to możliwe, na przykład "ma komentarz". (<A HREF="https://github.com/nvaccess/nvda/issues/13649" target="_blank">#13649</A>)
+<LI>Rozmiar instalacji NVDA jest teraz wyświetlany w sekcji Programy i funkcje systemu Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/13909" target="_blank">#13909</A>)-
+</UL>
+
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Adobe Acrobat / Reader 64 bit nie będzie już ulegać awarii podczas czytania dokumentu PDF. (<A HREF="https://github.com/nvaccess/nvda/issues/12920" target="_blank">#12920</A>)
+  <UL>
+  <LI>Należy pamiętać, że najbardziej aktualna wersja programu Adobe Acrobat / Reader jest również wymagana, aby uniknąć awarii.
+  </UL>
+<LI>Pomiary rozmiaru czcionki są od teraz przetłumaczone w NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13573" target="_blank">#13573</A>)
+<LI>Ignorowane są zdarzenia Java Access Bridge, w których nie można znaleźć uchwytu okna dla aplikacji Java.
+Poprawi to wydajność niektórych aplikacji Java, w tym IntelliJ IDEA. (<A HREF="https://github.com/nvaccess/nvda/issues/13039" target="_blank">#13039</A>)
+<LI>Ogłaszanie wybranych komórek dla programu LibreOffice Calc jest bardziej wydajne i nie powoduje już zamrożenia programu Calc po zaznaczeniu wielu komórek. (<A HREF="https://github.com/nvaccess/nvda/issues/13232" target="_blank">#13232</A>)
+<LI>Podczas uruchamiania pod innym użytkownikiem Microsoft Edge nie jest już niedostępny. (<A HREF="https://github.com/nvaccess/nvda/issues/13032" target="_blank">#13032</A>)
+<LI>Gdy zwiększenie szybkości jest wyłączone, prędkość eSpeak nie spada już między wartościami prędkości 99% a 100%. (<A HREF="https://github.com/nvaccess/nvda/issues/13876" target="_blank">#13876</A>)
+<LI>Naprawiono błąd, który pozwalał na otwarcie 2 dialogów gestów wejściowych. (<A HREF="https://github.com/nvaccess/nvda/issues/13854" target="_blank">#13854</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.4</H2>
+<P>
+Jest to wydanie łatka, naprawiające problem bezpieczeństwa.
+</P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Naprawiono eksploit za pomocą którego było możliwe wejście do konzoli pythona z poziomu podglądu logów na zablokowanym ekranie.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-585m-rpvv-93qg" target="_blank">GHSA-585m-rpvv-93qg</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.3</H2>
+<P>
+Jest to wersja naprawiająca niechcianą niezgodność w API wprowadzoną w wersji 2022.2.1.
+</P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Naprawiono błąd w którym NVDA nie zgłaszał "bezpieczny pulpit" podczas wejścia do bezpiedcznego pulpitu.
+To skutkowało, że NVDA remote nie rozpoznawał bezpiecznych pulpitów. (<A HREF="https://github.com/nvaccess/nvda/issues/14094" target="_blank">#14094</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.2</H2>
+<P>
+Jest to wersja naprawiająca błąd w wersji 2022.2.1 dotyczący zdarzeń wejścia.
+</P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Naprawiono błąd, w którym zdarzenia wejścia nie działały zawsze. (<A HREF="https://github.com/nvaccess/nvda/issues/14065" target="_blank">#14065</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.1</H2>
+<P>
+Jest to pomniejsze wydanie naprawiające problem z bezpieczeństwem.
+Prosimy odpowiedzialnie zgłaszać problemy z bezpieczeństwem na adres <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<UL>
+<LI>Naprawiono eksploit, pozwalający uruchamianie konsoli Pythona z ekranu blokady. (GHSA-rmq3-vvhq-gp32)
+<LI>Naprawiono eksploit pozwalający wyjść z ekranu blokady używając nawigację objektową. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H2>2022.2</H2>
+<P>
+To wydanie zawiera wiele poprawek błędów.
+Warto zauważyć, że wprowadzono znaczące ulepszenia dla aplikacji opartych na Javie, monitorów brajlowskich i funkcji systemu Windows.
+</P>
+<P>
+Wprowadzono nowe polecenia nawigacji po tabeli.
+Unicode CLDR został zaktualizowany.
+LibLouis został zaktualizowany. Zawiera on nową niemiecką tablicę brajlowską.
+</P>
+<H3>Nowe funkcje</H3>
+<UL>
+<LI>Obsługa interakcji ze składnikami Microsoft Loop w produktach Microsoft Office. (<A HREF="https://github.com/nvaccess/nvda/issues/13617" target="_blank">#13617</A>)
+<LI>Dodano nowe polecenia nawigacji po tabeli. (<A HREF="https://github.com/nvaccess/nvda/issues/957" target="_blank">#957</A>)
+ <UL>
+ <LI>''control+alt+home/end'', aby przejść do pierwszej/ostatniej kolumny.
+ <LI>''control+alt+pageUp/pageDown'', aby przejść do pierwszego/ostatniego wiersza.
+ </UL>
+<LI>Dodano nieprzypisany skrypt do przełączania między trybami przełączania języka i dialektu. (<A HREF="https://github.com/nvaccess/nvda/issues/10253" target="_blank">#10253</A>)-
+</UL>
+
+<H3>Zmiany</H3>
+<UL>
+<LI>NSIS został zaktualizowany do wersji 3.08. (<A HREF="https://github.com/nvaccess/nvda/issues/9134" target="_blank">#9134</A>)
+<LI>CLDR został zaktualizowany do wersji 41.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13582" target="_blank">#13582</A>)
+— Zaktualizowano translator alfabetu Braille'a LibLouis do <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.22.0" target="_blank">3.22.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13775" target="_blank">#13775</A>)
+  <UL>
+  <LI>Nowa tablica brajlowska: niemiecki skróty (dwukierunkowe)
+  </UL>
+<LI>Dodano nową rolę dla kontrolek "wskaźnika zajętości". (<A HREF="https://github.com/nvaccess/nvda/issues/10644" target="_blank">#10644</A>)
+<LI>NVDA ogłasza teraz, kiedy nie można wykonać akcji NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13500" target="_blank">#13500</A>)
+  <UL>
+  <LI>Obejmuje to, przypadki gdy:
+    <UL>
+    <LI>używamy wersję NVDA ze Sklepu Windows.
+    <LI>używamy NVDA w bezpiecznym kontekście.
+    <LI>oczekujemy na odpowiedź w modalnym oknie dialogowym.
+    </UL>
+  </UL>
+</UL>
+
+<P></P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Poprawki dla aplikacji opartych na Javie:
+  <UL>
+  <LI>NVDA ogłosi teraz stan tylko do odczytu. (<A HREF="https://github.com/nvaccess/nvda/issues/13692" target="_blank">#13692</A>)
+  <LI>NVDA będzie teraz poprawnie ogłaszać stan wyłączony/włączony. (<A HREF="https://github.com/nvaccess/nvda/issues/10993" target="_blank">#10993</A>)
+  <LI>NVDA od teraz będzie  czytać skróty funkcyjne. (<A HREF="https://github.com/nvaccess/nvda/issues/13643" target="_blank">#13643</A>)
+  <LI>NVDA może teraz emitować sygnał dźwiękowy lub mówić na paskach postępu. (<A HREF="https://github.com/nvaccess/nvda/issues/13594" target="_blank">#13594</A>)
+  <LI>NVDA nie będzie już niepoprawnie usuwać tekstu z widżetów podczas prezentacji dla użytkownika. (<A HREF="https://github.com/nvaccess/nvda/issues/13102" target="_blank">#13102</A>)
+  <LI>NVDA będzie czytać stan przełączników. (<A HREF="https://github.com/nvaccess/nvda/issues/9728" target="_blank">#9728</A>)
+  <LI>NVDA zidentyfikuje teraz okno w aplikacji Java z wieloma oknami. (<A HREF="https://github.com/nvaccess/nvda/issues/9184" target="_blank">#9184</A>)
+  <LI>NVDA będzie teraz czytać informacje o pozycji dla kontrolek kart właściwosci. (<A HREF="https://github.com/nvaccess/nvda/issues/13744" target="_blank">#13744</A>)
+  </UL>
+  -- Poprawki Braille'a:
+  <UL>
+  <LI>Naprawiono wyjście brajla podczas nawigacji po pewnym tekście w kontrolkach edycji w aplikacjach mozilla, takich jak sporządzanie wiadomości w Thunderbirdzie. (<A HREF="https://github.com/nvaccess/nvda/issues/12542" target="_blank">#12542</A>)
+  <LI>Gdy alfabet Braillea jest automatycznie powiązany, a mysz jest poruszana z włączonym śledzeniem myszy,
+   Polecenia przeglądania tekstu aktualizują teraz monitor brajlowski zawartoscią mówioną. (<A HREF="https://github.com/nvaccess/nvda/issues/11519" target="_blank">#11519</A>)
+  <LI>Możliwe jest teraz przesuwanie wyświetlacza brajlowskiego po treści za pomocą poleceń przeglądania tekstu. (<A HREF="https://github.com/nvaccess/nvda/issues/8682" target="_blank">#8682</A>)
+  </UL>
+  -- Instalator NVDA może teraz uruchamiać się z katalogów ze znakami specjalnymi. (<A HREF="https://github.com/nvaccess/nvda/issues/13270" target="_blank">#13270</A>)
+<LI>W Firefoksie NVDA nie zgłasza już elementów na stronach internetowych, gdy atrybuty aria-rowindex, aria-colindex, aria-rowcount lub aria-colcount są nieprawidłowe. (<A HREF="https://github.com/nvaccess/nvda/issues/13405" target="_blank">#13405</A>)
+<LI>Kursor nie przełącza już wiersza ani kolumny podczas korzystania z nawigacji po tabeli do nawigacji po scalonych komórkach. (<A HREF="https://github.com/nvaccess/nvda/issues/7278" target="_blank">#7278</A>)
+<LI>Podczas czytania nieinteraktywnych plików PDF w programie Adobe Reader typ i stan pól formularza (takich jak pola wyboru i przyciski opcji) są teraz raportowane. (<A HREF="https://github.com/nvaccess/nvda/issues/13285" target="_blank">#13285</A>)
+<LI>"Resetuj konfigurację do ustawień fabrycznych" jest teraz dostępny w menu NVDA w trybie bezpiecznym. (<A HREF="https://github.com/nvaccess/nvda/issues/13547" target="_blank">#13547</A>)
+<LI>Wszelkie zablokowane przyciski myszy zostaną odblokowane po wyjściu z NVDA, wcześniej przyciski myszy pozostawały zablokowany. (<A HREF="https://github.com/nvaccess/nvda/issues/13410" target="_blank">#13410</A>)
+<LI>Program Visual Studio zgłasza teraz numery wierszy. (<A HREF="https://github.com/nvaccess/nvda/issues/13604" target="_blank">#13604</A>)
+  <UL>
+  <LI>Zauważ, że aby raportowanie numerów wierszy działało, pokazywanie numerów wierszy musi być włączone w Visual Studio i NVDA.
+  </UL>
+  -- Program Visual Studio teraz poprawnie zgłasza wcięcia linii. (<A HREF="https://github.com/nvaccess/nvda/issues/13574" target="_blank">#13574</A>)
+<LI>NVDA po raz kolejny ogłosi szczegóły wyników wyszukiwania w menu Start w ostatnich wydaniach Windows 10 i 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13544" target="_blank">#13544</A>)
+<LI>W Windows 10 i 11 Calculator w wersji 10.1908 i nowszych,
+NVDA ogłosi wyniki po naciśnięciu większej liczby poleceń, takich jak polecenia z trybu naukowego. (<A HREF="https://github.com/nvaccess/nvda/issues/13383" target="_blank">#13383</A>)
+<LI>W systemie Windows 11 ponownie można nawigować i wchodzić w interakcje z elementami interfejsu użytkownika,
+takich jak Pasek zadań i Widok zadań za pomocą myszy i interakcji dotykowej. (<A HREF="https://github.com/nvaccess/nvda/issues/13506" target="_blank">#13506</A>)
+<LI>NVDA ogłosi zawartość paska stanu w Notatniku Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13688" target="_blank">#13688</A>)
+<LI>Podświetlanie obiektów Navigator pojawia się natychmiast po aktywacji funkcji. (<A HREF="https://github.com/nvaccess/nvda/issues/13641" target="_blank">#13641</A>)
+<LI>Naprawiono czytanie elementów widoku listy jednokolumnowej. (<A HREF="https://github.com/nvaccess/nvda/issues/13659" target="_blank">#13659</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13735" target="_blank">#13735</A>)
+<LI>Naprawiono automatyczne przełączanie języka eSpeak na angielski i francuski z powrotem na brytyjski angielski i francuski (Francja). (<A HREF="https://github.com/nvaccess/nvda/issues/13727" target="_blank">#13727</A>)
+<LI>Naprawiono automatyczne przełączanie języka OneCore podczas próby przejścia na wcześniej zainstalowany język. (<A HREF="https://github.com/nvaccess/nvda/issues/13732" target="_blank">#13732</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.1</H2>
+<P>
+Jest to pomniejsza wersja naprawiająca problemy bezpieczeństwa.
+Prosimy odpowiedzialnie zgłaszać problemy z bezpieczeństwem na adresie <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<UL>
+<LI>Naprawiono eksploit za pomocą którego było możliwe uruchomienie konzoli pythona z zablokowanego ekranu. (GHSA-rmq3-vvhq-gp32)
+<LI>Naprawiono eksploit za pomocą którego było możliwe wyjście z ekranu blokowania używając nawigacji obiektowej. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H2>2022.1</H2>
+<P>
+To wydanie zawiera główne ulepszenia obsługi UIA w MS Office.
+W przypadku pakietu Microsoft Office 16.0.15000 lub nowszego w systemie Windows 11 NVDA domyślnie używa automatyzacji interfejsu użytkownika do uzyskiwania dostępu do dokumentów programu Microsoft Word.
+Zapewnia to znaczną poprawę wydajności w porównaniu ze starym dostępem do modelu obiektów.
+</P>
+<P>
+Wprowadzono ulepszenia sterowników monitorów brajlowskich, w tym Seika Notetaker, Papenmeier i HID Braille. 
+Istnieją również różne poprawki błędów systemu Windows 11 dla aplikacji takich jak Kalkulator, Konsola, Terminal, Poczta i Panel Emoji.
+</P>
+<P>
+eSpeak-NG i LibLouis zostały zaktualizowane, dodając nowe tabele japońskie, niemieckie i katalońskie.
+</P>
+<P>
+Uwaga:
+</P>
+ <UL>
+ <LI>To wydanie przerywa kompatybilność z istniejącymi dodatkami. -
+ </UL>
+
+<H3>Nowości</H3>
+<UL>
+<LI>W ostatnich kompilacjach programu Microsoft Word za pośrednictwem UIA w systemie Windows 11 istnienie zakładek, komentarzy roboczych i rozwiązanych komentarzy jest teraz zgłaszane zarówno w mowie, jak i alfabecie Braille'a. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>Nowy parametr wiersza poleceń ''--lang'' umożliwia zastąpienie skonfigurowanego języka NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/10044" target="_blank">#10044</A>)
+<LI>NVDA ostrzega teraz o parametrach wiersza poleceń, które są nieznane i nie są używane przez żadne dodatki. (<A HREF="https://github.com/nvaccess/nvda/issues/12795" target="_blank">#12795</A>)
+<LI>W programie Microsoft Word dostępnym za pośrednictwem automatyzacji interfejsu użytkownika, NVDA będzie teraz korzystać z mathPlayer do czytania i poruszania się po równaniach matematycznych pakietu Office. (<A HREF="https://github.com/nvaccess/nvda/issues/12946" target="_blank">#12946</A>)
+  <UL>
+  <LI>Aby to zadziałało, musisz mieć uruchomiony program Microsoft Word 365/2016 kompilacja 14326 lub nowszy. 
+  <LI>Równania MathType muszą być również ręcznie konwertowane na Office Math, wybierając każde z nich, otwierając menu kontekstowe, wybierając Opcje równań, Konwertuj na Office Math.
+ -
+  </UL>
+<LI>Raportowanie "ma szczegóły" i powiązane polecenie podsumowujące relację szczegółów zostały zaktualizowane do pracy w trybie fokusu. (<A HREF="https://github.com/nvaccess/nvda/issues/13106" target="_blank">#13106</A>)
+<LI>Seika Notetaker może być teraz automatycznie wykrywany po podłączeniu przez USB i Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/13191" target="_blank">#13191</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13142" target="_blank">#13142</A>)
+  <UL>
+  <LI>Dotyczy to następujących urządzeń: MiniSeika (16, 24 komórek), V6 i V6Pro (40 komórek)
+  <LI>Ręczne wybieranie portu COM Bluetooth jest teraz również obsługiwane.
+  </UL>
+  -- Dodano polecenie przełączania przeglądu brajlowskiej; nie ma domyślnie skojarzonego gestu. (<A HREF="https://github.com/nvaccess/nvda/issues/13258" target="_blank">#13258</A>)
+  <UL>
+  <LI>Obsługa notatek raportowania w MS Excel z włączoną UIA w systemie Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+  </UL>
+<LI>Dodano polecenia do przełączania wielu modyfikatorów jednocześnie z wyświetlaczem Braille'a (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>Okno dialogowe Słownik mowy zawiera teraz przycisk "Usuń wszystko", aby pomóc wyczyścić cały słownik. (<A HREF="https://github.com/nvaccess/nvda/issues/11802" target="_blank">#11802</A>)
+<LI>Dodano obsługę Kalkulatora Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13212" target="_blank">#13212</A>)
+<LI>W programie Microsoft Word z włączonym UIA w systemie Windows 11 NVDA teraz czyta numery wierszy i numery sekcji. (<A HREF="https://github.com/nvaccess/nvda/issues/13283" target="_blank">#13283</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13515" target="_blank">#13515</A>)
+<LI>W przypadku pakietu Microsoft Office 16.0.15000 i nowszych wersji w systemie Windows 11 NVDA domyślnie UIA użytkownika do uzyskiwania dostępu do dokumentów Microsoft Word, zapewniając znaczną poprawę wydajności w porównaniu ze starym dostępem do modelu obiektowego. (<A HREF="https://github.com/nvaccess/nvda/issues/13437" target="_blank">#13437</A>)
+ <UL>
+ <LI>Obejmuje to dokumenty w samym programie Microsoft Word, a także czytnik i kompozytor wiadomości w programie Microsoft Outlook. 
+ </UL>
+</UL>
+
+<P></P>
+<H3>Zmiany</H3>
+<UL>
+<LI>Espeak-ng został zaktualizowany do 1.51-dev commit ''7e5457f91e10''. (<A HREF="https://github.com/nvaccess/nvda/issues/12950" target="_blank">#12950</A>)
+— Zaktualizowano liblouis Braille translator do <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.21.0" target="_blank">3.21.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13141" target="_blank">#13141</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13438" target="_blank">#13438</A>)
+  <UL>
+  <LI>Dodano nową tablicę brajlowską: japoński (Kantenji) brajl literacki.
+  <LI>Dodano nową niemiecką sześciopunktową komputerową tablicę brajlowską.
+  <LI>Dodano katalońską tablicę brajlowską pismo pełne. (<A HREF="https://github.com/nvaccess/nvda/issues/13408" target="_blank">#13408</A>)
+  </UL>
+  <UL>
+  <LI>- NVDA zgłosi wybór i scalone komórki w LibreOffice Calc 7.3 i nowszych. (<A HREF="https://github.com/nvaccess/nvda/issues/9310" target="_blank">#9310</A>, <A HREF="https://github.com/nvaccess/nvda/issues/6897" target="_blank">#6897</A>)
+— Zaktualizowano repozytorium danych regionalnych Unicode Common Locale Data Repository (CLDR) do wersji 40.0. (<A HREF="https://github.com/nvaccess/nvda/issues/12999" target="_blank">#12999</A>)
+  </UL>
+<LI>''NVDA+Numpad Delete'' domyślnie zgłasza lokalizację karetki lub obiektu skupionego. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>''NVDA+Shift+Numpad Delete'' zgłasza lokalizację kursora recenzji. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>Dodano domyślne powiązania do przełączania klawiszy modyfikatorów do wyświetlaczy Freedom Scientific (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>"Baseline" nie jest już zgłaszany za pomocą polecenia formatowania tekstu raportu (''NVDA+f''). (<A HREF="https://github.com/nvaccess/nvda/issues/11815" target="_blank">#11815</A>)
+<LI>Aktywuj długi opis nie ma już przypisanego domyślnego gestu. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>Podsumowanie szczegółów raportu ma teraz domyślny gest (''NVDA+d''). (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>NVDA musi zostać ponownie uruchomiony po zainstalowaniu MathPlayer. (<A HREF="https://github.com/nvaccess/nvda/issues/13486" target="_blank">#13486</A>)-
+<P></P>
+== Poprawki błędów ==
+<LI>Okienko menedżera schowka nie powinno już niepoprawnie brać fokusu podczas otwierania niektórych programów pakietu Office. (<A HREF="https://github.com/nvaccess/nvda/issues/12736" target="_blank">#12736</A>)
+<LI>W systemie, w którym użytkownik zdecydował się zamienić główny przycisk myszy z lewej na prawą, NVDA nie będzie już przypadkowo wyświetlać menu kontekstowego zamiast aktywować element w aplikacjach takich jak przeglądarki internetowe. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI>Podczas przesuwania kursora recenzji poza koniec kontrolek tekstowych, takich jak Microsoft Word z UIA, "dół" jest poprawnie zgłaszany w większej liczbie sytuacji. (<A HREF="https://github.com/nvaccess/nvda/issues/12808" target="_blank">#12808</A>)
+<LI>NVDA może zgłaszać nazwę i wersję aplikacji dla plików binarnych umieszczonych w system32 podczas pracy w 64-bitowej wersji systemu Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI>Poprawiono spójność odczytu wyjściowego w wiersza poleceń. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+  <UL>
+  <LI>Zauważ, że w niektórych sytuacjach, podczas wstawiania lub usuwania znaków w środku linii, znaki po kursorze mogą być ponownie odczytywane.
+  </UL>
+<LI>MS word z UIA: nagłówek quick nav w trybie przeglądania nie utknie już na końcowym nagłówku dokumentu, ani ten nagłówek nie jest wyświetlany dwukrotnie na liście elementów NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/9540" target="_blank">#9540</A>)
+<LI>W systemie Windows 8 i nowszych pasek stanu Eksploratora plików można teraz przeczytać za pomocą standardowego gestu NVDA + end (pulpit) / NVDA + shift + end (laptop). (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI>Wiadomości przychodzące na czacie programu Skype dla firm są ponownie czytane. (<A HREF="https://github.com/nvaccess/nvda/issues/9295" target="_blank">#9295</A>)
+<LI>NVDA może ponownie przyciszać dźwięk podczas korzystania z syntezatora SAPI5 w systemie Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12913" target="_blank">#12913</A>)
+<LI>W kalkulatorze Windows 10 NVDA ogłosi etykiety dla elementów historii i listy pamięci. (<A HREF="https://github.com/nvaccess/nvda/issues/11858" target="_blank">#11858</A>)
+<LI>Gesty, takie jak przewijanie i routing, ponownie działają z urządzeniami Braille'a HID. (<A HREF="https://github.com/nvaccess/nvda/issues/13228" target="_blank">#13228</A>)
+<LI>Poczta systemu Windows 11: Po przełączeniu ostrości między aplikacjami, podczas czytania długiej wiadomości e-mail, NVDA nie utknie już w linii wiadomości e-mail. (<A HREF="https://github.com/nvaccess/nvda/issues/13050" target="_blank">#13050</A>)
+<LI>HID Braille: gesty akordowe (np. ''spacja+kropka4'') mogą być z powodzeniem wykonywane z wyświetlacza Braille'a. (<A HREF="https://github.com/nvaccess/nvda/issues/13326" target="_blank">#13326</A>)
+— Rozwiązano problem polegający na tym, że w tym samym czasie mogło być otwieranych wiele okien dialogowych ustawień. (<A HREF="https://github.com/nvaccess/nvda/issues/12818" target="_blank">#12818</A>)
+— Rozwiązano problem polegający na tym, że niektóre monitory Braille'a Focus Blue przestawały działać po wybudzeniu komputera ze stanu uśpienia. (<A HREF="https://github.com/nvaccess/nvda/issues/9830" target="_blank">#9830</A>)
+<LI>"Baseline" nie jest już fałszywie zgłaszany, gdy aktywna jest opcja "zgłoś indeks górny i dolny". (<A HREF="https://github.com/nvaccess/nvda/issues/11078" target="_blank">#11078</A>)
+<LI>W systemie Windows 11 NVDA nie będzie już uniemożliwiać nawigacji w panelu emoji podczas wybierania emotikonów. (<A HREF="https://github.com/nvaccess/nvda/issues/13104" target="_blank">#13104</A>)
+<LI>Zapobiega występowaniu błędu powodującego podwójne raportowanie podczas korzystania z konsoli i terminala systemu Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/13261" target="_blank">#13261</A>)
+— Naprawiono kilka przypadków, w których nie można było czytać elementów listy w aplikacjach 64-bitowych, takich jak REAPER. (<A HREF="https://github.com/nvaccess/nvda/issues/8175" target="_blank">#8175</A>)
+<LI>W menedżerze pobierania Microsoft Edge NVDA automatycznie przełączy się w tryb koncentracji uwagi, gdy element listy z najnowszym pobraniem zyska fokus. (<A HREF="https://github.com/nvaccess/nvda/issues/13221" target="_blank">#13221</A>)
+<LI>NVDA nie powoduje już awarii 64-bitowych wersji Notepad ++ 8.3 i nowszych. (<A HREF="https://github.com/nvaccess/nvda/issues/13311" target="_blank">#13311</A>)
+<LI>Program Adobe Reader nie ulega już awarii podczas uruchamiania, jeśli włączony jest tryb chroniony programu Adobe Reader. (<A HREF="https://github.com/nvaccess/nvda/issues/11568" target="_blank">#11568</A>)
+— Naprawiono błąd, który powodował, że wybranie sterownika Papenmeier Braille Display Driver powodowało awarię NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13348" target="_blank">#13348</A>)
+<LI>W programie Microsoft Word z UIA: numer strony i inne formatowanie nie jest już niewłaściwie ogłaszane podczas przechodzenia z pustej komórki tabeli do komórki z zawartością lub z końca dokumentu do istniejącej zawartości. (<A HREF="https://github.com/nvaccess/nvda/issues/13458" target="_blank">#13458</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13459" target="_blank">#13459</A>)
+<LI>NVDA nie będzie już nie zgłaszać tytułu strony i zacznie automatycznie czytać, gdy strona załaduje się w Google Chrome 100. (<A HREF="https://github.com/nvaccess/nvda/issues/13571" target="_blank">#13571</A>)
+<LI>NVDA nie ulega już awarii podczas resetowania konfiguracji NVDA do ustawień fabrycznych, gdy poleceń Speak są włączone. (<A HREF="https://github.com/nvaccess/nvda/issues/13634" target="_blank">#13634</A>)-
+</UL>
+
+<H2>2021.3.5</H2>
+<P>
+Jest to niewielka wersja mająca na celu rozwiązanie problemu z zabezpieczeniami.
+Prosimy o odpowiedzialne ujawnianie <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> problemów związanych z bezpieczeństwem.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<P>
+— Rozwiązano problem z poradnikiem bezpieczeństwa ''GHSA-xc5m-v23f-pgr7''.
+</P>
+  <UL>
+  <LI>Okno dialogowe wymowy symbolu jest teraz wyłączone w trybie bezpiecznym.
+  </UL>
+
+<P>
+-
+</P>
+<H2>2021.3.4</H2>
+<P>
+Jest to niewielka wersja mająca na celu naprawienie kilku zgłoszonych problemów z bezpieczeństwem.
+Prosimy o odpowiedzialne ujawnianie <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> problemów związanych z bezpieczeństwem.
+</P>
+<H3>Poprawki bezpieczeństwa</H3>
+<P>
+— Rozwiązano problem z poradnikiem bezpieczeństwa ''GHSA-354r-wr4v-cx28''. (<A HREF="https://github.com/nvaccess/nvda/issues/13488" target="_blank">#13488</A>)
+</P>
+  <UL>
+  <LI>Usuń możliwość uruchamiania NVDA z włączonym rejestrowaniem debugowania, gdy NVDA działa w trybie bezpiecznym.
+  <LI>Usuń możliwość aktualizacji NVDA, gdy NVDA działa w trybie bezpiecznym.
+  </UL>
+
+<P>
+— Rozwiązano problem z poradnikiem bezpieczeństwa ''GHSA-wg65-7r23-h6p9''. (<A HREF="https://github.com/nvaccess/nvda/issues/13489" target="_blank">#13489</A>)
+</P>
+  <UL>
+  <LI>Usuń możliwość otwierania okna dialogowego gestów wejściowych w trybie bezpiecznym.
+  <LI>Usuń możliwość otwierania domyślnych, tymczasowych i głosowych okien dialogowych słownika w trybie bezpiecznym.
+  </UL>
+
+<P>
+— Rozwiązano problem z poradnikiem bezpieczeństwa ''GHSA-mvc8-5rv9-w3hx''. (<A HREF="https://github.com/nvaccess/nvda/issues/13487" target="_blank">#13487</A>)
+</P>
+  <UL>
+  <LI>wx narzędzie do inspekcij okien jest od teraz wyłączone w trybie bezpiecznym.
+  </UL>
+
+<P>
+-
+</P>
+<H2>2021.3.3</H2>
+<P>
+Ta wersja jest identyczna z 2021.3.2.
+Błąd istniał w NVDA 2021.3.2, gdzie błędnie identyfikował się jako 2021.3.1.
+To wydanie poprawnie identyfikuje się jako 2021.3.3.
+</P>
+<H2>2021.3.2</H2>
+<P>
+Jest to niewielka wersja mająca na celu naprawienie kilku zgłoszonych problemów z bezpieczeństwem.
+Prosimy o odpowiedzialne ujawnianie <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> problemów związanych z bezpieczeństwem.
+</P>
+<H3>Poprawki błędów</H3>
+<UL>
+<LI>Poprawka zabezpieczeń: Zapobiegaj nawigacji po obiektach poza ekranem blokady w systemach Windows 10 i Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13328" target="_blank">#13328</A>)
+<LI>Poprawka zabezpieczeń: Okno dialogowe menedżera dodatków jest teraz wyłączone na bezpiecznych ekranach. (<A HREF="https://github.com/nvaccess/nvda/issues/13059" target="_blank">#13059</A>)
+<LI>Poprawka zabezpieczeń: Pomoc kontekstowa NVDA nie jest już dostępna na bezpiecznych ekranach. (<A HREF="https://github.com/nvaccess/nvda/issues/13353" target="_blank">#13353</A>)
+</UL>
+
+<P></P>
+<H2>2021.3.1</H2>
+<P>
+Jest to niewielka wersja mająca na celu naprawienie kilku problemów w 2021.3.
+</P>
+<H3>Zmiany</H3>
+<UL>
+<LI>Nowy protokół brajlowski HID nie jest już preferowany, gdy można użyć innego sterownika monitora brajlowskiego. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+<LI>Nowy protokół Braille'a HID można wyłączyć poprzez ustawienie w panelu ustawień zaawansowanych. (<A HREF="https://github.com/nvaccess/nvda/issues/13180" target="_blank">#13180</A>)
+</UL>
+
+<P>
+-
+</P>
 <H2>2021.3</H2>
 <P>
  To wydanie wprowadza wsparcie dla nowej specyfikacji brajlowskiej HID.
@@ -92,10 +763,6 @@ Aby nadal móc przenosić punkt przeglądu do pasków stanu, należy przypisać 
 </UL>
 
 <P></P>
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2021.2</H2>
 <P>
 W tej wersji wprowadzono wstępne wsparcie dla systemu Windows 11.
@@ -157,10 +824,6 @@ Jeśli używasz nowej wersji systemu Windows, dla bezpieczeństwa upewnij się, 
 </UL>
 
 <P></P>
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2021.1</H2>
 <P>
 To wydanie zawiera opcjonalne, eksperymentalne wsparcie interfejsu UIA w programie Microsoft Excel i przeglądarkach opartych na silniku Chromium.
@@ -247,10 +910,6 @@ Uwaga!
 <LI>Naprawiony sterownik dla monitorów brajlowskich Seika. (<A HREF="https://github.com/nvaccess/nvda/issues/10787" target="_blank">#10787</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2020.4</H2>
 <H3>Nowości</H3>
 <UL>
@@ -323,10 +982,6 @@ Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF=
 <LI>Przy wyświetlaniu adresów URL z NVDA ustawionym na tablicę brajlowską Angielski  US skróty  i włączoną opcją rozwiń słowo pod kursorem do brajla komputerowego, NVDA się już nie wysypuje. (<A HREF="https://github.com/nvaccess/nvda/issues/11754" target="_blank">#11754</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2020.3</H2>
 <P>
 To wydanie zawiera sporo poprawek dotyczących stabilności i szybkości działania szczególnie w pakiecie Microsoft Office. Dodano także ustawienia dotyczące ogłaszania grafik, jak i możliwość wyłączenia obsługi ekranu dotykowego.
@@ -394,10 +1049,6 @@ Dodano również możliwość odczytywania podkreślonego tekstu w przeglądarka
 <LI>Duże ulepszenia wydajności w Visual Studio Code. (<A HREF="https://github.com/nvaccess/nvda/issues/11533" target="_blank">#11533</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2020.2</H2>
 <P>
 Najważniejsze zmiany w tej wersji to wsparcie nowego monitora brajlowskiego firmy Nattiq, lepsze wsparcie dla interfejsu graficznego programu antywirusowego ESET jak i programu Windows Terminal, poprawki wydajności w programie 1Password, poprawki wydajności w syntezatorach mowy OneCore jak i wiele ważnych zmian i poprawek.
@@ -454,10 +1105,6 @@ Najważniejsze zmiany w tej wersji to wsparcie nowego monitora brajlowskiego fir
 <LI>Poprawiono błąd uniemożliwiający poprawne pozycjonowanie kursora w aplikacjach JAVA. (<A HREF="https://github.com/nvaccess/nvda/issues/5989" target="_blank">#5989</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2020.1</H2>
 <P>
 Najważniejsze zmiany w tej wersji to wsparcie niektórych monitorów brajlowskich HumanWare i APH, wiele ważnych poprawek błędów, takich jak ponowna możliwość odczytywania treści matematycznych W programie Microsoft Word przy użyciu MathPlayer / MathType.
@@ -492,10 +1139,6 @@ Najważniejsze zmiany w tej wersji to wsparcie niektórych monitorów brajlowski
 <LI>Naprawiono śledzenie myszy dla niektórych elementów MSHTML w Internet Explorerze. (<A HREF="https://github.com/nvaccess/nvda/issues/10736" target="_blank">#10736</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2019.3</H2>
 <P>
 Wydanie 2019.3 programu NVDA jest bardzo ważne. Wiele zmian dotyczy samego silnika w tym przepisanie go z Python 2 na Python 3. Został również przepisany cały podsystem mowy.
@@ -587,10 +1230,6 @@ Zmiany te powodują brak kompatybilności ze wcześniejszymi dodatkami programu,
 <LI>W przeglądarce Mozilla Firefox, przesuwanie kursora w trybie czytania jest szybsze. Powoduje to znaczne przyspieszenie działania w niektórych wypadkach. (<A HREF="https://github.com/nvaccess/nvda/issues/10584" target="_blank">#10584</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2019.2.1</H2>
 <P>
 Ta wersja poprawia wiele istotnych błędów obecnych w wersji 2019.2. Poprawki obejmują:
@@ -676,10 +1315,6 @@ Najważniejsze zmiany w tej wersji to automatyczne wykrywanie linijek brajlowski
 <LI>Poprawiona praca okna "Znajdź" w trybie czytania NVDA,  które nie funkcjonowało, gdy otwarte było w tle okno "O programie" NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/8566" target="_blank">#8566</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2019.1.1</H2>
 <P>
 To wydanie poprawia następujące błędy:
@@ -771,10 +1406,6 @@ Więcej informacji o wersjonowaniu dodatków, znajduje się na liście zmian pon
  </UL>
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2018.4.1</H2>
 <P>
 Ta wersja naprawia zawieszanie się NVDA przy starcie, gdy język  programu był ustawiony na aragoński. (<A HREF="https://github.com/nvaccess/nvda/issues/9089" target="_blank">#9089</A>)
@@ -820,10 +1451,6 @@ Najważniejsze zmiany w tej wersji to poprawki wydajności w najnowszych wersjac
 <LI>W Slajdach Google z Mozilla Firefox, NVDA nie zgłasza zaznaczonego tekstu na każdej kontrolce z punktem uwagi. (<A HREF="https://github.com/nvaccess/nvda/issues/8964" target="_blank">#8964</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2018.3.2</H2>
 <P>
 Pomniejsze wydanie wprowadzające obejście zawieszania się Google Chrome przy nawigacji tweetów na stronie <A HREF="http://www.twitter.com" target="_blank">www.twitter.com</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/8777" target="_blank">#8777</A>)
@@ -900,10 +1527,6 @@ Najważniejsze zmiany w tej wersji to automatyczne wykrywanie wielu linijek braj
 <LI>NVDA nie powoduje, że iTunes 12.9 i nowsze stają się niemożliwe do interakcji. (<A HREF="https://github.com/nvaccess/nvda/issues/8744" target="_blank">#8744</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2018.2.1</H2>
 <P>
 To wydanie zawiera aktualizacje tłumaczeń związane  z usunięciem w ostatniej chwili funkcjonalności powodującej problemy.
@@ -967,10 +1590,6 @@ Najważniejsze zmiany w tej wersji to obsługa tabel w Kindle dla PC, wsparcie l
 <LI>W Windows 10 RS5, NVDA nie zgłasza nadmiarowych zbędnych informacji  podczas przełączania zadań przy użyciu alt+tab. (<A HREF="https://github.com/nvaccess/nvda/issues/8258" target="_blank">#8258</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2018.1.1</H2>
 <P>
 Specjalne wydanie NVDA w związku z błędem sterownika syntezatora głosów mobilnych Windows, powodującym generowanie wyższej i szybszej mowy w wersji Windows 10 Redstone 4 (1803). (<A HREF="https://github.com/nvaccess/nvda/issues/8082" target="_blank">#8082</A>)  
@@ -1034,10 +1653,6 @@ Najważniejsze zmiany w tej wersji to obsługa wykresów w Microsoft word i Powe
 <LI>Rozwiązany problem uruchamiania NVDA na Windows 7 zgłaszającego wewnętrzny błąd api-ms dll, gdy konkretna wersja Visual Studio 2017 redistributables została zainstalowana przez inną aplikację. (<A HREF="https://github.com/nvaccess/nvda/issues/7975" target="_blank">#7975</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2017.4</H2>
 <P>
 Najważniejsze zmiany w tej wersji to liczne ulepszenia aplikacji sieci web  w tym domyślne włączenie trybu czytania dla okien dialogowych stron www, lepszy odczyt grup pól w trybie czytania, obsługa nowych technologii Windows 10 takich jak strażnik aplikacji Windows Defender  oraz Windows 10 na ARM64, automatyczny odczyt orientacji ekranu i stanu baterii.  
@@ -1094,10 +1709,6 @@ Proszę zauważyć, że ta wersja NVDA nie obsługuje Windows XP ani Windows Vis
 <LI>Poprawiona funkcjonalność przewijania wstecz dla monitorów freedom Scientific zawierających lewy pasek ochraniający. (<A HREF="https://github.com/nvaccess/nvda/issues/7713" target="_blank">#7713</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2017.3</H2>
 <P>
 Najważniejsze zmiany w tej wersji to wprowadzanie brajla skrótami, obsługa nowych głosów Windows OneCore dostępnych w Windows 10, wbudowana obsługa silnika OCR Windows 10, wiele znaczących usprawnień brajla i przeglądania sieci.
@@ -1182,10 +1793,6 @@ Najważniejsze zmiany w tej wersji to wprowadzanie brajla skrótami, obsługa no
 <LI>W Firefox i Chrome, komendy nawigacji po tabeli przeskakują ukryte komórki. (<A HREF="https://github.com/nvaccess/nvda/issues/6652" target="_blank">#6652</A>, <A HREF="https://github.com/nvaccess/nvda/issues/5655" target="_blank">#5655</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2017.2</H2>
 <P>
 Najważniejsze zmiany w tej wersji to pełna obsługa przyciszania audio w Windows 10 Creators Update; poprawki zaznaczania w trybie czytania, włączając w to problemy z zaznaczaniem wszystkiego; znaczące poprawki obsługi Microsoft Edge; poprawki działania na stronach www, takie jak oznajmianie elementów bieżących (przy użyciu aria-current).
@@ -1230,10 +1837,6 @@ Najważniejsze zmiany w tej wersji to pełna obsługa przyciszania audio w Windo
 <LI>Naprawiono niektóre inne rzadkie problemy zaznaczania w trybie czytania. (<A HREF="https://github.com/nvaccess/nvda/issues/7131" target="_blank">#7131</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2017.1</H2>
 <P>
 Najważniejsze zmiany w tej wersji to zgłaszanie sekcji i kolumn tekstu w Microsoft Word; obsługa czytania, nawigacji i komentowania książek w Kindle dla PC; poprawiona obsługa Microsoft Edge.
@@ -1277,10 +1880,6 @@ Najważniejsze zmiany w tej wersji to zgłaszanie sekcji i kolumn tekstu w Micro
 <LI>NVDA od teraz nie staje się bezużyteczny po wyjściu z Windows Media Player , gdy punkt uwagi znajdował się na suwaku. (<A HREF="https://github.com/nvaccess/nvda/issues/5467" target="_blank">#5467</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2016.4</H2>
 <P>
 Najważniejsze zmiany w tej wersji to poprawiona obsługa Microsoft Edge; tryb czytania w aplikacji Poczta systemu Windows 10; istotne poprawki okien NVDA.
@@ -1338,10 +1937,6 @@ Najważniejsze zmiany w tej wersji to poprawiona obsługa Microsoft Edge; tryb c
 <LI>W Firefox z włączoną wieloprocesowością, tryb czytania i edytowalne pola tekstowe teraz działają prawidłowo. (<A HREF="https://github.com/nvaccess/nvda/issues/6380" target="_blank">#6380</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2016.3</H2>
 <P>
 Najważniejsze zmiany w tej wersji to możliwość wyłączania pojedynczych dodatków; obsługa pól formularzy w Microsoft Excel; znaczące ulepszenia zgłaszania kolorów; poprawki dotyczące kilku monitorów brajlowskich; poprawki obsługi Microsoft Word.
@@ -1398,10 +1993,6 @@ Najważniejsze zmiany w tej wersji to możliwość wyłączania pojedynczych dod
 <LI>W Google Chrome i przeglądarkach bazujących na Chrome w językach innych niż angielski, tryb czytania nie zawodzi w wielu dokumentach. (<A HREF="https://github.com/nvaccess/nvda/issues/6249" target="_blank">#6249</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2016.2.1</H2>
 <P>
 To wydanie naprawia awarie Microsoft Word:
@@ -1454,10 +2045,6 @@ Najważniejsze zmiany w tej wersji to możliwość zgłaszania błędów pisowni
 <LI>W trybie czytaniaW Microsoft Word, komendy przejścia do początku i końca kontenera (przecinek i Shift+przecinek) działają teraz dla tabel. (<A HREF="https://github.com/nvaccess/nvda/issues/5883" target="_blank">#5883</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2016.1</H2>
 <P>
 Najważniejsze zmiany w tej wersji to opcjonalna możliwość zmniejszenia głośności innych dźwięków; ulepszone wyświetlanie brajla i obsługa monitorów brajlowskich; kilka znaczących poprawek obsługi  Microsoft Office; poprawki trybu czytania w iTunes.
@@ -1510,10 +2097,6 @@ Najważniejsze zmiany w tej wersji to opcjonalna możliwość zmniejszenia gło�
 <LI>Naprawione problemy z wyświetlaniem brajla na monitorach brajlowskich, podczas wprowadzania znaków koreańskich. (<A HREF="https://github.com/nvaccess/nvda/issues/5640" target="_blank">#5640</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2015.4</H2>
 <P>
 Najważniejsze zmiany w tej wersji to poprawki wydajności w Windows 10; obecność NVDA w centrum ułatwień dostępu Windows 8 i nowszych; zmiany w Microsoft Excel w tym lista i zmiana nazw arkuszy oraz dostęp do zablokowanych komórek w zabezpieczonych arkuszach;  obsługa edycji tekstu sformatowanego w Mozilla Firefox, Google Chrome i Mozilla Thunderbird.
@@ -1623,10 +2206,6 @@ Najważniejsze zmiany w tej wersji to wstępne wsparcie dla Windows 10; możliwo
 <LI>Na ekranie startowym Windows 10, nie można od teraz czytać schowka, uzyskiwać dostępu do uruchomionych aplikacji przy użyciu kursora przeglądu, zmieniać konfiguracji NVDA, etc. (<A HREF="https://github.com/nvaccess/nvda/issues/5269" target="_blank">#5269</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2015.2</H2>
 <P>
 Najważniejsze zmiany w tej wersji to możliwość odczytywania wykresów w Microsoft Excel oraz wsparcie dla nawigacji i odczytu treści matematycznej.
@@ -1663,10 +2242,6 @@ Najważniejsze zmiany w tej wersji to możliwość odczytywania wykresów w Micr
 <LI>W Internet Explorer i innych kontrolkach MSHTML, naciśnięcie g lub shift+g by nawigować po grafikach, uwzględnia teraz elementy oznaczone jako obrazki dla potrzeb dostępności (tj. rola ARIA img). (<A HREF="https://github.com/nvaccess/nvda/issues/5062" target="_blank">#5062</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2015.1</H2>
 <P>
 Główne zmiany w tej wersji, to tryb czytania dla dokumentów Microsoft Word i Outlook; duże ulepszenia wsparcia Skype dla pulpitu; istotne poprawki dla Microsoft Internet Explorer.
@@ -1728,10 +2303,6 @@ Główne zmiany w tej wersji, to tryb czytania dla dokumentów Microsoft Word i 
 <LI>W Internet Explorer i innych kontrolkach MSHTML, NVDA nie ignoruje od teraz ustawiania punktu uwagi na elementach w związku z atrybutem aria-activedescendant. (<A HREF="https://github.com/nvaccess/nvda/issues/4667" target="_blank">#4667</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2014.4</H2>
 <H3>Nowości</H3>
 <UL>
@@ -1775,10 +2346,6 @@ Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF=
 <LI>Podczas używania monitora brajlowskiego Papenmeier BRAILLEX z BrxCom, klawisze monitora działają zgodnie z oczekiwaniami. (<A HREF="https://github.com/nvaccess/nvda/issues/4614" target="_blank">#4614</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2014.3</H2>
 <H3>Nowe funkcje</H3>
 <UL>
@@ -1876,10 +2443,6 @@ Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF=
 <LI>Microsoft Word: podczas przemieszczania się po akapitach klawiszami control+strzałka w dół / control+strzałka w górę, nie jest od teraz konieczne naciskanie ich dwukrotnie podczas przechodzenia przez listy numerowane lub punktowane. (<A HREF="https://github.com/nvaccess/nvda/issues/3290" target="_blank">#3290</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2014.2</H2>
 <H3>Nowe funkcje</H3>
 <UL>
@@ -1986,10 +2549,6 @@ Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF=
 <LI>NVDA nie zawiesza się teraz, gdy wybrano starsze modele monitora brajlowskiego Papenmeier BRAILLEX, a urządzenie nie jest podłączone.
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2013.3</H2>
 <H3>Uwagi od tłumacza</H3>
 <P>
@@ -2040,10 +2599,6 @@ W tej wersji NVDA pojawiło się wiele poprawek i uzupełnień polskiego tłumac
 <LI>Naprawiony problem niewykrywania klawiszy naciskanych na monitorach Freedom Scientific w niektórych sytuacjach. (<A HREF="https://github.com/nvaccess/nvda/issues/3401" target="_blank">#3401</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3662" target="_blank">#3662</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2013.2</H2>
 <H3>Nowe funkcje</H3>
 <UL>
@@ -2113,10 +2668,6 @@ Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF=
 <LI>NVDA obecnie prawidłowo wykrywa następny slajd, gdy usuwany jest slajd w widoku miniatur Microsoft PowerPoint. (<A HREF="https://github.com/nvaccess/nvda/issues/3415" target="_blank">#3415</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2013.1.1</H2>
 <P>
 Ta wersja rozwiązuje problem awarii NVDA podczas uruchamiania, jeśli w ustawieniach wybrany był Język irlandzki, zawiera również aktualizacje tłumaczeń, oraz inne poprawki.
@@ -2233,10 +2784,6 @@ Wszystkie zmiany znajdują się w <A HREF="keyCommands.html" target="_blank">Li�
 <LI>Możliwe jest teraz używanie trybu czytania na stronach w Internet Explorer 10 w trybie zgodności; np. strona logowania <A HREF="http://www.gmail.com" target="_blank">www.gmail.com</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/3151" target="_blank">#3151</A>)
 </UL>
 
-<H3>Zmiany dla programistów</H3>
-<P>
-Informacje techniczne nie zostały przetłumaczone, proszę zajrzeć do <A HREF="../en/changes.html" target="_blank">Angielskiej listy zmian</A>, aby je przeczytać.
-</P>
 <H2>2012.3</H2>
 <P>
 Najważniejsze nowości w tej wersji obejmują wsparcie dla wprowadzania znaków azjatyckich; eksperymentalną obsłógę ekranów dotykowych w Windows 8; zgłaszanie numerów stron, uleprzone wsparcie dla tabel w dokumentach Adobe Reader, komendy nawigacyjne dla tabel z punktem uwagi oraz kontrolek list; wsparcie dla kilku nowych monitorów brajlowskich oraz zgłaszanie nagłówków kolumn i linii w Microsoft Excel.
@@ -2386,10 +2933,10 @@ Najważniejsze zmiany dotyczą obsłógi znaków interpunkcyjnych i innych symbo
 <LI>Mowa nie przerywa się już nienatóralnie na końcu każdej linii gdy używamy komendy czytaj wszystko. (<A HREF="https://github.com/nvaccess/nvda/issues/149" target="_blank">#149</A>)
 <LI>NVDA zgłasza uporządkowanie elementów zgodnie z odpowiednią właściwością ARIA w przeglądarkach internetowych. (<A HREF="https://github.com/nvaccess/nvda/issues/1500" target="_blank">#1500</A>)
 <LI>Wzorce brajlowskie we formacie unicode są wyświetlane prawidłowo. (<A HREF="https://github.com/nvaccess/nvda/issues/1505" target="_blank">#1505</A>)
-<LI>Leprza obsługa właściwości ARIA na stronach internetowych.
+<LI>Lepsza obsługa właściwości ARIA na stronach internetowych.
 <LI>Użytkownicy mogą zmieniać wymowę znaków interpunkcyjnych i innych znaków, i ustawić najniższy próg ich odczytywania. (<A HREF="https://github.com/nvaccess/nvda/issues/271" target="_blank">#271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/1516" target="_blank">#1516</A>)
 <LI>Odczytywana jest nazwa aktywnego arkusza w Microsoft Excel, gdy przełączamy się między nimi wciskając ctrl+page up, ctrl+page down. (<A HREF="https://github.com/nvaccess/nvda/issues/760" target="_blank">#760</A>)
-<LI>PPrzy nawigacji po tabeli w Microsoft Word, NVDA odczytuje aktywną komórkę.
+<LI>Przy nawigacji po tabeli w Microsoft Word, NVDA odczytuje aktywną komórkę.
 <LI>Odczyt współżędnych komórki tabeli jest teraz konfigórowalny z okna formatowanie dokumentów. (<A HREF="https://github.com/nvaccess/nvda/issues/719" target="_blank">#719</A>)
 <LI>NVDA potrafi odczytać info o formatowaniu oraz kolorze tekstu wypisywanego na ekran.
 <LI>W outlook Express, Windows Mailu i Windows Live Mailu, NVDA zgłasza, że wiadomość została, lub nie została przeczytana, oraz czy wątek został rozwinięty lub zwinięty. (<A HREF="https://github.com/nvaccess/nvda/issues/868" target="_blank">#868</A>)
@@ -2414,7 +2961,7 @@ Najważniejsze zmiany dotyczą obsłógi znaków interpunkcyjnych i innych symbo
 
 <H3>Poprawki</H3>
 <P>
-Rozwijanie pul kombo w wirtualnych buforach zostało wymuszone przy pomocy skrótu nvda+spacja. Program w takim polu nie powruci automatycznie do trybu przeglądania. (<A HREF="https://github.com/nvaccess/nvda/issues/1386" target="_blank">#1386</A>)
+Rozwijanie list rozwijanych w wirtualnych buforach zostało wymuszone przy pomocy skrótu nvda+spacja. Program w takim polu nie powróci automatycznie do trybu przeglądania. (<A HREF="https://github.com/nvaccess/nvda/issues/1386" target="_blank">#1386</A>)
 </P>
 <UL>
 <LI>W dokumentach gecko i mshtml program renderuje poprawnie teksty jednowierszowe, które do tej pory były umieszczane w dwuch oddzielnych liniach. (<A HREF="https://github.com/nvaccess/nvda/issues/1378" target="_blank">#1378</A>)
@@ -2563,9 +3110,6 @@ Nvda+numeryczne 7 przełącza do poziomu przeglądu umieszczając kursor przegl�
 <LI>W Windows Live Mailu 2010 odczytywane są opisy reguł wiadomość.
 </UL>
 
-<P>
-.
-</P>
 <H2>2010.1</H2>
 <P>
 To wydanie koncentruje się przede wszystkim na usuwaniu błędów i usprawnień dla użytkowników, w tym kilka istotnych poprawek stabilności.
@@ -2663,7 +3207,7 @@ Najważniejsze aspekty tym wydaniu to: wsparcie dla 64-bitowych wydań systemu W
 </P>
 <H4>Poprawione Błędy</H4>
 <P>
--  Skrót NVDA+T czyta tytuł bieżącego okno na pierwszym planie, teraz działa prawidłowo,
+-  Skrót NVDA+T czyta tytuł bieżącego okna na pierwszym planie, teraz działa prawidłowo,
 -  Raportuje prawidłowe numery stron w programie Microsoft Word.
 -  Lepsze wsparcie dla edycji pól dialogowych znajdujących się w Microsoft Word (np. okno dialogowe Czcionki). Teraz można przemieszczać się tam za pomocą klawiszy strzałek.
 -  lepsze wsparcie w szczególności dla konsoli Dos: NVDA może teraz odczytać szczegóły zawartości konsoli używanej od zawsze. Naciśnięcie klawisza Kontrol+break nie zakończy NVDA.

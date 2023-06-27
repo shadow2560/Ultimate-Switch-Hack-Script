@@ -10,6 +10,531 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2> ٢.0231</H2>
+<P>
+احتوى الإصدار على العديد من المستجدات منها: الخيار الجديد "نمط الفقرة" ضمن تصنيف "التنقُّل في المستند".
+يمكن استخدام هذا الخيار ضمن محررات النصوص التي لا تدعم التنقُّل وِفقًا للفقرة مثل: المفكرة و Notepad++.
+</P>
+<P>
+هناك أيضا أمر عام للإعلان عن عنوان URL الذي يقود إليه الرابط: <CODE>NVDA+k</CODE>.
+</P>
+<P>
+تحسين دعم محتوى الإنترنت التوضيحي (مثل التعليقات التوضيحية والحواشي السفلية).
+الضغط على ``NVDA+d يؤدي للتنقُّل عبر المحتوى التوضيحي إذا أُشير لوجوده عند المرور بالنص (على سبيل المثال: "مرتبط بتعليق" "مرتبط بحاشية سفلية".)
+</P>
+<P>
+دعم شاشات برايل الإلكترونية Tivomatic Caiku Albatross 46/80.
+</P>
+<P>
+هناك أيضا تحسينات على دعم إصدارات Windows ARM64 و AMD64.
+</P>
+<P>
+كما حُدِّثت مكتبات eSpeak و LibLouis، و Sonic rate boost، و Unicode CLDR.
+هناك جداول برايل جديدة: جورجي، سواحلي (كينيا) شيشاوي (ملاوي).
+</P>
+<P>
+ملاحظة:
+</P>
+<UL>
+<LI>هذا الإصدار لا يتوافق مع الإضافات البرمجية بإصداراتها الحالية.
+</UL>
+
+<P></P>
+<H3>المستجدات</H3>
+<UL>
+<LI>في Microsoft Excel، عند تفعيل أتمتة واجهة المستخدم؛ سيُعلَنُ عن رؤوس الأعمدة والصفوف في الجداول تلقائيا. (<A HREF="https://github.com/nvaccess/nvda/issues/14228" target="_blank">#14228</A>)
+ <UL>
+ <LI>مع ملاحظة أنّ هذا راجع تنسيق الجدول المختار عند إدراجه عبر زر "جدول" الموجود ضمن علامة التبويب "إدراج".
+ بحيث يُعتمد "العمود الأول" و"رأس الصف" كما هو ضمن خيارات نمط الجدول .
+ <LI>وليس راجعا إلى الرؤوس التي تُحدد من قِبَل قارئات الشاشة، والتي هي غير مدعومة حاليا حال تفعيل أتمتة واجهة المستخدم UI Automation.
+ </UL>
+<LI>إضافةُ أمر (لم يُعيَّن له اختصار) للتبديل بين تفعيل وتعطيل الإعلان المتراخي عن الأوصاف الصوتية للأحرف. (<A HREF="https://github.com/nvaccess/nvda/issues/14267" target="_blank">#14267</A>)
+<LI>إضافة خيار (قيد التجربة) لاستثمار خاصية تنبيهات UIA (UIA Notification) المدعومة من قِبَل أداة Windows Terminal للإعلان عن التحديثات والتغييرات التي تطرأ على النص في نافذة توجيه الأوامر، ما يؤدي لمزيد من الاستقرار وتحسين الاستجابة. (<A HREF="https://github.com/nvaccess/nvda/issues/13781" target="_blank">#13781</A>)
+ <UL>
+ <LI>راجِعْ دليل الاستخدام لمعرفة حدود الاستفادة من هذه الخاصية التي لا تزال في طَوْر الاختبار.
+ </UL>
+<LI>في Windows 11 ARM64، سيعمل نمط التصفُّح في برامج AMD64 مثل: Firefox، وGoogle Chrome  و 1Password. (<A HREF="https://github.com/nvaccess/nvda/issues/14397" target="_blank">#14397</A>)
+<LI>إضافة خيار "نمط الفقرة" ضمن إعدادات "التنقُّل في المستند".
+يدعم هذا نمط التنقُّل وِفقا لفاصل السطر الواحد (المنط العادي)، أو وِفقا لفاصل الأسطر المتعددة (نمط النقُّل وِفقا للفقرة أو القطعة النصية)
+يمكن الاستفادة من هذا في برامج تحرير النصوص التي لا تدعم التنقُّل وِفقًا للفقرة ذاتيا مثل المفكرة و NotePad ++. (<A HREF="https://github.com/nvaccess/nvda/issues/13797" target="_blank">#13797</A>)
+<LI>يمكن الآن الإعلان عن التعليقات التوضيحية إن كانت أكثر من تعليق واحد
+سينتقل ``NVDA+d بين التعليقات التوضيحية المرتبطة بعنصر واحد، ويقرأها.
+على سبيل المثال: عند وجود نص مرتبط بتعليق وحاشية سفلية. (<A HREF="https://github.com/nvaccess/nvda/issues/14507" target="_blank">#14507</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14480" target="_blank">#14480</A>)
+<LI>دعم شاشات برايل الإلكترونية Tivomatic Caiku Albatross. (<A HREF="https://github.com/nvaccess/nvda/issues/13045" target="_blank">#13045</A>)
+<LI>إضافة أمر عام: الإعلان عن وجهة الرابط (<CODE>NVDA+k</CODE>).
+بتنفيذ الأمر مرة واحدة سيُعلَن عنوان الوجهة التي يقود إليها الرابط الذي يوجد عنده مؤشّر NVDA (مؤشّر استعراض الكائن) عبر النُطق وعارض برايل.
+وبضغطه مرتين متتاليتين؛ ستُعرَض المعلومات ضمن نافذة لمعرفة تفاصيل أكثر. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+<LI>إضافة أمر عام دون تعيين مفتاح اختصار له، ضمن تصنيف "أدوات": الإعلان عن وجهة الرابط ضمن نافذة.
+مماثل للضغط مرتين على <CODE>NVDA+k</CODE>، غير أنه قد يكون مفيدا أكثر لمستخدمي برايل (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>).
+</UL>
+
+<P></P>
+<H3>التغييرات</H3>
+<UL>
+<LI>تحديث مكتبة مترجم برايل LibLouis إلى <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.24.0" target="_blank"> ٢.4٣.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14436" target="_blank">#14436</A>)
+ <UL>
+ <LI>تحديثات رئيسية على برايل الخاص باللغات المجرية، UEB، والصينية (بُوبُومُوفُو).
+ <LI>دعم برايل الدنماركي القياسي 2022.
+ <LI>جداول برايل جديدة: جورجي، سواحلي (كينيا)، وشيشيوي (ملاوي).
+ </UL>
+<LI>تحديث مكتبة Sonic rate boost إلى <CODE>1d70513</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14180" target="_blank">#14180</A>)
+<LI>تحديث مكتبة الرموز التعبيرية CLDR للإصدار 42.0. (<A HREF="https://github.com/nvaccess/nvda/issues/14273" target="_blank">#14273</A>)
+<LI>تحديث آلة النُطق ESpeak NG إلى 1.52-dev commit <CODE>f520fecb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14281" target="_blank">#14281</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14675" target="_blank">#14675</A>)
+ <UL>
+ <LI>إصلاحات على الإعلان عن الأعداد الكبيرة. (<A HREF="https://github.com/nvaccess/nvda/issues/14241" target="_blank">#14241</A>)
+ </UL>
+<LI>في تطبيقات Java، عند المرور بعناصر التحكُّم القابلة لتحديد لن يُشار إليها بأنها محددة. (<A HREF="https://github.com/nvaccess/nvda/issues/14336" target="_blank">#14336</A>)
+</UL>
+
+<P></P>
+<H3>إصلاحات الأخطاء</H3>
+<UL>
+<LI>إصلاحات خاصة ب Windows 11:
+ <UL>
+ <LI>سيقرأ NVDA محتوى البحث الأبرز عند فتح قائمة ابدأ. (<A HREF="https://github.com/nvaccess/nvda/issues/13841" target="_blank">#13841</A>)
+ <LI>على ARM، لن يُخبر NVDA عن تطبيقات x64 بأنها تطبيقات ARM64. (<A HREF="https://github.com/nvaccess/nvda/issues/14403" target="_blank">#14403</A>)
+ <LI>يمكن الآن الوصول لعناصر القائمة الخاصة بسجل الحافظة، مثل: "تثبيت العنصر". (<A HREF="https://github.com/nvaccess/nvda/issues/14508" target="_blank">#14508</A>)
+ <LI>في Windows 11 22H2 والإصدارات الأحدث، يمكن -كما في السابق- التفاعُل عبر الفأرة ولوحة التفاعل باللمس مع مناطق مثل صينية النظام، ومربّع حوار "فتح باستخدام". (<A HREF="https://github.com/nvaccess/nvda/issues/14538" target="_blank">#14538</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14539" target="_blank">#14539</A>)
+ </UL>
+<LI>سيُعلَن الآن عن الاقتراحات في Microsoft Excel، عند كتابة علامة @ في حقل التعليقات للإشارة للأشخاص. (<A HREF="https://github.com/nvaccess/nvda/issues/13764" target="_blank">#13764</A>)
+<LI>في شريط العناوين والبحث الخاص ب Google Chrome؛ سيُعلَن الآن عن اقترحات التحكُّم بالعنصر عند تحديده: (اضغط على مفتاح التبويب (Tab) ثم على مفتاح Enter لإزالة هذا الاقتراح.، إلخ). (<A HREF="https://github.com/nvaccess/nvda/issues/13522" target="_blank">#13522</A>)
+<LI>عند الاستعلام عن معلومات التنسيق في برنامج "الدفتر" وفي عارض التقارير الخاص ب NVDA؛ ستُعلَنُ أسماء الألوان، عوضًا عن الاقتصار على أنه "اللون الافتراضي". (<A HREF="https://github.com/nvaccess/nvda/issues/13959" target="_blank">#13959</A>)
+<LI>في FireFox؛ تفعيل زر Show options في صفحات نقاشات المشكلات على GitHub سيعمل على نحو جيد. (<A HREF="https://github.com/nvaccess/nvda/issues/14269" target="_blank">#14269</A>)
+<LI>في شاشة البحث المتقدم في Outlook 2016 / 365؛ أصبحت تسميات وقيم عناصر منتقي التاريخ مقروءةً. (<A HREF="https://github.com/nvaccess/nvda/issues/12726" target="_blank">#12726</A>)
+<LI>سيُعلَن الآن عن عناصر (ARIA Switch) في Firefox، و Chrome و Edge على أنها أزرار تبديل عوضًا عن الإعلان عنها كمربّعات تحديد. (<A HREF="https://github.com/nvaccess/nvda/issues/11310" target="_blank">#11310</A>)
+<LI>سيُعلن NVDA تلقائيا عن حالة الترتيب عند قراءة رأس العمود لجدول HTML عند تغييرها بالضغط على زر مضمَّن في الجدول. (<A HREF="https://github.com/nvaccess/nvda/issues/10890" target="_blank">#10890</A>)
+<LI>في نمط التصفُّح، عند الانتقال لعلامة إرشادية أو منطقة من خارجها عبر مفاتيح الحركة السريعة المنفردة أو بنقل مؤشّر النظام، ستُقرأ أسماؤها تلقائيا دائما. (<A HREF="https://github.com/nvaccess/nvda/issues/13307" target="_blank">#13307</A>)
+<LI>عند تفعيل إصدار الصفير أو نُطق كلمة "CAP" عند المرور بالأحرف الكبيرة، إلى جانب تفعيل خيار الإعلان المتراخي عن الأوصاف الصوتية للأحرف؛ لن يتكرر الصفير أو نُطق كلمة "Cap". (<A HREF="https://github.com/nvaccess/nvda/issues/14239" target="_blank">#14239</A>)
+<LI>في تطبيقات Java، أصبح NVDA يعلن بدقة أكثر عن عناصر التحكُّم ضمن الجداول. (<A HREF="https://github.com/nvaccess/nvda/issues/14347" target="_blank">#14347</A>)
+<LI>لن تختلف بعض الإعدادات على نحو غير متوقَّع عند استخدام أكثر من وضع. (<A HREF="https://github.com/nvaccess/nvda/issues/14170" target="_blank">#14170</A>)
+ <UL>
+ <LI>ينطبق هذا على الإعدادات الآتية:
+  <UL>
+  <LI>المسافات البادئة للسطر في إعدادات تنسيق المستند.
+  <LI>حدود الخلية في إعدادات تنسيق المستند.
+  <LI>ظهور الرسائل في إعدادات برايل.
+  <LI>إرفاق مؤشّر برايل في إعدادات برايل.
+  </UL>
+ <LI>في بعض الحالات النادرة، قد يحدث تعديلات على هذه الإعدادات المستخدمة مع أكثر من وضع عند تثبيت هذا الإصدار من NVDA.
+ <LI>يُرجى التأكُّد من هذه الخيارات في الأوضاع الخاصة بك بعد الترقية لهذا الإصدار.
+ </UL>
+<LI>سيُعلَن الآن عن الرموز والوجوه التعبيرية في لغات أكثر. (<A HREF="https://github.com/nvaccess/nvda/issues/14433" target="_blank">#14433</A>)
+<LI>حل مشكلة عدم الإعلان عن وجود التعليقات التوضيحية لبعض العناصر عبر برايل. (<A HREF="https://github.com/nvaccess/nvda/issues/13815" target="_blank">#13815</A>)
+<LI>إصلاح مشكلة عدم حفظ تغييرات الإعدادات بشكل صحيح، عند تغيير إعداد بالتبديلمن  خيار "الافتراضي" إلى القيمة التي تمثّل الخيار "الافتراضي". (<A HREF="https://github.com/nvaccess/nvda/issues/14133" target="_blank">#14133</A>)
+<LI>عند ضبط NVDA، سيظل هناك دائما مفتاح واحد على الأقل يعمل كمفتاح NVDA المصاحب. (<A HREF="https://github.com/nvaccess/nvda/issues/14527" target="_blank">#14527</A>)
+<LI>عند الوصول لقائمة NVDA الرئيسة عبر منطقة الإعلام؛ لن يُشير NVDA لوجود تحديثات معلَّقة إن لم تكُن هناك تحديثات. (<A HREF="https://github.com/nvaccess/nvda/issues/14523" target="_blank">#14523</A>)
+<LI>سيُعلَن الآن بشكل صحيح عن الوقت المتبقّي والمنقضي والوقت الإجمالي للمقاطع الصوتية التي يزيد طولها عن اليوم في foobar2000. (<A HREF="https://github.com/nvaccess/nvda/issues/14127" target="_blank">#14127</A>)
+<LI>في متصفّحات شبكة الإنترنت مثل: Chrome و FireFox؛ ستُعرَضُ التنبيهات (مثل تلك التي تُشير لوجود 5 ملفّات في التنزيلات) على أسطر برايل إلى جانب الإعلان عنها نُطقًا. (<A HREF="https://github.com/nvaccess/nvda/issues/14562" target="_blank">#14562</A>)
+<LI>معالجة خطأ كان يحدث عند الانتقال للعمود الأول والأخير ضمن الجداول في Firefox (<A HREF="https://github.com/nvaccess/nvda/issues/14554" target="_blank">#14554</A>)
+<LI>إمكانية فتح مربّع الحوار الخاص بالإعدادات العامة كما في السابق، عند تشغيل NVDA باستخدام الوسيط <CODE>--lang=Windows</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14407" target="_blank">#14407</A>)
+</UL>
+
+<P></P>
+<H3>تعديلاتٌ للمطورين</H3>
+<P>
+يضمُّ ملف المستجدات الخاص بهذا الإصدار العديد من التعديلات التي من شأنها تسهيل أداء وعمل مطوري البرنامج، إلا أنها لم تَرِدْ في النسخة العربية حيث أن المستخدم لن يستفيد منها بشكل مباشر كما أنها تضم مصطلحات تقنية متخصصة جدا لا يستخدمها ولا يحتاجها سوى مطوّرو البرنامج. ولمن يرغب في الاطلاع على هذا القسم يمكنه الرجوع إلى ملف المستجدات الموجود باللغة الإنجليزية
+</P>
+<H2> ٢.0224</H2>
+<P>
+يتضمّن هذا الإصدار عددا من مفاتيح الاختصار الجديدة، بما في ذلك أوامر لقراءة كامل عناصر الجداول.
+أيضًا، أُضيف قسم "دليل البدء السريع" إلى دليل الاستخدام.
+إضافةً للعديد من الإصلاحات للأخطاء.
+</P>
+<P>
+كما حصل كل من آلة النُطق ESpeak ومكتبة جداول برايل LibLouis على تحديث جديد.
+هناك جداول برايل جديدة للغات الصينية والسويدية واللوغندية وكينيارواندا.
+</P>
+<H3>المستجدات</H3>
+<UL>
+<LI>إضافةُ قسم "دليل البدء السريع" إلى دليل المستخدم. (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>إضافةُ أمر جديد لمعرفة مفتاح الاختصار (االتسريع) المخصص للكائن الذي يوجد عنده مؤشّر النظام. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+ <UL>
+ <LI>للحاسوب المكتبي: <CODE>shift+numpad2</CODE> (مفتاح Shift مع مفتاح الرقم 2 على اللوحة الرقمية).
+ <LI>للحاسوب المحمول: <CODE>NVDA+ctrl+shift+.</CODE>.
+ </UL>
+<LI>إضافةُ أوامر جديدة لنقل مؤشّر الاستعراض وِفقًا للصفحة، في البرامج التي تدعم ذلك. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+ <UL>
+ <LI>الانتقال للصفحة السابقة:
+  <UL>
+  <LI>للحاسوب المكتبي: <CODE>NVDA+pageUp</CODE>.
+  <LI>للحاسوب المحمول: <CODE>NVDA+shift+pageUp</CODE>.
+  </UL>
+ <LI>الانتقال للصفحة التالية:
+  <UL>
+  <LI>للحاسوب المكتبي: <CODE>NVDA+pageDown</CODE>.
+  <LI>للحاسوب المحمول: <CODE>NVDA+shift+pageDown</CODE>.
+  </UL>
+ </UL>
+<LI>إضافةُ الأوامر الآتية الخاصة بالجداول. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+ <UL>
+ <LI>قراءة العمود (من الخلية الحالية): <CODE>NVDA+control+alt+downArrow</CODE>
+ <LI>قراءة الصف (من الخلية الحالي): <CODE>NVDA+control+alt+rightArrow</CODE>
+ <LI>قراءة العمود كاملًا: <CODE>NVDA+control+alt+upArrow</CODE>
+ <LI>قراءة الصف كاملًا: <CODE>NVDA+control+alt+leftArrow</CODE>
+ </UL>
+<LI>في Microsoft Excel حال تفعيل أتمتة واجهة المستخدم UI Automation: سيعلن NVDA عد خروج المؤشّر خارج نطاق الجدول في أوراق العمل. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+ - 
+<LI>يمكن الآن ضبط الإعلان عن كل من رؤوس الأعمدة والصفوف بشكل منفصل. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>التغييرات</H3>
+<UL>
+<LI>تحديث آلة النُطق ESpeak إلى 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+ <UL>
+ <LI>إصلاح الإعلان عن الأحرف اللاتينية عند استخدام لغة ماندارين. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+ </UL>
+<LI>ترقية مكتبة جداول برايل LibLouis إلى الإصدار <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank"> ٢.3٣.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+ <UL>
+ <LI>تضمّن جداول برايل جديدة:
+  <UL>
+  <LI>جدول برايل للصينية الشائعة (أحرف الصينية المبسَّطة)
+  <LI>جدول برايل كينيرواندي دون اختصارات (literary braille)
+  <LI>جدول برايل لوغندي دون اختصارات (literary braille)
+  <LI>جدول برايل سويدي دون اختصارات
+  <LI>جدول برايل سويدي مختصر جزئيا
+  <LI>جدول برايل سويدي باختصارات
+  <LI>جدول برايل صيني (الصين، المندرينية الرسمية) نظام برايل الحالي (دون نغمات) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+ -
+  </UL>
+ </UL>
+<LI>سيتضمّن نظام تتبُّع إحصائيات الاستخدام الخاص ب NVDA نوع نواة النظام. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>الإصلاحات</H3>
+<UL>
+<LI>سيعلن NVDA الآن بشكل صحيح عن صناديق المجموعات في تبطيقات Java. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>سيتزامن موضع مؤشّر التحرير مع النص المقروء عند استخدام أمر قراءة الكل في برامج مثل Bookworm، وWordPad، وعارض تقارير NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>سيُعلَن عن حالة مربّعات التحديد المحددة جزئيا بشكل صحيح في البرامج التي تستخدم أتمتة واجهة المستخدم UI Automation. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>تحسيناتٌ على الأداء ومزيد من الاستقرار في برامج Microsoft Visual Studio، Windows Terminal، والبرامج الأخرى التي تعمل مع أتمتة واجهة المستخدم UI Automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+ <UL>
+ <LI>هذه الإصلاحات تظهر في Windows 11 Sun Valley 2 (الإصدار 22H2)
+ <LI>التسجيل الانتقائي لأحداث أتمتة واجهة المستخدم والتغغيرات على الخصائص مفعَّلٌ الآن افتراضيا.
+ </UL>
+<LI>قراءة النصوص، وعرض برايل، وكلمات المرور تعمل الآن على النحو المطلوب في سطر توجيه الأوامر Windows Terminal المضنّن في Visual Studio 2022. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>يمكن ل NVDA التعرف على مقياس DPI عند استخدام أجهزة عرض متعددة.
+هناك إصلاحات عديدة على استخدام DPI عند ضبط إعداد له على قيمة أعلى من 100%، أو عند استخدام أجهزة عرض متعددة.
+لكن لا تزال هذه المشاكل موجودة عند العمل على إصدارات أقدم من Windows 10 1809.
+لتعمل هذه الإصلاحات؛ يجب أن تكون البرامج التي يعمل معها NVDA أيضا قادرةً على تمييز DPI.
+مع ملاحظة أنه لا تزال هناك مشاكل معينة قائمة عند استخدام Chrome و Edge. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>العناصر والإطارات المميزة مرئيا ينبغي أن تظهر بشكل صحيح في معظم التطبيقات. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>يجب أن يعمل التفاعل مع الشاشة باللمس بشكل أدقّ في معظم التطبيقات. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>سيعمل تتبُّع مسار الفأرة الآن مع معظم التطبيقات. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>عند عدم حدوث تغييرات على حالة اتجاه العرض  (أفُقي/عمودي)؛ ستُتجاهل بشكل صحيح (كما في تغييرات الشاشة). (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>سيعلن NVDA عن سحب العناصر على الشاشة في حالات مثل إعادة ترتيب عناصر قائمة ابدأ في Windows 10، وإعادة ترتيب أسطح المكتب في Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>في شاwww==شة الإعدادات المتقدمة، خيار "إصدار صوت للأخطاء المسجلة في سجلّ الأخطاء" سيستعيد قيمته الافتراضية الصحيحة عند ضغط زر "استعادة الإعدادات الافتراضية". (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>في برامج Java، يمكن لNVDA تحديد النص باستخدام مفتاح الاختصار NVDA+f10. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>في Microsoft Teams، لن يخفق NVDA ويتوقف عند استعراض الرسائل بالأسهم لأعلى وأسفل في قائمة محادثات مسلسلة. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H3>تعديلاتٌ للمطورين</H3>
+<P>
+يضمُّ ملف المستجدات الخاص بهذا الإصدار العديد من التعديلات التي من شأنها تسهيل أداء وعمل مطوري البرنامج، إلا أنها لم تَرِدْ في النسخة العربية حيث أن المستخدم لن يستفيد منها بشكل مباشر كما أنها تضم مصطلحات تقنية متخصصة جدا لا يستخدمها ولا يحتاجها سوى مطوّرو البرنامج. ولمن يرغب في الاطلاع على هذا القسم يمكنه الرجوع إلى ملف المستجدات الموجود باللغة الإنجليزية
+</P>
+<H3>المستجدات</H3>
+<H2> ٢.0223</H2>
+<P>
+احتوى هذا الإصدار على عدد كبير من مساهمات أفراد ضمن مجتمع تطوير NVDA.
+يشمل ذلك، توفير أوصاف الأحرف الصوتية، وتحسينات على دعم وحدة التحكُّم Windows Console المستخدمة من قِبَل نوافذ توجيه الأوامر.
+</P>
+<P>
+وتضمّن الإصدار أيضًا العديد من إصلاحات الأخطاء.
+ويُلاحظ أيضا، أن الإصدارات الأخيرة من Adobe Acrobat/Reader لن تنهار عند قراءة مستندات PDF.
+</P>
+<P>
+كذلك، حصلت آلة eSpeak على تحديث يشتمل على ثلاث لغاتٍ جديدة: البيلالوسية، اللوكسمبورجية، وتونتوبيك المكسيكية Totontepec Mixe.
+</P>
+<H3>المستجدات</H3>
+<UL>
+<LI>في وحدة تحكُّم Windows، المستخدَمة من قِبَل موجّه الأوامر CMD، و Power Shell، ونظام Windows الفرعي لنظام Linux (WSL)، على Windows 11 الإصدار 22H2 (Sun Valley 2) وما بعده:
+ <UL>
+ <LI>تحسّنٌ كبير في الأداء ومزيد من الاستقرار. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+ <LI>عند البحث عن نص بستخدام مفتاحي ``control+f، سينتقل مؤشّر الاستعراض لموضع نتيجة البحث. (<A HREF="https://github.com/nvaccess/nvda/issues/11172" target="_blank">#11172</A>)
+ <LI>الإعلان عن النص المكتوب الذي لا يكون ظاهرا على الشاشة (مثل كلمات المرور) سيكون معطلًا افتراضيا. يمكن تفعيله عبر شاشة 
+ إعدادات NVDA المتقدمة. (<A HREF="https://github.com/nvaccess/nvda/issues/11554" target="_blank">#11554</A>)
+ <LI>يمكن استعراض النص الموجود خارج نطاق العرض على الشاشة، دون الحاجة لتمرير نافذة وحدة توجيه الأوامر. (<A HREF="https://github.com/nvaccess/nvda/issues/12669" target="_blank">#12669</A>)
+ <LI>تتوفّر الآن معلومات وتفاصيل أكثر عن تنسيقات الخطوط (<A HREF="https://github.com/microsoft/terminal/pull/10336" target="_blank">microsoft/terminal PR 10336</A>)
+ </UL>
+<LI>إضافةُ خيارٍ جديد للإعلان المتراخي (بعد صمت يسير) عن الأوصاف الصوتية للأحرف (<A HREF="https://github.com/nvaccess/nvda/issues/13509" target="_blank">#13509</A>)
+<LI>إضافةُ خيار جديد ضمن إعدادات برايل، لتخيير المستخدم بين توقُّف النُطق أثناء تمرير سطر برايل للأمام أو الخلف أو عدم توقُّفه. (<A HREF="https://github.com/nvaccess/nvda/issues/2124" target="_blank">#2124</A>)
+</UL>
+
+<P></P>
+<H3>التغييرات</H3>
+<UL>
+<LI>تحديث محرّك النُطق ESpeak 1.52-dev commit <CODE>9de65fcb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13295" target="_blank">#13295</A>)
+ <UL>
+ <LI>تضمّن لغاتٍ جديدة:
+  <UL>
+  <LI>البيلاروسية
+  <LI>اللوكسببمبورجية
+  <LI>توتونبوتيك مكس Totontepec Mixe
+  </UL>
+ </UL>
+<LI>عند استخدام أتمتة واجهة المستخدم للوصول لعناصصر التحكُّم في أوراق العمل في Microsoft Excel؛ سيُشير NVDA للخلايا المدمجة. (<A HREF="https://github.com/nvaccess/nvda/issues/12843" target="_blank">#12843</A>)
+<LI>بدلا من الاقتصار على الإعلان عن وجود تفاصيل مرتبطة بالعنصر؛ سيُعلن NVDA عن نوع تلك التفاصيل متى ما كان ذلك ممكنًا، على سبيل المثال: سيشير لوجود تعليق. (<A HREF="https://github.com/nvaccess/nvda/issues/13649" target="_blank">#13649</A>)
+<LI>في قسم التطبيقات والمزايا الخاص ب Windows، سيظهر حجم التثبيت ل NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13909" target="_blank">#13909</A>)
+</UL>
+
+<P></P>
+<H3>الإصلاحات</H3>
+<UL>
+<LI>لن ينهار Adobe Acrobat / Reader 64 بِت عند قراءة مستندات PDF. (<A HREF="https://github.com/nvaccess/nvda/issues/12920" target="_blank">#12920</A>)
+ <UL>
+ <LI>ينبغي تثبيت الإصدار الأحدث من Adobe Acrobat / Reader  لتجنُّب الانهيار.
+ </UL>
+<LI>وحدات قياس الخطوط أصبحت قابلةً للترجمة في NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13573" target="_blank">#13573</A>)
+<LI>تجاهُل أحداث Java Access Bridge عند عدم وجود نافذة لتطبيقات Java.
+سيؤدي ذلك لتحسين أداء بعض تطبيقات Java، ومن ضمنها IntelliJ IDEA. (<A HREF="https://github.com/nvaccess/nvda/issues/13039" target="_blank">#13039</A>)
+<LI>تحسينُ الإعلان عن الخلايا المحددة في LibreOffice Calc، حيث لم يعُد برنامج Calc يتجمّد عند تحديد عدد كبير من الخلايا. (<A HREF="https://github.com/nvaccess/nvda/issues/13232" target="_blank">#13232</A>)
+<LI>عند العمل على Microsoft Edge باستخدام اسم مستخدم مختلف، لن يصبح المتصفّح غير قابل للوصول. (<A HREF="https://github.com/nvaccess/nvda/issues/13032" target="_blank">#13032</A>)
+<LI>لن يقفز مؤشر سرعة آلة ESpeak ليصبح بين 99% و100%، عند تعطيل خيار زيادة معدّل السرعة.  (<A HREF="https://github.com/nvaccess/nvda/issues/13876" target="_blank">#13876</A>)
+<LI>إصلاح مشكلة تتسبب في إتاحة فتح أكثر من محاورة لتخصيص الاختصارات. (<A HREF="https://github.com/nvaccess/nvda/issues/13854" target="_blank">#13854</A>)
+</UL>
+
+<P></P>
+<H3>تعديلاتٌ للمطورين</H3>
+<P>
+يضمُّ ملف المستجدات الخاص بهذا الإصدار العديد من التعديلات التي من شأنها تسهيل أداء وعمل مطوري البرنامج، إلا أنها لم تَرِدْ في النسخة العربية حيث أن المستخدم لن يستفيد منها بشكل مباشر كما أنها تضم مصطلحات تقنية متخصصة جدا لا يستخدمها ولا يحتاجها سوى مطوّرو البرنامج. ولمن يرغب في الاطلاع على هذا القسم يمكنه الرجوع إلى ملف المستجدات الموجود باللغة الإنجليزية
+</P>
+<H2> ٢.0222</H2>
+<P>
+يتضمَّن هذا الإصدار حلًا للعديد من الأخطاء.
+ومما يستحقُّ الإشارة أن هناك تحسينات كبيرة على التطبيقات المستندة على Java، وعلى شاشات عرض برايل، وميزات في Windows.
+</P>
+<P>
+وقد أُضيفت أوامر جديدة لاستعراض الجداول.
+وحُدِّثَت مكتبة Unicode CLDR الخاصة بالرموز والوجوه التعبيرية..
+وحُدّثت مكتبة LibLouis، حيث أُضيف إليها جدول برايل ألماني جديد.
+</P>
+<H3>المستجدّات</H3>
+<UL>
+<LI>دعم التفاعل مع مكونات Microsoft Loop في منتجات Microsoft Office. (<A HREF="https://github.com/nvaccess/nvda/issues/13617" target="_blank">#13617</A>)
+<LI>إضافةُ أوامر جديدة لاستعراض الجداول. (<A HREF="https://github.com/nvaccess/nvda/issues/957" target="_blank">#957</A>)
+ <UL>
+ <LI><CODE>control+alt+home/end</CODE> للقفز مباشرةً للعمود الأول والعمود الأخير.
+ <LI><CODE>control+alt+pageUp/pageDown</CODE> للقفز للصف الأول والصف الأخير.
+ </UL>
+<LI>إضافةُ أمر (لم يُحدَّد له اختصار معين) للتبديل بين أنماط التبديل التلقائي بين اللغات واللهجات. (<A HREF="https://github.com/nvaccess/nvda/issues/10253" target="_blank">#10253</A>)
+</UL>
+
+<P></P>
+<H3>التغييرات</H3>
+<UL>
+<LI>تحديث NSIS إلى الإصدار 3.08. (<A HREF="https://github.com/nvaccess/nvda/issues/9134" target="_blank">#9134</A>)
+<LI>تحديث CLDR للإصدار 41.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13582" target="_blank">#13582</A>)
+<LI>ترقية مترجم LibLouis braille إلى <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.22.0" target="_blank"> ٢.2٣.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13775" target="_blank">#13775</A>)
+ <UL>
+ <LI>جدول برايل جديد: ألماني الدرجة الثانية (مُفصَّل)
+ </UL>
+<LI>إضافة وظيفة جديدة لعناصر التحكّثم ذات "المؤشّر قيد العمل". (<A HREF="https://github.com/nvaccess/nvda/issues/10644" target="_blank">#10644</A>)
+<LI>سيعلنُ NVDA عن عدم إمكانية تنفيذ الإجراء. (<A HREF="https://github.com/nvaccess/nvda/issues/13500" target="_blank">#13500</A>)
+ <UL>
+ <LI>يشملُ ذلك الحالات الآتية:
+  <UL>
+  <LI>استخدام إصدار NVDA الموجود على متجر تطبيقات Windows.
+  <LI>ضمن الشاشات الآمنة.
+  <LI>عند وجود مربّع حوار ينتظر استجابةً من المستخدم.
+  </UL>
+ </UL>
+</UL>
+
+<P></P>
+<H3>الإصلاحات</H3>
+<UL>
+<LI>إصلاحاتٌ تتعلق بالتطبيقات المبنية على Java:
+ <UL>
+ <LI>سيعلنُ NVDA عندما تكون الحالة (للقراءة فقط). (<A HREF="https://github.com/nvaccess/nvda/issues/13692" target="_blank">#13692</A>)
+ <LI>سيعلن NVDA بشكل صحيح عن كون العنصر مفعلا أو معطلا. (<A HREF="https://github.com/nvaccess/nvda/issues/10993" target="_blank">#10993</A>)
+ <LI>سيعلن NVDA عن مفاتيح الاختصار إذا كانت من مفاتيح المهام (function key shortcuts). (<A HREF="https://github.com/nvaccess/nvda/issues/13643" target="_blank">#13643</A>)
+ <LI>يمكن ل NVDA الآن النُطق وإصدار الصفير في أشرطة التقدُّم. (<A HREF="https://github.com/nvaccess/nvda/issues/13594" target="_blank">#13594</A>)
+ <LI>لن يتسبَّب NVDA في إزالة النصوص خطأً من مربّعات النصوص عند عرضها للمستخدم. (<A HREF="https://github.com/nvaccess/nvda/issues/13102" target="_blank">#13102</A>)
+ <LI>سيعلن NVDA عن حالة أزرار التبديل بين التفعيل والتعطيل. (<A HREF="https://github.com/nvaccess/nvda/issues/9728" target="_blank">#9728</A>)
+ <LI>سيقرأNVDA اسم النافذة بشكل صحيح ضمن تطبيقات Java متعددة النوافذ. (<A HREF="https://github.com/nvaccess/nvda/issues/9184" target="_blank">#9184</A>)
+ <LI>سيعلن NVDA عن موضع التوبيبات. (<A HREF="https://github.com/nvaccess/nvda/issues/13744" target="_blank">#13744</A>)
+ </UL>
+<LI>إصلاحات تتعلَّق بشاشات عرض برايل:
+ <UL>
+ <LI>إصلاح عرض مُخرَجات برايل عند تصفُّح بعض النصوص في حقول التحرير الغنية في تطبيقات Mozilla، مثل حقل المحتوى المخصص لإنشاء رسالة جديدة في Thunderbird. (<A HREF="https://github.com/nvaccess/nvda/issues/12542" target="_blank">#12542</A>)
+ <LI>عندما يكون إرفاق مؤشّر برايل مضبوطا على الوضع التلقائي، في حال تحريك الفأرة بينما يكون تتبُّع مسار الفأرة مفعَّلاً؛ سيتزامن النص المعروض على شاشة برايل مع النص المنطوق عند استخدام أوامر استعراض النص بمؤشّر الاستعراض. (<A HREF="https://github.com/nvaccess/nvda/issues/11519" target="_blank">#11519</A>)
+ <LI>بات ممكنا استعراض المحتوى عبر شاشات برايل بعد استخدام أوامر استعراض النص. (<A HREF="https://github.com/nvaccess/nvda/issues/8682" target="_blank">#8682</A>)
+ </UL>
+<LI>في متصفح Firefox؛ لن يُخفق NVDA في الإعلان عن عناصر صفحات الويب، إذا كانت خصائص aria-rowindex, aria-colindex, aria-rowcount أو aria-colcount غير متاحة. (<A HREF="https://github.com/nvaccess/nvda/issues/13405" target="_blank">#13405</A>)
+<LI>عند استخدام أوامر تصفُّح الجدول، لن يتغيّر موضع المؤشّر لصف أو عمود آخر إذا وُجِدت خلايا مُدمجة في الجدول. (<A HREF="https://github.com/nvaccess/nvda/issues/7278" target="_blank">#7278</A>)
+<LI>في برنامج Adobe Reader، عند قراءة ملفات PDF غير تفاعلية، سيُعلَن عن نوع وحالة حقول وعناصر النماذج (مثل مربّعات التحديد وأزرار الاختيار). (<A HREF="https://github.com/nvaccess/nvda/issues/13285" target="_blank">#13285</A>)
+<LI>يمكن لبرنامج تثبيت NVDA العمل الآن إن كان اسم المجلد الذي يحتوي ملف التثبيت متضمنا لأحرف خاصة. (<A HREF="https://github.com/nvaccess/nvda/issues/13270" target="_blank">#13270</A>)
+<LI>يمكن الآن الوصول لأمر "استرجاع الإعدادات الافتراضية" في الوضع الآمن. (<A HREF="https://github.com/nvaccess/nvda/issues/13547" target="_blank">#13547</A>)
+<LI>سيعلن Visual Studio عن أرقام الأسطر. (<A HREF="https://github.com/nvaccess/nvda/issues/13604" target="_blank">#13604</A>)
+ <UL>
+ <LI>ينبغي ملاحظة أن الإعلان عن رقم السطر يتطلب تفعيل خاصية الإعلان عن أرقام الأسطر في كل من Visual Studio و NVDA. 
+ </UL>
+<LI>سيعلن Visual Studio  عن الإزاحات البادئة للسطر بشكل صحيح. (<A HREF="https://github.com/nvaccess/nvda/issues/13574" target="_blank">#13574</A>)
+<LI>سيعلن NVDA -كما كان سابقا- عن تفاصيل نتائج البحث في قائمة "ابدأ" في إصدارات Windows 10 الأخيرة، وإصدارات Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13544" target="_blank">#13544</A>)
+<LI>في الآلة الحاسبة المدمجة في Windows 10 و11، الإصدار 10.1908  وما بعده؛ سيُعلن NVDA عن النتائج عند الضغط على مزيد من الأوامر، مثل أوامر الوضع العلمي. (<A HREF="https://github.com/nvaccess/nvda/issues/13383" target="_blank">#13383</A>)
+<LI>في Windows 11، أصبح ممكنا كما -كان سابقا- تصفُّح عناصر واجهة المستخدم والتفاعل معها، مثل: شريط المهام، وعرض المهام، عند استخدام الفأرة والتفاعُل باللمس. (<A HREF="https://github.com/nvaccess/nvda/issues/13506" target="_blank">#13506</A>)
+<LI>سيقرأ NVDA محتوى شريط الحالة في برنامج المفكرة الخاص ب Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13386" target="_blank">#13386</A>)
+<LI>سيعمل تمييز مؤشّر NVDA بصريًا فور تفعيل الخاصية. (<A HREF="https://github.com/nvaccess/nvda/issues/13641" target="_blank">#13641</A>)
+<LI>إصلاحٌ لقراءة عناصر القائمة ذات العمود الواحد. (<A HREF="https://github.com/nvaccess/nvda/issues/13659" target="_blank">#13659</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13735" target="_blank">#13735</A>)
+<LI>إصلاحٌ لمشكلة متعلقة بالانتقال الآلي بين اللغات مع الإنجليزية والفرنسية في آلة eSpeak، بحيث يُرجع للإنججليزية البريطانية والفرنسية (فرنسا). (<A HREF="https://github.com/nvaccess/nvda/issues/13727" target="_blank">#13727</A>)
+<LI>إصلاح لخلل متعلق بالتبديل الآلي بين اللغات مع أصوات OneCore، عند محاولة التبديل للغة مُثبَّتة مسبقًا. (<A HREF="https://github.com/nvaccess/nvda/issues/13732" target="_blank">#13732</A>)
+</UL>
+
+<P></P>
+<H3>تعديلاتٌ للمطورين</H3>
+<P>
+يضمُّ ملف المستجدات الخاص بهذا الإصدار العديد من التعديلات التي من شأنها تسهيل أداء وعمل مطوري البرنامج، إلا أنها لم تَرِدْ في النسخة العربية حيث أن المستخدم لن يستفيد منها بشكل مباشر كما أنها تضم مصطلحات تقنية متخصصة جدا لا يستخدمها ولا يحتاجها سوى مطوّرو البرنامج. ولمن يرغب في الاطلاع على هذا القسم يمكنه الرجوع إلى ملف المستجدات الموجود باللغة الإنجليزية
+</P>
+<H2> ٢.0221</H2>
+<P>
+يتضمَّن هذا الإصدار تحسيناتٍ كبيرة على دعم أتمتة واجهة المستخدم UIA مع تطبيقات MS Office المكتبية.
+مع Microsoft Office 16.0.15000 وما بعده على Windows 11؛ سيستخدم NVDA افتراضيا أتمتة واجهة المستخدم (UI Automation) للوصول إلى عناصر التحكُّم في مستندات Microsoft Word.
+سينجمُ عن هذا تحسيناتٌ كبيرة مقارنةً بالنمط المستخدم سابقًا.
+</P>
+<P>
+هناك تحسيناتٌ على معرِّفات أسطر برايل الإلكترونية، بما في ذلك Seika Notetaker، و Papenmeier  HID Braille
+بالإضافة لذلك، هناك إصلاحاتٌ للعديد من الأخطاء في Windows 11، في تطبيقات مثل: الآلة الحاسبة، وحدات توجيه الأوامر Console، و Terminal، البريد، ولوحة الرموز والوجوه التعبيرية Emoji.
+</P>
+<P>
+أيضًا، حُدِّثَتْ آلة النُطق eSpeak-NG وكذلك مكتبة LibLouis، التي احتوت على جداول برايل جديدة للغة اليابانية والألمانية والكاتالونية.
+</P>
+<P>
+ملاحظة:
+</P>
+ <UL>
+ <LI>هذا الإصدار لن يتوافق مع الإضافات الموجودة حاليا.
+ </UL>
+
+<P></P>
+<H3>المستجدات</H3>
+<UL>
+<LI>دعمُ الإعلان عن الملاحظات في MS Excel على Windows 11 عند تفعيل أتمتة واجهة المستخدم. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>في الإصدارات الأخيرة من Microsoft Word، عند تفعيل أتمتة واجهة المستخدم (UI Automation) على Windows 11؛ سيُعلَنُ عن وجود العلامات المرجعية، ومسوَّدات التعليقات، والتعليقات التي وُجدت لها حلول عبر النُطق وبرايل معا. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>سيُتيحُ مُعامِل سطر الأوامر الجديد <CODE>--lang</CODE> تجاوز لغة واجهة NVDA المحددة ضمن الإعدادات. (<A HREF="https://github.com/nvaccess/nvda/issues/10044" target="_blank">#10044</A>)
+<LI>عند استخدام Microsoft Word عبر أتمتة واجهة المستخدم (UI Automation)، سيستخدم NVDA mathPlayer لقراءة محتوى المعادلات الرياضية في Office. (<A HREF="https://github.com/nvaccess/nvda/issues/12946" target="_blank">#12946</A>)
+ <UL>
+ <LI>لتعمل هذه الخاصية، ينبغي أن يكون العمل على Microsoft Word 365/2016 الإصدار 14326 أو أحدث. 
+ <LI>يجب أيضًا تحويل معادلات MathType يدويًا إلى Office Math، وذلك بتحديد كل منها، ثم فتح قائمة السياق، واختيار خيارات المعادلة، ثم التحويل إلى Office Math. 
+ </UL>
+<LI>سيُصدرُ NVDA تنبيهًا عند استخدام مُعامِلات في سطر الأوامر غير معروفة له أو غير مستخدَمة من قَبَل أي من الإضافات البرمجية. (<A HREF="https://github.com/nvaccess/nvda/issues/12795" target="_blank">#12795</A>)
+<LI>الإعلان عن وجود تفاصيل للعناصر ذات التعليقات، والأمر الخاص بإظهار ملخَّص بتلك التفاصيل يعمل الآن في النمط التفاعلي. (<A HREF="https://github.com/nvaccess/nvda/issues/13106" target="_blank">#13106</A>)
+<LI>أجهزة مفكرات برايل Seika Notetaker ستُكتشَف تلقائيا عند توصيله عبر USB أو  Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/13191" target="_blank">#13191</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13142" target="_blank">#13142</A>)
+ <UL>
+ <LI>هذا ينطبق على أجهزة MiniSeika (ذات 16 و 24 خلية)، الإصدار 6 و 6Pro (40 خلية)
+ <LI>اختيار منفذ bluetooth COM يدويا مدعوم حاليا أيضًا.
+ </UL>
+<LI>إضافة أمر للتبديل بين تفعيل وتعطيل عارض الخط البارز Braille. لا يوجد مفتاح اختصار مُعيَّن افتراضيا لذلك. (<A HREF="https://github.com/nvaccess/nvda/issues/13258" target="_blank">#13258</A>)
+<LI>إضافةُ أوامر للتبديل بين تفعيل وتعطيل عدد من المفاتيح المصاحبة عبر أسطر برايل الإلكترونية. (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>يحتوي مربّع الحوار الخاص بمعجم النُطق الآن على زر "إزالة الكل" للمساعدة في حذف المعجم بأكمله. (<A HREF="https://github.com/nvaccess/nvda/issues/11802" target="_blank">#11802</A>)
+<LI>إضافةُ دعمٍ للآلة الحاسبة المدمجة في Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13212" target="_blank">#13212</A>)
+<LI>في Microsoft Word عند تفعيل أتمتة واجهة المستخدم (UI Automation) على Windows 11، يمكن الآن الإعلان عن أرقام الأسطر، أرقام الأقسام، وأرقام الأعمدة في تخطيط الأعمدة. (<A HREF="https://github.com/nvaccess/nvda/issues/13283" target="_blank">#13283</A>)
+<LI>في Microsoft Office 16.0.15000 والإصدارات الأحدث على Windows 11، سيستخدم NVDA أتمتة واجهة المستخدم (UI Automation) للوصول إلى مستندات Microsoft Word افتراضيًا، والذي سيعكسُ تحسينًا ملحوظًا على الأداء، مقارنةً بنمط الوصول المستخدم قديمًا. (<A HREF="https://github.com/nvaccess/nvda/issues/13437" target="_blank">#13437</A>)
+ <UL>
+ <LI>يشمل هذا المستندات في Microsoft Word، إضافةً لإنشاء وقراءة رسائل البريد الإلكتروني في Microsoft Outlook.
+ </UL>
+</UL>
+
+<P></P>
+<H3>التغييرات</H3>
+<UL>
+<LI>تحديث آلة Espeak-ng إلى 1.51-dev commit <CODE>7e5457f91e10</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12950" target="_blank">#12950</A>)
+<LI>تحديث مكتبة مترجم برايل liblouis إلى الإصدار <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.21.0" target="_blank"> ٢.1٣.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13141" target="_blank">#13141</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13438" target="_blank">#13438</A>)
+ <UL>
+ <LI>إضافة جدول برايل جديد للغة اليابانية (Kantenji) حرفي غير مختصر.
+ <LI>إضافة جدول برايل حاسوبي ألماني ذي ست نقاط.
+ <LI>إضافة جدول برايل كاتالوني بدون اختصارات (الدرجة الأولى). (<A HREF="https://github.com/nvaccess/nvda/issues/13408" target="_blank">#13408</A>)
+ </UL>
+<LI>سيعلن NVDA عن الخلايا المحددة والمدمجة في LibreOffice Calc 7.3 وما بعده. (<A HREF="https://github.com/nvaccess/nvda/issues/9310" target="_blank">#9310</A>, <A HREF="https://github.com/nvaccess/nvda/issues/6897" target="_blank">#6897</A>)
+<LI>تحديث مشروع مستودع لغة بيانات Unicode  العامة (CLDR) إلى الإصدار  40.0. (<A HREF="https://github.com/nvaccess/nvda/issues/12999" target="_blank">#12999</A>)
+<LI>عند الضغط على مفتاح الاختصار <CODE>NVDA+Numpad Delete</CODE> (NVDA + مفتاح الحذف على  اللوحة الرقمية)؛ سيعلن NVDA افتراضيا عن الكائن الموجود في موضع مؤشّر التحرير أو مؤشر النظام. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>الضغط على مفتاح الاختصار <CODE>NVDA+Shift +Numpad Delete</CODE> (NVDA + مفتاح العالي + مفتاح الحذف على اللوحة الرقمية)؛ يُعلن موقع مؤشّر الاستعراض. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>إضافة مفاتيح اختصار افتراضية للتبديل بين ضغط وتحرير المفاتيح المساعدة لأسطر برايل الإلكترونية من Freedom Scientific. (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>لن يُعلَن عن تنسيق "السطر الأساسي" ضمن معلومات تنسيق المستند التي تظهر عند الضغط على (<CODE>NVDA+f</CODE>). (<A HREF="https://github.com/nvaccess/nvda/issues/11815" target="_blank">#11815</A>)
+<LI>لم يعُدْ هناك مفتاح اختصار مُعيَّن افتراضيا لتنشيط الوصف المُطوَّل. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>يوجد الآن مفتاح اختصار افتراضي للحصول على ملخَّص التفاصيل: (<CODE>NVDA+d</CODE>). (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>ينبغي إعادةُ تشغيل NVDA بعد تثبيت MathPlayer. (<A HREF="https://github.com/nvaccess/nvda/issues/13486" target="_blank">#13486</A>)
+</UL>
+
+<P></P>
+<H3>الإصلاحات</H3>
+<UL>
+<LI>لن ينتقل مؤشِّر النظام خطأً إلى نافذة حافظة Office عند فتح بعض تطبيقات Office. (<A HREF="https://github.com/nvaccess/nvda/issues/12736" target="_blank">#12736</A>)
+<LI>عند تغيير المستخدم لزر الفأرة الأساسي ليصبح الزر الأيمن عوضًا عن الأيسر، لن يُظهر NVDA قائمة السياق خطأً عوضًا عن تنشيط العنصر في تطبيقات مثل متصفحات الإنترنت. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI>عند نقل مؤشّر الاستعراض لما بعد نهاية النص ضمن حيّزات التحرير كما في Microsoft Word حال تفعيل أتمتة واجهة المستخدم سيعلن NVDA عبارة "النهاية" في أغلب الحالات. (<A HREF="https://github.com/nvaccess/nvda/issues/12808" target="_blank">#12808</A>)
+<LI>يمكن ل NVDA الآن الإعلان عن اسم التطبيق وإصداره للوحدات الموجودة في مجلد System32 عند عملها في نظام Windows 64-bit. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI>تحسين جودة قراءة المخرجات في برامج توجيه الأوامر. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+ <UL>
+ <LI>مع ملاحظة أنه في بععض الحالات، عند إدراج أو حذف أحرف في وسط السطر؛ قد تُقرأ الأحرف الواقعة بعد مؤشر التحرير مرة أخرى.
+ </UL>
+<LI>في MS word حال تفعيل أتمتة واجهة المستخدم (UIA)، عند استخدام مفتاح الانتقال السريع بين رؤوس الموضوعات (العناوين)، لن يعلق NVDA عند رأس الموضوع الأخير في المستند، ولن يظهر رأس الموضوع هذا مرتين ضمن قائمة العناصر الخاصة ب NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/9540" target="_blank">#9540</A>)
+<LI>في Windows 8 وما بعده، يمكن الآن قراءة شريط الحالة في مستكشف الملفات باستخدام مفاتيح الاختصار القياسية المخصصة لذلك NVDA+end (للحاسوب المكتبي) / NVDA+shift+end (للحاسوب المحمول). (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI>أصبحت الرسائل الواردة في محداثات Skype المخصص للأعمال تُقرأ كما في السابق. (<A HREF="https://github.com/nvaccess/nvda/issues/9295" target="_blank">#9295</A>)
+<LI>سيعمل نمط خفض الأصوات في NVDA بشكل صحيح عند استخدام SAPI5 على Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12913" target="_blank">#12913</A>)
+<LI>في الآلة الحاسبة المدمجة في Windows 10، سيقرأ NVDA أسماء العناصر في قائمة المحفوظات وعناصر الذاكرة. (<A HREF="https://github.com/nvaccess/nvda/issues/11858" target="_blank">#11858</A>)
+<LI>ستعمل مفاتيح الاختصار الخاصة بأسطر برايل مثل مفاتيح التمرير وتوجيه المؤشر مرة أخرى في الأجهزة التي تستخدم معرِّف HID Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/13228" target="_blank">#13228</A>)
+<LI>عند قراءة بريد إلكتروني طويل في بريد Windows 11، عند نقل مؤشّر النظام بين التطبيقات، لن يعلق NVDA في سطر من أسطر الرسالة. (<A HREF="https://github.com/nvaccess/nvda/issues/13050" target="_blank">#13050</A>)
+<LI>عند ربط سطر برايل إلكتروني باستخدام HID braille، يمكن الآن تنفيذ مفاتيح الاختصار المكونة من أكثر من مفتاح (مثل: <CODE>space+dot4</CODE> (مفتاح المسافة مع النقطة الرابعة)). (<A HREF="https://github.com/nvaccess/nvda/issues/13326" target="_blank">#13326</A>)
+<LI>حل مشكلة كانت تسمح بفتح مربّعات حوار متعددة خاصة بالإعدادات في ذات الوقت. (<A HREF="https://github.com/nvaccess/nvda/issues/12818" target="_blank">#12818</A>)
+<LI>حل مشكلة كانت تتسبَّب في عدم عمل بعض أسطر Focus Blue بعد فتح الحاسوب وإيقاظه بعد وضع السُبات. (<A HREF="https://github.com/nvaccess/nvda/issues/9830" target="_blank">#9830</A>)
+<LI>عند تفعيل خيار "الإعلان عن الكتابة الفوقية والتحتية"، لن يردّد NVDA عبارة "السطر الأساسي" في مواضع غير مناسبة. (<A HREF="https://github.com/nvaccess/nvda/issues/11078" target="_blank">#11078</A>)
+<LI>في Windows 11، لن تتعذّر الحركة باستخدام NVDA في لوحة الرموز والوجوه التعبيرية عند تحديد رموز تعبيرية. (<A HREF="https://github.com/nvaccess/nvda/issues/13104" target="_blank">#13104</A>)
+<LI>إصلاح خطأ كان يؤدي لقراءة العنصر مرتين في أسطر التحكُّم وتوجيه الأوامر Console و Terminal. (<A HREF="https://github.com/nvaccess/nvda/issues/13261" target="_blank">#13261</A>)
+<LI>معالجة عدد من الحالات  يتعذَّر فيها قراءة عنتصر القوائم في تطبيقات 64 بِت، مثل REAPER. (<A HREF="https://github.com/nvaccess/nvda/issues/8175" target="_blank">#8175</A>)
+<LI>في نافذة إدارة التنزيلات الخاصة ب Microsoft Edge، سينقل NVDA مؤشّر النظام تلقائيا إلى آخر عنصر مُنزَّل. (<A HREF="https://github.com/nvaccess/nvda/issues/13221" target="_blank">#13221</A>)
+<LI>لن يتسبَّب NVDA في انهيار إصدارات 64 Bit من Notepad++ 8.3. (<A HREF="https://github.com/nvaccess/nvda/issues/13311" target="_blank">#13311</A>)
+<LI>لن ينهار Adobe Reader  عند البدء إذا كان وضع الحماية فيه مفعَّلًا. (<A HREF="https://github.com/nvaccess/nvda/issues/11568" target="_blank">#11568</A>)
+<LI>حل مشكلة كانت تتسبب في انهيار NVDA عند اختيار معرِّف سطر برايل الإلكتروني Papenmeier. (<A HREF="https://github.com/nvaccess/nvda/issues/13348" target="_blank">#13348</A>)
+<LI>في Microsoft word حال تفعيل أتمتة واجهة المستخدم (UIA))، لن يُعلن NVDA بصورة غير ملائمة عن أرقام الصفحات والتنسيقات الأخرى عند الانتقال من خلية فارغة في الجدول لأخرى ممتلئة، أو من آخر المستند لموضع يتضمَّن محتوى. (<A HREF="https://github.com/nvaccess/nvda/issues/13458" target="_blank">#13458</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13459" target="_blank">#13459</A>)
+<LI>لن يُخفق NVDA في قراءة عنوان الصفحة وفي بدء القراءة تلقائيا عند تفعيل الصفحة في Google chrome 100. (<A HREF="https://github.com/nvaccess/nvda/issues/13571" target="_blank">#13571</A>)
+<LI>لن ينهار NVDA عند استرجاع الإعدادات الافتراضية، إذا كان خيار نُطق مفاتيح الأوامر مفعَّلًا. (<A HREF="https://github.com/nvaccess/nvda/issues/13634" target="_blank">#13634</A>)
+</UL>
+
+<P></P>
+<H3>تعديلاتٌ للمطورين</H3>
+<P>
+يضمُّ ملف المستجدات الخاص بهذا الإصدار العديد من التعديلات التي من شأنها تسهيل أداء وعمل مطوري البرنامج، إلا أنها لم تَرِدْ في النسخة العربية حيث أن المستخدم لن يستفيد منها بشكل مباشر كما أنها تضم مصطلحات تقنية متخصصة جدا لا يستخدمها ولا يحتاجها سوى مطوّرو البرنامج. ولمن يرغب في الاطلاع على هذا القسم يمكنه الرجوع إلى ملف المستجدات الموجود باللغة الإنجليزية
+</P>
+<H2> ٣.٢.0215</H2>
+<P>
+هذا إصدارٌ ثانوي لسدّ ثغرة أمنية.
+يُرجى الإبلاغ عن الثغرات الأمنية المحتملة عبر البريد الإلكتروني: <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>مشكلات الأمان المُعالجة</H3>
+<UL>
+<LI>معالجة المشكلة الأمنية المُبلغ عنها <CODE>GHSA-xc5m-v23f-pgr7</CODE>.
+ <UL>
+ <LI>مربَّع الحوار الخاص بنُطق الرموز وعلامات الترقيم مُعطَّلٌ الآن في الوضع الآمن.
+ </UL>
+</UL>
+
+<P></P>
+<H2> ٣.٢.0214</H2>
+<P>
+هذا إصدارٌ ثانوي لسد عدة ثغراتٍ أمنية أُبلِغَ عنها.
+يُرجى الإبلاغ عن الثغرات الأمنية مباشرةً على البريد الإلكتروني <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>مشكلات الأمان المُعالجة</H3>
+<UL>
+<LI>معالجة المشكلة الأمنية <CODE>GHSA-354r-wr4v-cx28</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13488" target="_blank">#13488</A>)
+ <UL>
+ <LI>إلغاء إمكانية بدء تشغيل NVDA مع تفعيل وضع تسجيل فحص الأخطاء البرمجية عند تشغيله في الوضع الآمن.
+ <LI>إلغاء إمكانية تحديث NVDA عند تشغيله في الوضع الآمن.
+ </UL>
+<LI>معالجة المشكلة الأمنية <CODE>GHSA-wg65-7r23-h6p9</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13489" target="_blank">#13489</A>)
+ <UL>
+ <LI>إلغاء إمكانية فتح مربّع تخصيص اختصارات NVDA في الوضع الآمن.
+ <LI>إلغاء إمكانية فتح مربّعات الحوار الخاصة بمعجم النُطق التلقائي والمؤقت ومعجم الصوت الحالي في الوضع الآمن.
+ </UL>
+<LI>معالجة مشكلة الأمان <CODE>GHSA-mvc8-5rv9-w3hx</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13487" target="_blank">#13487</A>)
+ <UL>
+ <LI>تعطيل أداة wx GUI inspection في الوضع الآمن.
+ </UL>
+</UL>
+
+<P></P>
 <H2> ٢.0213</H2>
 <P>
 يحملُ هذا الإصدار دعما لخاصية HID Braille الجديدة.
@@ -31,7 +556,7 @@
 <H3>المستجدات</H3>
 <UL>
 <LI>إضافةُ مفتاح اختصار للتبديل بين خيارات الإعلان عن أنماط حدود الخلية. (<A HREF="https://github.com/nvaccess/nvda/issues/10408" target="_blank">#10408</A>)
-<LI>دعم خاصية HID Braille الجديدة والتي تهدف إلى توحيد 'vdrm دعم أسطر برايل. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
+<LI>دعم خاصية HID Braille الجديدة والتي تهدف إلى توحيد طريقة دعم أسطر برايل. (<A HREF="https://github.com/nvaccess/nvda/issues/12523" target="_blank">#12523</A>)
  <UL>
  <LI>أسطر برايل الداعمة لهذه الخاصية سيكتشفها NVDA تلقائيا.
  <LI>اطّلِعْ على <A HREF="https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md" target="_blank">https://github.com/nvaccess/nvda/blob/master/devDocs/hidBrailleTechnicalNotes.md</A> لمعرفة التفاصيل التقنية حول كيفية عمل NVDA مع هذه الخاصية

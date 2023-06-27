@@ -1,13 +1,13 @@
 #-index-name: Kazakh
 #-display-name: Kazakh braille
 
-#+locale: kk
+#+language: kk
 #+type: literary
 #+dots: 6
 #+contraction: no
 #+direction: forward
 
-#  Copyright (C) 2021 Andrey Yakuboy <andrewia2002@yandex.ru>
+#  Copyright (C) 2021 Andrey Yakuboy <braille@yakuboy.ru>
 #
 #  This file is part of liblouis.
 #
@@ -27,21 +27,37 @@
 #
 # Based on the Russian braille.
 
-#-maintainer-name: Andrey Yakuboy
+#-maintainer: Andrey Yakuboy
 
 # The Kazakh alphabet has 9 letters that are not in the Russian
 # alphabet, namely Ә, Ғ, Қ, Ң, Ө, Ұ, Ү, Һ and І. Like in ru-litbrl.ctb, the
 # following definitions have dot 9 set to make them distinguishable
 # from the Latin letters.
-uplow \x04d8\x04d9 3459
-uplow \x0492\x0493 124569
-uplow \x049a\x049b 14569
-uplow \x04a2\x04a3 1469
-uplow \x04e8\x04e9 1269
-uplow \x04b0\x04b1 3469
-uplow \x04ae\x04af 349
-uplow \x04ba\x04bb 12369
-uplow \x0406\x0456 134569
+#
+# The last definition conflicts with a definition in ru-litbrl.ctb
+# and needs to be placed before AND after the "ru-litbrl.ctb" include
+# in order for both the lower- and uppercase part to take precedence
+# (see https://github.com/liblouis/liblouis/issues/384).
+
+lowercase \x04d9 3459
+lowercase \x0493 124569
+lowercase \x049b 14569
+lowercase \x04a3 1469
+lowercase \x04e9 1269
+lowercase \x04b1 3469
+lowercase \x04af 349
+lowercase \x04bb 12369
+lowercase \x0456 134569
+
+# base rule for Ә, Ғ, Қ, Ң, Ө, Ұ, Ү and Һ (the base rule for І is already in ru-litbrl.ctb)
+base uppercase \x04d8 \x04d9
+base uppercase \x0492 \x0493
+base uppercase \x049a \x049b
+base uppercase \x04a2 \x04a3
+base uppercase \x04e8 \x04e9
+base uppercase \x04b0 \x04b1
+base uppercase \x04ae \x04af
+base uppercase \x04ba \x04bb
 
 # As some Kazakh letters' definitions conflict with parentheses, the definitions of parentheses should be changed
 punctuation ( 2356
@@ -49,9 +65,11 @@ punctuation ) 2356
 
 include ru-litbrl.ctb
 
+lowercase \x0456 134569
+
 # Extend classes defined in ru-litbrl.ctb
-attribute uppercyrillic \x04d8\x0492\x049a\x04a2\x04e8\x04b0\x04ae\x04ba\x0406
-attribute lowercyrillic \x04d9\x0493\x049b\x04a3\x04e9\x04b1\x04af\x04bb\x0456
+attribute uppercyrillic \x04d8\x0492\x049a\x04a2\x04e8\x04b0\x04ae\x04ba
+attribute lowercyrillic \x04d9\x0493\x049b\x04a3\x04e9\x04b1\x04af\x04bb
 
 # In spite of conflicts of letters and parentheses, in math text parentheses should be marked like in the Russian braille
 # The correct opcode is used to avoid conflicts with rules in ru-litbrl.ctb

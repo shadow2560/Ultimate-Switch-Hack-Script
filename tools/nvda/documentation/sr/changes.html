@@ -10,6 +10,666 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>Važna napomena za programere</H2>
+<P>
+Da biste pročitali promene koje su bitne za programere, molimo pogledajte <A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
+</P>
+<H2>2023.1</H2>
+<P>
+Dodata je nova opcija, "Stil pasusa" u "Navigaciji kroz dokument".
+Može se koristiti sa uređivačima teksta koji ne podržavaju navigaciju po pasusima, kao što su Notepad i Notepad++.
+</P>
+<P>
+Dodata je nova komanda za prijavljivanje odredišta linka, sa prečicom <CODE>NVDA+k</CODE>.
+</P>
+<P>
+Poboljšana podrška za anotiran Web sadržaj (kao što su komentari i fusnote).
+Pritisnite <CODE>NVDA+d</CODE> da kružite kroz kratke opise kada se prijave napomene (na primer  "Ima komentar, ima fusnotu").
+</P>
+<P>
+Tivomatic Caiku Albatross 46/80 brajevi redovi su sada podržani.
+</P>
+<P>
+Poboljšana podrška za ARM64 verziju Windowsa.
+</P>
+<P>
+Ispravljene su brojne greške, posebno u Windowsu 11.
+</P>
+<P>
+eSpeak, LibLouis, Sonic povećanje brzine i Unicode CLDR su ažurirani.
+Dodate su nove Gruzijske, Swahili (Kenija) i Chichewa (Malawi) brajeve tabele.
+</P>
+<P>
+Napomena:
+</P>
+<UL>
+<LI>Postojeći dodaci nisu kompatibilni sa ovom verzijom.
+</UL>
+
+<P></P>
+<H3>Nove karakteristike</H3>
+<UL>
+<LI>Microsoft Excel uz UI Automation: automatsko prijavljivanje zaglavlja kolona i redova u tabelama. (<A HREF="https://github.com/nvaccess/nvda/issues/14228" target="_blank">#14228</A>)
+  <UL>
+  <LI>Napomena: ovo važi za tabele koje su formatirane korišćenjem dugmeta "Tabela" u oknu trake ubacivanja .
+  "Prva kolona" i "red zaglavlja" u "opcijama stila tabele" su zaglavlja kolona i redova.
+  <LI>Ovo ne utiče na zaglavlja koja su označena putem čitača ekrana kroz imenovane opsege, što trenutno nije podržano uz UI Automation.
+  </UL>
+<LI>Dodata je nedodeljena skripta za uključivanje i isključivanje odloženih opisa znakova. (<A HREF="https://github.com/nvaccess/nvda/issues/14267" target="_blank">#14267</A>)
+<LI>Dodata eksperimentalna opcija za korišćenje UIA podrške za obaveštenja u Windows Terminalu za prijavljivanje novog ili promenjenog teksta, što će doneti poboljšanu stabilnost i brzinu. (<A HREF="https://github.com/nvaccess/nvda/issues/13781" target="_blank">#13781</A>)
+  <UL>
+  <LI>Pogledajte korisničko uputstvo za ograničenja ove eksperimentalne opcije.
+  </UL>
+<LI>Na Windowsu 11 ARM64, režim pretraživanja je sada dostupan u AMD64 aplikacijama kao što su Firefox, Google Chrome i 1Password. (<A HREF="https://github.com/nvaccess/nvda/issues/14397" target="_blank">#14397</A>)
+<LI>Dodata je nova opcija, "Stil pasusa" u "navigaciji kroz dokument".
+Ovo dodaje podršku za navigaciju po pasusima u pojedinačnim novim redovima (standardna) i duplim novim redovima (blokovi).
+Ovo se može koristiti u uređivačima teksta koji ne podržavaju ugrađenu navigaciju po pasusima, kao što su Notepad i Notepad++. (<A HREF="https://github.com/nvaccess/nvda/issues/13797" target="_blank">#13797</A>)
+<LI>Ako postoji više napomena, sada će biti prijavljene.
+<CODE>NVDA+d</CODE> sada kruži kroz prijavljivanja kratkog opisa odredišta svake napomene za izvore koji imaju više odredišta napomena.
+Na primer, kada tekst ima komentar i fusnotu. (<A HREF="https://github.com/nvaccess/nvda/issues/14507" target="_blank">#14507</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14480" target="_blank">#14480</A>)
+<LI>Dodata podrška za Tivomatic Caiku Albatross 46/80 brajeve redove. (<A HREF="https://github.com/nvaccess/nvda/issues/13045" target="_blank">#13045</A>)
+<LI>Nova globalna komanda: prijavi odredište linka (<CODE>NVDA+k</CODE>).
+Ako se pritisne jednom, izgovara ili prikazuje na brajevom redu odredište linka u navigacionom objektu.
+Ako se pritisne dva puta, biće prikazano u prozoru, za detaljniji pregled. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+<LI>Nova nedodeljena globalna komanda (kategorija alati): prikaži odredište linka u prozoru.
+Isto kao i kada se dva puta pritisne <CODE>NVDA+k</CODE>, ali može biti korisnije za korisnike brajevih redova. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+</UL>
+
+<P></P>
+<H3>Promene</H3>
+<UL>
+<LI>Ažuriran LibLouis brajev prevodilac na <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.24.0" target="_blank">3.24.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14436" target="_blank">#14436</A>)
+  <UL>
+  <LI>Značajna ažuriranja za Mađarske, unificirane Engleske i Kineske bopomofo brajeve kodove.
+  <LI>Podrška za Danski brajev standard 2022.
+  <LI>Nove brajeve tabele za Gruzijski književni brajev kod, Swahili (Kenija) i Chichewa (Malawi).
+  </UL>
+<LI>Ažurirana Sonic biblioteka za povećanje brzine na commit <CODE>1d70513</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14180" target="_blank">#14180</A>)
+<LI>CLDR je ažuriran na verziju 42.0. (<A HREF="https://github.com/nvaccess/nvda/issues/14273" target="_blank">#14273</A>)
+<LI>eSpeak NG je ažuriran na 1.52-dev commit <CODE>f520fecb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14281" target="_blank">#14281</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14675" target="_blank">#14675</A>)
+  <UL>
+  <LI>Ispravljeno prijavljivanje velikih brojeva. (<A HREF="https://github.com/nvaccess/nvda/issues/14241" target="_blank">#14241</A>)
+  </UL>
+<LI>Java aplikacije sa kontrolama koje se mogu izabrati će sada izgovoriti kada stavka nije izabrana, umesto kada je izabrana. (<A HREF="https://github.com/nvaccess/nvda/issues/14336" target="_blank">#14336</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Windows 11 ispravke:
+  <UL>
+  <LI>NVDA će izgovoriti istaknute pretrage kada se otvori start meni. (<A HREF="https://github.com/nvaccess/nvda/issues/13841" target="_blank">#13841</A>)
+  <LI>na ARM verziji, x64 aplikacije se više ne označavaju kao ARM64 aplikacije. (<A HREF="https://github.com/nvaccess/nvda/issues/14403" target="_blank">#14403</A>)
+  <LI>Sada možete pristupiti opcijama menija istorije privremene memorije kao što su "Zakači stavku". (<A HREF="https://github.com/nvaccess/nvda/issues/14508" target="_blank">#14508</A>)
+  <LI>Na Windowsu 11 22H2 i novijim, ponovo je moguće koristiti miš i ekran osetljiv na dodir za interakciju sa delovima kao što su prozor sistemske trake i dijalog "Otvori". (<A HREF="https://github.com/nvaccess/nvda/issues/14538" target="_blank">#14538</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14539" target="_blank">#14539</A>)
+-
+  </UL>
+<LI>Predlozi se sada prijavljuju kada upišete @spominjanje u Microsoft Excel komentarima. (<A HREF="https://github.com/nvaccess/nvda/issues/13764" target="_blank">#13764</A>)
+<LI>U Google Chrome adresnoj traci, kontrole predloga (prebaci se na karticu, ukloni predlog i tako dalje) se sada prijavljuju kada se izaberu. (<A HREF="https://github.com/nvaccess/nvda/issues/13522" target="_blank">#13522</A>)
+<LI>Kada zahtevate informacije o formatiranju, boje se sada prijavljuju u Wordpadu ili pregledniku dnevnika, umesto da samo čujete "Podrazumevana boja". (<A HREF="https://github.com/nvaccess/nvda/issues/13959" target="_blank">#13959</A>)
+<LI>U Firefoxu, aktiviranje dugmeta "Show options" na GitHub issues stranici sada ispravno radi. (<A HREF="https://github.com/nvaccess/nvda/issues/14269" target="_blank">#14269</A>)
+<LI>Kontrole birača datuma u dijalogu napredne pretrage  programa Outlook 2016 / 365 sada prijavljuju svoju oznaku i vrednost. (<A HREF="https://github.com/nvaccess/nvda/issues/12726" target="_blank">#12726</A>)
+<LI>ARIA kontrole prekidača se sada prijavljuju kao prekidači u pretraživačima Firefox, Chrome i Edge, umesto kao izborna polja. (<A HREF="https://github.com/nvaccess/nvda/issues/11310" target="_blank">#11310</A>)
+<LI>NVDA će automatski izgovoriti stanje sortiranja u zaglavlju kolone HTML tabele  kada se promeni pritiskanjem unutrašnjeg tastera. (<A HREF="https://github.com/nvaccess/nvda/issues/10890" target="_blank">#10890</A>)
+<LI>Ime orjentira ili regiona će uvek automatski biti izgovoreno kada skočite do njega a pre toga ste bili van njega korišćenjem brze navigacije ili fokusiranja u režimu pretraživanja. (<A HREF="https://github.com/nvaccess/nvda/issues/13307" target="_blank">#13307</A>)
+<LI>Kada je omogućeno pištanje ili izgovor velikih slova uz odložene opise znakova, NVDA više neće reprodukovati pištanja ili izgovarati reč veliko dva puta. (<A HREF="https://github.com/nvaccess/nvda/issues/14239" target="_blank">#14239</A>)
+<LI>NVDA će sada preciznije izgovarati Kontrole tabela u Java aplikacijama. (<A HREF="https://github.com/nvaccess/nvda/issues/14347" target="_blank">#14347</A>)
+<LI>Neka podešavanja se više neće neočekivano razlikovati kada se koriste uz različite profile. (<A HREF="https://github.com/nvaccess/nvda/issues/14170" target="_blank">#14170</A>)
+  <UL>
+  <LI>Sledeća podešavanja su ispravljena:
+    <UL>
+    <LI>Uvlačenje redova u podešavanjima formatiranja dokumenta.
+    <LI>Granice ćelija u podešavanjima formatiranja dokumenta
+    <LI>Prikazivanje poruka u brajevim podešavanjima
+    <LI>Vezivanje brajevog reda u brajevim podešavanjima
+    </UL>
+  <LI>U nekim retkim slučajevima, ova podešavanja koja se koriste u profilima će možda biti neočekivano promenjena kada se instalira ova NVDA verzija.
+  <LI>Molimo proverite ova podešavanja u vašim profilima nakon što ažurirate NVDA na ovu verziju.
+  </UL>
+<LI>Emoji znakovi će sada biti prijavljeni na više jezika. (<A HREF="https://github.com/nvaccess/nvda/issues/14433" target="_blank">#14433</A>)
+<LI>Postojanje napomena više neće nedostajati na brajevom redu za neke elemente. (<A HREF="https://github.com/nvaccess/nvda/issues/13815" target="_blank">#13815</A>)
+<LI>Ispravljen problem koji je izazvao da se promene podešavanja ne čuvaju ispravno kada se menja između opcije koja je podrazumevana i vrednosti podrazumevane opcije. (<A HREF="https://github.com/nvaccess/nvda/issues/14133" target="_blank">#14133</A>)
+<LI>Kada se podešava NVDA, bar jedan taster će uvek biti podešen kao NVDA taster. (<A HREF="https://github.com/nvaccess/nvda/issues/14527" target="_blank">#14527</A>)
+<LI>Kada pristupate NVDA meniju iz sistemske trake, NVDA više neće nuditi odloženo ažuriranje kada nema odloženog ažuriranja. (<A HREF="https://github.com/nvaccess/nvda/issues/14523" target="_blank">#14523</A>)
+<LI>Preostalo, proteklo i ukupno vreme se sada ispravno prijavljuje za zvučne zapise koje su duže od jednog dana u foobaru2000. (<A HREF="https://github.com/nvaccess/nvda/issues/14127" target="_blank">#14127</A>)
+<LI>U Web pretraživačima kao što su Chrome i Firefox, upozorenja kao što su preuzimanja datoteke se prikazuju na brajevom redu uz izgovor. (<A HREF="https://github.com/nvaccess/nvda/issues/14562" target="_blank">#14562</A>)
+<LI>Ispravljena greška kada se pomerate na prvu ili poslednju kolonu tabele u Firefoxu (<A HREF="https://github.com/nvaccess/nvda/issues/14554" target="_blank">#14554</A>)
+<LI>Kada se NVDA pokrene sa parametrom <CODE>--lang=Windows</CODE>, ponovo je moguće otvoriti NVDA dijalog opštih podešavanja. (<A HREF="https://github.com/nvaccess/nvda/issues/14407" target="_blank">#14407</A>)
+</UL>
+
+<P></P>
+<H2>2022.4</H2>
+<P>
+Ova verzija uključuje nekoliko novih ključnih komandi, uključujući komande za režim izgovori sve u tabelama.
+Sekcija "vodič za brz početak" je dodata u korisničko uputstvo.
+Ispravljeno je takođe nekoliko grešaka.
+</P>
+<P>
+eSpeak i LibLouis su ažurirani.
+Dodate su nove Kineske, Švedske, Luganda i Kinyarwanda brajeve tabele.
+</P>
+<H3>Nove karakteristike</H3>
+<UL>
+<LI>Dodata sekcija "vodič za brz početak" u korisničko uputstvo. (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>Dodata nova komanda za proveru tasterske prečice trenutnog fokusa. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+  <UL>
+  <LI>Desktop: <CODE>šift+numeričko2</CODE>.
+  <LI>Laptop: <CODE>NVDA+ctrl+šift+.</CODE>.
+  </UL>
+<LI>Dodate nove komande za pomeranje preglednog kursora po stranicama kada je podržano od aplikacije. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+  <UL>
+  <LI>Pomeri se na prethodnu stranicu:
+    <UL>
+    <LI>Desktop: <CODE>NVDA+pageUp</CODE>.
+    <LI>Laptop: <CODE>NVDA+šift+pageUp</CODE>.
+    </UL>
+  <LI>Pomeri se na sledeću stranicu:
+    <UL>
+    <LI>Desktop: <CODE>NVDA+pageDown</CODE>.
+    <LI>Laptop: <CODE>NVDA+šift+pageDown</CODE>.
+    </UL>
+  </UL>
+<LI>Dodate sledeće komande za tabele. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+  <UL>
+  <LI>Izgovori sve u koloni: <CODE>NVDA+kontrol+alt+strelicaDole</CODE>
+  <LI>Izgovori sve u redu: <CODE>NVDA+kontrol+alt+strelicaDesno</CODE>
+  <LI>Pročitaj celu kolonu: <CODE>NVDA+kontrol+alt+strelicaGore</CODE>
+  <LI>Pročitaj ceo red: <CODE>NVDA+kontrol+alt+strelicaLevo</CODE>
+  </UL>
+<LI>Microsoft Excel uz UI Automation: NVDA sada izgovara kada izađete iz tabele u okviru radnog lista. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+<LI>Prijavljivanje zaglavlja u tabeli se sada može podesiti odvojeno za redove i kolone. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>Promene</H3>
+<UL>
+<LI>eSpeak NG je ažuriran na 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+  <UL>
+  <LI>Ispravljeno prijavljivanje latiničnih znakova kada se koristi Mandarinski. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+  </UL>
+<LI>Ažuriran LibLouis brajev prevodilac na <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank">3.23.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+  <UL>
+  <LI>Dodate brajeve tabele:
+    <UL>
+    <LI>Kineski zajednički brajev kod (znakovi pojednostavljenog Kineskog)
+    <LI>Kinyarwanda književni brajev kod
+    <LI>Luganda književni brajev kod
+    <LI>Švedski brajev kod
+    <LI>Švedski polovičan kratkopis
+    <LI>Švedski kratkopis
+    <LI>Kineski (Kina, Mandarinski) trenutni brajev sistem (bez tonova) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+    </UL>
+  </UL>
+<LI>NVDA sada uključuje arhitekturu operativnog sistema kao deo praćenja statistika korišćenja. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Kada se NVDA ažurira korišćenjem interfejsa komandne linije Windows menadžera paketa (winget), stabilna NVDA verzija neće uvek biti tretirana kao novija od bilo koje alfa verzije koja je instalirana. (<A HREF="https://github.com/nvaccess/nvda/issues/12469" target="_blank">#12469</A>)
+<LI>NVDA će sada ispravno izgovarati grupisana polja u Java aplikacijama. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>Kursor ispravno prati izgovoreni tekst kada se koristi režim "izgovori sve" u aplikacijama kao što su Bookworm, WordPad, ili u NVDA pregledniku dnevnika. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>U programima koji koriste UI Automation, izborna polja koja su polovično označena biće ispravno prijavljena. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>Poboljšane performanse i stabilnost u  Microsoft Visual Studiju, Windows Terminalu, i drugim  aplikacijama zasnovanim na UI Automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+  <UL>
+  <LI>Ove ispravke se primenjuju na Windowsu 11 Sun Valley 2 (verzija 22H2) i novijim.
+  <LI>Selektivna registracija za promene UI Automation  događaja i svojstava je sada podrazumevano omogućena.
+  </UL>
+<LI>Prijavljivanje teksta, brajev izlaz i sprečavanje izgovora lozinki sada rade kako je očekivano u umetnutoj kontroli Windows terminala u Visual Studiju 2022. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>NVDA sada obraća pažnju na DPI podešavanje kada se koristi na više monitora.
+Ispravljeno je nekoliko grešaka kada se koristi DPI podešavanje veće od 100% ili kada se koristi više monitora.
+Problemi još uvek mogu postojati kada se koriste Windows verzije starije od Windowsa 10 1809.
+Kako bi ove ispravke radile, aplikacije sa kojima NVDA vrši interakciju takođe moraju da obraćaju pažnju na DPI.
+Napomena da još uvek postoje poznati problemi sa Chromeom i Edgeom. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>Vizuelni okviri za označavanje bi  trebali da se postavljaju ispravno u većini aplikacija. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>Interakcija sa ekranom osetljivim na dodir bi trebala da bude precizna u većini aplikacija. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>Praćenje miša bi trebalo da radi u većini aplikacija. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>Promene orijentacije (horizontalno/uspravno) se sada ispravno ignorišu kada nema promene (na primer prilikom promene monitora). (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>NVDA će izgovarati prevlačenje stavki na ekranu na mestima kao što su premeštanje pločica start menija Windowsa 10 i virtuelnih radnih površina u Windowsu 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>U naprednim podešavanjima, podešavanje "Reprodukuj zvuk za evidentirane greške" se sada ispravno vraća na svoju podrazumevanu vrednost kada pritisnete dugme "Vrati na podrazumevana". (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>NVDA sada može da izabere tekst korišćenjem prečice <CODE>NVDA+f10</CODE> u Java aplikacijama. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>NVDA se više neće zaglavljivati u meniju kada se strelicama gore i dole krećete po  konverzacijama u nizu u Microsoft Teamsu. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.3</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravili problemi u verzijama 2022.3.2, 2022.3.1 i 2022.3.
+Takođe ispravlja bezbednosni problem.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Sprečava mogućnost sistemskog pristupa (na primer NVDA Python konzolu) za neprijavljene korisnike.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-fpwc-2gxx-j9v7" target="_blank">GHSA-fpwc-2gxx-j9v7</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljena greška u kojoj ako se NVDA zamrzne prilikom zaključavanja, NVDA dozvoljava pristup korisničkoj radnoj površini sa zaključanog ekrana. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Ispravljena greška u kojoj ako se NVDA zamrzne prilikom zaključavanja, NVDA se ne ponaša ispravno, kao da je uređaj još uvek zaključan. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Ispravljeni problemi u pristupačnosti Windows ekrana zaboravljenog PIN-a kao i u korišćenju instalacije Windows ažuriranja. (<A HREF="https://github.com/nvaccess/nvda/issues/14368" target="_blank">#14368</A>)
+<LI>Ispravljena greška sa NVDA instalacijom na određenim Windows okruženjima, na primer Windows Server. (<A HREF="https://github.com/nvaccess/nvda/issues/14379" target="_blank">#14379</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.2</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravila pogoršanja koja je izazvala verzija 2022.3.1 i kako bi se ispravio bezbednosni problem.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Sprečava mogućnost pristupa na sistemskom nivou za korisnike koji nemaju autentikaciju.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-3jj9-295f-h69w" target="_blank">GHSA-3jj9-295f-h69w</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljeno pogoršanje iz verzije 2022.3.1 koje je izazvalo onemogućavanje određenih funkcija na bezbednim ekranima. (<A HREF="https://github.com/nvaccess/nvda/issues/14286" target="_blank">#14286</A>)
+<LI>Ispravljeno pogoršanje iz verzije 2022.3.1 koje je izazvalo onemogućavanje određenih funkcija nakon prijave, ako je NVDA pokrenut na zaključanom ekranu. (<A HREF="https://github.com/nvaccess/nvda/issues/14301" target="_blank">#14301</A>)
+ -
+</UL>
+
+<H2>2022.3.1</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravilo nekoliko bezbednosnih problema.
+Molimo odgovorno prijavite bezbednosne probleme na <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Ispravljen propust koji je dozvoljavao da dobijete sistemske privilegije umesto korisničkih.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-q7c2-pgqm-vvw5" target="_blank">GHSA-q7c2-pgqm-vvw5</A>)
+<LI>Ispravljen bezbednosni problem koji je dozvoljavao pristup Python konzoli na zaključanom ekranu uz posebni uslov pri NVDA pokretanju.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-72mj-mqhj-qh4w" target="_blank">GHSA-72mj-mqhj-qh4w</A>)
+<LI>Ispravljen problem koji je izazvao keširanje teksta preglednika govora kada se zaključa Windows.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Sprečavanje korisnika bez autentikacije da ažurira podešavanja za preglednike govora i brajevih redova na zaključanom ekranu. (<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H2>2022.3</H2>
+<P>
+Ogroman deo ove verzije je doprinela zajednica NVDA programera.
+Ovo uključuje odložene opise znakova i poboljšanu podršku za Windows konzolu.
+</P>
+<P>
+Ova verzija takođe uključuje nekoliko ispravljenih grešaka.
+Od važnijih, najnovije verzije programa Adobe Acrobat/Reader se više neće rušiti pri čitanju PDF dokumenata.
+</P>
+<P>
+eSpeak je ažuriran, i sada uključuje 3 nova jezika: Beloruski, Luksemburški i Totontepec Mixe.
+</P>
+<H3>Nove karakteristike</H3>
+<UL>
+<LI>U Windows Console Hostu kojeg koriste komandna linija, PowerShell, i Windows podsistem za Linux na Windowsu 11 verzija 22H2 (Sun Valley 2) i novije:
+  <UL>
+  <LI>Značajno poboljšana brzina i stabilnost. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+  <LI>Kada se pritisne <CODE>kontrol+f</CODE> da pretražite tekst, pozicija preglednog kursora će biti ažurirana kako bi pratila pronađeni termin. (<A HREF="https://github.com/nvaccess/nvda/issues/11172" target="_blank">#11172</A>)
+  <LI>Prijavljivanje upisanog teksta koji se ne pojavljuje na ekranu (kao što su lozinke) je podrazumevano onemogućeno.
+Može se ponovo omogućiti u NVDA panelu naprednih podešavanja. (<A HREF="https://github.com/nvaccess/nvda/issues/11554" target="_blank">#11554</A>)
+  <LI>Tekst koji je van ekrana se može pregledati bez potrebe za pomeranjem prozora konzole. (<A HREF="https://github.com/nvaccess/nvda/issues/12669" target="_blank">#12669</A>)
+  <LI>Dostupne su detaljnije informacije o formatiranju teksta. (<A HREF="https://github.com/microsoft/terminal/pull/10336" target="_blank">microsoft/terminal PR 10336</A>)
+  </UL>
+<LI>Dodata je nova opcija u podešavanjima govora za čitanje opisa znakova uz odlaganje. (<A HREF="https://github.com/nvaccess/nvda/issues/13509" target="_blank">#13509</A>)
+<LI>Dodata je nova opcija za brajeve redove koja određuje da li će pomeranje brajevog reda napred i nazad prekinuti govor. (<A HREF="https://github.com/nvaccess/nvda/issues/2124" target="_blank">#2124</A>)
+</UL>
+
+<P></P>
+<H3>Promene</H3>
+<UL>
+<LI>eSpeak NG je ažuriran na 1.52-dev commit <CODE>9de65fcb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13295" target="_blank">#13295</A>)
+  <UL>
+  <LI>Dodati jezici:
+    <UL>
+    <LI>Beloruski
+    <LI>Luksemburški
+    <LI>Totontepec Mixe
+    </UL>
+  </UL>
+<LI>Kada se koristi UI Automation za pristup kontrolama u programu Microsoft Excel, NVDA sada može da prijavi kada je ćelija spojena. (<A HREF="https://github.com/nvaccess/nvda/issues/12843" target="_blank">#12843</A>)
+<LI>Umesto prijavljivanja "ima detalje" biće prijavljena svrha detalja kada je moguće, na primer "ima komentar". (<A HREF="https://github.com/nvaccess/nvda/issues/13649" target="_blank">#13649</A>)
+<LI>Veličina instalacije programa NVDA se sada prikazuje u Windows programima i funkcijama. (<A HREF="https://github.com/nvaccess/nvda/issues/13909" target="_blank">#13909</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Adobe Acrobat / Reader 64 bitni se više neće rušiti pri čitanju PDF dokumenata. (<A HREF="https://github.com/nvaccess/nvda/issues/12920" target="_blank">#12920</A>)
+  <UL>
+  <LI>Napomena da je najnovija verzija programa Adobe Acrobat / Reader takođe neophodna kako bi se izbeglo rušenje.
+  </UL>
+<LI>Java access bridge događaji će biti ignorisani kada se ne može pronaći window handle u Java aplikacijama.
+Ovo će poboljšati brzinu u nekim Java aplikacijama kao što je IntelliJ IDEA. (<A HREF="https://github.com/nvaccess/nvda/issues/13039" target="_blank">#13039</A>)
+<LI>Izgovor izabranih ćelija u programu LibreOffice Calc je efikasniji i više neće smrzavati Calc kada je puno ćelija izabrano. (<A HREF="https://github.com/nvaccess/nvda/issues/13232" target="_blank">#13232</A>)
+<LI>Kada je pokrenut od strane drugog korisnika, Microsoft Edge više nije nepristupačan. (<A HREF="https://github.com/nvaccess/nvda/issues/13032" target="_blank">#13032</A>)
+<LI>Kada je povećanje brzine isključeno, brzina sintetizatora ESpeak više ne pada između brzina 99% i 100%. (<A HREF="https://github.com/nvaccess/nvda/issues/13876" target="_blank">#13876</A>)
+<LI>Ispravljena greška koja je dozvoljavala otvaranje dva dijaloga ulaznih komandi. (<A HREF="https://github.com/nvaccess/nvda/issues/13854" target="_blank">#13854</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.4</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravio bezbednosni problem.
+</P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljen propust koji je dozvoljavao da otvorite NVDA python konzolu putem preglednika dnevnika na zaključanom ekranu.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-585m-rpvv-93qg" target="_blank">GHSA-585m-rpvv-93qg</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.3</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravio API problem u verziji 2022.2.1.
+</P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljena greška koja je izazvala da NVDA ne izgovori "Bezbedna radna površina" kada uđe na bezbednu radnu površinu.
+Ovo je izazvalo da NVDA Remote ne prepoznaje bezbedne radne površine. (<A HREF="https://github.com/nvaccess/nvda/issues/14094" target="_blank">#14094</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.2</H2>
+<P>
+Ova verzija ispravlja grešku iz verzije 2022.2.1 sa ulaznim komandama.
+</P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljena greška koja je izazvala da ulazne komande ne rade uvek. (<A HREF="https://github.com/nvaccess/nvda/issues/14065" target="_blank">#14065</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.1</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravio bezbednosni problem.
+Molimo odgovorno prijavite bezbednosne probleme na <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Ispravljen propust koji je dozvoljavao pokretanje Python konzole sa zaključanog ekrana. (GHSA-rmq3-vvhq-gp32)
+<LI>Ispravljen propust koji je dozvoljavao da napustite zaključani ekran objektnom navigacijom. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H2>2022.2</H2>
+<P>
+Mnoge greške su ispravljene u ovoj verziji.
+Od važnijih, dodata su brojna poboljšanja u Java aplikacijama, za brajeve redove i Windows opcije.
+</P>
+<P>
+Dodate su nove komande za navigaciju kroz tabele.
+Unicode CLDR je ažuriran.
+LibLouis je ažuriran, što uključuje novu Nemačku brajevu tabelu.
+</P>
+<H3>Nove karakteristike</H3>
+<UL>
+<LI>Podrška za interakciju sa Microsoft Loop komponentama u Microsoft Office proizvodima. (<A HREF="https://github.com/nvaccess/nvda/issues/13617" target="_blank">#13617</A>)
+<LI>Dodate su nove komande za navigaciju kroz tabele. (<A HREF="https://github.com/nvaccess/nvda/issues/957" target="_blank">#957</A>)
+ <UL>
+ <LI><CODE>kontrol+alt+home/end</CODE> da biste se prebacili na prvu/poslednju kolonu.
+ <LI><CODE>kontrol+alt+pageUp/pageDown</CODE> da biste se prebacili na prvi/poslednji red.
+ </UL>
+<LI>Dodata je skripta bez podrazumevane komande za prebacivanje između različitih nivoa automatskog menanja jezika i dijalekta. (<A HREF="https://github.com/nvaccess/nvda/issues/10253" target="_blank">#10253</A>)
+</UL>
+
+<P></P>
+<H3>Promene</H3>
+<UL>
+<LI>NSIS je ažuriran na verziju 3.08. (<A HREF="https://github.com/nvaccess/nvda/issues/9134" target="_blank">#9134</A>)
+<LI>CLDR je ažuriran na verziju 41.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13582" target="_blank">#13582</A>)
+<LI>Ažuriran LibLouis brajev prevodilac na <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.22.0" target="_blank">3.22.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13775" target="_blank">#13775</A>)
+  <UL>
+  <LI>Nova brajeva tabela: Nemački stepen 2 (detailed)
+  </UL>
+<LI>Dodato novo ime za kontrole "Zauzet pokazivač". (<A HREF="https://github.com/nvaccess/nvda/issues/10644" target="_blank">#10644</A>)
+<LI>NVDA sada izgovara kada neka NVDA radnja ne može biti izvršena. (<A HREF="https://github.com/nvaccess/nvda/issues/13500" target="_blank">#13500</A>)
+  <UL>
+  <LI>Ovo uključuje sledeće:
+    <UL>
+    <LI>Korišćenje NVDA verzije iz Windows prodavnice.
+    <LI>Na bezbednim ekranima.
+    <LI>Kada dijalog čeka odgovor.
+    </UL>
+  </UL>
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Ispravljene greške u Java aplikacijama:
+  <UL>
+  <LI>NVDA će sada izgovoriti ako je kontrola samo za čitanje. (<A HREF="https://github.com/nvaccess/nvda/issues/13692" target="_blank">#13692</A>)
+  <LI>NVDA će sada ispravno izgovoriti ako je kontrola onemogućena/omogućena. (<A HREF="https://github.com/nvaccess/nvda/issues/10993" target="_blank">#10993</A>)
+  <LI>NVDA će sada izgovoriti prečice funkcijskih tastera. (<A HREF="https://github.com/nvaccess/nvda/issues/13643" target="_blank">#13643</A>)
+  <LI>NVDA sada može da pišti i izgovara trake napredovanja. (<A HREF="https://github.com/nvaccess/nvda/issues/13594" target="_blank">#13594</A>)
+  <LI>NVDA više neće neispravno uklanjati tekst iz vidžeta kada se oni prikazuju korisnicima. (<A HREF="https://github.com/nvaccess/nvda/issues/13102" target="_blank">#13102</A>)
+    <UL>
+    <LI>NVDA će sada izgovoriti stanje za dugme prekidača. (<A HREF="https://github.com/nvaccess/nvda/issues/9728" target="_blank">#9728</A>)
+    </UL>
+  <LI>NVDA će sada prepoznati prozor u Java aplikaciji sa više prozora. (<A HREF="https://github.com/nvaccess/nvda/issues/9184" target="_blank">#9184</A>)
+  <LI>NVDA će sada izgovoriti informacije o poziciji za kontrole kartica. (<A HREF="https://github.com/nvaccess/nvda/issues/13744" target="_blank">#13744</A>)
+-
+  </UL>
+<LI>Ispravljene greške za brajeve redove:
+  <UL>
+  <LI>Ispravljen brajev izlaz kada se krećete kroz određene tekstove u Mozilla obogaćenim kontrolama za pisanje, kao što su čuvanje poruke kao nacrt u programu Thunderbird. (<A HREF="https://github.com/nvaccess/nvda/issues/12542" target="_blank">#12542</A>)
+  <LI>Kada je vezivanje brajevog reda podešeno na automatski i miš se pomera uz omogućeno praćenje miša,
+  komande pregleda teksta sada ažuriraju brajev red sa izgovorenim sadržajem. (<A HREF="https://github.com/nvaccess/nvda/issues/11519" target="_blank">#11519</A>)
+  <LI>Sada je moguće pomerati brajev red kroz sadržaja nakon korišćenja komandi za pregled teksta. (<A HREF="https://github.com/nvaccess/nvda/issues/8682" target="_blank">#8682</A>)
+  </UL>
+<LI>NVDA instalacija se sada može pokrenuti iz foldera koji imaju posebne znakove. (<A HREF="https://github.com/nvaccess/nvda/issues/13270" target="_blank">#13270</A>)
+<LI>U pretraživaču Firefox, NVDA više ne greši u čitanju stavki na Web stranicama kada su aria-rowindex, aria-colindex, aria-rowcount ili aria-colcount atributi neispravni. (<A HREF="https://github.com/nvaccess/nvda/issues/13405" target="_blank">#13405</A>)
+<LI>Kursor više ne menja red ili kolonu kada se koriste komande za navigaciju kroz tabele kako biste se kretali kroz spojene ćelije. (<A HREF="https://github.com/nvaccess/nvda/issues/7278" target="_blank">#7278</A>)
+<LI>Kada se čitaju PDF datoteke sa kojima nije moguća interakcija u programu Adobe Reader, vrsta i stanje polja za unos (kao što su izborna polja i radio dugmad) sada se prijavljuju. (<A HREF="https://github.com/nvaccess/nvda/issues/13285" target="_blank">#13285</A>)
+<LI>Sada je moguće pristupiti opciji "Vrati podešavanja na fabričke vrednosti" u bezbednom načinu rada. (<A HREF="https://github.com/nvaccess/nvda/issues/13547" target="_blank">#13547</A>)
+<LI>Bilo koji zaključani tasteri miša će biti otključani kada se izađe iz programa NVDA, ranije je taster na mišu ostao zaključan. (<A HREF="https://github.com/nvaccess/nvda/issues/13410" target="_blank">#13410</A>)
+<LI>Visual Studio sada prijavljuje brojeve redova. (<A HREF="https://github.com/nvaccess/nvda/issues/13604" target="_blank">#13604</A>)
+  <UL>
+  <LI>Napomena da kako bi prijavljivanje broja redova radilo, prikazivanje brojeva redova mora biti omogućeno u programu Visual Studio kao i u programu  NVDA.
+  </UL>
+<LI>Visual Studio sada ispravno prijavljuje uvlačenje redova. (<A HREF="https://github.com/nvaccess/nvda/issues/13574" target="_blank">#13574</A>)
+<LI>NVDA će ponovo izgovarati detalje rezultata pretrage u start meniju na novijim Windows 10 i 11 verzijama. (<A HREF="https://github.com/nvaccess/nvda/issues/13544" target="_blank">#13544</A>)
+<LI>U Windows 10 i 11 Kalkulatoru verziji 10.1908 i novijim,
+NVDA će izgovarati rezultate kada se koristi više komandi, kao što su komande iz naučnog režima. (<A HREF="https://github.com/nvaccess/nvda/issues/13383" target="_blank">#13383</A>)
+<LI>Na Windowsu 11, ponovo je moguće kretati se i vršiti interakciju sa elementima korisničkog interfejsa,
+kao što su programska traka ili prikaz zadataka korišćenjem miša ili ekrana osetljivog na dodir. (<A HREF="https://github.com/nvaccess/nvda/issues/13506" target="_blank">#13506</A>)
+<LI>NVDA će izgovarati sadržaj statusne trake u Windows 11 verziji programa Notepad. (<A HREF="https://github.com/nvaccess/nvda/issues/13688" target="_blank">#13688</A>)
+<LI>Označavanje navigacionog objekta se sada prikazuje odmah nakon aktiviranja ove opcije. (<A HREF="https://github.com/nvaccess/nvda/issues/13641" target="_blank">#13641</A>)
+<LI>Ispravljeno čitanje stavki liste koje imaju samo jednu kolonu. (<A HREF="https://github.com/nvaccess/nvda/issues/13659" target="_blank">#13659</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13735" target="_blank">#13735</A>)
+<LI>Ispravljena eSpeak automatska promena jezika za Engleski i Francuski vraćanjem na Britanski Engleski i Francuski (Francuska). (<A HREF="https://github.com/nvaccess/nvda/issues/13727" target="_blank">#13727</A>)
+<LI>Ispravljena OneCore automatska promena jezika pri pokušaju promene na jezik koji je ranije bio instaliran. (<A HREF="https://github.com/nvaccess/nvda/issues/13732" target="_blank">#13732</A>)
+</UL>
+
+<P></P>
+<H2>2022.1</H2>
+<P>
+Ova verzija uključuje veća poboljšanja za UIA podršku u paketu MS Office.
+Za Microsoft Office 16.0.15000 i novije verzije na Windowsu 11, NVDA će podrazumevano koristiti UI Automation za pristup dokumentima programa Microsoft Word.
+Ovo pruža značajno poboljšanje brzine u odnosu na stariji način pristupa.
+</P>
+<P>
+Postoje poboljšanja za drajvere za brajeve redove kao što su Seika beležnica, Papenmeier i  HID brajev standard. 
+Takođe su uključene razne ispravke grešaka za Windows 11, u aplikacijama kao što su Kalkulator, konzola, Terminal, Mail i Emoji panel.
+</P>
+<P>
+Ažurirani su eSpeak-NG  i LibLouis, dodajući nove Japanske, Nemačke i Katalonske tabele.
+</P>
+<P>
+Napomena:
+</P>
+ <UL>
+ <LI>Ova verzija čini postojeće dodatke nekompatibilnim.
+ </UL>
+
+<P></P>
+<H3>nove karakteristike</H3>
+<UL>
+<LI>Podrška za prijavljivanje napomena u programu MS Excel uz  UI Automation omogućen na Windowsu 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>U novijim verzijama programa Microsoft Word uz  UI Automation na  Windowsu 11, postojanje markera, nacrta komentara kao i rešenih komentara se sada prijavljuje izgovorom kao i na brajevom redu. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>Novi parametar komandne linije <CODE>--lang</CODE> dozvoljava menjanje podešenog NVDA jezika. (<A HREF="https://github.com/nvaccess/nvda/issues/10044" target="_blank">#10044</A>)
+<LI>NVDA će sada upozoriti o parametrima komandne linije koji su nepoznati i ne koriste se od strane dodataka. (<A HREF="https://github.com/nvaccess/nvda/issues/12795" target="_blank">#12795</A>)
+<LI>Kada se pristupa programu Microsoft Word uz UI Automation, NVDA će sada koristiti mathPlayer za navigaciju i čitanje Office matematičkih zadataka. (<A HREF="https://github.com/nvaccess/nvda/issues/12946" target="_blank">#12946</A>)
+  <UL>
+  <LI>Kako bi ovo  radilo, morate koristiti Microsoft Word 365/2016 verziju 14326 ili novije. 
+    <UL>
+    <LI>MathType zadaci se takođe moraju ručno pretvoriti u Office Math izborom svakog od njih, otvaranjem kontekstnog menija, izborom stavke opcije jednačina, pretvori u  Office Math.
+-
+    </UL>
+  </UL>
+<LI>Prijavljivanje kada objekat  "ima detalje " kao i odgovarajuća komanda za prijavljivanje odnosa detalja sada mogu da se koriste u režimu fokusiranja. (<A HREF="https://github.com/nvaccess/nvda/issues/13106" target="_blank">#13106</A>)
+<LI>Seika beležnica se sada može automatski prepoznati putem USB i Bluetooth veze. (<A HREF="https://github.com/nvaccess/nvda/issues/13191" target="_blank">#13191</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13142" target="_blank">#13142</A>)
+  <UL>
+  <LI>Ovo utiče na sledeće uređaje: MiniSeika (16, 24 ćelija), V6, i V6Pro (40 ćelija)
+  <LI>Ručno biranje bluetooth COM porta je sada takođe podržano.
+  </UL>
+<LI>Dodata komanda za uključivanje i isključivanje preglednika brajevog reda; nema podrazumevane pridružene prečice. (<A HREF="https://github.com/nvaccess/nvda/issues/13258" target="_blank">#13258</A>)
+<LI>Dodate komande za uključivanje ili isključivanje više modifikatorskih tastera u isto vreme  na brajevom redu (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>Dijalog za govorne rečnike sada sadrži dugme "Ukloni sve" koje vam pomože da očistite ceo rečnik. (<A HREF="https://github.com/nvaccess/nvda/issues/11802" target="_blank">#11802</A>)
+<LI>Dodata podrška za Windows 11 kalkulator. (<A HREF="https://github.com/nvaccess/nvda/issues/13212" target="_blank">#13212</A>)
+<LI>U programu Microsoft Word uz UI Automation omogućen na Windowsu 11, brojevi redova i sekcija se sada mogu prijaviti. (<A HREF="https://github.com/nvaccess/nvda/issues/13283" target="_blank">#13283</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13515" target="_blank">#13515</A>)
+<LI>Za  Microsoft Office 16.0.15000 i novije na Windowsu 11, NVDA će podrazumevano koristiti UI Automation za pristup Microsoft Word dokumentima, što pruža značajna poboljšanja u brzini u odnosu na stariji način pristupa. (<A HREF="https://github.com/nvaccess/nvda/issues/13437" target="_blank">#13437</A>)
+ <UL>
+ <LI>Ovo uključuje dokumente u samom programu Microsoft Word, kao i čitanje i pisanje poruka u programu Microsoft Outlook. 
+ </UL>
+</UL>
+
+<P></P>
+<H3>Promene</H3>
+<UL>
+<LI>Espeak-ng je ažuriran na 1.51-dev commit <CODE>7e5457f91e10</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12950" target="_blank">#12950</A>)
+<LI>Ažuriran liblouis brajev prevodilac na <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.21.0" target="_blank">3.21.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13141" target="_blank">#13141</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13438" target="_blank">#13438</A>)
+  <UL>
+  <LI>Dodata nova brajeva tabela: Japanski (Kantenji) književni brajev kod.
+  <LI>Dodata nova Nemačka šestotačkasta kompjuterska brajeva tabela.
+  <LI>Dodata brajeva tabela Katalonski stepen 1. (<A HREF="https://github.com/nvaccess/nvda/issues/13408" target="_blank">#13408</A>)
+  </UL>
+<LI>NVDA će prijaviti izbor i spajanje ćelija u programu LibreOffice Calc 7.3 i novijim. (<A HREF="https://github.com/nvaccess/nvda/issues/9310" target="_blank">#9310</A>, <A HREF="https://github.com/nvaccess/nvda/issues/6897" target="_blank">#6897</A>)
+<LI>Ažuriran Unicode Common Locale Data Repository (CLDR) na 40.0. (<A HREF="https://github.com/nvaccess/nvda/issues/12999" target="_blank">#12999</A>)
+<LI>``NVDA+numerički taster za brisanje `` podrazumevano prijavljuje lokaciju kursora ili fokusiranog objekta. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI><CODE>NVDA+šift+numerički taster za brisanje</CODE> prijavljuje lokaciju preglednog kursora. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>Dodate podrazumevane prečice za uključivanje i isključivanje modifikatorskih tastera na Freedom Scientific brajevim redovima (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>"Osnovna linija " se više neće izgovarati kada se koristi komanda za prijavljivanje formatiranja  (<CODE>NVDA+f</CODE>). (<A HREF="https://github.com/nvaccess/nvda/issues/11815" target="_blank">#11815</A>)
+<LI>Prijavljivanje dugog opisa više nema podešenu podrazumevanu komandu. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>Prijavljivanje kratkog opisa detalja sada ima podrazumevanu prečicu (<CODE>NVDA+d</CODE>). (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>NVDA mora ponovo biti pokrenut nakon što se instalira MathPlayer. (<A HREF="https://github.com/nvaccess/nvda/issues/13486" target="_blank">#13486</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Okno upravljača privremene memorije više neće neispravno biti fokusirano kada se otvaraju određeni Office programi. (<A HREF="https://github.com/nvaccess/nvda/issues/12736" target="_blank">#12736</A>)
+<LI>Na sistemima na kojima je korisnik odredio da zameni primarno dugme na mišu tako da desni klik aktivira stavke, NVDA više neće otvarati kontekstni meni umesto da aktivira stavku, u aplikacijama kao što su Web pretraživači. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI>Kada se pregledni kursor pomera od dna tekstualnih kontrola, kao što su u programu Microsoft Word uz UI Automation, "dno" se ispravno izgovara u više situacija. (<A HREF="https://github.com/nvaccess/nvda/issues/12808" target="_blank">#12808</A>)
+<LI>NVDA može da pruži ime aplikacije i verziju za binarne datoteke koje se nalaze u system32 kada je pokrenut na 64-bitnoj verziji Windowsa. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI>Poboljšana doslednost u čitanju u terminal programima. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+  <UL>
+  <LI>Napomena da će se u određenim situacijama, kada ubacujete ili brišete znakove u sredini reda, znakovi nakon kursora  možda ponovo pročitati.
+  </UL>
+<LI>MS word uz UIA: Brza navigacija kroz naslove se neće više zaglavljivati na poslednjem naslovu, niti će taj naslov biti prikazan dva puta u listi elemenata. (<A HREF="https://github.com/nvaccess/nvda/issues/9540" target="_blank">#9540</A>)
+<LI>Na Windowsu 8 i novijim, statusna traka istraživača datoteka se sada može pročitati korišćenjem standardnih prečica NVDA+end (desktop) / NVDA+šift+end (laptop). (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI>Dolazne poruke u ćaskanjima aplikacije Skype za biznis se ponovo prijavljuju. (<A HREF="https://github.com/nvaccess/nvda/issues/9295" target="_blank">#9295</A>)
+<LI>NVDA ponovo može da stišava pozadinske zvukove kada  se koristi SAPI5 sintetizator na Windowsu 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12913" target="_blank">#12913</A>)
+<LI>U Kalkulatoru Windowsa 10, NVDA će izgovarati oznake za istoriju i stavke liste memorije. (<A HREF="https://github.com/nvaccess/nvda/issues/11858" target="_blank">#11858</A>)
+<LI>Prečice kao što su pomeranje brajevog reda i prebacivanje ponovo rade na HID brajevim uređajima. (<A HREF="https://github.com/nvaccess/nvda/issues/13228" target="_blank">#13228</A>)
+<LI>Windows 11 Mail: Nakon prebacivanja fokusa između aplikacija, dok se čita duža EMail poruka, NVDA se više neće zaglavljivati na jednom redu poruke. (<A HREF="https://github.com/nvaccess/nvda/issues/13050" target="_blank">#13050</A>)
+<LI>HID brajevi uređaji: Vezane komande  (na primer  <CODE>razmak+Tačka4</CODE>) se mogu uspešno izvršiti sa brajevog reda. (<A HREF="https://github.com/nvaccess/nvda/issues/13326" target="_blank">#13326</A>)
+<LI>Ispravljena greška koja je dozvoljavala da se otvori više dijaloga sa podešavanjima u isto vreme. (<A HREF="https://github.com/nvaccess/nvda/issues/12818" target="_blank">#12818</A>)
+<LI>Ispravljen problem koji je izazvao da određeni Focus Blue brajevi redovi prestanu da rade nakon što probudite računar iz stanja spavanja. (<A HREF="https://github.com/nvaccess/nvda/issues/9830" target="_blank">#9830</A>)
+<LI>"Osnovna linija " se više ne izgovara bespotrebno kada je opcija "prijavi indekse i eksponente" omogućena. (<A HREF="https://github.com/nvaccess/nvda/issues/11078" target="_blank">#11078</A>)
+<LI>U Windowsu 11, NVDA više neće sprečavati navigaciju kroz Emoji panel kada se bira emoji. (<A HREF="https://github.com/nvaccess/nvda/issues/13104" target="_blank">#13104</A>)
+<LI>Sprečena greška koja izaziva dvostruko prijavljivanje kada se koristi Windows konzola i terminal. (<A HREF="https://github.com/nvaccess/nvda/issues/13261" target="_blank">#13261</A>)
+<LI>Ispravljeno nekoliko slučajeva u kojima stavke liste nisu mogle biti prijavljene u 64 bitnim aplikacijama, kao što je REAPER. (<A HREF="https://github.com/nvaccess/nvda/issues/8175" target="_blank">#8175</A>)
+<LI>U upravljaču preuzimanja programa Microsoft Edge, NVDA će se automatski prebaciti u režim fokusiranja kada stavka liste sa najnovijim preuzimanjem postane fokusirana. (<A HREF="https://github.com/nvaccess/nvda/issues/13221" target="_blank">#13221</A>)
+<LI>NVDA više neće izazvati rušenje 64-bitnih verzija programa Notepad++ 8.3 i novijih. (<A HREF="https://github.com/nvaccess/nvda/issues/13311" target="_blank">#13311</A>)
+<LI>Adobe Reader se više ne ruši pri pokretanju ako je njegov zaštićen režim omogućen. (<A HREF="https://github.com/nvaccess/nvda/issues/11568" target="_blank">#11568</A>)
+<LI>Ispravljena greška koja je izazivala rušenje programa NVDA kada se izabere  Papenmeier drajver brajevog reda. (<A HREF="https://github.com/nvaccess/nvda/issues/13348" target="_blank">#13348</A>)
+<LI>Microsoft word uz UIA: Broj stranice i druge informacije o formatiranju se više ne izgovaraju bespotrebno kada se prebacite iz prazne ćelije tabele u ćeliju sa sadržajem, ili sa kraja dokumenta na postojeći sadržaj. (<A HREF="https://github.com/nvaccess/nvda/issues/13458" target="_blank">#13458</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13459" target="_blank">#13459</A>)
+<LI>NVDA više neće imati problema sa prijavljivanjem naslova stranice i početka automatskog čitanja, kada se stranica učita u programu Google chrome 100. (<A HREF="https://github.com/nvaccess/nvda/issues/13571" target="_blank">#13571</A>)
+<LI>NVDA se više ne ruši kada se podešavanja vrate na fabričke vrednosti uz uključen izgovor komandnih tastera. (<A HREF="https://github.com/nvaccess/nvda/issues/13634" target="_blank">#13634</A>)
+</UL>
+
+<P></P>
+<H2>2021.3.5</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravio bezbednosni problem.
+Molimo odgovorno prijavite bezbednosne probleme na adresu <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Ispravljena bezbednosna preporuka <CODE>GHSA-xc5m-v23f-pgr7</CODE>.
+  <UL>
+  <LI>Dijalog izgovora znakova interpunkcije i simbola je sada onemogućen u bezbednom načinu rada.
+  </UL>
+</UL>
+
+<P></P>
+<H2>2021.3.4</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravilo nekoliko prijavljenih bezbednosnih problema.
+Molimo odgovorno prijavite bezbednosne probleme na adresu  <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Bezbednosne ispravke</H3>
+<UL>
+<LI>Ispravljena bezbednosna preporuka <CODE>GHSA-354r-wr4v-cx28</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13488" target="_blank">#13488</A>)
+  <UL>
+  <LI>Uklonjena mogućnost da se NVDA pokrene uz omogućene dnevnike za otklanjanje grešaka kada je NVDA pokrenut u bezbednom načinu rada.
+  <LI>Uklonjena mogućnost da se NVDA ažurira kada je pokrenut u bezbednom načinu rada.
+  </UL>
+<LI>Ispravljena bezbednosna preporuka <CODE>GHSA-wg65-7r23-h6p9</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13489" target="_blank">#13489</A>)
+  <UL>
+  <LI>Uklonjena mogućnost otvaranja dijaloga ulaznih komandi u bezbednom načinu rada.
+  <LI>Uklonjena mogućnost otvaranja podrazumevanog, privremenog i govornog rečnika u bezbednom načinu rada.
+  </UL>
+<LI>Ispravljena bezbednosna preporuka <CODE>GHSA-mvc8-5rv9-w3hx</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13487" target="_blank">#13487</A>)
+  -  wx GUI inspection alatka je sada onemogućena u bezbednom načinu rada.
+  -
+</UL>
+
+<P></P>
+<H2>2021.3.3</H2>
+<P>
+Ova verzija je identična verziji 2021.3.2.
+Došlo je do greške u verziji NVDA 2021.3.2 pa se ona identifikovala kao 2021.3.1.
+Ova verzija se ispravno identifikuje kao 2021.3.3.
+</P>
+<H2>2021.3.2</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravilo nekoliko prijavljenih bezbednosnih problema.
+Molimo odgovorno prijavite bezbednosne probleme na adresu  <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Bezbednosna ispravka: Sprečavanje objektne navigacije van zaključanog ekrana na Windowsu 10 i Windowsu 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13328" target="_blank">#13328</A>)
+<LI>Bezbednosna ispravka: Ekran upravljača dodacima je sada onemogućen na bezbednim ekranima. (<A HREF="https://github.com/nvaccess/nvda/issues/13059" target="_blank">#13059</A>)
+<LI>Bezbednosna ispravka: NVDA kontekstna pomoć više nije dostupna na bezbednim ekranima. (<A HREF="https://github.com/nvaccess/nvda/issues/13353" target="_blank">#13353</A>)
+</UL>
+
+<H2>2021.3.1</H2>
+<P>
+Ovo je manje ažuriranje kako bi se ispravilo nekoliko grešaka u verziji 2021.3.
+</P>
+<H3>Promene</H3>
+<UL>
+<LI>Novi HID brajev protokol više nije izabran u situacijama kada postoji drugi drajver za brajev red koji se može koristiti. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+<LI>Novi HID brajev protokol se može onemogućiti korišćenjem opcije u panelu naprednih podešavanja. (<A HREF="https://github.com/nvaccess/nvda/issues/13180" target="_blank">#13180</A>)
+</UL>
+
+<P></P>
+<H3>Ispravljene greške</H3>
+<UL>
+<LI>Orjentiri će ponovo imati skraćenice na brajevom redu. <A HREF="https://github.com/nvaccess/nvda/issues/13158" target="_blank">#13158</A>
+<LI>Ispravljjena nestabilnost u automatskom prepoznavanju brajevih redova Humanware Brailliant i  APH Mantis Q40 kada se koriste putem  Bluetooth veze. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+</UL>
+
+<P></P>
 <H2>2021.3</H2>
 <P>
 Ova verzija uključuje podršku za novi brajev HID standard.
@@ -153,10 +813,6 @@ Kako biste se uverili u svoju privatnost, kada koristite noviju Windows verziju,
 </UL>
 
 <P></P>
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2021.1</H2>
 <P>
 Ova verzija sadrži opciju koja se može omogućiti za UIA podršku u programu Excel i Chromium pretraživačima.
@@ -244,10 +900,6 @@ Napomena:
 <LI>Ispravljen Seika brajev drajver. (<A HREF="https://github.com/nvaccess/nvda/issues/10787" target="_blank">#10787</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2020.4</H2>
 <P>
 Ova verzija uključuje podršku za nove Kineske metode unosa, ažuriranje za Liblouis i lista elemenata (NVDA+f7) sada radi u režimu fokusiranja.
@@ -333,10 +985,6 @@ Takođe puno drugih poboljšanja i ispravljenih grešaka.
 <LI>QWERTY unos na Papenmeier brajevim redovima koji ga podržavaju ponovo radi i više ne izaziva nasumična smrzavanja programa NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/11944" target="_blank">#11944</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2020.3</H2>
 <P>
 Ova verzija uključuje značajna poboljšanja u stabilnosti i brzini posebno u Microsoft Office aplikacijama. Takođe su dodata nova podešavanja za podršku ekrana osetljivog na dodir i prijavljivanje slika.
@@ -403,10 +1051,6 @@ Postojanje obeleženog (markiranog) sadržaja se može prijaviti u pretraživač
 <LI>Značajno poboljšana brzina korišćenja aplikacije Visual Studio Code. (<A HREF="https://github.com/nvaccess/nvda/issues/11533" target="_blank">#11533</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2020.2</H2>
 <P>
 Glavne karakteristike ove verzije uključuju podršku za novi brajev red kompanije Nattiq, bolju podršku za ESET antivirus interfejs i Windows Terminal, poboljšanja u brzini korišćenja aplikacije 1Password, kao i uz Windows OneCore sintetizator. Uz puno dodatnih ispravljenih grešaka i poboljšanja.
@@ -463,10 +1107,6 @@ Glavne karakteristike ove verzije uključuju podršku za novi brajev red kompani
 <LI>Fokus u Java aplikacijama se neće menjati kada se izbor promeni u tabelama, listama ili prikazima stabla koji nisu fokusirani. (<A HREF="https://github.com/nvaccess/nvda/issues/5989" target="_blank">#5989</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2020.1</H2>
 <P>
 Glavne karakteristike ove verzije uključuju podršku za nove brajeve redove proizvođača HumanWare i APH, kao i puno drugih važnih ispravljenih grešaka kao što su mogućnost čitanja matematičkih izraza u programu Microsoft Word korišćenjem programa MathPlayer / MathType.
@@ -501,10 +1141,6 @@ Glavne karakteristike ove verzije uključuju podršku za nove brajeve redove pro
 <LI>Ispravljeno praćenje miša za neke MSHTML elemente u  programu Internet Explorer. (<A HREF="https://github.com/nvaccess/nvda/issues/10736" target="_blank">#10736</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2019.3</H2>
 <P>
 NVDA 2019.3 je veoma značajno ažuriranje koje uključuje puno promena u strukturi kao što su prelazak sa Python 2 na Python 3, kao i nove mogućnosti u kodu za govor programa NVDA.
@@ -596,10 +1232,6 @@ Iako ove promene izazivaju nekompatibilnosti starijih NVDA dodataka, ažuriranje
 <LI>U programu Mozilla Firefox, pomeranje fokusa u režimu pretraživanja je brže. Ovo čini pomeranje kursora u režimu pretraživanja brže u više slučajeva. (<A HREF="https://github.com/nvaccess/nvda/issues/10584" target="_blank">#10584</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2019.2.1</H2>
 <P>
 Ovo je manje ažuriranje kako bi se ispravile neke nestabilnosti u verziji 2019.2. Ispravke uključuju:
@@ -686,10 +1318,6 @@ Glavne karakteristike ove verzije uključuju automatsko prepoznavanje brajevih r
 <LI>NVDA dijalog za pretragu u režimu pretraživanja više neće neispravno funkcionisati ako je dijalog o programu NVDA otvoren u pozadini. (<A HREF="https://github.com/nvaccess/nvda/issues/8566" target="_blank">#8566</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2019.1.1</H2>
 <P>
 Ova manja verzija ispravlja sledeće greške:
@@ -779,10 +1407,6 @@ Molimo pogledajte listu promena ispod kako biste videli kako dodaci mogu osigura
 <LI>Ispravljena greška u programu Firefox koja se nekada pojaljuje u navigaciji kroz regione, ako se koristi dodatak enhanced ARIA. (<A HREF="https://github.com/nvaccess/nvda/issues/8980" target="_blank">#8980</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2018.4.1</H2>
 <P>
 Ova verzija ispravlja grešku pri pokretanju programa NVDA ako je jezik podešen na Aragoneski. (<A HREF="https://github.com/nvaccess/nvda/issues/9089" target="_blank">#9089</A>)
@@ -828,15 +1452,9 @@ Glavne karakteristike ove verzije uključuju poboljšanja brzine u novijim verzi
 <LI>U Web aplikaciji Google Slides sa programom Mozilla Firefox, NVDA više ne prijavljuje izabran tekst nakon fokusiranja na svaku kontrolu. (<A HREF="https://github.com/nvaccess/nvda/issues/8964" target="_blank">#8964</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2018.3.2</H2>
 <P>
 Ovo je manje ažuriranje koje ispravlja grešku u programu Google Chrome u toku navigacije tvitova na sajtu  <A HREF="http://www.twitter.com" target="_blank">www.twitter.com</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/8777" target="_blank">#8777</A>)
-+
-+ 
 </P>
 <H2>2018.3.1</H2>
 <P>
@@ -908,10 +1526,6 @@ Glavne karakteristike ove verzije uključuju automatsko prepoznavanje puno braje
 <LI>ITunes 12.9 i novije verzije se  ponovo mogu koristiti. (<A HREF="https://github.com/nvaccess/nvda/issues/8744" target="_blank">#8744</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2018.2.1</H2>
 <P>
 Ova verzija sadrži ažurirane prevode zbog uklonjene karakteristike u poslednjem trenutku koja je izazvala probleme.
@@ -977,10 +1591,6 @@ Glavne karakteristike ove verzije uključuju podršku za tabele u programu Kindl
 <LI>U Windowsu 10 verzija RS5, NVDA više ne prijavljuje suvišne informacije kada menjate aplikacije komandom alt+tab. (<A HREF="https://github.com/nvaccess/nvda/issues/8258" target="_blank">#8258</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2018.1.1</H2>
 <P>
 Ovo je posebna verzija programa NVDA koja ispravlja grešku u drajveru za Onecore Windows sintetizator govora, koji je zvučao kao da ima povećanu visinu i brzinu u Windows 10 Redstone 4 (1803). (<A HREF="https://github.com/nvaccess/nvda/issues/8082" target="_blank">#8082</A>)  
@@ -1044,10 +1654,6 @@ Glavne karakteristike ove verzije uključuju podršku za grafikone u programima 
 <LI>NVDA više nema problema sa pokretanjem na Windowsu 7 uz grešku o internoj  api-ms dll datoteci, kada je određena verzija Visual Studio 2017 redistributables instalirana od strane neke druge aplikacije. (<A HREF="https://github.com/nvaccess/nvda/issues/7975" target="_blank">#7975</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2017.4</H2>
 <P>
 Glavne karakteristike ove verzije uključuju puno ispravki za web podršku uključujući automatsko aktiviranje režima  pretraživanja za Web dijaloge, bolje prijavljivanje oznaka grupa za polja na Webu, Podrška za nove Windows 10 tehnologije kao što su Windows Defender zaštitnik aplikacija i Windows 10 na  ARM64, i automatsko prijavljivanje orijentacije ekrana i statusa baterije.  
@@ -1104,10 +1710,6 @@ Molimo imajte na umu da ova verzija programa  NVDA više ne podržava Windows XP
 <LI>Pomeranje brajevih redova unazad je popravljeno za Freedom scientific brajeve redove koji poseduju levu liniju za pomeranje. (<A HREF="https://github.com/nvaccess/nvda/issues/7713" target="_blank">#7713</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Za više informacija, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2017.3</H2>
 <P>
 Glavne karakteristike ove verzije uključuju unos skraćenog brajevog pisma, podrška za nove Windows OneCore glasove dostupne na Windowsu 10, ugrađena podrška za Windows 10 OCR, i puno značajnih poboljšanja za brajev red i Web.
@@ -1192,10 +1794,6 @@ Glavne karakteristike ove verzije uključuju unos skraćenog brajevog pisma, pod
 <LI>U programima  Firefox i  Chrome, komande za navigaciju kroz tabele sada preskaču skrivene ćelije u tabelama. (<A HREF="https://github.com/nvaccess/nvda/issues/6652" target="_blank">#6652</A>, <A HREF="https://github.com/nvaccess/nvda/issues/5655" target="_blank">#5655</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Molimo pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>2017.2</H2>
 <P>
 Glavne karakteristike ove verzije uključuju podršku za stišavanje pozadinskih zvukova u Windows 10 creators ažuriranju; ispravljeni problemi sa izborom teksta u režimu pretraživanja, uključujući probleme sa komandom izaberi sve; velika poboljšanja za Microsoft Edge podršku; i poboljšanja Web podrške što uključuje izgovor elemenata koji su označeni kao trenutni(koristeći aria-current).
@@ -1241,10 +1839,6 @@ Glavne karakteristike ove verzije uključuju podršku za stišavanje pozadinskih
 <LI>Popravljeni ostali retki problemi sa izborom teksta u režimu pretraživanja. (<A HREF="https://github.com/nvaccess/nvda/issues/7131" target="_blank">#7131</A>)
 </UL>
 
-<H3>Promene za programere</H3>
-<P>
-Ove promene nisu prevedene. Molimo pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.
-</P>
 <H2>Starije verzije</H2>
 <P>
 Za starije verzije, pogledajte<A HREF="../en/changes.html" target="_blank">Englesku verziju ovog dokumenta</A>.

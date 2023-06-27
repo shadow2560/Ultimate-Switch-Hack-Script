@@ -10,6 +10,984 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2023.1</H2>
+<P>
+Додано новий параметр «Стиль абзацу» в розділі «Навігація в документі».
+Цей параметр можна використовувати в текстових редакторах, які початково не підтримують навігацію по абзацах, зокрема у «Блокноті» та Notepad++.
+</P>
+<P>
+Додано нову глобальну команду для повідомлення призначення посилання, яка зіставлена з жестом <CODE>NVDA+k</CODE>.
+</P>
+<P>
+Поліпшено підтримку анотованого веб-вмісту (наприклад, коментарів і виносок).
+Натисніть <CODE>NVDA+d</CODE> для циклічного перегляду анотацій, коли повідомляється про анотації (наприклад, «містить коментар, містить виноску»).
+</P>
+<P>
+Додано підтримку брайлівських дисплеїв Tivomatic Caiku Albatross 46/80.
+</P>
+<P>
+Поліпшено підтримку ARM64 та AMD64 версій Windows.
+</P>
+<P>
+Виправлено багато помилок, зокрема у Windows 11.
+</P>
+<P>
+Оновлено eSpeak, LibLouis, Sonic rate boost і Unicode CLDR.
+Додано нові брайлівські таблиці грузинською, суахілі (Кенія) та чичева (Малаві).
+</P>
+<P>
+Примітка:
+</P>
+<UL>
+<LI>У цій версії розірвано сумісність з наявними додатками.
+</UL>
+
+<P></P>
+<H3>Нові можливості</H3>
+<UL>
+<LI>Microsoft Excel через UI Automation: Автоматичне промовляння про заголовки стовпців і рядків у таблицях. (<A HREF="https://github.com/nvaccess/nvda/issues/14228" target="_blank">#14228</A>)
+  <UL>
+  <LI>Примітка: Це стосується таблиць, відформатованих за допомогою кнопки «Таблиця» на панелі «Вставка» у стрічці.
+  «Перший стовпець» і «Верхній рядок» у «Параметрах стилю таблиці» відповідають заголовкам стовпців і рядків відповідно.
+  <LI>Це не стосується специфічних для читачів екрана заголовків за допомогою іменованих діапазонів, які наразі UI Automation не підтримує.
+  </UL>
+<LI>Додано непризначений сценарій для перемикання відкладеного опису символів. (<A HREF="https://github.com/nvaccess/nvda/issues/14267" target="_blank">#14267</A>)
+<LI>Додано експериментальну можливість використання підтримки сповіщень UIA у терміналі Windows для повідомлення про новий або змінений текст у терміналі, що призвело до поліпшення  стабільності та продуктивності. (<A HREF="https://github.com/nvaccess/nvda/issues/13781" target="_blank">#13781</A>)
+  <UL>
+  <LI>Зверніться до посібника користувача щодо обмежень цієї експериментальної опції.
+  </UL>
+<LI>У Windows 11 ARM64 режим огляду тепер доступний у програмах для AMD64, таких як Firefox, Google Chrome і 1Password. (<A HREF="https://github.com/nvaccess/nvda/issues/14397" target="_blank">#14397</A>)
+<LI>Додано новий параметр «Стиль абзацу» в розділі «Навігація в документі».
+Це додає підтримку навігації по абзацах з одним розривом рядка (звичайні) і з кількома розривами рядка (блокові).
+Це можна використати в текстових редакторах, які початково не підтримують навігацію по абзацах, наприклад, у «Блокноті» та Notepad++. (<A HREF="https://github.com/nvaccess/nvda/issues/13797" target="_blank">#13797</A>)
+<LI>Тепер повідомляється про наявність декількох анотацій.
+Команда <CODE>NVDA+d</CODE> тепер циклічно повідомляє про зведення кожної цілі анотації для джерел з кількома цілями анотацій.
+Наприклад, коли текст має коментар і виноску, які з ним пов’язані. (<A HREF="https://github.com/nvaccess/nvda/issues/14507" target="_blank">#14507</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14480" target="_blank">#14480</A>)
+<LI>Додано підтримку брайлівських дисплеїв Tivomatic Caiku Albatross 46/80. (<A HREF="https://github.com/nvaccess/nvda/issues/13045" target="_blank">#13045</A>)
+<LI>Нова глобальна команда: Повідомити призначення посилання (<CODE>NVDA+k</CODE>).
+Натиснувши її один раз, можна озвучити/показати шрифтом Брайля пункт призначення посилання, яке знаходиться в об'єкті навігатора.
+Двічі натиснувши цю команду, ви побачите її у вікні для детальнішого перегляду. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+<LI>Нова глобальна команда без жесту (категорія «Інструменти»): повідомити призначення URL у посиланні у вікні.
+Це те саме, що й подвійне натискання <CODE>NVDA+k</CODE>, але може бути кориснішим для користувачів шрифту Брайля. (<A HREF="https://github.com/nvaccess/nvda/issues/14583" target="_blank">#14583</A>)
+</UL>
+
+<P></P>
+<H3>Зміни</H3>
+<UL>
+<LI>Оновлено бібліотеку брайлівського введення/виведення LibLouis до версії <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.24.0" target="_blank">3.24.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14436" target="_blank">#14436</A>)
+  <UL>
+  <LI>Основні оновлення стосуються угорського, UEB та китайського бопомофо брайля.
+  <LI>Підтримка данського стандарту шрифту Брайля 2022.
+  <LI>Нові таблиці для грузинського літературного шрифту Брайля, суахілі (Кенія) та чичева (Малаві).
+  </UL>
+<LI>Оновлено бібліотеку прискорення мовлення Sonic до коміту <CODE>1d70513</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14180" target="_blank">#14180</A>)
+<LI>CLDR оновлено до версії 42.0. (<A HREF="https://github.com/nvaccess/nvda/issues/14273" target="_blank">#14273</A>)
+<LI>eSpeak NG оновлено до версії 1.52-dev зі змінами у коміті <CODE>f520fecb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14281" target="_blank">#14281</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14675" target="_blank">#14675</A>). (<A HREF="https://github.com/nvaccess/nvda/issues/14281" target="_blank">#14281</A>)
+  <UL>
+  <LI>Виправлено промовляння великих чисел. (<A HREF="https://github.com/nvaccess/nvda/issues/14241" target="_blank">#14241</A>)
+  </UL>
+<LI>Java-застосунки з елементами керування, що використовують стан вибору, тепер повідомлятимуть про те, що елемент не вибрано, а не про те, що його вибрано. (<A HREF="https://github.com/nvaccess/nvda/issues/14336" target="_blank">#14336</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Виправлення у Windows 11:
+  <UL>
+  <LI>NVDA повідомляє про результати пошуку під час відкриття меню «Пуск». (<A HREF="https://github.com/nvaccess/nvda/issues/13841" target="_blank">#13841</A>)
+  <LI>На ARM програми x64 більше не позначаються як програми ARM64. (<A HREF="https://github.com/nvaccess/nvda/issues/14403" target="_blank">#14403</A>)
+  <LI>Доступні такі пункти меню історії буфера обміну, як «закріплений елемент». (<A HREF="https://github.com/nvaccess/nvda/issues/14508" target="_blank">#14508</A>)
+  <LI>У Windows 11 22H2 і новіших версіях знову можна використовувати мишу і сенсорну взаємодію для взаємодії з такими областями, як вікно переповнення системного лотка і діалог «Відкрити за допомогою». (<A HREF="https://github.com/nvaccess/nvda/issues/14538" target="_blank">#14538</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14539" target="_blank">#14539</A>)
+  </UL>
+<LI>При введенні @mention у коментарях Microsoft Excel з’являються пропозиції. (<A HREF="https://github.com/nvaccess/nvda/issues/13764" target="_blank">#13764</A>)
+<LI>У рядку розташування Google Chrome тепер з'являються повідомлення про керування пропозиціями (перехід на вкладку, видалення пропозиції тощо), коли їх вибрано. (<A HREF="https://github.com/nvaccess/nvda/issues/13522" target="_blank">#13522</A>)
+<LI>Під час запиту інформації про форматування тепер явно повідомляється про кольори у Wordpad або переглядачі журналів, замість «Типовий колір». (<A HREF="https://github.com/nvaccess/nvda/issues/13959" target="_blank">#13959</A>)
+<LI>У Firefox активація кнопки Show Options на сторінках питань GitHub тепер працює надійно. (<A HREF="https://github.com/nvaccess/nvda/issues/14269" target="_blank">#14269</A>)
+<LI>Елементи керування вибору дати в діалозі розширеного пошуку Outlook 2016 / 365 тепер повідомляють про їхню мітку та значення. (<A HREF="https://github.com/nvaccess/nvda/issues/12726" target="_blank">#12726</A>)
+<LI>Елементи керування перемикачами ARIA тепер відображаються у Firefox, Chrome та Edge як перемикачі, а не як прапорці. (<A HREF="https://github.com/nvaccess/nvda/issues/11310" target="_blank">#11310</A>)
+<LI>NVDA автоматично повідомляє про стан сортування в заголовку стовпця HTML-таблиці, коли його змінено натисканням внутрішньої кнопки. (<A HREF="https://github.com/nvaccess/nvda/issues/10890" target="_blank">#10890</A>)
+<LI>Назва орієнтира або регіону завжди автоматично вимовляється під час переходу всередину ззовні за допомогою швидкої навігації або фокуса в режимі огляду. (<A HREF="https://github.com/nvaccess/nvda/issues/13307" target="_blank">#13307</A>)
+<LI>Коли увімкнено звуковий сигнал або промовляння «велика» для великих літер з відкладеним описом символів, NVDA більше не видає звуковий сигнал або оголошення «велика» двічі. (<A HREF="https://github.com/nvaccess/nvda/issues/14239" target="_blank">#14239</A>)
+<LI>NVDA тепер точніше оголошує елементи керування в таблицях у Java-застосунках. (<A HREF="https://github.com/nvaccess/nvda/issues/14347" target="_blank">#14347</A>)
+<LI>Деякі налаштування більше не будуть несподівано відрізнятися при використанні кількох профілів. (<A HREF="https://github.com/nvaccess/nvda/issues/14170" target="_blank">#14170</A>)
+  <UL>
+  <LI>Виправлено такі налаштування:
+    <UL>
+    <LI>Відступ між рядками у налаштуваннях форматування документа.
+    <LI>Рамки комірок у налаштуваннях форматування документа
+    <LI>Відображення повідомлень у налаштуваннях шрифту Брайля
+    <LI>Прив’язка шрифту Брайля у налаштуваннях шрифту Брайля
+    </UL>
+  <LI>У деяких рідкісних випадках ці налаштування, що використовуються у профілях, можуть бути несподівано змінені під час встановлення цієї версії NVDA.
+  <LI>Будь ласка, перевірте ці параметри у своїх профілях після оновлення NVDA до цієї версії.
+  </UL>
+<LI>Емодзі тепер мають повідомлятися більшою кількістю мов. (<A HREF="https://github.com/nvaccess/nvda/issues/14433" target="_blank">#14433</A>)
+<LI>Наявність анотації більше не пропадає для деяких елементів шрифтом Брайля. (<A HREF="https://github.com/nvaccess/nvda/issues/13815" target="_blank">#13815</A>)
+<LI>Виправлено проблему, коли зміни конфігурації не зберігалися належним чином при перемиканні між параметром «Початково» і значенням параметра «Початково». (<A HREF="https://github.com/nvaccess/nvda/issues/14133" target="_blank">#14133</A>)
+<LI>При налаштуванні NVDA завжди буде принаймні одна клавіша, визначена як клавіша NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14527" target="_blank">#14527</A>)
+<LI>Під час доступу до меню NVDA через область сповіщень NVDA більше не пропонуватиме очікуване оновлення, якщо воно недоступне. (<A HREF="https://github.com/nvaccess/nvda/issues/14523" target="_blank">#14523</A>)
+<LI>Для аудіофайлів тривалістю понад добу у foobar2000 тепер коректно повідомляється час, що залишився, минулий та загальний час. (<A HREF="https://github.com/nvaccess/nvda/issues/14127" target="_blank">#14127</A>)
+<LI>У таких веб-браузерах, як Chrome і Firefox, такі сповіщення, як завантаження файлів, відображаються шрифтом Брайля, а також озвучуються. (<A HREF="https://github.com/nvaccess/nvda/issues/14562" target="_blank">#14562</A>)
+<LI>Виправлено помилку під час переходу до першого та останнього стовпця у таблиці у Firefox (<A HREF="https://github.com/nvaccess/nvda/issues/14554" target="_blank">#14554</A>)
+<LI>При запуску NVDA з параметром <CODE>--lang=Windows</CODE> знову можна відкрити діалог загальних налаштувань NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14407" target="_blank">#14407</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<P>
+Note: this is an Add-on API compatibility breaking release.
+Add-ons will need to be re-tested and have their manifest updated.
+Please refer to <A HREF="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html#API" target="_blank">the developer guide</A> for information on NVDA's API deprecation and removal process.
+</P>
+<UL>
+<LI>System tests should now pass when run locally on non-English systems. (<A HREF="https://github.com/nvaccess/nvda/issues/13362" target="_blank">#13362</A>)
+<LI>In Windows 11 on ARM, x64 apps are no longer identified as ARM64 applications. (<A HREF="https://github.com/nvaccess/nvda/issues/14403" target="_blank">#14403</A>)
+<LI>It is no longer necessary to use <CODE>SearchField</CODE> and <CODE>SuggestionListItem</CODE> <CODE>UIA</CODE> <CODE>NVDAObjects</CODE> in new UI Automation scenarios, where automatic reporting of search suggestions, and where typing has been exposed via UI Automation with the <CODE>controllerFor</CODE> pattern.
+This functionality is now available generically via <CODE>behaviours.EditableText</CODE> and the base <CODE>NVDAObject</CODE> respectively. (<A HREF="https://github.com/nvaccess/nvda/issues/14222" target="_blank">#14222</A>)
+<LI>The UIA debug logging category when enabled now produces significantly more logging for UIA event handlers and utilities. (<A HREF="https://github.com/nvaccess/nvda/issues/14256" target="_blank">#14256</A>)
+<LI>NVDAHelper build standards updated. (<A HREF="https://github.com/nvaccess/nvda/issues/13072" target="_blank">#13072</A>)
+  <UL>
+  <LI>Now uses the C++20 standard, was C++17.
+  <LI>Now uses the <CODE>/permissive-</CODE> compiler flag which disables permissive behaviors, and sets the <CODE>/Zc</CODE> compiler options for strict conformance.
+  </UL>
+<LI>Some plugin objects (e.g. drivers and add-ons) now have a more informative description in the NVDA python console. (<A HREF="https://github.com/nvaccess/nvda/issues/14463" target="_blank">#14463</A>)
+<LI>NVDA can now be fully compiled with Visual Studio 2022, no longer requiring the Visual Studio 2019 build tools. (<A HREF="https://github.com/nvaccess/nvda/issues/14326" target="_blank">#14326</A>)
+<LI>More detailed logging for NVDA freezes to aid debugging. (<A HREF="https://github.com/nvaccess/nvda/issues/14309" target="_blank">#14309</A>)
+<LI>The singleton <CODE>braille._BgThread</CODE> class has been replaced with <CODE>hwIo.ioThread.IoThread</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14130" target="_blank">#14130</A>)
+  <UL>
+  <LI>A single instance <CODE>hwIo.bgThread</CODE> (in NVDA core) of this class provides background i/o for thread safe braille display drivers.
+  <LI>This new class is not a singleton by design, add-on authors are encouraged to use their own instance when doing hardware i/o.
+  </UL>
+<LI>The processor architecture for the computer can be queried from <CODE>winVersion.WinVersion.processorArchitecture attribute.</CODE> (<A HREF="https://github.com/nvaccess/nvda/issues/14439" target="_blank">#14439</A>)
+<LI>New extension points have been added. (<A HREF="https://github.com/nvaccess/nvda/issues/14503" target="_blank">#14503</A>)
+  <UL>
+  <LI><CODE>inputCore.decide_executeGesture</CODE>
+  <LI><CODE>tones.decide_beep</CODE>
+  <LI><CODE>nvwave.decide_playWaveFile</CODE>
+  <LI><CODE>braille.pre_writeCells</CODE>
+  <LI><CODE>braille.filter_displaySize</CODE>
+  <LI><CODE>braille.decide_enabled</CODE>
+  <LI><CODE>braille.displayChanged</CODE>
+  <LI><CODE>braille.displaySizeChanged</CODE>
+  </UL>
+<LI>It is possible to set useConfig to False on supported settings for a synthesizer driver. (<A HREF="https://github.com/nvaccess/nvda/issues/14601" target="_blank">#14601</A>)
+</UL>
+
+<P></P>
+<H4>API Breaking Changes</H4>
+<P>
+These are breaking API changes.
+Please open a GitHub issue if your Add-on has an issue with updating to the new API.
+</P>
+<UL>
+<LI>The configuration specification has been altered, keys have been removed or modified:
+  <UL>
+  <LI>In <CODE>[documentFormatting]</CODE> section (<A HREF="https://github.com/nvaccess/nvda/issues/14233" target="_blank">#14233</A>):
+    <UL>
+    <LI><CODE>reportLineIndentation</CODE> stores an int value (0 to 3) instead of a boolean
+    <LI><CODE>reportLineIndentationWithTones</CODE> has been removed.
+    <LI><CODE>reportBorderStyle</CODE> and <CODE>reportBorderColor</CODE> have been removed and are replaced by <CODE>reportCellBorders</CODE>.
+    </UL>
+  <LI>In <CODE>[braille]</CODE> section (<A HREF="https://github.com/nvaccess/nvda/issues/14233" target="_blank">#14233</A>):
+    <UL>
+    <LI><CODE>noMessageTimeout</CODE> has been removed, replaced by a value for <CODE>showMessages</CODE>.
+    <LI><CODE>messageTimeout</CODE> cannot take the value 0 anymore, replaced by a value for <CODE>showMessages</CODE>.
+    <LI><CODE>autoTether</CODE> has been removed; <CODE>tetherTo</CODE> can now take the value "auto" instead.
+    </UL>
+  <LI>In <CODE>[keyboard]</CODE> section  (<A HREF="https://github.com/nvaccess/nvda/issues/14528" target="_blank">#14528</A>):
+    <UL>
+    <LI><CODE>useCapsLockAsNVDAModifierKey</CODE>, <CODE>useNumpadInsertAsNVDAModifierKey</CODE>, <CODE>useExtendedInsertAsNVDAModifierKey</CODE> have been removed.
+    They are replaced by <CODE>NVDAModifierKeys</CODE>.
+    </UL>
+  </UL>
+<LI>The <CODE>NVDAHelper.RemoteLoader64</CODE> class has been removed with no replacement. (<A HREF="https://github.com/nvaccess/nvda/issues/14449" target="_blank">#14449</A>)
+<LI>The following functions in <CODE>winAPI.sessionTracking</CODE> are removed with no replacement. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14490" target="_blank">#14490</A>)
+  <UL>
+  <LI><CODE>isWindowsLocked</CODE>
+  <LI><CODE>handleSessionChange</CODE>
+  <LI><CODE>unregister</CODE>
+  <LI><CODE>register</CODE>
+  <LI><CODE>isLockStateSuccessfullyTracked</CODE>
+  </UL>
+<LI>It is no longer possible to enable/disable the braille handler by setting <CODE>braille.handler.enabled</CODE>.
+To disable the braille handler programatically, register a handler to <CODE>braille.handler.decide_enabled</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14503" target="_blank">#14503</A>)
+<LI>It is no longer possible to update the display size of the handler by setting <CODE>braille.handler.displaySize</CODE>.
+To update the displaySize programatically, register a handler to <CODE>braille.handler.filter_displaySize</CODE>.
+Refer to <CODE>brailleViewer</CODE> for an example on how to do this. (<A HREF="https://github.com/nvaccess/nvda/issues/14503" target="_blank">#14503</A>)
+<LI>There have been changes to the usage of <CODE>addonHandler.Addon.loadModule</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14481" target="_blank">#14481</A>)
+  <UL>
+  <LI><CODE>loadModule</CODE> now expects dot as a separator, rather than backslash.
+  For example "lib.example" instead of "lib\example".
+  <LI><CODE>loadModule</CODE> now raises an exception when a module can't be loaded or has errors, instead of silently returning <CODE>None</CODE> without giving information about the cause.
+  </UL>
+<LI>The following symbols have been removed from <CODE>appModules.foobar2000</CODE> with no direct replacement. (<A HREF="https://github.com/nvaccess/nvda/issues/14570" target="_blank">#14570</A>)
+  <UL>
+  <LI><CODE>statusBarTimes</CODE>
+  <LI><CODE>parseIntervalToTimestamp</CODE>
+  <LI><CODE>getOutputFormat</CODE>
+  <LI><CODE>getParsingFormat</CODE>
+  </UL>
+<LI>The following are no longer singletons - their get method has been removed.
+Usage of <CODE>Example.get()</CODE> is now <CODE>Example()</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14248" target="_blank">#14248</A>)
+  <UL>
+  <LI><CODE>UIAHandler.customAnnotations.CustomAnnotationTypesCommon</CODE>
+  <LI><CODE>UIAHandler.customProps.CustomPropertiesCommon</CODE>
+  <LI><CODE>NVDAObjects.UIA.excel.ExcelCustomProperties</CODE>
+  <LI><CODE>NVDAObjects.UIA.excel.ExcelCustomAnnotationTypes</CODE>
+  </UL>
+</UL>
+
+<P></P>
+<H4>Deprecations</H4>
+<UL>
+<LI><CODE>NVDAObjects.UIA.winConsoleUIA.WinTerminalUIA</CODE> is deprecated and usage is discouraged. (<A HREF="https://github.com/nvaccess/nvda/issues/14047" target="_blank">#14047</A>)
+<LI><CODE>config.addConfigDirsToPythonPackagePath</CODE> has been moved.
+Use <CODE>addonHandler.packaging.addDirsToPythonPackagePath</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14350" target="_blank">#14350</A>)
+<LI><CODE>braille.BrailleHandler.TETHER_*</CODE> are deprecated.
+Use <CODE>configFlags.TetherTo.*.value</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14233" target="_blank">#14233</A>)
+<LI><CODE>utils.security.postSessionLockStateChanged</CODE> is deprecated.
+Use <CODE>utils.security.post_sessionLockStateChanged</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14486" target="_blank">#14486</A>)
+<LI><CODE>NVDAObject.hasDetails</CODE>, <CODE>NVDAObject.detailsSummary</CODE>, <CODE>NVDAObject.detailsRole</CODE> has been deprecated.
+Use <CODE>NVDAObject.annotations</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14507" target="_blank">#14507</A>)
+<LI><CODE>keyboardHandler.SUPPORTED_NVDA_MODIFIER_KEYS</CODE> is deprecated with no direct replacement.
+Consider using the class <CODE>config.configFlags.NVDAKey</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14528" target="_blank">#14528</A>)
+<LI><CODE>gui.MainFrame.evaluateUpdatePendingUpdateMenuItemCommand</CODE> has been deprecated.
+Use <CODE>gui.MainFrame.SysTrayIcon.evaluateUpdatePendingUpdateMenuItemCommand</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/14523" target="_blank">#14523</A>)
+</UL>
+
+<P></P>
+<H2>2022.4</H2>
+<P>
+Цей випуск включає декілька нових клавіатурних команд, у тому числі команду «Читати все» тля таблиць.
+До Посібника користувача додано розділ «Короткий посібник».
+Також виправлено кілька помилок.
+</P>
+<P>
+Оновлено eSpeak та LibLouis.
+Додано нові брайлівські таблиці: китайську, шведську, Луганда і кіняруанда.
+</P>
+<H3>Нові функції</H3>
+<UL>
+<LI>До Посібника користувача додано розділ «Короткий посібник користувача». (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>Введено нову команду, яка дозволяє дізнатись гарячу клавішу поточного об’єкта у фокусі. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+  <UL>
+  <LI>Desktop-розкладка: <CODE>shift+додаткова2</CODE>.
+  <LI>Laptop-розкладка: <CODE>NVDA+ctrl+shift+.</CODE>.
+  </UL>
+<LI>Введено нові команди для переміщення переглядового курсора по сторінках, якщо це підтримує відповідний застосунок. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+  <UL>
+  <LI>Перейти на попередню сторінку:
+    <UL>
+    <LI>Desktop-розкладка: <CODE>NVDA+сторінка вгору</CODE>.
+    <LI>Laptop-розкладка: <CODE>NVDA+shift+сторінка вгору</CODE>.
+    </UL>
+  <LI>Перейти на наступну сторінку:
+    <UL>
+    <LI>Desktop-розкладка: <CODE>NVDA+сторінка вниз</CODE>.
+    <LI>Laptop-розкладка: <CODE>NVDA+shift+сторінка вниз</CODE>.
+    </UL>
+  </UL>
+<LI>Додано нижченаведені команди для навігації в таблиці. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+  <UL>
+  <LI>Читати все у стовпці: <CODE>NVDA+control+alt+стрілка вниз</CODE>
+  <LI>Читати все у рядку: <CODE>NVDA+control+alt+стрілка вправо</CODE>
+  <LI>Читати весь стовпець: <CODE>NVDA+control+alt+стрілка вгору</CODE>
+  <LI>Читати весь рядок: <CODE>NVDA+control+alt+стрілка вліво</CODE>
+  </UL>
+<LI>Microsoft Excel з UI Automation: NVDA тепер оголошує про вихід за межі таблиці всередині електронної таблиці. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+<LI>Читання заголовків таблиці тепер можна налаштувати окремо для рядків і окремо для стовпців. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>Зміни</H3>
+<UL>
+<LI>eSpeak NG оновлено до 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+  <UL>
+  <LI>Виправлено промовляння латинських символів під час використання мандаринської мови. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+  </UL>
+<LI>бібліотеку брайлівського введення/виведення LibLouis оновлено до <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank">3.23.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+  <UL>
+  <LI>Додано брайлівські таблиці:
+    <UL>
+    <LI>Chinese common braille (simplified Chinese characters)
+    <LI>Kinyarwanda literary braille
+    <LI>Luganda literary braille
+    <LI>Swedish uncontracted braille
+    <LI>Swedish partially contracted braille
+    <LI>Swedish contracted braille
+    <LI>Chinese (China, Mandarin) Current Braille System (no tones) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+    </UL>
+  </UL>
+<LI>NVDA тепер включає архітектуру операційної системи як частину відстеження статистики користувачів. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>В разі оновлення NVDA за допомогою Windows Package Manager CLI (він же winget), випущена версія NVDA більше не завжди розглядається як новіша за будь-яку встановлену альфа-версію. (<A HREF="https://github.com/nvaccess/nvda/issues/12469" target="_blank">#12469</A>)
+<LI>NVDA тепер коректно оголошує групування в Java-застосунках. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>Каретка належним чином слідує за вимовленим текстом в режимі «читати все» в таких застосунках, як Bookworm, WordPad або переглядач журналу NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>У застосунках, які використовують UI Automation, частково позначені прапорці тепер оголошуються коректно. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>Поліпшено продуктивність і стабільність у Microsoft Visual Studio, Терміналі Windows та інших застосунках на базі UI Automation. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+  <UL>
+  <LI>Ці виправлення застосовуються до Windows 11 Sun Valley 2 (version 22H2) і пізніших.
+  <LI>Тепер початково увімкнено вибіркову реєстрацію подій і властивостей для UI Automation.
+  </UL>
+<LI>Повідомлення тексту, виведення шрифтом Брайля та придушення паролів тепер працюють належним чином у вбудованому елементі керування Windows Terminal у Visual Studio 2022. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>NVDA тепер знає про DPI при використанні декількох моніторів.
+Існує кілька виправлень для використання значення DPI вище 100% або декількох моніторів.
+Проблеми все ще можуть існувати у версіях Windows, старіших за Windows 10 1809.
+Щоб ці виправлення працювали, застосунки, з якими взаємодіє NVDA, також повинні знати про DPI.
+Зауважте, що все ще існують відомі проблеми з Chrome і Edge. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>Візуальні рамки підсвічування тепер повинні бути правильно розміщені в більшості застосунків. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>Взаємодія з сенсорним екраном тепер повинна бути точнішою для більшості застосунків. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>Відстеження миші тепер повинно працювати в більшості застосунків. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>Зміна стану орієнтації (книжкова/альбомна) тепер коректно ігнорується, якщо не відбувається ніяких змін (наприклад, зміна монітора). (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>NVDA оголошуватиме про перетягування елементів на екрані в таких місцях, як перестановка плиток меню «Пуск» у Windows 10 і віртуальних робочих столів у Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>Параметр «Відтворювати звук під час журналювання помилок» у додаткових налаштуваннях тепер коректно відновлюється до свого початкового значення в разі натискання кнопки «Відновити початкові». (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>NVDA тепер може виділяти текст із використанням комбінації <CODE>NVDA+f10</CODE> у Java-застосунках. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>NVDA більше не застряватиме в меню при переміщенні стрілками вгору і вниз між гілками розмов у Microsoft Teams. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<P>
+Please refer to <A HREF="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html#API" target="_blank">the developer guide</A> for information on NVDA's API deprecation and removal process.
+</P>
+<UL>
+<LI>The <A HREF="https://groups.google.com/a/nvaccess.org/g/nvda-api/about" target="_blank">NVDA API Announcement mailing list</A> was created. (<A HREF="https://github.com/nvaccess/nvda/issues/13999" target="_blank">#13999</A>)
+<LI>NVDA no longer processes <CODE>textChange</CODE> events for most UI Automation applications due to their extreme negative performance impact. (<A HREF="https://github.com/nvaccess/nvda/issues/11002" target="_blank">#11002</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14067" target="_blank">#14067</A>)
+</UL>
+
+<P></P>
+<H4>Deprecations</H4>
+<UL>
+<LI><CODE>core.post_windowMessageReceipt</CODE> is deprecated, use <CODE>winAPI.messageWindow.pre_handleWindowMessage</CODE> instead.
+<LI><CODE>winKernel.SYSTEM_POWER_STATUS</CODE> is deprecated and usage is discouraged, this has been moved to <CODE>winAPI._powerTracking.SystemPowerStatus</CODE>.
+<LI><CODE>winUser.SM_*</CODE> constants are deprecated, use <CODE>winAPI.winUser.constants.SystemMetrics</CODE> instead.
+</UL>
+
+<P></P>
+<H2>2022.3.3</H2>
+<P>
+Це незначний реліз, який виправляє проблеми з 2022.3.2, 2022.3.1 і 2022.3.
+Це також вирішує проблему безпеки.
+</P>
+<H3>Виправлення безпеки</H3>
+<UL>
+<LI>Запобігає можливому доступу до системи (наприклад, до консолі NVDA Python) для неавторизованих користувачів.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-fpwc-2gxx-j9v7" target="_blank">GHSA-fpwc-2gxx-j9v7</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Виправлено помилку, через яку, якщо NVDA зависала під час блокування, NVDA дозволяла доступ до робочого столу користувача, перебуваючи на екрані блокування Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Виправлено помилку, за якої, якщо NVDA зависала під час блокування, NVDA поводилася некоректно, так наче  пристрій все ще заблоковано. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>Виправлено проблему доступності процесу «забув свій PIN-код» у Windows, а також з процесом оновлення/встановлення Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/14368" target="_blank">#14368</A>)
+<LI>Виправлено помилку при спробі встановлення NVDA в деяких середовищах Windows, наприклад, Windows Server. (<A HREF="https://github.com/nvaccess/nvda/issues/14379" target="_blank">#14379</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<H4>Deprecations</H4>
+<UL>
+<LI><CODE>utils.security.isObjectAboveLockScreen(obj)</CODE> is deprecated, instead use <CODE>obj.isBelowLockScreen</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+<LI>The following functions in <CODE>winAPI.sessionTracking</CODE> are deprecated for removal in 2023.1. (<A HREF="https://github.com/nvaccess/nvda/issues/14416" target="_blank">#14416</A>)
+  <UL>
+  <LI><CODE>isWindowsLocked</CODE>
+  <LI><CODE>handleSessionChange</CODE>
+  <LI><CODE>unregister</CODE>
+  <LI><CODE>register</CODE>
+  <LI><CODE>isLockStateSuccessfullyTracked</CODE>
+  </UL>
+</UL>
+
+<P></P>
+<H2>2022.3.2</H2>
+<P>
+Це незначний реліз, який виправляє регресії з 2022.3.1 та вирішує проблему безпеки.
+</P>
+<H3>Виправлення безпеки</H3>
+<UL>
+<LI>Запобігає можливому доступу на системному рівні неавторизованих користувачів.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-3jj9-295f-h69w" target="_blank">GHSA-3jj9-295f-h69w</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Виправлено регрес від 2022.3.1, коли деякий функціонал було відключено на захищених екранах. (<A HREF="https://github.com/nvaccess/nvda/issues/14286" target="_blank">#14286</A>)
+<LI>Виправлено регрес від 2022.3.1, коли певний функціонал відключався після входу в систему, якщо NVDA запускалась на екрані блокування. (<A HREF="https://github.com/nvaccess/nvda/issues/14301" target="_blank">#14301</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.1</H2>
+<P>
+Це незначний реліз для виправлення кількох проблем безпеки.
+Будь ласка, відповідально повідомляйте про проблеми безпеки на <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Виправлення безпеки</H3>
+<UL>
+<LI>Виправлено вразливість, яка дозволяла підвищити права з користувацьких до системних.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-q7c2-pgqm-vvw5" target="_blank">GHSA-q7c2-pgqm-vvw5</A>)
+<LI>Виправлено проблему безпеки, яка дозволяла отримати доступ до консолі python на екрані блокування через стан гонитви при запуску NVDA.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-72mj-mqhj-qh4w" target="_blank">GHSA-72mj-mqhj-qh4w</A>)
+<LI>Виправлено проблему, коли при блокуванні Windows кешувався текст переглядача журналу мовлення.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Неавторизованим користувачам на екрані блокування заборонено оновлювати налаштування мовлення й переглядача брайля. (<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H2>2022.3</H2>
+<P>
+Значний внесок у цю версію зробила спільнота розробників NVDA.
+Вона включає відкладені описи символів і поліпшену підтримку консолі Windows.
+</P>
+<P>
+Ця версія також містить кілька виправлень помилок.
+Зокрема, тепер найновіші версії Adobe Acrobat/Reader більше не завершують роботу аварійно під час читання PDF-документа.
+</P>
+<P>
+Оновлено eSpeak, до якого додано 3 нові мови: білоруську, люксембурзьку та Totontepec Mixe.
+</P>
+<H3>Нові можливості</H3>
+<UL>
+<LI>У хості консолі Windows, який використовують командний рядок, PowerShell і підсистема Windows для Linux у Windows 11 версії 22H2 (Sun Valley 2) і новіших версіях:
+  <UL>
+  <LI>Значно поліпшено продуктивність і стабільність. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+  <LI>При натисканні <CODE>control+f</CODE> для пошуку тексту позиція переглядового курсора оновлюється відповідно до знайденого терміну. (<A HREF="https://github.com/nvaccess/nvda/issues/11172" target="_blank">#11172</A>)
+  <LI>Озвучення введеного тексту, який не відображається на екрані (наприклад, паролі), початково вимкнено.
+Його можна повторно ввімкнути в панелі додаткових налаштувань NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/11554" target="_blank">#11554</A>)
+  <LI>Текст, який прокручується за межі екрана, можна переглядати без прокручування вікна консолі. (<A HREF="https://github.com/nvaccess/nvda/issues/12669" target="_blank">#12669</A>)
+  <LI>Доступна детальніша інформація про форматування тексту. (<A HREF="https://github.com/microsoft/terminal/pull/10336" target="_blank">microsoft/terminal PR 10336</A>)
+  </UL>
+<LI>У налаштування мовлення додано новий параметр для читання описів символів після затримки. (<A HREF="https://github.com/nvaccess/nvda/issues/13509" target="_blank">#13509</A>)
+<LI>У налаштування брайля додано новий параметр, який дозволяє вказати, чи повинно перериватися мовлення  прокруткою дисплея вперед/назад. (<A HREF="https://github.com/nvaccess/nvda/issues/2124" target="_blank">#2124</A>)
+</UL>
+
+<P></P>
+<H3>Зміни</H3>
+<UL>
+<LI>eSpeak NG оновлено до 1.52-dev commit <CODE>9de65fcb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13295" target="_blank">#13295</A>)
+  <UL>
+  <LI>Додано мови:
+    <UL>
+    <LI>білоруську
+    <LI>Люксембурзьку
+    <LI>Totontepec Mixe
+    </UL>
+  </UL>
+<LI>Під час використання UI Automation для доступу до елементів керування електронною таблицею Microsoft Excel NVDA тепер може повідомляти про об’єднання комірок. (<A HREF="https://github.com/nvaccess/nvda/issues/12843" target="_blank">#12843</A>)
+<LI>Замість повідомлення «містить подробиці» вказується призначення подробиць, де це можливо, наприклад «містить коментар». (<A HREF="https://github.com/nvaccess/nvda/issues/13649" target="_blank">#13649</A>)
+<LI>Розмір встановленої NVDA тепер відображається в розділі програм і засобів Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/13909" target="_blank">#13909</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення помилок</H3>
+<UL>
+<LI>Adobe Acrobat / Reader 64 bit більше не завершує роботу аварійно під час читання PDF-документа. (<A HREF="https://github.com/nvaccess/nvda/issues/12920" target="_blank">#12920</A>)
+  <UL>
+  <LI>Зауважте, що для уникнення збою також потрібна найновіша версія Adobe Acrobat / Reader.
+  </UL>
+<LI>Вимірювання розміру шрифту тепер можна перекладати в NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13573" target="_blank">#13573</A>)
+<LI>Ігноруються події Java Access Bridge, коли не можна знайти дескриптор вікна для програм Java.
+Це поліпшить продуктивність деяких програм Java, зокрема IntelliJ IDEA. (<A HREF="https://github.com/nvaccess/nvda/issues/13039" target="_blank">#13039</A>)
+<LI>Оголошення вибраних комірок у LibreOffice Calc стало ефективнішим і більше не призводить до зависання Calc, коли вибрано багато комірок. (<A HREF="https://github.com/nvaccess/nvda/issues/13232" target="_blank">#13232</A>)
+<LI>Під час роботи під іншим користувачем Microsoft Edge більше не є недоступним. (<A HREF="https://github.com/nvaccess/nvda/issues/13032" target="_blank">#13032</A>)
+<LI>Коли додаткове прискорення вимкнено, швидкість eSpeak більше не падає між 99% і 100%. (<A HREF="https://github.com/nvaccess/nvda/issues/13876" target="_blank">#13876</A>)
+<LI>Виправлено помилку, через яку відкривалися 2 діалоги жестів вводу. (<A HREF="https://github.com/nvaccess/nvda/issues/13854" target="_blank">#13854</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<UL>
+<LI>Updated Comtypes to version 1.1.11. (<A HREF="https://github.com/nvaccess/nvda/issues/12953" target="_blank">#12953</A>)
+<LI>In builds of Windows Console (<CODE>conhost.exe</CODE>) with an NVDA API level of 2 (<CODE>FORMATTED</CODE>) or greater, such as those included with Windows 11 version 22H2 (Sun Valley 2), UI Automation is now used by default. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+  <UL>
+  <LI>This can be overridden by changing the "Windows Console support" setting in NVDA's advanced settings panel.
+  <LI>To find your Windows Console's NVDA API level, set "Windows Console support" to "UIA when available", then check the NVDA+F1 log opened from a running Windows Console instance.
+  </UL>
+<LI>The Chromium virtual buffer is now loaded even when the document object has the MSAA <CODE>STATE_SYSTEM_BUSY</CODE> exposed via IA2. (<A HREF="https://github.com/nvaccess/nvda/issues/13306" target="_blank">#13306</A>)
+<LI>A config spec type <CODE>featureFlag</CODE> has been created for use with experimental features in NVDA. See <CODE>devDocs/featureFlag.md</CODE> for more information. (<A HREF="https://github.com/nvaccess/nvda/issues/13859" target="_blank">#13859</A>)
+</UL>
+
+<P></P>
+<H4>Deprecations</H4>
+<P>
+There are no deprecations proposed in 2022.3.
+</P>
+<H2>2022.2.3</H2>
+<P>
+Це патч для виправлення випадкової поломки API, яка виникла в 2022.2.1.
+</P>
+<H3>Виправлення помилок</H3>
+<UL>
+<LI>Виправлено помилку, коли NVDA не оголошувала «Захищений робочий стіл» при вході в захищений робочий стіл.
+Це призводило до того, що NVDA remote не розпізнавав захищених робочих столів. (<A HREF="https://github.com/nvaccess/nvda/issues/14094" target="_blank">#14094</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.2</H2>
+<P>
+Ця версія містить виправлення помилки, яка виникла у 2022.2.1 із жестами вводу.
+</P>
+<H3>Виправлення помилок</H3>
+<UL>
+<LI>Виправлено помилку, через яку жести вводу працювали не завжди. (<A HREF="https://github.com/nvaccess/nvda/issues/14065" target="_blank">#14065</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.1</H2>
+<P>
+Це незначний випуск для вирішення проблеми безпеки.
+Будь ласка, відповідально повідомляйте про проблеми безпеки на адресу <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A>.
+</P>
+<H3>Виправлення безпеки</H3>
+<UL>
+<LI>Виправлено експлойт, через який можна було запустити консоль Python із екрана блокування. (GHSA-rmq3-vvhq-gp32)
+<LI>Виправлено експлойт, через який можна було вийти з екрану блокування за допомогою об’єктної навігації. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<H4>Deprecations</H4>
+<P>
+These deprecations are currently not scheduled for removal.
+The deprecated aliases will remain until further notice.
+Please test the new API and provide feedback.
+For add-on authors, please open a GitHub issue if these changes stop the API from meeting your needs.
+</P>
+<UL>
+<LI><CODE>appModules.lockapp.LockAppObject</CODE> should be replaced with <CODE>NVDAObjects.lockscreen.LockScreenObject</CODE>. (GHSA-rmq3-vvhq-gp32)
+<LI><CODE>appModules.lockapp.AppModule.SAFE_SCRIPTS</CODE> should be replaced with <CODE>utils.security.getSafeScripts()</CODE>. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H2>2022.2</H2>
+<P>
+У цій версії виправлено багато проблем.
+Зокрема, є значні покращення у роботі з програмами на базі Java, брайлівськими дисплеями й функціями Windows.
+</P>
+<P>
+Додано нові команди для навігації в таблицях.
+Оновлено Загальний репозиторій мовних даних Юнікоду (CLDR).
+LibLouis також оновлено, він включає нову німецьку брайлівську таблицю.
+</P>
+<H3>Нові можливості</H3>
+<UL>
+<LI>Підтримка взаємодії з компонентами Microsoft Loop у продуктах Microsoft Office. (<A HREF="https://github.com/nvaccess/nvda/issues/13617" target="_blank">#13617</A>)
+<LI>Додано нові команди навігації в таблицях. (<A HREF="https://github.com/nvaccess/nvda/issues/957" target="_blank">#957</A>)
+ <UL>
+ <LI><CODE>control+alt+на початок/в кінець</CODE> для переходу до першого/останнього стовпця.
+ <LI><CODE>control+alt+сторінка вгору/сторінка вниз</CODE> для переходу до першого/останнього рядка.
+ </UL>
+<LI>Додано скрипт без призначеного жесту для циклічного перемикання режимів автоматичного перемикання між мовами й діалектами. (<A HREF="https://github.com/nvaccess/nvda/issues/10253" target="_blank">#10253</A>)
+</UL>
+
+<P></P>
+<H3>Зміни</H3>
+<UL>
+<LI>NSIS оновлено до версії 3.08. (<A HREF="https://github.com/nvaccess/nvda/issues/9134" target="_blank">#9134</A>)
+<LI>CLDR оновлено до версії 41.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13582" target="_blank">#13582</A>)
+<LI>Оновлено бібліотеку брайлівського введення/виведення LibLouis до <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.22.0" target="_blank">3.22.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13775" target="_blank">#13775</A>)
+  <UL>
+  <LI>Нова брайлівська таблиця: German grade 2 (detailed)
+  </UL>
+<LI>Додано нову роль для елемента керування  «індикатор зайнятості». (<A HREF="https://github.com/nvaccess/nvda/issues/10644" target="_blank">#10644</A>)
+<LI>NVDA тепер повідомляє, коли виконання дії неможливе. (<A HREF="https://github.com/nvaccess/nvda/issues/13500" target="_blank">#13500</A>)
+  <UL>
+  <LI>Це стосується:
+    <UL>
+    <LI>Використання NVDA з Microsoft Store.
+    <LI>Безпечного режиму (захищений контекст).
+    <LI>Очікування відповіді модальних діалогів.
+    </UL>
+  </UL>
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Виправлення для застосунків на базі Java:
+  <UL>
+  <LI>NVDA тепер промовляє стан лише читання. (<A HREF="https://github.com/nvaccess/nvda/issues/13692" target="_blank">#13692</A>)
+  <LI>NVDA тепер коректно повідомляє про стан вимкнено/увімкнено. (<A HREF="https://github.com/nvaccess/nvda/issues/10993" target="_blank">#10993</A>)
+  <LI>NVDA тепер промовляє функціональні комбінації клавіш. (<A HREF="https://github.com/nvaccess/nvda/issues/13643" target="_blank">#13643</A>)
+  <LI>NVDA тепер може подавати звукові сигнали чи промовляти індикатори виконання. (<A HREF="https://github.com/nvaccess/nvda/issues/13594" target="_blank">#13594</A>)
+  <LI>NVDA більше не видаляє некоректно текст із віджетів під час представлення їх користувачеві. (<A HREF="https://github.com/nvaccess/nvda/issues/13102" target="_blank">#13102</A>)
+  <LI>NVDA тепер повідомляє стан кнопок-перемикачів. (<A HREF="https://github.com/nvaccess/nvda/issues/9728" target="_blank">#9728</A>)
+  <LI>NVDA тепер виявляє вікно в Java-застосунку із кількома вікнами. (<A HREF="https://github.com/nvaccess/nvda/issues/9184" target="_blank">#9184</A>)
+  <LI>NVDA тепер повідомляє позицію вкладок. (<A HREF="https://github.com/nvaccess/nvda/issues/13744" target="_blank">#13744</A>)
+  </UL>
+<LI>Виправлення помилок з Брайлем:
+  <UL>
+  <LI>Виправлено помилку брайлівського виведення під час переміщення у межах певного тексту в елементах керування редагуванням Mozilla, таких як чернетки повідомлень у Thunderbird. (<A HREF="https://github.com/nvaccess/nvda/issues/12542" target="_blank">#12542</A>)
+  <LI>При автоматичній прив’язці Брайля й переміщенні мишки з увімкненим відстеженням мишки,
+   команди текстового перегляду оновлюють брайлівський дисплей із промовленим вмістом. (<A HREF="https://github.com/nvaccess/nvda/issues/11519" target="_blank">#11519</A>)
+  <LI>Тепер можливо панорамувати вміст на брайлівському дисплеї після використання команд текстового перегляду. (<A HREF="https://github.com/nvaccess/nvda/issues/8682" target="_blank">#8682</A>)
+  </UL>
+<LI>Встановлювач NVDA тепер можна запускати із папки, в імені якої є спеціальні символи. (<A HREF="https://github.com/nvaccess/nvda/issues/13270" target="_blank">#13270</A>)
+<LI>У Firefox NVDA більше не помиляється під час промовляння елементів на веб-сторінках, коли атрибути aria-rowindex, aria-colindex, aria-rowcount або aria-colcount є недійсними. (<A HREF="https://github.com/nvaccess/nvda/issues/13405" target="_blank">#13405</A>)
+<LI>Курсор більше не перемикає рядок чи стовпець під час використання навігації в таблиці для навігації по об’єднаних комірках. (<A HREF="https://github.com/nvaccess/nvda/issues/7278" target="_blank">#7278</A>)
+<LI>Під час читання неінтерактивних PDF-документів у Adobe Reader промовляються тип і стан полів форм (таких як прапорці чи радіокнопки). (<A HREF="https://github.com/nvaccess/nvda/issues/13285" target="_blank">#13285</A>)
+<LI>Елемент «Повернути конфігурацію до початкових налаштувань» знову доступний у меню NVDA у безпечному режимі. (<A HREF="https://github.com/nvaccess/nvda/issues/13547" target="_blank">#13547</A>)
+<LI>Будь-які заблоковані кнопки мишки буде розблоковано в разі виходу з NVDA, раніше кнопка мишки залишалася заблокованою. (<A HREF="https://github.com/nvaccess/nvda/issues/13410" target="_blank">#13410</A>)
+<LI>Visual Studio тепер повідомляє номери рядків. (<A HREF="https://github.com/nvaccess/nvda/issues/13604" target="_blank">#13604</A>)
+  <UL>
+  <LI>Зауважте, аби промовляння номерів рядків працювало, показ номерів рядків має бути увімкнено у Visual Studio та NVDA.
+  </UL>
+<LI>Visual Studio тепер коректно повідомляє відступ рядка. (<A HREF="https://github.com/nvaccess/nvda/issues/13574" target="_blank">#13574</A>)
+<LI>NVDA знову оголошує подробиці результатів пошуку в меню «Пуск» у останніх версіях Windows 10 і 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13544" target="_blank">#13544</A>)
+<LI>У Калькуляторі версії 10.1908 і новіших у Windows 10 та 11,
+NVDA оголосить результати, коли буде натиснуто більше команд, наприклад, команди з інженерного режиму. (<A HREF="https://github.com/nvaccess/nvda/issues/13383" target="_blank">#13383</A>)
+<LI>У Windows 11 знову є можливість навігації та взаємодії з елементами інтерфейсу користувача,
+наприклад, з панеллю завдань і переглядом завдань за допомогою взаємодії мишки й дотику. (<A HREF="https://github.com/nvaccess/nvda/issues/13506" target="_blank">#13506</A>)
+<LI>NVDA тепер оголошує вміст рядка стану у «Блокноті» Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13688" target="_blank">#13688</A>)
+<LI>Підсвічування об’єктного навігатора тепер з’являється відразу після активації функції. (<A HREF="https://github.com/nvaccess/nvda/issues/13641" target="_blank">#13641</A>)
+<LI>Виправлено читання елементів перегляду списку з одним стовпцем. (<A HREF="https://github.com/nvaccess/nvda/issues/13659" target="_blank">#13659</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13735" target="_blank">#13735</A>)
+<LI>Виправлено автоматичне перемикання мов eSpeak для англійської та французької мов на британську англійську і французьку (Франція). (<A HREF="https://github.com/nvaccess/nvda/issues/13727" target="_blank">#13727</A>)
+<LI>Виправлено автоматичне перемикання мови OneCore під час спроби перейти на раніше встановлену мову. (<A HREF="https://github.com/nvaccess/nvda/issues/13732" target="_blank">#13732</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<UL>
+<LI>Compiling NVDA dependencies with Visual Studio 2022 (17.0) is now supported.
+For development and release builds, Visual Studio 2019 is still used. (<A HREF="https://github.com/nvaccess/nvda/issues/13033" target="_blank">#13033</A>)
+<LI>When retrieving the count of selected children via accSelection,
+the case where a negative child ID or an IDispatch is returned by <CODE>IAccessible::get_accSelection</CODE> is now handled properly. (<A HREF="https://github.com/nvaccess/nvda/issues/13277" target="_blank">#13277</A>)
+<LI>New convenience functions <CODE>registerExecutableWithAppModule</CODE> and <CODE>unregisterExecutable</CODE> were added to the <CODE>appModuleHandler</CODE> module.
+They can be used to use a single App Module with multiple executables. (<A HREF="https://github.com/nvaccess/nvda/issues/13366" target="_blank">#13366</A>)
+</UL>
+
+<P></P>
+<H4>Deprecations</H4>
+<P>
+These are proposed API breaking changes.
+The deprecated part of the API will continue to be available until the specified release.
+If no release is specified, the plan for removal has not been determined.
+Note, the roadmap for removals is 'best effort' and may be subject to change.
+Please test the new API and provide feedback.
+For add-on authors, please open a GitHub issue if these changes stop the API from meeting your needs.
+</P>
+<UL>
+<LI><CODE>appModuleHandler.NVDAProcessID</CODE> is deprecated, use <CODE>globalVars.appPid</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/13646" target="_blank">#13646</A>)
+<LI><CODE>gui.quit</CODE> is deprecated, use <CODE>wx.CallAfter(mainFrame.onExitCommand, None)</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/13498" target="_blank">#13498</A>)
+  -
+<LI>Some alias appModules are marked as deprecated.
+Code which imports from one of them, should instead import from the replacement module.  (<A HREF="https://github.com/nvaccess/nvda/issues/13366" target="_blank">#13366</A>)
+</UL>
+
+<P></P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Removed module name</TH>
+<TH>Replacement module</TH>
+</TR>
+<TR>
+<TD>azuredatastudio</TD>
+<TD>code</TD>
+</TR>
+<TR>
+<TD>azuredatastudio-insiders</TD>
+<TD>code</TD>
+</TR>
+<TR>
+<TD>calculatorapp</TD>
+<TD>calculator</TD>
+</TR>
+<TR>
+<TD>code - insiders</TD>
+<TD>code</TD>
+</TR>
+<TR>
+<TD>commsapps</TD>
+<TD>hxmail</TD>
+</TR>
+<TR>
+<TD>dbeaver</TD>
+<TD>eclipse</TD>
+</TR>
+<TR>
+<TD>digitaleditionspreview</TD>
+<TD>digitaleditions</TD>
+</TR>
+<TR>
+<TD>esybraille</TD>
+<TD>esysuite</TD>
+</TR>
+<TR>
+<TD>hxoutlook</TD>
+<TD>hxmail</TD>
+</TR>
+<TR>
+<TD>miranda64</TD>
+<TD>miranda32</TD>
+</TR>
+<TR>
+<TD>mpc-hc</TD>
+<TD>mplayerc</TD>
+</TR>
+<TR>
+<TD>mpc-hc64</TD>
+<TD>mplayerc</TD>
+</TR>
+<TR>
+<TD>notepad++</TD>
+<TD>notepadPlusPlus</TD>
+</TR>
+<TR>
+<TD>searchapp</TD>
+<TD>searchui</TD>
+</TR>
+<TR>
+<TD>searchhost</TD>
+<TD>searchui</TD>
+</TR>
+<TR>
+<TD>springtoolsuite4</TD>
+<TD>eclipse</TD>
+</TR>
+<TR>
+<TD>sts</TD>
+<TD>eclipse</TD>
+</TR>
+<TR>
+<TD>teamtalk3</TD>
+<TD>teamtalk4classic</TD>
+</TR>
+<TR>
+<TD>textinputhost</TD>
+<TD>windowsinternal_composableshell_experiences_textinput_inputapp</TD>
+</TR>
+<TR>
+<TD>totalcmd64</TD>
+<TD>totalcmd</TD>
+</TR>
+<TR>
+<TD>win32calc</TD>
+<TD>calc</TD>
+</TR>
+<TR>
+<TD>winmail</TD>
+<TD>msimn</TD>
+</TR>
+<TR>
+<TD>zend-eclipse-php</TD>
+<TD>eclipse</TD>
+</TR>
+<TR>
+<TD>zendstudio</TD>
+<TD>eclipse</TD>
+</TR>
+</TABLE>
+
+<H2>2022.1</H2>
+<P>
+Ця версія містить серйозні поліпшення підтримки UIA з MS Office.
+У Windows 11 для Microsoft Office 16.0.15000 і новіших версій NVDA початково використовуватиме UI Automation для доступу до документів Microsoft Word.
+Це забезпечує значне підвищення продуктивності в порівнянні зі старою об’єктною моделлю доступу.
+</P>
+<P>
+Є вдосконалення драйверів брайлівських дисплеїв, включаючи Seika Notetaker, Papenmeier і HID Braille.
+Також є різні виправлення помилок Windows 11 для таких програм, як Калькулятор, Консоль, Термінал, Пошта та Панель емодзі.
+</P>
+<P>
+eSpeak-NG і LibLouis були оновлені, додано нові японські, німецькі та каталонські таблиці.
+</P>
+<P>
+Примітка:
+</P>
+ <UL>
+ <LI>Ця версія розриває сумісність із наявними додатками.
+ </UL>
+
+<P></P>
+<H3>Нові можливості</H3>
+<UL>
+<LI>Підтримка промовляння нотаток в MS Excel із увімкненим UI Automation у Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>В останніх збірках Microsoft Word з UI Automation у Windows 11, наявність закладок, чернеток коментарів і вирішених коментарів повідомляються як за допомогою мовлення, так і брайля. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>Новий параметр командного рядка --lang дозволяє змінити мову NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/10044" target="_blank">#10044</A>)
+<LI>NVDA тепер попереджає про параметри командного рядка, які є невідомими і не використовуються жодним із додатків. (<A HREF="https://github.com/nvaccess/nvda/issues/12795" target="_blank">#12795</A>)
+<LI>У Microsoft Word у разі доступу через UI Automation, NVDA використовує mathPlayer для читання математичних виразів у Office і взаємодії з ними. (<A HREF="https://github.com/nvaccess/nvda/issues/12946" target="_blank">#12946</A>)
+  <UL>
+  <LI>Щоб це працювало, ви повинні запустити Microsoft Word 365/2016 збірку 14326 або новішу. 
+  <LI>Формули MathType потрібно вручну перетворити на Office Math, виділивши кожну з них і обравши Параметри формули -&gt; Перетворити в Office Math у контекстному меню.
+  </UL>
+<LI>Промовляння «містить подробиці» і асоційовану з ним команду було оновлено, і тепер вона працює і в режимі фокуса. (<A HREF="https://github.com/nvaccess/nvda/issues/13106" target="_blank">#13106</A>)
+<LI>Seika Notetaker тепер виявляється автоматично у разі підключення через USB і Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/13191" target="_blank">#13191</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13142" target="_blank">#13142</A>)
+  <UL>
+  <LI>Це стосується таких пристроїв: MiniSeika (16, 24 клітинок), V6, і V6Pro (40 клітинок)
+  <LI>Ручний вибір bluetooth COM порта тепер також підтримується.
+  </UL>
+<LI>Додано команду на увімкнення і вимкнення Переглядача брайля; початково з нею не асоційовано жодного жесту. (<A HREF="https://github.com/nvaccess/nvda/issues/13258" target="_blank">#13258</A>)
+<LI>Додано команди для одночасного перемикання багатьох клавіш-модифікаторів за допомогою брайлівського дисплея (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>Діалог «Мовленнєві словники» тепер містить кнопку «Видалити все», яка допомагає повністю очистити словник. (<A HREF="https://github.com/nvaccess/nvda/issues/11802" target="_blank">#11802</A>)
+<LI>Додано підтримку калькулятора у Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/13212" target="_blank">#13212</A>)
+<LI>У Microsoft Word з увімкненим UI Automation у Windows 11 тепер промовляються номери рядків і номери розділів. (<A HREF="https://github.com/nvaccess/nvda/issues/13283" target="_blank">#13283</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13515" target="_blank">#13515</A>)
+<LI>У Windows 11 для Microsoft Office 16.0.15000 і новіших версій NVDA початково використовуватиме UI Automation для доступу до документів Microsoft Word. Це забезпечує значне підвищення продуктивності в порівнянні зі старою об’єктною моделлю доступу. (<A HREF="https://github.com/nvaccess/nvda/issues/13437" target="_blank">#13437</A>)
+ <UL>
+ <LI>Це стосується документів у Microsoft Word, а також читача і створювача повідомлень у Microsoft Outlook. 
+ </UL>
+</UL>
+
+<P></P>
+<H3>Зміни</H3>
+<UL>
+<LI>Espeak-ng оновлено до 1.51-dev commit <CODE>7e5457f91e10</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12950" target="_blank">#12950</A>)
+<LI>Бібліотеку брайлівського введення/виведення liblouis оновлено до <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.20.0" target="_blank">3.20.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13141" target="_blank">#13141</A>)
+  <UL>
+  <LI>Нова брайлівська таблиця: Japanese (Kantenji) literary braille
+  <LI>Додано нову брайлівську таблицю  German 6 dot computer braille.
+  <LI>Додано брайлівську таблицю  Catalan grade 1. (<A HREF="https://github.com/nvaccess/nvda/issues/13408" target="_blank">#13408</A>)
+  </UL>
+<LI>NVDA повідомляє виділені й об'єднані комірки в LibreOffice Calc 7.3 і новіших версіях. (<A HREF="https://github.com/nvaccess/nvda/issues/9310" target="_blank">#9310</A>, <A HREF="https://github.com/nvaccess/nvda/issues/6897" target="_blank">#6897</A>)
+<LI>Оновлено загальний репозиторій мовних даних юнікоду (CLDR) to 40.0. (<A HREF="https://github.com/nvaccess/nvda/issues/12999" target="_blank">#12999</A>)
+<LI><CODE>NVDA+додатковий деліт</CODE> початково повідомляє розташування каретки чи об’єкта в фокусі. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI><CODE>NVDA+Shift+додатковий деліт</CODE> повідомляє розташування переглядового курсора. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>Додано початкові поєднання для перемикання клавіш-модифікаторів для брайлівських дисплеїв від Freedom Scientific (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>«Базова лінія» більше не промовляється за допомогою команди повідомлення про форматування (NVDA+F). (<A HREF="https://github.com/nvaccess/nvda/issues/11815" target="_blank">#11815</A>)
+<LI>Активація детального опису більше не має початково призначеного жесту. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>Промовляння зведення подробиць тепер має початково призначений жест (<CODE>NVDA+d</CODE>). (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>NVDA потребує перезавантаження після встановлення MathPlayer. (<A HREF="https://github.com/nvaccess/nvda/issues/13486" target="_blank">#13486</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Панель менеджера буфера обміну більше не буде неправильно перехоплювати фокус під час відкриття деяких программ Office. (<A HREF="https://github.com/nvaccess/nvda/issues/12736" target="_blank">#12736</A>)
+<LI>В системі, де користувач вирішив поміняти основну кнопку мышки з лівої на праву, NVDA більше не буде випадково викликати контекстне меню замість активації елемента в таких застосунках, як веб-браузери.. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI>При переміщенні переглядового курсора в кінець елементів керування текстом, наприклад, в Microsoft Word за допомогою UI Automation, в більшій кількості ситуацій правильно повідомляється «нижній». (<A HREF="https://github.com/nvaccess/nvda/issues/12808" target="_blank">#12808</A>)
+<LI>NVDA повідомляє ім’я і версію виконуваних файлів, розміщених у system32, якщо вони запущені в 64-розрядній версії Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI>Поліпшено узгодженість читання виведення в термінальних програмах. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+  <UL>
+  <LI>Зауважте, що в деяких ситуаціях, у разі вставки або видалення символів усередині рядка, символи після каретки можуть знову читатися.
+  </UL>
+<LI>MS word з UIA: заголовок швидкої навігації в режимі огляду більше не застрягає на кінцевому заголовку документа, і цей заголовок не відображається двічі в списку елементів NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/9540" target="_blank">#9540</A>)
+<LI>У Windows 8 і новіших версіях рядок стану Провідника файлів тепер можна прочитати за допомогою стандартного жесту NVDA+end (розкладка клавіатури desktop)/NVDA+shift+end (розкладка клавіатури laptop). (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI>Знову повідомляється про вхідні повідомлення в чаті Skype для бізнесу. (<A HREF="https://github.com/nvaccess/nvda/issues/9295" target="_blank">#9295</A>)
+<LI>NVDA може знову приглушувати звук при використанні синтезатора SAPI5 у Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12913" target="_blank">#12913</A>)
+<LI>У калькуляторі Windows 10 NVDA оголошує мітки для елементів історії та списку пам’яті. (<A HREF="https://github.com/nvaccess/nvda/issues/11858" target="_blank">#11858</A>)
+<LI>Такі жести, як прокрутка і маршрутизація, знову працюють із брайлівськими пристроями, підключеними за протоколом HID. (<A HREF="https://github.com/nvaccess/nvda/issues/13228" target="_blank">#13228</A>)
+<LI>Пошта Windows 11: після перемикання фокуса між додатками під час читання довгого повідомлення електронної пошти NVDA застрягає на рядку електронного листа. (<A HREF="https://github.com/nvaccess/nvda/issues/13050" target="_blank">#13050</A>)
+<LI>HID braille: акордні жести (наприклад, пробіл+крапка4) можна успішно виконувати з брайлівського дисплея. (<A HREF="https://github.com/nvaccess/nvda/issues/13326" target="_blank">#13326</A>)
+<LI>Виправлено проблему, коли одночасно відкрито велику кількість діалогів налаштувань. (<A HREF="https://github.com/nvaccess/nvda/issues/12818" target="_blank">#12818</A>)
+<LI>Виправлено проблему, через яку деякі дисплеї Focus Blue Braille переставали працювати після виведення комп’ютера зі сну. (<A HREF="https://github.com/nvaccess/nvda/issues/9830" target="_blank">#9830</A>)
+<LI>«Базова лінія» більше не повідомляється помилково, коли увімкнено параметр «Промовляти надрядкові й підрядкові». (<A HREF="https://github.com/nvaccess/nvda/issues/11078" target="_blank">#11078</A>)
+<LI>У Windows 11 NVDA більше не перешкоджатиме навігації в панелі емодзі під час вибору емодзі. (<A HREF="https://github.com/nvaccess/nvda/issues/13104" target="_blank">#13104</A>)
+<LI>NVDA запобігає помилці, яка спричиняє подвійне звітування під час використання консолі та терміналу Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/13261" target="_blank">#13261</A>)
+<LI>Виправлено кілька випадків, коли елементи списку не можна було повідомити в 64-розрядних програмах, таких як REAPER. (<A HREF="https://github.com/nvaccess/nvda/issues/8175" target="_blank">#8175</A>)
+<LI>У менеджері завантажень Microsoft Edge NVDA тепер автоматично перемикається в режим фокуса, як тільки елемент списку з останніх завантажень отримає фокус. (<A HREF="https://github.com/nvaccess/nvda/issues/13221" target="_blank">#13221</A>)
+<LI>NVDA більше не викликає збою 64-розрядних версій Notepad++ 8.3 і новіших. (<A HREF="https://github.com/nvaccess/nvda/issues/13311" target="_blank">#13311</A>)
+<LI>Adobe Reader більше не дає збій під час запуску, якщо увімкнено захищений режим Adobe Reader. (<A HREF="https://github.com/nvaccess/nvda/issues/11568" target="_blank">#11568</A>)
+<LI>Виправлено помилку, коли вибір драйвера брайлівського дисплея Papenmeier ставав причиною збою NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13348" target="_blank">#13348</A>)
+<LI>У Microsoft word з UIA: номер сторінки й інше форматування більше не повідомляються неналежним способом у разі переміщення з порожньої комірки таблиці у комірку з вмістом чи з кінця документа до наявного вмісту. (<A HREF="https://github.com/nvaccess/nvda/issues/13458" target="_blank">#13458</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13459" target="_blank">#13459</A>)
+<LI>Під час завантаження сторінки в Google chrome 100 NVDA більше не виводитиме заголовок сторінки й автоматично розпочинати читання. (<A HREF="https://github.com/nvaccess/nvda/issues/13571" target="_blank">#13571</A>)
+</UL>
+
+<P></P>
+<H3>Зміни для розробників (англ)</H3>
+<UL>
+<LI>Note: this is a Add-on API compatibility breaking release. Add-ons will need to be re-tested and have their manifest updated.
+<LI>Compiling NVDA dependencies with Visual Studio 2022 (17.0) is now supported. For development and release builds, Visual Studio 2019 is still used. (<A HREF="https://github.com/nvaccess/nvda/issues/13033" target="_blank">#13033</A>)
+<LI>Updated SCons to version 4.3.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13033" target="_blank">#13033</A>)
+<LI>Updated py2exe to version 0.11.0.1. (<A HREF="https://github.com/nvaccess/nvda/issues/12357" target="_blank">#12357</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13066" target="_blank">#13066</A>)
+<LI><CODE>NVDAObjects.UIA.winConsoleUIA.WinConsoleUIA.isImprovedTextRangeAvailable</CODE> has been removed. Use <CODE>apiLevel</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/12955" target="_blank">#12955</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12660" target="_blank">#12660</A>)
+<LI><CODE>TVItemStruct</CODE> has been removed from <CODE>sysTreeView32</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12935" target="_blank">#12935</A>)
+<LI><CODE>MessageItem</CODE> has been removed from the Outlook appModule. (<A HREF="https://github.com/nvaccess/nvda/issues/12935" target="_blank">#12935</A>)
+<LI><CODE>audioDucking.AUDIODUCKINGMODE_*</CODE> constants are now a <CODE>DisplayStringIntEnum</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12926" target="_blank">#12926</A>)
+  <UL>
+  <LI>usages should be replaced with <CODE>AudioDuckingMode.*</CODE>
+  <LI>usages of <CODE>audioDucking.audioDuckingModes</CODE> should be replaced with <CODE>AudioDuckingMode.*.displayString</CODE>
+  </UL>
+<LI><CODE>audioDucking.ANRUS_ducking_*</CODE> constants usages should be replaced with <CODE>ANRUSDucking.*</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12926" target="_blank">#12926</A>)
+<LI><CODE>synthDrivers.sapi5</CODE> changes (<A HREF="https://github.com/nvaccess/nvda/issues/12927" target="_blank">#12927</A>):
+  <UL>
+  <LI><CODE>SPAS_*</CODE> usages should be replaced with <CODE>SPAudioState.*</CODE>
+  <LI><CODE>constants.SVSF*</CODE> usages should be replaced with <CODE>SpeechVoiceSpeakFlags.*</CODE>
+    <UL>
+    <LI>Note: <CODE>SVSFlagsAsync</CODE> should be replaced with <CODE>SpeechVoiceSpeakFlags.Async</CODE> not <CODE>SpeechVoiceSpeakFlags.lagsAsync</CODE>
+    </UL>
+  <LI><CODE>constants.SVE*</CODE> usages should be replaced with <CODE>SpeechVoiceEvents.*</CODE>
+  </UL>
+<LI>The <CODE>soffice</CODE> appModule has the following classes and functions removed <CODE>JAB_OOTableCell</CODE>, <CODE>JAB_OOTable</CODE>, <CODE>gridCoordStringToNumbers</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12849" target="_blank">#12849</A>)
+<LI><CODE>core.CallCancelled</CODE> is now <CODE>exceptions.CallCancelled</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12940" target="_blank">#12940</A>)
+<LI>All constants starting with RPC from <CODE>core</CODE> and <CODE>logHandler</CODE> are moved into <CODE>RPCConstants.RPC</CODE> enum. (<A HREF="https://github.com/nvaccess/nvda/issues/12940" target="_blank">#12940</A>)
+<LI>It is recommended that <CODE>mouseHandler.doPrimaryClick</CODE> and <CODE>mouseHandler.doSecondaryClick</CODE> functions should be used to click the mouse to perform a logical action such as activating (primary) or secondary (show context menu),
+rather than using <CODE>executeMouseEvent</CODE> and specifying the left or right mouse button specifically.
+This ensures code will honor the Windows user setting for swapping the primary mouse button. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI><CODE>config.getSystemConfigPath</CODE> has been removed - there is no replacement. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI><CODE>shlobj.SHGetFolderPath</CODE> has been removed - please use <CODE>shlobj.SHGetKnownFolderPath</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI><CODE>shlobj</CODE> constants have been removed. A new enum has been created, <CODE>shlobj.FolderId</CODE> for usage with <CODE>SHGetKnownFolderPath</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI><CODE>diffHandler.get_dmp_algo</CODE> and <CODE>diffHandler.get_difflib_algo</CODE> have been replaced with <CODE>diffHandler.prefer_dmp</CODE> and <CODE>diffHandler.prefer_difflib</CODE> respectively. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+<LI><CODE>languageHandler.curLang</CODE> has been removed - to get the current NVDA language use <CODE>languageHandler.getLanguage()</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13082" target="_blank">#13082</A>)
+<LI>A <CODE>getStatusBarText</CODE> method can be implemented on an appModule to customize the way NVDA fetches the text from the status bar. (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI><CODE>globalVars.appArgsExtra</CODE> has been removed. (<A HREF="https://github.com/nvaccess/nvda/issues/13087" target="_blank">#13087</A>)
+  <UL>
+  <LI>If your add-on need to process additional command line arguments see the documentation of <CODE>addonHandler.isCLIParamKnown</CODE> and the developer guide for details.
+  </UL>
+<LI>The UIA handler module and other UIA support modules are now part of a UIAHandler package. (<A HREF="https://github.com/nvaccess/nvda/issues/10916" target="_blank">#10916</A>)
+  <UL>
+  <LI><CODE>UIAUtils</CODE> is now <CODE>UIAHandler.utils</CODE>
+  <LI><CODE>UIABrowseMode</CODE> is now <CODE>UIAHandler.browseMode</CODE>
+  <LI><CODE>_UIAConstants</CODE> is now <CODE>UIAHandler.constants</CODE>
+  <LI><CODE>_UIACustomProps</CODE> is now <CODE>UIAHandler.customProps</CODE>
+  <LI><CODE>_UIACustomAnnotations</CODE> is now <CODE>UIAHandler.customAnnotations</CODE>
+  </UL>
+<LI>The <CODE>IAccessibleHandler</CODE> <CODE>IA2_RELATION_*</CODE> constants have been replaced with the <CODE>IAccessibleHandler.RelationType</CODE> enum. (<A HREF="https://github.com/nvaccess/nvda/issues/13096" target="_blank">#13096</A>)
+  <UL>
+  <LI>Removed <CODE>IA2_RELATION_FLOWS_FROM</CODE>
+  <LI>Removed <CODE>IA2_RELATION_FLOWS_TO</CODE>
+  <LI>Removed <CODE>IA2_RELATION_CONTAINING_DOCUMENT</CODE>
+  </UL>
+<LI><CODE>LOCALE_SLANGUAGE</CODE>, <CODE>LOCALE_SLIST</CODE> and <CODE>LOCALE_SLANGDISPLAYNAME</CODE> are removed from <CODE>languageHandler</CODE> - use members of <CODE>languageHandler.LOCALE</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/12753" target="_blank">#12753</A>)
+<LI>Switched from Minhook to Microsoft Detours as a hooking library for NVDA. Hooking with this library is mainly used to aid the display model. (<A HREF="https://github.com/nvaccess/nvda/issues/12964" target="_blank">#12964</A>)
+<LI><CODE>winVersion.WIN10_RELEASE_NAME_TO_BUILDS</CODE> is removed. (<A HREF="https://github.com/nvaccess/nvda/issues/13211" target="_blank">#13211</A>)
+<LI>SCons now builds with multiple concurrent jobs, equal to the number of logical processors in the system.
+This can dramatically decrease build times on multi core systems. (<A HREF="https://github.com/nvaccess/nvda/issues/13226" target="_blank">#13226</A>)
+<LI><CODE>characterProcessing.SYMLVL_*</CODE> constants are removed - please use <CODE>characterProcessing.SymbolLevel.*</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/13248" target="_blank">#13248</A>)
+<LI>Functions <CODE>loadState</CODE> and <CODE>saveState</CODE> are removed from addonHandler - please use <CODE>addonHandler.state.load</CODE> and <CODE>addonHandler.state.save</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/13245" target="_blank">#13245</A>)
+<LI>Moved the UWP/OneCore interaction layer of NVDAHelper <A HREF="https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/move-to-winrt-from-cx" target="_blank">from C++/CX to C++/Winrt</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/10662" target="_blank">#10662</A>)
+<LI>It is now mandatory to subclass <CODE>DictionaryDialog</CODE> to use it. (<A HREF="https://github.com/nvaccess/nvda/issues/13268" target="_blank">#13268</A>)
+<LI><CODE>config.RUN_REGKEY</CODE>, <CODE>config.NVDA_REGKEY</CODE> are deprecated, please use <CODE>config.RegistryKey.RUN</CODE>, <CODE>config.RegistryKey.NVDA</CODE> instead. These will be removed in 2023. (<A HREF="https://github.com/nvaccess/nvda/issues/13242" target="_blank">#13242</A>)
+<LI><CODE>easeOfAccess.ROOT_KEY</CODE>, <CODE>easeOfAccess.APP_KEY_PATH</CODE> are deprecated, please use<CODE>easeOfAccess.RegistryKey.ROOT</CODE>, <CODE>easeOfAccess.RegistryKey.APP</CODE> instead. These will be removed in 2023. (<A HREF="https://github.com/nvaccess/nvda/issues/13242" target="_blank">#13242</A>)
+<LI><CODE>easeOfAccess.APP_KEY_NAME</CODE> has been deprecated, to be removed in 2023. (<A HREF="https://github.com/nvaccess/nvda/issues/13242" target="_blank">#13242</A>)
+<LI><CODE>DictionaryDialog</CODE> and <CODE>DictionaryEntryDialog</CODE> are moved from <CODE>gui.settingsDialogs</CODE> to <CODE>gui.speechDict</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13294" target="_blank">#13294</A>)
+<LI>IAccessible2 relations are now shown in developer info for IAccessible2 objects. (<A HREF="https://github.com/nvaccess/nvda/issues/13315" target="_blank">#13315</A>)
+<LI><CODE>languageHandler.windowsPrimaryLCIDsToLocaleNames</CODE> has been removed, instead use <CODE>languageHandler.windowsLCIDToLocaleName</CODE> or <CODE>winKernel.LCIDToLocaleName</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13342" target="_blank">#13342</A>)
+<LI><CODE>UIAAutomationId</CODE> property for UIA objects should be preferred over <CODE>cachedAutomationId</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13125" target="_blank">#13125</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11447" target="_blank">#11447</A>)
+  <UL>
+  <LI><CODE>cachedAutomationId</CODE> can be used if obtained directly from the element.
+  </UL>
+</UL>
+
+<P></P>
+<H2>2021.3.1</H2>
+<P>
+Це дрібний реліз із виправленням кількох проблем, виявлених в 2021.3.
+</P>
+<H3>Зміни</H3>
+<UL>
+<LI>Новий протокол HID Braille більше не є переважним, коли можна використовувати інший драйвер брайлівського дисплея. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+<LI>Новий протокол HID Braille можна вимкнути у панелі додаткових налаштувань, яка розташована в діалозі налаштувань. (<A HREF="https://github.com/nvaccess/nvda/issues/13180" target="_blank">#13180</A>)
+</UL>
+
+<P></P>
+<H3>Виправлення</H3>
+<UL>
+<LI>Орієнтири знову скорочуються шрифтом Брайля. <A HREF="https://github.com/nvaccess/nvda/issues/13158" target="_blank">#13158</A>
+<LI>Виправлено нестабільність автоматичного виявлення брайлівських дисплеїв Humanware Brailliant і APH Mantis Q40 braille під час використання Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+</UL>
+
+<P></P>
 <H2>2021.3</H2>
 <P>
 У цій версії введено підтримку нової специфікації HID для брайлівських дисплеїв.

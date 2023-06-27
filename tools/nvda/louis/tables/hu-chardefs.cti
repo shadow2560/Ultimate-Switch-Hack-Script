@@ -1,6 +1,6 @@
 # liblouis: Hungarian Grade 1 table
 #
-#  Copyright (C) 2011-2017 Attila Hammer from IT Foundation for the Visually Impaired - Hungary. www.infoalap.hu
+#  Copyright (C) 2011-2022 Attila Hammer from IT Foundation for the Visually Impaired - Hungary. www.infoalap.hu
 #
 #  This file is part of liblouis.
 #
@@ -27,6 +27,8 @@
 space \x001b 1b escape character for html back-translation
 space \x00a0 a
 include spaces.uti
+space \e 1b
+space \f 0
 punctuation	\x2007 0	FIGURE SPACE
 punctuation	\x202f 0	NARROW NO-BREAK SPACE
 
@@ -42,7 +44,7 @@ punctuation	,	2	COMMA
 punctuation	-	36	HYPHEN-MINUS
 punctuation − 36	Added u+2212 simbol
 punctuation	/	256	SOLIDUS
-
+punctuation ­ 36
 punctuation	.	3	FULL STOP
 sign # 3456
 punctuation	:	25	COLON
@@ -54,37 +56,39 @@ punctuation	>	45	GREATER-THAN SIGN
 punctuation	?	26	QUESTION MARK
 
 punctuation	[	123567	LEFT SQUARE BRACKET
-punctuation	\\	347	REVERSE SOLIDUS
+punctuation	\\	5-16	REVERSE SOLIDUS
 punctuation	]	234567	RIGHT SQUARE BRACKET
 punctuation	~	2346	TILDE
-
-punctuation	^	2346	CIRCUMFLEX ACCENT
-letter  456
+punctuation	^	5-124	CIRCUMFLEX ACCENT
+letter \x007f 456
 punctuation _ 6-36
 punctuation          _ 456           #95    _  LOW LINE
 punctuation	`	345	GRAVE ACCENT
 
 #Accented letters
-uplow	Áá	4	LATIN SMALL LETTER A WITH ACUTE
-uplow	Éé	16	LATIN SMALL LETTER E WITH ACUTE
-uplow	Íí	34	LATIN SMALL LETTER I WITH ACUTE
-uplow	Óó	246	LATIN SMALL LETTER O WITH ACUTE
-uplow	Úú	346	LATIN SMALL LETTER U WITH ACUTE
-uplow	Üü	12356	LATIN SMALL LETTER U WITH DIAERESIS
-uplow	Őő	12456	LATIN SMALL LETTER O WITH DOUBLE ACUTE
-uplow	Űű	23456	LATIN CAPITAL LETTER U WITH DOUBLE ACUTE
-uplow Öö 12345
-uplow Õõ 12456
+lowercase á	4	LATIN SMALL LETTER A WITH ACUTE
+lowercase é	16	LATIN SMALL LETTER E WITH ACUTE
+lowercase í	34	LATIN SMALL LETTER I WITH ACUTE
+lowercase ó	246	LATIN SMALL LETTER O WITH ACUTE
+lowercase ú	346	LATIN SMALL LETTER U WITH ACUTE
+lowercase ü	12356	LATIN SMALL LETTER U WITH DIAERESIS
+lowercase ő	12456	LATIN SMALL LETTER O WITH DOUBLE ACUTE
+lowercase ű	23456
+lowercase ö 12345
+lowercase õ 12456
 lowercase û 23456
-uplow Zz 126
+lowercase q 12346
+lowercase z 126
 punctuation & 5-12346
 letter q 12346
 punctuation	{	12356	LEFT CURLY BRACKET
-punctuation	|	34	VERTICAL LINE
+punctuation	|	5-1245	VERTICAL LINE
 punctuation	}	23456	RIGHT CURLY BRACKET
 punctuation	"	4	QUOTATION MARK
 include latinLetterDef6Dots.uti
 include digits6DotsPlusDot6.uti
+lowercase q 12346
+lowercase z 126
 punctuation	─	2356	BOX DRAWINGS LIGHT HORIZONTAL
 punctuation	━	2356	BOX DRAWINGS HEAVY HORIZONTAL
 punctuation	│	123456	BOX DRAWINGS LIGHT VERTICAL
@@ -205,7 +209,6 @@ punctuation	╴	2356	BOX DRAWINGS LIGHT LEFT
 punctuation	╵	123456	BOX DRAWINGS LIGHT UP
 punctuation	╶	2356	BOX DRAWINGS LIGHT RIGHT
 punctuation	╷	2356	BOX DRAWINGS LIGHT DOWN
-#punctuation	%	2356	BOX DRAWINGS HEAVY LEFT
 punctuation	╹	123456	BOX DRAWINGS HEAVY UP
 punctuation	╺	2356	BOX DRAWINGS HEAVY RIGHT
 punctuation	╻	2356	BOX DRAWINGS HEAVY DOWN
@@ -224,13 +227,13 @@ punctuation “ 236
 punctuation ” 356
 punctuation „ 1268
 sign • 26
-punctuation ś 26
+letter ś 234
 letter ź 134568
 punctuation — 36-36
 lowercase ä 26
 punctuation · 3 MIDDLE DOT
 punctuation § 3456-1236
-punctuation  3-3-3
+punctuation \x0085 3-3-3
 letter ç 14
 letter þ 245
 letter ø 12345
@@ -239,15 +242,45 @@ punctuation º 0
 punctuation \x001e 36	If I replace this sequence with normal unicode character, lou_checktable present an error message
 letter è 15
 letter ê 15
-uppercase Æ 4-1 LATIN CAPITAL LETTER AE LATIN CAPITAL LETTER A E 
+#uppercase Æ 4-1 LATIN CAPITAL LETTER AE LATIN CAPITAL LETTER A E 
 sign € 56-15
 letter ﬀ 0
-letter ﬁ 0
-letter ﬂ 0
+noback lowercase ﬁ 124-24
+noback lowercase ﬂ 124-123
 letter ﬃ 0
 letter ﬄ 0
-letter ţ 0
-letter ş 0
+letter ţ 2345
+letter ş 234
 letter ř 1235
 letter à 4
-letter ñ 1345
+lowercase ñ 1345
+letter ć 14
+letter ě 15
+letter â 1
+letter č 14
+letter ę 15
+letter ğ 1245
+letter ń 1345
+letter ň 1345
+lowercase š 234
+#letter Š 234
+letter ž 126
+
+noback always \x0075\x030b 23456
+noback always o\x030b 12456
+noback always u\x0308 123456
+noback always o\x0308 12345
+
+# Uppercase letters
+base uppercase Á á
+base uppercase É é
+base uppercase Í í
+base uppercase Ó ó
+base uppercase Ú ú
+base uppercase Ü ü
+base uppercase Ő ő
+base uppercase Ű ű	LATIN CAPITAL LETTER U WITH DOUBLE ACUTE
+base uppercase Ö ö
+base uppercase Õ õ
+base uppercase Û û
+base uppercase Š š

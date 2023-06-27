@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.303</h2>
+<ul>
+<li>Fix a small bug.</li>
+<li>Update the menu to do the donations.</li>
+<li>Update NVDA and its extensions.</li>
+</ul>
 <h2>V4.3.302</h2>
 <ul>
 <li>The restore default of the script's settings has been improved.</li>

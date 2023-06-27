@@ -10,6 +10,121 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2022.4</H2>
+<P>
+Deze release bevat verschillende nieuwe toetscommando's, waaronder Alles lezen commando's voor tabellen.
+Er is een sectie "Snelstartgids" toegevoegd aan de gebruikershandleiding.
+Er zijn ook verschillende bugfixes.
+</P>
+<P>
+eSpeak is bijgewerkt en LibLouis is bijgewerkt.
+Er zijn nieuwe Chinese, Zweedse, Luganda en Kinyarwanda brailletabellen.
+</P>
+<H3>Nieuwe functies</H3>
+<UL>
+<LI>Een sectie "Snelstartgids" toegevoegd aan de gebruikershandleiding. (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>Een nieuwe opdracht toegevoegd om de sneltoets van de huidige focus te controleren. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+  <UL>
+  <LI>Desktop: <CODE>shift+numpad2</CODE>.
+  <LI>Laptop: <CODE>NVDA+ctrl+shift+.</CODE>.
+  </UL>
+<LI>Nieuwe commando's toegevoegd om de leescursor per pagina te verplaatsen, waar ondersteund door de applicatie. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+  <UL>
+  <LI>Ga naar de vorige pagina:
+    <UL>
+    <LI>Desktop: <CODE>NVDA+pageUp</CODE>.
+    <LI>Laptop: <CODE>NVDA+shift+pageUp</CODE>.
+    </UL>
+  <LI>Ga naar de volgende pagina:
+    <UL>
+    <LI>Desktop: <CODE>NVDA+pageDown</CODE>.
+    <LI>Laptop: <CODE>NVDA+shift+pageDown</CODE>.
+    </UL>
+  </UL>
+<LI>De volgende tabelopdrachten toegevoegd. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+  <UL>
+  <LI>Alles lezen in kolom: <CODE>NVDA+control+alt+pijl omlaag</CODE>
+  <LI>Alles lezen in rij: <CODE>NVDA+control+alt+rightArrow</CODE>
+  <LI>Lees hele kolom: <CODE>NVDA+control+alt+pijl omhoog</CODE>
+  <LI>Lees hele rij: <CODE>NVDA+control+alt+linkerpijl</CODE>
+  </UL>
+<LI>Microsoft Excel via UI-automatisering: NVDA Meldt nu  het verlaten van een tabel binnen een spreadsheet. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+<LI>Het melden van tabelkoppen kan nu afzonderlijk worden geconfigureerd voor rijen en kolommen. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>Veranderingen</H3>
+<UL>
+<LI>eSpeak NG is bijgewerkt naar 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+  <UL>
+  <LI>Rapportage van Latijnse karakters bij gebruik van Mandarijn opgelost. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+  </UL>
+<LI>LibLouis braillevertaler Bijgewerkt naar <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank">3.23.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+  <UL>
+  <LI>Brailletabellen toegevoegd:
+    <UL>
+    <LI>Chinese gewone braille (vereenvoudigde Chinese karakters)
+    <LI>Kinyarwanda literaire braille
+    <LI>Luganda literaire braille
+    <LI>Zweeds niet-samengetrokken braille
+    <LI>Zweeds gedeeltelijk samengetrokken braille
+    <LI>Zweeds contract braille
+    <LI>Chinees (China, Mandarijn) huidig braillesysteem (geen tonen) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+    </UL>
+  </UL>
+<LI>NVDA neemt nu de architectuur van het besturingssysteem mee bij het bijhouden van gebruikersstatistieken. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>Opgeloste problemen</H3>
+<UL>
+<LI>Bij het updaten van NVDA met behulp van de Windows Package Manager CLI (ook wel winget genoemd), wordt een uitgebrachte versie van NVDA niet langer altijd als nieuwer behandeld dan de geïnstalleerde alfaversie. (<A HREF="https://github.com/nvaccess/nvda/issues/12469" target="_blank">#12469</A>)
+<LI>NVDA kondigt nu correct Groepsboxen aan in Java-toepassingen. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>De cursor volgt de gesproken tekst correct tijdens "alles lezen in toepassingen zoals Bookworm, WordPad of de NVDA-logviewer. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>In programma's die UI-automatisering gebruiken, worden gedeeltelijk aangevinkte selectievakjes correct gerapporteerd. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>Verbeterde prestaties en stabiliteit in Microsoft Visual Studio, Windows Terminal en andere op UI Automation gebaseerde applicaties. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+  <UL>
+  <LI>Deze fixes zijn van toepassing op Windows 11 Sun Valley 2 (versie 22H2) en hoger.
+  <LI>Selectieve registratie voor UI Automation-gebeurtenissen en eigenschapswijzigingen nu standaard ingeschakeld.
+  </UL>
+<LI>Tekstrapportage, braille-uitvoer en wachtwoordonderdrukking werken nu zoals verwacht in het ingebouwde Windows Terminal-besturingselement in Visual Studio 2022. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>NVDA is nu DPI-bewust bij gebruik van meerdere monitoren.
+Er zijn verschillende oplossingen voor het gebruik van een DPI-instelling hoger dan 100% of meerdere monitoren.
+Er kunnen nog steeds problemen optreden met versies van Windows ouder dan Windows 10 1809.
+Om deze fixes te laten werken, moeten applicaties waarmee NVDA communiceert ook DPI-bewust zijn.
+Let op: er zijn nog steeds bekende problemen met Chrome en Edge. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>Visuele markeringskaders moeten nu in de meeste toepassingen correct worden geplaatst. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>Interactie met het aanraakscherm zou nu nauwkeurig moeten zijn voor de meeste toepassingen. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>Muis volgen zou nu voor de meeste applicaties moeten werken. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>Veranderingen in de oriëntatiestatus (liggend/portret) worden nu correct genegeerd als er geen verandering is (bijv. monitorveranderingen). (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>NVDA kondigt het slepen van items op het scherm aan op plaatsen zoals het herschikken van Windows 10 Start-menutegels en virtuele desktops in Windows 11. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>In geavanceerde instellingen wordt de optie "Speel een geluid af voor gelogde fouten" nu correct hersteld naar de standaardwaarde wanneer op de knop "Standaardinstellingen herstellen" wordt gedrukt. (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>NVDA kan nu tekst selecteren met behulp van de sneltoets <CODE>NVDA+f10</CODE> in Java-toepassingen. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>NVDA blijft niet langer vastzitten in een menu bij het omhoog en omlaag bewegen van conversaties in Microsoft Teams. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H3>Veranderingen voor ontwikkelaars</H3>
+<P>
+Deze zijn niet vertaald. We verwijzen naar <A HREF="../en/changes.html" target="_blank">de Engelstalige versie van dit document</A>.
+</P>
+<H2>2021.3.1</H2>
+<H3>Veranderingen</H3>
+<UL>
+<LI>Het nieuwe HID Braille-protocol heeft niet langer de voorkeur wanneer een ander brailleleesregelstuurprogramma kan worden gebruikt. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+<LI>Het nieuwe HID Braille-protocol kan worden uitgeschakeld via een instelling in het paneel met geavanceerde instellingen. (<A HREF="https://github.com/nvaccess/nvda/issues/13180" target="_blank">#13180</A>)
+</UL>
+
+<P></P>
+<H3>Opgeloste problemen</H3>
+<UL>
+<LI>Oriëntatiepunt wordt weer afgekort in braille. (<A HREF="https://github.com/nvaccess/nvda/issues/13158" target="_blank">#13158</A>)
+<LI>Instabiele automatische detectie van brailleleesregels voor Humanware Brailliant en APH Mantis Q40 brailleleesregels bij gebruik van Bluetooth opgelost. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+</UL>
+
+<P></P>
 <H2>2021.3</H2>
 <P>
 Deze release introduceert ondersteuning voor de nieuwe HID Braille-specificatie.

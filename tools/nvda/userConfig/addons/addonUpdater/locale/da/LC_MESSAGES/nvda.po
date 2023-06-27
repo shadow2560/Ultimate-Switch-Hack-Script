@@ -8,27 +8,35 @@ msgstr ""
 "Project-Id-Version: addonUpdater 18.12\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2018-11-30 01:00+1000\n"
-"PO-Revision-Date: 2021-09-01 09:11+0200\n"
+"PO-Revision-Date: 2023-01-08 06:32-0800\n"
 "Last-Translator: Nicolai Svendsen <chojiro1990@gmail.com>\n"
 "Language-Team: Dansk NVDA <dansk@nvda.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
-msgid "Check for &add-on updates..."
-msgstr "Søg efter tilføjelses&opdateringer..."
-
-msgid "Check for NVDA add-on updates"
-msgstr "Søg efter opdateringer til NVDA-tilføjelser"
+#. Translators: message presented when add-on store is available in NVDA.
+msgid ""
+"You are using an NVDA release with add-on store included. Visit NVDA add-on "
+"store (NVDA menu, Tools, add-on store) to check for add-on updates. Add-on "
+"Updater can still be used to check for add-on updates in the meantime."
+msgstr ""
 
 #. Translators: This is the label for the Add-on Updater settings panel.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information.
 msgid "Add-on Updater"
-msgstr "Værktøj til opdatering af tilføjelser"
+msgstr "Opdateringsværktøj til tilføjelsespakker"
+
+#. Translators: menu item label for checking add-on updates.
+msgid "Check for &add-on updates..."
+msgstr "Søg efter tilføjelses&opdateringer..."
+
+msgid "Check for NVDA add-on updates"
+msgstr "Søg efter opdateringer til NVDA-tilføjelser"
 
 #. Translators: This is the label for a checkbox in the
 #. Add-on Updater settings panel.
@@ -48,15 +56,43 @@ msgstr "dialog"
 msgid "&Add-on update notification:"
 msgstr "&Vis meddelelser om tilføjelsesopdateringer som:"
 
+#. Translators: This is the label for a checkbox in the
+#. Add-on Updater settings panel.
+msgid "Update add-ons in the &background"
+msgstr "Opdater tilføjelsesprogrammer i &baggrunden"
+
 #. Checkable list comes from NVDA Core issue 7491 (credit: Derek Riemer and Babbage B.V.).
 #. Some add-ons come with pretty badly formatted summary text,
 #. so try catching them and exclude them from this list.
-#. Also, Vocalizer add-on family should be excluded from this list (requested by add-on author).
 msgid "Do &not update add-ons:"
 msgstr "Opdater &ikke disse tilføjelser:"
 
 msgid "Prefer &development releases:"
 msgstr "Foretræk &udviklingsversioner:"
+
+#. Translators: This is the label for a combo box in the
+#. Add-on Updater settings panel.
+#, fuzzy
+msgid "Development release &channel:"
+msgstr "Foretræk &udviklingsversioner:"
+
+#. Translators: This is the label for a combo box in the
+#. Add-on Updater settings panel.
+msgid "Add-on update &source:"
+msgstr "&Kilde for tilføjelsesopdateringer:"
+
+#. Translators: Presented when about to switch add-on update sources.
+#, python-brace-format
+msgid ""
+"You are about to switch to a different add-on update source. Are you sure "
+"you wish to change update source to {updateSourceDescription}?"
+msgstr ""
+"Du er ved at skifte til en anden tilføjelsesopdateringskilde. Er du sikker "
+"på, at du vil ændre opdateringskilden til {updateSourceDescription}?"
+
+#. Translators: Title of the add-on update source dialog.
+msgid "Add-on update source change"
+msgstr "Ændring af kilde for tilføjelsesopdateringer"
 
 #. Translators: The title of the legacy add-ons dialog.
 msgid "Legacy add-ons found"
@@ -89,20 +125,27 @@ msgid "Add-on update check"
 msgstr "Søgning af tilføjelsesopdateringer"
 
 #. Translators: The message displayed while checking for add-on updates.
-msgid "Checking for add-on updates..."
-msgstr "Søger efter tilføjelsesopdateringer..."
+#, python-brace-format
+msgid "Checking for add-on updates from {updateSource}..."
+msgstr "Søger efter tilføjelsesopdateringer fra {updateSource}..."
 
 msgid "Error checking for add-on updates."
 msgstr "Fejl under søgning efter tilføjelsesopdateringer."
 
 #. Translators: The title of the add-on updates dialog.
-msgid "NVDA Add-on Updates"
-msgstr "NVDA-tilføjelsesopdateringer"
+#, python-brace-format
+msgid "NVDA Add-on Updates ({updateSource})"
+msgstr "NVDA-tilføjelsesopdateringer ({updateSource})"
 
 #. Translators: Message displayed when add-on updates are available.
 #, python-brace-format
 msgid "Add-on updates available: {updateCount}"
 msgstr "Tilføjelsesopdateringer tilgængelige: {updateCount}"
+
+#. Translators: Message displayed when add-on updates were installed.
+#, python-brace-format
+msgid "Add-ons pending install: {updateCount}"
+msgstr "Tilføjelser, der afventer installation: {updateCount}"
 
 #. Translators: The label for a column in add-ons updates list
 #. used to identify current add-on version (example: version is 0.3).
@@ -114,6 +157,12 @@ msgstr "Aktuelle version"
 msgid "New version"
 msgstr "Nye version"
 
+#. Translators: The label for a column in add-ons updates list
+#. used to identify add-on update channel (example: stable ).
+#, fuzzy
+msgid "Update channel"
+msgstr "&Opdater tilføjelser"
+
 #. Translators: Message displayed when no add-on updates are available.
 msgid "No add-on update available."
 msgstr "Ingen tilføjelsesopdatering tilgængelig."
@@ -122,19 +171,35 @@ msgstr "Ingen tilføjelsesopdatering tilgængelig."
 msgid "&Update add-ons"
 msgstr "&Opdater tilføjelser"
 
-#. Translators: The title of the dialog displayed while downloading add-on update.
-msgid "Downloading Add-on Update"
-msgstr "Henter tilføjelsesopdatering"
+#. Translators: Presented when attempting to udpate disabled add-ons.
+msgid ""
+"One or more add-ons are currently disabled. These add-ons will be enabled "
+"after updating. Are you sure you wish to update disabled add-ons anyway?"
+msgstr ""
+"én eller flere tilføjelser er i øjeblikket deaktiveret. Disse tilføjelser "
+"vil blive aktiveret efter opdatering. Er du sikker på, at du alligevel vil "
+"opdatere deaktiverede tilføjelser?"
 
-#. Translators: The progress message indicating the name of the add-on being downloaded.
+#. Translators: Title of the add-on update confirmation dialog.
+msgid "Update disabled add-ons"
+msgstr "Opdater deaktiverede tilføjelser"
+
 #, python-brace-format
-msgid "Downloading {name}"
-msgstr "Henter {name}"
+msgid "Downloading {addonName}"
+msgstr "Henter {addonName}"
 
 #. Translators: A message indicating that an error occurred while downloading an update to NVDA.
 #, python-brace-format
 msgid "Error downloading update for {name}."
 msgstr "Fejl under hentning af tilføjelsesopdatering {name}."
+
+#. Translators: The title of the dialog presented while an Addon is being updated.
+msgid "Updating add-ons"
+msgstr "Opdatering af tilføjelser"
+
+#. Translators: The message displayed while an addon is being updated.
+msgid "Please wait while add-ons are being updated."
+msgstr "Vent venligst, mens tilføjelser opdateres."
 
 #. Translators: The message displayed when an error occurs
 #. when trying to update an add-on package due to package problems.
@@ -142,19 +207,18 @@ msgstr "Fejl under hentning af tilføjelsesopdatering {name}."
 msgid "Cannot update {name} - missing file or invalid file format"
 msgstr "Kunne ikke opdatere {name} - manglende fil eller ugyldigt filformat"
 
-#. Translators: The title of the dialog presented while an Addon is being updated.
-#, python-brace-format
-msgid "Updating {name}"
-msgstr "Opdaterer {name}"
-
-#. Translators: The message displayed while an addon is being updated.
-msgid "Please wait while the add-on is being updated."
-msgstr "Vent venligst mens tilføjelsen opdateres."
-
 #. Translators: The message displayed when an error occurs when installing an add-on package.
 #, python-brace-format
 msgid "Failed to update {name} add-on"
 msgstr "Kunne ikke opdatere tilføjelsen {name}"
+
+#. Translators: The title of the dialog displayed while downloading add-on update.
+msgid "Downloading Add-on Update"
+msgstr "Henter tilføjelsesopdatering"
+
+#. Translators: The progress message indicating the name of the add-on being downloaded.
+msgid "Downloading add-on updates"
+msgstr "Henter tilføjelsesopdateringer"
 
 #. Add-ons with all features integrated into NVDA or declared "legacy" by authors.
 #. For the latter case, update check functionality will be disabled upon authors' request.
@@ -166,17 +230,68 @@ msgstr "funktioner inkluderet i NVDA"
 msgid "declared legacy by add-on developers"
 msgstr "erklæret forældet af tilføjelsesudviklere"
 
+#. Translators: menu item label for reviewing add-on updates.
+#, python-brace-format
+msgid "Review &add-on updates ({updateCount})..."
+msgstr "Gennemse &tilføjelsesopdateringer ({updateCount})..."
+
 #. Translators: presented as part of add-on update notification message.
+#, python-brace-format
 msgid ""
-"One or more add-on updates are available. Go to NVDA menu, Tools, Check for "
-"add-on updates to review them."
+"One or more add-on updates from {updateSource} are available. Go to NVDA "
+"menu, Tools, Review add-on updates to review them."
 msgstr ""
-"én eller flere tilføjelsesopdateringer er tilgængelige. Gå til \"NVDA-"
-"menuen, Værktøjer, Søg efter tilføjelsesopdateringer...\" for at gennemgå "
-"dem."
+"én eller flere tilføjelsesopdateringer fra {updateSource} er tilgængelige. "
+"Gå til \"NVDA-menuen, Værktøjer, Gennemse tilføjelsesopdateringer\" for at "
+"gennemgå dem."
+
+#. Translators: presented as part of add-on update notification message.
+#, python-brace-format
+msgid ""
+"One or more add-on updates from {updateSource} are being downloaded and "
+"installed."
+msgstr ""
+"én eller flere tilføjelsesopdateringer fra {updateSource} er ved at blive "
+"hentet og installeret."
 
 #. Translators: title of the add-on update notification message.
 msgid "NVDA add-on updates"
+msgstr "NVDA-tilføjelsesopdateringer"
+
+#. Translators: presented as part of add-on update notification message.
+#, python-brace-format
+msgid ""
+"One or more add-on updates from {updateSource} were installed. Go to NVDA "
+"menu, Tools, Review add-on updates to review them. Then restart NVDA to "
+"finish updating add-ons."
+msgstr ""
+"én eller flere tilføjelsesopdateringer fra {updateSource} er tilgængelige. "
+"Gå til \"NVDA-menuen, Værktøjer, Gennemse tilføjelsesopdateringer\" for at "
+"gennemgå dem. Genstart NVDA bagefter for at opdatere tilføjelserne."
+
+#. Translators: presented as part of add-on update notification message.
+msgid "Could not update add-ons."
+msgstr "Kunne ikke opdatere tilføjelser."
+
+#. Translators: one of the add-on update source choices.
+msgid "NVDA community add-ons website"
+msgstr "Tilføjelser til NVDA fra fællesskabets hjemmeside"
+
+#. Translators: one of the add-on update source choices.
+msgid "Spanish community add-ons catalog"
+msgstr "Katalog over tilføjelser til NVDA på spansk"
+
+#. Translators: one of the add-on update source choices.
+msgid "China community add-ons catalog"
+msgstr "Hjemmesiden for tilføjelser til NVDA i Kina"
+
+#. Translators: one of the add-on update source choices.
+msgid "Taiwan community add-ons catalog"
+msgstr "Katalog med tilføjelser til Taiwan-fællesskabet"
+
+#. Translators: one of the add-on update source choices.
+#, fuzzy
+msgid "NVDA add-on store"
 msgstr "NVDA-tilføjelsesopdateringer"
 
 #. Add-on description
@@ -187,17 +302,3 @@ msgid ""
 msgstr ""
 "Bevis for konceptimplementering af tilføjelsesopdateringsfunktion (NVDA Core "
 "Issue 3208)"
-
-#~ msgid "{name} add-on is not compatible with this version of Windows."
-#~ msgstr "Tilføjelsen {name} er ikke kompatibel med denne version af Windows."
-
-#~ msgid "{updateCount} add-on updates are available."
-#~ msgstr "{updateCount} tilføjelsesopdateringer er tilgængelige."
-
-#~ msgid ""
-#~ "{name} add-on is not compatible with this version of NVDA. Minimum NVDA "
-#~ "version: {minYear}.{minMajor}, last tested: {testedYear}.{testedMajor}."
-#~ msgstr ""
-#~ "Tilføjelsen {name} er ikke kompatibel med denne version af NVDA. Benyt "
-#~ "venligst NVDA {minYear}.{minMajor} eller nyere. Sidst testet: "
-#~ "{testedYear}.{testedMajor}."

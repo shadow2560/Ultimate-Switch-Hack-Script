@@ -3016,6 +3016,7 @@ IF "%~1"=="folder" (
 )
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "write_access_test_error"
+	pause
 	goto:end_script
 )
 IF "%~1"=="folder" (

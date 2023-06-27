@@ -4,14 +4,14 @@
 <META NAME="generator" CONTENT="http://txt2tags.sf.net">
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>NVDA 2021.3.1 Commands Quick Reference</TITLE>
+<TITLE>NVDA 2023.1 Commands Quick Reference</TITLE>
 </HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>NVDA 2021.3.1 Commands Quick Reference</H1>
+<P ALIGN="center"><CENTER><H1>NVDA 2023.1 Commands Quick Reference</H1>
 <FONT SIZE="4">
 </FONT></CENTER>
 
 <A NAME="GettingStartedWithNVDA"></A>
-<H2>Getting started with NVDA</H2>
+<H2>Using NVDA</H2>
 <A NAME="NVDATouchGestures"></A>
 <H3>NVDA Touch Gestures</H3>
 <P>
@@ -157,6 +157,12 @@ To toggle touch modes, perform a 3-finger tap.
 <TD>NVDA+shift+end</TD>
 <TD>Reports the Status Bar if NVDA finds one. Pressing twice will spell the information. Pressing three times will copy it to the clipboard</TD>
 </TR>
+<TR>
+<TD>Report Shortcut Key</TD>
+<TD><CODE>shift+numpad2</CODE></TD>
+<TD><CODE>NVDA+control+shift+.</CODE></TD>
+<TD>Reports the shortcut (accelerator) key of the currently focused object</TD>
+</TR>
 </TABLE>
 
 <A NAME="SystemCaret"></A>
@@ -191,6 +197,12 @@ To toggle touch modes, perform a 3-finger tap.
 <TD>NVDA+f</TD>
 <TD>NVDA+f</TD>
 <TD>Reports the formatting of the text where the caret is currently situated. Pressing twice shows the information in browse mode</TD>
+</TR>
+<TR>
+<TD>Report caret location</TD>
+<TD>NVDA+numpadDelete</TD>
+<TD>NVDA+delete</TD>
+<TD>Reports information about the location of the text or object at the position of system caret. For example, this might include the percentage through the document, the distance from the edge of the page or the exact screen position. Pressing twice may provide further detail.</TD>
 </TR>
 <TR>
 <TD>Next sentence</TD>
@@ -234,6 +246,46 @@ When within a table, the following key commands are also available:
 <TD>Move to next row</TD>
 <TD>control+alt+downArrow</TD>
 <TD>Moves the system caret to the next row (staying in the same column)</TD>
+</TR>
+<TR>
+<TD>Move to first column</TD>
+<TD>control+alt+home</TD>
+<TD>Moves the system caret to the first column (staying in the same row)</TD>
+</TR>
+<TR>
+<TD>Move to last column</TD>
+<TD>control+alt+end</TD>
+<TD>Moves the system caret to the last column (staying in the same row)</TD>
+</TR>
+<TR>
+<TD>Move to first row</TD>
+<TD>control+alt+pageUp</TD>
+<TD>Moves the system caret to the first row (staying in the same column)</TD>
+</TR>
+<TR>
+<TD>Move to last row</TD>
+<TD>control+alt+pageDown</TD>
+<TD>Moves the system caret to the last row (staying in the same column)</TD>
+</TR>
+<TR>
+<TD>Say all in column</TD>
+<TD><CODE>NVDA+control+alt+downArrow</CODE></TD>
+<TD>Reads the column vertically from the current cell downwards to the last cell in the column.</TD>
+</TR>
+<TR>
+<TD>Say all in row</TD>
+<TD><CODE>NVDA+control+alt+rightArrow</CODE></TD>
+<TD>Reads the row horizontally from the current cell rightwards to the last cell in the row.</TD>
+</TR>
+<TR>
+<TD>Read entire column</TD>
+<TD><CODE>NVDA+control+alt+upArrow</CODE></TD>
+<TD>Reads the current column vertically from top to bottom without moving the system caret.</TD>
+</TR>
+<TR>
+<TD>Read entire row</TD>
+<TD><CODE>NVDA+control+alt+leftArrow</CODE></TD>
+<TD>Reads the current row horizontally from left to right without moving the system caret.</TD>
 </TR>
 </TABLE>
 
@@ -305,8 +357,8 @@ When within a table, the following key commands are also available:
 </TR>
 <TR>
 <TD>Report review cursor location</TD>
-<TD>NVDA+numpadDelete</TD>
-<TD>NVDA+delete</TD>
+<TD>NVDA+shift+numpadDelete</TD>
+<TD>NVDA+shift+delete</TD>
 <TD>none</TD>
 <TD>Reports information about the location of the text or object at the review cursor. For example, this might include the percentage through the document, the distance from the edge of the page or the exact screen position. Pressing twice may provide further detail.</TD>
 </TR>
@@ -419,6 +471,20 @@ When within a table, the following key commands are also available:
 <TD>NVDA+end</TD>
 <TD>none</TD>
 <TD>Moves the review cursor to the end of the current line of text</TD>
+</TR>
+<TR>
+<TD>Move to previous page in review</TD>
+<TD><CODE>NVDA+pageUp</CODE></TD>
+<TD><CODE>NVDA+shift+pageUp</CODE></TD>
+<TD>none</TD>
+<TD>Moves the review cursor to the previous page of text if supported by the application</TD>
+</TR>
+<TR>
+<TD>Move to next page in review</TD>
+<TD><CODE>NVDA+pageDown</CODE></TD>
+<TD><CODE>NVDA+shift+pageDown</CODE></TD>
+<TD>none</TD>
+<TD>Moves the review cursor to the next page of text if supported by the application</TD>
 </TR>
 <TR>
 <TD>Say all with review</TD>
@@ -581,11 +647,6 @@ When within a table, the following key commands are also available:
 <TD>Find previous</TD>
 <TD>NVDA+shift+f3</TD>
 <TD>Finds the previous occurrence of the text in the document you previously searched for</TD>
-</TR>
-<TR>
-<TD>Open long description</TD>
-<TD>NVDA+d</TD>
-<TD>Opens a new window containing a long description for the element you are on if it has one.</TD>
 </TR>
 </TABLE>
 
@@ -923,7 +984,7 @@ When in the table view of added books:
 <A NAME="WinConsole"></A>
 <H3>Windows Console</H3>
 <P>
-The following built-in Windows Console keyboard shortcuts may be useful when <A HREF="#ReviewingText">reviewing text</A> with NVDA:
+The following built-in Windows Console keyboard shortcuts may be useful when <A HREF="#ReviewingText">reviewing text</A> with NVDA in older versions of Windows Console:
 </P>
 <TABLE BORDER="1" CELLPADDING="4">
 <TR>
@@ -1148,10 +1209,21 @@ The following built-in Windows Console keyboard shortcuts may be useful when <A 
 <TD ALIGN="center">Use screen layout</TD>
 <TD>NVDA+v</TD>
 <TD>NVDA+v</TD>
-<TD>This option allows you to specify whether content in browse mode should place content such as links and other fields on their own line, or if it should keep them in the flow of text as it is visually shown.</TD>
+<TD>This option allows you to specify whether browse mode should place clickable content (links, buttons and fields) on its own line, or if it should keep it in the flow of text as it is visually shown.</TD>
+</TR>
+<TR>
+<TD ALIGN="center">Automatically set system focus to focusable elements</TD>
+<TD>NVDA+8</TD>
+<TD>NVDA+8</TD>
+<TD>Disabled by default, this option allows you to choose if the system focus should automatically be set to elements that can take the system focus (links, form fields, etc.) when navigating content with the browse mode caret.</TD>
 </TR>
 </TABLE>
 
+<A NAME="AdvancedSettings"></A>
+<H4>Advanced Settings</H4>
+<P>
+To "Report summary of any annotation details at the system caret", press NVDA+d.
+</P>
 <A NAME="SavingAndReloading"></A>
 <H3>Saving and Reloading the configuration</H3>
 <TABLE BORDER="1" CELLPADDING="4">
@@ -1316,6 +1388,50 @@ The following built-in Windows Console keyboard shortcuts may be useful when <A 
 <TR>
 <TD>space key</TD>
 <TD>brailleSpaceBar</TD>
+</TR>
+<TR>
+<TD>Toggle control key</TD>
+<TD>brailleSpaceBar+dot3+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle alt key</TD>
+<TD>brailleSpaceBar+dot6+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle windows key</TD>
+<TD>brailleSpaceBar+dot4+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle NVDA key</TD>
+<TD>brailleSpaceBar+dot5+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle shift key</TD>
+<TD>brailleSpaceBar+dot7+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle control and shift keys</TD>
+<TD>brailleSpaceBar+dot3+dot7+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle alt and shift keys</TD>
+<TD>brailleSpaceBar+dot6+dot7+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle windows and shift keys</TD>
+<TD>brailleSpaceBar+dot4+dot7+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle NVDA and shift keys</TD>
+<TD>brailleSpaceBar+dot5+dot7+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle control and alt keys</TD>
+<TD>brailleSpaceBar+dot3+dot6+dot8</TD>
+</TR>
+<TR>
+<TD>Toggle control, alt, and shift keys</TD>
+<TD>brailleSpaceBar+dot3+dot6+dot7+dot8</TD>
 </TR>
 <TR>
 <TD>windows+d key (minimize all applications)</TD>
@@ -2164,6 +2280,8 @@ For displays which have a joystick:
 
 <A NAME="Seika"></A>
 <H3>Seika Braille Displays</H3>
+<A NAME="SeikaBrailleDisplays"></A>
+<H4>Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)</H4>
 <TABLE BORDER="1" CELLPADDING="4">
 <TR>
 <TH>Name</TH>
@@ -2215,6 +2333,218 @@ For displays which have a joystick:
 </TR>
 </TABLE>
 
+<A NAME="SeikaNotetaker"></A>
+<H4>MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)</H4>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Name</TH>
+<TH>Key</TH>
+</TR>
+<TR>
+<TD>Scroll braille display back</TD>
+<TD>left</TD>
+</TR>
+<TR>
+<TD>Scroll braille display forward</TD>
+<TD>right</TD>
+</TR>
+<TR>
+<TD>Say all</TD>
+<TD>space+Backspace</TD>
+</TR>
+<TR>
+<TD>NVDA Menu</TD>
+<TD>Left+Right</TD>
+</TR>
+<TR>
+<TD>Move braille display to previous line</TD>
+<TD>LJ up</TD>
+</TR>
+<TR>
+<TD>Move braille display to next line</TD>
+<TD>LJ down</TD>
+</TR>
+<TR>
+<TD>Toggle braille tethered to</TD>
+<TD>LJ center</TD>
+</TR>
+<TR>
+<TD>tab</TD>
+<TD>LJ right</TD>
+</TR>
+<TR>
+<TD>shift+tab</TD>
+<TD>LJ left</TD>
+</TR>
+<TR>
+<TD>upArrow key</TD>
+<TD>RJ up</TD>
+</TR>
+<TR>
+<TD>downArrow key</TD>
+<TD>RJ down</TD>
+</TR>
+<TR>
+<TD>leftArrow key</TD>
+<TD>RJ left</TD>
+</TR>
+<TR>
+<TD>rightArrow key</TD>
+<TD>RJ right</TD>
+</TR>
+<TR>
+<TD>Route to braille cell</TD>
+<TD>routing</TD>
+</TR>
+<TR>
+<TD>shift+upArrow key</TD>
+<TD>Space+RJ up, Backspace+RJ up</TD>
+</TR>
+<TR>
+<TD>shift+downArrow key</TD>
+<TD>Space+RJ down, Backspace+RJ down</TD>
+</TR>
+<TR>
+<TD>shift+leftArrow key</TD>
+<TD>Space+RJ left, Backspace+RJ left</TD>
+</TR>
+<TR>
+<TD>shift+rightArrow key</TD>
+<TD>Space+RJ right, Backspace+RJ right</TD>
+</TR>
+<TR>
+<TD>enter key</TD>
+<TD>RJ center, dot8</TD>
+</TR>
+<TR>
+<TD>escape key</TD>
+<TD>Space+RJ center</TD>
+</TR>
+<TR>
+<TD>windows key</TD>
+<TD>Backspace+RJ center</TD>
+</TR>
+<TR>
+<TD>space key</TD>
+<TD>Space, Backspace</TD>
+</TR>
+<TR>
+<TD>backspace key</TD>
+<TD>dot7</TD>
+</TR>
+<TR>
+<TD>pageup key</TD>
+<TD>space+LJ right</TD>
+</TR>
+<TR>
+<TD>pagedown key</TD>
+<TD>space+LJ left</TD>
+</TR>
+<TR>
+<TD>home key</TD>
+<TD>space+LJ up</TD>
+</TR>
+<TR>
+<TD>end key</TD>
+<TD>space+LJ down</TD>
+</TR>
+<TR>
+<TD>control+home key</TD>
+<TD>backspace+LJ up</TD>
+</TR>
+<TR>
+<TD>control+end key</TD>
+<TD>backspace+LJ down</TD>
+</TR>
+</TABLE>
+
+<P>
+The following Braille displays are supported:
+</P>
+<UL>
+<LI>BRAILLEX EL 40c, EL 80c, EL 20c, EL 60c (USB)
+<LI>BRAILLEX EL 40s, EL 80s, EL 2d80s, EL 70s, EL 66s (USB)
+<LI>BRAILLEX Trio (USB and bluetooth)
+<LI>BRAILLEX Live 20, BRAILLEX Live and BRAILLEX Live Plus (USB and bluetooth)
+</UL>
+
+<P></P>
+<P>
+These displays do not support NVDA's automatic background braille display detection functionality.
+</P>
+<P>
+Most devices have an Easy Access Bar (EAB) that allows intuitive and fast operation.
+The EAB can be moved in four directions where generally each direction has two switches.
+The C and Live series are the only exceptions to this rule.
+</P>
+<P>
+The c-series and some other displays have two routing rows whereby the upper row is used to report formatting information.
+Holding one of the upper routing keys and pressing the EAB on c-series devices emulates the second switch state.
+The live series displays have one routing row only and the EAB has one step per direction.
+The second step may be emulated by pressing one of the routing keys and pressing the EAB in the corresponding direction.
+Pressing and holding the up, down, right and left keys (or EAB) causes the corresponding action to be repeated.
+</P>
+<P>
+Generally, the following keys are available on these braille displays:
+</P>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Name</TH>
+<TH>Key</TH>
+</TR>
+<TR>
+<TD>l1</TD>
+<TD>Left front key</TD>
+</TR>
+<TR>
+<TD>l2</TD>
+<TD>Left rear key</TD>
+</TR>
+<TR>
+<TD>r1</TD>
+<TD>Right front key</TD>
+</TR>
+<TR>
+<TD>r2</TD>
+<TD>Right rear key</TD>
+</TR>
+<TR>
+<TD>up</TD>
+<TD>1 Step up</TD>
+</TR>
+<TR>
+<TD>up2</TD>
+<TD>2 Steps up</TD>
+</TR>
+<TR>
+<TD>left</TD>
+<TD>1 Step left</TD>
+</TR>
+<TR>
+<TD>left2</TD>
+<TD>2 Steps left</TD>
+</TR>
+<TR>
+<TD>right</TD>
+<TD>1 Step right</TD>
+</TR>
+<TR>
+<TD>right2</TD>
+<TD>2 Steps right</TD>
+</TR>
+<TR>
+<TD>dn</TD>
+<TD>1 Step down</TD>
+</TR>
+<TR>
+<TD>dn2</TD>
+<TD>2 Steps down</TD>
+</TR>
+</TABLE>
+
+<P>
+Following are the Papenmeier command assignments for NVDA:
+</P>
 <A NAME="Papenmeier"></A>
 <H3>Papenmeier BRAILLEX Newer Models</H3>
 <TABLE BORDER="1" CELLPADDING="4">
@@ -3174,6 +3504,175 @@ Following are commands assigned to the scroll wheel:
 <TR>
 <TD>Route to braille cell</TD>
 <TD>route (bring cursor to character)</TD>
+</TR>
+</TABLE>
+
+<A NAME="Albatross"></A>
+<H3>Tivomatic Caiku Albatross 46/80</H3>
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Name</TH>
+<TH>Key</TH>
+</TR>
+<TR>
+<TD>Move to top line in review</TD>
+<TD><CODE>home1</CODE>, <CODE>home2</CODE></TD>
+</TR>
+<TR>
+<TD>Move to bottom line in review</TD>
+<TD><CODE>end1</CODE>, <CODE>end2</CODE></TD>
+</TR>
+<TR>
+<TD>Sets the navigator object to the current focus</TD>
+<TD><CODE>eCursor1</CODE>, <CODE>eCursor2</CODE></TD>
+</TR>
+<TR>
+<TD>Move to current focus</TD>
+<TD><CODE>cursor1</CODE>, <CODE>cursor2</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the mouse pointer to the current navigator object</TD>
+<TD><CODE>home1+home2</CODE></TD>
+</TR>
+<TR>
+<TD>Sets the navigator object to the current object under the mouse pointer and speaks it</TD>
+<TD><CODE>end1+end2</CODE></TD>
+</TR>
+<TR>
+<TD>Moves focus to current navigator object</TD>
+<TD><CODE>eCursor1+eCursor2</CODE></TD>
+</TR>
+<TR>
+<TD>Toggle braille tethered to</TD>
+<TD><CODE>cursor1+cursor2</CODE></TD>
+</TR>
+<TR>
+<TD>Move braille display to previous line</TD>
+<TD><CODE>up1</CODE>, <CODE>up2</CODE>, <CODE>up3</CODE></TD>
+</TR>
+<TR>
+<TD>Move braille display to next line</TD>
+<TD><CODE>down1</CODE>, <CODE>down2</CODE>, <CODE>down3</CODE></TD>
+</TR>
+<TR>
+<TD>Scroll braille display back</TD>
+<TD><CODE>left</CODE>, <CODE>lWheelLeft</CODE>, <CODE>rWheelLeft</CODE></TD>
+</TR>
+<TR>
+<TD>Scroll braille display forward</TD>
+<TD><CODE>right</CODE>, <CODE>lWheelRight</CODE>, <CODE>rWheelRight</CODE></TD>
+</TR>
+<TR>
+<TD>Route to braille cell</TD>
+<TD><CODE>routing</CODE></TD>
+</TR>
+<TR>
+<TD>Report text formatting under braille cell</TD>
+<TD><CODE>secondary routing</CODE></TD>
+</TR>
+<TR>
+<TD>Toggle the way context information is presented in braille</TD>
+<TD><CODE>attribute1+attribute3</CODE></TD>
+</TR>
+<TR>
+<TD>Toggles between the speech modes of off, beep and talk</TD>
+<TD><CODE>attribute2+attribute4</CODE></TD>
+</TR>
+<TR>
+<TD>Switches to the previous review mode (e.g. object, document or screen)</TD>
+<TD><CODE>f1</CODE></TD>
+</TR>
+<TR>
+<TD>Switches to the next review mode (e.g. object, document or screen)</TD>
+<TD><CODE>f2</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the navigator object to the object containing it</TD>
+<TD><CODE>f3</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the navigator object to the first object inside it</TD>
+<TD><CODE>f4</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the navigator object to the previous object</TD>
+<TD><CODE>f5</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the navigator object to the next object</TD>
+<TD><CODE>f6</CODE></TD>
+</TR>
+<TR>
+<TD>Reports the current navigator object</TD>
+<TD><CODE>f7</CODE></TD>
+</TR>
+<TR>
+<TD>Reports information about the location of the text or object at the review cursor</TD>
+<TD><CODE>f8</CODE></TD>
+</TR>
+<TR>
+<TD>Performs the default action on the current navigator object</TD>
+<TD><CODE>f7+f8</CODE></TD>
+</TR>
+<TR>
+<TD>Reports date/time</TD>
+<TD><CODE>f9</CODE></TD>
+</TR>
+<TR>
+<TD>Reports battery status and time remaining if AC is not plugged in</TD>
+<TD><CODE>f10</CODE></TD>
+</TR>
+<TR>
+<TD>Reports title</TD>
+<TD><CODE>f11</CODE></TD>
+</TR>
+<TR>
+<TD>Reports status bar</TD>
+<TD><CODE>f12</CODE></TD>
+</TR>
+<TR>
+<TD>Reports the current line under the application cursor</TD>
+<TD><CODE>f13</CODE></TD>
+</TR>
+<TR>
+<TD>Say all</TD>
+<TD><CODE>f14</CODE></TD>
+</TR>
+<TR>
+<TD>Reports current character under review cursor</TD>
+<TD><CODE>f15</CODE></TD>
+</TR>
+<TR>
+<TD>Reports the line of the current navigator object where the review cursor is situated</TD>
+<TD><CODE>f16</CODE></TD>
+</TR>
+<TR>
+<TD>Speaks the word of the current navigator object where the review cursor is situated</TD>
+<TD><CODE>f15+f16</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the review cursor to the previous line of the current navigator object and speaks it</TD>
+<TD><CODE>lWheelUp</CODE>, <CODE>rWheelUp</CODE></TD>
+</TR>
+<TR>
+<TD>Moves the review cursor to the next line of the current navigator object and speaks it</TD>
+<TD><CODE>lWheelDown</CODE>, <CODE>rWheelDown</CODE></TD>
+</TR>
+<TR>
+<TD><CODE>Windows+d</CODE> key (minimize all applications)</TD>
+<TD><CODE>attribute1</CODE></TD>
+</TR>
+<TR>
+<TD><CODE>Windows+e</CODE> key (this computer)</TD>
+<TD><CODE>attribute2</CODE></TD>
+</TR>
+<TR>
+<TD><CODE>Windows+b</CODE> key (focus system tray)</TD>
+<TD><CODE>attribute3</CODE></TD>
+</TR>
+<TR>
+<TD><CODE>Windows+i</CODE> key (Windows settings)</TD>
+<TD><CODE>attribute4</CODE></TD>
 </TR>
 </TABLE>
 

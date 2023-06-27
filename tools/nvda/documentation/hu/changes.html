@@ -10,6 +10,499 @@
 <FONT SIZE="4">
 </FONT></CENTER>
 
+<H2>2022.4</H2>
+<P>
+Ez a kiadás számos új billentyűparancsot tartalmaz, többek között folyamatos felolvasáshoz táblázatokban.
+A hibajavítások sem maradhattak el.
+</P>
+<P>
+Frissült az eSpeak és  a LibLouis Braille fordító.
+Új kínai, svéd, Lugandai és ruandai braille táblák.
+</P>
+<H3>Újdonságok</H3>
+<UL>
+<LI>Az angol nyelvű felhasználói útmutató kibővült egy "Quick Start Guide" szekcióval. (<A HREF="https://github.com/nvaccess/nvda/issues/13934" target="_blank">#13934</A>)
+<LI>Új billentyűparancs az aktív elemhez tartozó gyorsbillentyű lekérdezésére. (<A HREF="https://github.com/nvaccess/nvda/issues/13960" target="_blank">#13960</A>)
+  <UL>
+  <LI>Asztali kiosztás esetén: <CODE>shift+numpad2</CODE>.
+  <LI>Laptop kiosztás esetén: <CODE>NVDA+ctrl+shift+.</CODE>.
+  </UL>
+<LI>Új billentyűparancsok az áttekintőkurzor oldalankénti mozgatására, ahol ezt az alkalmazás támogatja. (<A HREF="https://github.com/nvaccess/nvda/issues/14021" target="_blank">#14021</A>)
+  <UL>
+  <LI>Az előző oldalra lép:
+    <UL>
+    <LI>Asztali: <CODE>NVDA+pageUp</CODE>.
+    <LI>Laptop: <CODE>NVDA+shift+pageUp</CODE>.
+    </UL>
+  <LI>A következő oldalra lép:
+    <UL>
+    <LI>Asztali: <CODE>NVDA+pageDown</CODE>.
+    <LI>Laptop: <CODE>NVDA+shift+pageDown</CODE>.
+    </UL>
+  </UL>
+<LI>Új táblázatnavigációs parancsok. (<A HREF="https://github.com/nvaccess/nvda/issues/14070" target="_blank">#14070</A>)
+  <UL>
+  <LI>Folyamatos felolvasás az oszlopban: <CODE>NVDA+control+alt+downArrow</CODE>
+  <LI>Folyamatos felolvasás a sorban: <CODE>NVDA+control+alt+rightArrow</CODE>
+  <LI>Teljes oszlop felolvasása: <CODE>NVDA+control+alt+upArrow</CODE>
+  <LI>Teljes sor felolvasása: <CODE>NVDA+control+alt+leftArrow</CODE>
+  </UL>
+<LI>Microsoft Excel UI Automation használatával: Az NVDA már bejelenti, ha egy munkalapon kilépünk egy táblázatból. (<A HREF="https://github.com/nvaccess/nvda/issues/14165" target="_blank">#14165</A>)
+<LI>A táblázatfejlécek bejelentése már külön állítható a sorokhoz és oszlopokhoz. (<A HREF="https://github.com/nvaccess/nvda/issues/14075" target="_blank">#14075</A>)
+</UL>
+
+<P></P>
+<H3>Változások</H3>
+<UL>
+<LI>Frissült az eSpeak NG, új verzió: 1.52-dev commit <CODE>735ecdb8</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14060" target="_blank">#14060</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14079" target="_blank">#14079</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14118" target="_blank">#14118</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14203" target="_blank">#14203</A>)
+  <UL>
+  <LI>Mandarin nyelv használata esetén javították a latin betűk bemondását. (<A HREF="https://github.com/nvaccess/nvda/issues/12952" target="_blank">#12952</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13572" target="_blank">#13572</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14197" target="_blank">#14197</A>)
+  </UL>
+<LI>Frissült a LibLouis braille fordító, új verzió: <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.23.0" target="_blank">3.23.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14112" target="_blank">#14112</A>)
+  <UL>
+  <LI>Új Braille táblák:
+    <UL>
+    <LI>Kínai általános braille (egyszerűsített kínai írásjelek)
+    <LI>ruandai irodalmi braille
+    <LI>Lugandai irodalmi braille
+    <LI>Svéd, rövidítési fokozat 1
+    <LI>Svéd, részben rövidírásos
+    <LI>Svéd, rövidítési fokozat 2
+    <LI>Kínai (Kína, mandarin) hagyományos Braille írásrendszer (hangzás nélkül) (<A HREF="https://github.com/nvaccess/nvda/issues/14138" target="_blank">#14138</A>)
+    </UL>
+  </UL>
+<LI>Az NVDA által gyűjtött használati adatok közt most már az operációs rendszer architektúrája is szerepel. (<A HREF="https://github.com/nvaccess/nvda/issues/14019" target="_blank">#14019</A>)
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Ha az NVDA-t a Windows Package Manager CLI (winget) használatával frissítjük, az NVDA stabil verzióját nem fogja a rendszer indokolatlanul újabbnak érzékelni a tesztelésre szánt alpha verzióknál. (<A HREF="https://github.com/nvaccess/nvda/issues/12469" target="_blank">#12469</A>)
+<LI>Java alkalmazások: Az NVDA már helyesen kezeli a csoport dobozokat. (<A HREF="https://github.com/nvaccess/nvda/issues/13962" target="_blank">#13962</A>)
+<LI>A rendszerkurzor már helyesen követi a felolvasott szöveget "Folyamatos felolvasás" használatakor az olyan alkalmazásokban mint Bookworm, WordPad vagy az NVDA Naplónéző. (<A HREF="https://github.com/nvaccess/nvda/issues/13420" target="_blank">#13420</A>, <A HREF="https://github.com/nvaccess/nvda/issues/9179" target="_blank">#9179</A>)
+<LI>UI Automationt használó programokban az NVDA már helyesen jelenti be a félig bejelölt jelölőnégyzeteket. (<A HREF="https://github.com/nvaccess/nvda/issues/13975" target="_blank">#13975</A>)
+<LI>Javult a kezelhetőség és a stabilitás Microsoft Visual Studioban, a Windows Terminalban, és más UI Automationt használó alkalmazásokban. (<A HREF="https://github.com/nvaccess/nvda/issues/11077" target="_blank">#11077</A>, <A HREF="https://github.com/nvaccess/nvda/issues/11209" target="_blank">#11209</A>)
+  <UL>
+  <LI>Ezek a hibajavítások a Windows 11 Sun Valley 2 (22H2) és újabb verzióiban jelennek meg.
+  <LI>Haladó beállítások: "UI automation elemek és tulajdonságok regisztrálása" opció alapértelmezett értéke mostantól "Szelektív".
+  </UL>
+<LI>Visual Studio 2022: a szövegfelolvasás , a Braille kimenet és a jelszavak kezelése is már az elvárt módon működik. (<A HREF="https://github.com/nvaccess/nvda/issues/14194" target="_blank">#14194</A>)
+<LI>Az NVDA most már DPI képes többmonitoros használat esetén.
+Számos hibajavítás történt, amikor a DPI értéke 100 százaléknál nagyobb, ill. többmonitoros használat esetén.
+A hibák továbbra is fennállhatnak  Windows 10 1809 verziónál régebbi operációs rendszert futtató felhasználóknál.
+Ezek a hibajavítások csak DPI képes alkalmazások kezelése esetén eredményesek.
+Ismert problémák továbbra is fennállnak Chrome és Edge esetében. (<A HREF="https://github.com/nvaccess/nvda/issues/13254" target="_blank">#13254</A>)
+  <UL>
+  <LI>A vizuális kiemelőkeretek már az elvárt módon jelzik az aktív elemet a legtöbb alkalmazásban. (<A HREF="https://github.com/nvaccess/nvda/issues/13370" target="_blank">#13370</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3875" target="_blank">#3875</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12070" target="_blank">#12070</A>)
+  <LI>Az érintési parancsok most már jól működnek a legtöbb alkalmazásban. Érintőképernyős használat esetén természetesen. (<A HREF="https://github.com/nvaccess/nvda/issues/7083" target="_blank">#7083</A>)
+  <LI>Az egérmutató követése már helyesen működik a legtöbb alkalmazásban. (<A HREF="https://github.com/nvaccess/nvda/issues/6722" target="_blank">#6722</A>)
+  </UL>
+<LI>A képernyőtájolás (álló/fekvő) állapotát most már nem jelenti be az NVDA, ha nem történik tényleges változás a beállításban, pl. amikor új monitort kapcsolunk a rendszerre. (<A HREF="https://github.com/nvaccess/nvda/issues/14035" target="_blank">#14035</A>)
+<LI>Az NVDA már bejelenti a drag &amp; drop művelet eredményét az olyan átrendezhető helyeken, mint pl. a csempék a Windows 10 start menüjében, vagy a Windows 11 virtuális asztalai. (<A HREF="https://github.com/nvaccess/nvda/issues/12271" target="_blank">#12271</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14081" target="_blank">#14081</A>)
+<LI>Haladó beállítások: Most már a "Hangjelzés naplózási hibánál" opció is visszaáll az alapértelmezett értékre, amikor visszaállítjuk az NVDA gyári beállításait. (<A HREF="https://github.com/nvaccess/nvda/issues/14149" target="_blank">#14149</A>)
+<LI>Java alkalmazások: Az NVDA már ki tud jelölni szöveget az <CODE>NVDA+f10</CODE> billentyűparancs segítségével. (<A HREF="https://github.com/nvaccess/nvda/issues/14163" target="_blank">#14163</A>)
+<LI>Microsoft Teams: Az NVDA már nem ragad benne egy menüben, amikor a beszélgetések között mozgunk a le- és felnyíl segítségével. (<A HREF="https://github.com/nvaccess/nvda/issues/14355" target="_blank">#14355</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.2</H2>
+<P>
+Ez egy köztes kiadás, melyben javítottak néhány   a 2022.3.1 kiadás által okozott hibát, illetve bezártak egy biztonsági rést is.
+</P>
+<H3>Biztonsági javítások</H3>
+<UL>
+<LI>Ez a hibajavítás megakadályozza a nem hitelesített felhasználók esetleges rendszerszintű hozzáférését.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-3jj9-295f-h69w" target="_blank">GHSA-3jj9-295f-h69w</A>)
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Javítottak egy a 2022.3.1 kiadás által okozott hibát, mely bizonyos funkciók használatát ellehetetlenítette a biztonsági képernyőn. (<A HREF="https://github.com/nvaccess/nvda/issues/14286" target="_blank">#14286</A>)
+<LI>Javítottak egy a 2022.3.1 kiadás által okozott hibát, ami bizonyos funkciók működését ellehetetlenítette a bejelentkezés után,amennyiben az NVDA a zárolási képernyőn indult el. (<A HREF="https://github.com/nvaccess/nvda/issues/14301" target="_blank">#14301</A>)
+</UL>
+
+<P></P>
+<H2>2022.3.1</H2>
+<P>
+Ez egy köztes kiadás, mely néhány biztonsági javítást tartalmaz.
+</P>
+<H3>Biztonsági javítások</H3>
+<UL>
+<LI>Kiavították azt a sebezhetőséget, amely lehetővé tette, hogy illetéktelen felhasználó rendszerszintű hozzáféréshez jusson.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-q7c2-pgqm-vvw5" target="_blank">GHSA-q7c2-pgqm-vvw5</A>)
+<LI>Kijavították azt a sebezhetőséget, amely lehetővé tette, hogy egy NVDA indító paraméter segítségével az NVDA hozzáférjen a python konzolhoz a Windows zárolási képernyőjén.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-72mj-mqhj-qh4w" target="_blank">GHSA-72mj-mqhj-qh4w</A>)
+<LI>Kijavították azt a hibát, amely miatt a Beszédnéző tartalma gyorsítótárba került a Windows zárolásakor.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+<LI>Kijavították azt a sebezhetőséget, mely lehetővé tette, hogy egy illetéktelen felhasználó megváltoztassa a Beszédnéző és a Braille néző beállításait a zárolási képernyőn. (<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-grvr-j2h8-3qm4" target="_blank">GHSA-grvr-j2h8-3qm4</A>)
+</UL>
+
+<P></P>
+<H2>2022.3</H2>
+<P>
+E kiadás változásainak és hibajavításainak jelentős része az NVDA fejlesztői közösségének köszönhető.
+Ezek közé tartozik a Késleltetett betűzés a kurzor mozgásakor opció, illetve a Windows konzol hatékonyabb kezelhetősége.
+</P>
+<P>
+A hibajavítások sem maradhattak el.
+Fontos javítás, hogy az Adobe Acrobat/Reader legújabb verzióit használva már nem okoz problémát egy PDF dokumentum olvasása.
+</P>
+<P>
+Frissült az eSpeak, 3 új nyelvvel bővült: belarusz, luxemburgi és Totontepec Mixe.
+</P>
+<H3>Újdonságok</H3>
+<UL>
+<LI>A parancssor, a PowerShell és a Linux futtatására szánt windows alrendszer által használt Windows konzol a Windows 11 22H2 (Sun Valley 2) és újabb verzióiban:
+  <UL>
+  <LI>Jelentősen javult a kezelhetőség és a stabilitás. (<A HREF="https://github.com/nvaccess/nvda/issues/10964" target="_blank">#10964</A>)
+  <LI>Szöveg keresésére szolgáló parancs (Ctrl+F) használatakor az áttekintő kurzor a találatra ugrik. (<A HREF="https://github.com/nvaccess/nvda/issues/11172" target="_blank">#11172</A>)
+  <LI>A képernyőn meg nem jelenő beírt szöveget, pl. jelszót, alapértelmezés szerint már nem mondja be az NVDA.
+Az opció visszakapcsolható az NVDA haladó beállításaiban. (<A HREF="https://github.com/nvaccess/nvda/issues/11554" target="_blank">#11554</A>)
+  <LI>A képernyő látható részén kívüli szöveg már áttekinthető az Áttekintő kurzorral a konzol tényleges görgetése nélkül is. (<A HREF="https://github.com/nvaccess/nvda/issues/12669" target="_blank">#12669</A>)
+  <LI>A korábbinál jóval részletesebb formázási információkat tud közölni az NVDA. (<A HREF="https://github.com/microsoft/terminal/pull/10336" target="_blank">microsoft/terminal PR 10336</A>)
+  </UL>
+<LI>Új opció a Beszéd beállításai között: "Késleltetett betűzés a kurzor mozgásakor" (<A HREF="https://github.com/nvaccess/nvda/issues/13509" target="_blank">#13509</A>)
+<LI>Új opció a Braille beállítások között: Beszéd megszakítása görgetéskor. (<A HREF="https://github.com/nvaccess/nvda/issues/2124" target="_blank">#2124</A>)
+</UL>
+
+<P></P>
+<H3>Változások</H3>
+<UL>
+<LI>Frissült az eSpeak NG, új verzió: 1.52-dev commit <CODE>9de65fcb</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13295" target="_blank">#13295</A>)
+  <UL>
+  <LI>Új nyelvek:
+    <UL>
+    <LI>belarusz
+    <LI>luxemburgi
+    <LI>Totontepec Mixe
+    </UL>
+  </UL>
+<LI>Microsoft Excel UI Automation használatával: az NVDA már felismeri az egyesített cellákat. (<A HREF="https://github.com/nvaccess/nvda/issues/12843" target="_blank">#12843</A>)
+<LI>Ha az NVDA be tudja azonosítani a cella jellegét, akkor mindenképpen azt fogja bemondani, pl. megjegyzés. (<A HREF="https://github.com/nvaccess/nvda/issues/13649" target="_blank">#13649</A>)
+<LI>Az NVDA telepítési mérete már olvasható a telepített alkalmazások listáján. (<A HREF="https://github.com/nvaccess/nvda/issues/13909" target="_blank">#13909</A>)
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Az Adobe Acrobat / Reader 64 bit már nem omlik össze PDF dokumentum megnyitásakor. (<A HREF="https://github.com/nvaccess/nvda/issues/12920" target="_blank">#12920</A>)
+  <UL>
+  <LI>Fontos tudni, hogy csak az Adobe Acrobat / Reader legújabb verziója esetén lesz zavartalan a PDF olvasás.
+  </UL>
+<LI>A betűméret mérési egységek már lefordíthatók az NVDA-ban. (<A HREF="https://github.com/nvaccess/nvda/issues/13573" target="_blank">#13573</A>)
+<LI>az NVDA már figyelmen kívül hagyja az olyan Java Access Bridge eseményeket, amikor a Java alkalmazáshoz nem tartozik kezelőablak.
+Ez javítja bizonyos Java alkalmazások kezelhetőségét, pl. IntelliJ IDEA. (<A HREF="https://github.com/nvaccess/nvda/issues/13039" target="_blank">#13039</A>)
+<LI>LibreOffice Calc: Sokat  javult a kijelölt cellák bemondása és már nem okozza a Calc lefagyását, ha egyszerre sok cella van kijelölve. (<A HREF="https://github.com/nvaccess/nvda/issues/13232" target="_blank">#13232</A>)
+<LI>Microsoft Edge: Ha másik felhasználóval jelentkezik be, már nem lesz elérhetetlen a böngésző. (<A HREF="https://github.com/nvaccess/nvda/issues/13032" target="_blank">#13032</A>)
+<LI>Ha a "Sebességfokozás" opció ki van kapcsolva, az eSpeak beszédsebessége  már nem viselkedik furcsán 99% és 100% közti beállítás változtatásnál. (<A HREF="https://github.com/nvaccess/nvda/issues/13876" target="_blank">#13876</A>)
+<LI>Javították azt a hibát, ami lehetővé tette, hogy a beviteli parancsok ablakából kettő is nyitva legyen egyszerre. (<A HREF="https://github.com/nvaccess/nvda/issues/13854" target="_blank">#13854</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.4</H2>
+<P>
+Ez egy köztes kiadás,melyben javítottak egy biztonsági hibát.
+</P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Kijavították azt a sebezhetőséget, mely lehetővé tette, hogy illetéktelen felhasználó megnyissa az NVDA python konzolát a Naplónézőből a Windows zárolási képernyőjén.
+(<A HREF="https://github.com/nvaccess/nvda/security/advisories/GHSA-585m-rpvv-93qg" target="_blank">GHSA-585m-rpvv-93qg</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.3</H2>
+<P>
+Ez egy köztes kiadás, melyben kijavították a 2022.2.1 kiadás által okozott hibát.
+</P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Kijavították azt a hibát, ami miatt az NVDA nem jelentette be  a Biztonsági képernyőt, amikor épp egy olyan képernyőre került a fókusz.
+Ennek hatására az NVDA remote nem volt képes beazonosítani a biztonsági képernyőt. (<A HREF="https://github.com/nvaccess/nvda/issues/14094" target="_blank">#14094</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.2</H2>
+<P>
+Ez egy köztes kiadás, melyben kijavították a 2022-2.1 kiadás által a beviteli parancsokkal kapcsolatban okozott hibát.
+</P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Kijavították azt a hibát, amely miatt a beviteli parancsok nem mindig működtek. (<A HREF="https://github.com/nvaccess/nvda/issues/14065" target="_blank">#14065</A>)
+</UL>
+
+<P></P>
+<H2>2022.2.1</H2>
+<P>
+Ez egy köztes kiadás, melyben biztonsági hibákat javítottak.
+</P>
+<H3>Biztonsági javítások</H3>
+<UL>
+<LI>Felszámolták azt a sebezhetőséget, amely lehetővé tette a python konzol futtatását a Windows zárolási képernyőjén. (GHSA-rmq3-vvhq-gp32)
+<LI>Felszámolták azt a sebezhetőséget, amely miatt elemnavigációval lehetséges volt elnavigálni a zárolási képernyőről jelszó beírása nélkül is. (GHSA-rmq3-vvhq-gp32)
+</UL>
+
+<P></P>
+<H2>2022.2</H2>
+<P>
+Ez a kiadás számos hibajavítást tartalmaz.
+ Jelentős javítások a Java alapú alkalmazásokhoz, Braille kijelzőkhöz és a Windows funkcióihoz.
+</P>
+<P>
+Új táblázatnavigációs parancsokat adtak hozzá.
+Frissült az Unicode CLDR.
+Frissült a LibLouis Braille fordító is, egy új német braille táblát adtak hozzá.
+</P>
+<H3>Újdonságok</H3>
+<UL>
+<LI>Microsoft Office: támogatás a Microsoft Loop összetevők kezeléséhez. (<A HREF="https://github.com/nvaccess/nvda/issues/13617" target="_blank">#13617</A>)
+<LI>Új táblázatnavigációs parancsokat adtak hozzá. (<A HREF="https://github.com/nvaccess/nvda/issues/957" target="_blank">#957</A>)
+ <UL>
+ <LI><CODE>ctrl+alt+home/end</CODE> az első és az utolsó oszlopra ugráshoz.
+ <LI><CODE>ctrl+alt+pageUp/pageDown</CODE> az első és az utolsó sorra ugráshoz.
+ </UL>
+<LI>Új szkript a nyelv és dialektusváltás beállítására. Alapértelmezés szerint nincs beviteli parancs hozzárendelve. (<A HREF="https://github.com/nvaccess/nvda/issues/10253" target="_blank">#10253</A>)
+</UL>
+
+<P></P>
+<H3>Változások</H3>
+<UL>
+<LI>Frissült az NSIS, új verzió: 3.08. (<A HREF="https://github.com/nvaccess/nvda/issues/9134" target="_blank">#9134</A>)
+<LI>Frissült a CLDR, új verzió: 41.0. (<A HREF="https://github.com/nvaccess/nvda/issues/13582" target="_blank">#13582</A>)
+<LI>Frissült a LibLouis braille fordító, új verzió: <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.22.0" target="_blank">3.22.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13775" target="_blank">#13775</A>)
+  <UL>
+  <LI>Új Braille tábla: Német rövidítési fokozat 2 (részletes)
+  </UL>
+<LI>Meghatározhatatlan értékű folyamatjelzők kezelése. (<A HREF="https://github.com/nvaccess/nvda/issues/10644" target="_blank">#10644</A>)
+<LI>Az NVDA már tudatja a felhasználóval, ha egy művelet nem hajtható végre. (<A HREF="https://github.com/nvaccess/nvda/issues/13500" target="_blank">#13500</A>)
+  <UL>
+  <LI>Ilyen esetek pl.:
+    <UL>
+    <LI>az NVDA Microsoft Storeből telepített kiadásának használata.
+    <LI>Biztonsági képernyőn.
+    <LI>az NVDA egyik párbeszédablaka felhasználói beavatkozásra vár.
+    </UL>
+  </UL>
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Javítások Java alapú alkalmazásokhoz:
+  <UL>
+  <LI>az NVDA már bejelenti a csak olvasható állapotot. (<A HREF="https://github.com/nvaccess/nvda/issues/13692" target="_blank">#13692</A>)
+  <LI>az NVDA már helyesen jelenti be az engedélyezett/letiltott állapotot. (<A HREF="https://github.com/nvaccess/nvda/issues/10993" target="_blank">#10993</A>)
+  <LI>az NVDA már bejelenti a funkcióbillentyűkkel végrehajtott parancsokat. (<A HREF="https://github.com/nvaccess/nvda/issues/13643" target="_blank">#13643</A>)
+  <LI>az NVDA már képes hangjelzést és beszédbeli visszajelzést is adni a folyamatjelzőkön. (<A HREF="https://github.com/nvaccess/nvda/issues/13594" target="_blank">#13594</A>)
+  <LI>az NVDA már nem távolítja el a szöveget a widgetekről. (<A HREF="https://github.com/nvaccess/nvda/issues/13102" target="_blank">#13102</A>)
+  <LI>az NVDA már bejelenti a többállapotú gombok állapotát. (<A HREF="https://github.com/nvaccess/nvda/issues/9728" target="_blank">#9728</A>)
+  <LI>az NVDA már képes kezelni a többablakos Java alkalmazásokat. (<A HREF="https://github.com/nvaccess/nvda/issues/9184" target="_blank">#9184</A>)
+  <LI>az NVDA már képes pozícióinformációkat adni a fülvezérlőkhöz. (<A HREF="https://github.com/nvaccess/nvda/issues/13744" target="_blank">#13744</A>)
+  </UL>
+<LI>Braille javítások:
+  <UL>
+  <LI>Javították a Braille kimenetet Mozilla rich edit vezérlőben történő navigálás esetén pl. üzenetírás a thunderbirdben. (<A HREF="https://github.com/nvaccess/nvda/issues/12542" target="_blank">#12542</A>)
+  <LI>Ha a Braille követés automatikusra van állítva és az egérkövetés is be van kapcsolva, akkor egér mozgatása esetén
+   A szövegáttekintő parancsok használatakor a Braille kijelzőn is megjelennek a kimondott szavak. (<A HREF="https://github.com/nvaccess/nvda/issues/11519" target="_blank">#11519</A>)
+  <LI>A Braille kijelzőn át lehet pásztázni a tartalmat szövegáttekintő parancsok használata után. (<A HREF="https://github.com/nvaccess/nvda/issues/8682" target="_blank">#8682</A>)
+  </UL>
+<LI>Az NVDA telepítője most már képes olyan mappából is elindulni,aminek a neve tartalmaz speciális karaktereket. (<A HREF="https://github.com/nvaccess/nvda/issues/13270" target="_blank">#13270</A>)
+<LI>Firefox: Az NVDA már nem  mulasztja el bejelenteni az olyan elemeket a weblapokon, ahol aria-rowindex, aria-colindex, aria-rowcount és aria-colcount attribútum sincs megadva. (<A HREF="https://github.com/nvaccess/nvda/issues/13405" target="_blank">#13405</A>)
+<LI>A kurzor már nem vált kéretlenül sort vagy oszlopot, ha egyesített cellákon navigálunk táblázatnavigációs parancsokkal. (<A HREF="https://github.com/nvaccess/nvda/issues/7278" target="_blank">#7278</A>)
+<LI>Adobe Reader: Ha nem interaktív pdf dokumentumokat olvasunk az NVDA már bejelenti az űrlapmezők típusát és állapotát. (pl. jelölőnégyzetek és választógombok) (<A HREF="https://github.com/nvaccess/nvda/issues/13285" target="_blank">#13285</A>)
+<LI>"A gyári beállítások visszaállítása" opció már elérhető az NVDA menüjéből, ha az NVDA csökkentett/biztonsági módban van. (<A HREF="https://github.com/nvaccess/nvda/issues/13547" target="_blank">#13547</A>)
+<LI>Az NVDA bezárásakor az NVDA egérkezelő parancsaival nyomva tartott állapotba hozott egérgombnak feloldódik a nyomva tartása. Korábban a nyomva tartott állapot megmaradt az NVDA bezárása után is. (<A HREF="https://github.com/nvaccess/nvda/issues/13410" target="_blank">#13410</A>)
+<LI>Visual Studio: Az NVDA már be tudja jelenteni a sorok számát. (<A HREF="https://github.com/nvaccess/nvda/issues/13604" target="_blank">#13604</A>)
+  <UL>
+  <LI>Az opció megfelelő működéséhez be kell kapcsolni a sorszámok megjelenítését mind a Visual Studioban mind az NVDA beállításai között a dokumentumformázás kategóriában.
+  </UL>
+<LI>Visual Studio: Az NVDA már helyesen jelenti be a sorok behúzását. (<A HREF="https://github.com/nvaccess/nvda/issues/13574" target="_blank">#13574</A>)
+<LI>Az NVDA ismét megfelelően jelenti be a start menüben történő keresés részleteit mind a windows 10, mind a Windows 11 legújabb verzióiban. (<A HREF="https://github.com/nvaccess/nvda/issues/13544" target="_blank">#13544</A>)
+<LI>Windows 10 és 11 Számológép 10.1908 és újabb verziói: Az NVDA már bejelenti az eredményt akkor is, ha több parancs is le van nyomva, pl a tudományos mód parancsai. (<A HREF="https://github.com/nvaccess/nvda/issues/13383" target="_blank">#13383</A>)
+<LI>Windows 11: Egérkezelő és érintési parancsokkal ismét kezelhetőek a felhasználói felület bizonyos elemei, a tálca és a feladatnézet. (<A HREF="https://github.com/nvaccess/nvda/issues/13506" target="_blank">#13506</A>)
+<LI>Windows 11 Jegyzettömb: Az NVDA már bejelenti az állapotsor tartalmát. (<A HREF="https://github.com/nvaccess/nvda/issues/13688" target="_blank">#13688</A>)
+<LI>A navigátor objektum vizuális kiemelése már közvetlenül az opció aktiválása után megjelenik. (<A HREF="https://github.com/nvaccess/nvda/issues/13641" target="_blank">#13641</A>)
+<LI>Kijavították az egyoszlopos listanézet elemeinek olvasását. (<A HREF="https://github.com/nvaccess/nvda/issues/13659" target="_blank">#13659</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13735" target="_blank">#13735</A>)
+<LI>Kijavították az eSpeak automatikus nyelvváltás során fennálló hibáját. Az angol megfelelően vált brit angolra, míg a francia franciaországi franciára. (<A HREF="https://github.com/nvaccess/nvda/issues/13727" target="_blank">#13727</A>)
+<LI>Kijavították az OneCore beszédmotor automatikus nyelvváltása során előforduló hibát. (<A HREF="https://github.com/nvaccess/nvda/issues/13732" target="_blank">#13732</A>)
+</UL>
+
+<H2>2022.1</H2>
+<P>
+Ebben a kiadásban jelentős fejlesztések a Microsoft Office vezérlőinek UI automation használatával történő kezelésében.
+A Microsoft Office 16.0.15000 és újabb verziók esetén Windows 11 alatt az NVDA alapértelmezés szerint már UI Automation használatával kezeli a Microsoft Word dokumentumokat.
+Ez jelentős javulás a korábbi objektum alapú eléréshez képest.
+</P>
+<P>
+Fejlesztések a következő braille kijelző driverekhez: Seika Notetaker, Papenmeier és HID Braille. 
+Windows 11 hibajavítások a következő alkalmazásokhoz: Számológép, Konzol, Terminal, Posta és Emoji Panel.
+</P>
+<P>
+Frissült az eSpeak-NG és a  LibLouis Braille fordító. Új Braille táblákat adtak hozzá japán, német és katalán nyelvekhez.
+</P>
+<P>
+Megjegyzés:
+</P>
+ <UL>
+ <LI>Ez a kiadás  megköveteli a meglévő bővítmények kompatibilitásának elllenőrzését. Előfordulhat, hogy bizonyos bővítmények átmenetileg nem fognak működni.
+ </UL>
+
+<H3>Újdonságok</H3>
+<UL>
+<LI>Ms Excel Ui automation használatával Windows 11 alatt: Az NVDA már bemondja, ha egy cella jegyzetet tartalmaz. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>MS Word UI Automation használatával Windows 11 alatt: Az NVDA már felismeri a dokumentumban a könyvjelzőket, szerkesztés alatt álló megjegyzéseket és a lezárt beszélgetéseket. A visszajelzés beszédben és Braille-ben egyaránt elérhető. (<A HREF="https://github.com/nvaccess/nvda/issues/12861" target="_blank">#12861</A>)
+<LI>Az új parancssori paraméter  `"--lang" használatával átmenetileg felülírható az NVDA felületének korábban beállított nyelve. (<A HREF="https://github.com/nvaccess/nvda/issues/10044" target="_blank">#10044</A>)
+<LI>Az NVDA már figyelmeztet, ha olyan parancssori paraméterrel indítjuk el, amit nem képes kezelni. (<A HREF="https://github.com/nvaccess/nvda/issues/12795" target="_blank">#12795</A>)
+<LI>MS Word UI Automation használatával: az NVDA már képes a mathPlayer-rel kezelni az Office matematikai kifejezéseit. (<A HREF="https://github.com/nvaccess/nvda/issues/12946" target="_blank">#12946</A>)
+  <UL>
+  <LI>Csak Microsoft Word 365/2016 build 14326 vagy újabb verziók esetén működik. 
+  <LI>A matematikai kifejezéseket manuálisan kell konvertálni Office Math formátumra. Ehhez a helyi menüből válassza az Egyenlet beállításai &gt;&gt; Konvertálás Office Math formátumba lehetőséget.
+  </UL>
+<LI>A Bővebb leírás meglétének jelzését és a kapcsolódó billentyűparancsot frissítették, hogy működjön fókuszmódban is. (<A HREF="https://github.com/nvaccess/nvda/issues/13106" target="_blank">#13106</A>)
+<LI>Braille: Az NVDA már képes automatikusan észlelni a Seika Notetaker kijelzőket akkor is, ha USb-n keresztül és akkor is ha bluetooth-on keresztül csatlakoztatja. (<A HREF="https://github.com/nvaccess/nvda/issues/13191" target="_blank">#13191</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13142" target="_blank">#13142</A>)
+  <UL>
+  <LI>Ez az alábbi kijelzőket érinti: MiniSeika (16, 24 cells), V6 és V6Pro (40 cells)
+  <LI>A bluetooth kommunikációs port kézi kiválasztása is lehetségessé vált.
+  </UL>
+<LI>Billentyűparancs rendelhető a Braille-néző ki- és bekapcsolásához. Nincs alapértelmezett billentyűparancs hozzárendelve. (<A HREF="https://github.com/nvaccess/nvda/issues/13258" target="_blank">#13258</A>)
+<LI>Braille: Most már módosítóbillentyűk különböző kombinációi is emulálhatók braille kijelzővel. (Ctrl+Alt, Alt+Shift, stb.) (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>A kivételszótárak párbeszédablakán most már lehetőség van a kivételszótár minden bejegyzésének egyidejű törlésére. Ehhez használja az új "Minden bejegyzés törlése" gombot. (<A HREF="https://github.com/nvaccess/nvda/issues/11802" target="_blank">#11802</A>)
+<LI>Támogatás a Windows 11 Számológép alkalmazásához. (<A HREF="https://github.com/nvaccess/nvda/issues/13212" target="_blank">#13212</A>)
+<LI>MS Word UI Automation használatával a  Windows 11 alatt: Az NVDA már bejelenti a sorok és a szakaszok számát. (<A HREF="https://github.com/nvaccess/nvda/issues/13283" target="_blank">#13283</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13515" target="_blank">#13515</A>)
+<LI>Microsoft Office 16.0.15000 és újabb verzióinál Windows 11 alatt az NVDA most már alapértelmezetten UI automation használatával fér hozzá a dokumentumvezérlőkhöz. Ez jelentős javulást jelent a korábbi objektum-alapú eléréshez képest. (<A HREF="https://github.com/nvaccess/nvda/issues/13437" target="_blank">#13437</A>)
+ <UL>
+ <LI>Ez a metódus a Microsoft Word dokumentumaiban és az Outlook üzenetek olvasása és írása közben is működik. 
+ </UL>
+</UL>
+
+<P></P>
+<H3>Változások</H3>
+<UL>
+<LI>Frissült az Espeak-ng, új verzió: 1.51-dev commit <CODE>7e5457f91e10</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12950" target="_blank">#12950</A>)
+<LI>Frissült a Liblouis braille fordító, új verzió: <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.21.0" target="_blank">3.21.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/13141" target="_blank">#13141</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13438" target="_blank">#13438</A>)
+  <UL>
+  <LI>Új braille táblák: Japán (Kantenji) irodalmi braille, Német 6 pontos számítógépes braille, Katalán rövidítési fokozat 1. (<A HREF="https://github.com/nvaccess/nvda/issues/13408" target="_blank">#13408</A>)
+  </UL>
+<LI>LibreOffice Calc 7.3 és újabb verziói: Az NVDA már bejelenti a kijelölést és az egyesített cellákat. (<A HREF="https://github.com/nvaccess/nvda/issues/9310" target="_blank">#9310</A>, <A HREF="https://github.com/nvaccess/nvda/issues/6897" target="_blank">#6897</A>)
+<LI>Frissült az Unicode Common Locale Data Repository (CLDR), új verzió: 40.0. (<A HREF="https://github.com/nvaccess/nvda/issues/12999" target="_blank">#12999</A>)
+<LI>Az NVDA+Numpad Delete billentyűparancs mostantól alapértelmezés szerint a kurzor vagy az aktív elem pozícióját közli. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>Az NVDA+Shift+Numpad Delete mostantól alapértelmezés szerint az áttekintőkurzor pozícióját közli. (<A HREF="https://github.com/nvaccess/nvda/issues/13060" target="_blank">#13060</A>)
+<LI>Braille: Billentyűparancsokat rendeltek módosító billentyűk emulálására a Freedom Scientific braille kijelzőkhöz. (<A HREF="https://github.com/nvaccess/nvda/issues/13152" target="_blank">#13152</A>)
+<LI>A Formátum lekérdezésére szolgáló parancs (NVDA+F) már nem jelenti be az alapvonalat a formátum leírásában. (<A HREF="https://github.com/nvaccess/nvda/issues/11815" target="_blank">#11815</A>)
+<LI>A "Megmutatja a bővebb leírást" szkripthez most már nincs alapértelmezetten parancs rendelve. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>Új szkript: Összegzett leírás bejelentése a rendszerkurzornál található elemről. Alapértelmezett billentyűparancs: NVDA+d. (<A HREF="https://github.com/nvaccess/nvda/issues/13380" target="_blank">#13380</A>)
+<LI>Az NVDA-t újra kell indítani a MathPlayer telepítése után. (<A HREF="https://github.com/nvaccess/nvda/issues/13486" target="_blank">#13486</A>)
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>MS Office: az Office vágólap már nem ragadja magához kéretlenül a fókuszt a programok megnyitása után. (<A HREF="https://github.com/nvaccess/nvda/issues/12736" target="_blank">#12736</A>)
+<LI>Ha a felhasználó a Windows egérbeállítások között felcserélte az egér gombjainak funkcióit, azaz a jobb egérgombot használja az alapértelmezetten a bal egérgombnak szánt funkciókra, akkor az NVDA most már  a felcserélésnek megfelelően jeleníti meg a helyi menüket bizonyos alkalmazásokban, pl.böngészőkben. (<A HREF="https://github.com/nvaccess/nvda/issues/12642" target="_blank">#12642</A>)
+<LI>Ha az áttekintőkurzorral bizonyos szöveges vezérlők végéhez navigálunk, pl. a Microsoft Wordben UI Automation használatával, akkor az NVDA most már a korábbinál több esetben jelzi a vezérlő végét. (<A HREF="https://github.com/nvaccess/nvda/issues/12808" target="_blank">#12808</A>)
+<LI>A 64 bites windowson futtatott 32 bites alkalmazások esetében az NVDA már bejelenti az alkalmazások nevét és verziószámát. Ez a system32 mappában található futtatható állományokra vonatkozik. (<A HREF="https://github.com/nvaccess/nvda/issues/12943" target="_blank">#12943</A>)
+<LI>Javították a Terminál programok kimenetének felolvasását. (<A HREF="https://github.com/nvaccess/nvda/issues/12974" target="_blank">#12974</A>)
+  <UL>
+  <LI>Bizonyos esetekben,amikor egy sor belsejébe illesztünk be egy karaktert vagy épp törlünk onnan,akkor az NVDA bejelenti a kurzortól jobbra lévő karaktert.
+  </UL>
+<LI>MS word UI Automation használatával: Böngészőmódban a címsorok közti navigáció gyorsbillentyűje már nem eredményezi azt, hogy a program leragadjon a dokumentum utolsó címsorán, illetve ez a címsor sem szerepel már duplán az NVDA elemlistában. (<A HREF="https://github.com/nvaccess/nvda/issues/9540" target="_blank">#9540</A>)
+<LI>Windows 8 és újabb verziók: A Fájlkezelő állapotsora elérhető a kapcsolódó billentyűparanccsal. NVDA+end (asztali kiosztás) / NVDA+shift+end (laptop). (<A HREF="https://github.com/nvaccess/nvda/issues/12845" target="_blank">#12845</A>)
+<LI>Skype for Business: Az NVDA ismét bejelenti egy beszélgetésben a bejövő üzeneteket. (<A HREF="https://github.com/nvaccess/nvda/issues/9295" target="_blank">#9295</A>)
+<LI>Windows 11: A Hangerő-igazítás ismét működik SAPI5 beszédszintetizátor használatakor. (<A HREF="https://github.com/nvaccess/nvda/issues/12913" target="_blank">#12913</A>)
+<LI>Windows 10 Számológép: az NVDA már bejelenti az Előzmények és a memória listaelemeinek címkéit. (<A HREF="https://github.com/nvaccess/nvda/issues/11858" target="_blank">#11858</A>)
+<LI>HID Braille eszközök: A beviteli parancsok, mint pl a görgetés vagy routing ismét működnek. (<A HREF="https://github.com/nvaccess/nvda/issues/13228" target="_blank">#13228</A>)
+<LI>Windows 11 Posta: Ha hosszú e-mailek olvasása közben programok közt váltogatunk, az NVDA már nem ragad le a levél egy soránál. (<A HREF="https://github.com/nvaccess/nvda/issues/13050" target="_blank">#13050</A>)
+<LI>HID braille: Összetett beviteli parancsok mint pl. szóköz+4. pont most már végrehajthatók a braille kijelzőről. (<A HREF="https://github.com/nvaccess/nvda/issues/13326" target="_blank">#13326</A>)
+<LI>Az NVDA beállítási ablakát már nem lehet több példányban megnyitni egyszerre. (<A HREF="https://github.com/nvaccess/nvda/issues/12818" target="_blank">#12818</A>)
+<LI>Braille javítottak egy hibát,ami bizonyos Focus Blue Braille kijelzők működését megakasztotta miután alvó módból visszatért a Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/9830" target="_blank">#9830</A>)
+<LI>Az NVDA már nem jelenti be kéretlenül az "Alapvonal" szót a formázási információk között amennyiben a Felső és alsó index jelzése opció be van kapcsolva az NVDA Beállítások &gt;&gt; Dokumentumformázás ablakán. (<A HREF="https://github.com/nvaccess/nvda/issues/11078" target="_blank">#11078</A>)
+<LI>Windows 11: A navigáció most már az elvártaknak megfelelően működik az Emoji panelen emodzsik kiválasztásakor. (<A HREF="https://github.com/nvaccess/nvda/issues/13104" target="_blank">#13104</A>)
+<LI>Javították azt a hibát,ami miatt az NVDA dupla visszajelzést adott Windows konzol és Terminal használata során. (<A HREF="https://github.com/nvaccess/nvda/issues/13261" target="_blank">#13261</A>)
+<LI>Javították azt a hibát,ami miatt bizonyos 64 bites alkalmazásokban (pl. a Reaper zeneszerkesztőben) az NVDA nem tudta megfelelően bejelenteni bizonyos listák elemeit. (<A HREF="https://github.com/nvaccess/nvda/issues/8175" target="_blank">#8175</A>)
+<LI>Microsoft Edge: A letöltések listáján az NVDA automatikusan fókuszmódra vált,amikor a legutóbb letöltött elem a listán aktívvá válik. (<A HREF="https://github.com/nvaccess/nvda/issues/13221" target="_blank">#13221</A>)
+<LI>Notepad++ 8.3 és újabb verziók: Az NVDA már nem okozza a 64 bites változat összeomlását. (<A HREF="https://github.com/nvaccess/nvda/issues/13311" target="_blank">#13311</A>)
+<LI>Adobe Reader: Az NVDA már nem okoz hibát a program indulásakor, ha a védett mód engedélyezve van. (<A HREF="https://github.com/nvaccess/nvda/issues/11568" target="_blank">#11568</A>)
+<LI>Kijavítottak egy hibát, mely a Papenmeier Braille kijelző driver kiválasztásakor az NVDA összeomlását okozta. (<A HREF="https://github.com/nvaccess/nvda/issues/13348" target="_blank">#13348</A>)
+<LI>Microsoft word UI AUTOMATION használatával: Az NVDA már nem jelenti be kéretlenül az oldalszámot és más formázási információkat olyan esetekben,amikor  egy üres táblázatcellából navigálunk egy tartalommal rendelkező cellába, vagy ha a dokumentum végéről vissza a dokumentum tartalmához. (<A HREF="https://github.com/nvaccess/nvda/issues/13458" target="_blank">#13458</A>, <A HREF="https://github.com/nvaccess/nvda/issues/13459" target="_blank">#13459</A>)
+<LI>Google Chrome 100: Az NVDA ismét bemondja a címsort és nem kezdi el kéretlenül felolvasni az oldal tartalmát annak betöltődése után. (<A HREF="https://github.com/nvaccess/nvda/issues/13571" target="_blank">#13571</A>)
+</UL>
+
+<P></P>
+<H2>2021.3.5</H2>
+<P>
+Ez egy köztes kiadás,amely biztonsági javítást tartalmaz.
+ Ha a biztonságot érintő hiba jut a tudomására, haladéktalanul jelezze az <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> e-mail címen.
+</P>
+<H3>Biztonsági hibajavítások</H3>
+<UL>
+<LI>Addressed security advisory <CODE>GHSA-xc5m-v23f-pgr7</CODE>.
+  <UL>
+  <LI>Az Írásjelkiejtés ablaka le van tiltva csökkentett módban.
+  </UL>
+</UL>
+
+<P></P>
+<H2>2021.3.4</H2>
+<P>
+Ez egy köztes kiadás,amely néhány biztonsági javítást tartalmaz.
+ Ha a biztonságot érintő hiba jut a tudomására, haladéktalanul jelezze az <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> e-mail címen.
+</P>
+<H3>Biztonsági hibajavítások</H3>
+<UL>
+<LI>Addressed security advisory <CODE>GHSA-354r-wr4v-cx28</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13488" target="_blank">#13488</A>)
+  <UL>
+  <LI>Ha az NVDA csökkentett módban fut, akkor nem lehet újraindítani Nyomkövetés naplózási szinttel.
+  <LI>Ha az NVDA csökkentett módban fut, nem lehet frissíteni.
+  </UL>
+<LI>Addressed security advisory <CODE>GHSA-wg65-7r23-h6p9</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13489" target="_blank">#13489</A>)
+  <UL>
+  <LI>Ha az NVDA csökkentett módban fut, már nem lehet megnyitni a Beviteli parancsok ablakát.
+  <LI>Ha az NVDA csökkentett módban fut, a kivételszótárak ablakait nem lehet megnyitni.
+  </UL>
+<LI>Addressed security advisory <CODE>GHSA-mvc8-5rv9-w3hx</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/13487" target="_blank">#13487</A>)
+  <UL>
+  <LI>A wx GUI inspection tool már le van tiltva, ha az NVDA csökkentett módban fut.
+  </UL>
+</UL>
+
+<P></P>
+<H2>2021.3.3</H2>
+<P>
+Ez a kiadás megegyezik a 2021.3.2 kiadással
+Egy hiba miatt a 2021.3.2 kiadás 2021.3.1 verziószámmal azonosította magát. 
+Jelen kiadás az elvárásnak megfelelően 2021.3.3 verzióként azonosítja magát.
+</P>
+<H2>2021.3.2</H2>
+<P>
+Ez egy köztes kiadás,amely néhány biztonsági javítást tartalmaz.
+ Ha a biztonságot érintő hiba jut a tudomására, haladéktalanul jelezze az <A HREF="mailto:info@nvaccess.org" target="_blank">info@nvaccess.org</A> e-mail címen.
+</P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Biztonsági javítás:: Most már elemnavigációval sem lehet a fókuszt kivinni a zárolási képernyőről. Windows 10 és Windows 11 alatt sem. (<A HREF="https://github.com/nvaccess/nvda/issues/13328" target="_blank">#13328</A>)
+<LI>Biztonsági javítás: A Bővítménykezelő ablaka le van tiltva a biztonsági képernyőn. (<A HREF="https://github.com/nvaccess/nvda/issues/13059" target="_blank">#13059</A>)
+<LI>Biztonsági javítás:: Az NVDA helyzetérzékeny súgója már nem érhető el a biztonsági képernyőn. (<A HREF="https://github.com/nvaccess/nvda/issues/13353" target="_blank">#13353</A>)
+</UL>
+
+<P></P>
+<H2>2021.3.1</H2>
+<P>
+Ez egy köztes kiadás, amely kijavít néhány, a 2021.3 verzió által okozott hibát.
+</P>
+<H3>Változások</H3>
+<UL>
+<LI>Az NVDA nem kényszeríti az új HID Braille protokoll használatát, amennyiben más alkalmas driver is elérhető. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+<LI>A HID Braille protokoll már kikapcsolható a Haladó beállítások között. (<A HREF="https://github.com/nvaccess/nvda/issues/13180" target="_blank">#13180</A>)
+</UL>
+
+<P></P>
+<H3>Hibajavítások</H3>
+<UL>
+<LI>Az NVDA ismét bejelenti a helyjelzőket Braille-ben. (<A HREF="https://github.com/nvaccess/nvda/issues/13158" target="_blank">#13158</A>)
+<LI>Kijavították az automatikus felismerés közben fellépő hibát az alábbi kijelzőknél:Humanware Brailliant és APH Mantis Q40. A probléma bluetoothos csatlakoztatás esetén lépett fel. (<A HREF="https://github.com/nvaccess/nvda/issues/13153" target="_blank">#13153</A>)
+</UL>
+
+<P></P>
 <H2>2021.3</H2>
 <P>
 Ez a kiadás már támogatja az új HID Braille specifikációt.

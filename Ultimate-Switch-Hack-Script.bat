@@ -66,6 +66,7 @@ call "%associed_language_script%" "display_title"
 mkdir test
 IF %errorlevel% NEQ 0 (
 	call "%associed_language_script%" "admin_error"
+	pause
 	goto:end_script
 )
 rmdir /s /q test
