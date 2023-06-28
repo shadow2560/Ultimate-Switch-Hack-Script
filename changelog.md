@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.305</h2>
+<ul>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 558.</li>
+</ul>
 <h2>V4.3.304</h2>
 <ul>
 <li>Correction d'un bug lors de la mise à jour intégrale du script.</li>
