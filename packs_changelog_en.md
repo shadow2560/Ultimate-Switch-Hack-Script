@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V559</h2>
+<ul>
+<li>Update the Picofly firmware to version 2.73, the 2.74 seems to have some problems.</li>
+</ul>
 <h2>V558</h2>
 <ul>
 <li>Update EdiZon overlay to version 1.0.7.</li>
