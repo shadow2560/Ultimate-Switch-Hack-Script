@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V560</h2>
+<ul>
+<li>Mise à jour de DBI en version 598.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.23.0.</li>
+<li>Mise à jour de NX-FPS en version 1.5.5.</li>
+<li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
+</ul>
 <h2>V559</h2>
 <ul>
 <li>Mise à jour du firmware Picofly en version 2.73, la 2.74 aurait des soucis.</li>
