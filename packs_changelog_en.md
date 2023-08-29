@@ -1,5 +1,19 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V561</h2>
+<ul>
+<li>Add the homebrew SimpleModDownloader.</li>
+<li>Update Atmosphere to version 1.5.5.</li>
+<li>Update Hekate to version 6.0.6.</li>
+<li>Update AIO-Switch-Updater to version 2.23.1.</li>
+<li>Update Goldleaf to version 1.0.0.</li>
+<li>Update Emuiibo to version 1.1.0.</li>
+<li>Update MissionControl to version 0.9.4.</li>
+<li>Update DBI to version 616.</li>
+<li>Update Tinwoo to version 1.0.14.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V560</h2>
 <ul>
 <li>Update DBI to version 598.</li>

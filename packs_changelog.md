@@ -1,5 +1,19 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V561</h2>
+<ul>
+<li>Ajout du homebrew SimpleModDownloader.</li>
+<li>Mise à jour d'Atmosphere en version 1.5.5.</li>
+<li>Mise à jour de Hekate en version 6.0.6.</li>
+<li>Mise à jour de AIO-Switch-Updater en version 2.23.1.</li>
+<li>Mise à jour de Goldleaf en version 1.0.0.</li>
+<li>Mise à jour de Emuiibo en version 1.1.0.</li>
+<li>Mise à jour de MissionControl en version 0.9.4.</li>
+<li>Mise à jour de DBI en version 616.</li>
+<li>Mise à jour de Tinwoo en version 1.0.14.</li>
+<li>Mise à jour des fichiers de patches utilisés par NXThemesInstaller.</li>
+<li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
+</ul>
 <h2>V560</h2>
 <ul>
 <li>Mise à jour de DBI en version 598.</li>

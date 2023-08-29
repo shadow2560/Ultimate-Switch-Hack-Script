@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.308</h2>
+<ul>
+<li>Suport the firmware 16.1.0.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 16.1.0.</li>
+<li>Update Hekate to version 6.0.6.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 561.</li>
+</ul>
 <h2>V4.3.307</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 560.</li>

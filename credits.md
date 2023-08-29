@@ -126,6 +126,7 @@
 <li><a target="_blank" href="https://github.com/ITotalJustice/Reset-Parental-Controls-NX">Reset-Parental-Controls-NX</a></li>
 <li><a target="_blank" href="https://github.com/HookedBehemoth/ShareNX">ShareNX</a> and <a target="_blank" href="https://github.com/HookedBehemoth/ShareNX-Overlay">ShareNX-Overlay</a></li>
 <li><a target="_blank" href="https://github.com/noahc3/sdsetup-switch">Sdsetup-switch</a></li>
+<li><a target="_blank" href="https://github.com/PoloNX/SimpleModDownloader">SimpleModDownloader</a></li>
 <li><a target="_blank" href="https://github.com/nadrino/SimpleModManager">SimpleModManager</a></li>
 <li><a target="_blank" href="https://github.com/meganukebmp/Switch_90DNS_tester">Switch_90DNS_tester</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/switch-90dns-setter">Switch-90dns-setter</a></li>
