@@ -3,6 +3,7 @@
 <h2>V4.3.308</h2>
 <ul>
 <li>Support du firmware 16.1.0.</li>
+<li>Correction d'un bug dans la Nand Toolbox qui empêchait d'activer le paramètre permettant de remplacer les clusters non utilisés par des zéros.</li>
 <li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 16.1.0.</li>
 <li>Mise à jour de Hekate en version 6.0.6.</li>
 <li>Mise à jour de la documentation et des crédits.</li>

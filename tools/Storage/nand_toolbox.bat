@@ -2430,7 +2430,7 @@ IF /i "%passthrough_0_option%"=="o" (
 				call "%associed_language_script%" "biskeys_file_not_selected_error"
 				goto:set_nnm_passthrough_0_param
 			)
-			tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -biskey "!biskeys_file_path!" >nul 2>&1
+			tools\NxNandManager\NxNandManager.exe --crypto_check -i "%input_path%" -keyset "!biskeys_file_path!" >nul 2>&1
 			IF !errorlevel! NEQ 0 (
 				call "%associed_language_script%" "decrypt_biskeys_not_valid_error"
 				set biskeys_file_path=
