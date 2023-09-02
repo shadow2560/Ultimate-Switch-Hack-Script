@@ -4,6 +4,7 @@
 <ul>
 <li>Suport the firmware 16.1.0.</li>
 <li>Fix a bug in the Nand Toolbox witch caused some problems to enable the param witch allow to replace not used clusters by some zero.</li>
+<li>Update to add some precisions on the formating of a SD during the differents functions.</li>
 <li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 16.1.0.</li>
 <li>Update Hekate to version 6.0.6.</li>
 <li>Update documentation and credits.</li>

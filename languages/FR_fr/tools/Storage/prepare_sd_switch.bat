@@ -63,8 +63,8 @@ goto:eof
 
 :disk_format_type_choice
 echo Quel type de formatage souhaitez-vous effectuer:
-echo 1: EXFAT ^(la Switch doit avoir le support pour ce format d'installé^)?
-echo 2: FAT32 ^(limité au fichier de moins de 4 GO^)?
+echo 1: EXFAT ^(la Switch doit avoir le support pour ce format d'installé et il peut provoquer des corruptions de données notamment avec les homebrews^)?
+echo 2: FAT32 ^(limité au fichier de moins de 4 GO mais bien plus stable^)?
 echo Tout autre choix: Annule le formatage.
 echo.
 set /p format_type=Choisissez le type de formatage à effectuer: 

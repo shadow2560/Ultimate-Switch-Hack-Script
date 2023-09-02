@@ -70,8 +70,8 @@ goto:eof
 
 :disk_format_type_choice
 echo What format type do you want to do:
-echo 1: EXFAT ^(the Switch must have the EXFAT drivers installed to support it^)?
-echo 2: FAT32 ^(limited to  4 GO maximum file size^)?
+echo 1: EXFAT ^(the Switch must have the EXFAT drivers installed to support it but could corrupt datas especialy with homebrews^)?
+echo 2: FAT32 ^(limited to  4 GO maximum file size but more stable^)?
 echo All other choices: Cancel formating.
 echo.
 set /p format_type=Make your choice: 
