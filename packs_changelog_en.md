@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V562</h2>
+<ul>
+<li>Update Emuiibo to version 1.1.1.</li>
+<li>Update Tinwoo to version 1.0.17.</li>
+<li>Update ULaunch to version 0.3.6.</li>
+<li>Update Ldn_mitm to version 1.16.0.</li>
+</ul>
 <h2>V561</h2>
 <ul>
 <li>Add the homebrew SimpleModDownloader.</li>
