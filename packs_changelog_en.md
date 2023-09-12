@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V563</h2>
+<ul>
+<li>Update TinWoo to version 1.0.18.</li>
+<li>Update Nxmp to version 0.7.0.</li>
+<li>Update SaltyNX to version 0.6.1.</li>
+<li>Update Sys-tune to version 2.0.0.</li>
+<li>Update PFBA (Pneo), Pgen, Pnes and Psnes to version 6.7.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V562</h2>
 <ul>
 <li>Update Emuiibo to version 1.1.1.</li>
