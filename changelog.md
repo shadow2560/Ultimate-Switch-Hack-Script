@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.310</h2>
 <ul>
+<li>Mise à jour de NVDA et de ses modules.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 563.</li>
 </ul>
 <h2>V4.3.309</h2>

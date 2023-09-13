@@ -11,6 +11,232 @@
 <I>Traduzido pela Equipa portuguesa do NVDA</I><BR>
 </FONT></CENTER>
 
+<H2>2023.2</H2>
+<P>
+Esta versão introduz a Loja de Extras para substituir o Gestor de Extras.
+Na Loja de Extras, pode navegar, pesquisar, instalar e atualizar extras da comunidade.
+Agora pode, manualmente, ultrapassar os problemas de incompatibilidade com extras desactualizados por sua própria conta e risco.
+Existem novas funcionalidades, comandos e suporte para mais dispositivos Braille.
+Também há novos comandos para OCR e navegação usando a revisão plana por objectos.
+A navegação e o anúncio de formatação no Microsoft Office foram melhorados.
+Há muitas correções de erros, particularmente para braille, Microsoft Office, navegadores web e Windows 11.
+O eSpeak-NG, o conversor de braille LibLouis e o Unicode CLDR foram atualizados.
+</P>
+<H3>Novas funcionalidades</H3>
+<UL>
+<LI>Adicionada a Loja de extras ao NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/13985" target="_blank">#13985</A>)
+  <UL>
+  <LI>Navegue, pesquise, instale e atualize extras da comunidade.
+  <LI>Ignore manualmente problemas de incompatibilidade de extras antigos.
+  <LI>Substituído o Gestor de extras pela Loja de extras.[]
+  <LI>Para obter mais informações, leia o guia do utilizador atualizado.
+  </UL>
+<LI>Novos comandos:
+  <UL>
+  <LI>Um comando não atribuído para alternar entre os idiomas disponíveis para OCR do Windows. (<A HREF="https://github.com/nvaccess/nvda/issues/13036" target="_blank">#13036</A>)
+  <LI>Um comando não atribuído para alternar entre os modos de exibição de mensagens Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/14864" target="_blank">#14864</A>)
+  <LI>Um comando não atribuído para alternar entre a exibição ou não do indicador de selecção em Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/14948" target="_blank">#14948</A>)
+  <LI>Adicionado comandos padrão para mover para o pobjecto anterior ou seguinte em revisão plana da hierarquia de objectos (<A HREF="https://github.com/nvaccess/nvda/issues/15053" target="_blank">#15053</A>)
+    <UL>
+    <LI>Desktop: <CODE>NVDA+9 do bloco numérico</CODE> e <CODE>NVDA+3 do bloco numérico</CODE> para mover para o objecto anterior ou seguinte, respectivamente.
+    <LI>Laptop: <CODE>shift+NVDA+sinal de mais</CODE> e <CODE>shift+NVDA+agudo</CODE> para mover para o objecto anterior ou seguinte, respectivamente.
+    </UL>
+  </UL>
+<LI>Novas funcionalidades Braille:
+  <UL>
+  <LI>Adicionado suporte para a linha Braille Help Tech Activator. (<A HREF="https://github.com/nvaccess/nvda/issues/14917" target="_blank">#14917</A>)
+  <LI>Nova opção Braille para alternar a exibição do indicador de seleção (pontos 7 e 8). (<A HREF="https://github.com/nvaccess/nvda/issues/14948" target="_blank">#14948</A>)
+  <LI>Nova opção para mover opcionalmente o cursor ou foco do sistema ao alterar a posição do cursor de revisão com as teclas de encaminhamento Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/14885" target="_blank">#14885</A>, <A HREF="https://github.com/nvaccess/nvda/issues/3166" target="_blank">#3166</A>)
+  <LI>Ao pressionar "2 do bloco numérico" três vezes para anunciar o valor numérico do caractere na posição do cursor de revisão, as informações também são fornecidas em Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/14826" target="_blank">#14826</A>)
+  <LI>Adicionado suporte para o atributo ARIA 1.3 `aria-brailleroledescription`, permitindo que autores da web substituam o tipo de um elemento exibido no Braille. (<A HREF="https://github.com/nvaccess/nvda/issues/14748" target="_blank">#14748</A>)
+  <LI>Driver Braille Baum: adicionados vários comandos Braille para realizar comandos de teclado comuns, como "windows+d", "alt+tab", etc.
+  Consulte o guia do utilizador do NVDA para obter uma lista completa. (<A HREF="https://github.com/nvaccess/nvda/issues/14714" target="_blank">#14714</A>)
+  <LI>Adicionada pronúncia de símbolos Unicode:
+    <UL>
+    <LI>Símbolos Braille como "⠐⠣⠃⠗⠇⠐⠜". (<A HREF="https://github.com/nvaccess/nvda/issues/14548" target="_blank">#14548</A>)
+    <LI>Símbolo da tecla Options do Mac "⌥". (<A HREF="https://github.com/nvaccess/nvda/issues/14682" target="_blank">#14682</A>)
+    </UL>
+  <LI>Adicionados comandos para as linhas Braille Tivomatic Caiku Albatross. (<A HREF="https://github.com/nvaccess/nvda/issues/14844" target="_blank">#14844</A>, <A HREF="https://github.com/nvaccess/nvda/issues/15002" target="_blank">#15002</A>)
+    <UL>
+    <LI>Mostrar o diálogo de configurações do Braille.
+    <LI>Aceder a barra de estado.
+    <LI>Alternar a forma do cursor Braille.
+    <LI>Alternar o modo de exibição de mensagens Braille.
+    <LI>Activar/desactivar o cursor Braille.
+    <LI>Alternar o estado do indicador de selecção em Braille.
+    </UL>
+  </UL>
+<LI>Funcionalidades no Microsoft Office:
+  <UL>
+  <LI>Ao activar o anúncio de texto realçado, as cores de realce passam a ser anunciadas no Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/7396" target="_blank">#7396</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12101" target="_blank">#12101</A>, <A HREF="https://github.com/nvaccess/nvda/issues/5866" target="_blank">#5866</A>)
+  <LI>Ao activar o anúncio das cores, as cores de fundo passam a ser anunciadas no Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/5866" target="_blank">#5866</A>)
+  <LI>Ao usar atalhos do Excel para alternar o formato, como negrito, itálico, sublinhado e riscado de uma célula no Excel, o resultado passa a ser anunciado. (<A HREF="https://github.com/nvaccess/nvda/issues/14923" target="_blank">#14923</A>)
+  </UL>
+<LI>Gestão melhorada do som (experimental):
+  <UL>
+  <LI>O NVDA agora emite áudio através da API de Sessão de Áudio do Windows (WASAPI), o que pode melhorar a capacidade de resposta, desempenho e estabilidade da voz e dos sons do NVDA.
+  <LI>Isso pode ser desativado nas configurações avançadas se ocorrerem problemas de áudio. (<A HREF="https://github.com/nvaccess/nvda/issues/14697" target="_blank">#14697</A>)
+  Adicionalmente, se o uso de WASAPI estiver activado, pode configurar  as seguintes opções avançadas:
+    <UL>
+    <LI>Ajustar o volume dos sons e bipes do NVDA de acordo com o actual volume da voz. (<A HREF="https://github.com/nvaccess/nvda/issues/1409" target="_blank">#1409</A>)
+    <LI>Controlar separadamente o volume dos sons do NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/1409" target="_blank">#1409</A>)
+    </UL>
+  <LI>Há um problema conhecido de falhas frequentes do NVDA com WASAPI activado. (<A HREF="https://github.com/nvaccess/nvda/issues/15150" target="_blank">#15150</A>)
+  </UL>
+<LI>No Mozilla Firefox e no Google Chrome, o NVDA agora informa quando um controle abre um diálogo, grelha, lista ou árvore se o autor especificou isso usando aria-haspopup. (<A HREF="https://github.com/nvaccess/nvda/issues/14709" target="_blank">#14709</A>)
+<LI>Agora é possível usar variáveis de sistema (como `%temp%` ou `%homepath%`) na especificação do caminho ao criar cópias portáteis do NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14680" target="_blank">#14680</A>)
+<LI>No Windows 10 May 2019 Update e posterior, o NVDA pode anunciar os nomes dos Ambientes de trabalho virtuais ao abri-los, alterá-los e fechá-los. (<A HREF="https://github.com/nvaccess/nvda/issues/5641" target="_blank">#5641</A>)
+<LI>Foi adicionado um parâmetro de sistema para que utilizadores e administradores de sistema possam forçar o NVDA a iniciar em modo seguro. (<A HREF="https://github.com/nvaccess/nvda/issues/10018" target="_blank">#10018</A>)
+</UL>
+
+<P></P>
+<H3>Alterações</H3>
+<UL>
+<LI>Actualização de componentes:
+  <UL>
+  <LI>O eSpeak NG foi actualizado para a versão 1.52-dev commit <CODE>ed9a7bcf</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/15036" target="_blank">#15036</A>)
+  <LI>O conversor Braille LibLouis foi atualizado para <A HREF="https://github.com/liblouis/liblouis/releases/tag/v3.26.0" target="_blank">3.26.0</A>. (<A HREF="https://github.com/nvaccess/nvda/issues/14970" target="_blank">#14970</A>)
+  </UL>
+</UL>
+
+	<BLOCKQUOTE>
+		<BLOCKQUOTE>
+		- O CLDR foi atualizado para a versão 43.0. (<A HREF="https://github.com/nvaccess/nvda/issues/14918" target="_blank">#14918</A>)
+		</BLOCKQUOTE>
+	</BLOCKQUOTE>
+<P>
+  -
+</P>
+<UL>
+<LI>Alterações no LibreOffice:
+  <UL>
+  <LI>Ao anunciar a localização do cursor de revisão, a localização actual do cursor passa a ser anunciada em relação à página atual no LibreOffice Writer para as versões do LibreOffice &gt;= 7.6, similar ao que é feito para o Microsoft Word. (<A HREF="https://github.com/nvaccess/nvda/issues/11696" target="_blank">#11696</A>)
+  <LI>O anúncio da barra de estado (NVDA+End) já funciona no LibreOffice. (<A HREF="https://github.com/nvaccess/nvda/issues/11698" target="_blank">#11698</A>)
+  <LI>Ao mover para uma célula diferente no LibreOffice Calc, o NVDA já não anuncia incorretamente as coordenadas da célula anteriormente focada quando o anúncio de coordenadas da célula está desativado nas configurações do NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/15098" target="_blank">#15098</A>)
+  </UL>
+<LI>Alterações no Braille:
+  <UL>
+  <LI>Ao usar um Dispositivo Braille via driver Braille HID padrão, o D-pad pode ser usado para emular as teclas de seta e Enter. Além
+  disso, espaço+ponto1 e espaço+ponto4 agora correspondem, respectivamente, às teclas de seta para cima e para baixo. (<A HREF="https://github.com/nvaccess/nvda/issues/14713" target="_blank">#14713</A>)
+  <LI>As actualizações no conteúdo dinâmico da web (ARIA live regions) agora são exibidas em braille.
+  Isso pode ser desactivado no painel Configurações avançadas. (<A HREF="https://github.com/nvaccess/nvda/issues/7756" target="_blank">#7756</A>) 
+  </UL>
+<LI>Os símbolos de hífen e hífen emparelhado sempre serão enviados para o sintetizador. (<A HREF="https://github.com/nvaccess/nvda/issues/13830" target="_blank">#13830</A>)
+<LI>A distância anunciada no Microsoft Word passa a respeitar a unidade definida nas opções avançadas do Word, mesmo ao usar o UIA para acessar documentos do Word. (<A HREF="https://github.com/nvaccess/nvda/issues/14542" target="_blank">#14542</A>)
+<LI>O NVDA responde mais rapidamente ao mover o cursor em controles de edição. (<A HREF="https://github.com/nvaccess/nvda/issues/14708" target="_blank">#14708</A>)
+<LI>O script para anunciar o destino de um link agora anuncia a partir da posição do cursor/foco em vez do objeto de navegação. (<A HREF="https://github.com/nvaccess/nvda/issues/14659" target="_blank">#14659</A>)
+<LI>A criação de uma cópia portátil não requer mais a inserção de uma letra de unidade como parte do caminho absoluto. (<A HREF="https://github.com/nvaccess/nvda/issues/14681" target="_blank">#14681</A>)
+<LI>Se o Windows estiver configurado para exibir segundos no relógio da barra do sistema, "NVDA+f12" para anunciar a hora passa a respeitar essa configuração. (<A HREF="https://github.com/nvaccess/nvda/issues/14742" target="_blank">#14742</A>)
+<LI>O NVDA passa a anunciar grupos de controlos sem etiqueta, que possuam informações de posição úteis, como em versões recentes dos menus do Microsoft Office 365. (<A HREF="https://github.com/nvaccess/nvda/issues/14878" target="_blank">#14878</A>)
+</UL>
+
+<P></P>
+<H3>Correcções de erros</H3>
+<UL>
+<LI>Braille:
+  <UL>
+  <LI>Várias correções de estabilidade na entrada/saída para linhas Braille, resultando em erros e 
+  travamentos menos frequentes do NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14627" target="_blank">#14627</A>)
+  <LI>O NVDA já não muda desnecessariamente para "Sem Braille" várias vezes durante a detecção automática, resultando num registo mais
+  limpo. (<A HREF="https://github.com/nvaccess/nvda/issues/14524" target="_blank">#14524</A>)
+  <LI>O NVDA agora voltará para a conexão USB se um dispositivo Bluetooth HID (como o HumanWare Brailliant ou APH Mantis) for detectado
+  automaticamente e uma conexão USB estiver disponível.
+  Isso só funcionava para portas seriais Bluetooth antes. (<A HREF="https://github.com/nvaccess/nvda/issues/14524" target="_blank">#14524</A>)
+  <LI>Quando nenhuma linha braille estiver ligada e o Visualizador Braille for fechado, pressionando <CODE>alt+f4</CODE> ou clicando no botão fechar,
+  o tamanho da linha do subsistema braille será novamente redefinido para nenhuma célula. (<A HREF="https://github.com/nvaccess/nvda/issues/15214" target="_blank">#15214</A>)
+  </UL>
+<LI>Navegadores Web:
+  <UL>
+  <LI>O NVDA já não causa, ocasionalmente, o travamento ou a parada de resposta do Mozilla Firefox. (<A HREF="https://github.com/nvaccess/nvda/issues/14647" target="_blank">#14647</A>)
+  <LI>No Mozilla Firefox e Google Chrome, os caracteres digitados já não são relatados em algumas caixas de texto, mesmo quando a opção de
+  falar caracteres digitados está desativada. (<A HREF="https://github.com/nvaccess/nvda/issues/14666" target="_blank">#14666</A>)
+  <LI>Já é possível usar o modo de navegação em Controles Embutidos do Chromium onde antes não era possível. (<A HREF="https://github.com/nvaccess/nvda/issues/13493" target="_blank">#13493</A>, <A HREF="https://github.com/nvaccess/nvda/issues/8553" target="_blank">#8553</A>)
+  </UL>
+<LI>- No Mozilla Firefox, ao passar o rato sobre o texto, após um link, o NVDA já anuncia correctamente o texto. (<A HREF="https://github.com/nvaccess/nvda/issues/9235" target="_blank">#9235</A>)
+  <UL>
+  <LI>O destino de links gráficos agora é relatado corretamente no Chrome e Edge. (<A HREF="https://github.com/nvaccess/nvda/issues/14779" target="_blank">#14779</A>)
+  <LI>Ao tentar anunciar a URL de um link sem o atributo href, o NVDA não ficará mais em silêncio.
+  Em vez disso, o NVDA informa que o link não tem destino. (<A HREF="https://github.com/nvaccess/nvda/issues/14723" target="_blank">#14723</A>)
+  <LI>No modo de navegação, o NVDA já não ignora, incorretamente, o movimento do foco para um controle de nível superior ou inferior, por
+  exemplo, movendo-se de um elemento para a lista ou grelha que o contém. (<A HREF="https://github.com/nvaccess/nvda/issues/14611" target="_blank">#14611</A>)
+    <UL>
+    <LI>No entanto, observe que essa correção se aplica apenas quando a opção "Definir automaticamente o foco em elementos com foco" nas
+    configurações do modo de navegação está desativada (que é a configuração padrão).
+    </UL>
+  </UL>
+<LI>Correções para Windows 11:
+  <UL>
+  <LI>O NVDA volta a poder anunciar o conteúdo da barra de estado do Bloco de Notas. (<A HREF="https://github.com/nvaccess/nvda/issues/14573" target="_blank">#14573</A>)
+  <LI>Ao mudar de separadore é anunciado o novo nome, e sua posição, no Bloco de Notas e Explorador de Ficheiros. (<A HREF="https://github.com/nvaccess/nvda/issues/14587" target="_blank">#14587</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14388" target="_blank">#14388</A>)
+  <LI>No Windows 11, é possível abrir novamente os itens Colaboradores e Licença no menu Ajuda do NVDA. (<A HREF="https://github.com/nvaccess/nvda/issues/14725" target="_blank">#14725</A>)
+  <LI>O NVDA volta a anunciar itens candidatos ao inserir texto em idiomas como chinês e japonês. (<A HREF="https://github.com/nvaccess/nvda/issues/14509" target="_blank">#14509</A>)
+  </UL>
+<LI>Correções para o Microsoft Office:
+<LI>Ao mover rapidamente entre células no Excel, o NVDA agora tem menos probabilidade de anunciar a célula ou seleção errada. (<A HREF="https://github.com/nvaccess/nvda/issues/14983" target="_blank">#14983</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12200" target="_blank">#12200</A>, <A HREF="https://github.com/nvaccess/nvda/issues/12108" target="_blank">#12108</A>)
+<P></P>
+<LI>No Windows 10 e 11 Calculator, uma cópia portátil do NVDA não fará mais nada ou emitirá tons de erro ao inserir expressões no modo de  calculadora padrão em sobreposição compacta. (<A HREF="https://github.com/nvaccess/nvda/issues/14679" target="_blank">#14679</A>)
+<LI>O NVDA se recupera novamente de muitas situações, como aplicativos que param de responder, que anteriormente causavam travamentos completos. (<A HREF="https://github.com/nvaccess/nvda/issues/14759" target="_blank">#14759</A>)
+<LI>Ao forçar o suporte UIA com determinado terminal e consoles, um bug foi corrigido que causava congelamento e spam no arquivo de log. (<A HREF="https://github.com/nvaccess/nvda/issues/14689" target="_blank">#14689</A>)
+<LI>O NVDA não falha mais ao anunciar a focalização de campos de senha no Microsoft Excel e Outlook. (<A HREF="https://github.com/nvaccess/nvda/issues/14839" target="_blank">#14839</A>)
+<LI>O NVDA não recusará mais salvar a configuração após uma reinicialização da configuração. (<A HREF="https://github.com/nvaccess/nvda/issues/13187" target="_blank">#13187</A>)
+<LI>Ao executar uma versão temporária a partir do lançador, o NVDA não induzirá os usuários a pensar que podem salvar a configuração. (<A HREF="https://github.com/nvaccess/nvda/issues/14914" target="_blank">#14914</A>)
+<LI>O anúncio das teclas de atalho do objeto foi melhorada. (<A HREF="https://github.com/nvaccess/nvda/issues/10807" target="_blank">#10807</A>)
+<LI>O NVDA agora responde de maneira geral um pouco mais rápida aos comandos e mudanças de foco. (<A HREF="https://github.com/nvaccess/nvda/issues/14928" target="_blank">#14928</A>)
+  -
+  <UL>
+  <LI>Já é possível usar o caractere de barra invertida no campo de substituição de uma entrada de dicionário, quando o tipo não está definido como expressão regular. (<A HREF="https://github.com/nvaccess/nvda/issues/14556" target="_blank">#14556</A>)
+  </UL>
+<LI>Para símbolos que não têm uma descrição de símbolo no idioma atual, será usada a descrição de símbolo padrão em inglês. (<A HREF="https://github.com/nvaccess/nvda/issues/14558" target="_blank">#14558</A>, <A HREF="https://github.com/nvaccess/nvda/issues/14417" target="_blank">#14417</A>)
+</UL>
+
+<H3>Changes for Developers</H3>
+<P>
+Please refer to <A HREF="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html#API" target="_blank">the developer guide</A> for information on NVDA's API deprecation and removal process.
+</P>
+<UL>
+<LI>Suggested conventions have been added to the add-on manifest specification.
+These are optional for NVDA compatibility, but are encouraged or required for submitting to the add-on store.
+The new suggested conventions are:
+  <UL>
+  <LI>Using <CODE>lowerCamelCase</CODE> for the name field.
+  <LI>Using <CODE>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</CODE> format for the version field (required for add-on datastore).
+  <LI>Using <CODE>https://</CODE> as the schema for the url field (required for add-on datastore).
+  </UL>
+<LI>Added a new extension point type called <CODE>Chain</CODE>, which can be used to iterate over iterables returned by registered handlers. (<A HREF="https://github.com/nvaccess/nvda/issues/14531" target="_blank">#14531</A>)
+<LI>Added the <CODE>bdDetect.scanForDevices</CODE> extension point.
+Handlers can be registered that yield <CODE>BrailleDisplayDriver/DeviceMatch</CODE> pairs that don't fit in existing categories, like USB or Bluetooth. (<A HREF="https://github.com/nvaccess/nvda/issues/14531" target="_blank">#14531</A>)
+<LI>Added extension point: <CODE>synthDriverHandler.synthChanged</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14618" target="_blank">#14618</A>)
+<LI>The NVDA Synth Settings Ring now caches available setting values the first time they're needed, rather than when loading the synthesizer. (<A HREF="https://github.com/nvaccess/nvda/issues/14704" target="_blank">#14704</A>)
+<LI>You can now call the export method on a gesture map to export it to a dictionary.
+This dictionary can be imported in another gesture by passing it either to the constructor of <CODE>GlobalGestureMap</CODE> or to the update method on an existing map. (<A HREF="https://github.com/nvaccess/nvda/issues/14582" target="_blank">#14582</A>)
+<LI><CODE>hwIo.base.IoBase</CODE> and its derivatives now have a new constructor parameter to take a <CODE>hwIo.ioThread.IoThread</CODE>.
+If not provided, the default thread is used. (<A HREF="https://github.com/nvaccess/nvda/issues/14627" target="_blank">#14627</A>)
+<LI><CODE>hwIo.ioThread.IoThread</CODE> now has a <CODE>setWaitableTimer</CODE> method to set a waitable timer using a python function.
+Similarly, the new <CODE>getCompletionRoutine</CODE> method allows you to convert a python method into a completion routine safely. (<A HREF="https://github.com/nvaccess/nvda/issues/14627" target="_blank">#14627</A>)
+<LI><CODE>offsets.OffsetsTextInfo._get_boundingRects</CODE> should now always return <CODE>List[locationHelper.rectLTWH]</CODE> as expected for a subclass of <CODE>textInfos.TextInfo</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12424" target="_blank">#12424</A>)
+<LI><CODE>highlight-color</CODE> is now a format field attribute. (<A HREF="https://github.com/nvaccess/nvda/issues/14610" target="_blank">#14610</A>)
+<LI>NVDA should more accurately determine if a logged message is coming from NVDA core. (<A HREF="https://github.com/nvaccess/nvda/issues/14812" target="_blank">#14812</A>)
+<LI>NVDA will no longer log inaccurate warnings or errors about deprecated appModules. (<A HREF="https://github.com/nvaccess/nvda/issues/14806" target="_blank">#14806</A>)
+<LI>All NVDA extension points are now briefly described in a new, dedicated chapter in the Developer Guide. (<A HREF="https://github.com/nvaccess/nvda/issues/14648" target="_blank">#14648</A>)
+<LI><CODE>scons checkpot</CODE> will no longer check the <CODE>userConfig</CODE> subfolder anymore. (<A HREF="https://github.com/nvaccess/nvda/issues/14820" target="_blank">#14820</A>)
+<LI>Translatable strings can now be defined with a singular and a plural form using <CODE>ngettext</CODE> and <CODE>npgettext</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/12445" target="_blank">#12445</A>)
+</UL>
+
+<P></P>
+<H4>Deprecations</H4>
+<UL>
+<LI>Passing lambda functions to <CODE>hwIo.ioThread.IoThread.queueAsApc</CODE> is deprecated.
+Instead, functions should be weakly referenceable. (<A HREF="https://github.com/nvaccess/nvda/issues/14627" target="_blank">#14627</A>)
+<LI>Importing <CODE>LPOVERLAPPED_COMPLETION_ROUTINE</CODE> from <CODE>hwIo.base</CODE> is deprecated.
+Instead import from <CODE>hwIo.ioThread</CODE>. (<A HREF="https://github.com/nvaccess/nvda/issues/14627" target="_blank">#14627</A>)
+<LI><CODE>IoThread.autoDeleteApcReference</CODE> is deprecated.
+It was introduced in NVDA 2023.1 and was never meant to be part of the public API.
+Until removal, it behaves as a no-op, i.e. a context manager yielding nothing. (<A HREF="https://github.com/nvaccess/nvda/issues/14924" target="_blank">#14924</A>)
+<LI><CODE>gui.MainFrame.onAddonsManagerCommand</CODE> is deprecated, use <CODE>gui.MainFrame.onAddonStoreCommand</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/13985" target="_blank">#13985</A>)
+<LI><CODE>speechDictHandler.speechDictVars.speechDictsPath</CODE> is deprecated, use <CODE>WritePaths.speechDictsDir</CODE> instead. (<A HREF="https://github.com/nvaccess/nvda/issues/15021" target="_blank">#15021</A>)
+</UL>
+
+<P></P>
 <H2>2023.1</H2>
 <P>
 Foi adicionada uma nova opção, "Estilo do Parágrafo" em "Navegação em Documentos".
