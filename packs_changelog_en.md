@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V564</h2>
+<ul>
+<li>Update NXMP to version 0.8.1.</li>
+<li>Update the link of Retroarch for the version 1.16.0.</li>
+<li>Update TinWoo to version 1.0.20.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V563</h2>
 <ul>
 <li>Update TinWoo to version 1.0.18.</li>
