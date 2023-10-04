@@ -932,6 +932,11 @@ for /l %%i in (1,1,%temp_count%) do (
 			)
 			"%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\titles " "%temp_modules_copy_path%" /e >nul
 			IF EXIST "tools\sd_switch\modules\pack\!temp_module!\others" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\others " "%volume_letter%\ " /e >nul
+			IF "!temp_module!"=="Salty-nx" (
+				IF EXIST "%volume_letter%\SaltySD\plugins\NX-FPS.elf" del /q "%volume_letter%\SaltySD\plugins\NX-FPS.elf"
+				IF EXIST "%volume_letter%\SaltySD\plugins\ReverseNX.elf" del /q "%volume_letter%\SaltySD\plugins\ReverseNX.elf"
+				IF EXIST "%volume_letter%\SaltySD\plugins\ReverseNX-RT.elf" del /q "%volume_letter%\SaltySD\plugins\ReverseNX-RT.elf"
+			)
 			IF "!temp_module!"=="Nx-btred" (
 				set temp_module=MissionControl
 				"%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\titles " "%temp_modules_copy_path%" /e >nul
@@ -1023,6 +1028,9 @@ IF "%~1"=="sxos" (
 )
 %windir%\System32\Robocopy.exe "tools\sd_switch\modules\pack\Salty-nx\titles " "%temp_modules_copy_path%" /e >nul
 %windir%\System32\Robocopy.exe "tools\sd_switch\modules\pack\Salty-nx\others " "%volume_letter%\ " /e >nul
+IF EXIST "%volume_letter%\SaltySD\plugins\NX-FPS.elf" del /q "%volume_letter%\SaltySD\plugins\NX-FPS.elf"
+IF EXIST "%volume_letter%\SaltySD\plugins\ReverseNX.elf" del /q "%volume_letter%\SaltySD\plugins\ReverseNX.elf"
+IF EXIST "%volume_letter%\SaltySD\plugins\ReverseNX-RT.elf" del /q "%volume_letter%\SaltySD\plugins\ReverseNX-RT.elf"
 exit /b
 
 :copy_mixed_pack
@@ -1410,6 +1418,31 @@ for /l %%i in (1,1,%temp_count%) do (
 				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\others " "%volume_letter%\ " /e >nul
 			) else (
 				call "%associed_language_script%" "homebrew_should_be_associed_with_at_least_one_cfw_error"
+			)
+		)
+
+		IF "!temp_salty-nx!"=="ReverseNX-RT" (
+			IF EXIST "%volume_letter%\atmosphere\contents" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "atmosphere"
+			)
+			IF EXIST "%volume_letter%\sxos\titles" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "sxos"
+			)
+			IF EXIST "%volume_letter%\boot.dat" (
+				IF NOT "%sx_gear_present_on_sd%"=="Y" (
+					set one_cfw_chosen=Y
+					call :force_copy_overlays_base_files "sxos"
+				)
+			)
+			IF /i "%copy_atmosphere_pack%"=="o" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "atmosphere"
+			)
+			IF /i "%copy_sxos_pack%"=="o" (
+				set one_cfw_chosen=Y
+				call :force_copy_overlays_base_files "sxos"
 			)
 		)
 		IF "!temp_special_salty-nx!"=="N" %windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx! " "%volume_letter%\ " /e >nul

@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V565</h2>
+<ul>
+<li>Update Salty-nx to version 0.7.0.</li>
+<li>Update NXFPS to version 1.2.5.</li>
+<li>Replace ReverseNX by ReverseNX-RT.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V564</h2>
 <ul>
 <li>Update NXMP to version 0.8.1.</li>

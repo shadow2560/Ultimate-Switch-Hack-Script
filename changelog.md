@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.312</h2>
+<ul>
+<li>Mise à jour du script de préparation d'une SD pour supprimer automatiquement certains fichiers pouvant poser problèmes avec Salty-NX.</li>
+<li>Mise à jour des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 565.</li>
+</ul>
 <h2>V4.3.311</h2>
 <ul>
 <li>Mise à jour des modules de NVDA.</li>

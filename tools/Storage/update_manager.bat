@@ -3088,6 +3088,7 @@ IF EXIST "tools\sd_switch\modules\pack\Sys-Netcheat" rmdir /s /q "tools\sd_switc
 IF EXIST "tools\sd_switch\modules\pack\Sys-audioplayer" rmdir /s /q "tools\sd_switch\modules\pack\Sys-audioplayer"
 IF EXIST "tools\sd_switch\atmosphere_mariko_special_files" rmdir /s /q "tools\sd_switch\atmosphere_mariko_special_files"
 IF EXIST "tools\java" rmdir /s /q "tools\java"
+IF EXIST "tools\sd_switch\salty-nx\pack\ReverseNX" rmdir /s /q "tools\sd_switch\salty-nx\pack\ReverseNX"
 call "%associed_language_script%" "del_hold_files_end"
 exit /b
 
