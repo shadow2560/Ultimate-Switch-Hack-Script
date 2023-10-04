@@ -13,6 +13,10 @@ import json
 import logging
 import os
 import queueHandler
+try:
+	from winAPI.secureDesktop import post_secureDesktopStateChange
+except:
+	post_secureDesktopStateChange = None
 import versionInfo
 import shlobj
 import speech
@@ -94,6 +98,8 @@ class GlobalPlugin(_GlobalPlugin):
 			self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
 		self.ipc_file = os.path.join(self.temp_location, 'remote.ipc')
 		self.sd_focused = False
+		if post_secureDesktopStateChange:
+			post_secureDesktopStateChange.register(self.onSecureDesktopChange)
 		if hasattr(globalVars, 'teleNVDA'):
 			self.postStartupHandler()
 		core.postNvdaStartup.register(self.postStartupHandler)
@@ -166,6 +172,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
 	def terminate(self):
+		if post_secureDesktopStateChange:
+			post_secureDesktopStateChange.unregister(self.onSecureDesktopChange)
 		self.disconnect()
 		self.local_machine.terminate()
 		self.local_machine = None
@@ -224,8 +232,26 @@ class GlobalPlugin(_GlobalPlugin):
 		core.postNvdaStartup.unregister(self.postStartupHandler)
 
 	def on_disconnect_item(self, evt):
-		evt.Skip()
-		self.disconnect()
+		if evt:
+			evt.Skip()
+		def disconnect_as_slave_with_alert():
+			if (self.slave_transport is not None
+				and configuration.get_config()['ui']['alert_before_slave_disconnect']
+				and not gui.message.isModalMessageBoxActive()):  # Check if a modal message box is open
+				result = gui.messageBox(
+					# Translators: question before disconnecting
+					message=_("Are you sure you want to disconnect the controlled computer?"),
+					# Translators: question title
+					caption=_("Warning!"),
+					style=wx.YES | wx.NO | wx.ICON_WARNING
+				)
+				if result == wx.YES:
+					self.disconnect()
+			elif (self.master_transport is not None
+				  or (self.slave_transport is not None
+					  and not configuration.get_config()['ui']['alert_before_slave_disconnect'])):
+				self.disconnect()
+		wx.CallAfter(disconnect_as_slave_with_alert)
 
 	def on_mute_item(self, evt):
 		if evt:
@@ -246,21 +272,31 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			log.exception("Unable to push clipboard")
 
+
 	def on_send_file_item(self, evt):
 		connector = self.slave_transport or self.master_transport
-		if not getattr(connector,'connected',False):
+		if not getattr(connector, 'connected', False):
 			ui.message(_("Not connected."))
 			return
 		if globalVars.appArgs.secure:
 			return
-		fd = wx.FileDialog(gui.mainFrame,
-		# Translators: message displayed in transfer file dialog when sending a file
-		message=_("Choose the file you want to send to the remote computer"),
-		# Translators: supported file types when sending or receiving files
-		wildcard=_("All files (*.*)")+"|*.*",
-		defaultDir=os.environ['userprofile'], style=wx.FD_OPEN|wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
-		if fd.ShowModal() != wx.ID_OK:
+		# Check if a file dialog is already open
+		if getattr(self, 'is_send_file_dialog_open', False):
 			return
+		# Set the flag to True, indicating that the file dialog is open
+		setattr(self, 'is_send_file_dialog_open', True)
+		fd = wx.FileDialog(gui.mainFrame,
+			# Translators: message displayed in transfer file dialog when sending a file
+			message=_("Choose the file you want to send to the remote computer"),
+			# Translators: supported file types when sending or receiving files
+			wildcard=_("All files (*.*)") + "|*.*",
+			defaultDir=os.environ['userprofile'], style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
+		if fd.ShowModal() != wx.ID_OK:
+			# Reset the flag to False after the file dialog is closed
+			setattr(self, 'is_send_file_dialog_open', False)
+			return
+		# Reset the flag to False after the file dialog is closed
+		setattr(self, 'is_send_file_dialog_open', False)
 		filename = os.path.basename(fd.GetPath())
 		try:
 			f = open(fd.GetPath(), "rb")
@@ -270,18 +306,18 @@ class GlobalPlugin(_GlobalPlugin):
 			logger.exception("Unable to read the specified file")
 		if len(file_content) > 10485760:
 			gui.messageBox(
-			# Translators: error message when a file is too big
-			message=_("This file is too large. Only files smaller than 10 MB are supported."),
-			# Translators: error message caption
-			caption=_("Error"),
-			style=wx.ICON_ERROR)
+				# Translators: error message when a file is too big
+				message=_("This file is too large. Only files smaller than 10 MB are supported."),
+				# Translators: error message caption
+				caption=_("Error"),
+				style=wx.ICON_ERROR)
 			return
 		result = gui.messageBox(
-		# Translators: question before sending a file
-		message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
-		# Translators: question title
-		caption=_("Warning!"),
-		style=wx.YES | wx.NO | wx.ICON_WARNING)
+			# Translators: question before sending a file
+			message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
+			# Translators: question title
+			caption=_("Warning!"),
+			style=wx.YES | wx.NO | wx.ICON_WARNING)
 		if result == wx.YES:
 			file_content = base64.b64encode(file_content)
 			connector.send(type='file_transfer', name=filename, content=file_content.decode("utf-8"))
@@ -395,6 +431,11 @@ class GlobalPlugin(_GlobalPlugin):
 	def do_connect(self, evt):
 		if evt:
 			evt.Skip()
+		# Check if the connect dialog is already open
+		if getattr(self, 'is_connect_dialog_open', False):
+			return
+		# Set the flag to True, indicating that the connect dialog is open
+		setattr(self, 'is_connect_dialog_open', True)
 		last_cons = configuration.get_config()['connections']['last_connected']
 		# Translators: Title of the connect dialog.
 		dlg = dialogs.DirectConnectDialog(parent=gui.mainFrame, id=wx.ID_ANY, title=_("Connect"))
@@ -402,6 +443,8 @@ class GlobalPlugin(_GlobalPlugin):
 		dlg.panel.host.SetSelection(0)
 		def handle_dlg_complete(dlg_result):
 			if dlg_result != wx.ID_OK:
+				# Reset the flag to False when the dialog is closed
+				setattr(self, 'is_connect_dialog_open', False)
 				return
 			if dlg.client_or_server.GetSelection() == 0: #client
 				host = dlg.panel.host.GetValue()
@@ -418,6 +461,8 @@ class GlobalPlugin(_GlobalPlugin):
 					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
 				else:
 					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
+			# Reset the flag to False when the dialog is closed
+			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
 
 	def on_connected_as_master(self):
@@ -574,7 +619,19 @@ class GlobalPlugin(_GlobalPlugin):
 				braille.handler.enabled = bool(braille.handler.displaySize)
 			self.local_machine.receiving_braille=False
 
+	def onSecureDesktopChange(self, isSecureDesktop: bool):
+		'''
+		@param isSecureDesktop: True if the new desktop is the secure desktop.
+		'''
+		if isSecureDesktop:
+			self.enter_secure_desktop()
+		else:
+			self.leave_secure_desktop()
+
 	def event_gainFocus(self, obj, nextHandler):
+		if not hasattr(IAccessibleHandler, 'SecureDesktopNVDAObject'):
+			nextHandler()
+			return
 		if isinstance(obj, IAccessibleHandler.SecureDesktopNVDAObject):
 			self.sd_focused = True
 			self.enter_secure_desktop()
@@ -708,7 +765,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if self.master_transport is None and self.slave_transport is None:
 			ui.message(_("Not connected."))
 			return
-		self.disconnect()
+		self.on_disconnect_item(None)
 
 	@script(
 		# Translators: gesture description for the ignoreNextGesture script

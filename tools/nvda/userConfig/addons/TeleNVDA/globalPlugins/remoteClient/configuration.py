@@ -30,6 +30,7 @@ configspec = StringIO("""
 
 [ui]
 	play_sounds = boolean(default=True)
+	alert_before_slave_disconnect = boolean(default=True)
 	allow_speech_commands = boolean(default=True)
 	portcheck = string(default="https://nvda.es/portcheck.php?port={port}")
 """)

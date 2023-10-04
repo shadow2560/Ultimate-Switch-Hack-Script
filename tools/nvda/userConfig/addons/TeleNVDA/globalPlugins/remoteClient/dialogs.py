@@ -270,6 +270,9 @@ class OptionsDialog(SettingsPanel):
 		# Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
 		self.play_sounds = wx.CheckBox(self, wx.ID_ANY, label=_("Play sounds instead of beeps"))
 		sizer.Add(self.play_sounds)
+		# Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
+		self.alert_before_slave_disconnect = wx.CheckBox(self, wx.ID_ANY, label=_("Display an alert before the controlled computer disconnects"))
+		sizer.Add(self.alert_before_slave_disconnect)
 		# Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 		self.speech_commands = wx.CheckBox(self, wx.ID_ANY, label=_("Process speech commands when controlling another computer"))
 		sizer.Add(self.speech_commands)
@@ -312,6 +315,7 @@ class OptionsDialog(SettingsPanel):
 		self.key.SetValue(cs['key'])
 		self.set_controls()
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
+		self.alert_before_slave_disconnect.SetValue(config['ui']['alert_before_slave_disconnect'])
 		self.speech_commands.SetValue(config['ui']['allow_speech_commands'])
 		self.portcheck.SetValue(config['ui']['portcheck'])
 		self.originalProfileName = NVDAConfig.conf.profiles[-1].name
@@ -359,6 +363,7 @@ class OptionsDialog(SettingsPanel):
 			cs['UPNP'] = bool(self.useUPNP.GetValue())
 		cs['key'] = self.key.GetValue()
 		config['ui']['play_sounds'] = self.play_sounds.GetValue()
+		config['ui']['alert_before_slave_disconnect'] = self.alert_before_slave_disconnect.GetValue()
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
 		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
