@@ -1,5 +1,20 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V566</h2>
+<ul>
+<li>Add the homebrew Switch-ezremote-client.</li>
+<li>Update Atmosphere to version 1.6.1.</li>
+<li>Update Hekate to version 6.0.7.</li>
+<li>Update Lockpick-RCM to version 1.9.11.</li>
+<li>Update Sys-patch to version 1.5.0.</li>
+<li>Update MissionControl to version 0.10.0.</li>
+<li>Update NXThemesInstaller to version 2.7.1.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
+<li>Update Status-Monitor-Overlay to version 0.9.2.</li>
+<li>Update Sys-clk to version 2.0.0 RC.</li>
+<li>Update TinWoo to version 1.0.24.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V565</h2>
 <ul>
 <li>Update Salty-nx to version 0.7.0.</li>

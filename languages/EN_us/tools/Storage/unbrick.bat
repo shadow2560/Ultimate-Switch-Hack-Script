@@ -25,6 +25,8 @@ echo.
 echo Warning, at the end of this procedure, all data in the sysnand ^(nand of the console^) will be deleted.
 echo Also note that the firmware that will be installed will be 5.1.0 firmware if you choose the ChoiDuJour method.
 echo.
+echo Finally, with firmware 17.0.0 or higher, if you reset the data you'll need to run Atmosphere at least once on the processed nand to be able to run these firmwares. The nand must be on one of these firmwares for this brick to be repaired.
+echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Do you wish to continue the procedure? ^(%lng_yes_choice%/%lng_no_choice%^): "
 goto:eof
 

@@ -31,7 +31,7 @@
 <li><a target="_blank" href="https://gbatemp.net/threads/trinket-rebug-others-modchip-software-new-fusee_suite-uf2-packages.553998/">Fusee_Suite</a></li>
 <li><a target="_blank" href="https://github.com/Team-Neptune/DeepSea-Toolbox">Deepsea-toolbox</a></li>
 <li><a target="_blank" href="https://github.com/motezazer/pk1decryptor">Pk1decryptor</a></li>
-<li><a target="_blank" href="https://github.com/shchmue/Lockpick_RCM">Lockpick-RCM</a></li>
+<li><a target="_blank" href="https://github.com/shchmue/Lockpick_RCM">Lockpick-RCM</a>, replaced by <a target="_blank" href="https://vps.suchmeme.nl/git/mudkip/Lockpick_RCM">Lockpick-RCM</a></li>
 <li><a target="_blank" href="https://github.com/shchmue/Lockpick">Lockpick</a></li>
 <li><a target="_blank" href="https://github.com/CaramelDunes/prodinfo_gen/">Prodinfo_gen</a></li>
 <li><a target="_blank" href="https://github.com/GaryOderNichts/udpih_nxpayload/">Udpih_nxpayload</a>, usful payload to launch the <a target="_blank" href="https://github.com/GaryOderNichts/recovery_menu/">Recovery Menu</a> with the <a target="_blank" href="https://github.com/GaryOderNichts/udpih/">Udpih exploit</a> for the Wii U.</li>
@@ -131,6 +131,7 @@
 <li><a target="_blank" href="https://github.com/meganukebmp/Switch_90DNS_tester">Switch_90DNS_tester</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/switch-90dns-setter">Switch-90dns-setter</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/switch-cheats-updater-update-your-cheat-files-from-your-switch.561878/">Switch-cheats-updater</a></li>
+<li><a target="_blank" href="https://github.com/cy33hc/switch-ezremote-client">Switch-ezremote-client</a></li>
 <li><a target="_blank" href="https://github.com/cy33hc/switch-ftp-client">Switch-ftp-client</a></li>
 <li><a target="_blank" href="https://github.com/joel16/SwitchIdent">SwitchIdent</a></li>
 <li><a target="_blank" href="https://github.com/CaiMiao/Tencent-Switch-switcher">Tencent-Switch-switcher</a> and <a target="_blank" href="https://github.com/CaiMiao/Tencent-switcher-GUI">Tencent-switcher-GUI</a></li>

@@ -1,5 +1,20 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.313</h2>
+<ul>
+<li>Suport the firmware 17.0.0.</li>
+<li>Add the last keys in the keys file verification.</li>
+<li>Update Switch-logo-patcher to suport the firmware 17.0.0.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 17.0.0 and to add the version 1.5.1 of Dokan.</li>
+<li>Update Theme Injector to version 4.7.1.</li>
+<li>Update Hactoolnet to version 0.19.0.</li>
+<li>Update IPS_Patch_Creator to version 1.5.6-6.</li>
+<li>Update Atmosphere to version 1.6.0.</li>
+<li>Update Hekate to version 6.0.7.</li>
+<li>Update Lockpick-RCM to version 1.9.11.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 566.</li>
+</ul>
 <h2>V4.3.312</h2>
 <ul>
 <li>Update the SD preparation script to automaticaly delete some files that could cause problems with Salty-NX.</li>
