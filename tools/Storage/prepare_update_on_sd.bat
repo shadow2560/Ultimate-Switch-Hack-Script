@@ -658,8 +658,8 @@ IF "%firmware_choice%"=="16.1.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="17.0.0" (
-	set expected_md5=5898907d75b0447d43c8186da8018d07
-	set "firmware_link=https://mega.nz/file/7dpg1ZwS#eQtazeCSaspLC7E0TJ68FeiaNOTHWKs0NfAtGOuimmg"
+	set expected_md5=907f7c99ba54ff84aba5dfc9e22df968
+	set "firmware_link=https://mega.nz/file/QVRASLTA#r6aBlAhRV4duiefvgNzAl4hQwKyPNuoRZfPIMERG_DA"
 	set firmware_file_name=Firmware 17.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware

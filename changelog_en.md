@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.314</h2>
+<ul>
+<li>Update Rekado to version 5.2.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 567.</li>
+</ul>
 <h2>V4.3.313</h2>
 <ul>
 <li>Suport the firmware 17.0.0.</li>

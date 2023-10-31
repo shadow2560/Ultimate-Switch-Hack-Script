@@ -1,5 +1,15 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V567</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 1.6.2.</li>
+<li>Mise à jour de Nx-hbloader en version 2.4.4.</li>
+<li>Mise à jour de HBMenu en version 3.6.0.</li>
+<li>Mise à jour de DBI en version 628.</li>
+<li>Mise à jour de Haku33 en version 6.0.</li>
+<li>Mise à jour de NXMP en version 0.8.2.</li>
+<li>Mise à jour de Flycast en version 2.2.</li>
+</ul>
 <h2>V566</h2>
 <ul>
 <li>Ajout du homebrew Switch-ezremote-client.</li>
