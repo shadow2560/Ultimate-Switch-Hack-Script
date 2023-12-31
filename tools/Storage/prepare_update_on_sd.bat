@@ -147,6 +147,7 @@ echo 16.0.2?
 echo 16.0.3?
 echo 16.1.0?
 echo 17.0.0?
+echo 17.0.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -658,9 +659,18 @@ IF "%firmware_choice%"=="16.1.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="17.0.0" (
-	set expected_md5=907f7c99ba54ff84aba5dfc9e22df968
-	set "firmware_link=https://mega.nz/file/QVRASLTA#r6aBlAhRV4duiefvgNzAl4hQwKyPNuoRZfPIMERG_DA"
+	set expected_md5=7b6e528486a013b035d9fbb4bd32b15e
+	set "firmware_link=https://mega.nz/file/wF5FyApS#eynADdOcXZl8j7unJ8nZXeo3B1GOMzmkoYI75Xif5c8"
 	set firmware_file_name=Firmware 17.0.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="17.0.1" (
+	set expected_md5=107f55a13e35efc95c27eca693f93ab7
+	set "firmware_link=https://mega.nz/file/ZZABkaiI#idFS2nD_HqvZa-NG5s1odDr0c7RCGMm8exsLFagHyYA"
+	set firmware_file_name=Firmware 17.0.1.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

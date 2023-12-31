@@ -100,54 +100,109 @@ IF NOT EXIST "%calling_script_dir%\update_packages\*.*" (
 )
 %calling_script_dir:~0,1%:
 cd "%calling_script_dir%\update_packages"
-copy /v "%this_script_dir%\..\EmmcHaccGen\save.stub.v4" save.stub.v4 >nul
-copy /v "%this_script_dir%\..\EmmcHaccGen\save.stub.v5" save.stub.v5 >nul
+goto:skip_old_emmchacgen_file_copy
+:old_emmchacgen_file_copy
+copy /v "%this_script_dir%\..\EmmcHaccGen_old\save.stub.v4" save.stub.v4 >nul
+copy /v "%this_script_dir%\..\EmmcHaccGen_old\save.stub.v5" save.stub.v5 >nul
+IF /i NOT "%mariko_console%"=="o" (
+	"%this_script_dir%\..\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %autorcm_param% --fw "%update_file_path%"
+) else (
+	"%this_script_dir%\..\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
+)
+:skip_old_emmchacgen_file_copy
 IF /i NOT "%mariko_console%"=="o" (
 	"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %autorcm_param% --fw "%update_file_path%"
 ) else (
 	"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
 )
-	IF %errorlevel% EQU 0 (
-		call "%associed_language_script%" "package_creation_success"
-	) else (
-		call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
-		if !errorlevel! EQU 1 (
-			IF /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-				"%this_script_dir%\..\EmmcHaccGen\dotnet-runtime-3.1.12-win-x64.exe" /install /passive
-			) else (
-				"%this_script_dir%\..\EmmcHaccGen\dotnet-runtime-3.1.12-win-x86.exe" /install /passive
-			)
-			if !error_level! NEQ 0 (
-				call "%associed_language_script%" "netfx3_install_error"
+IF %errorlevel% EQU 0 (
+	call "%associed_language_script%" "package_creation_success"
+	goto:endscript
+) else (
+	call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
+	if !errorlevel! EQU 1 (
+		winget install Microsoft.DotNet.DesktopRuntime.7
+		IF !errorlevel! NEQ 0 (
+			call "%associed_language_script%" "netfx7_install_error"
+			cd ..
+			rmdir /s /q "firmware_temp"
+			rmdir /s /q "update_packages"
+			goto:endscript
+		) else (
+			winget install Microsoft.DotNet.AspNetCore.7
+			IF !errorlevel! NEQ 0 (
+				call "%associed_language_script%" "netfx7_install_error"
 				cd ..
 				rmdir /s /q "firmware_temp"
 				rmdir /s /q "update_packages"
 				goto:endscript
-			) else (
-				IF /i NOT "%mariko_console%"=="O" (
-					"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %autorcm_param%--fw "%update_file_path%"
-				) else (
-					"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
-				)
-				IF !errorlevel! EQU 0 (
-					call "%associed_language_script%" "package_creation_success"
-				) else (
-					call "%associed_language_script%" "emmchaccgen_package_creation_second_error"
-					cd ..
-					rmdir /s /q "firmware_temp"
-					rmdir /s /q "update_packages"
-					goto:endscript
-				)
 			)
+		)
+		IF /i NOT "%mariko_console%"=="O" (
+			"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %autorcm_param%--fw "%update_file_path%"
 		) else (
+			"%this_script_dir%\..\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
+		)
+		IF !errorlevel! EQU 0 (
+			call "%associed_language_script%" "package_creation_success"
+			goto:endscript
+		) else (
+			call "%associed_language_script%" "emmchaccgen_package_creation_second_error"
 			cd ..
 			rmdir /s /q "firmware_temp"
 			rmdir /s /q "update_packages"
-			goto:endscript2
+			goto:endscript
 		)
+	) else (
+		cd ..
+		rmdir /s /q "firmware_temp"
+		rmdir /s /q "update_packages"
+		goto:endscript2
 	)
+)
+:old_emmchacgen_process
+IF %errorlevel% EQU 0 (
+	call "%associed_language_script%" "package_creation_success"
+) else (
+	call "%associed_language_script%" "old_emmchaccgen_package_creation_first_error"
+	if !errorlevel! EQU 1 (
+		IF /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+			"%this_script_dir%\..\EmmcHaccGen_old\dotnet-runtime-3.1.12-win-x64.exe" /install /passive
+		) else (
+			"%this_script_dir%\..\EmmcHaccGen_old\dotnet-runtime-3.1.12-win-x86.exe" /install /passive
+		)
+		if !error_level! NEQ 0 (
+			call "%associed_language_script%" "netfx3_install_error"
+			cd ..
+			rmdir /s /q "firmware_temp"
+			rmdir /s /q "update_packages"
+			goto:endscript
+		) else (
+			IF /i NOT "%mariko_console%"=="O" (
+				"%this_script_dir%\..\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %autorcm_param%--fw "%update_file_path%"
+			) else (
+				"%this_script_dir%\..\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" %no_exfat_param% %mariko_console_param% --fw "%update_file_path%"
+			)
+			IF !errorlevel! EQU 0 (
+				call "%associed_language_script%" "package_creation_success"
+			) else (
+				call "%associed_language_script%" "emmchaccgen_package_creation_second_error"
+				cd ..
+				rmdir /s /q "firmware_temp"
+				rmdir /s /q "update_packages"
+				goto:endscript
+			)
+		)
+	) else (
+		cd ..
+		rmdir /s /q "firmware_temp"
+		rmdir /s /q "update_packages"
+		goto:endscript2
+	)
+)
 del /q save.stub.v4 >nul
 del /q save.stub.v5 >nul
+:skip_old_emmchacgen_process
 :endscript
 pause
 :endscript2

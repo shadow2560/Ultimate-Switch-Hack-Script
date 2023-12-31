@@ -1,5 +1,18 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V568</h2>
+<ul>
+<li>Update AIO-Switch-Updater to version 2.23.2.</li>
+<li>Update Haku33 to version 6.1.</li>
+<li>Update DBI to version 656.</li>
+<li>Update Battery_desync_fix_nx to version 1.3.0.</li>
+<li>Update Avatool to version 2.0.0.</li>
+<li>Update Fiseau to version 2.4.2.</li>
+<li>Update Status-Monitor-Overlay to version 1.0.2.</li>
+<li>Update SaltyNX to version 0.7.1.</li>
+<li>Update FPSLocker to version 1.2.6a.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V567</h2>
 <ul>
 <li>Update Atmosphere to version 1.6.2.</li>

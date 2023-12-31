@@ -773,6 +773,10 @@ call :verif_folder_version "tools\EmmcHaccGen"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
+call :verif_folder_version "tools\EmmcHaccGen_old"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
 exit /b
 
 :update_custom_boot.dat_maker.bat
@@ -2413,6 +2417,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\EmmcHaccGen"
+IF "!update_finded!"=="Y" (
+	call :update_folder
+)
+call :verif_folder_version "tools\EmmcHaccGen_old"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )

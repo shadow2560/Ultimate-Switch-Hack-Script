@@ -73,9 +73,22 @@ goto:eof
 echo A problem occurred during firmware creation.
 echo Check that you have all the required keys in the "keys.txt" file.
 echo.
+echo However, it is also possible that .net Framework 7 is not installed on your system.
+echo.
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to install .net Framework 7 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:old_emmchaccgen_package_creation_first_error
+echo A problem occurred during firmware creation.
+echo Check that you have all the required keys in the "keys.txt" file.
+echo.
 echo However, it is also possible that .net Framework 3 is not installed on your system.
 echo.
 choice /c %lng_yes_choice%%lng_no_choice% /n /m "Would you like to install .net Framework 3 on your system? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:netfx7_install_error
+echo Error during the installation of .net Framework 7, verify your internet connection and your space on your system disk.
 goto:eof
 
 :netfx3_install_error

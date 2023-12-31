@@ -411,6 +411,7 @@ echo 16.0.2?
 echo 16.0.3?
 echo 16.1.0?
 echo 17.0.0?
+echo 17.0.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -820,9 +821,16 @@ IF "%firmware_choice%"=="16.1.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="17.0.0" (
-	set expected_md5=907f7c99ba54ff84aba5dfc9e22df968
-	set "firmware_link=https://mega.nz/file/QVRASLTA#r6aBlAhRV4duiefvgNzAl4hQwKyPNuoRZfPIMERG_DA"
+	set expected_md5=7b6e528486a013b035d9fbb4bd32b15e
+	set "firmware_link=https://mega.nz/file/wF5FyApS#eynADdOcXZl8j7unJ8nZXeo3B1GOMzmkoYI75Xif5c8"
 	set firmware_file_name=Firmware 17.0.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="17.0.1" (
+	set expected_md5=107f55a13e35efc95c27eca693f93ab7
+	set "firmware_link=https://mega.nz/file/ZZABkaiI#idFS2nD_HqvZa-NG5s1odDr0c7RCGMm8exsLFagHyYA"
+	set firmware_file_name=Firmware 17.0.1.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
@@ -934,13 +942,67 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 			
 		)
 	)
-	copy /v "..\tools\EmmcHaccGen\save.stub.v4" save.stub.v4 >nul
-	copy /v "..\tools\EmmcHaccGen\save.stub.v5" save.stub.v5 >nul
+	goto:skip_old_emmchacgen_file_copy
+	:old_emmchacgen_file_copy
+	copy /v "..\tools\EmmcHaccGen_old\save.stub.v4" save.stub.v4 >nul
+	copy /v "..\tools\EmmcHaccGen_old\save.stub.v5" save.stub.v5 >nul
+	IF /i NOT "%mariko_console%"=="O" (
+		"..\tools\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
+	) else (
+		"..\tools\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" --mariko --no-autorcm --fw "..\firmware_temp"
+	)
+	:skip_old_emmchacgen_file_copy
 	IF /i NOT "%mariko_console%"=="O" (
 		"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
 	) else (
 		"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --mariko --no-autorcm --fw "..\firmware_temp"
 	)
+	IF %errorlevel% EQU 0 (
+		call "%associed_language_script%" "package_creation_success"
+		goto:skip_old_emmchacgen_process
+	) else (
+		call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
+		if !errorlevel! EQU 1 (
+			winget install Microsoft.DotNet.DesktopRuntime.7
+			IF !errorlevel! NEQ 0 (
+				call "%associed_language_script%" "netfx7_install_error"
+				cd ..
+				rmdir /s /q "firmware_temp"
+				rmdir /s /q "update_packages"
+				goto:endscript
+			) else (
+				winget install Microsoft.DotNet.AspNetCore.7
+				IF !errorlevel! NEQ 0 (
+					call "%associed_language_script%" "netfx7_install_error"
+					cd ..
+					rmdir /s /q "firmware_temp"
+					rmdir /s /q "update_packages"
+					goto:endscript
+				)
+			)
+			IF /i NOT "%mariko_console%"=="O" (
+				"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
+			) else (
+				"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --mariko --no-autorcm --fw "..\firmware_temp"
+			)
+			IF !errorlevel! EQU 0 (
+				call "%associed_language_script%" "package_creation_success"
+				goto:skip_old_emmchacgen_process
+			) else (
+				call "%associed_language_script%" "emmchaccgen_package_creation_second_error"
+				cd ..
+				rmdir /s /q "firmware_temp"
+				rmdir /s /q "update_packages"
+				goto:endscript
+			)
+		) else (
+			cd ..
+			rmdir /s /q "firmware_temp"
+			rmdir /s /q "update_packages"
+			goto:endscript2
+		)
+	)
+	:old_emmchacgen_process
 	IF !errorlevel! EQU 0 (
 		call "%associed_language_script%" "package_creation_success"
 	) else (
@@ -948,9 +1010,9 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 		if !errorlevel! EQU 1 (
 			::Dism /online /NoRestart /Enable-Feature /FeatureName:"NetFx3"
 			IF /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-				"..\tools\EmmcHaccGen\dotnet-runtime-3.1.12-win-x64.exe" /install /passive
+				"..\tools\EmmcHaccGen_old\dotnet-runtime-3.1.12-win-x64.exe" /install /passive
 			) else (
-				"..\tools\EmmcHaccGen\dotnet-runtime-3.1.12-win-x86.exe" /install /passive
+				"..\tools\EmmcHaccGen_old\dotnet-runtime-3.1.12-win-x86.exe" /install /passive
 			)
 			if !error_level! NEQ 0 (
 				call "%associed_language_script%" "netfx3_install_error"
@@ -960,9 +1022,9 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 				goto:endscript
 			) else (
 				IF /i NOT "%mariko_console%"=="O" (
-					"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
+					"..\tools\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
 				) else (
-					"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp" --mariko --no-autorcm
+					"..\tools\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" --fw "..\firmware_temp" --mariko --no-autorcm
 				)
 				IF !errorlevel! EQU 0 (
 					call "%associed_language_script%" "package_creation_success"
@@ -983,6 +1045,7 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	)
 	del /q save.stub.v4 >nul
 	del /q save.stub.v5 >nul
+	:skip_old_emmchacgen_process
 	cd ..
 	dir /A:D /B update_packages >templogs\tempvar.txt
 	set /p emmchaccgen_firmware_folder=<templogs\tempvar.txt
