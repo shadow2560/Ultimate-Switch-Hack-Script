@@ -1,5 +1,15 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V569</h2>
+<ul>
+<li>Update DBI to version 658.</li>
+<li>Update NXMP to version 0.9.0.</li>
+<li>Update Status-Monitor-Overlay to version 1.0.3a.</li>
+<li>Update MGBA to version 0.10.3.</li>
+<li>Update Fizeau to version 2.4.3.</li>
+<li>Update SimpleModDownloader to version 1.1.0.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V568</h2>
 <ul>
 <li>Update AIO-Switch-Updater to version 2.23.2.</li>
