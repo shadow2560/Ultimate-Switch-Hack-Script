@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.317</h2>
+<ul>
+<li>Correction des problèmes du gestionnaire de mises à jour apparus après l'arrêt du support de Subversion de Github.</li>
+<li>Mise à jour de Wget en version 1.21.4.</li>
+<li>Mise à jour de NxFileViewer en version 2.7.0.</li>
+<li>Mise à jour de NSTool en version 1.9.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 570.</li>
+</ul>
 <h2>V4.3.316</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 569.</li>

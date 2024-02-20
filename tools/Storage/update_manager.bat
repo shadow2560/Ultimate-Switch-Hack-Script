@@ -12,10 +12,12 @@ IF EXIST "%~0.version" (
 )
 Setlocal enabledelayedexpansion
 set base_script_path="%~dp0\..\.."
-set folders_url_project_base=https://github.com/shadow2560/Ultimate-Switch-Hack-Script/trunk
-set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
-set atmo_folders_sigpatches_url_project_base=https://github.com/shadow2560/patches/trunk
-set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/shadow2560/patches/main
+set folders_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
+::set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
+set files_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
+set atmo_folders_sigpatches_url_project_base=ftp://158.178.198.95/patches
+::set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/shadow2560/patches/main
+set atmo_files_sigpatches_url_project_base=ftp://158.178.198.95/patches
 set what_to_update=%~1
 IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
@@ -26,7 +28,8 @@ IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	) else (
 		echo %~1>"continue_update.txt"
 		echo Updating Gnuwin32 dependancies...
-		"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/tools/gnuwin32 tools\gnuwin32 --force >nul
+		::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." --no-passive-ftp %folders_url_project_base%/tools/gnuwin32
+		"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/gnuwin32
 	)
 )
 IF NOT EXIST "tools\aria2\aria2c.exe" (
@@ -38,7 +41,7 @@ IF NOT EXIST "tools\aria2\aria2c.exe" (
 	) else (
 		echo %~1>"continue_update.txt"
 		echo Updating Aria2 dependancies...
-		"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/tools/aria2 tools\aria2 --force >nul
+		"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/aria2
 	)
 )
 IF NOT EXIST "languages\FR_fr" (
@@ -408,7 +411,7 @@ rem Specific scripts instructions must be added here
 :update_all
 call "%associed_language_script%" "update_all_begin"
 call "%associed_language_script%" "languages_update_begin"
-"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/languages languages --force >nul
+"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/languages
 call "%associed_language_script%" "languages_update_end"
 call :update_about.bat
 call :update_android_installer.bat
@@ -2781,7 +2784,7 @@ exit /b
 echo !temp_folder_path!>"failed_updates\!temp_folder_path:\=;!.fold.failed"
 IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 	rmdir /s /q "!temp_folder_path!" >nul 2>&1
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2790,7 +2793,7 @@ IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 		pause
 		exit
 	)
-	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2799,7 +2802,7 @@ IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 		pause
 		exit
 	)
-	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/bootloader !temp_folder_path!\bootloader --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2816,7 +2819,7 @@ IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
 )
 IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
 	rmdir /s /q "!temp_folder_path!" >nul 2>&1
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2825,7 +2828,7 @@ IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
 		pause
 		exit
 	)
-	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2834,7 +2837,7 @@ IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
 		pause
 		exit
 	)
-	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/bootloader !temp_folder_path!\bootloader --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2850,7 +2853,7 @@ IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
 	)
 )
 IF "%temp_folder_path%"=="Payloads" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\Payloads --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2870,7 +2873,7 @@ call "%associed_language_script%" "update_folder_success"
 	)
 )
 IF "%temp_folder_path%"=="tools\UF2" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\UF2 --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=2 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2890,7 +2893,7 @@ call "%associed_language_script%" "update_folder_success"
 	)
 )
 IF "%temp_folder_path%"=="tools\gitget" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% templogs\gitget --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=2 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -2929,7 +2932,7 @@ IF "%temp_folder_path%"=="tools\toolbox" (
 	del /q templogs\tempsave\folder_version.txt >nul 2>&1
 )
 rmdir /s /q "%temp_folder_path%" >nul 2>&1
-"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_folder_slash_path% %temp_folder_path% --force >nul
+"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
 set temp_folder_download_error=%errorlevel%
 IF "%temp_folder_path%"=="tools\Hactool_based_programs" (
 		move "templogs\tempsave" "%temp_folder_path%" >nul
@@ -2955,7 +2958,7 @@ IF %temp_folder_download_error% NEQ 0 (
 	exit
 )
 IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
-	"tools\gitget\SVN\svn.exe" export %atmo_folders_sigpatches_url_project_base%/atmosphere !temp_folder_path!\atmosphere --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
 	IF !errorlevel! NEQ 0 (
 		call "%associed_language_script%" "update_folder_error"
 		IF EXIST templogs (
@@ -3073,11 +3076,11 @@ IF %errorlevel% NEQ 0 (
 )
 copy nul "continue_update.txt" >nul
 IF NOT EXIST "tools\default_configs\Lists\languages.list" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/tools/default_configs/Lists tools\default_configs\Lists --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/default_configs/Lists
 )
-"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/%temp_language_path:\=/% %temp_language_path% --force >nul
+"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_language_path:\=/%
 IF NOT "%temp_language_path%"=="languages\FR_fr" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/languages/FR_fr languages\FR_fr --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/languages/FR_fr
 )
 echo Language initialized, script will restart.
 pause

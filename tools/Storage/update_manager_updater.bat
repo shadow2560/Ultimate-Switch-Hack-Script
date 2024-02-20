@@ -41,8 +41,9 @@ IF NOT EXIST "failed_updates\*.failed" (
 	mkdir "failed_updates"
 set temp_file_path=tools\Storage\update_manager.bat
 set temp_file_slash_path=%temp_file_path:\=/%
-set folders_url_project_base=https://github.com/shadow2560/Ultimate-Switch-Hack-Script/trunk
-set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
+set folders_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script/
+::set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
+set files_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
 IF NOT "%language_path%"=="" (
 	call "%associed_language_script%" "begin_update"
 ) else (
@@ -66,7 +67,7 @@ IF %errorlevel% NEQ 0 (
 	)
 )
 IF NOT EXIST "tools\aria2\aria2c.exe" (
-	"tools\gitget\SVN\svn.exe" export %folders_url_project_base%/tools/aria2 tools\aria2 --force >nul
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/aria2
 )
 echo %temp_file_path%>"failed_updates\%temp_file_path:\=;%.file.failed"
 "tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "%temp_file_path%" "%files_url_project_base%/%temp_file_slash_path%"
