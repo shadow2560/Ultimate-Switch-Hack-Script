@@ -1,8 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.318</h2>
+<ul>
+<li>Correction de bugs dans le gestionnaire de mise à jour.</li>
+</ul>
 <h2>V4.3.317</h2>
 <ul>
-<li>Correction des problèmes du gestionnaire de mises à jour apparus après l'arrêt du support de Subversion de Github.</li>
+<li>Correction des problèmes du gestionnaire de mise à jour apparus après l'arrêt du support de Subversion de Github.</li>
 <li>Mise à jour de Wget en version 1.21.4.</li>
 <li>Mise à jour de NxFileViewer en version 2.7.0.</li>
 <li>Mise à jour de NSTool en version 1.9.0.</li>
@@ -203,7 +207,7 @@
 <ul>
 <li>Mise à jour de NS-usbloader en version 7.0.</li>
 <li>Suppression du JRE de java, remplacé par open-JDK intégré à la dernière version de NS-usbloader.</li>
-<li>Mise à jour du gestionnaire de mises à jour et de certains fichiers de langue.</li>
+<li>Mise à jour du gestionnaire de mise à jour et de certains fichiers de langue.</li>
 </ul>
 <h2>V4.3.284</h2>
 <ul>
@@ -425,7 +429,7 @@
 <li>Support du firmware 14.0.0.</li>
 <li>Ajout des dernières clés dans la vérification d'un fichier de clés.</li>
 <li>Le nouveau paramètre "disable_automatic_report_cleanup" est supporté dans le réglage manuel des paramètres d'Atmosphere.</li>
-<li>Correction de petits bugs dans le gestionnaire de mises à jour.</li>
+<li>Correction de petits bugs dans le gestionnaire de mise à jour.</li>
 <li>Ajout d'une option pour désactiver l'auto-RCM lors de la création d'un package via EmmcHaccGen dans tous les scripts concernés.</li>
 <li>Ajout d'une nouvelle fonction permettant de créer les bootlogos pour Atmosphere.</li>
 <li>Ajout de Nstool, pour l'instant non utilisé.</li>
@@ -757,7 +761,7 @@
 </ul>
 <h2>V4.3.187</h2>
 <ul>
-<li>Correction d'un bug dans le gestionnaire de mises à jour qui faisait qu'il manquait un outil pour le script d'injection d'un jeu Saturn, si vous avez déjà téléchargé la fonction, une fois le gestionnaire de mises à jour mis à jour il faudra lancer la mise à jour du script d'injection d'un jeu Saturn pour corriger totalement le problème.</li>
+<li>Correction d'un bug dans le gestionnaire de mise à jour qui faisait qu'il manquait un outil pour le script d'injection d'un jeu Saturn, si vous avez déjà téléchargé la fonction, une fois le gestionnaire de mise à jour mis à jour il faudra lancer la mise à jour du script d'injection d'un jeu Saturn pour corriger totalement le problème.</li>
 </ul>
 <h2>V4.3.186</h2>
 <ul>
@@ -995,7 +999,7 @@
 </ul>
 <h2>V4.3.143</h2>
 <ul>
-<li>Correction de bugs dans les scripts du gestionnaire de mises à jour et de la préparation d'une SD.</li>
+<li>Correction de bugs dans les scripts du gestionnaire de mise à jour et de la préparation d'une SD.</li>
 </ul>
 <h2>V4.3.142</h2>
 <ul>
@@ -1018,7 +1022,7 @@
 </ul>
 <h2>V4.3.138</h2>
 <ul>
-<li>Correction d'un bug critique dans le gestionnaire de mises à jour, merci à @zemblar de Logic-sunrise pour m'avoir averti aussi rapidement.</li>
+<li>Correction d'un bug critique dans le gestionnaire de mise à jour, merci à @zemblar de Logic-sunrise pour m'avoir averti aussi rapidement.</li>
 </ul>
 <h2>V4.3.137</h2>
 <ul>
@@ -1034,7 +1038,7 @@
 <ul>
 <li>Ajout de la possibilité de flasher le bootloader de SXOS sur la puce SX Core/Lite.</li>
 <li>Ajout d'une fonction permettant de créer des forwarders.</li>
-<li>Correction d'un bug empêchant de télécharger les sig_patches dans le gestionnaire de mises à jour.</li>
+<li>Correction d'un bug empêchant de télécharger les sig_patches dans le gestionnaire de mise à jour.</li>
 <li>Correction d'un bug dans la gestion des puces.</li>
 <li>Mise à jour de la documentation et des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 458.</li>
@@ -1320,7 +1324,7 @@
 </ul>
 <h2>V4.3.86</h2>
 <ul>
-<li>Correction d'un bug dans le gestionnaire de mises à jour pour le script de débrickage.</li>
+<li>Correction d'un bug dans le gestionnaire de mise à jour pour le script de débrickage.</li>
 </ul>
 <h2>V4.3.85</h2>
 <ul>
@@ -1391,7 +1395,7 @@
 <h2>V4.3.75</h2>
 <ul>
 <li>Correction de bugs dans la préparation d'une SD pouvant influer sur d'autres fonctionnalités liées comme les gestions de profiles.</li>
-<li>Correction de bugs dans le gestionnaire de mises à jour et dans l'extraction du certificat.</li>
+<li>Correction de bugs dans le gestionnaire de mise à jour et dans l'extraction du certificat.</li>
 </ul>
 <h2>V4.3.74</h2>
 <ul>
@@ -1406,7 +1410,7 @@
 </ul>
 <h2>V4.3.72</h2>
 <ul>
-<li>Dans le gestionnaire de mises à jour, changement de méthode pour mettre à jour la gestion de profiles généraux pour la préparation d'une SD permettant d'avoir accès à toutes les options possibles directement, ceci prend plus de temps  mais est bien plus pratique.</li>
+<li>Dans le gestionnaire de mise à jour, changement de méthode pour mettre à jour la gestion de profiles généraux pour la préparation d'une SD permettant d'avoir accès à toutes les options possibles directement, ceci prend plus de temps  mais est bien plus pratique.</li>
 </ul>
 <h2>V4.3.71</h2>
 <ul>
@@ -1454,7 +1458,7 @@
 </ul>
 <h2>V4.3.63</h2>
 <ul>
-<li>Correction de bugs importants dans le gestionnaire de mises à jour.</li>
+<li>Correction de bugs importants dans le gestionnaire de mise à jour.</li>
 <li>Ajout d'un script pour TegraExplorer permettant de débricker une emunand de la même façon que la sysnand, inutilisé dans le script mais qui servira peut-être aux utilisateurs expérimentés.</li>
 </ul>
 <h2>V4.3.62</h2>
@@ -1736,7 +1740,7 @@
 </ul>
 <h2>V4.3.9</h2>
 <ul>
-<li>Corrections sur le gestionnaire de mises à jour.</li>
+<li>Corrections sur le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.3.8</h2>
 <ul>
@@ -1748,7 +1752,7 @@
 </ul>
 <h2>V4.3.6</h2>
 <ul>
-<li>Le gestionnaire de mises à jour reprendra la mise à jour de la fonctionnalité en cours s'il doit se mettre à jour lui-même avant ou si le script nécessite un redémarrage quelconque durant la procédure.</li>
+<li>Le gestionnaire de mise à jour reprendra la mise à jour de la fonctionnalité en cours s'il doit se mettre à jour lui-même avant ou si le script nécessite un redémarrage quelconque durant la procédure.</li>
 </ul>
 <h2>V4.3.5</h2>
 <ul>
@@ -1763,18 +1767,18 @@
 </ul>
 <h2>V4.3.3</h2>
 <ul>
-<li>Correction d'un problème dans le gestionnaire de mises à jour.</li>
+<li>Correction d'un problème dans le gestionnaire de mise à jour.</li>
 <li>Ajout d'une instruction dans le script de débrickage.</li>
 <li>Correction d'un problème dans le script de débrickage.</li>
 </ul>
 <h2>V4.3.2</h2>
 <ul>
-<li>Quelques modifications dans le gestionnaire de mises à jour.</li>
+<li>Quelques modifications dans le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.3.1</h2>
 <ul>
 <li>Correction d'un problème dans le menu principal.</li>
-<li>Correction de problèmes dans le gestionnaire de mises à jour.</li>
+<li>Correction de problèmes dans le gestionnaire de mise à jour.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 369.</li>
 </ul>
 <h2>V4.3.0</h2>
@@ -1877,7 +1881,7 @@
 <ul>
 <li>Mise à jour de Megatools en version 1.11.0-git-20200404.</li>
 <li>Support du téléchargement et de la mise en place sur la SD pour ChoiDuJourNX du firmware 10.0.2 et correction de l'ancienne ligne de commande utilisée pour le téléchargement du firmware pour l'adapter à la nouvelle version de Megatools.</li>
-<li>Dans le gestionnaire de mises à jour, certains messages inutiles ne sont plus affichés.</li>
+<li>Dans le gestionnaire de mise à jour, certains messages inutiles ne sont plus affichés.</li>
 </ul>
 <h2>V4.1.79</h2>
 <ul>
@@ -1920,7 +1924,7 @@
 <h2>V4.1.71</h2>
 <ul>
 <li>Amélioration de la logique de copie de l'Ovlmenu dans la préparation d'une SD.</li>
-<li>Suppression du module Sys-audioplayer par le gestionnaire de mises à jour.</li>
+<li>Suppression du module Sys-audioplayer par le gestionnaire de mise à jour.</li>
 <li>Mise à jour de la documentation et des crédits.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 350.</li>
 </ul>
@@ -1987,13 +1991,13 @@
 </ul>
 <h2>V4.1.59</h2>
 <ul>
-<li>Bug mineur corrigé dans le gestionnaire de mises à jour.</li>
+<li>Bug mineur corrigé dans le gestionnaire de mise à jour.</li>
 <li>Mise à jour du design de la documentation, les liens ne sont plus bleus mais gris.</li>
 </ul>
 <h2>V4.1.58</h2>
 <ul>
 <li>Correction de bugs pour le téléchargement du répertoire "Payloads" introduit dans la version précédente.</li>
-<li>Correction de l'affichage de la version du gestionnaire de mises à jour.</li>
+<li>Correction de l'affichage de la version du gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.1.55</h2>
 <ul>
@@ -2303,7 +2307,7 @@
 </ul>
 <h2>V4.1.0</h2>
 <ul>
-<li>Correction de bugs dans le gestionnaire de mises à jour.</li>
+<li>Correction de bugs dans le gestionnaire de mise à jour.</li>
 <li>Légères modifications de la documentation.</li>
 </ul>
 <h2>V4.0.97</h2>
@@ -2624,7 +2628,7 @@
 </ul>
 <h2>V4.0.33</h2>
 <ul>
-<li>Correction d'un bug dans le script du gestionnaire de mises à jour.</li>
+<li>Correction d'un bug dans le script du gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.0.32</h2>
 <ul>
@@ -2695,19 +2699,19 @@
 </ul>
 <h2>V4.0.17</h2>
 <ul>
-<li>Correction d'autres bugs possibles dans le gestionnaire de mises à jour, encore.</li>
+<li>Correction d'autres bugs possibles dans le gestionnaire de mise à jour, encore.</li>
 </ul>
 <h2>V4.0.16</h2>
 <ul>
-<li>Correction d'autres bugs possibles dans le gestionnaire de mises à jour.</li>
+<li>Correction d'autres bugs possibles dans le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.0.15</h2>
 <ul>
-<li>Correction d'un bug dans le gestionnaire de mises à jour lors de la mise à jour des éléments généraux du script, si la langue était changée entre temps, ces éléments de langue pouvait ne pas se mettre à jour lors de la mise à jour suivante.</li>
+<li>Correction d'un bug dans le gestionnaire de mise à jour lors de la mise à jour des éléments généraux du script, si la langue était changée entre temps, ces éléments de langue pouvait ne pas se mettre à jour lors de la mise à jour suivante.</li>
 </ul>
 <h2>V4.0.14</h2>
 <ul>
-<li>Changement de la façon dont est exécuté le script de mise à jour du gestionnaire de mises à jour, maintenant le script ne se ferme qu'à la fin de celle-ci pour éviter aux utilisateurs ayant des problèmes de redémarrage du script d'être complètement bloqués dans une boucle sans fin. Par contre, cette solution ne me plaît pas du tout donc j'espère qu'elle ne sera que temporaire.</li>
+<li>Changement de la façon dont est exécuté le script de mise à jour du gestionnaire de mise à jour, maintenant le script ne se ferme qu'à la fin de celle-ci pour éviter aux utilisateurs ayant des problèmes de redémarrage du script d'être complètement bloqués dans une boucle sans fin. Par contre, cette solution ne me plaît pas du tout donc j'espère qu'elle ne sera que temporaire.</li>
 </ul>
 <h2>V4.0.13</h2>
 <ul>
@@ -2729,7 +2733,7 @@
 </ul>
 <h2>V4.0.9</h2>
 <ul>
-<li>Correction de bugs dans le gestionnaire de mises à jour.</li>
+<li>Correction de bugs dans le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.0.8</h2>
 <ul>
@@ -2755,7 +2759,7 @@
 </ul>
 <h2>V4.0.3</h2>
 <ul>
-<li>Correction de bugs importants dans le gestionnaire de mises à jour.</li>
+<li>Correction de bugs importants dans le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V4.0.2</h2>
 <ul>
@@ -2776,7 +2780,7 @@
 </ul>
 <h2>V3.99.129</h2>
 <ul>
-<li>Le gestionnaire de mises à jour force la mise à jour des fichiers de la langue française si un script se met à jour car elle devient indispensable en cas de traductions incomplètes.</li>
+<li>Le gestionnaire de mise à jour force la mise à jour des fichiers de la langue française si un script se met à jour car elle devient indispensable en cas de traductions incomplètes.</li>
 <li>Ajout d'une fonction permettant d'afficher les messages en langue française si la traduction dans la langue utilisée n'existe pas (fonction non présente pour la langue française car inutile dans ce cas).</li>
 <li>Ajout de nouvelles instructions de traduction dans la documentation.</li>
 </ul>
@@ -2852,7 +2856,7 @@
 <h2>V3.99.112</h2>
 <ul>
 <li>Les affichages d'infos sur une partie de la nand dans la Nand Toolbox sont maintenant traduites en français et peuvent être aussi traduites dans les autres langues du script.</li>
-<li>La fonctionnalité spécifique permettant de connaître le firmware et d'autres infos de la rawnand via FVI a été supprimée car elle fait maintenant doublon avec l'affichage d'infos supplémentaires de NXNandManager. De fait, le gestionnaire de mises à jour supprimera les fichiers associés à cette fonctionnalité lors de la mise à jour de la Nand Toolbox s'ils existent.</li>
+<li>La fonctionnalité spécifique permettant de connaître le firmware et d'autres infos de la rawnand via FVI a été supprimée car elle fait maintenant doublon avec l'affichage d'infos supplémentaires de NXNandManager. De fait, le gestionnaire de mise à jour supprimera les fichiers associés à cette fonctionnalité lors de la mise à jour de la Nand Toolbox s'ils existent.</li>
 <li>Mise à jour de NXNandManager vers la version Master du Github, compilé par moi-même.</li>
 </ul>
 <h2>V3.99.111</h2>
@@ -2875,7 +2879,7 @@
 </ul>
 <h2>V3.99.107</h2>
 <ul>
-<li>Quelques bugs corrigés dans le gestionnaire de mises à jour, ça faisait longtemps.</li>
+<li>Quelques bugs corrigés dans le gestionnaire de mise à jour, ça faisait longtemps.</li>
 </ul>
 <h2>V3.99.106</h2>
 <ul>
@@ -2913,12 +2917,12 @@
 <h2>V3.99.100</h2>
 <ul>
 <li>Implémentation du traitement pour les choix "oui/non/toujours/jamais" dans les différents scripts, maintenant le choix est converti selon la langue choisie.</li>
-<li>Quelques modifications dans le gestionnaire de mises à jour, des vérifications supplémentaires pour éviter des bugs sont faites.</li>
+<li>Quelques modifications dans le gestionnaire de mise à jour, des vérifications supplémentaires pour éviter des bugs sont faites.</li>
 <li>D'autres modifications mineurs dans certains scripts et dans la documentation.</li>
 </ul>
 <h2>V3.99.99</h2>
 <ul>
-<li>Le gestionnaire de mises à jour redémarrera le script si une mise à jour du fichier de configuration de la langue est effectuée.</li>
+<li>Le gestionnaire de mise à jour redémarrera le script si une mise à jour du fichier de configuration de la langue est effectuée.</li>
 <li>Création de nouvelles variables dans le fichier de configuration de la langue pour changer les lettres à utiliser pour les choix "oui", "non", "toujours" et "jamais". Pour l'instant, les variables ne sont utilisées que dans un but d'affichage, le traitement de celles-ci n'est pas encore implémenté.</li>
 <li>Diverses mises à jour au niveau des messages affichés.</li>
 </ul>
@@ -2944,7 +2948,7 @@
 <h2>V3.99.94</h2>
 <ul>
 <li>Suppression du module Sys-Netcheat de la liste des modules.</li>
-<li>Le gestionnaire de mises à jour va nettoyer plus de dossiers inutilisés.</li>
+<li>Le gestionnaire de mise à jour va nettoyer plus de dossiers inutilisés.</li>
 <li>Mise à jour des packs de CFWs/modules/homebrews/payloads_utiles en version 225.</li>
 </ul>
 <h2>V3.99.93</h2>
@@ -2961,15 +2965,15 @@
 </ul>
 <h2>V3.99.90</h2>
 <ul>
-<li>Maintenant, le gestionnaire de mises à jour continuera les traitements obligatoires tout seul sans rien demander à l'utilisateur si une mise à jour nécessite un ou plusieurs redémarrages ou si une erreur s'est produite durant la mise à jour d'un élément. Notez que ceci ne s'applique qu'aux éléments indispensables du script (éléments de la version "base" ou langue à initialiser), ce comportement s'arrête dès que ceux-ci sont à jour.</li>
+<li>Maintenant, le gestionnaire de mise à jour continuera les traitements obligatoires tout seul sans rien demander à l'utilisateur si une mise à jour nécessite un ou plusieurs redémarrages ou si une erreur s'est produite durant la mise à jour d'un élément. Notez que ceci ne s'applique qu'aux éléments indispensables du script (éléments de la version "base" ou langue à initialiser), ce comportement s'arrête dès que ceux-ci sont à jour.</li>
 </ul>
 <h2>V3.99.89</h2>
 <ul>
-<li>Encore des corrections sur le gestionnaire de mises à jour et sur le script le mettant à jour.</li>
+<li>Encore des corrections sur le gestionnaire de mise à jour et sur le script le mettant à jour.</li>
 </ul>
 <h2>V3.99.88</h2>
 <ul>
-<li>Correction de bug dans le script permettant de mettre à jour le gestionnaire de mises à jour, normalement il ne devrait plus afficher d'erreurs si la mise à jour se fait via une version du script comprise entre 3.00.00 et 3.99.88. Certains messages ont également été changés pour l'occasion.</li>
+<li>Correction de bug dans le script permettant de mettre à jour le gestionnaire de mise à jour, normalement il ne devrait plus afficher d'erreurs si la mise à jour se fait via une version du script comprise entre 3.00.00 et 3.99.88. Certains messages ont également été changés pour l'occasion.</li>
 </ul>
 <h2>V3.99.87</h2>
 <ul>
@@ -2977,7 +2981,7 @@
 <li>La langue sélectionnée est maintenant sauvegardée lors du script de sauvegarde des éléments importants.</li>
 <li>Lors de la restauration des valeurs par défaut du script, le choix de la langue est réinitialisé.</li>
 <li>Mise à jour du script de démarrage pour parer à des bugs possibles. Un bug identifié a également été corrigé dans ce script.</li>
-<li>Mise à jour du gestionnaire de mises à jour pour ajouter la mise à jour du nouveau script de changement de langue.</li>
+<li>Mise à jour du gestionnaire de mise à jour pour ajouter la mise à jour du nouveau script de changement de langue.</li>
 </ul>
 <h2>V3.99.86</h2>
 <ul>
@@ -2987,11 +2991,11 @@
 <h2>V3.99.85</h2>
 <ul>
 <li>Suppression du choix permettant d'écrire sur la partition PRODINFO pour Atmosphere, la méthode implémentée ne fonctionne plus. De fait, les profiles généraux ont été modifiés pour intégrer ceci.</li>
-<li>Petite amélioration dans le gestionnaire de mises à jour qui n'oblige plus l'utilisateur à redémarrer manuellement lors de l'initialisation d'une langue, le script redémarre de lui-même.</li>
+<li>Petite amélioration dans le gestionnaire de mise à jour qui n'oblige plus l'utilisateur à redémarrer manuellement lors de l'initialisation d'une langue, le script redémarre de lui-même.</li>
 </ul>
 <h2>V3.99.84</h2>
 <ul>
-<li>Correction de bugs dans le gestionnaire de mises à jour; encore...</li>
+<li>Correction de bugs dans le gestionnaire de mise à jour; encore...</li>
 <li>Quelques corrections dans certains messages affichés, notamment dans la gestion des différents profils.</li>
 <li>Corrections de bugs qui empêchaient le lancement de la documentation via le script.</li>
 <li>Mise à jour du payload de démarrage de Atmosphere Fusee-primary.</li>
@@ -3000,15 +3004,15 @@
 </ul>
 <h2>V3.99.83</h2>
 <ul>
-<li>Encore une mise à jour du gestionnaire de mises à jour pour corriger des bugs.</li>
+<li>Encore une mise à jour du gestionnaire de mise à jour pour corriger des bugs.</li>
 </ul>
 <h2>V3.99.82</h2>
 <ul>
-<li>Encore pas mal de bugs corrigés dans le gestionnaire de mises à jour, maintenant il devrait être possible de mettre à jour à partir de la version 3.00.00 base.</li>
+<li>Encore pas mal de bugs corrigés dans le gestionnaire de mise à jour, maintenant il devrait être possible de mettre à jour à partir de la version 3.00.00 base.</li>
 </ul>
 <h2>V3.99.81</h2>
 <ul>
-<li>Correction de beaucoup de bugs dans le script de démarrage ainsi que dans le gestionnaire de mises à jour.</li>
+<li>Correction de beaucoup de bugs dans le script de démarrage ainsi que dans le gestionnaire de mise à jour.</li>
 </ul>
 <h2>V3.99.80</h2>
 <ul>
@@ -3061,10 +3065,10 @@
 </ul>
 <h2>V3.00.31</h2>
 <ul>
-<li>Création d'une nouvelle fonctionnalité permettant de configurer des profils d'emummc pour Atmosphere utilisables dans la préparation d'une SD. De fait, les anciens profiles généraux ne sont plus valable car la façon de gérer la copie des éléments sur la SD a complètement changé à ce niveau-là. Les profiles généraux par défaut ont été mis à jour pour intégrer cette nouveauté et le gestionnaire de mises à jour la prend aussi en compte. Enfin, il est possible de retrouver cette fonctionnalité lors de la préparation d'une SD si Atmosphere est choisi pour être copié et on peut aussi la trouver dans le menu des paramètres.</li>
+<li>Création d'une nouvelle fonctionnalité permettant de configurer des profils d'emummc pour Atmosphere utilisables dans la préparation d'une SD. De fait, les anciens profiles généraux ne sont plus valable car la façon de gérer la copie des éléments sur la SD a complètement changé à ce niveau-là. Les profiles généraux par défaut ont été mis à jour pour intégrer cette nouveauté et le gestionnaire de mise à jour la prend aussi en compte. Enfin, il est possible de retrouver cette fonctionnalité lors de la préparation d'une SD si Atmosphere est choisi pour être copié et on peut aussi la trouver dans le menu des paramètres.</li>
 <li>Ajout d'un profile par défaut pour l'emummc d'Atmosphere qui permet d'avoir une configuration pouvant démarrer sur une emunand via partition créé par SXOS et de complètement partager cette emunand entre les deux CFWs.</li>
 <li>Correction d'un bug dans la préparation d'une SD qui ne copiait pas correctement le répertoire "sept" et ses fichiers nécessaires lors de la copie de SX OS.</li>
-<li>Dans le gestionnaire de mises à jour, la documentation est maintenant mise à jour à part du contenu général du script car celle-ci est mise à jour à chaque version du script et vérifier l'ensemble des mises à jour des éléments principaux prend trop de temps, là se sera plus rapide ainsi. Un léger bug a également été corrigé.</li>
+<li>Dans le gestionnaire de mise à jour, la documentation est maintenant mise à jour à part du contenu général du script car celle-ci est mise à jour à chaque version du script et vérifier l'ensemble des mises à jour des éléments principaux prend trop de temps, là se sera plus rapide ainsi. Un léger bug a également été corrigé.</li>
 <li>Correction d'un bug dans la remise à zéro de la boîte à outils, il manquait un outil dans le fichier permettant cette restauration.</li>
 </ul>
 <h2>V3.00.30</h2>
@@ -3073,7 +3077,7 @@
 </ul>
 <h2>V3.00.29</h2>
 <ul>
-<li>Révision de la logique du début du gestionnaire de mises à jour, beaucoup de traitements inutiles dans certaines situations ne sont plus effectués, accélérant considérablement le script. Cette modification impactera surtout ceux qui ne font pas les mises à jour automatiques, que ce soit via le choix permanant ou temporaire, ceux-ci gagneront du temps pour lancer les différents scripts. Pour les autres, le temps de traitement restera sensiblement le même.</li>
+<li>Révision de la logique du début du gestionnaire de mise à jour, beaucoup de traitements inutiles dans certaines situations ne sont plus effectués, accélérant considérablement le script. Cette modification impactera surtout ceux qui ne font pas les mises à jour automatiques, que ce soit via le choix permanant ou temporaire, ceux-ci gagneront du temps pour lancer les différents scripts. Pour les autres, le temps de traitement restera sensiblement le même.</li>
 </ul>
 <h2>V3.00.28</h2>
 <ul>
@@ -3095,7 +3099,7 @@
 <h2>V3.00.24</h2>
 <ul>
 <li>Ajout d'une nouvelle fonctionnalité permettant de rassembler des fichiers de jeux splittés en un seul, fonction trouvable dans le menu des "autres fonctions" du script. Cependant, n'ayant pas de jeux splittés sous la main je n'ai pas pu tester cette fonctionnalité donc les retours seront les bienvenues.</li>
-<li>Mise à jour du gestionnaire de mises à jour pour modifier un peu la méthode de mise à jour des éléments généraux du script, ceci permettant probablement de prévenir de certains bugs possibles.</li>
+<li>Mise à jour du gestionnaire de mise à jour pour modifier un peu la méthode de mise à jour des éléments généraux du script, ceci permettant probablement de prévenir de certains bugs possibles.</li>
 <li>Correction de bugs dans le script de la Nand Toolbox qui pourrait empêcher le script de fonctionner correctement.</li>
 <li>Correction d'un bug dans le script de création d'un fichier d'emunand à utiliser avec le mode partition de l'emunand, le script ne pouvait pas s'exécuter si le dump de la nand avait été fait via Hekate.</li>
 <li>Correction d'un bug empêchant XCI-Cutter de se lancer correctement dans le script de découpage de XCI/NSP.</li>
@@ -3128,18 +3132,18 @@
 </ul>
 <h2>V3.00.18</h2>
 <ul>
-<li>Création d'un script utilisant Renxpack pour créer un NSP compatible avec le firmware le plus bas possible de la Switch. Cette nouvelle fonction est intégré au gestionnaire de mises à jour et se trouve dans le menu des "autres fonctions".</li>
+<li>Création d'un script utilisant Renxpack pour créer un NSP compatible avec le firmware le plus bas possible de la Switch. Cette nouvelle fonction est intégré au gestionnaire de mise à jour et se trouve dans le menu des "autres fonctions".</li>
 <li>Modification du script utilisant 4NXCI pour qu'il soit compatible avec les derniers paramètres de l'application.</li>
 <li>Mise à jour de la documentation.</li>
 </ul>
 <h2>V3.00.17</h2>
 <ul>
 <li>Ajout d'une version pour les éléments généraux du script. Ceci permet de les mettre à jour dès qu'une mise à jour est tentée sans trop rallonger la durée des mises à jour.</li>
-<li>Dans le gestionnaire de mises à jour, la version des éléments généraux du script est vérifiée à chaque fois que l'utilisateur tente une mise à jour d'un élément et les éléments généraux sont mis à jour si besoin, ceci permettant de mieux contrôler des bugs pouvant survenir si ces éléments ne sont pas mis à jour.</li>
+<li>Dans le gestionnaire de mise à jour, la version des éléments généraux du script est vérifiée à chaque fois que l'utilisateur tente une mise à jour d'un élément et les éléments généraux sont mis à jour si besoin, ceci permettant de mieux contrôler des bugs pouvant survenir si ces éléments ne sont pas mis à jour.</li>
 </ul>
 <h2>V3.00.16</h2>
 <ul>
-<li>Correction d'un bug dans le gestionnaire de mises à jour qui empêchait une mise à jour correct de la préparation d'une SD dans certains cas.</li>
+<li>Correction d'un bug dans le gestionnaire de mise à jour qui empêchait une mise à jour correct de la préparation d'une SD dans certains cas.</li>
 </ul>
 <h2>V3.00.15</h2>
 <ul>
@@ -3178,7 +3182,7 @@
 <h2>V3.00.06</h2>
 <ul>
 <li>Le lancement d'un payload ne génère plus un fichier de log, je pense que ceci est inutile au final.</li>
-<li>Dans le gestionnaire de mises à jour, une fonction a été implémentée pour pouvoir supprimer d'éventuel(s) fichier(s)/dossier(s) qui ne seraient plus utilisé(s) dans de futur version. Pour l'instant cette fonction ne supprime rien, elle affiche juste le message d'information de l'exécution de celle-ci.</li>
+<li>Dans le gestionnaire de mise à jour, une fonction a été implémentée pour pouvoir supprimer d'éventuel(s) fichier(s)/dossier(s) qui ne seraient plus utilisé(s) dans de futur version. Pour l'instant cette fonction ne supprime rien, elle affiche juste le message d'information de l'exécution de celle-ci.</li>
 <li>Dans le script "A propos", une nouvelle méthode de mise à jour a été implémentée, elle permet de refaire l'intégralité des mises à jour du script, ceci pourrait être utile dans certains cas très spécifiques.</li>
 <li>Mise à jour du payload de lancement de Atmosphere (Fusee-primary) vers la version master du Github, compilé par moi-même.</li>
 <li>Modification de messages dans le script lançant le serveur PegaScape/PegaSwitch.</li>
@@ -3202,11 +3206,11 @@
 </ul>
 <h2>V3.00.01</h2>
 <ul>
-<li>Ajout de quelques messages dans le gestionnaire de mises à jour permettant d'identifier un peu mieux ce qu'il se passe.</li>
+<li>Ajout de quelques messages dans le gestionnaire de mise à jour permettant d'identifier un peu mieux ce qu'il se passe.</li>
 </ul>
 <h2>V3.00.00 (ne pas écraser une ancienne version car certains remaniements de fichiers/dossiers)</h2>
 <ul>
-<li>Mise en place d'un gestionnaire de mises à jour adaptatif qui remplace donc l'ancien (le paramètre de toujours ou non vérifier les mises à jour sera cependant conservé car celui-ci n'a pas changé de méthode de vérification). Maintenant, le script peut se mettre à jour de manière totalement autonome si quelques fichiers de bases sont présents. De plus, ce système de mise à jour permet d'installer automatiquement une nouvelle fonctionnalité lors de son premier lancement. Cependant, le souci avec cette nouvelle méthode est que si on souhaite que le script vérifie toujours les mises à jour, le lancement des scripts est plus long à cause de ces vérifications et les scripts ayant beaucoup de dépendances prendront donc plus de temps à se lancer dans ce cas et si on choisit de ne pas faire un choix définitif, la question de tenter une mise à jour sera posée à chaque lancement d'une fonctionnalité via les menus principaux (menu général, menu des fonctions occasionnelles, menu des autres fonctions et menu des paramètres). Ceci dit, on peut aussi mettre à jour l'ensemble des fonctionnalités via la fonction "A propos" et choisir de ne jamais vérifier les mises à jour automatiquement, cette façon de fonctionner ne ralentira donc quasiment pas le script. Autre point fort, les éléments à mettre à jour possèdent maintenant chacun une version spécifique (réglée de base sur cette version du script) et ils ne seront mis à jour que s'il y en a effectivement une de disponible donc cela diminue fortement les temps de téléchargements.</li>
+<li>Mise en place d'un gestionnaire de mise à jour adaptatif qui remplace donc l'ancien (le paramètre de toujours ou non vérifier les mises à jour sera cependant conservé car celui-ci n'a pas changé de méthode de vérification). Maintenant, le script peut se mettre à jour de manière totalement autonome si quelques fichiers de bases sont présents. De plus, ce système de mise à jour permet d'installer automatiquement une nouvelle fonctionnalité lors de son premier lancement. Cependant, le souci avec cette nouvelle méthode est que si on souhaite que le script vérifie toujours les mises à jour, le lancement des scripts est plus long à cause de ces vérifications et les scripts ayant beaucoup de dépendances prendront donc plus de temps à se lancer dans ce cas et si on choisit de ne pas faire un choix définitif, la question de tenter une mise à jour sera posée à chaque lancement d'une fonctionnalité via les menus principaux (menu général, menu des fonctions occasionnelles, menu des autres fonctions et menu des paramètres). Ceci dit, on peut aussi mettre à jour l'ensemble des fonctionnalités via la fonction "A propos" et choisir de ne jamais vérifier les mises à jour automatiquement, cette façon de fonctionner ne ralentira donc quasiment pas le script. Autre point fort, les éléments à mettre à jour possèdent maintenant chacun une version spécifique (réglée de base sur cette version du script) et ils ne seront mis à jour que s'il y en a effectivement une de disponible donc cela diminue fortement les temps de téléchargements.</li>
 <li>Suppression de la version du pack de cheats devenue inutile.</li>
 <li>Mise à jour de la documentation.</li>
 <li>D'autres modifications que j'ai oublié de noter.</li>

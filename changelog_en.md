@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.318</h2>
+<ul>
+<li>Fix bugs in the update manager.</li>
+</ul>
 <h2>V4.3.317</h2>
 <ul>
 <li>Fix the problems of the update manager witch appired after Github's Subversion support stop.</li>

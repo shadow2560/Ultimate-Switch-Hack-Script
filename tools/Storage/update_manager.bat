@@ -19,7 +19,7 @@ set atmo_folders_sigpatches_url_project_base=ftp://158.178.198.95/patches
 ::set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/shadow2560/patches/main
 set atmo_files_sigpatches_url_project_base=ftp://158.178.198.95/patches
 set what_to_update=%~1
-IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
+IF NOT EXIST "tools\gnuwin32\bin\wget.exe" (
 	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
 	IF !errorlevel! NEQ 0 (
 		echo Dependancy error, you have to connect to internet, script will close.
@@ -28,8 +28,8 @@ IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
 	) else (
 		echo %~1>"continue_update.txt"
 		echo Updating Gnuwin32 dependancies...
-		::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." --no-passive-ftp %folders_url_project_base%/tools/gnuwin32
-		"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/gnuwin32
+		mkdir tools\Gnuwin32\bin >nul 2>&1
+		"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -d "tools\Gnuwin32\bin" -o "wget.exe" "%files_url_project_base%/tools\Gnuwin32\bin\wget.exe"
 	)
 )
 IF NOT EXIST "tools\aria2\aria2c.exe" (
@@ -42,6 +42,20 @@ IF NOT EXIST "tools\aria2\aria2c.exe" (
 		echo %~1>"continue_update.txt"
 		echo Updating Aria2 dependancies...
 		"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/tools/aria2
+	)
+)
+IF NOT EXIST "tools\gnuwin32\bin\wc.exe" (
+	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
+	IF !errorlevel! NEQ 0 (
+		echo Dependancy error, you have to connect to internet, script will close.
+		pause
+		exit
+	) else (
+		echo %~1>"continue_update.txt"
+		echo Updating Gnuwin32 dependancies...
+		::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." --no-passive-ftp %folders_url_project_base%/tools/gnuwin32
+		"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/tools/gnuwin32
+		move templogs\gnuwin32 tools >nul 2>&1
 	)
 )
 IF NOT EXIST "languages\FR_fr" (
@@ -2904,6 +2918,22 @@ IF "%temp_folder_path%"=="tools\gitget" (
 	) else (
 		rmdir /s /q "%temp_folder_path%" >nul 2>&1
 		move "templogs\gitget" "%temp_folder_path%" >nul 2>&1
+		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
+		exit /b
+	)
+)
+IF "%temp_folder_path%"=="tools\gnuwin32" (
+	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=2 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/%temp_folder_slash_path%
+	IF !errorlevel! NEQ 0 (
+		call "%associed_language_script%" "update_folder_error"
+		IF EXIST templogs (
+			rmdir /s /q templogs
+		)
+		pause
+		exit
+	) else (
+		rmdir /s /q "%temp_folder_path%" >nul 2>&1
+		move "templogs\gnuwin32" "%temp_folder_path%" >nul 2>&1
 		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
 		exit /b
 	)
