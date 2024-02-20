@@ -2919,6 +2919,7 @@ IF "%temp_folder_path%"=="tools\gitget" (
 		rmdir /s /q "%temp_folder_path%" >nul 2>&1
 		move "templogs\gitget" "%temp_folder_path%" >nul 2>&1
 		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
+		call "%associed_language_script%" "update_folder_success"
 		exit /b
 	)
 )
@@ -2935,6 +2936,7 @@ IF "%temp_folder_path%"=="tools\gnuwin32" (
 		rmdir /s /q "%temp_folder_path%" >nul 2>&1
 		move "templogs\gnuwin32" "%temp_folder_path%" >nul 2>&1
 		del /q "failed_updates\%temp_folder_path:\=;%.fold.failed" >nul 2>&1
+		call "%associed_language_script%" "update_folder_success"
 		exit /b
 	)
 )
