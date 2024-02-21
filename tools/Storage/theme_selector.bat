@@ -1,8 +1,8 @@
 ::Script by Shadow256
 call tools\storage\functions\ini_scripts.bat
 Setlocal enabledelayedexpansion
-set folders_url_project_base=https://github.com/shadow2560/Ultimate-Switch-Hack-Script/trunk
-set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
+set folders_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
+set files_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
 set this_script_full_path=%~0
 set associed_language_script=%language_path%\!this_script_full_path:%ushs_base_path%=!
 set associed_language_script=%ushs_base_path%%associed_language_script%

@@ -48,6 +48,9 @@ echo 16: Create a BOOT0 file with keyblobs repaired ^(don't use on Mariko consol
 echo 17: Brute force the bis_keys?
 echo 18: RAWNAND unbrick menu?
 echo 0: Mount a console's nand partition via USB and Memloader?
+echo All other choice: Go back to previous menu?
+echo.
+set /p action_choice=Make your choice: 
 goto:eof
 
 :unbrick_menu_choice

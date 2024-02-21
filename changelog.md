@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.319</h2>
+<ul>
+<li>Corrections de bugs dans la sélection de la langue et dans celle du thème.</li>
+<li>Correction d'un bug important dans la Nand Toolbox qui l'empêchait de se lancer en anglais, corrige <a href="https://github.com/shadow2560/Ultimate-Switch-Hack-Script/issues/5">l'issue #5</a>.</li>
+<li>Quelques changements dans le gestionnaire de mise à jour pour cacher certains messages d'erreurs inutils.</li>
+</ul>
 <h2>V4.3.318</h2>
 <ul>
 <li>Correction de bugs dans le gestionnaire de mise à jour.</li>

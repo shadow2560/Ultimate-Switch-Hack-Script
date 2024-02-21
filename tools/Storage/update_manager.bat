@@ -222,7 +222,7 @@ IF EXIST "failed_updates\*.failed" (
 	set failed_updates_finded=Y
 )
 IF NOT EXIST "failed_updates\*.failed" (
-	rmdir /s /q "failed_updates" 2>nul
+	rmdir /s /q "failed_updates" >nul 2>&1
 )
 mkdir "failed_updates" >nul 2>&1
 set error_level=0
@@ -252,7 +252,7 @@ IF "%~2"=="force" (
 			rmdir /s /q templogs
 		)
 		IF NOT EXIST "failed_updates\*.failed" (
-			rmdir /s /q failed_updates
+			rmdir /s /q failed_updates >nul 2>&1
 		)
 		exit
 	)
@@ -295,7 +295,7 @@ IF %error_level% NEQ 0 (
 			rmdir /s /q templogs
 		)
 		IF NOT EXIST "failed_updates\*.failed" (
-			rmdir /s /q failed_updates
+			rmdir /s /q failed_updates >nul 2>&1
 		)
 		exit
 	)
@@ -3090,7 +3090,7 @@ IF EXIST templogs (
 	rmdir /s /q templogs
 )
 IF NOT EXIST "failed_updates\*.failed" (
-	rmdir /s /q failed_updates
+	rmdir /s /q failed_updates >nul 2>&1
 )
 endlocal
 ::start /i "" "%windir%\system32\cmd.exe" /c call "tools\Storage\update_manager_updater.bat"
@@ -3196,7 +3196,7 @@ IF EXIST templogs (
 	rmdir /s /q templogs
 )
 IF NOT EXIST "failed_updates\*.failed" (
-	rmdir /s /q failed_updates
+	rmdir /s /q failed_updates >nul 2>&1
 )
 IF "%~1"=="retroarch_update" goto:skip_ending_cls
 cls
