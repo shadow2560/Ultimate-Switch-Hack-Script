@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.320</h2>
+<ul>
+<li>Correction de certaines boucles infinis dans le gestionnaire de mise à jour.</li>
+<li>Ajout d'une pause dans le flash d'un PRODINFO généré par ProdinfoGen dans le script de débrickage de TegraExplorer et quelques corrections mineurs dans le script.</li>
+<li>Mise à jour de Hekate en version 6.1.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 571.</li>
+</ul>
 <h2>V4.3.319</h2>
 <ul>
 <li>Corrections de bugs dans la sélection de la langue et dans celle du thème.</li>

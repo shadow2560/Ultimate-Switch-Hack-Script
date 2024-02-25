@@ -103,6 +103,7 @@ goto:eof
 :update_file_error
 IF "%failed_updates_finded%"=="Y" (
 	rmdir /q /s "failed_updates"
+	IF EXIST "continue_update.txt" del /q "continue_update.txt"
 	echo Erreur lors de la mise à jour du fichier "%temp_file_path%", le script va se fermer et ne reprendra pas automatiquement la mise à jour.
 ) else (
 	echo Erreur lors de la mise à jour du fichier "%temp_file_path%", le script va se fermer pour pouvoir relancer le processus de mise à jour lors du prochain redémarrage de celui-ci.
@@ -112,6 +113,7 @@ goto:eof
 :update_file.version_error
 IF "%failed_updates_finded%"=="Y" (
 	rmdir /q /s "failed_updates"
+	IF EXIST "continue_update.txt" del /q "continue_update.txt"
 	echo Erreur lors de la mise à jour du fichier "%temp_file_path%.version", le script va se fermer et ne reprendra pas automatiquement la mise à jour.
 ) else (
 	echo Erreur lors de la mise à jour du fichier "%temp_file_path%.version", le script va se fermer pour pouvoir relancer le processus de mise à jour lors du prochain redémarrage de celui-ci.
@@ -125,6 +127,7 @@ goto:eof
 :update_folder_error
 IF "%failed_updates_finded%"=="Y" (
 	rmdir /q /s "failed_updates"
+	IF EXIST "continue_update.txt" del /q "continue_update.txt"
 	echo Erreur lors de la mise à jour du dossier "%temp_folder_path%", le script va se fermer et ne reprendra pas automatiquement la mise à jour.
 ) else (
 	echo Erreur lors de la mise à jour du dossier "%temp_folder_path%", le script va se fermer pour pouvoir relancer le processus de mise à jour lors du prochain redémarrage de celui-ci.
