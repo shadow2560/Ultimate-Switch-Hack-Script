@@ -412,6 +412,7 @@ echo 16.0.3?
 echo 16.1.0?
 echo 17.0.0?
 echo 17.0.1?
+echo 18.0.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -828,9 +829,16 @@ IF "%firmware_choice%"=="17.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="17.0.1" (
-	set expected_md5=107f55a13e35efc95c27eca693f93ab7
-	set "firmware_link=https://mega.nz/file/ZZABkaiI#idFS2nD_HqvZa-NG5s1odDr0c7RCGMm8exsLFagHyYA"
+	set expected_md5=5a56b448fcdf173aa0785ee95c3bbdad
+	set "firmware_link=https://mega.nz/file/hIBGSSDC#6ZBcu7koa3B3hFyeyj1AQRShp3RTQxUOt-nEmZ21oy8"
 	set firmware_file_name=Firmware 17.0.1.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="18.0.0" (
+	set expected_md5=8dbacdbaa4e90be98ed0706f7e90a241
+	set "firmware_link=https://mega.nz/file/tFBCBI6B#Hi0mZFb4tP5VRsAJKjKaM24FDlZFUCw9EsqCoclJZBo"
+	set firmware_file_name=Firmware 18.0.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )

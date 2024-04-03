@@ -1,5 +1,20 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V572</h2>
+<ul>
+<li>Update Atmosphere to version 1.7.0.</li>
+<li>Update Hekate to version 6.1.1.</li>
+<li>Update Hekate's configurations  to exclude the configs with sig_patches, use the Sys-patch module to have the same result.</li>
+<li>Update Lockpick-rcm.</li>
+<li>Update Sys-patch.</li>
+<li>Update Uae4all2 to version 2.11.</li>
+<li>Update SimpleModDownloader to version 2.0.0.</li>
+<li>Update Haku33 to version 7.0.</li>
+<li>Update MissionControl to version 0.11.0.</li>
+<li>Update ULaunch to version 0.3.8.</li>
+<li>Update FPSLocker to version 1.2.8a.</li>
+<li>Update the  configuration files for FPSLocker.</li>
+</ul>
 <h2>V571</h2>
 <ul>
 <li>Update Hekate to version 6.1.0.</li>

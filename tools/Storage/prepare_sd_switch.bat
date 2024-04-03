@@ -660,7 +660,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF /i "%atmosphere_enable_nogc_patch%"=="O" (
 		%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_patches_nogc " "%volume_letter%\ " /e >nul
 	)
-	%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_fs_and_es_patches " "%volume_letter%\ " /e >nul
+	::%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_fs_and_es_patches " "%volume_letter%\ " /e >nul
 	IF /i "%atmosphere_enable_cheats%"=="o" (
 		IF "%copy_all_cheats_pack%"=="Y" (
 			%windir%\System32\Robocopy.exe "TOOLS\sd_switch\cheats\titles " "%volume_letter%\atmosphere\contents" /e >nul

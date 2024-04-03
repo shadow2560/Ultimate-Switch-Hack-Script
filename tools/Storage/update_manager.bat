@@ -15,9 +15,9 @@ set base_script_path="%~dp0\..\.."
 set folders_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
 ::set files_url_project_base=https://raw.githubusercontent.com/shadow2560/Ultimate-Switch-Hack-Script/master
 set files_url_project_base=ftp://158.178.198.95/ultimate-switch-hack-script
-set atmo_folders_sigpatches_url_project_base=ftp://158.178.198.95/patches
+::set atmo_folders_sigpatches_url_project_base=ftp://158.178.198.95/patches
 ::set atmo_files_sigpatches_url_project_base=https://raw.githubusercontent.com/shadow2560/patches/main
-set atmo_files_sigpatches_url_project_base=ftp://158.178.198.95/patches
+::set atmo_files_sigpatches_url_project_base=ftp://158.178.198.95/patches
 set what_to_update=%~1
 IF NOT EXIST "tools\gnuwin32\bin\wget.exe" (
 	"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
@@ -1881,11 +1881,11 @@ call :verif_folder_version "tools\sd_switch\atmosphere"
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
-call :verif_folder_version "tools\sd_switch\atmosphere_fs_and_es_patches"
-IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\exefs_patches\es_patches" set update_finded=Y
-IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\fs_patches" set update_finded=Y
-IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\loader_patches" set update_finded=Y
-IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\bootloader\patches.ini" set update_finded=Y
+::call :verif_folder_version "tools\sd_switch\atmosphere_fs_and_es_patches"
+::IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\exefs_patches\es_patches" set update_finded=Y
+::IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\fs_patches" set update_finded=Y
+::IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\atmosphere\kip_patches\loader_patches" set update_finded=Y
+::IF NOT EXIST "tools\sd_switch\atmosphere_fs_and_es_patches\bootloader\patches.ini" set update_finded=Y
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2478,10 +2478,10 @@ IF "!update_finded!"=="Y" (
 	call :update_folder
 )
 call :verif_folder_version "tools\unbrick_special_SD_files"
-IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\exefs_patches\es_patches" set update_finded=Y
-IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\fs_patches" set update_finded=Y
-IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\loader_patches" set update_finded=Y
-IF NOT EXIST "tools\unbrick_special_SD_files\bootloader\patches.ini" set update_finded=Y
+::IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\exefs_patches\es_patches" set update_finded=Y
+::IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\fs_patches" set update_finded=Y
+::IF NOT EXIST "tools\unbrick_special_SD_files\atmosphere\kip_patches\loader_patches" set update_finded=Y
+::IF NOT EXIST "tools\unbrick_special_SD_files\bootloader\patches.ini" set update_finded=Y
 IF "!update_finded!"=="Y" (
 	call :update_folder
 )
@@ -2796,76 +2796,76 @@ exit /b
 
 :update_folder
 echo !temp_folder_path!>"failed_updates\!temp_folder_path:\=;!.fold.failed"
-IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
-	rmdir /s /q "!temp_folder_path!" >nul 2>&1
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	) else (
-		IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
-		del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
-		call "%associed_language_script%" "update_folder_success"
-		exit /b
-	)
-)
-IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
-	rmdir /s /q "!temp_folder_path!" >nul 2>&1
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	) else (
-		IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
-		del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
-		call "%associed_language_script%" "update_folder_success"
-		exit /b
-	)
-)
+::IF "!temp_folder_path!"=="tools\sd_switch\atmosphere_fs_and_es_patches" (
+	::rmdir /s /q "!temp_folder_path!" >nul 2>&1
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::) else (
+		::IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
+		::del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
+		::call "%associed_language_script%" "update_folder_success"
+		::exit /b
+	::)
+::)
+::IF "!temp_folder_path!"=="tools\unbrick_special_SD_files" (
+	::rmdir /s /q "!temp_folder_path!" >nul 2>&1
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "." %folders_url_project_base%/%temp_folder_slash_path%
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/bootloader
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::) else (
+		::IF EXIST "!temp_folder_path!\bootloader\hekate_ipl.ini" del /q "!temp_folder_path!\bootloader\hekate_ipl.ini" >nul
+		::del /q "failed_updates\!temp_folder_path:\=;!.fold.failed" >nul 2>&1
+		::call "%associed_language_script%" "update_folder_success"
+		::exit /b
+	::)
+::)
 IF "%temp_folder_path%"=="Payloads" (
 	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "templogs" %folders_url_project_base%/%temp_folder_slash_path%
 	IF !errorlevel! NEQ 0 (
@@ -2989,26 +2989,26 @@ IF %temp_folder_download_error% NEQ 0 (
 	pause
 	exit
 )
-IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
-	"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-	"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!temp_folder_path!\bootloader\patches.ini" "%atmo_files_sigpatches_url_project_base%/bootloader/patches.ini"
-	IF !errorlevel! NEQ 0 (
-		call "%associed_language_script%" "update_folder_error"
-		IF EXIST templogs (
-			rmdir /s /q templogs
-		)
-		pause
-		exit
-	)
-)
+::IF "%temp_folder_path%"=="tools\unbrick_special_SD_files" (
+	::"tools\gnuwin32\bin\wget.exe" -q -np -nH -r --level=0 --cut-dirs=1 -t 3 --user="anonymous" --password="" -P "!temp_folder_path!" %atmo_folders_sigpatches_url_project_base%/atmosphere
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+	::"tools\aria2\aria2c.exe" -m 0 --auto-save-interval=0 --file-allocation=none --allow-overwrite=true --continue=false --auto-file-renaming=false --quiet=true --summary-interval=0 --remove-control-file=true --always-resume=false --save-not-found=false --keep-unfinished-download-result=false -o "!temp_folder_path!\bootloader\patches.ini" "%atmo_files_sigpatches_url_project_base%/bootloader/patches.ini"
+	::IF !errorlevel! NEQ 0 (
+		::call "%associed_language_script%" "update_folder_error"
+		::IF EXIST templogs (
+			::rmdir /s /q templogs
+		::)
+		::pause
+		::exit
+	::)
+::)
 del /q "failed_updates\%temp_folder_path:\=;%.fold.failed"
 call "%associed_language_script%" "update_folder_success"
 exit /b
@@ -3125,6 +3125,7 @@ exit /b
 call "%associed_language_script%" "del_hold_files_begin"
 IF EXIST "tools\Storage\verif_update.ini" del /q "tools\Storage\verif_update.ini"
 IF EXIST "DOC\*.*" rmdir /s /q "DOC"
+IF EXIST "tools\sd_switch\atmosphere_fs_and_es_patches" rmdir /s /q "tools\sd_switch\atmosphere_fs_and_es_patches"
 IF EXIST "tools\sd_switch\mixed\modular\DZ" rmdir /s /q "tools\sd_switch\mixed\modular\DZ"
 IF EXIST "tools\sd_switch\mixed\modular\Zerotwoxci" rmdir /s /q "tools\sd_switch\mixed\modular\Zerotwoxci"
 IF EXIST "tools\sd_switch\modules\pack\Sys-Netcheat" rmdir /s /q "tools\sd_switch\modules\pack\Sys-Netcheat"
