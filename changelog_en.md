@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.322</h2>
+<ul>
+<li>The Atmosphere's default profile in the SD preparation have now the Sys-patch module.</li>
+</ul>
 <h2>V4.3.321</h2>
 <ul>
 <li>Suport the firmware 17.0.1.</li>
