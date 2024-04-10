@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.324</h2>
+<ul>
+<li>Dans le script préparant un firmware sur la SD, ajout de la vérification de mise à jour lorsqu'on choisi de préparer une SD via ce menu.</li>
+</ul>
 <h2>V4.3.323</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 573.</li>

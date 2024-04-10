@@ -73,6 +73,11 @@ IF "%special_launch%" == "unbrick_package_creation" (
 ) else (
 	IF "%action_type%"=="4" (
 		cls
+		IF EXIST "tools\Storage\prepare_sd_switch.bat" (
+			call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat"
+		) else (
+			call tools\Storage\update_manager.bat "update_prepare_sd_switch.bat" "force"
+		)
 		call tools\storage\prepare_sd_switch.bat
 		call "%associed_language_script%" "display_title"
 		@echo off
