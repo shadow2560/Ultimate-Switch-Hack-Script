@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V573</h2>
+<ul>
+<li>Update Sys-patch.</li>
+</ul>
 <h2>V572</h2>
 <ul>
 <li>Update Atmosphere to version 1.7.0.</li>
