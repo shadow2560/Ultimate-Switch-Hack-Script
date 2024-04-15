@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.325</h2>
+<ul>
+<li>The Atmosphere+SXOS default profile in the SD preparation have now the Sys-patch module for Atmosphere.</li>
+</ul>
 <h2>V4.3.324</h2>
 <ul>
 <li>In the script witch prepare a firmware on the SD, add the update verification when choosing to prepare an SD via this menu.</li>
