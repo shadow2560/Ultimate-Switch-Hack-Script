@@ -1,8 +1,19 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.327</h2>
+<ul>
+<li>Suport the firmware 18.0.1.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 18.0.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 576.</li>
+</ul>
+<h2>V4.3.326</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 575.</li>
+</ul>
 <h2>V4.3.325</h2>
 <ul>
 <li>The Atmosphere+SXOS default profile in the SD preparation have now the Sys-patch module for Atmosphere.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 574.</li>
 </ul>
 <h2>V4.3.324</h2>
 <ul>
@@ -18,9 +29,9 @@
 </ul>
 <h2>V4.3.321</h2>
 <ul>
-<li>Suport the firmware 17.0.1.</li>
+<li>Suport the firmware 18.0.0.</li>
 <li>Add the last keys in the keys file verification.</li>
-<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 17.0.1.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmware 18.0.0.</li>
 <li>Update Switch-logo-patcher to suport the firmware 18.0.0.</li>
 <li>Update the script to prepare an SD and the script of the update manager to exclude the sig_patches, use the Sys-patch module in the modules list of your packs in the SD preparation to have the same result.</li>
 <li>Update Atmosphere to version 1.7.0.</li>

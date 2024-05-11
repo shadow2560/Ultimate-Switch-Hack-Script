@@ -1,5 +1,19 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V576</h2>
+<ul>
+<li>Mise à jour de Switch-ezremote-client en version 1.0.2.</li>
+<li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
+</ul>
+<h2>V575</h2>
+<ul>
+<li>Mise à jour de Salty-nx en version 0.7.4.</li>
+<li>Mise à jour de Switch-ezremote-client en version 1.01.</li>
+</ul>
+<h2>V574</h2>
+<ul>
+<li>Mise à jour de ScummVM en version 2.8.1.</li>
+</ul>
 <h2>V573</h2>
 <ul>
 <li>Mise à jour de Sys-patch.</li>

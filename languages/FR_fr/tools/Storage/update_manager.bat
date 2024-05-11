@@ -46,7 +46,7 @@ goto:eof
 :update_manager_updater_update
 echo Le gestionnaire de mises à jour doit se mettre à jour lui-même avant de pouvoir continuer.
 echo Pour se faire, le script va lancer un autre script puis se fermer pour que la mise à jour puisse s'effectuer correctement.
-echo Une fois la mise à jour effectuée, le script va redémarré.
+echo Une fois la mise à jour effectuée, le script va redémarrer.
 goto:eof
 
 :new_installation_choice
