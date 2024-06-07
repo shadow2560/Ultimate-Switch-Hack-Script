@@ -1,5 +1,13 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V577</h2>
+<ul>
+<li>Mise à jour de Sys-con en version 1.0.2 et passage au fork de o0zz.</li>
+<li>Mise à jour de Fizeau en version 2.5.3.</li>
+<li>Mise à jour de SimpleModDownloader en version 2.1.0.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.19.0.</li>
+<li>Mise à jour des fichiers de configuration pour FPSLocker.</li>
+</ul>
 <h2>V576</h2>
 <ul>
 <li>Mise à jour de Switch-ezremote-client en version 1.0.2.</li>
