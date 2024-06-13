@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.330</h2>
+<ul>
+<li>Update Atmosphere's launch payload.</li>
+<li>Update Hekate.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 579.</li>
+</ul>
 <h2>V4.3.329</h2>
 <ul>
 <li>Suport the firmware 18.1.0.</li>

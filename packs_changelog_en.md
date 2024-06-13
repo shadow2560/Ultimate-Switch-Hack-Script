@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V579</h2>
+<ul>
+<li>Update Atmosphere's launch payload.</li>
+<li>Update Hekate.</li>
+</ul>
 <h2>V578</h2>
 <ul>
 <li>Update Atmosphere to version 1.7.1.</li>
