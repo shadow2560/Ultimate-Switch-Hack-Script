@@ -1,5 +1,15 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.332</h2>
+<ul>
+<li>Update firmwares links.</li>
+<li>Update Hekate to version 6.2.1.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 581.</li>
+</ul>
+<h2>V4.3.331</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 580.</li>
+</ul>
 <h2>V4.3.330</h2>
 <ul>
 <li>Update Atmosphere's launch payload.</li>

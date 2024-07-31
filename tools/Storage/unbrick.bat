@@ -845,15 +845,15 @@ IF "%firmware_choice%"=="18.0.0" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="18.0.1" (
-	set expected_md5=f8b3c0b18f4c432d637715517f9a0889
-	set "firmware_link=https://mega.nz/file/SAQwzbhL#nxW1QUQu4O1zMKdR2LidTSHPyVeHIfmTe_s_d3sSrVg"
+	set expected_md5=70b1e47e6148974e6f35ccb32042d80e
+	set "firmware_link=https://mega.nz/file/RBhzQB5R#5p1t8nhLCDrTgAUg0Eh3sHHTDNhwUaX5jVLbaQGTbTE"
 	set firmware_file_name=Firmware 18.0.1.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="18.1.0" (
-	set expected_md5=f8e8a3eea993de6ae4c5ef2f9152d6f7
-	set "firmware_link=https://mega.nz/file/Kdx1XRga#H_wenPp371UR4ujfb5Azus72hEdVFoI0i9kgal-ROpA"
+	set expected_md5=dfd91e2bc34ebf81897a2c65723ee396
+	set "firmware_link=https://mega.nz/file/tRB0Xawb#_hy2b6paUy2yvRHhqyD4xcaSVcreAjcuvmU8hSGJBDM"
 	set firmware_file_name=Firmware 18.1.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
