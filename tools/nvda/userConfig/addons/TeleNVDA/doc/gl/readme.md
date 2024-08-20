@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Autores: Asociación Comunidade Hispanofalante do NVDA e outros
-  colaboradores. Traballo orixinal de Tyler Spivey e Christopher Toth
+* Autores: Asociación Comunidad Hispanohablante de NVDA e outros
+  colaboradores. Traballo orixinal por Tyler Spivey e Christopher Toth
 * Compatibilidade co NVDA: do 2019.3 en adiante
 * Descargar [versión estable][1]
 
@@ -20,15 +20,30 @@ ou ensinarte algo. Este complemento é unha versión modificada do
 cargo da comunidade hispanofalante do NVDA. É totalmente compatible co NVDA
 Remote. Estas son as diferencias actuais:
 
-* Unha opción permite bloquear as ordes remotas de voz que non sexan texto.
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
+* Unha opción que permite bloquear as ordes remotas de voz que non sexan
+  texto.
+* Unha opción que permite amosar a mensaxe de benvida do servidor (tamén
+  coñecida coma mensaxe do día) só na primeira conexión ou sempre que a
+  mensaxe cambie, ignorando as preferencias do servidor.
+* Unha opción para silenciar a voz remota cando se controla a máquina local
+  e desactivala cando se controla a máquina remota.
 * Soporte mellorado para servidores proxy e servizos agachados TOR (é
   necesario o [complemento Soporte
   Proxy](https://addons.nvda-project.org/addons/proxy.es.html)).
 * Posibilidade de cambiar a tecla f11 por outro xesto. Agora funciona coma
   un script común, polo que podes asignar outros xestos no diálogo "Xestos
   de entrada".
-* Capacidade de ignorar compretamente o seguinte xesto inmediato, é útil se
-  necesitas enviar á máquina remota o xesto usado para alternar entre o
+* un xesto (sen asignar por defecto) para abrir as opcións do complemento
+* Posibilidade para asignar un xesto á opción enviar ctrl+alt+supr no
+  diálogo Xestos de Entrada. ¡Aviso! non deberías asighnar as teclas
+  ctrl+alt+supr a esta opción. Se o fas, seguirá a funcionar normalmente,
+  pero cada vez que premas ctrl+alt+supr para enviar ctrl+alt+supr á máquina
+  remota, a túa propria máquina tamén se verá afectada pola función
+  ctrl+alt+supr, polo que probablemente non é o que esteas a esperar!
+* Posibilidade de ignorar compretamente o seguinte xesto inmediato, é útil
+  se necesitas enviar á máquina remota o xesto usado para alternar entre o
   equipo local e a máquina remota.
 * Posibilidade de intercambiar pequenos ficheiros (ate 10 MB) entre usuarios
   conectados á mesma sesión.
@@ -191,8 +206,9 @@ un servidor que funciona en modo de conexión directa.
 Aíndaque o envío de teclas estea activado, a combinación ctrl+alt+supr non
 se pode enviar coma o resto.
 
-Se necesitas enviar ctrl+alt+supr, e o sistema remoto atópase no escritorio
-seguro, escolle esta opción.
+Se necesitas enviar CTRL+Alt+supr, e o sistema remoto está no escritorio
+seguro, us esta orde. Tamén podes asignar un xesto a esta orde no cadro de
+diálogo Xestos de entrada.
 
 ## Enviar tecla de alternar entre equipo local e equipo remoto
 
@@ -246,11 +262,16 @@ diálogo de opcións non teñen efecto ate que se reinicia o NVDA.
 
 ## Silenciar a voz do equipo remoto
 
-Se non queres oubir a voz do computador remoto ou sons específicos do NVDA,
-é tan sinxelo como ir ao menú de NVDA, ferramentas, remoto. Baixa coa frecha
-abaixo ate oubir silenciar equipo remoto, e preme intro. Ten en conta que
-esta opción non desactivará a saída braille remota á pantalla controladora
-cando o equipo controlador estea enviando pulsacións.
+Se non desexas escoitar a voz do computador remoto ou sons específicos do
+NVDA, soamente accede ao menú NVDA, Ferramentas e Remoto. Desprázate cara
+abaixo ate Silenciar Remoto e preme Intro. Podes asignar un xesto a esta
+opción dende o diálogo Xestos de Entrada de NVDA. Ten en conta que esta
+opción non desactivará a saída braille remota á pantalla controladora cando
+a máquina controladora estea enviando teclas.
+
+Podes silenciar permanentemente a voz remota mentres traballas na túa
+máquina local activando esa opción dende a categoría TeleNVDA no diálogo de
+Opcións do NVDA.
 
 ## Rematar unha sesión remota
 

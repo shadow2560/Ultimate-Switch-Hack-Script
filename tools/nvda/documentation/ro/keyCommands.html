@@ -1,3112 +1,3344 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML lang="ro" dir="ltr">
-<HEAD>
-<META NAME="generator" CONTENT="http://txt2tags.sf.net">
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-<LINK REL="stylesheet" TYPE="text/css" HREF="styles.css">
-<TITLE>NVDA 2023.2 Trimitere rapidă la comenzi</TITLE>
-</HEAD><BODY BGCOLOR="white" TEXT="black">
-<P ALIGN="center"><CENTER><H1>NVDA 2023.2 Trimitere rapidă la comenzi</H1>
-<FONT SIZE="4">
-</FONT></CENTER>
+<!DOCTYPE html>
+<html lang="ro" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>NVDA 2024.3 Trimitere rapidă la comenzi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="styles.css">
 
-<A NAME="PrimiiPasiNVDA"></A>
-<H2>Primii pași în NVDA</H2>
-<A NAME="NVDATouchGestures"></A>
-<H3>Gesturi NVDA pentru ecrane tactile</H3>
-<A NAME="TouchModes"></A>
-<H4>Moduri de atingere</H4>
-<P>
-Pentru a comuta între modurile de atingere, efectuați o atingere cu trei degete.
-</P>
-<A NAME="BasicNVDACommands"></A>
-<H3>Comenzi NVDA de bază</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Atingere</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Oprește vorbire</TD>
-<TD>Control</TD>
-<TD>control</TD>
-<TD>atingere cu 2 degete</TD>
-<TD>Oprește imediat vorbirea</TD>
-</TR>
-<TR>
-<TD>Pauză pentru vorbire</TD>
-<TD>Shift</TD>
-<TD>Shift</TD>
-<TD>fără</TD>
-<TD>Pune vorbirea pe pauză imediat. Apăsând încă o dată va continua să vorbească de unde a rămas (dacă pauza este suportată de sintetizatorul curent)</TD>
-</TR>
-<TR>
-<TD>Meniu NVDA</TD>
-<TD>NVDA+n</TD>
-<TD>NVDA+n</TD>
-<TD>atingere dublă cu 2 degete</TD>
-<TD>Afișează meniul NVDA pentru a vă permite să accesați preferințe, instrumente, ajutor, etc</TD>
-</TR>
-<TR>
-<TD>Comută modul vorbire</TD>
-<TD>NVDA+s</TD>
-<TD>NVDA+s</TD>
-<TD>fără</TD>
-<TD>Comută modul vorbire pe una din variantele: vorbire, bipuri și dezactivat.</TD>
-</TR>
-<TR>
-<TD>Comută modul de ajutor pentru intrări</TD>
-<TD>NVDA+1</TD>
-<TD>NVDA+1</TD>
-<TD>fără</TD>
-<TD>Apăsând orice tastă în acest mod se va anunța tasta și descrierea oricărei comenzi NVDA asociată cu ea</TD>
-</TR>
-<TR>
-<TD>Închide NVDA</TD>
-<TD>NVDA+q</TD>
-<TD>NVDA+q</TD>
-<TD>fără</TD>
-<TD>Se iese din NVDA</TD>
-</TR>
-<TR>
-<TD>Trimite fără interceptare următoarea tastă</TD>
-<TD>NVDA+f2</TD>
-<TD>NVDA+f2</TD>
-<TD>fără</TD>
-<TD>Face ca NVDA să trimită următoarea tastă apăsată direct la aplicația activă, chiar dacă în mod normal este tratată ca o tastă de comandă NVDA</TD>
-</TR>
-<TR>
-<TD>Comută aplicația în modul de repaus</TD>
-<TD>NVDA+shift+s</TD>
-<TD>NVDA+shift+z</TD>
-<TD>fără</TD>
-<TD>Modul de repaus dezactivează toate comenzile NVDA și ieșirile de vorbire sau braille pentru aplicația curentă. Modul este foarte folositor pentru aplicații care furnizează funcționalități proprii de vorbire sau citire a ecranului. Apăsați comanda din nou pentru a dezactiva modul de repaus.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ReportingSystemInformation"></A>
-<H3>Raportarea informațiilor de sistem</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Anunță dată/oră</TD>
-<TD>NVDA+f12</TD>
-<TD>Apăsând o dată se anunță ora curentă, apăsând de două ori se va anunța data</TD>
-</TR>
-<TR>
-<TD>Anunță starea bateriei</TD>
-<TD>NVDA+shift+b</TD>
-<TD>Anunță starea bateriei, de ex. dacă se folosește sursa de rețea sau procentul curent de încărcare.</TD>
-</TR>
-<TR>
-<TD>Anunță textul din planșetă</TD>
-<TD>NVDA+c</TD>
-<TD>Anunță textul salvat în planșetă, dacă există.</TD>
-</TR>
-</TABLE>
-
-<A NAME="NavigatingWithNVDA"></A>
-<H2>Navigarea cu NVDA</H2>
-<A NAME="FocalizareSistem"></A>
-<H3>Navigarea cu focalizarea sistemului</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Raportează focalizarea curentă</TD>
-<TD>NVDA+tab</TD>
-<TD>NVDA+tab</TD>
-<TD>Anunță obiectul sau controlul curent focalizat. Apăsând de două ori va pronunța pe litere informația</TD>
-</TR>
-<TR>
-<TD>Raportează titlu</TD>
-<TD>NVDA+t</TD>
-<TD>NVDA+t</TD>
-<TD>Anunță titlul ferestrei active. Apăsând de două ori va pronunța pe litere informația. Apăsând de trei ori o va copia pe planșetă</TD>
-</TR>
-<TR>
-<TD>Citește fereastra activă</TD>
-<TD>NVDA+b</TD>
-<TD>NVDA+b</TD>
-<TD>Citește toate controalele din fereastra curent activă (util pentru ferestrele de dialog)</TD>
-</TR>
-<TR>
-<TD>Raportează bara de stare</TD>
-<TD>NVDA+end</TD>
-<TD>NVDA+shift+end</TD>
-<TD>Raportează bara de stare, dacă este găsită de NVDA. În plus mută obiectul navigator la această poziție. Apăsând de două ori va pronunța informația pe litere. Apăsând de trei ori o va copia pe planșetă</TD>
-</TR>
-</TABLE>
-
-<A NAME="CursorScriereSistem"></A>
-<H3>Navigarea cu cursorul de scriere al sistemului</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Pronunță tot</TD>
-<TD>NVDA+săgeată jos</TD>
-<TD>NVDA+a</TD>
-<TD>Începe citirea din poziția curentă a cursorului de scriere, deplasându-l pe măsură ce înaintează</TD>
-</TR>
-<TR>
-<TD>Citește rândul curent</TD>
-<TD>NVDA+săgeată sus</TD>
-<TD>NVDA+l</TD>
-<TD>Citește rândul unde se află cursorul de scriere. Apăsând de două ori pronunță caracterele rândului. Apăsând de trei ori citește rândul utilizând descrieri de caractere.</TD>
-</TR>
-<TR>
-<TD>Citește textul selectat</TD>
-<TD>NVDA+Shift+săgeată sus</TD>
-<TD>NVDA+shift+s</TD>
-<TD>Citește orice text selectat</TD>
-</TR>
-<TR>
-<TD>Următoarea propoziție</TD>
-<TD>alt+săgeată jos</TD>
-<TD>alt+săgeată jos</TD>
-<TD>Mută cursorul de scriere la următoare propoziție și o anunță. (disponibil doar în Microsoft Word și Outlook)</TD>
-</TR>
-<TR>
-<TD>Propoziția precedentă</TD>
-<TD>alt+săgeată sus</TD>
-<TD>alt+săgeată sus</TD>
-<TD>Mută cursorul de scriere la propoziția precedentă și o anunță. (disponibil doar în Microsoft Word și Outlook)</TD>
-</TR>
-</TABLE>
-
-<P>
-Când vă aflați într-un tabel, sunt disponibile următoarele comenzi din taste:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Mută la coloana anterioară</TD>
-<TD>control+alt+săgeată stânga</TD>
-<TD>Mută cursorul sistemului la coloana anterioară (rămânând pe același rând)</TD>
-</TR>
-<TR>
-<TD>Mută la coloana următoare</TD>
-<TD>control+alt+săgeată dreapta</TD>
-<TD>Mută cursorul sistemului la coloana următoare (rămânând pe același rând)</TD>
-</TR>
-<TR>
-<TD>Mută la rândul anterior</TD>
-<TD>control+alt+săgeată sus</TD>
-<TD>Mută cursorul sistemului la rândul anterior (rămânând pe aceeași coloană)</TD>
-</TR>
-<TR>
-<TD>Mută la rândul următor</TD>
-<TD>control+alt+săgeată jos</TD>
-<TD>Mută cursorul sistemului la rândul următor (rămânând pe aceeași coloană)</TD>
-</TR>
-</TABLE>
-
-<A NAME="NavigareObiect"></A>
-<H3>Navigarea prin obiecte</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Atingere</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Raportează obiectul curent</TD>
-<TD>NVDA+numpad5</TD>
-<TD>NVDA+shift+o</TD>
-<TD>fără</TD>
-<TD>Raportează obiectul navigator curent. Apăsând de două ori pronunță pe litere informația și apăsând de trei ori copiază în planșetă numele și valoarea obiectului.</TD>
-</TR>
-<TR>
-<TD>Navighează la obiectul conținător</TD>
-<TD>NVDA+numpad8</TD>
-<TD>NVDA+shift+săgeată sus</TD>
-<TD>glisează brusc sus (mod obiect)</TD>
-<TD>Navighează la obiectul care îl conține pe obiectul navigator curent</TD>
-</TR>
-<TR>
-<TD>Navighează la obiectul anterior</TD>
-<TD>NVDA+numpad4</TD>
-<TD>NVDA+shift+săgeată stânga</TD>
-<TD>glisează brusc stânga (mod obiect)</TD>
-<TD>Navighează la obiectul anterior obiectului navigator curent</TD>
-</TR>
-<TR>
-<TD>Navighează la obiectul următor</TD>
-<TD>NVDA+numpad6</TD>
-<TD>NVDA+shift+săgeată dreapta</TD>
-<TD>glisează brusc dreapta (mod obiect)</TD>
-<TD>Navighează la obiectul aflat imediat după obiectul navigator curent</TD>
-</TR>
-<TR>
-<TD>Navighează la primul obiect conținut</TD>
-<TD>NVDA+numpad2</TD>
-<TD>NVDA+shift+săgeată jos</TD>
-<TD>glisează brusc jos (mod obiect)</TD>
-<TD>Navighează la primul obiect conținut de obiectul navigator curent</TD>
-</TR>
-<TR>
-<TD>Navighează la obiectul focalizat</TD>
-<TD>NVDA+numpadMinus</TD>
-<TD>NVDA+backspace</TD>
-<TD>fără</TD>
-<TD>Navighează la obiectul pe care se află focalizarea sistemului, și poziționează cursorul de examinare la poziția cursorului de scriere al sistemului, dacă apare</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>NVDA+Enter bloc numeric</TD>
-<TD>NVDA+enter</TD>
-<TD>atingere dublă</TD>
-<TD>Activează obiectul navigator curent (similar cu apăsarea butonului mausului sau apăsarea barei de spațiu când este focalizat)</TD>
-</TR>
-<TR>
-<TD>Mută focalizarea sistemului  sau cursorul de scriere la poziția de examinare curentă</TD>
-<TD>NVDA+shift+numpadMinus</TD>
-<TD>NVDA+shift+backspace</TD>
-<TD>fără</TD>
-<TD>Apăsat o dată mută focalizarea sistemului la obiectul navigator curent, apăsat de două ori mută cursorul de scriere la poziția cursorului de examinare</TD>
-</TR>
-<TR>
-<TD>Raportează locația cursorului de examinare</TD>
-<TD>NVDA+numpadDelete</TD>
-<TD>NVDA+delete</TD>
-<TD>fără</TD>
-<TD>Raportează informații despre locația textului sau a obiectului de la cursorul de examinare. De exemplu aceasta ar putea include procentul de document parcurs, distanța față de marginea paginii sau poziția exactă a ecranului. Apăsând de două ori ar putea furniza și alte detalii.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ExaminareaTextului"></A>
-<H3>Examinarea Textului</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Atingere</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Mută la primul rând în descriere</TD>
-<TD>shift+numpad7</TD>
-<TD>NVDA+control+home</TD>
-<TD>fără</TD>
-<TD>Mută cursorul de examinare la primul rând din text</TD>
-</TR>
-<TR>
-<TD>Mută la rândul anterior din descriere</TD>
-<TD>numpad7</TD>
-<TD>NVDA+săgeată sus</TD>
-<TD>glisează brusc sus (mod text)</TD>
-<TD>Mută cursorul de examinare la rândul anterior din text</TD>
-</TR>
-<TR>
-<TD>Raportează rândul curent în descriere</TD>
-<TD>numpad8</TD>
-<TD>NVDA+shift+.</TD>
-<TD>fără</TD>
-<TD>Anunță rândul curent din text unde se află cursorul de examinare. Apăsând de două ori, pronunță pe cuvinte rândul. Apăsând de trei ori pronunță rândul folosind descrierea caracterelor.</TD>
-</TR>
-<TR>
-<TD>Mută la rândul următor din descriere</TD>
-<TD>numpad9</TD>
-<TD>NVDA+săgeată jos</TD>
-<TD>glisează brusc jos (mod text)</TD>
-<TD>Mută cursorul de examinare la următorul rând din text</TD>
-</TR>
-<TR>
-<TD>Mută la ultimul rând din descriere</TD>
-<TD>shift+numpad9</TD>
-<TD>NVDA+control+end</TD>
-<TD>fără</TD>
-<TD>Mută cursorul de examinare la ultimul rând din text</TD>
-</TR>
-<TR>
-<TD>Mută la cuvântul anterior din descriere</TD>
-<TD>numpad4</TD>
-<TD>NVDA+control+săgeată stânga</TD>
-<TD>glisează brusc stânga cu 2 degete (mod text)</TD>
-<TD>Mută cursorul de examinare la cuvântul anterior din text</TD>
-</TR>
-<TR>
-<TD>Raportează cuvântul curent din descriere</TD>
-<TD>numpad5</TD>
-<TD>NVDA+control+.</TD>
-<TD>fără</TD>
-<TD>Anunță cuvântul curent din text unde se află cursorul de examinare. Apăsând de două ori pronunță pe litere cuvântul. Apăsând de trei ori pronunță cuvântul folosind descrirea caracterelor.</TD>
-</TR>
-<TR>
-<TD>Mută la cuvântul următor din descriere</TD>
-<TD>numpad6</TD>
-<TD>NVDA+control+săgeată dreapta</TD>
-<TD>glisează brusc dreapta cu 2 degete (mod text)</TD>
-<TD>Mută cursorul de examinare la cuvântul următor din text</TD>
-</TR>
-<TR>
-<TD>Mută la începutul rândului din descriere</TD>
-<TD>shift+numpad1</TD>
-<TD>NVDA+home</TD>
-<TD>fără</TD>
-<TD>Mută cursorul de examinare la începutul rândului curent din text</TD>
-</TR>
-<TR>
-<TD>Mută la caracterul anterior din descriere</TD>
-<TD>numpad1</TD>
-<TD>NVDA+săgeată stânga</TD>
-<TD>glisează brusc stânga (mod text)</TD>
-<TD>Mută cursorul de examinare la caracterul anterior de pe rândul curent din text</TD>
-</TR>
-<TR>
-<TD>Raportează caracterul curent din descriere</TD>
-<TD>numpad2</TD>
-<TD>NVDA+.</TD>
-<TD>fără</TD>
-<TD>Anunță caracterul curent de pe rândul unde se află cursorul de examinare. Apăsând de două ori raportează o descriere sau exemplu al acelui caracter. Apăsând de trei ori anunță valoarea numerică a caracterului în zecimale și hexazecimale.</TD>
-</TR>
-<TR>
-<TD>Mută la următorul caracter din descriere</TD>
-<TD>numpad3</TD>
-<TD>NVDA+săgeată dreapta</TD>
-<TD>glisează brusc dreapta (mod text)</TD>
-<TD>Mută cursorul de examinare la următorul caracter de pe rândul curent din text</TD>
-</TR>
-<TR>
-<TD>Mută la sfârșitul rândului din descriere</TD>
-<TD>shift+numpad3</TD>
-<TD>NVDA+end</TD>
-<TD>fără</TD>
-<TD>Mută cursorul de examinare la sfârșitul rândului curent din text</TD>
-</TR>
-<TR>
-<TD>Citește tot din descriere</TD>
-<TD>numpadPlus</TD>
-<TD>NVDA+shift+a</TD>
-<TD>glisează brusc jos cu 3 degete (mod text)</TD>
-<TD>Citește din poziția curentă a cursorului de examinare, deplasându-l pe măsură ce înaintează</TD>
-</TR>
-<TR>
-<TD>Selectează apoi copiază de la cursorul de examinare</TD>
-<TD>NVDA+f9</TD>
-<TD>NVDA+f9</TD>
-<TD>fără</TD>
-<TD>Începe procesul de selectare și copiere de la poziția curentă a cursorului de examinare. Operația propriu-zisă nu este efectuată până nu specificați către NVDA unde se află limita finală a textului</TD>
-</TR>
-<TR>
-<TD>Selectează apoi copiază la cursorul de examinare</TD>
-<TD>NVDA+f10</TD>
-<TD>NVDA+f10</TD>
-<TD>fără</TD>
-<TD>La prima apăsare, se selectează textul începând cu poziția marcată anterior, până la și inclusiv poziția curentă a cursorului de examinare. După apăsarea a doua oară a acestei taste, textul va fi copiat în planșeta Windows</TD>
-</TR>
-<TR>
-<TD>Mută la începutul marcat pentru copia din examinare</TD>
-<TD>NVDA+shift+f9</TD>
-<TD>NVDA+shift+f9</TD>
-<TD>fără</TD>
-<TD>Mută cursorul de examinare la poziția setată anterior ca marcaj de început pentru copie</TD>
-</TR>
-<TR>
-<TD>Raportează formatul textului</TD>
-<TD>NVDA+f</TD>
-<TD>NVDA+f</TD>
-<TD>fără</TD>
-<TD>Anunță formatul textului unde se află cursorul de examinare</TD>
-</TR>
-</TABLE>
-
-<A NAME="ModuriExaminare"></A>
-<H3>Moduri de examinare</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Atingere</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Comută la următorul mod de examinare</TD>
-<TD>NVDA+numpad7</TD>
-<TD>NVDA+pageUp</TD>
-<TD>glisează brusc sus cu 2 degete</TD>
-<TD>Comută la următorul mod de examinare disponibil.</TD>
-</TR>
-<TR>
-<TD>Comută la modul de examinare anterior</TD>
-<TD>NVDA+numpad1</TD>
-<TD>NVDA+pageDown</TD>
-<TD>glisează brusc jos cu 2 degete</TD>
-<TD>Comută la anteriorul mod de examinare disponibil.</TD>
-</TR>
-</TABLE>
-
-<A NAME="NavigatingWithTheMouse"></A>
-<H3>Navigarea cu mausul</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>clic pe butonul stânga al mausului</TD>
-<TD>numpad Împărțire</TD>
-<TD>NVDA+[</TD>
-<TD>face clic o dată pe butonul stânga al mausului. Obișnuitul dublu clic poate fi realizat apăsând această tastă de două ori rapid</TD>
-</TR>
-<TR>
-<TD>Blocarea butonului stânga al mausului</TD>
-<TD>shift+numpad Împărțire</TD>
-<TD>NVDA+control+[</TD>
-<TD>Blochează butonul stânga al mausului pe apăsat. Apăsați încă o dată pentru deblocare. Pentru a trage mausul, apăsați această tastă pentru blocarea butonului stânga al mausului și apoi mișcați mausul fie fizic, fie folosind una dintre celelalte comenzi de emulare a mausului</TD>
-</TR>
-<TR>
-<TD>clic pe butonul dreapta al mausului</TD>
-<TD>numpadÎnmulțire</TD>
-<TD>NVDA+]</TD>
-<TD>Face clic o dată pe butonul dreapta al mausului.</TD>
-</TR>
-<TR>
-<TD>Blocarea butonului dreapta al mausului</TD>
-<TD>shift+numpad Înmulțire</TD>
-<TD>NVDA+control+]</TD>
-<TD>Blochează butonul dreapta al mausului apăsat. Apăsați încă o dată pentru deblocare. Pentru a trage mausul, apăsați această tastă pentru blocarea butonului dreapta al mausului și apoi mișcați mausul fie fizic, fie folosind una dintre celelalte comenzi de emulare a mausului</TD>
-</TR>
-<TR>
-<TD>Mută mausul la obiectul navigator curent</TD>
-<TD>NVDA+numpad Împărțire</TD>
-<TD>NVDA+shift+m</TD>
-<TD>Mută mausul la locația obiectului navigator curent și al cursorului de examinare</TD>
-</TR>
-<TR>
-<TD>Navighează la obiectul de sub maus</TD>
-<TD>NVDA+numpad Înmulțire</TD>
-<TD>NVDA+shift+n</TD>
-<TD>Pune obiectul navigator pe obiectul aflat la poziția mausului</TD>
-</TR>
-</TABLE>
-
-<A NAME="ModNavigare"></A>
-<H2>Modul de navigare</H2>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Comută între modurile navigare/formular</TD>
-<TD>NVDA+spațiu</TD>
-<TD>Schimbă între modul formular și modul navigare</TD>
-</TR>
-<TR>
-<TD>Iese din modul formular</TD>
-<TD>Escape</TD>
-<TD>schimbă înapoi în modul navigare dacă anterior s-a trecut automat în modul formular</TD>
-</TR>
-<TR>
-<TD>Împrospătează document în mod navigare</TD>
-<TD>NVDA+F5</TD>
-<TD>Reîncarcă documentul curent (util dacă anumite părți par să lipsească din document, Indisponibil în Microsoft Word sau Outlook.)</TD>
-</TR>
-<TR>
-<TD>Găsește</TD>
-<TD>NVDA+control+f</TD>
-<TD>Afișează o fereastră de dialog în care puteți scrie un text pentru a fi găsit în documentul curent. Vedeți <A HREF="#SearchingForText">căutarea textului</A> pentru mai multe informații.</TD>
-</TR>
-<TR>
-<TD>Găsește următor</TD>
-<TD>NVDA+f3</TD>
-<TD>Găsește apariția următoare în document a textului care a fost căutat anterior</TD>
-</TR>
-<TR>
-<TD>Găsește anterior</TD>
-<TD>NVDA+shift+f3</TD>
-<TD>Găsește apariția anterioară în document a textului care a fost căutat anterior</TD>
-</TR>
-<TR>
-<TD>deschide descriere amplă</TD>
-<TD>NVDA+d</TD>
-<TD>Deschide o fereastră nouă ce conține o descriere amplă a elementului pe care sunteți, în caz că acesta are o astfel de descriere.</TD>
-</TR>
-</TABLE>
-
-<A NAME="SingleLetterNavigation"></A>
-<H3>Navigarea cu o singură literă</H3>
-<P>
-Următoarele taste trec direct la elementul următor disponibil, iar combinându-le cu tasta Shift se face trecerea la elementul anterior:
-</P>
-<UL>
-<LI>h: rubrică (h din englezescul heading)
-<LI>l: listă
-<LI>i: element din listă (i de la item)
-<LI>t: tabel
-<LI>k: legătură/link
-<LI>n: text fără legături (n de la non-link)
-<LI>f: câmp din formular
-<LI>u: legătură nevizitată (u de la unvisited)
-<LI>v: legătură vizitată
-<LI>e: câmp de editare
-<LI>b: buton
-<LI>x: casetă pentru bifat (x similar cu marcajul unei bife)
-<LI>c: listă de selecție (c de la combo box, casetă combinată)
-<LI>r: buton rotativ
-<LI>q: citat bloc (q de la quote)
-<LI>s: separator
-<LI>m: cadru/frame
-<LI>g: grafic
-<LI>d: reper
-<LI>o: obiect încorporat
-<LI>1 la 6: rubrici de nivel de la 1 la 6, respectiv
-<LI>a: adnotare (comentariu, editor, versiune, etc.)
-<LI>w: eroare de ortografie
-</UL>
-
-<P>
-Pentru mutarea la începutul sau sfârșitul elementelor cu conținut cum ar fi liste sau tabele:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Mută la începutul obiectului conținător</TD>
-<TD>shift+virgulă</TD>
-<TD>Mută la începutul conținătorului (listă, tabel, etc.) pe care este poziționat cursorul de scriere</TD>
-</TR>
-<TR>
-<TD>Mută după capătul obiectului conținător</TD>
-<TD>virgulă</TD>
-<TD>Mută după capătul conținătorului (listă, tabel, etc.) pe care este poziționat cursorul de scriere</TD>
-</TR>
-</TABLE>
-
-<P>
-Pentru a comuta navigarea cu o singură literă în activat sau dezactivat pentru documentul curent, apăsați NVDA+shift+spațiu.
-</P>
-<A NAME="ElementsList"></A>
-<H3>Lista cu elemente</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Lista elementelor în modul navigare</TD>
-<TD>NVDA+f7</TD>
-<TD>Afișează lista diferitelor tipuri de elemente din documentul curent</TD>
-</TR>
-</TABLE>
-
-<A NAME="SearchingForText"></A>
-<H3>Căutarea textului</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Caută text</TD>
-<TD>NVDA+control+f</TD>
-<TD>Deschide fereastra de căutare</TD>
-</TR>
-<TR>
-<TD>Caută următor</TD>
-<TD>NVDA+f3</TD>
-<TD>Caută următoarea apariție a termenului căutat</TD>
-</TR>
-<TR>
-<TD>Caută anterior</TD>
-<TD>NVDA+shift+f3</TD>
-<TD>Caută apariția precedentă a termenului căutat</TD>
-</TR>
-</TABLE>
-
-<A NAME="ImbeddedObjects"></A>
-<H3>Obiecte încorporate</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Trece în mod navigare la documentul care conține obiectul</TD>
-<TD>NVDA+control+spațiu</TD>
-<TD>Mută focalizarea în afară obiectului incorporat curent și în documentul care îl conține</TD>
-</TR>
-</TABLE>
-
-<A NAME="CitireMatematica"></A>
-<H2>Citirea conținutului matematic</H2>
-<A NAME="InteractiveNavigation"></A>
-<H3>Navigarea interactivă</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Interacțiune cu conținut matematic</TD>
-<TD>NVDA+alt+m</TD>
-<TD>Începe interacțiunea cu conținutul matematic.</TD>
-</TR>
-</TABLE>
-
-<A NAME="BrailleSupport"></A>
-<H2>Braille</H2>
-<A NAME="BrailleInput"></A>
-<H3>Intrări braille</H3>
-<P>
-Apăsarea punctului 7 șterge ultima celulă sau ultimul caracter braille introdus.
+</head>
+<body><h1 id="nvda-20243-trimitere-rapida-la-comenzi">NVDA 2024.3 Trimitere rapidă la comenzi</h1>
+<div class="toc">
+<ul>
+<li><a href="#nvda-20243-trimitere-rapida-la-comenzi" title="NVDA 2024.3 Trimitere rapidă la comenzi">NVDA 2024.3 Trimitere rapidă la comenzi</a><ul>
+<li><a href="#PrimiiPasiNVDA" title="Primii pași în NVDA">Primii pași în NVDA</a><ul>
+<li><a href="#NVDATouchGestures" title="Gesturi NVDA pentru ecrane tactile">Gesturi NVDA pentru ecrane tactile</a><ul>
+<li><a href="#TouchModes" title="Moduri de atingere">Moduri de atingere</a></li>
+</ul>
+</li>
+<li><a href="#BasicNVDACommands" title="Comenzi NVDA de bază">Comenzi NVDA de bază</a></li>
+<li><a href="#ReportingSystemInformation" title="Raportarea informațiilor de sistem">Raportarea informațiilor de sistem</a></li>
+</ul>
+</li>
+<li><a href="#NavigatingWithNVDA" title="Navigarea cu NVDA">Navigarea cu NVDA</a><ul>
+<li><a href="#FocalizareSistem" title="Navigarea cu focalizarea sistemului">Navigarea cu focalizarea sistemului</a></li>
+<li><a href="#CursorScriereSistem" title="Navigarea cu cursorul de scriere al sistemului">Navigarea cu cursorul de scriere al sistemului</a></li>
+<li><a href="#NavigareObiect" title="Navigarea prin obiecte">Navigarea prin obiecte</a></li>
+<li><a href="#ExaminareaTextului" title="Examinarea Textului">Examinarea Textului</a></li>
+<li><a href="#ModuriExaminare" title="Moduri de examinare">Moduri de examinare</a></li>
+<li><a href="#NavigatingWithTheMouse" title="Navigarea cu mausul">Navigarea cu mausul</a></li>
+</ul>
+</li>
+<li><a href="#ModNavigare" title="Modul de navigare">Modul de navigare</a><ul>
+<li><a href="#SingleLetterNavigation" title="Navigarea cu o singură literă">Navigarea cu o singură literă</a></li>
+<li><a href="#ElementsList" title="Lista cu elemente">Lista cu elemente</a></li>
+<li><a href="#SearchingForText" title="Căutarea textului">Căutarea textului</a></li>
+<li><a href="#ImbeddedObjects" title="Obiecte încorporate">Obiecte încorporate</a></li>
+</ul>
+</li>
+<li><a href="#CitireMatematica" title="Citirea conținutului matematic">Citirea conținutului matematic</a><ul>
+<li><a href="#InteractiveNavigation" title="Navigarea interactivă">Navigarea interactivă</a></li>
+</ul>
+</li>
+<li><a href="#BrailleSupport" title="Braille">Braille</a><ul>
+<li><a href="#BrailleInput" title="Intrări braille">Intrări braille</a></li>
+</ul>
+</li>
+<li><a href="#ContentRecognition" title="Recunoașterea de conținut">Recunoașterea de conținut</a><ul>
+<li><a href="#Win10Ocr" title="Windows 10 OCR">Windows 10 OCR</a></li>
+</ul>
+</li>
+<li><a href="#ApplicationSpecificFeatures" title="Funcționalități specifice aplicației">Funcționalități specifice aplicației</a><ul>
+<li><a href="#MicrosoftWord" title="Microsoft Word">Microsoft Word</a><ul>
+<li><a href="#WordAutomaticColumnAndRowHeaderReading" title="Citire automată a anteturilor de rând și coloană">Citire automată a anteturilor de rând și coloană</a></li>
+<li><a href="#BrowseModeInMicrosoftWord" title="Mod navigare în Microsoft Word">Mod navigare în Microsoft Word</a><ul>
+<li><a href="#WordElementsList" title="Lista de elemente">Lista de elemente</a></li>
+</ul>
+</li>
+<li><a href="#WordReportingComments" title="Raportarea comentariilor">Raportarea comentariilor</a></li>
+</ul>
+</li>
+<li><a href="#MicrosoftExcel" title="Microsoft Excel">Microsoft Excel</a><ul>
+<li><a href="#ExcelAutomaticColumnAndRowHeaderReading" title="Citire automată a antetului de rând și de coloană">Citire automată a antetului de rând și de coloană</a></li>
+<li><a href="#ExcelElementsList" title="Lista de elemente">Lista de elemente</a></li>
+<li><a href="#ExcelReportingComments" title="Raportarea comentariilor">Raportarea comentariilor</a></li>
+<li><a href="#ExcelReadingProtectedCells" title="Citirea celulelor protejate">Citirea celulelor protejate</a></li>
+</ul>
+</li>
+<li><a href="#MicrosoftPowerPoint" title="Microsoft PowerPoint">Microsoft PowerPoint</a></li>
+<li><a href="#Foobar2000" title="foobar2000">foobar2000</a></li>
+<li><a href="#MirandaIM" title="Miranda IM">Miranda IM</a></li>
+<li><a href="#Poedit" title="Poedit">Poedit</a></li>
+<li><a href="#Skype" title="Skype">Skype</a></li>
+<li><a href="#Kindle" title="Kindle pentru PC">Kindle pentru PC</a><ul>
+<li><a href="#KindleTextSelection" title="Selectarea textului">Selectarea textului</a></li>
+</ul>
+</li>
+<li><a href="#Azardi" title="Azardi">Azardi</a></li>
+<li><a href="#WinConsole" title="Consola Windows">Consola Windows</a></li>
+</ul>
+</li>
+<li><a href="#ConfiguringNVDA" title="Configurarea NVDA">Configurarea NVDA</a><ul>
+<li><a href="#NVDASettings" title="Setările NVDA">Setările NVDA</a><ul>
+<li><a href="#SpeechSettings" title="Setări Vorbire (NVDA+control+v)">Setări Vorbire (NVDA+control+v)</a></li>
+<li><a href="#SelectSynthesizer" title="Selectarea sintetizatorului (NVDA+control+s)">Selectarea sintetizatorului (NVDA+control+s)</a></li>
+<li><a href="#InelSetariSintetizator" title="Inelul setărilor sintetizatorului">Inelul setărilor sintetizatorului</a></li>
+<li><a href="#SetariBraille" title="Braille">Braille</a></li>
+<li><a href="#KeyboardSettings" title="Tastatură (NVDA+control+k)">Tastatură (NVDA+control+k)</a></li>
+<li><a href="#OptiuniMaus" title="Maus (NVDA+control+m)">Maus (NVDA+control+m)</a></li>
+<li><a href="#ReviewCursorSettings" title="Cursor de examinare">Cursor de examinare</a></li>
+<li><a href="#ObjectPresentationSettings" title="Prezentare obiect (NVDA+control+o)">Prezentare obiect (NVDA+control+o)</a></li>
+<li><a href="#BrowseModeSettings" title="Mod de navigare (NVDA+control+b)">Mod de navigare (NVDA+control+b)</a></li>
+</ul>
+</li>
+<li><a href="#SavingAndReloading" title="Salvarea și reîncărcarea configurației">Salvarea și reîncărcarea configurației</a></li>
+<li><a href="#ConfigurationProfiles" title="Configurarea profilurilor">Configurarea profilurilor</a><ul>
+<li><a href="#ProfilesBasicManagement" title="Idei fundamentale de administrare">Idei fundamentale de administrare</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#SupportedBrailleDisplays" title="Afișajele Braille compatibile">Afișajele Braille compatibile</a><ul>
+<li><a href="#FreedomScientificFocus" title="Freedom Scientific gamele Focus/PAC Mate">Freedom Scientific gamele Focus/PAC Mate</a></li>
+<li><a href="#OptelecALVA" title="Optelec ALVA seria 6/convertor de protocol">Optelec ALVA seria 6/convertor de protocol</a></li>
+<li><a href="#HandyTech" title="Afișajele Handy Tech">Afișajele Handy Tech</a></li>
+<li><a href="#MDVLilli" title="MDV Lilli">MDV Lilli</a></li>
+<li><a href="#Baum" title="Afișaje braille Baum/Humanware/APH/Orbit">Afișaje braille Baum/Humanware/APH/Orbit</a></li>
+<li><a href="#HedoProfiLine" title="hedo ProfiLine USB">hedo ProfiLine USB</a></li>
+<li><a href="#HedoMobilLine" title="hedo MobilLine USB">hedo MobilLine USB</a></li>
+<li><a href="#HumanWareBrailliant" title="HumanWare Brailliant seriile BI/B / BrailleNote Touch">HumanWare Brailliant seriile BI/B / BrailleNote Touch</a><ul>
+<li><a href="#toc249" title="Asocieri de taste pentru toate modelele">Asocieri de taste pentru toate modelele</a></li>
+<li><a href="#toc250" title="Asocieri de taste pentru Brailliant BI 32, BI 40 și B 80">Asocieri de taste pentru Brailliant BI 32, BI 40 și B 80</a></li>
+<li><a href="#toc251" title="Asocieri de taste pentru Brailliant BI 14">Asocieri de taste pentru Brailliant BI 14</a></li>
+</ul>
+</li>
+<li><a href="#Hims" title="HIMS gamele Braille Sense/Braille EDGE/Smart Beetle Sync Braille">HIMS gamele Braille Sense/Braille EDGE/Smart Beetle Sync Braille</a></li>
+<li><a href="#toc253" title="HIMS SyncBraille">HIMS SyncBraille</a></li>
+<li><a href="#Seika" title="Afișaje Braille Seika">Afișaje Braille Seika</a></li>
+<li><a href="#Papenmeier" title="Modelele mai noi Papenmeier BRAILLEX">Modelele mai noi Papenmeier BRAILLEX</a></li>
+<li><a href="#PapenmeierOld" title="Modele mai vechi Papenmeier Braille BRAILLEX">Modele mai vechi Papenmeier Braille BRAILLEX</a></li>
+<li><a href="#HumanWareBrailleNote" title="HumanWare BrailleNote">HumanWare BrailleNote</a></li>
+<li><a href="#EcoBraille" title="EcoBraille">EcoBraille</a></li>
+<li><a href="#SuperBraille" title="SuperBraille">SuperBraille</a></li>
+<li><a href="#Eurobraille" title="Afișajele Eurobraille Esys/Esytime/Iris">Afișajele Eurobraille Esys/Esytime/Iris</a></li>
+<li><a href="#NattiqTechnologies" title="Nattiq nBraille Displays">Nattiq nBraille Displays</a></li>
+<li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="PrimiiPasiNVDA">Primii pași în NVDA</h2>
+<h3 id="NVDATouchGestures">Gesturi NVDA pentru ecrane tactile</h3>
+<h4 id="TouchModes">Moduri de atingere</h4>
+<p>Pentru a comuta între modurile de atingere, efectuați o atingere cu trei degete.</p>
+<h3 id="BasicNVDACommands">Comenzi NVDA de bază</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Atingere</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oprește vorbire</td>
+<td>Control</td>
+<td>control</td>
+<td>atingere cu 2 degete</td>
+<td>Oprește imediat vorbirea</td>
+</tr>
+<tr>
+<td>Pauză pentru vorbire</td>
+<td>Shift</td>
+<td>Shift</td>
+<td>fără</td>
+<td>Pune vorbirea pe pauză imediat. Apăsând încă o dată va continua să vorbească de unde a rămas (dacă pauza este suportată de sintetizatorul curent)</td>
+</tr>
+<tr>
+<td>Meniu NVDA</td>
+<td>NVDA+n</td>
+<td>NVDA+n</td>
+<td>atingere dublă cu 2 degete</td>
+<td>Afișează meniul NVDA pentru a vă permite să accesați preferințe, instrumente, ajutor, etc</td>
+</tr>
+<tr>
+<td>Comută modul vorbire</td>
+<td>NVDA+s</td>
+<td>NVDA+s</td>
+<td>fără</td>
+<td>Comută modul vorbire pe una din variantele: vorbire, bipuri și dezactivat.</td>
+</tr>
+<tr>
+<td>Comută modul de ajutor pentru intrări</td>
+<td>NVDA+1</td>
+<td>NVDA+1</td>
+<td>fără</td>
+<td>Apăsând orice tastă în acest mod se va anunța tasta și descrierea oricărei comenzi NVDA asociată cu ea</td>
+</tr>
+<tr>
+<td>Închide NVDA</td>
+<td>NVDA+q</td>
+<td>NVDA+q</td>
+<td>fără</td>
+<td>Se iese din NVDA</td>
+</tr>
+<tr>
+<td>Trimite fără interceptare următoarea tastă</td>
+<td>NVDA+f2</td>
+<td>NVDA+f2</td>
+<td>fără</td>
+<td>Face ca NVDA să trimită următoarea tastă apăsată direct la aplicația activă, chiar dacă în mod normal este tratată ca o tastă de comandă NVDA</td>
+</tr>
+<tr>
+<td>Comută aplicația în modul de repaus</td>
+<td>NVDA+shift+s</td>
+<td>NVDA+shift+z</td>
+<td>fără</td>
+<td>Modul de repaus dezactivează toate comenzile NVDA și ieșirile de vorbire sau braille pentru aplicația curentă. Modul este foarte folositor pentru aplicații care furnizează funcționalități proprii de vorbire sau citire a ecranului. Apăsați comanda din nou pentru a dezactiva modul de repaus.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ReportingSystemInformation">Raportarea informațiilor de sistem</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță dată/oră</td>
+<td>NVDA+f12</td>
+<td>Apăsând o dată se anunță ora curentă, apăsând de două ori se va anunța data</td>
+</tr>
+<tr>
+<td>Anunță starea bateriei</td>
+<td>NVDA+shift+b</td>
+<td>Anunță starea bateriei, de ex. dacă se folosește sursa de rețea sau procentul curent de încărcare.</td>
+</tr>
+<tr>
+<td>Anunță textul din planșetă</td>
+<td>NVDA+c</td>
+<td>Anunță textul salvat în planșetă, dacă există.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="NavigatingWithNVDA">Navigarea cu NVDA</h2>
+<h3 id="FocalizareSistem">Navigarea cu focalizarea sistemului</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raportează focalizarea curentă</td>
+<td>NVDA+tab</td>
+<td>NVDA+tab</td>
+<td>Anunță obiectul sau controlul curent focalizat. Apăsând de două ori va pronunța pe litere informația</td>
+</tr>
+<tr>
+<td>Raportează titlu</td>
+<td>NVDA+t</td>
+<td>NVDA+t</td>
+<td>Anunță titlul ferestrei active. Apăsând de două ori va pronunța pe litere informația. Apăsând de trei ori o va copia pe planșetă</td>
+</tr>
+<tr>
+<td>Citește fereastra activă</td>
+<td>NVDA+b</td>
+<td>NVDA+b</td>
+<td>Citește toate controalele din fereastra curent activă (util pentru ferestrele de dialog)</td>
+</tr>
+<tr>
+<td>Raportează bara de stare</td>
+<td>NVDA+end</td>
+<td>NVDA+shift+end</td>
+<td>Raportează bara de stare, dacă este găsită de NVDA. În plus mută obiectul navigator la această poziție. Apăsând de două ori va pronunța informația pe litere. Apăsând de trei ori o va copia pe planșetă</td>
+</tr>
+</tbody>
+</table>
+<h3 id="CursorScriereSistem">Navigarea cu cursorul de scriere al sistemului</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pronunță tot</td>
+<td>NVDA+săgeată jos</td>
+<td>NVDA+a</td>
+<td>Începe citirea din poziția curentă a cursorului de scriere, deplasându-l pe măsură ce înaintează</td>
+</tr>
+<tr>
+<td>Citește rândul curent</td>
+<td>NVDA+săgeată sus</td>
+<td>NVDA+l</td>
+<td>Citește rândul unde se află cursorul de scriere. Apăsând de două ori pronunță caracterele rândului. Apăsând de trei ori citește rândul utilizând descrieri de caractere.</td>
+</tr>
+<tr>
+<td>Citește textul selectat</td>
+<td>NVDA+Shift+săgeată sus</td>
+<td>NVDA+shift+s</td>
+<td>Citește orice text selectat</td>
+</tr>
+<tr>
+<td>Următoarea propoziție</td>
+<td>alt+săgeată jos</td>
+<td>alt+săgeată jos</td>
+<td>Mută cursorul de scriere la următoare propoziție și o anunță. (disponibil doar în Microsoft Word și Outlook)</td>
+</tr>
+<tr>
+<td>Propoziția precedentă</td>
+<td>alt+săgeată sus</td>
+<td>alt+săgeată sus</td>
+<td>Mută cursorul de scriere la propoziția precedentă și o anunță. (disponibil doar în Microsoft Word și Outlook)</td>
+</tr>
+</tbody>
+</table>
+<p>Când vă aflați într-un tabel, sunt disponibile următoarele comenzi din taste:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mută la coloana anterioară</td>
+<td>control+alt+săgeată stânga</td>
+<td>Mută cursorul sistemului la coloana anterioară (rămânând pe același rând)</td>
+</tr>
+<tr>
+<td>Mută la coloana următoare</td>
+<td>control+alt+săgeată dreapta</td>
+<td>Mută cursorul sistemului la coloana următoare (rămânând pe același rând)</td>
+</tr>
+<tr>
+<td>Mută la rândul anterior</td>
+<td>control+alt+săgeată sus</td>
+<td>Mută cursorul sistemului la rândul anterior (rămânând pe aceeași coloană)</td>
+</tr>
+<tr>
+<td>Mută la rândul următor</td>
+<td>control+alt+săgeată jos</td>
+<td>Mută cursorul sistemului la rândul următor (rămânând pe aceeași coloană)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NavigareObiect">Navigarea prin obiecte</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Atingere</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raportează obiectul curent</td>
+<td>NVDA+numpad5</td>
+<td>NVDA+shift+o</td>
+<td>fără</td>
+<td>Raportează obiectul navigator curent. Apăsând de două ori pronunță pe litere informația și apăsând de trei ori copiază în planșetă numele și valoarea obiectului.</td>
+</tr>
+<tr>
+<td>Navighează la obiectul conținător</td>
+<td>NVDA+numpad8</td>
+<td>NVDA+shift+săgeată sus</td>
+<td>glisează brusc sus (mod obiect)</td>
+<td>Navighează la obiectul care îl conține pe obiectul navigator curent</td>
+</tr>
+<tr>
+<td>Navighează la obiectul anterior</td>
+<td>NVDA+numpad4</td>
+<td>NVDA+shift+săgeată stânga</td>
+<td>glisează brusc stânga (mod obiect)</td>
+<td>Navighează la obiectul anterior obiectului navigator curent</td>
+</tr>
+<tr>
+<td>Navighează la obiectul următor</td>
+<td>NVDA+numpad6</td>
+<td>NVDA+shift+săgeată dreapta</td>
+<td>glisează brusc dreapta (mod obiect)</td>
+<td>Navighează la obiectul aflat imediat după obiectul navigator curent</td>
+</tr>
+<tr>
+<td>Navighează la primul obiect conținut</td>
+<td>NVDA+numpad2</td>
+<td>NVDA+shift+săgeată jos</td>
+<td>glisează brusc jos (mod obiect)</td>
+<td>Navighează la primul obiect conținut de obiectul navigator curent</td>
+</tr>
+<tr>
+<td>Navighează la obiectul focalizat</td>
+<td>NVDA+numpadMinus</td>
+<td>NVDA+backspace</td>
+<td>fără</td>
+<td>Navighează la obiectul pe care se află focalizarea sistemului, și poziționează cursorul de examinare la poziția cursorului de scriere al sistemului, dacă apare</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>NVDA+Enter bloc numeric</td>
+<td>NVDA+enter</td>
+<td>atingere dublă</td>
+<td>Activează obiectul navigator curent (similar cu apăsarea butonului mausului sau apăsarea barei de spațiu când este focalizat)</td>
+</tr>
+<tr>
+<td>Mută focalizarea sistemului  sau cursorul de scriere la poziția de examinare curentă</td>
+<td>NVDA+shift+numpadMinus</td>
+<td>NVDA+shift+backspace</td>
+<td>fără</td>
+<td>Apăsat o dată mută focalizarea sistemului la obiectul navigator curent, apăsat de două ori mută cursorul de scriere la poziția cursorului de examinare</td>
+</tr>
+<tr>
+<td>Raportează locația cursorului de examinare</td>
+<td>NVDA+numpadDelete</td>
+<td>NVDA+delete</td>
+<td>fără</td>
+<td>Raportează informații despre locația textului sau a obiectului de la cursorul de examinare. De exemplu aceasta ar putea include procentul de document parcurs, distanța față de marginea paginii sau poziția exactă a ecranului. Apăsând de două ori ar putea furniza și alte detalii.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ExaminareaTextului">Examinarea Textului</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Atingere</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mută la primul rând în descriere</td>
+<td>shift+numpad7</td>
+<td>NVDA+control+home</td>
+<td>fără</td>
+<td>Mută cursorul de examinare la primul rând din text</td>
+</tr>
+<tr>
+<td>Mută la rândul anterior din descriere</td>
+<td>numpad7</td>
+<td>NVDA+săgeată sus</td>
+<td>glisează brusc sus (mod text)</td>
+<td>Mută cursorul de examinare la rândul anterior din text</td>
+</tr>
+<tr>
+<td>Raportează rândul curent în descriere</td>
+<td>numpad8</td>
+<td>NVDA+shift+.</td>
+<td>fără</td>
+<td>Anunță rândul curent din text unde se află cursorul de examinare. Apăsând de două ori, pronunță pe cuvinte rândul. Apăsând de trei ori pronunță rândul folosind descrierea caracterelor.</td>
+</tr>
+<tr>
+<td>Mută la rândul următor din descriere</td>
+<td>numpad9</td>
+<td>NVDA+săgeată jos</td>
+<td>glisează brusc jos (mod text)</td>
+<td>Mută cursorul de examinare la următorul rând din text</td>
+</tr>
+<tr>
+<td>Mută la ultimul rând din descriere</td>
+<td>shift+numpad9</td>
+<td>NVDA+control+end</td>
+<td>fără</td>
+<td>Mută cursorul de examinare la ultimul rând din text</td>
+</tr>
+<tr>
+<td>Mută la cuvântul anterior din descriere</td>
+<td>numpad4</td>
+<td>NVDA+control+săgeată stânga</td>
+<td>glisează brusc stânga cu 2 degete (mod text)</td>
+<td>Mută cursorul de examinare la cuvântul anterior din text</td>
+</tr>
+<tr>
+<td>Raportează cuvântul curent din descriere</td>
+<td>numpad5</td>
+<td>NVDA+control+.</td>
+<td>fără</td>
+<td>Anunță cuvântul curent din text unde se află cursorul de examinare. Apăsând de două ori pronunță pe litere cuvântul. Apăsând de trei ori pronunță cuvântul folosind descrirea caracterelor.</td>
+</tr>
+<tr>
+<td>Mută la cuvântul următor din descriere</td>
+<td>numpad6</td>
+<td>NVDA+control+săgeată dreapta</td>
+<td>glisează brusc dreapta cu 2 degete (mod text)</td>
+<td>Mută cursorul de examinare la cuvântul următor din text</td>
+</tr>
+<tr>
+<td>Mută la începutul rândului din descriere</td>
+<td>shift+numpad1</td>
+<td>NVDA+home</td>
+<td>fără</td>
+<td>Mută cursorul de examinare la începutul rândului curent din text</td>
+</tr>
+<tr>
+<td>Mută la caracterul anterior din descriere</td>
+<td>numpad1</td>
+<td>NVDA+săgeată stânga</td>
+<td>glisează brusc stânga (mod text)</td>
+<td>Mută cursorul de examinare la caracterul anterior de pe rândul curent din text</td>
+</tr>
+<tr>
+<td>Raportează caracterul curent din descriere</td>
+<td>numpad2</td>
+<td>NVDA+.</td>
+<td>fără</td>
+<td>Anunță caracterul curent de pe rândul unde se află cursorul de examinare. Apăsând de două ori raportează o descriere sau exemplu al acelui caracter. Apăsând de trei ori anunță valoarea numerică a caracterului în zecimale și hexazecimale.</td>
+</tr>
+<tr>
+<td>Mută la următorul caracter din descriere</td>
+<td>numpad3</td>
+<td>NVDA+săgeată dreapta</td>
+<td>glisează brusc dreapta (mod text)</td>
+<td>Mută cursorul de examinare la următorul caracter de pe rândul curent din text</td>
+</tr>
+<tr>
+<td>Mută la sfârșitul rândului din descriere</td>
+<td>shift+numpad3</td>
+<td>NVDA+end</td>
+<td>fără</td>
+<td>Mută cursorul de examinare la sfârșitul rândului curent din text</td>
+</tr>
+<tr>
+<td>Citește tot din descriere</td>
+<td>numpadPlus</td>
+<td>NVDA+shift+a</td>
+<td>glisează brusc jos cu 3 degete (mod text)</td>
+<td>Citește din poziția curentă a cursorului de examinare, deplasându-l pe măsură ce înaintează</td>
+</tr>
+<tr>
+<td>Selectează apoi copiază de la cursorul de examinare</td>
+<td>NVDA+f9</td>
+<td>NVDA+f9</td>
+<td>fără</td>
+<td>Începe procesul de selectare și copiere de la poziția curentă a cursorului de examinare. Operația propriu-zisă nu este efectuată până nu specificați către NVDA unde se află limita finală a textului</td>
+</tr>
+<tr>
+<td>Selectează apoi copiază la cursorul de examinare</td>
+<td>NVDA+f10</td>
+<td>NVDA+f10</td>
+<td>fără</td>
+<td>La prima apăsare, se selectează textul începând cu poziția marcată anterior, până la și inclusiv poziția curentă a cursorului de examinare. După apăsarea a doua oară a acestei taste, textul va fi copiat în planșeta Windows</td>
+</tr>
+<tr>
+<td>Mută la începutul marcat pentru copia din examinare</td>
+<td>NVDA+shift+f9</td>
+<td>NVDA+shift+f9</td>
+<td>fără</td>
+<td>Mută cursorul de examinare la poziția setată anterior ca marcaj de început pentru copie</td>
+</tr>
+<tr>
+<td>Raportează formatul textului</td>
+<td>NVDA+f</td>
+<td>NVDA+f</td>
+<td>fără</td>
+<td>Anunță formatul textului unde se află cursorul de examinare</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ModuriExaminare">Moduri de examinare</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Atingere</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comută la următorul mod de examinare</td>
+<td>NVDA+numpad7</td>
+<td>NVDA+pageUp</td>
+<td>glisează brusc sus cu 2 degete</td>
+<td>Comută la următorul mod de examinare disponibil.</td>
+</tr>
+<tr>
+<td>Comută la modul de examinare anterior</td>
+<td>NVDA+numpad1</td>
+<td>NVDA+pageDown</td>
+<td>glisează brusc jos cu 2 degete</td>
+<td>Comută la anteriorul mod de examinare disponibil.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NavigatingWithTheMouse">Navigarea cu mausul</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clic pe butonul stânga al mausului</td>
+<td>numpad Împărțire</td>
+<td>NVDA+[</td>
+<td>face clic o dată pe butonul stânga al mausului. Obișnuitul dublu clic poate fi realizat apăsând această tastă de două ori rapid</td>
+</tr>
+<tr>
+<td>Blocarea butonului stânga al mausului</td>
+<td>shift+numpad Împărțire</td>
+<td>NVDA+control+[</td>
+<td>Blochează butonul stânga al mausului pe apăsat. Apăsați încă o dată pentru deblocare. Pentru a trage mausul, apăsați această tastă pentru blocarea butonului stânga al mausului și apoi mișcați mausul fie fizic, fie folosind una dintre celelalte comenzi de emulare a mausului</td>
+</tr>
+<tr>
+<td>clic pe butonul dreapta al mausului</td>
+<td>numpadÎnmulțire</td>
+<td>NVDA+]</td>
+<td>Face clic o dată pe butonul dreapta al mausului.</td>
+</tr>
+<tr>
+<td>Blocarea butonului dreapta al mausului</td>
+<td>shift+numpad Înmulțire</td>
+<td>NVDA+control+]</td>
+<td>Blochează butonul dreapta al mausului apăsat. Apăsați încă o dată pentru deblocare. Pentru a trage mausul, apăsați această tastă pentru blocarea butonului dreapta al mausului și apoi mișcați mausul fie fizic, fie folosind una dintre celelalte comenzi de emulare a mausului</td>
+</tr>
+<tr>
+<td>Mută mausul la obiectul navigator curent</td>
+<td>NVDA+numpad Împărțire</td>
+<td>NVDA+shift+m</td>
+<td>Mută mausul la locația obiectului navigator curent și al cursorului de examinare</td>
+</tr>
+<tr>
+<td>Navighează la obiectul de sub maus</td>
+<td>NVDA+numpad Înmulțire</td>
+<td>NVDA+shift+n</td>
+<td>Pune obiectul navigator pe obiectul aflat la poziția mausului</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ModNavigare">Modul de navigare</h2>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comută între modurile navigare/formular</td>
+<td>NVDA+spațiu</td>
+<td>Schimbă între modul formular și modul navigare</td>
+</tr>
+<tr>
+<td>Iese din modul formular</td>
+<td>Escape</td>
+<td>schimbă înapoi în modul navigare dacă anterior s-a trecut automat în modul formular</td>
+</tr>
+<tr>
+<td>Împrospătează document în mod navigare</td>
+<td>NVDA+F5</td>
+<td>Reîncarcă documentul curent (util dacă anumite părți par să lipsească din document, Indisponibil în Microsoft Word sau Outlook.)</td>
+</tr>
+<tr>
+<td>Găsește</td>
+<td>NVDA+control+f</td>
+<td>Afișează o fereastră de dialog în care puteți scrie un text pentru a fi găsit în documentul curent. Vedeți <a href="#SearchingForText" title="căutarea textului">căutarea textului</a> pentru mai multe informații.</td>
+</tr>
+<tr>
+<td>Găsește următor</td>
+<td>NVDA+f3</td>
+<td>Găsește apariția următoare în document a textului care a fost căutat anterior</td>
+</tr>
+<tr>
+<td>Găsește anterior</td>
+<td>NVDA+shift+f3</td>
+<td>Găsește apariția anterioară în document a textului care a fost căutat anterior</td>
+</tr>
+<tr>
+<td>deschide descriere amplă</td>
+<td>NVDA+d</td>
+<td>Deschide o fereastră nouă ce conține o descriere amplă a elementului pe care sunteți, în caz că acesta are o astfel de descriere.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SingleLetterNavigation">Navigarea cu o singură literă</h3>
+<p>Următoarele taste trec direct la elementul următor disponibil, iar combinându-le cu tasta Shift se face trecerea la elementul anterior:</p>
+<ul>
+<li>h: rubrică (h din englezescul heading)</li>
+<li>l: listă</li>
+<li>i: element din listă (i de la item)</li>
+<li>t: tabel</li>
+<li>k: legătură/link</li>
+<li>n: text fără legături (n de la non-link)</li>
+<li>f: câmp din formular</li>
+<li>u: legătură nevizitată (u de la unvisited)</li>
+<li>v: legătură vizitată</li>
+<li>e: câmp de editare</li>
+<li>b: buton</li>
+<li>x: casetă pentru bifat (x similar cu marcajul unei bife)</li>
+<li>c: listă de selecție (c de la combo box, casetă combinată)</li>
+<li>r: buton rotativ</li>
+<li>q: citat bloc (q de la quote)</li>
+<li>s: separator</li>
+<li>m: cadru/frame</li>
+<li>g: grafic</li>
+<li>d: reper</li>
+<li>o: obiect încorporat</li>
+<li>1 la 6: rubrici de nivel de la 1 la 6, respectiv</li>
+<li>a: adnotare (comentariu, editor, versiune, etc.)</li>
+<li>w: eroare de ortografie</li>
+</ul>
+<p>Pentru mutarea la începutul sau sfârșitul elementelor cu conținut cum ar fi liste sau tabele:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mută la începutul obiectului conținător</td>
+<td>shift+virgulă</td>
+<td>Mută la începutul conținătorului (listă, tabel, etc.) pe care este poziționat cursorul de scriere</td>
+</tr>
+<tr>
+<td>Mută după capătul obiectului conținător</td>
+<td>virgulă</td>
+<td>Mută după capătul conținătorului (listă, tabel, etc.) pe care este poziționat cursorul de scriere</td>
+</tr>
+</tbody>
+</table>
+<p>Pentru a comuta navigarea cu o singură literă în activat sau dezactivat pentru documentul curent, apăsați NVDA+shift+spațiu.</p>
+<h3 id="ElementsList">Lista cu elemente</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lista elementelor în modul navigare</td>
+<td>NVDA+f7</td>
+<td>Afișează lista diferitelor tipuri de elemente din documentul curent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SearchingForText">Căutarea textului</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caută text</td>
+<td>NVDA+control+f</td>
+<td>Deschide fereastra de căutare</td>
+</tr>
+<tr>
+<td>Caută următor</td>
+<td>NVDA+f3</td>
+<td>Caută următoarea apariție a termenului căutat</td>
+</tr>
+<tr>
+<td>Caută anterior</td>
+<td>NVDA+shift+f3</td>
+<td>Caută apariția precedentă a termenului căutat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ImbeddedObjects">Obiecte încorporate</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trece în mod navigare la documentul care conține obiectul</td>
+<td>NVDA+control+spațiu</td>
+<td>Mută focalizarea în afară obiectului incorporat curent și în documentul care îl conține</td>
+</tr>
+</tbody>
+</table>
+<h2 id="CitireMatematica">Citirea conținutului matematic</h2>
+<h3 id="InteractiveNavigation">Navigarea interactivă</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interacțiune cu conținut matematic</td>
+<td>NVDA+alt+m</td>
+<td>Începe interacțiunea cu conținutul matematic.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="BrailleSupport">Braille</h2>
+<h3 id="BrailleInput">Intrări braille</h3>
+<p>Apăsarea punctului 7 șterge ultima celulă sau ultimul caracter braille introdus.
 Punctul 8 traduce orice intrare braille și apasă tasta enter.
-Apăsarea punctului 7 plus cea a punctului 8 traduce orice intrare Braille, dar fără să adauge un spațiu sau o apăsare de enter.
-</P>
-<A NAME="ContentRecognition"></A>
-<H2>Recunoașterea de conținut</H2>
-<A NAME="Win10Ocr"></A>
-<H3>Windows 10 OCR</H3>
-<P>
-Pentru a recunoaște textul din obiectul navigator curent, folosind Windows 10 OCR, apăsați NVDA+r.
-</P>
-<A NAME="ApplicationSpecificFeatures"></A>
-<H2>Funcționalități specifice aplicației</H2>
-<A NAME="MicrosoftWord"></A>
-<H3>Microsoft Word</H3>
-<A NAME="WordAutomaticColumnAndRowHeaderReading"></A>
-<H4>Citire automată a anteturilor de rând și coloană</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Stabilește anteturi coloană</TD>
-<TD>NVDA+shift+c</TD>
-<TD>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din rândul care conține anteturi de coloană, care ar trebui să fie anunțate automat când vă mișcați printre coloanele de sub acest rând. Apăsând de două ori, va anula desemnarea.</TD>
-</TR>
-<TR>
-<TD>Stabilește anteturi rând</TD>
-<TD>NVDA+shift+r</TD>
-<TD>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din coloana care conține anteturi de rând, care ar trebui să fie anunțate automat când vă mișcați printre rândurile de după această coloană. Apăsând de două ori, va anula desemnarea.</TD>
-</TR>
-</TABLE>
+Apăsarea punctului 7 plus cea a punctului 8 traduce orice intrare Braille, dar fără să adauge un spațiu sau o apăsare de enter.</p>
+<h2 id="ContentRecognition">Recunoașterea de conținut</h2>
+<h3 id="Win10Ocr">Windows 10 OCR</h3>
+<p>Pentru a recunoaște textul din obiectul navigator curent, folosind Windows 10 OCR, apăsați NVDA+r.</p>
+<h2 id="ApplicationSpecificFeatures">Funcționalități specifice aplicației</h2>
+<h3 id="MicrosoftWord">Microsoft Word</h3>
+<h4 id="WordAutomaticColumnAndRowHeaderReading">Citire automată a anteturilor de rând și coloană</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stabilește anteturi coloană</td>
+<td>NVDA+shift+c</td>
+<td>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din rândul care conține anteturi de coloană, care ar trebui să fie anunțate automat când vă mișcați printre coloanele de sub acest rând. Apăsând de două ori, va anula desemnarea.</td>
+</tr>
+<tr>
+<td>Stabilește anteturi rând</td>
+<td>NVDA+shift+r</td>
+<td>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din coloana care conține anteturi de rând, care ar trebui să fie anunțate automat când vă mișcați printre rândurile de după această coloană. Apăsând de două ori, va anula desemnarea.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="BrowseModeInMicrosoftWord">Mod navigare în Microsoft Word</h4>
+<p>Pentru a comuta Modul navigare pentru Microsoft Word în activat sau dezactivat, apăsați NVDA+spațiu.</p>
+<h5 id="WordElementsList">Lista de elemente</h5>
+<p>Dacă vă aflați în Modul navigare în Microsoft Word, puteți accesa Lista de elemente apăsând NVDA+F7.</p>
+<h4 id="WordReportingComments">Raportarea comentariilor</h4>
+<p>Pentru a anunța toate comentariile de la poziția curentă a cursorului de scriere, apăsați NVDA+alt+c.</p>
+<h3 id="MicrosoftExcel">Microsoft Excel</h3>
+<h4 id="ExcelAutomaticColumnAndRowHeaderReading">Citire automată a antetului de rând și de coloană</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stabilește anteturi coloană</td>
+<td>NVDA+shift+c</td>
+<td>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din rândul care conține anteturi de coloană, care ar trebui să fie anunțate automat când vă mișcați printre coloanele de sub acest rând. Apăsând de două ori, va anula desemnarea.</td>
+</tr>
+<tr>
+<td>Stabilește anteturi rând</td>
+<td>NVDA+shift+r</td>
+<td>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din coloana care conține anteturi de rând, care ar trebui să fie anunțate automat când vă mișcați printre rândurile de după această coloană. Apăsând de două ori, va anula desemnarea.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ExcelElementsList">Lista de elemente</h4>
+<p>Pentru accesarea Listei de elemente în Excel, apăsați NVDA+F7.</p>
+<h4 id="ExcelReportingComments">Raportarea comentariilor</h4>
+<p>Pentru a anunța toate comentariile pentru celula aflată curent sub focus, apăsați NVDA+alt+c.</p>
+<h4 id="ExcelReadingProtectedCells">Citirea celulelor protejate</h4>
+<p>Pentru a permite navigarea la celule blocate, comutați pe Modul navigare, apăsând NVDA+spațiu și apoi folosiți comenzi de miscare standard ale Excel cum ar fi tastele săgeată pentru a vă misca printre toate celulele foii de lucru curente.</p>
+<h3 id="MicrosoftPowerPoint">Microsoft PowerPoint</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comută citirea notelor de prezentare</td>
+<td>control+shift+s</td>
+<td>Într-o prezentare de diapozitive care rulează, această comandă va comuta între notele de prezentare ale diapozitivului și conținutul diapozitivului. Aceasta influențează doar ceea ce este citit de NVDA, nu și ceea ce este afișat pe ecran.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Foobar2000">foobar2000</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță timpul rămas</td>
+<td>control+shift+r</td>
+<td>Anunță timpul rămas pentru pista redată curent, dacă există.</td>
+</tr>
+<tr>
+<td>Anunță timpul scurs</td>
+<td>control+shift+e</td>
+<td>Anunță timpul scurs pentru pista redată curent, dacă există.</td>
+</tr>
+<tr>
+<td>Anunță Lungimea pistei</td>
+<td>control+shift+t</td>
+<td>Anunță lungimea pistei redate curent, dacă există.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MirandaIM">Miranda IM</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță mesajul recent</td>
+<td>NVDA+control+1-4</td>
+<td>Anunță unul dintre mesajele recente, în funcție de cifra apăsată; de ex. NVDA+control+2 citește al doilea cel mai recent mesaj.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Poedit">Poedit</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță fereastra de comentarii</td>
+<td>control+shift+c</td>
+<td>Anunță orice comentariu din fereastra de comentarii.</td>
+</tr>
+<tr>
+<td>Anunță notele pentru traducători</td>
+<td>control+shift+a</td>
+<td>Anunță orice notă pentru traducători.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Skype">Skype</h3>
+<p>Când vă aflați într-o conversație:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verificare mesaj</td>
+<td>NVDA+control+1-0</td>
+<td>Anunță și mută cursorul de examinare la un mesaj recent, depinzând de cifra apăsată; de ex. NVDA+control+2 citește cel de-al doilea cel mai recent mesaj.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Kindle">Kindle pentru PC</h3>
+<p>Puteți răsfoi la pagina următoare manual cu tasta pageDown și puteți să vă întoarceți la pagina precedentă cu tasta pageUp.</p>
+<h4 id="KindleTextSelection">Selectarea textului</h4>
+<p>Odată textul selectat, apăsați tasta pentru aplicații sau shift+F10 pentru a afișa opțiunile disponibile pentru lucrul cu selecția.</p>
+<h3 id="Azardi">Azardi</h3>
+<p>În vizualizarea de tabel a cărților adăugate:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enter</td>
+<td>enter</td>
+<td>Deschide cartea selectată.</td>
+</tr>
+<tr>
+<td>Context meniu</td>
+<td>aplicații</td>
+<td>Deschide meniul context al cărții selectate.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="WinConsole">Consola Windows</h3>
+<p>Următoarele combinații de taste ale Consolei Windows vă pot fi de folos atunci când <a href="#ExaminareaTextului" title="examinați textul">examinați textul</a> cu NVDA:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează în sus</td>
+<td>control+săgeată sus</td>
+<td>Derulează fereastra consolei în sus, putând fi citite astfel textele mai vechi.</td>
+</tr>
+<tr>
+<td>Derulează în jos</td>
+<td>control+săgeată jos</td>
+<td>Derulează în jos fereastra consolei, putând fi citite astfel textele mai noi.</td>
+</tr>
+<tr>
+<td>Derulează la început</td>
+<td>control+home</td>
+<td>Derulează fereastra consolei la începutul buffer-ului.</td>
+</tr>
+<tr>
+<td>Derulează la sfârșit</td>
+<td>control+end</td>
+<td>Derulează fereastra consolei la sfârșitul buffer-ului.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ConfiguringNVDA">Configurarea NVDA</h2>
+<h3 id="NVDASettings">Setările NVDA</h3>
+<h4 id="SpeechSettings">Setări Vorbire (NVDA+control+v)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="SpeechSettingsSymbolLevel">Nivel punctuație/simbol</td>
+<td>NVDA+p</td>
+<td>NVDA+p</td>
+<td>Aceasta vă permite să alegeți nivelul de punctuație și alte simboluri care ar trebui pronunțate ca și cuvinte.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="SelectSynthesizer">Selectarea sintetizatorului (NVDA+control+s)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="SynthesizerSelectionDuckingMode">Mod atenuare audio</td>
+<td>NVDA+shift+d</td>
+<td>NVDA+shift+d</td>
+<td>În Windows 8 sau mai nou, această opțiune vă permite să alegeți dacă NVDA ar trebui să scadă volumul altor aplicații atunci când vorbește, sau tot timpul cât NVDA rulează.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="InelSetariSintetizator">Inelul setărilor sintetizatorului</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trece la setarea următoare a sintetizatorului</td>
+<td>NVDA+control+săgeată dreapta</td>
+<td>NVDA+shift+control+săgeată dreapta</td>
+<td>Trece la următoare setare disponibilă pentru vorbire după cea curentă, selectând din nou prima setare după ce trece de ultima</td>
+</tr>
+<tr>
+<td>Trece la setarea anterioară a sintetizatorului</td>
+<td>NVDA+control+săgeată stânga</td>
+<td>NVDA+shift+control+săgeată stânga</td>
+<td>Trece la următoarea setare disponibilă pentru vorbire înainte de cea curentă, selectând ultima setare după ce trece de prima</td>
+</tr>
+<tr>
+<td>Crește setarea curentă a sintetizatorului</td>
+<td>NVDA+control+săgeată sus</td>
+<td>NVDA+shift+control+săgeată sus</td>
+<td>Crește setarea curentă a vorbirii. De exemplu crește viteza, alege vocea următoare, crește volumul</td>
+</tr>
+<tr>
+<td>Scade setarea curentă a sintetizatorului</td>
+<td>NVDA+control+săgeată jos</td>
+<td>NVDA+shift+control+săgeată jos</td>
+<td>Scade setarea curentă a vorbirii. De exemplu scade viteza, alege vocea anterioară, scade volumul</td>
+</tr>
+</tbody>
+</table>
+<h4 id="SetariBraille">Braille</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="AsociereBraille">Braille asociat la</td>
+<td>NVDA+control+t</td>
+<td>NVDA+control+t</td>
+<td>Această opțiune vă permite să alegeți dacă afișajul braille va urma focalizarea sistemului, va urma obiectul navigator / cursorul de examinare sau ambele.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="KeyboardSettings">Tastatură (NVDA+control+k)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="KeyboardSettingsSpeakTypedCharacters">Pronunță caracterele tastate</td>
+<td>NVDA+2</td>
+<td>NVDA+2</td>
+<td>Când e activat, NVDA va pronunța toate caracterele tastate.</td>
+</tr>
+<tr>
+<td id="KeyboardSettingsSpeakTypedWords">Pronunță cuvintele tastate</td>
+<td>NVDA+3</td>
+<td>NVDA+3</td>
+<td>Când e activat, NVDA va pronunța toate cuvintele tastate.</td>
+</tr>
+<tr>
+<td id="KeyboardSettingsSpeakCommandKeys">Pronunță tastele de comandă</td>
+<td>NVDA+4</td>
+<td>NVDA+4</td>
+<td>Când e activat, NVDA va pronunța toate tastele necaractere tastate pe tastatură. Asta include combinații de taste cum ar fi Control plus altă literă.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="OptiuniMaus">Maus (NVDA+control+m)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="MouseSettingsTracking">Activează urmărirea mausului</td>
+<td>NVDA+m</td>
+<td>NVDA+m</td>
+<td>Când e activat, NVDA va anunța textul aflat curent sub cursorul mausului, pe măsură ce îl mișcați pe ecran. Asta vă permite să găsiți obiecte pe ecran mișcând fizic mausul în loc să încercați să le găsiți navigând prin obiecte.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ReviewCursorSettings">Cursor de examinare</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="ReviewCursorFollowFocus">Urmărește focalizarea sistemului</td>
+<td>NVDA+7</td>
+<td>NVDA+7</td>
+<td>Când este activată, cursorul de examinare va fi poziționat întotdeauna în același obiect ca focalizarea curentă a sistemului, pe măsură ce aceasta se schimbă.</td>
+</tr>
+<tr>
+<td id="ReviewCursorFollowCaret">Urmărește cursorul de scriere</td>
+<td>NVDA+6</td>
+<td>NVDA+6</td>
+<td>Când este activată, cursorul de examinare va fi mutat automat la poziția cursorului de scriere al sistemului, de fiecare dată când se mișcă.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ObjectPresentationSettings">Prezentare obiect (NVDA+control+o)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="ObjectPresentationProgressBarOutput">Tip de anunț pentru bara de progres</td>
+<td>NVDA+u</td>
+<td>NVDA+u</td>
+<td>Această opțiune controlează cum raportează NVDA modificările barei de progres.</td>
+</tr>
+<tr>
+<td id="ObjectPresentationReportDynamicContent">Anunță schimbările dinamice de conținut</td>
+<td>NVDA+5</td>
+<td>NVDA+5</td>
+<td>Activează anunțurile de conținut nou în obiecte specifice cum ar fi ferestre terminal de comandă și controlul istoricului în programele de conversație.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="BrowseModeSettings">Mod de navigare (NVDA+control+b)</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă birou</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="BrowseModeSettingsScreenLayout">Folosește aspectul ecranului</td>
+<td>NVDA+v</td>
+<td>NVDA+v</td>
+<td>Această opțiune vă permite să specificați dacă conținutul din modul navigare ar trebui să pună câmpuri de tip legătură și alte câmpuri pe un rând propriu, sau dacă să le păstreze în corpul textului așa cum este prezentat vizual.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SavingAndReloading">Salvarea și reîncărcarea configurației</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă desktop</th>
+<th>Tastă laptop</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Salvează configurație</td>
+<td>NVDA+control+c</td>
+<td>NVDA+control+c</td>
+<td>Salvează configurația dv. curentă pentru a nu fi pierdută când închideți NVDA</td>
+</tr>
+<tr>
+<td>Revino la configurația salvată</td>
+<td>NVDA+control+r</td>
+<td>NVDA+control+r</td>
+<td>Apăsând o dată, reface setările NVDA care existau când ați salvat ultima dată configurația NVDA. Apăsând de trei, va reveni la configurația inițială a aplicației.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ConfigurationProfiles">Configurarea profilurilor</h3>
+<h4 id="ProfilesBasicManagement">Idei fundamentale de administrare</h4>
+<ul>
+<li>NVDA+control+p: Arată fereastra de dialog a Configurării profilurilor</li>
+</ul>
+<h2 id="SupportedBrailleDisplays">Afișajele Braille compatibile</h2>
+<h3 id="FreedomScientificFocus">Freedom Scientific gamele Focus/PAC Mate</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>topRouting1 (prima celulă a afișajului)</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>topRouting20/40/80 (ultima celulă a afișajului)</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>bară avans stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>bară avans dreapta</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>leftGDFButton+rightGDFButton</td>
+</tr>
+<tr>
+<td>Comută "left wiz wheel action"</td>
+<td>leftWizWheelPress</td>
+</tr>
+<tr>
+<td>Mergi înapoi folosind left wiz wheel action</td>
+<td>leftWizWheelUp</td>
+</tr>
+<tr>
+<td>Mergi înainte folosind left wiz wheel action</td>
+<td>leftWizWheelDown</td>
+</tr>
+<tr>
+<td>Comută "right wiz wheel action"</td>
+<td>rightWizWheelPress</td>
+</tr>
+<tr>
+<td>Mergi înapoi folosind right wiz wheel action</td>
+<td>rightWizWheelUp</td>
+</tr>
+<tr>
+<td>Mergi înainte folosind right wiz wheel action</td>
+<td>rightWizWheelDown</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>bară spațiu braille+punct 1+punct 2</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>bară spațiu braille+punct 4+punct 5</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>bară spațiu braille+punct 1</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>bară spațiu braille+punct 4</td>
+</tr>
+<tr>
+<td>tasta control+săgeată stânga</td>
+<td>bară spațiu braille+punct 2</td>
+</tr>
+<tr>
+<td>tasta control+săgeată dreapta</td>
+<td>bară spațiu braille+punct 5</td>
+</tr>
+<tr>
+<td>săgeată stânga</td>
+<td>bară spațiu braille+punct 3</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>bară spațiu braille+punct 6</td>
+</tr>
+<tr>
+<td>tasta acasă (home)</td>
+<td>bară spațiu braille+punct 1+punct 3</td>
+</tr>
+<tr>
+<td>tasta sfârșit (end)</td>
+<td>bară spațiu braille+punct 4+punct 6</td>
+</tr>
+<tr>
+<td>tasta control+acasă</td>
+<td>bară spațiu braille+punct 1+punct 2+punct 3</td>
+</tr>
+<tr>
+<td>tasta control+sfârșit</td>
+<td>bară spațiu braille+punct 4+punct 5+punct 6</td>
+</tr>
+<tr>
+<td>tasta alt</td>
+<td>bară spațiu braille+punct 1+punct 3+punct 4</td>
+</tr>
+<tr>
+<td>tasta alt+tab</td>
+<td>bară spațiu braille+punct 2+punct 3+punct 4+punct 5</td>
+</tr>
+<tr>
+<td>tasta alt+shift+tab</td>
+<td>bară spațiu braille+punct1+punct2+punct5+punct6</td>
+</tr>
+<tr>
+<td>tasta windows+tab</td>
+<td>bară spațiu braille+punct2+punct3+punct4</td>
+</tr>
+<tr>
+<td>tasta escape</td>
+<td>bară spațiu braille+punct 1+punct 5</td>
+</tr>
+<tr>
+<td>tasta windows</td>
+<td>bară spațiu braille+punct 2+punct 4+punct 5+punct 6</td>
+</tr>
+<tr>
+<td>tasta spațiu</td>
+<td>bară spațiu braille</td>
+</tr>
+<tr>
+<td>tasta windows+d (minimizează toate aplicațiile )</td>
+<td>bară spațiu braille+punct 1+punct 2+punct 3+punct 4+punct 5+punct 6</td>
+</tr>
+<tr>
+<td>Anunță rândul curent</td>
+<td>bară spațiu braille+punct 1+punct 4</td>
+</tr>
+<tr>
+<td>meniul NVDA</td>
+<td>bară spațiu braille+punct 1+punct 3+punct 4+punct 5</td>
+</tr>
+</tbody>
+</table>
+<p>Pentru modele Focus mai noi, care conțin taste „rocker bar” (focus 40, focus 80 și focus blue):</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>leftRockerBarUp, rightRockerBarUp</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>leftRockerBarDown, rightRockerBarDown</td>
+</tr>
+</tbody>
+</table>
+<p>Doar pentru Focus 80:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>leftBumperBarUp, rightBumperBarUp</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>leftBumperBarDown, rightBumperBarDown</td>
+</tr>
+</tbody>
+</table>
+<h3 id="OptelecALVA">Optelec ALVA seria 6/convertor de protocol</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>t1, etouch1</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>t2</td>
+</tr>
+<tr>
+<td>Mută la focalizarea curentă</td>
+<td>t3</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>t4</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>t5, etouch3</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Raportează formatul textului de sub celula braille</td>
+<td>routing secundară</td>
+</tr>
+<tr>
+<td>Comută simularea HID a tastaturii</td>
+<td>t1+spEnter</td>
+</tr>
+<tr>
+<td>Mută la linia de sus în examinare</td>
+<td>t1+t2</td>
+</tr>
+<tr>
+<td>Mută la linia de jos în examinare</td>
+<td>t4+t5</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>t1+t3</td>
+</tr>
+<tr>
+<td>Raportează titlu</td>
+<td>etouch2</td>
+</tr>
+<tr>
+<td>Raportează bara de stare</td>
+<td>etouch4</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>sp1</td>
+</tr>
+<tr>
+<td>tasta alt</td>
+<td>sp2, alt</td>
+</tr>
+<tr>
+<td>tasta escape</td>
+<td>sp3</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>sp4</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>spUp</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>spDown</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>spLeft</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>spRight</td>
+</tr>
+<tr>
+<td>tasta enter</td>
+<td>spEnter, enter</td>
+</tr>
+<tr>
+<td>Raportează data/timp</td>
+<td>sp2+sp3</td>
+</tr>
+<tr>
+<td>Meniu NVDA</td>
+<td>sp1+sp3</td>
+</tr>
+<tr>
+<td>tasta windows+d (minimizează toate aplicațiile)</td>
+<td>sp1+sp4</td>
+</tr>
+<tr>
+<td>tasta windows+b (focalizează pe zona de notificare a sistemului)</td>
+<td>sp3+sp4</td>
+</tr>
+<tr>
+<td>tasta windows</td>
+<td>sp1+sp2, windows</td>
+</tr>
+<tr>
+<td>tasta alt+tab</td>
+<td>sp2+sp4</td>
+</tr>
+<tr>
+<td>tasta control+home</td>
+<td>t3+spUp</td>
+</tr>
+<tr>
+<td>tasta control+end</td>
+<td>t3+spDown</td>
+</tr>
+<tr>
+<td>tasta home</td>
+<td>t3+spLeft</td>
+</tr>
+<tr>
+<td>tasta end</td>
+<td>t3+spRight</td>
+</tr>
+<tr>
+<td>tasta control</td>
+<td>control</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HandyTech">Afișajele Handy Tech</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga, sus, b3</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta, jos, b6</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>b4</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>b5</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>esc, tasta acțiunii triple la stânga sus+jos</td>
+</tr>
+<tr>
+<td>tasta alt</td>
+<td>b2+b4+b5</td>
+</tr>
+<tr>
+<td>tasta escape</td>
+<td>b4+b6</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>enter, tasta acțiunii triple la dreapta sus+jos</td>
+</tr>
+<tr>
+<td>tasta enter</td>
+<td>esc+enter, tasta acțiunii triple la dreapta sus+jos, joystickAction</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>joystickUp</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>joystickDown</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>joystickLeft</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>joystickRight</td>
+</tr>
+<tr>
+<td>meniul NVDA</td>
+<td>b2+b4+b5+b6</td>
+</tr>
+<tr>
+<td>Comută la Braille legat la</td>
+<td>b2</td>
+</tr>
+<tr>
+<td>Comută la cursorul braille</td>
+<td>b1</td>
+</tr>
+<tr>
+<td>Comută la prezentarea contextului focalizării</td>
+<td>b7</td>
+</tr>
+<tr>
+<td>Comută la intrarea braille</td>
+<td>spațiu+b1+b3+b4 (spațiu+capital B)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MDVLilli">MDV Lilli</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>LF</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>RG</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>UP</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>DN</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>route</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>SLF</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>SRG</td>
+</tr>
+<tr>
+<td>tasta alt+tab</td>
+<td>SDN</td>
+</tr>
+<tr>
+<td>tasta alt+shift+tab</td>
+<td>SUP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Baum">Afișaje braille Baum/Humanware/APH/Orbit</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>d2</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>d5</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>d1</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>d3</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+</tbody>
+</table>
+<p>Pentru afișaje care au joystick:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tasta săgeată sus</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>jos</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>tasta enter</td>
+<td>select</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HedoProfiLine">hedo ProfiLine USB</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>K1</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>K3</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>B2</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>B5</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>K2</td>
+</tr>
+<tr>
+<td>Rostește tot</td>
+<td>B6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HedoMobilLine">hedo MobilLine USB</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>K1</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>K3</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>B2</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>B5</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>K2</td>
+</tr>
+<tr>
+<td>Rostește tot</td>
+<td>B6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HumanWareBrailliant">HumanWare Brailliant seriile BI/B / BrailleNote Touch</h3>
+<h4 id="toc249">Asocieri de taste pentru toate  modelele</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>jos</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>sus+jos</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>spațiu+punct 1</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>spațiu+punct 4</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>spațiu+punct 3</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>spațiu+punct 6</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>spațiu+punct 1+punct 3</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>spațiu+punct 4+punct 6</td>
+</tr>
+<tr>
+<td>tasta alt</td>
+<td>spațiu+punct 1+punct 3+punct 4 (spațiu+m)</td>
+</tr>
+<tr>
+<td>tasta escape</td>
+<td>spațiu+punct 1+punct 5 (spațiu+e)</td>
+</tr>
+<tr>
+<td>tasta enter</td>
+<td>punct 8</td>
+</tr>
+<tr>
+<td>tasta windows</td>
+<td>spațiu+punct 3+punct 4</td>
+</tr>
+<tr>
+<td>tasta alt+tab</td>
+<td>spațiu+punct 2+punct 3+punct 4+punct 5 (spațiu+t)</td>
+</tr>
+<tr>
+<td>Meniul NVDA</td>
+<td>spațiu+punct1+punct3+punct4+punct5 (spațiu+n)</td>
+</tr>
+<tr>
+<td>Tastele windows+d (minimizeaza toate aplicațiile)</td>
+<td>spațiu+punct1+punct4+punct5 (spațiu+d)</td>
+</tr>
+<tr>
+<td>Rostește tot</td>
+<td>spațiu+punct1+punct2+punct3+punct4+punct5+punct6</td>
+</tr>
+</tbody>
+</table>
+<h4 id="toc250">Asocieri de taste pentru Brailliant BI 32, BI 40 și B 80</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meniul NVDA</td>
+<td>c1+c3+c4+c5 (commandă n)</td>
+</tr>
+<tr>
+<td>Tastele windows+d (minimizeaza toate aplicațiile)</td>
+<td>c1+c4+c5 (commandă d)</td>
+</tr>
+<tr>
+<td>Rostește tot</td>
+<td>c1+c2+c3+c4+c5+c6</td>
+</tr>
+</tbody>
+</table>
+<h4 id="toc251">Asocieri de taste pentru Brailliant BI 14</h4>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Săgeată sus</td>
+<td>joystick sus</td>
+</tr>
+<tr>
+<td>Săgeată jos</td>
+<td>joystick jos</td>
+</tr>
+<tr>
+<td>Săgeată stânga</td>
+<td>joystick stânga</td>
+</tr>
+<tr>
+<td>Săgeată dreapta</td>
+<td>joystick dreapta</td>
+</tr>
+<tr>
+<td>Tasta enter</td>
+<td>joystick acțiune (mijloc)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Hims">HIMS gamele Braille Sense/Braille EDGE/Smart Beetle Sync Braille</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>derulator stânga în jos</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>derulator dreapta în jos</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>derulator stânga în sus</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>derulator dreapta în sus</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>tasta shift+tab</td>
+<td>punct 1+punct 2+spațiu</td>
+</tr>
+<tr>
+<td>tasta alt</td>
+<td>punct 1+punct 3+punct 4+spațiu</td>
+</tr>
+<tr>
+<td>tasta escape</td>
+<td>punct 1+punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta tab</td>
+<td>punct 4+punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>punct 1+spațiu</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>punct 4+spațiu</td>
+</tr>
+<tr>
+<td>blochează majuscule (capsLock)</td>
+<td>punct 1+punct 3+punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta shift+alt+tab</td>
+<td>avansează 2+avansează 3+avansează 1</td>
+</tr>
+<tr>
+<td>tasta alt+tab</td>
+<td>avansează 2+avansează 3</td>
+</tr>
+<tr>
+<td>tasta sfârșit (end)</td>
+<td>punct 4+punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta Control+sfârșit</td>
+<td>punct 4+punct 5+punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta acasă (home)</td>
+<td>punct 1+punct 3+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+acasă</td>
+<td>punct 1+punct 2+punct 3+spațiu</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>punct 3+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+shift+săgeată stânga</td>
+<td>punct 2+punct 8+spațiu+avansează 1</td>
+</tr>
+<tr>
+<td>tasta control+săgeată stânga</td>
+<td>punct 2+spațiu</td>
+</tr>
+<tr>
+<td>tasta shift+alt+săgeată stânga</td>
+<td>punct 2+punct 7+avansează 1</td>
+</tr>
+<tr>
+<td>tasta alt+săgeată stânga</td>
+<td>punct 2+punct 7</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+shift+săgeată dreapta</td>
+<td>punct 5+punct 8+spațiu+avansează 1</td>
+</tr>
+<tr>
+<td>tasta control+săgeată dreapta</td>
+<td>punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta shift+alt+săgeată dreapta</td>
+<td>punct 5+punct 7+avansează 1</td>
+</tr>
+<tr>
+<td>tasta alt+săgeată dreapta</td>
+<td>punct 5+punct 7</td>
+</tr>
+<tr>
+<td>tasta pagină în sus (pageUp)</td>
+<td>punct 1+punct 2+punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+pagină în sus</td>
+<td>punct 1+punct 2+punct 6+punct 8+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+shift+săgeată sus</td>
+<td>punct 2+punct 3+punct 8+spațiu+avansează 1</td>
+</tr>
+<tr>
+<td>tasta control+săgeată sus</td>
+<td>punct 2+punct 3+spațiu</td>
+</tr>
+<tr>
+<td>tasta shift+alt+săgeată sus</td>
+<td>punct 2+punct 3+punct 7+avansează 1</td>
+</tr>
+<tr>
+<td>tasta alt+săgeată sus</td>
+<td>punct 2+punct 3+punct 7</td>
+</tr>
+<tr>
+<td>tasta shift+săgeată sus</td>
+<td>derulator stânga în jos + spațiu</td>
+</tr>
+<tr>
+<td>tasta pagină în jos (pageDown)</td>
+<td>punct 3+punct 4+punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+pagină în jos</td>
+<td>punct 3+punct 4+punct 5+punct 8+spațiu</td>
+</tr>
+<tr>
+<td>tasta control+shift+săgeată jos</td>
+<td>punct 5+punct 6+punct 8+spațiu+avansează 1</td>
+</tr>
+<tr>
+<td>tasta control+săgeată jos</td>
+<td>punct 5+punct 6+spațiu</td>
+</tr>
+<tr>
+<td>tasta shift+alt+săgeată jos</td>
+<td>punct 5+punct 6+punct 7+avansează 1</td>
+</tr>
+<tr>
+<td>tasta alt+săgeată jos</td>
+<td>punct 5+punct 6+punct 7</td>
+</tr>
+<tr>
+<td>tasta shift+săgeată jos</td>
+<td>derulator dreapta în jos + spațiu</td>
+</tr>
+<tr>
+<td>tasta șterge (delete)</td>
+<td>punct 1+punct 3+punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta F1</td>
+<td>punct 1+punct 2+punct 5+spațiu</td>
+</tr>
+<tr>
+<td>tasta F3</td>
+<td>punct 1+punct 2+punct 4+punct 8</td>
+</tr>
+<tr>
+<td>tasta F4</td>
+<td>punct 7+avansează 3</td>
+</tr>
+<tr>
+<td>tasta windows+b</td>
+<td>punct 1+punct 2+avansează 1</td>
+</tr>
+<tr>
+<td>tasta windows+d</td>
+<td>punct 1+punct 4+punct 5+avansează 1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="toc253">HIMS SyncBraille</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>derulator stânga în jos</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>derulator dreapta în jos</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Seika">Afișaje Braille Seika</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>b3</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>b4</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>b5</td>
+</tr>
+<tr>
+<td>Rostește tot</td>
+<td>b6</td>
+</tr>
+<tr>
+<td>tab</td>
+<td>b1</td>
+</tr>
+<tr>
+<td>shift+tab</td>
+<td>b2</td>
+</tr>
+<tr>
+<td>alt+tab</td>
+<td>b1+b2</td>
+</tr>
+<tr>
+<td>Meniul NVDA</td>
+<td>stânga+dreapta</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Papenmeier">Modelele mai noi Papenmeier BRAILLEX</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>dn</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Anunță caracterul analizat curent</td>
+<td>l1</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>l2</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>r2</td>
+</tr>
+<tr>
+<td>Anunță titlu</td>
+<td>l1+sus</td>
+</tr>
+<tr>
+<td>Anunță bara de stare</td>
+<td>l2+jos</td>
+</tr>
+<tr>
+<td>Mută la obiectul conținător</td>
+<td>sus2</td>
+</tr>
+<tr>
+<td>Mută la primul obiect conținut</td>
+<td>dn2</td>
+</tr>
+<tr>
+<td>Mută la obiectul anterior</td>
+<td>stânga2</td>
+</tr>
+<tr>
+<td>Mută la următorul obiect</td>
+<td>dreapta2</td>
+</tr>
+<tr>
+<td>Anunță formatarea textului de sub celula braille</td>
+<td>upper routing row</td>
+</tr>
+</tbody>
+</table>
+<p>|tasta escape |spațiu cu punct  7|
+|tasta săgeată sus |spațiu cu punct  2|
+|tasta săgeată stânga |spațiu cu punct  1|
+|tasta săgeată dreapta |spațiu cu punct  4|
+|tasta săgeată jos |spațiu cu punct  5|
+|tasta control |lt+punct 2|
+|tasta alt |lt+punct 3|
+|tasta control+escape |spațiu cu punct  1 2 3 4 5 6|
+|tasta tab |spațiu cu punct  3 7|</p>
+<!-- KC:endInclude  -->
 
-<A NAME="BrowseModeInMicrosoftWord"></A>
-<H4>Mod navigare în Microsoft Word</H4>
-<P>
-Pentru a comuta Modul navigare pentru Microsoft Word în activat sau dezactivat, apăsați NVDA+spațiu.
-</P>
-<A NAME="WordElementsList"></A>
-<H5>Lista de elemente</H5>
-<P>
-Dacă vă aflați în Modul navigare în Microsoft Word, puteți accesa Lista de elemente apăsând NVDA+F7.
-</P>
-<A NAME="WordReportingComments"></A>
-<H4>Raportarea comentariilor</H4>
-<P>
-Pentru a anunța toate comentariile de la poziția curentă a cursorului de scriere, apăsați NVDA+alt+c.
-</P>
-<A NAME="MicrosoftExcel"></A>
-<H3>Microsoft Excel</H3>
-<A NAME="ExcelAutomaticColumnAndRowHeaderReading"></A>
-<H4>Citire automată a antetului de rând și de coloană</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Stabilește anteturi coloană</TD>
-<TD>NVDA+shift+c</TD>
-<TD>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din rândul care conține anteturi de coloană, care ar trebui să fie anunțate automat când vă mișcați printre coloanele de sub acest rând. Apăsând de două ori, va anula desemnarea.</TD>
-</TR>
-<TR>
-<TD>Stabilește anteturi rând</TD>
-<TD>NVDA+shift+r</TD>
-<TD>Apăsând o dată, spune NVDA că aceasta este prima celulă antet din coloana care conține anteturi de rând, care ar trebui să fie anunțate automat când vă mișcați printre rândurile de după această coloană. Apăsând de două ori, va anula desemnarea.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ExcelElementsList"></A>
-<H4>Lista de elemente</H4>
-<P>
-Pentru accesarea Listei de elemente în Excel, apăsați NVDA+F7.
-</P>
-<A NAME="ExcelReportingComments"></A>
-<H4>Raportarea comentariilor</H4>
-<P>
-Pentru a anunța toate comentariile pentru celula aflată curent sub focus, apăsați NVDA+alt+c.
-</P>
-<A NAME="ExcelReadingProtectedCells"></A>
-<H4>Citirea celulelor protejate</H4>
-<P>
-Pentru a permite navigarea la celule blocate, comutați pe Modul navigare, apăsând NVDA+spațiu și apoi folosiți comenzi de miscare standard ale Excel cum ar fi tastele săgeată pentru a vă misca printre toate celulele foii de lucru curente.
-</P>
-<A NAME="MicrosoftPowerPoint"></A>
-<H3>Microsoft PowerPoint</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Comută citirea notelor de prezentare</TD>
-<TD>control+shift+s</TD>
-<TD>Într-o prezentare de diapozitive care rulează, această comandă va comuta între notele de prezentare ale diapozitivului și conținutul diapozitivului. Aceasta influențează doar ceea ce este citit de NVDA, nu și ceea ce este afișat pe ecran.</TD>
-</TR>
-</TABLE>
-
-<A NAME="Foobar2000"></A>
-<H3>foobar2000</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Anunță timpul rămas</TD>
-<TD>control+shift+r</TD>
-<TD>Anunță timpul rămas pentru pista redată curent, dacă există.</TD>
-</TR>
-<TR>
-<TD>Anunță timpul scurs</TD>
-<TD>control+shift+e</TD>
-<TD>Anunță timpul scurs pentru pista redată curent, dacă există.</TD>
-</TR>
-<TR>
-<TD>Anunță Lungimea pistei</TD>
-<TD>control+shift+t</TD>
-<TD>Anunță lungimea pistei redate curent, dacă există.</TD>
-</TR>
-</TABLE>
-
-<A NAME="MirandaIM"></A>
-<H3>Miranda IM</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Anunță mesajul recent</TD>
-<TD>NVDA+control+1-4</TD>
-<TD>Anunță unul dintre mesajele recente, în funcție de cifra apăsată; de ex. NVDA+control+2 citește al doilea cel mai recent mesaj.</TD>
-</TR>
-</TABLE>
-
-<A NAME="Poedit"></A>
-<H3>Poedit</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Anunță fereastra de comentarii</TD>
-<TD>control+shift+c</TD>
-<TD>Anunță orice comentariu din fereastra de comentarii.</TD>
-</TR>
-<TR>
-<TD>Anunță notele pentru traducători</TD>
-<TD>control+shift+a</TD>
-<TD>Anunță orice notă pentru traducători.</TD>
-</TR>
-</TABLE>
-
-<A NAME="Skype"></A>
-<H3>Skype</H3>
-<P>
-Când vă aflați într-o conversație:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Verificare mesaj</TD>
-<TD>NVDA+control+1-0</TD>
-<TD>Anunță și mută cursorul de examinare la un mesaj recent, depinzând de cifra apăsată; de ex. NVDA+control+2 citește cel de-al doilea cel mai recent mesaj.</TD>
-</TR>
-</TABLE>
-
-<A NAME="Kindle"></A>
-<H3>Kindle pentru PC</H3>
-<P>
-Puteți răsfoi la pagina următoare manual cu tasta pageDown și puteți să vă întoarceți la pagina precedentă cu tasta pageUp.
-</P>
-<A NAME="KindleTextSelection"></A>
-<H4>Selectarea textului</H4>
-<P>
-Odată textul selectat, apăsați tasta pentru aplicații sau shift+F10 pentru a afișa opțiunile disponibile pentru lucrul cu selecția.
-</P>
-<A NAME="Azardi"></A>
-<H3>Azardi</H3>
-<P>
-În vizualizarea de tabel a cărților adăugate:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Enter</TD>
-<TD>enter</TD>
-<TD>Deschide cartea selectată.</TD>
-</TR>
-<TR>
-<TD>Context meniu</TD>
-<TD>aplicații</TD>
-<TD>Deschide meniul context al cărții selectate.</TD>
-</TR>
-</TABLE>
-
-<A NAME="WinConsole"></A>
-<H3>Consola Windows</H3>
-<P>
-Următoarele combinații de taste ale Consolei Windows vă pot fi de folos atunci când <A HREF="#ExaminareaTextului">examinați textul</A> cu NVDA:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Derulează în sus</TD>
-<TD>control+săgeată sus</TD>
-<TD>Derulează fereastra consolei în sus, putând fi citite astfel textele mai vechi.</TD>
-</TR>
-<TR>
-<TD>Derulează în jos</TD>
-<TD>control+săgeată jos</TD>
-<TD>Derulează în jos fereastra consolei, putând fi citite astfel textele mai noi.</TD>
-</TR>
-<TR>
-<TD>Derulează la început</TD>
-<TD>control+home</TD>
-<TD>Derulează fereastra consolei la începutul buffer-ului.</TD>
-</TR>
-<TR>
-<TD>Derulează la sfârșit</TD>
-<TD>control+end</TD>
-<TD>Derulează fereastra consolei la sfârșitul buffer-ului.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ConfiguringNVDA"></A>
-<H2>Configurarea NVDA</H2>
-<A NAME="NVDASettings"></A>
-<H3>Setările NVDA</H3>
-<A NAME="SpeechSettings"></A>
-<H4>Setări Vorbire (NVDA+control+v)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Nivel punctuație/simbol</TD>
-<TD>NVDA+p</TD>
-<TD>NVDA+p</TD>
-<TD>Aceasta vă permite să alegeți nivelul de punctuație și alte simboluri care ar trebui pronunțate ca și cuvinte.</TD>
-</TR>
-</TABLE>
-
-<A NAME="SelectSynthesizer"></A>
-<H4>Selectarea sintetizatorului (NVDA+control+s)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Mod atenuare audio</TD>
-<TD>NVDA+shift+d</TD>
-<TD>NVDA+shift+d</TD>
-<TD>În Windows 8 sau mai nou, această opțiune vă permite să alegeți dacă NVDA ar trebui să scadă volumul altor aplicații atunci când vorbește, sau tot timpul cât NVDA rulează.</TD>
-</TR>
-</TABLE>
-
-<A NAME="InelSetariSintetizator"></A>
-<H4>Inelul setărilor sintetizatorului</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Trece la setarea următoare a sintetizatorului</TD>
-<TD>NVDA+control+săgeată dreapta</TD>
-<TD>NVDA+shift+control+săgeată dreapta</TD>
-<TD>Trece la următoare setare disponibilă pentru vorbire după cea curentă, selectând din nou prima setare după ce trece de ultima</TD>
-</TR>
-<TR>
-<TD>Trece la setarea anterioară a sintetizatorului</TD>
-<TD>NVDA+control+săgeată stânga</TD>
-<TD>NVDA+shift+control+săgeată stânga</TD>
-<TD>Trece la următoarea setare disponibilă pentru vorbire înainte de cea curentă, selectând ultima setare după ce trece de prima</TD>
-</TR>
-<TR>
-<TD>Crește setarea curentă a sintetizatorului</TD>
-<TD>NVDA+control+săgeată sus</TD>
-<TD>NVDA+shift+control+săgeată sus</TD>
-<TD>Crește setarea curentă a vorbirii. De exemplu crește viteza, alege vocea următoare, crește volumul</TD>
-</TR>
-<TR>
-<TD>Scade setarea curentă a sintetizatorului</TD>
-<TD>NVDA+control+săgeată jos</TD>
-<TD>NVDA+shift+control+săgeată jos</TD>
-<TD>Scade setarea curentă a vorbirii. De exemplu scade viteza, alege vocea anterioară, scade volumul</TD>
-</TR>
-</TABLE>
-
-<A NAME="SetariBraille"></A>
-<H4>Braille</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Braille asociat la</TD>
-<TD>NVDA+control+t</TD>
-<TD>NVDA+control+t</TD>
-<TD>Această opțiune vă permite să alegeți dacă afișajul braille va urma focalizarea sistemului, va urma obiectul navigator / cursorul de examinare sau ambele.</TD>
-</TR>
-</TABLE>
-
-<A NAME="KeyboardSettings"></A>
-<H4>Tastatură (NVDA+control+k)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Pronunță caracterele tastate</TD>
-<TD>NVDA+2</TD>
-<TD>NVDA+2</TD>
-<TD>Când e activat, NVDA va pronunța toate caracterele tastate.</TD>
-</TR>
-<TR>
-<TD ALIGN="center">Pronunță cuvintele tastate</TD>
-<TD>NVDA+3</TD>
-<TD>NVDA+3</TD>
-<TD>Când e activat, NVDA va pronunța toate cuvintele tastate.</TD>
-</TR>
-<TR>
-<TD ALIGN="center">Pronunță tastele de comandă</TD>
-<TD>NVDA+4</TD>
-<TD>NVDA+4</TD>
-<TD>Când e activat, NVDA va pronunța toate tastele necaractere tastate pe tastatură. Asta include combinații de taste cum ar fi Control plus altă literă.</TD>
-</TR>
-</TABLE>
-
-<A NAME="OptiuniMaus"></A>
-<H4>Maus (NVDA+control+m)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Activează urmărirea mausului</TD>
-<TD>NVDA+m</TD>
-<TD>NVDA+m</TD>
-<TD>Când e activat, NVDA va anunța textul aflat curent sub cursorul mausului, pe măsură ce îl mișcați pe ecran. Asta vă permite să găsiți obiecte pe ecran mișcând fizic mausul în loc să încercați să le găsiți navigând prin obiecte.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ReviewCursorSettings"></A>
-<H4>Cursor de examinare</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Urmărește focalizarea sistemului</TD>
-<TD>NVDA+7</TD>
-<TD>NVDA+7</TD>
-<TD>Când este activată, cursorul de examinare va fi poziționat întotdeauna în același obiect ca focalizarea curentă a sistemului, pe măsură ce aceasta se schimbă.</TD>
-</TR>
-<TR>
-<TD ALIGN="center">Urmărește cursorul de scriere</TD>
-<TD>NVDA+6</TD>
-<TD>NVDA+6</TD>
-<TD>Când este activată, cursorul de examinare va fi mutat automat la poziția cursorului de scriere al sistemului, de fiecare dată când se mișcă.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ObjectPresentationSettings"></A>
-<H4>Prezentare obiect (NVDA+control+o)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Tip de anunț pentru bara de progres</TD>
-<TD>NVDA+u</TD>
-<TD>NVDA+u</TD>
-<TD>Această opțiune controlează cum raportează NVDA modificările barei de progres.</TD>
-</TR>
-<TR>
-<TD ALIGN="center">Anunță schimbările dinamice de conținut</TD>
-<TD>NVDA+5</TD>
-<TD>NVDA+5</TD>
-<TD>Activează anunțurile de conținut nou în obiecte specifice cum ar fi ferestre terminal de comandă și controlul istoricului în programele de conversație.</TD>
-</TR>
-</TABLE>
-
-<A NAME="BrowseModeSettings"></A>
-<H4>Mod de navigare (NVDA+control+b)</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă birou| Tastă laptop| Descriere</TH>
-</TR>
-<TR>
-<TD ALIGN="center">Folosește aspectul ecranului</TD>
-<TD>NVDA+v</TD>
-<TD>NVDA+v</TD>
-<TD>Această opțiune vă permite să specificați dacă conținutul din modul navigare ar trebui să pună câmpuri de tip legătură și alte câmpuri pe un rând propriu, sau dacă să le păstreze în corpul textului așa cum este prezentat vizual.</TD>
-</TR>
-</TABLE>
-
-<A NAME="SavingAndReloading"></A>
-<H3>Salvarea și reîncărcarea configurației</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă desktop</TH>
-<TH>Tastă laptop</TH>
-<TH>Descriere</TH>
-</TR>
-<TR>
-<TD>Salvează configurație</TD>
-<TD>NVDA+control+c</TD>
-<TD>NVDA+control+c</TD>
-<TD>Salvează configurația dv. curentă pentru a nu fi pierdută când închideți NVDA</TD>
-</TR>
-<TR>
-<TD>Revino la configurația salvată</TD>
-<TD>NVDA+control+r</TD>
-<TD>NVDA+control+r</TD>
-<TD>Apăsând o dată, reface setările NVDA care existau când ați salvat ultima dată configurația NVDA. Apăsând de trei, va reveni la configurația inițială a aplicației.</TD>
-</TR>
-</TABLE>
-
-<A NAME="ConfigurationProfiles"></A>
-<H3>Configurarea profilurilor</H3>
-<A NAME="ProfilesBasicManagement"></A>
-<H4>Idei fundamentale de administrare</H4>
-<UL>
-<LI>NVDA+control+p: Arată fereastra de dialog a Configurării profilurilor
-</UL>
-
-<P></P>
-<A NAME="SupportedBrailleDisplays"></A>
-<H2>Afișajele Braille compatibile</H2>
-<A NAME="FreedomScientificFocus"></A>
-<H3>Freedom Scientific gamele Focus/PAC Mate</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>topRouting1 (prima celulă a afișajului)</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>topRouting20/40/80 (ultima celulă a afișajului)</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>bară avans stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>bară avans dreapta</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>leftGDFButton+rightGDFButton</TD>
-</TR>
-<TR>
-<TD>Comută "left wiz wheel action"</TD>
-<TD>leftWizWheelPress</TD>
-</TR>
-<TR>
-<TD>Mergi înapoi folosind left wiz wheel action</TD>
-<TD>leftWizWheelUp</TD>
-</TR>
-<TR>
-<TD>Mergi înainte folosind left wiz wheel action</TD>
-<TD>leftWizWheelDown</TD>
-</TR>
-<TR>
-<TD>Comută "right wiz wheel action"</TD>
-<TD>rightWizWheelPress</TD>
-</TR>
-<TR>
-<TD>Mergi înapoi folosind right wiz wheel action</TD>
-<TD>rightWizWheelUp</TD>
-</TR>
-<TR>
-<TD>Mergi înainte folosind right wiz wheel action</TD>
-<TD>rightWizWheelDown</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>bară spațiu braille+punct 1+punct 2</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>bară spațiu braille+punct 4+punct 5</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>bară spațiu braille+punct 1</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>bară spațiu braille+punct 4</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată stânga</TD>
-<TD>bară spațiu braille+punct 2</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată dreapta</TD>
-<TD>bară spațiu braille+punct 5</TD>
-</TR>
-<TR>
-<TD>săgeată stânga</TD>
-<TD>bară spațiu braille+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>bară spațiu braille+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta acasă (home)</TD>
-<TD>bară spațiu braille+punct 1+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta sfârșit (end)</TD>
-<TD>bară spațiu braille+punct 4+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta control+acasă</TD>
-<TD>bară spațiu braille+punct 1+punct 2+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta control+sfârșit</TD>
-<TD>bară spațiu braille+punct 4+punct 5+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>bară spațiu braille+punct 1+punct 3+punct 4</TD>
-</TR>
-<TR>
-<TD>tasta alt+tab</TD>
-<TD>bară spațiu braille+punct 2+punct 3+punct 4+punct 5</TD>
-</TR>
-<TR>
-<TD>tasta alt+shift+tab</TD>
-<TD>bară spațiu braille+punct1+punct2+punct5+punct6</TD>
-</TR>
-<TR>
-<TD>tasta windows+tab</TD>
-<TD>bară spațiu braille+punct2+punct3+punct4</TD>
-</TR>
-<TR>
-<TD>tasta escape</TD>
-<TD>bară spațiu braille+punct 1+punct 5</TD>
-</TR>
-<TR>
-<TD>tasta windows</TD>
-<TD>bară spațiu braille+punct 2+punct 4+punct 5+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta spațiu</TD>
-<TD>bară spațiu braille</TD>
-</TR>
-<TR>
-<TD>tasta windows+d (minimizează toate aplicațiile )</TD>
-<TD>bară spațiu braille+punct 1+punct 2+punct 3+punct 4+punct 5+punct 6</TD>
-</TR>
-<TR>
-<TD>Anunță rândul curent</TD>
-<TD>bară spațiu braille+punct 1+punct 4</TD>
-</TR>
-<TR>
-<TD>meniul NVDA</TD>
-<TD>bară spațiu braille+punct 1+punct 3+punct 4+punct 5</TD>
-</TR>
-</TABLE>
-
-<P>
-Pentru modele Focus mai noi, care conțin taste „rocker bar” (focus 40, focus 80 și focus blue):
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>leftRockerBarUp, rightRockerBarUp</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>leftRockerBarDown, rightRockerBarDown</TD>
-</TR>
-</TABLE>
-
-<P>
-Doar pentru Focus 80:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>leftBumperBarUp, rightBumperBarUp</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>leftBumperBarDown, rightBumperBarDown</TD>
-</TR>
-</TABLE>
-
-<A NAME="OptelecALVA"></A>
-<H3>Optelec ALVA seria 6/convertor de protocol</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>t1, etouch1</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>t2</TD>
-</TR>
-<TR>
-<TD>Mută la focalizarea curentă</TD>
-<TD>t3</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>t4</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>t5, etouch3</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Raportează formatul textului de sub celula braille</TD>
-<TD>routing secundară</TD>
-</TR>
-<TR>
-<TD>Comută simularea HID a tastaturii</TD>
-<TD>t1+spEnter</TD>
-</TR>
-<TR>
-<TD>Mută la linia de sus în examinare</TD>
-<TD>t1+t2</TD>
-</TR>
-<TR>
-<TD>Mută la linia de jos în examinare</TD>
-<TD>t4+t5</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>t1+t3</TD>
-</TR>
-<TR>
-<TD>Raportează titlu</TD>
-<TD>etouch2</TD>
-</TR>
-<TR>
-<TD>Raportează bara de stare</TD>
-<TD>etouch4</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>sp1</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>sp2, alt|</TD>
-</TR>
-<TR>
-<TD>tasta escape</TD>
-<TD>sp3</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>sp4</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>spUp</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>spDown</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>spLeft</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>spRight</TD>
-</TR>
-<TR>
-<TD>tasta enter</TD>
-<TD>spEnter, enter|</TD>
-</TR>
-<TR>
-<TD>Raportează data/timp</TD>
-<TD>sp2+sp3</TD>
-</TR>
-<TR>
-<TD>Meniu NVDA</TD>
-<TD>sp1+sp3</TD>
-</TR>
-<TR>
-<TD>tasta windows+d (minimizează toate aplicațiile)</TD>
-<TD>sp1+sp4</TD>
-</TR>
-<TR>
-<TD>tasta windows+b (focalizează pe zona de notificare a sistemului)</TD>
-<TD>sp3+sp4</TD>
-</TR>
-<TR>
-<TD>tasta windows</TD>
-<TD>sp1+sp2, windows</TD>
-</TR>
-<TR>
-<TD>tasta alt+tab</TD>
-<TD>sp2+sp4</TD>
-</TR>
-<TR>
-<TD>tasta control+home</TD>
-<TD>t3+spUp</TD>
-</TR>
-<TR>
-<TD>tasta control+end</TD>
-<TD>t3+spDown</TD>
-</TR>
-<TR>
-<TD>tasta home</TD>
-<TD>t3+spLeft</TD>
-</TR>
-<TR>
-<TD>tasta end</TD>
-<TD>t3+spRight</TD>
-</TR>
-<TR>
-<TD>tasta control</TD>
-<TD>control</TD>
-</TR>
-</TABLE>
-
-<A NAME="HandyTech"></A>
-<H3>Afișajele Handy Tech</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga, sus, b3|</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta, jos, b6|</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>b4</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>b5</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>esc, tasta acțiunii triple la stânga sus+jos</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>b2+b4+b5</TD>
-</TR>
-<TR>
-<TD>tasta escape</TD>
-<TD>b4+b6</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>enter, tasta acțiunii triple la dreapta sus+jos</TD>
-</TR>
-<TR>
-<TD>tasta enter</TD>
-<TD>esc+enter, tasta acțiunii triple la dreapta sus+jos, joystickAction|</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>joystickUp</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>joystickDown</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>joystickLeft</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>joystickRight</TD>
-</TR>
-<TR>
-<TD>meniul NVDA</TD>
-<TD>b2+b4+b5+b6</TD>
-</TR>
-<TR>
-<TD>Comută la Braille legat la</TD>
-<TD>b2</TD>
-</TR>
-<TR>
-<TD>Comută la cursorul braille</TD>
-<TD>b1</TD>
-</TR>
-<TR>
-<TD>Comută la prezentarea contextului focalizării</TD>
-<TD>b7</TD>
-</TR>
-<TR>
-<TD>Comută la intrarea braille</TD>
-<TD>spațiu+b1+b3+b4 (spațiu+capital B)</TD>
-</TR>
-</TABLE>
-
-<A NAME="MDVLilli"></A>
-<H3>MDV Lilli</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>LF</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>RG</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>UP</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>DN</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>route</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>SLF</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>SRG</TD>
-</TR>
-<TR>
-<TD>tasta alt+tab</TD>
-<TD>SDN</TD>
-</TR>
-<TR>
-<TD>tasta alt+shift+tab</TD>
-<TD>SUP</TD>
-</TR>
-</TABLE>
-
-<A NAME="Baum"></A>
-<H3>Afișaje braille Baum/Humanware/APH/Orbit</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>d2</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>d5</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>d1</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>d3</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-</TABLE>
-
-<P>
-Pentru afișaje care au joystick:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>jos</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>tasta enter</TD>
-<TD>select</TD>
-</TR>
-</TABLE>
-
-<A NAME="HedoProfiLine"></A>
-<H3>hedo ProfiLine USB</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>K1</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>K3</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>B2</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>B5</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>K2</TD>
-</TR>
-<TR>
-<TD>Rostește tot</TD>
-<TD>B6</TD>
-</TR>
-</TABLE>
-
-<A NAME="HedoMobilLine"></A>
-<H3>hedo MobilLine USB</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>K1</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>K3</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>B2</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>B5</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>K2</TD>
-</TR>
-<TR>
-<TD>Rostește tot</TD>
-<TD>B6</TD>
-</TR>
-</TABLE>
-
-<A NAME="HumanWareBrailliant"></A>
-<H3>HumanWare Brailliant seriile BI/B / BrailleNote Touch</H3>
-<H4>Asocieri de taste pentru toate  modelele</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>jos</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>sus+jos</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>spațiu+punct 1</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>spațiu+punct 4</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>spațiu+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>spațiu+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>spațiu+punct 1+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>spațiu+punct 4+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>spațiu+punct 1+punct 3+punct 4 (spațiu+m)</TD>
-</TR>
-<TR>
-<TD>tasta escape</TD>
-<TD>spațiu+punct 1+punct 5 (spațiu+e)</TD>
-</TR>
-<TR>
-<TD>tasta enter</TD>
-<TD>punct 8</TD>
-</TR>
-<TR>
-<TD>tasta windows</TD>
-<TD>spațiu+punct 3+punct 4</TD>
-</TR>
-<TR>
-<TD>tasta alt+tab</TD>
-<TD>spațiu+punct 2+punct 3+punct 4+punct 5 (spațiu+t)</TD>
-</TR>
-<TR>
-<TD>Meniul NVDA</TD>
-<TD>spațiu+punct1+punct3+punct4+punct5 (spațiu+n)</TD>
-</TR>
-<TR>
-<TD>Tastele windows+d (minimizeaza toate aplicațiile)</TD>
-<TD>spațiu+punct1+punct4+punct5 (spațiu+d)</TD>
-</TR>
-<TR>
-<TD>Rostește tot</TD>
-<TD>spațiu+punct1+punct2+punct3+punct4+punct5+punct6</TD>
-</TR>
-</TABLE>
-
-<H4>Asocieri de taste pentru Brailliant BI 32, BI 40 și B 80</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Meniul NVDA</TD>
-<TD>c1+c3+c4+c5 (commandă n)</TD>
-</TR>
-<TR>
-<TD>Tastele windows+d (minimizeaza toate aplicațiile)</TD>
-<TD>c1+c4+c5 (commandă d)</TD>
-</TR>
-<TR>
-<TD>Rostește tot</TD>
-<TD>c1+c2+c3+c4+c5+c6</TD>
-</TR>
-</TABLE>
-
-<H4>Asocieri de taste pentru Brailliant BI 14</H4>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Săgeată sus</TD>
-<TD>joystick sus</TD>
-</TR>
-<TR>
-<TD>Săgeată jos</TD>
-<TD>joystick jos</TD>
-</TR>
-<TR>
-<TD>Săgeată stânga</TD>
-<TD>joystick stânga</TD>
-</TR>
-<TR>
-<TD>Săgeată dreapta</TD>
-<TD>joystick dreapta</TD>
-</TR>
-<TR>
-<TD>Tasta enter</TD>
-<TD>joystick acțiune (mijloc)</TD>
-</TR>
-</TABLE>
-
-<A NAME="Hims"></A>
-<H3>HIMS gamele Braille Sense/Braille EDGE/Smart Beetle Sync Braille</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>derulator stânga în jos</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>derulator dreapta în jos</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>derulator stânga în sus</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>derulator dreapta în sus</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>tasta shift+tab</TD>
-<TD>punct 1+punct 2+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>punct 1+punct 3+punct 4+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta escape</TD>
-<TD>punct 1+punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>punct 4+punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>punct 1+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>punct 4+spațiu</TD>
-</TR>
-<TR>
-<TD>blochează majuscule (capsLock)</TD>
-<TD>punct 1+punct 3+punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta shift+alt+tab</TD>
-<TD>avansează 2+avansează 3+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta alt+tab</TD>
-<TD>avansează 2+avansează 3</TD>
-</TR>
-<TR>
-<TD>tasta sfârșit (end)</TD>
-<TD>punct 4+punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta Control+sfârșit</TD>
-<TD>punct 4+punct 5+punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta acasă (home)</TD>
-<TD>punct 1+punct 3+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+acasă</TD>
-<TD>punct 1+punct 2+punct 3+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>punct 3+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+shift+săgeată stânga</TD>
-<TD>punct 2+punct 8+spațiu+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată stânga</TD>
-<TD>punct 2+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta shift+alt+săgeată stânga</TD>
-<TD>punct 2+punct 7+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta alt+săgeată stânga</TD>
-<TD>punct 2+punct 7</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+shift+săgeată dreapta</TD>
-<TD>punct 5+punct 8+spațiu+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată dreapta</TD>
-<TD>punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta shift+alt+săgeată dreapta</TD>
-<TD>punct 5+punct 7+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta alt+săgeată dreapta</TD>
-<TD>punct 5+punct 7</TD>
-</TR>
-<TR>
-<TD>tasta pagină în sus (pageUp)</TD>
-<TD>punct 1+punct 2+punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+pagină în sus</TD>
-<TD>punct 1+punct 2+punct 6+punct 8+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+shift+săgeată sus</TD>
-<TD>punct 2+punct 3+punct 8+spațiu+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată sus</TD>
-<TD>punct 2+punct 3+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta shift+alt+săgeată sus</TD>
-<TD>punct 2+punct 3+punct 7+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta alt+săgeată sus</TD>
-<TD>punct 2+punct 3+punct 7</TD>
-</TR>
-<TR>
-<TD>tasta shift+săgeată sus</TD>
-<TD>derulator stânga în jos + spațiu</TD>
-</TR>
-<TR>
-<TD>tasta pagină în jos (pageDown)</TD>
-<TD>punct 3+punct 4+punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+pagină în jos</TD>
-<TD>punct 3+punct 4+punct 5+punct 8+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta control+shift+săgeată jos</TD>
-<TD>punct 5+punct 6+punct 8+spațiu+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta control+săgeată jos</TD>
-<TD>punct 5+punct 6+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta shift+alt+săgeată jos</TD>
-<TD>punct 5+punct 6+punct 7+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta alt+săgeată jos</TD>
-<TD>punct 5+punct 6+punct 7</TD>
-</TR>
-<TR>
-<TD>tasta shift+săgeată jos</TD>
-<TD>derulator dreapta în jos + spațiu</TD>
-</TR>
-<TR>
-<TD>tasta șterge (delete)</TD>
-<TD>punct 1+punct 3+punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta F1</TD>
-<TD>punct 1+punct 2+punct 5+spațiu</TD>
-</TR>
-<TR>
-<TD>tasta F3</TD>
-<TD>punct 1+punct 2+punct 4+punct 8</TD>
-</TR>
-<TR>
-<TD>tasta F4</TD>
-<TD>punct 7+avansează 3</TD>
-</TR>
-<TR>
-<TD>tasta windows+b</TD>
-<TD>punct 1+punct 2+avansează 1</TD>
-</TR>
-<TR>
-<TD>tasta windows+d</TD>
-<TD>punct 1+punct 4+punct 5+avansează 1</TD>
-</TR>
-</TABLE>
-
-<H3>HIMS SyncBraille</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>derulator stânga în jos</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>derulator dreapta în jos</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-</TABLE>
-
-<A NAME="Seika"></A>
-<H3>Afișaje Braille Seika</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>b3</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>b4</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>b5</TD>
-</TR>
-<TR>
-<TD>Rostește tot</TD>
-<TD>b6</TD>
-</TR>
-<TR>
-<TD>tab</TD>
-<TD>b1</TD>
-</TR>
-<TR>
-<TD>shift+tab</TD>
-<TD>b2</TD>
-</TR>
-<TR>
-<TD>alt+tab</TD>
-<TD>b1+b2</TD>
-</TR>
-<TR>
-<TD>Meniul NVDA</TD>
-<TD>stânga+dreapta</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-</TABLE>
-
-<A NAME="Papenmeier"></A>
-<H3>Modelele mai noi Papenmeier BRAILLEX</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>dn</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Anunță caracterul analizat curent</TD>
-<TD>l1</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>l2</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>r2</TD>
-</TR>
-<TR>
-<TD>Anunță titlu</TD>
-<TD>l1+sus</TD>
-</TR>
-<TR>
-<TD>Anunță bara de stare</TD>
-<TD>l2+jos</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul conținător</TD>
-<TD>sus2</TD>
-</TR>
-<TR>
-<TD>Mută la primul obiect conținut</TD>
-<TD>dn2</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul anterior</TD>
-<TD>stânga2</TD>
-</TR>
-<TR>
-<TD>Mută la următorul obiect</TD>
-<TD>dreapta2</TD>
-</TR>
-<TR>
-<TD>Anunță formatarea textului de sub celula braille</TD>
-<TD>upper routing row</TD>
-</TR>
-</TABLE>
-
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TD>tasta escape</TD>
-<TD>spațiu cu punct  7</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>spațiu cu punct  2</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>spațiu cu punct  1</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>spațiu cu punct  4</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>spațiu cu punct  5</TD>
-</TR>
-<TR>
-<TD>tasta control</TD>
-<TD>lt+punct 2</TD>
-</TR>
-<TR>
-<TD>tasta alt</TD>
-<TD>lt+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta control+escape</TD>
-<TD>spațiu cu punct  1 2 3 4 5 6</TD>
-</TR>
-<TR>
-<TD>tasta tab</TD>
-<TD>spațiu cu punct  3 7</TD>
-</TR>
-</TABLE>
-
-<A NAME="PapenmeierOld"></A>
-<H3>Modele mai vechi Papenmeier Braille BRAILLEX</H3>
-<P>
-Dispozitive cu EAB:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>dn</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Anunță caracterul analizat curent</TD>
-<TD>l1</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>l2</TD>
-</TR>
-<TR>
-<TD>Anunță titlu</TD>
-<TD>l1up</TD>
-</TR>
-<TR>
-<TD>Anunță bara de stare</TD>
-<TD>l2down</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul conținător</TD>
-<TD>sus2</TD>
-</TR>
-<TR>
-<TD>Mută la primul obiect conținut</TD>
-<TD>dn2</TD>
-</TR>
-<TR>
-<TD>Mută la următorul obiect</TD>
-<TD>dreapta2</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul anterior</TD>
-<TD>stânga2</TD>
-</TR>
-<TR>
-<TD>Anunță formatarea textului de sub celula braille</TD>
-<TD>upper routing strip</TD>
-</TR>
-</TABLE>
-
-<P>
-BRAILLEX Tiny:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Anunță caracterul analizat curent</TD>
-<TD>l1</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>l2</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>dn</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>r2</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul conținător</TD>
-<TD>r1+sus</TD>
-</TR>
-<TR>
-<TD>Mută la primul obiect conținut</TD>
-<TD>r1+dn</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul anterior</TD>
-<TD>r1+stânga</TD>
-</TR>
-<TR>
-<TD>Mută la următorul obiect</TD>
-<TD>r1+dreapta</TD>
-</TR>
-<TR>
-<TD>Anunță formatarea textului de sub celula braille</TD>
-<TD>upper routing strip</TD>
-</TR>
-<TR>
-<TD>Anunță titlu</TD>
-<TD>l1+sus</TD>
-</TR>
-<TR>
-<TD>Anunță bara de stare</TD>
-<TD>l2+jos</TD>
-</TR>
-</TABLE>
-
-<P>
-BRAILLEX 2D Screen:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Anunță caracterul analizat curent</TD>
-<TD>l1</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>l2</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>r2</TD>
-</TR>
-<TR>
-<TD>Anunță formatarea textului de sub celula braille</TD>
-<TD>upper routing strip</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>dn</TD>
-</TR>
-<TR>
-<TD>Mută la următorul obiect</TD>
-<TD>stânga2</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul conținător</TD>
-<TD>sus2</TD>
-</TR>
-<TR>
-<TD>Mută la primul obiect conținut</TD>
-<TD>dn2</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul anterior</TD>
-<TD>dreapta2</TD>
-</TR>
-</TABLE>
-
-<A NAME="HumanWareBrailleNote"></A>
-<H3>HumanWare BrailleNote</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>back</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>avansează</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>previous</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>next</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>previous+next</TD>
-</TR>
-<TR>
-<TD>Meniul NVDA</TD>
-<TD>spațiu+punct 1 + punct 3 + punct 4 + Punct 5 (spațiu+n)</TD>
-</TR>
-<TR>
-<TD>tasta săgeată sus</TD>
-<TD>spațiu+punct 1</TD>
-</TR>
-<TR>
-<TD>tasta săgeată jos</TD>
-<TD>spațiu+punct 4</TD>
-</TR>
-<TR>
-<TD>tasta săgeată stânga</TD>
-<TD>spațiu+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta săgeată dreapta</TD>
-<TD>spațiu+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta pagină în sus (Page up)</TD>
-<TD>spațiu+punct 1+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta pagină în jos (Page down)</TD>
-<TD>spațiu+punct 4+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta acasă (Home)</TD>
-<TD>spațiu+punct 1+punct 2</TD>
-</TR>
-<TR>
-<TD>tasta sfârșit (End)</TD>
-<TD>spațiu+punct 4+punct 5</TD>
-</TR>
-<TR>
-<TD>tasta Control+acasă</TD>
-<TD>spațiu+punct 1+punct 2+punct 3</TD>
-</TR>
-<TR>
-<TD>tasta Control+sfârșit</TD>
-<TD>spațiu+punct 4+punct 5+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta Spațiu</TD>
-<TD>spațiu</TD>
-</TR>
-<TR>
-<TD>Enter</TD>
-<TD>spațiu+punct 8</TD>
-</TR>
-<TR>
-<TD>șterge înapoi (Backspace)</TD>
-<TD>spațiu+punct 7</TD>
-</TR>
-<TR>
-<TD>tasta Tab</TD>
-<TD>spațiu+punct 2+punct 3+punct 4+punct 5 (spațiu+t)</TD>
-</TR>
-<TR>
-<TD>tasta Shift+tab</TD>
-<TD>spațiu+punct 1+punct 2+punct 5+punct 6</TD>
-</TR>
-<TR>
-<TD>tasta Windows</TD>
-<TD>spațiu+punct 2+punct 4+punct 5+punct 6 (spațiu+w)</TD>
-</TR>
-<TR>
-<TD>tasta Alt</TD>
-<TD>spațiu+punct 1+punct 3+punct 4 (spațiu+m)</TD>
-</TR>
-<TR>
-<TD>Comută ajutor pentru intrări</TD>
-<TD>spațiu+punct 2+punct 3+punct 6 (spațiu+ h mic)</TD>
-</TR>
-</TABLE>
-
-<P>
-Urmează comenzi atributate la Braillenote QT când această tastatură nu este în modul de intrare braille:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Meniu NvDA</TD>
-<TD>citește+n</TD>
-</TR>
-<TR>
-<TD>săgeată sus</TD>
-<TD>Săgeată sus</TD>
-</TR>
-<TR>
-<TD>Săgeată jos</TD>
-<TD>Săgeată jos</TD>
-</TR>
-<TR>
-<TD>Săgeată stânga</TD>
-<TD>Săgeată stânga</TD>
-</TR>
-<TR>
-<TD>Săgeată dreapta</TD>
-<TD>Săgeată dreapta</TD>
-</TR>
-<TR>
-<TD>Pagină sus</TD>
-<TD>Tasta funcție  î săgeată sus</TD>
-</TR>
-<TR>
-<TD>Pagină jos</TD>
-<TD>Tasta funcție + săgeată jos</TD>
-</TR>
-<TR>
-<TD>Tasta acasă</TD>
-<TD>Tasta funcție + Săgeată stânga</TD>
-</TR>
-<TR>
-<TD>Tasta Sfârșit</TD>
-<TD>Tasta funcție + săgeată dreapta</TD>
-</TR>
-<TR>
-<TD>Control+acasă</TD>
-<TD>citește + t</TD>
-</TR>
-<TR>
-<TD>Control + sfârșit</TD>
-<TD>citește + b</TD>
-</TR>
-<TR>
-<TD>Tasta Enter</TD>
-<TD>enter</TD>
-</TR>
-<TR>
-<TD>Tasta șterge înapoi</TD>
-<TD>backspace</TD>
-</TR>
-<TR>
-<TD>Tasta Tab</TD>
-<TD>tab</TD>
-</TR>
-<TR>
-<TD>Shift+tab</TD>
-<TD>shift+tab</TD>
-</TR>
-<TR>
-<TD>Tasta Windows</TD>
-<TD>citește + w</TD>
-</TR>
-<TR>
-<TD>Tasta Alt</TD>
-<TD>citește + m</TD>
-</TR>
-<TR>
-<TD>Comută ajutor pentru intrări</TD>
-<TD>citește + 1</TD>
-</TR>
-</TABLE>
-
-<P>
-Urmează comenzi pentru joysticul de rulare:
-</P>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Săgeată sus</TD>
-<TD>Săgeată sus</TD>
-</TR>
-<TR>
-<TD>Săgeată jos</TD>
-<TD>Săgeată jos</TD>
-</TR>
-<TR>
-<TD>Săgeată stânga</TD>
-<TD>Săgeată stânga</TD>
-</TR>
-<TR>
-<TD>Săgeată dreapta</TD>
-<TD>Săgeată dreapta</TD>
-</TR>
-<TR>
-<TD>Tasta Enter</TD>
-<TD>Butonul central</TD>
-</TR>
-<TR>
-<TD>Tasta Tab</TD>
-<TD>Învârtiți rotița  in sens de ceasornic</TD>
-</TR>
-<TR>
-<TD>Shift+tab</TD>
-<TD>Învârtiți rotița contra sensului de ceasornic</TD>
-</TR>
-</TABLE>
-
-<A NAME="EcoBraille"></A>
-<H3>EcoBraille</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>T2</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>T4</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>T1</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>T5</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>Routing</TD>
-</TR>
-<TR>
-<TD>Activează obiectul navigator curent</TD>
-<TD>T3</TD>
-</TR>
-<TR>
-<TD>Comută la următorul mod de examinare</TD>
-<TD>F1</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul conținător</TD>
-<TD>F2</TD>
-</TR>
-<TR>
-<TD>Comută la anteriorul mod de examinare</TD>
-<TD>F3</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul anterior</TD>
-<TD>F4</TD>
-</TR>
-<TR>
-<TD>Anunță obiectul curent</TD>
-<TD>F5</TD>
-</TR>
-<TR>
-<TD>Mută la următorul obiect</TD>
-<TD>F6</TD>
-</TR>
-<TR>
-<TD>Mută la obiectul focalizat</TD>
-<TD>F7</TD>
-</TR>
-<TR>
-<TD>Mută la primul obiect conținut</TD>
-<TD>F8</TD>
-</TR>
-<TR>
-<TD>Mută focalizarea sistemului sau cursorul de scriere la poziția de examinare curentă</TD>
-<TD>F9</TD>
-</TR>
-<TR>
-<TD>Anunță locația cursorului de examinare</TD>
-<TD>F0</TD>
-</TR>
-<TR>
-<TD>Comută braille asociat la</TD>
-<TD>A</TD>
-</TR>
-</TABLE>
-
-<A NAME="SuperBraille"></A>
-<H3>SuperBraille</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>Derulează afișarea braille înapoi</TD>
-<TD>minus de pe blocul numeric</TD>
-</TR>
-<TR>
-<TD>Derulează afișarea braille înainte</TD>
-<TD>plus de pe blocul numeric</TD>
-</TR>
-</TABLE>
-
-<A NAME="Eurobraille"></A>
-<H3>Afișajele Eurobraille Esys/Esytime/Iris</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>tastă</TH>
-</TR>
-<TR>
-<TD>Derulează înapoi afișajul braille</TD>
-<TD>switch1-6stânga, l1</TD>
-</TR>
-<TR>
-<TD>Derulează înainte afișajul braille</TD>
-<TD>switch1-6dreapta, l8</TD>
-</TR>
-<TR>
-<TD>Mută la focalizarea curentă</TD>
-<TD>switch1-6stânga+switch1-6dreapta, l1+l8</TD>
-</TR>
-<TR>
-<TD>Comută la celula braille</TD>
-<TD>routing</TD>
-</TR>
-<TR>
-<TD>Raportează formatul textului de sub celula braille</TD>
-<TD>doubleRouting</TD>
-</TR>
-<TR>
-<TD>Mută la linia precedentă din examinare</TD>
-<TD>joystick1Sus</TD>
-</TR>
-<TR>
-<TD>Mută la linia următoare din examinare</TD>
-<TD>joystick1Jos</TD>
-</TR>
-<TR>
-<TD>Mută la caracterul anterior din examinare</TD>
-<TD>joystick1Stânga</TD>
-</TR>
-<TR>
-<TD>Mută la caracterul următor din examinare</TD>
-<TD>joystick1Dreapta</TD>
-</TR>
-<TR>
-<TD>Comută la modul de examinare anterior</TD>
-<TD>joystick1Stânga+joystick1Sus</TD>
-</TR>
-<TR>
-<TD>Comută la modul de examinare următor</TD>
-<TD>joystick1Dreapta+joystick1Jos</TD>
-</TR>
-<TR>
-<TD>Șterge ultima celulă sau ultimul caracter braille introdus</TD>
-<TD>backspace</TD>
-</TR>
-<TR>
-<TD>Traduce orice intrare braille și apasă tasta enter</TD>
-<TD>backSpace+spațiu</TD>
-</TR>
-<TR>
-<TD>insert</TD>
-<TD>punct3+punct5+spațiu, l7</TD>
-</TR>
-<TR>
-<TD>șterge</TD>
-<TD>punct3+punct6+spațiu</TD>
-</TR>
-<TR>
-<TD>home</TD>
-<TD>punct1+punct2+punct3+spațiu, joystick2Stânga+joystick2Sus</TD>
-</TR>
-<TR>
-<TD>end</TD>
-<TD>punct4+punct5+punct6+spațiu, joystick2Dreapta+joystick2Jos</TD>
-</TR>
-<TR>
-<TD>săgeată jos</TD>
-<TD>punct2+spațiu, joystick2Stânga, săgeată jos</TD>
-</TR>
-<TR>
-<TD>săgeată dreapta</TD>
-<TD>punct5+spațiu, joystick2Dreapta, săgeată dreapta</TD>
-</TR>
-<TR>
-<TD>săgeată sus</TD>
-<TD>punct1+spațiu, joystick2Sus, săgeată sus</TD>
-</TR>
-<TR>
-<TD>săgeată jos</TD>
-<TD>punct6+spațiu, joystick2Jos, săgeată jos</TD>
-</TR>
-<TR>
-<TD>enter</TD>
-<TD>joystick2Centru</TD>
-</TR>
-<TR>
-<TD>pagină sus</TD>
-<TD>punct1+punct3+spațiu</TD>
-</TR>
-<TR>
-<TD>pagină jos</TD>
-<TD>punct4+punct6+spațiu</TD>
-</TR>
-<TR>
-<TD>1 bloc numeric</TD>
-<TD>punct1+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>2 bloc numeric</TD>
-<TD>punct1+punct2+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>3 bloc numeric</TD>
-<TD>punct1+punct4+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>4 bloc numeric</TD>
-<TD>punct1+punct4+punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>5 bloc numeric</TD>
-<TD>punct1+punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>6 bloc numeric</TD>
-<TD>punct1+punct2+punct4+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>7 bloc numeric</TD>
-<TD>punct1+punct2+punct3+punct4+punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>8 bloc numeric</TD>
-<TD>punct1+punct2+punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>9 bloc numeric</TD>
-<TD>punct2+punct4+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>insert bloc numeric</TD>
-<TD>punct3+punct4+punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>decimală bloc numeric</TD>
-<TD>punct2+backspace</TD>
-</TR>
-<TR>
-<TD>împărțire bloc numeric</TD>
-<TD>punct3+punct4+backspace</TD>
-</TR>
-<TR>
-<TD>înmulțire bloc numeric</TD>
-<TD>punct3+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>minus bloc numeric</TD>
-<TD>punct3+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>plus bloc numeric</TD>
-<TD>punct2+punct3+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>enter bloc numeric</TD>
-<TD>punct3+punct4+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>escape bloc numeric</TD>
-<TD>punct1+punct2+punct4+punct5+spațiu, l2</TD>
-</TR>
-<TR>
-<TD>tab</TD>
-<TD>punct2+punct5+punct6+spațiu</TD>
-</TR>
-<TR>
-<TD>shift+tab</TD>
-<TD>punct2+punct3+punct5+spațiu</TD>
-</TR>
-<TR>
-<TD>captură de ecran</TD>
-<TD>punct1+punct3+punct4+punct6+spațiu</TD>
-</TR>
-<TR>
-<TD>pauză</TD>
-<TD>punct1+punct4+spațiu</TD>
-</TR>
-<TR>
-<TD>aplicații</TD>
-<TD>punct5+punct6+backspace</TD>
-</TR>
-<TR>
-<TD>f1</TD>
-<TD>punct1+backspace</TD>
-</TR>
-<TR>
-<TD>f2</TD>
-<TD>punct1+punct2+backspace</TD>
-</TR>
-<TR>
-<TD>f3</TD>
-<TD>punct1+punct4+backspace</TD>
-</TR>
-<TR>
-<TD>f4</TD>
-<TD>punct1+punct4+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>f5</TD>
-<TD>punct1+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>f6</TD>
-<TD>punct1+punct2+punct4+backspace</TD>
-</TR>
-<TR>
-<TD>f7</TD>
-<TD>punct1+punct2+punct4+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>f8</TD>
-<TD>punct1+punct2+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>f9</TD>
-<TD>punct2+punct4+backspace</TD>
-</TR>
-<TR>
-<TD>f10</TD>
-<TD>punct2+punct4+punct5+backspace</TD>
-</TR>
-<TR>
-<TD>f11</TD>
-<TD>punct1+punct3+backspace</TD>
-</TR>
-<TR>
-<TD>f12</TD>
-<TD>punct1+punct2+punct3+backspace</TD>
-</TR>
-<TR>
-<TD>windows</TD>
-<TD>punct1+punct2+punct3+punct4+backspace</TD>
-</TR>
-<TR>
-<TD>capslock</TD>
-<TD>punct7+backspace, punct8+backspace</TD>
-</TR>
-<TR>
-<TD>bloc numeric</TD>
-<TD>punct3+backspace, punct6+backspace</TD>
-</TR>
-<TR>
-<TD>shift</TD>
-<TD>punct7+spațiu, l4</TD>
-</TR>
-<TR>
-<TD>Comută la Shift</TD>
-<TD>punct1+punct7+spațiu, punct+4+punct7+spațiu</TD>
-</TR>
-<TR>
-<TD>control</TD>
-<TD>punct7+punct8+spațiu, punct1+punct7+punct8+spațiu, punct4+punct7+punct8+spațiu, l5</TD>
-</TR>
-<TR>
-<TD>Comută la control</TD>
-<TD>punct1+punct7+punct8+spațiu, punct4+punct7+punct8+spațiu</TD>
-</TR>
-<TR>
-<TD>alt</TD>
-<TD>punct8+spațiu, punct1+punct8+spațiu, punct4+punct8+spațiu, l6</TD>
-</TR>
-<TR>
-<TD>Comută la alt</TD>
-<TD>punct1+punct8+spațiu, punct4+punct8+spațiu</TD>
-</TR>
-<TR>
-<TD>Activează sau dezactivează intrarea simulării tastaturii HID</TD>
-<TD>esytime):l1+joystick1Jos, esytime):l8+joystick1Jos</TD>
-</TR>
-</TABLE>
-
-<A NAME="NattiqTechnologies"></A>
-<H3>Nattiq nBraille Displays</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Tastă</TH>
-</TR>
-<TR>
-<TD>derulează afișajul braille înapoi</TD>
-<TD>sus</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>jos</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul precedent</TD>
-<TD>stânga</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>dreapta</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>mutare</TD>
-</TR>
-</TABLE>
-
-<A NAME="BRLTTY"></A>
-<H3>BRLTTY</H3>
-<TABLE BORDER="1" CELLPADDING="4">
-<TR>
-<TH>Nume</TH>
-<TH>Comandă BRLTTY</TH>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înapoi</TD>
-<TD>fwinlt (du-te cu o fereastră la stânga)</TD>
-</TR>
-<TR>
-<TD>Derulează afișajul braille înainte</TD>
-<TD>fwinrt (du-te cu o fereastră la dreapta)</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul anterior</TD>
-<TD>lnup (du-te un rând în sus)</TD>
-</TR>
-<TR>
-<TD>Mută afișajul braille la rândul următor</TD>
-<TD>lndn (du-te un rând în jos)</TD>
-</TR>
-<TR>
-<TD>Mută la celula braille</TD>
-<TD>route (adu cursorul la caracter)</TD>
-</TR>
-</TABLE>
-
-
-<!-- html code generated by txt2tags 2.5 (http://txt2tags.sf.net) -->
-<!-- cmdline: txt2tags user_docs\ro\keyCommands.t2t -->
-</BODY></HTML>
+<p>Următoarele afișaje Braille sunt suportate:</p>
+<ul>
+<li>BRAILLEX EL 80, EL 2D-80, EL 40 P</li>
+<li>BRAILLEX Tiny, 2D Screen</li>
+</ul>
+<p>De notat că aceste afișaje pot fi conectate doar printr-un port serial.
+Din această cauză, aceste afișaje nu suportă funcționalitatea NVDA-ului de detectare automată în fundal a afișajelor braille.
+În consecință, ar trebui să alegeți portul la care este conectat afișajul după ce ați ales acest driver în <a href="#SelectBrailleDisplay" title="Dialogul de selectare al afișajului braille">Dialogul de selectare al afișajului braille</a>.</p>
+<p>Unele dintre aceste dispozitive au o Bară de acces facil (Easy Access Bar - EAB) care permite o operare rapidă și intuitivă.
+EAB poate fi mutată în patru direcții și, în general, fiecare direcție are două comutatoare.
+Apăsând și menținând tastele sus, jos, dreapta și stânga (sau EAB) provoacă repetarea acțiunii corespunzătoare.
+Dispozitivele mai vechi nu au o EAB; sunt folosite tastele frontale, în schimb.</p>
+<p>În general, următoarele taste sunt disponibile pe afișajele braille:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l1</td>
+<td>Tasta stânga-față</td>
+</tr>
+<tr>
+<td>l2</td>
+<td>Tasta stânga-spate</td>
+</tr>
+<tr>
+<td>r1</td>
+<td>Tasta dreapta-față</td>
+</tr>
+<tr>
+<td>r2</td>
+<td>Tasta dreapta-spate</td>
+</tr>
+<tr>
+<td>sus</td>
+<td>un pas în sus</td>
+</tr>
+<tr>
+<td>sus2</td>
+<td>doi pași în sus</td>
+</tr>
+<tr>
+<td>stânga</td>
+<td>un pas la stânga</td>
+</tr>
+<tr>
+<td>stânga2</td>
+<td>doi pași la stânga</td>
+</tr>
+<tr>
+<td>dreapta</td>
+<td>un pas la dreapta</td>
+</tr>
+<tr>
+<td>dreapta2</td>
+<td>doi pași la dreapta</td>
+</tr>
+<tr>
+<td>dn</td>
+<td>un pas în jos</td>
+</tr>
+<tr>
+<td>dn2</td>
+<td>doi pași în jos</td>
+</tr>
+</tbody>
+</table>
+<p>Urmează asocierile de comenzi pentru Papenmeier și NVDA:</p>
+<h3 id="PapenmeierOld">Modele mai vechi Papenmeier Braille BRAILLEX</h3>
+<p>Dispozitive cu EAB:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>dn</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Anunță caracterul analizat curent</td>
+<td>l1</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>l2</td>
+</tr>
+<tr>
+<td>Anunță titlu</td>
+<td>l1up</td>
+</tr>
+<tr>
+<td>Anunță bara de stare</td>
+<td>l2down</td>
+</tr>
+<tr>
+<td>Mută la obiectul conținător</td>
+<td>sus2</td>
+</tr>
+<tr>
+<td>Mută la primul obiect conținut</td>
+<td>dn2</td>
+</tr>
+<tr>
+<td>Mută la următorul obiect</td>
+<td>dreapta2</td>
+</tr>
+<tr>
+<td>Mută la obiectul anterior</td>
+<td>stânga2</td>
+</tr>
+<tr>
+<td>Anunță formatarea textului de sub celula braille</td>
+<td>upper routing strip</td>
+</tr>
+</tbody>
+</table>
+<p>BRAILLEX Tiny:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță caracterul analizat curent</td>
+<td>l1</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>l2</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>dn</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>r2</td>
+</tr>
+<tr>
+<td>Mută la obiectul conținător</td>
+<td>r1+sus</td>
+</tr>
+<tr>
+<td>Mută la primul obiect conținut</td>
+<td>r1+dn</td>
+</tr>
+<tr>
+<td>Mută la obiectul anterior</td>
+<td>r1+stânga</td>
+</tr>
+<tr>
+<td>Mută la următorul obiect</td>
+<td>r1+dreapta</td>
+</tr>
+<tr>
+<td>Anunță formatarea textului de sub celula braille</td>
+<td>upper routing strip</td>
+</tr>
+<tr>
+<td>Anunță titlu</td>
+<td>l1+sus</td>
+</tr>
+<tr>
+<td>Anunță bara de stare</td>
+<td>l2+jos</td>
+</tr>
+</tbody>
+</table>
+<p>BRAILLEX 2D Screen:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anunță caracterul analizat curent</td>
+<td>l1</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>l2</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>r2</td>
+</tr>
+<tr>
+<td>Anunță formatarea textului de sub celula braille</td>
+<td>upper routing strip</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>dn</td>
+</tr>
+<tr>
+<td>Mută la următorul obiect</td>
+<td>stânga2</td>
+</tr>
+<tr>
+<td>Mută la obiectul conținător</td>
+<td>sus2</td>
+</tr>
+<tr>
+<td>Mută la primul obiect conținut</td>
+<td>dn2</td>
+</tr>
+<tr>
+<td>Mută la obiectul anterior</td>
+<td>dreapta2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HumanWareBrailleNote">HumanWare BrailleNote</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>back</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>avansează</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>previous</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>next</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>previous+next</td>
+</tr>
+<tr>
+<td>Meniul NVDA</td>
+<td>spațiu+punct 1 + punct 3 + punct 4 + Punct 5 (spațiu+n)</td>
+</tr>
+<tr>
+<td>tasta săgeată sus</td>
+<td>spațiu+punct 1</td>
+</tr>
+<tr>
+<td>tasta săgeată jos</td>
+<td>spațiu+punct 4</td>
+</tr>
+<tr>
+<td>tasta săgeată stânga</td>
+<td>spațiu+punct 3</td>
+</tr>
+<tr>
+<td>tasta săgeată dreapta</td>
+<td>spațiu+punct 6</td>
+</tr>
+<tr>
+<td>tasta pagină în sus (Page up)</td>
+<td>spațiu+punct 1+punct 3</td>
+</tr>
+<tr>
+<td>tasta pagină în jos (Page down)</td>
+<td>spațiu+punct 4+punct 6</td>
+</tr>
+<tr>
+<td>tasta acasă (Home)</td>
+<td>spațiu+punct 1+punct 2</td>
+</tr>
+<tr>
+<td>tasta sfârșit (End)</td>
+<td>spațiu+punct 4+punct 5</td>
+</tr>
+<tr>
+<td>tasta Control+acasă</td>
+<td>spațiu+punct 1+punct 2+punct 3</td>
+</tr>
+<tr>
+<td>tasta Control+sfârșit</td>
+<td>spațiu+punct 4+punct 5+punct 6</td>
+</tr>
+<tr>
+<td>tasta Spațiu</td>
+<td>spațiu</td>
+</tr>
+<tr>
+<td>Enter</td>
+<td>spațiu+punct 8</td>
+</tr>
+<tr>
+<td>șterge înapoi (Backspace)</td>
+<td>spațiu+punct 7</td>
+</tr>
+<tr>
+<td>tasta Tab</td>
+<td>spațiu+punct 2+punct 3+punct 4+punct 5 (spațiu+t)</td>
+</tr>
+<tr>
+<td>tasta Shift+tab</td>
+<td>spațiu+punct 1+punct 2+punct 5+punct 6</td>
+</tr>
+<tr>
+<td>tasta Windows</td>
+<td>spațiu+punct 2+punct 4+punct 5+punct 6 (spațiu+w)</td>
+</tr>
+<tr>
+<td>tasta Alt</td>
+<td>spațiu+punct 1+punct 3+punct 4 (spațiu+m)</td>
+</tr>
+<tr>
+<td>Comută ajutor pentru intrări</td>
+<td>spațiu+punct 2+punct 3+punct 6 (spațiu+ h mic)</td>
+</tr>
+</tbody>
+</table>
+<p>Urmează comenzi atributate la Braillenote QT când această tastatură nu este în modul de intrare braille:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meniu NvDA</td>
+<td>citește+n</td>
+</tr>
+<tr>
+<td>săgeată sus</td>
+<td>Săgeată sus</td>
+</tr>
+<tr>
+<td>Săgeată jos</td>
+<td>Săgeată jos</td>
+</tr>
+<tr>
+<td>Săgeată stânga</td>
+<td>Săgeată stânga</td>
+</tr>
+<tr>
+<td>Săgeată dreapta</td>
+<td>Săgeată dreapta</td>
+</tr>
+<tr>
+<td>Pagină sus</td>
+<td>Tasta funcție  î săgeată sus</td>
+</tr>
+<tr>
+<td>Pagină jos</td>
+<td>Tasta funcție + săgeată jos</td>
+</tr>
+<tr>
+<td>Tasta acasă</td>
+<td>Tasta funcție + Săgeată stânga</td>
+</tr>
+<tr>
+<td>Tasta Sfârșit</td>
+<td>Tasta funcție + săgeată dreapta</td>
+</tr>
+<tr>
+<td>Control+acasă</td>
+<td>citește + t</td>
+</tr>
+<tr>
+<td>Control + sfârșit</td>
+<td>citește + b</td>
+</tr>
+<tr>
+<td>Tasta Enter</td>
+<td>enter</td>
+</tr>
+<tr>
+<td>Tasta șterge înapoi</td>
+<td>backspace</td>
+</tr>
+<tr>
+<td>Tasta Tab</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>Shift+tab</td>
+<td>shift+tab</td>
+</tr>
+<tr>
+<td>Tasta Windows</td>
+<td>citește + w</td>
+</tr>
+<tr>
+<td>Tasta Alt</td>
+<td>citește + m</td>
+</tr>
+<tr>
+<td>Comută ajutor pentru intrări</td>
+<td>citește + 1</td>
+</tr>
+</tbody>
+</table>
+<p>Urmează comenzi pentru joysticul de rulare:</p>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Săgeată sus</td>
+<td>Săgeată sus</td>
+</tr>
+<tr>
+<td>Săgeată jos</td>
+<td>Săgeată jos</td>
+</tr>
+<tr>
+<td>Săgeată stânga</td>
+<td>Săgeată stânga</td>
+</tr>
+<tr>
+<td>Săgeată dreapta</td>
+<td>Săgeată dreapta</td>
+</tr>
+<tr>
+<td>Tasta Enter</td>
+<td>Butonul central</td>
+</tr>
+<tr>
+<td>Tasta Tab</td>
+<td>Învârtiți rotița  in sens de ceasornic</td>
+</tr>
+<tr>
+<td>Shift+tab</td>
+<td>Învârtiți rotița contra sensului de ceasornic</td>
+</tr>
+</tbody>
+</table>
+<h3 id="EcoBraille">EcoBraille</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>T2</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>T4</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>T1</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>T5</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>Routing</td>
+</tr>
+<tr>
+<td>Activează obiectul navigator curent</td>
+<td>T3</td>
+</tr>
+<tr>
+<td>Comută la următorul mod de examinare</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Mută la obiectul conținător</td>
+<td>F2</td>
+</tr>
+<tr>
+<td>Comută la anteriorul mod de examinare</td>
+<td>F3</td>
+</tr>
+<tr>
+<td>Mută la obiectul anterior</td>
+<td>F4</td>
+</tr>
+<tr>
+<td>Anunță obiectul curent</td>
+<td>F5</td>
+</tr>
+<tr>
+<td>Mută la următorul obiect</td>
+<td>F6</td>
+</tr>
+<tr>
+<td>Mută la obiectul focalizat</td>
+<td>F7</td>
+</tr>
+<tr>
+<td>Mută la primul obiect conținut</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>Mută focalizarea sistemului sau cursorul de scriere la poziția de examinare curentă</td>
+<td>F9</td>
+</tr>
+<tr>
+<td>Anunță locația cursorului de examinare</td>
+<td>F0</td>
+</tr>
+<tr>
+<td>Comută braille asociat la</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SuperBraille">SuperBraille</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișarea braille înapoi</td>
+<td>minus de pe blocul numeric</td>
+</tr>
+<tr>
+<td>Derulează afișarea braille înainte</td>
+<td>plus de pe blocul numeric</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Eurobraille">Afișajele Eurobraille Esys/Esytime/Iris</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează înapoi afișajul braille</td>
+<td>switch1-6stânga, l1</td>
+</tr>
+<tr>
+<td>Derulează înainte afișajul braille</td>
+<td>switch1-6dreapta, l8</td>
+</tr>
+<tr>
+<td>Mută la focalizarea curentă</td>
+<td>switch1-6stânga+switch1-6dreapta, l1+l8</td>
+</tr>
+<tr>
+<td>Comută la celula braille</td>
+<td>routing</td>
+</tr>
+<tr>
+<td>Raportează formatul textului de sub celula braille</td>
+<td>doubleRouting</td>
+</tr>
+<tr>
+<td>Mută la linia precedentă din examinare</td>
+<td>joystick1Sus</td>
+</tr>
+<tr>
+<td>Mută la linia următoare din examinare</td>
+<td>joystick1Jos</td>
+</tr>
+<tr>
+<td>Mută la caracterul anterior din examinare</td>
+<td>joystick1Stânga</td>
+</tr>
+<tr>
+<td>Mută la caracterul următor din examinare</td>
+<td>joystick1Dreapta</td>
+</tr>
+<tr>
+<td>Comută la modul de examinare anterior</td>
+<td>joystick1Stânga+joystick1Sus</td>
+</tr>
+<tr>
+<td>Comută la modul de examinare următor</td>
+<td>joystick1Dreapta+joystick1Jos</td>
+</tr>
+<tr>
+<td>Șterge ultima celulă sau ultimul caracter braille introdus</td>
+<td>backspace</td>
+</tr>
+<tr>
+<td>Traduce orice intrare braille și apasă tasta enter</td>
+<td>backSpace+spațiu</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>punct3+punct5+spațiu, l7</td>
+</tr>
+<tr>
+<td>șterge</td>
+<td>punct3+punct6+spațiu</td>
+</tr>
+<tr>
+<td>home</td>
+<td>punct1+punct2+punct3+spațiu, joystick2Stânga+joystick2Sus</td>
+</tr>
+<tr>
+<td>end</td>
+<td>punct4+punct5+punct6+spațiu, joystick2Dreapta+joystick2Jos</td>
+</tr>
+<tr>
+<td>săgeată jos</td>
+<td>punct2+spațiu, joystick2Stânga, săgeată jos</td>
+</tr>
+<tr>
+<td>săgeată dreapta</td>
+<td>punct5+spațiu, joystick2Dreapta, săgeată dreapta</td>
+</tr>
+<tr>
+<td>săgeată sus</td>
+<td>punct1+spațiu, joystick2Sus, săgeată sus</td>
+</tr>
+<tr>
+<td>săgeată jos</td>
+<td>punct6+spațiu, joystick2Jos, săgeată jos</td>
+</tr>
+<tr>
+<td>enter</td>
+<td>joystick2Centru</td>
+</tr>
+<tr>
+<td>pagină sus</td>
+<td>punct1+punct3+spațiu</td>
+</tr>
+<tr>
+<td>pagină jos</td>
+<td>punct4+punct6+spațiu</td>
+</tr>
+<tr>
+<td>1 bloc numeric</td>
+<td>punct1+punct6+backspace</td>
+</tr>
+<tr>
+<td>2 bloc numeric</td>
+<td>punct1+punct2+punct6+backspace</td>
+</tr>
+<tr>
+<td>3 bloc numeric</td>
+<td>punct1+punct4+punct6+backspace</td>
+</tr>
+<tr>
+<td>4 bloc numeric</td>
+<td>punct1+punct4+punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>5 bloc numeric</td>
+<td>punct1+punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>6 bloc numeric</td>
+<td>punct1+punct2+punct4+punct6+backspace</td>
+</tr>
+<tr>
+<td>7 bloc numeric</td>
+<td>punct1+punct2+punct3+punct4+punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>8 bloc numeric</td>
+<td>punct1+punct2+punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>9 bloc numeric</td>
+<td>punct2+punct4+punct6+backspace</td>
+</tr>
+<tr>
+<td>insert bloc numeric</td>
+<td>punct3+punct4+punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>decimală bloc numeric</td>
+<td>punct2+backspace</td>
+</tr>
+<tr>
+<td>împărțire bloc numeric</td>
+<td>punct3+punct4+backspace</td>
+</tr>
+<tr>
+<td>înmulțire bloc numeric</td>
+<td>punct3+punct5+backspace</td>
+</tr>
+<tr>
+<td>minus bloc numeric</td>
+<td>punct3+punct6+backspace</td>
+</tr>
+<tr>
+<td>plus bloc numeric</td>
+<td>punct2+punct3+punct5+backspace</td>
+</tr>
+<tr>
+<td>enter bloc numeric</td>
+<td>punct3+punct4+punct5+backspace</td>
+</tr>
+<tr>
+<td>escape bloc numeric</td>
+<td>punct1+punct2+punct4+punct5+spațiu, l2</td>
+</tr>
+<tr>
+<td>tab</td>
+<td>punct2+punct5+punct6+spațiu</td>
+</tr>
+<tr>
+<td>shift+tab</td>
+<td>punct2+punct3+punct5+spațiu</td>
+</tr>
+<tr>
+<td>captură de ecran</td>
+<td>punct1+punct3+punct4+punct6+spațiu</td>
+</tr>
+<tr>
+<td>pauză</td>
+<td>punct1+punct4+spațiu</td>
+</tr>
+<tr>
+<td>aplicații</td>
+<td>punct5+punct6+backspace</td>
+</tr>
+<tr>
+<td>f1</td>
+<td>punct1+backspace</td>
+</tr>
+<tr>
+<td>f2</td>
+<td>punct1+punct2+backspace</td>
+</tr>
+<tr>
+<td>f3</td>
+<td>punct1+punct4+backspace</td>
+</tr>
+<tr>
+<td>f4</td>
+<td>punct1+punct4+punct5+backspace</td>
+</tr>
+<tr>
+<td>f5</td>
+<td>punct1+punct5+backspace</td>
+</tr>
+<tr>
+<td>f6</td>
+<td>punct1+punct2+punct4+backspace</td>
+</tr>
+<tr>
+<td>f7</td>
+<td>punct1+punct2+punct4+punct5+backspace</td>
+</tr>
+<tr>
+<td>f8</td>
+<td>punct1+punct2+punct5+backspace</td>
+</tr>
+<tr>
+<td>f9</td>
+<td>punct2+punct4+backspace</td>
+</tr>
+<tr>
+<td>f10</td>
+<td>punct2+punct4+punct5+backspace</td>
+</tr>
+<tr>
+<td>f11</td>
+<td>punct1+punct3+backspace</td>
+</tr>
+<tr>
+<td>f12</td>
+<td>punct1+punct2+punct3+backspace</td>
+</tr>
+<tr>
+<td>windows</td>
+<td>punct1+punct2+punct3+punct4+backspace</td>
+</tr>
+<tr>
+<td>capslock</td>
+<td>punct7+backspace, punct8+backspace</td>
+</tr>
+<tr>
+<td>bloc numeric</td>
+<td>punct3+backspace, punct6+backspace</td>
+</tr>
+<tr>
+<td>shift</td>
+<td>punct7+spațiu, l4</td>
+</tr>
+<tr>
+<td>Comută la Shift</td>
+<td>punct1+punct7+spațiu, punct+4+punct7+spațiu</td>
+</tr>
+<tr>
+<td>control</td>
+<td>punct7+punct8+spațiu, punct1+punct7+punct8+spațiu, punct4+punct7+punct8+spațiu, l5</td>
+</tr>
+<tr>
+<td>Comută la control</td>
+<td>punct1+punct7+punct8+spațiu, punct4+punct7+punct8+spațiu</td>
+</tr>
+<tr>
+<td>alt</td>
+<td>punct8+spațiu, punct1+punct8+spațiu, punct4+punct8+spațiu, l6</td>
+</tr>
+<tr>
+<td>Comută la alt</td>
+<td>punct1+punct8+spațiu, punct4+punct8+spațiu</td>
+</tr>
+<tr>
+<td>Activează sau dezactivează intrarea simulării tastaturii HID</td>
+<td>esytime):l1+joystick1Jos, esytime):l8+joystick1Jos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NattiqTechnologies">Nattiq nBraille Displays</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Tastă</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>derulează afișajul braille înapoi</td>
+<td>sus</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>jos</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul precedent</td>
+<td>stânga</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>dreapta</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>mutare</td>
+</tr>
+</tbody>
+</table>
+<h3 id="BRLTTY">BRLTTY</h3>
+<table>
+<thead>
+<tr>
+<th>Nume</th>
+<th>Comandă BRLTTY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Derulează afișajul braille înapoi</td>
+<td>fwinlt (du-te cu o fereastră la stânga)</td>
+</tr>
+<tr>
+<td>Derulează afișajul braille înainte</td>
+<td>fwinrt (du-te cu o fereastră la dreapta)</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul anterior</td>
+<td>lnup (du-te un rând în sus)</td>
+</tr>
+<tr>
+<td>Mută afișajul braille la rândul următor</td>
+<td>lndn (du-te un rând în jos)</td>
+</tr>
+<tr>
+<td>Mută la celula braille</td>
+<td>route (adu cursorul la caracter)</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

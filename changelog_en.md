@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.333</h2>
 <ul>
+<li>Update NVDA and it modules.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 582.</li>
 </ul>
 <h2>V4.3.332</h2>
@@ -141,7 +142,7 @@
 </ul>
 <h2>V4.3.310</h2>
 <ul>
-<li>Update NVDA and its modules.</li>
+<li>Update NVDA and it modules.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 563.</li>
 </ul>
 <h2>V4.3.309</h2>

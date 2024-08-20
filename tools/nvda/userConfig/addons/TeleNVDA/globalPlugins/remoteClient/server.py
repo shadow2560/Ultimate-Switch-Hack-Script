@@ -9,7 +9,8 @@ sys.path.append(os.path.dirname(__file__))
 import miniupnpc
 del sys.path[-1]
 from logHandler import log
-
+from . import socket_utils
+from dataclasses import dataclass
 
 class Server:
 	PING_TIME: int = 300
@@ -23,6 +24,7 @@ class Server:
 		#Maps client sockets to clients
 		self.clients = {}
 		self.client_sockets = []
+		self.invalid_join_attempts: dict[str, InvalidJoinAttempt] = {}
 		self.running = False
 		self.server_socket = self.create_server_socket(socket.AF_INET, socket.SOCK_STREAM, bind_addr=(bind_host, self.port))
 		self.server_socket6 = self.create_server_socket(socket.AF_INET6, socket.SOCK_STREAM, bind_addr=(bind_host6, self.port))
@@ -33,7 +35,7 @@ class Server:
 	def create_server_socket(self, family, type, bind_addr):
 		server_socket = socket.socket(family, type)
 		certfile = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'server.pem')
-		server_socket = ssl.wrap_socket(server_socket, certfile=certfile)
+		server_socket = socket_utils.wrap_socket(server_socket, certfile=certfile)
 		server_socket.bind(bind_addr)
 		server_socket.listen(5)
 		return server_socket
@@ -48,7 +50,7 @@ class Server:
 				self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
 			except:
 				self.upnp = None
-		self.last_ping_time = time.time()
+		self.last_ping_time = time.monotonic()
 		log.info("TeleNVDA direct connection server started")
 		while self.running:
 			r, w, e = select.select(self.client_sockets+[self.server_socket, self.server_socket6], [], self.client_sockets, 60)
@@ -59,13 +61,13 @@ class Server:
 					self.accept_new_connection(sock)
 					continue
 				self.clients[sock].handle_data()
-			if time.time() - self.last_ping_time >= self.PING_TIME:
+			if time.monotonic() - self.last_ping_time >= self.PING_TIME:
 				if self.upnp:
 					self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
 				for client in self.clients.values():
 					if client.authenticated:
 						client.send(type='ping')
-				self.last_ping_time = time.time()
+				self.last_ping_time = time.monotonic()
 
 	def accept_new_connection(self, sock):
 		try:
@@ -81,6 +83,25 @@ class Server:
 	def add_client(self, client):
 		self.clients[client.socket] = client
 		self.client_sockets.append(client.socket)
+		if client.addr in self.invalid_join_attempts:
+			a = self.invalid_join_attempts[client.addr]
+			# The number of invalid attempts not subject to rate limiting
+			FREE_ATTEMPTS: int = 3
+			ban_for = (
+				0 if a.attempts < FREE_ATTEMPTS
+				else min(2 ** (a.attempts - FREE_ATTEMPTS), 2**6)
+			)
+			if  time.monotonic() - a.last_invalid_attempt_time <= ban_for:
+				ban_remaining = round(
+					ban_for - (time.monotonic() - a.last_invalid_attempt_time)
+				)
+				log.warning(
+					f"Client {client.addr} banned for {ban_remaining} "
+					f"seconds due to {a.attempts} invalid join attempts"
+				)
+				client.send(type='error', message='too_many_attempts')
+				client.close()
+				return
 
 	def remove_client(self, client):
 		del self.clients[client.socket]
@@ -106,6 +127,7 @@ class Client:
 	def __init__(self, server, socket):
 		self.server = server
 		self.socket = socket
+		self.addr: str = self.socket.getpeername()[0]
 		self.buffer = b''
 		self.authenticated = False
 		self.id = Client.id + 1
@@ -165,10 +187,17 @@ class Client:
 	def do_join(self, obj):
 		password = obj.get('channel', None)
 		if password != self.server.password:
+			if self.addr not in self.server.invalid_join_attempts:
+				self.server.invalid_join_attempts[self.addr] = InvalidJoinAttempt(self.addr)
+			self.server.invalid_join_attempts[self.addr].last_invalid_attempt_time = time.monotonic()
+			self.server.invalid_join_attempts[self.addr].attempts += 1
 			self.send(type='error', message='incorrect_password')
 			log.info("Client "+str(self.id)+" rejected due to wrong password. Password used: "+password)
 			self.close()
 			return
+		elif self.addr in self.server.invalid_join_attempts:
+			# This is a valid attempt, so reset the counter
+			del self.server.invalid_join_attempts[self.addr]
 		self.connection_type = obj.get('connection_type')
 		self.authenticated = True
 		clients = []
@@ -213,3 +242,10 @@ class Client:
 		for c in self.server.clients.values():
 			if c is not self and c.authenticated:
 				c.send(origin=origin, **obj)
+
+
+@dataclass
+class InvalidJoinAttempt:
+	addr: str
+	last_invalid_attempt_time: int = 0
+	attempts: int = 0

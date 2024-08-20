@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen">
-<title>Tele NVDA remote assistance 2023.10.2</title>
+<title>Tele NVDA remote assistance 2024.8.16</title>
 </head>
 <body>
 <h1>TeleNVDA</h1>
@@ -29,14 +29,29 @@ dispenser une formation. Cette extension est une version modifiée de
 charge de la communauté espagnole de NVDA. Il est entièrement compatible
 avec NVDA Remote. Voici les différences actuelles :</p>
 <ul>
+<li>Un geste (non attribué par défaut) indique le nombre d'ordinateurs
+  connectés à une session distante.</li>
 <li>Une option vous permet de bloquer les commandes vocales distantes autres
   que le texte.</li>
+<li>Une option permet d'afficher le message de bienvenue du serveur (également
+  appelé message du jour) uniquement lors de la première connexion ou à
+  chaque changement de message, en ignorant les préférences du serveur.</li>
+<li>Une option pour désactiver la parole à distance lors du contrôle de la
+  machine locale et la réactiver lors du contrôle de la machine distante.</li>
 <li>Amélioration du support des serveurs proxy et des services cachés TOR (est
   nécessaire <a href="https://addons.nvda-project.org/addons/proxy.fr.html">l'extension Support
   Proxy</a>).</li>
 <li>Possibilité de changer la touche F11 pour un autre geste. Maintenant, cela
   fonctionne comme un script commun, vous pouvez donc attribuer d'autres
   gestes dans le dialogue " Gestes de commandes ".</li>
+<li>un geste (non attribué par défaut) pour ouvrir les options de l'extension</li>
+<li>Possibilité d'attribuer un geste à l'option Envoyer Ctrl+Alt+Suppr dans la
+  boîte de dialogue Gestes de commandes. Avertissement ! vous ne devriez pas
+  attribuer les touches Ctrl+Alt+Suppr à cette option. Cela fonctionnera
+  toujours normalement, mais chaque fois que vous appuyez sur les touches
+  Ctrl+Alt+Suppr pour Envoyer Ctrl+Alt+Suppr à la machine distante, votre
+  propre machine sera également affectée par la fonction Ctrl+Alt+Suppr, ce
+  qui n'est probablement pas le cas. ce à quoi vous vous attendez !</li>
 <li>Possibilité à ignorer complètement le geste immédiat suivant, il est utile
   si vous devez envoyer à l'ordinateur distant le geste utilisé pour
   alterner entre la machine locale et la machine distante.</li>
@@ -184,7 +199,8 @@ d'un serveur s'exécutant en mode connexion directe.</p>
 de touches Ctrl+Alt+Suppr de façon normale.</p>
 <p>Si vous devez envoyer cette commande mais que le système distant est en mode
 bureau sécurisé, utilisez alors la commande de menu "Envoyer
-Ctrl+Alt+Suppr".</p>
+Ctrl+Alt+Suppr". Vous pouvez également attribuer un geste à cette commande
+dans la boîte de dialogue Gestes de commandes.</p>
 <h2>Envoyer une touche de bascule entre la machine locale et la machine distante</h2>
 <p>Habituellement, lorsque vous appuyez sur le geste attribué pour basculer
 entre la machine locale et distante, il ne sera pas envoyé à la machine
@@ -238,9 +254,14 @@ s'appliquent que lorsque NVDA est relancé.</p>
 <p>Si vous ne souhaitez pas entendre la synthèse vocale ainsi que les sons de
 NVDA de l'ordinateur distant, rendez-vous simplement dans le menu NVDA,
 outils puis Accès distant, puis descendez avec les flèches jusqu'à " Couper
-le son distant " et validez avec Entrée. Veuillez noter que cette option ne
-désactivera pas le terminal Braille distant pour l'écran à contrôler lorsque
-l'ordinateur contrôleur envoi des commandes.</p>
+le son distant " et validez avec Entrée. Vous pouvez attribuer un geste à
+cette option à partir de la boîte de dialogue Gestes de commandes de
+NVDA. Veuillez noter que cette option ne désactivera pas le terminal Braille
+distant pour l'écran à contrôler lorsque l'ordinateur contrôleur envoi des
+commandes.</p>
+<p>Vous pouvez désactiver définitivement la parole distante pendant que vous
+travaillez sur votre ordinateur local en activant ce paramètre dans la
+catégorie TeleNVDA de la boîte de dialogue des paramètres NVDA.</p>
 <h2>Fermer une session distante</h2>
 <p>Pour mettre fin à une session distante, procédez comme suit :</p>
 <ol>

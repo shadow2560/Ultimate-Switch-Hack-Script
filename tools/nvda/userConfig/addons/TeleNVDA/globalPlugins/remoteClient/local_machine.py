@@ -23,7 +23,13 @@ import globalVars
 import base64
 import gui
 logger = logging.getLogger('local_machine')
-addonHandler.initTranslation()
+from logHandler import log
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 
 
 def setSpeechCancelledToFalse():

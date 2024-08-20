@@ -8,9 +8,14 @@ Note: in order to make download easier for users who need assistance or training
 
 Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. These are the current differences:
 
+* A gesture (unassigned by default) reports how many computers are connected to a remote session.
 * An option allows blocking remote speech commands different from text.
+* An option allows displaying server welcome message (also known as message of the day) only on first connection or whenever the message changes, ignoring the server preferences.
+* An option to mute remote speech when controlling the local machine and unmute it when controlling the remote machine.
 * Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
 * Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete keys to this option. Doing it  will stil work normally, but anytime you press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote machine, your own machine will also be affected by the ctrl+alt+delete function, which is likely not what you expect!
 * Ability to ignore the next immediate gesture completely, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
 * Ability to exchange small files (up to 10 MB) among users connected to the same session.
 * Ability to forward ports via UPNP.
@@ -104,7 +109,7 @@ Note that the shared link may not work if you copy it from a server running in d
 
 While sending keys, it is not possible to send the CTRL+Alt+del combination normally.
 
-If you need to send CTRL+Alt+del, and the remote system is on the secure desktop, use this command.
+If you need to send CTRL+Alt+del, and the remote system is on the secure desktop, use this command. You can also assighn a gesture for this command in the input Gestures dialog.
 
 ## Send toggle key between local and remote computer
 
@@ -133,7 +138,9 @@ Note: The autoconnect at startup-related options in the options dialog do not ap
 
 ## Muting Speech on the Remote Computer
 
-If you do not wish to hear the remote computer's speech or NVDA specific sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute Remote, and press Enter. Please note that this option will not disable remote braille output to the controlling display when the controlling machine is sending keys.
+If you do not wish to hear the remote computer's speech or NVDA specific sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute Remote, and press Enter. You can assign a gesture to this option from the NVDA Input Gestures dialog. Please note that this option will not disable remote braille output to the controlling display when the controlling machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local machine by enabling that setting from the TeleNVDA category on the NVDA settings dialog.
 
 ## Ending a remote Session
 

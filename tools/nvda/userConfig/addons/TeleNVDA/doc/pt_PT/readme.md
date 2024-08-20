@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Autores: Asociación Comunidad Hispanohablante de NVDA e outros
-  colaboradores. Obra original de Tyler Spivey e Christopher Toth
+* Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth
 * Compatibilidade com o NVDA: 2019.3 e seguintes
 * Baixar [versão estável] [1]
 
@@ -20,13 +20,27 @@ add-on](https://nvdaremote.com), e é mantido pela comunidade espanhola do
 NVDA. É totalmente compatível com o NVDA Remote. Estas são as diferenças
 actuais:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Uma opção permite bloquear comandos de fala remotos diferentes do texto.
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
+* An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.
 * Melhor suporte para servidores proxy e serviços ocultos de TOR ([É
   necessário um add-on de suporte
   proxy](https://addons.nvda-project.org/addons/proxy.en.html)).
 * Capacidade de mudar a chave f11 para outro gesto. Agora isto funciona como
   uma escritura comum, pelo que pode atribuir gestos no diálogo "Gestos de
   Entrada".
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!
 * Capacidade de ignorar completamente o próximo atalho imediato, é útil se
   precisar de enviar para a máquina remota o atalho utilizado para alternar
   entre o anfitrião e a máquina remota.
@@ -198,8 +212,9 @@ que esteja a funcionar em modo de ligação directa.
 Enquanto envia teclas, não é possível enviar normalmente a combinação
 CTRL+Alt+del.
 
-Se precisar de enviar CTRL+Alt+del, e o sistema remoto estiver no ambiente
-de trabalho seguro, use este comando.
+If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.
 
 ## Enviar tecla de alternância entre computador local e remoto
 
@@ -256,11 +271,16 @@ de opções não se aplica até que o NVDA seja reiniciado.
 
 ## Discurso silencioso no computador remoto
 
-Se não desejar ouvir o discurso do computador remoto ou sons específicos da
-NVDA, basta aceder ao menu NVDA, Ferramentas, e Remoto. Seta para baixo para
-Mute Remote, e prima Enter. Note que esta opção não irá desactivar a saída
-remota em braille para o visor de controlo quando a máquina de controlo
-estiver a enviar as teclas.
+If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## Fim de uma sessão remota
 

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen">
-<title>Tele NVDA remote assistance 2023.10.2</title>
+<title>Tele NVDA remote assistance 2024.8.16</title>
 </head>
 <body>
 <h1>TeleNVDA</h1>
 <ul>
-<li>Автори: Асоціація іспаномовної спільноти NVDA та інші
-  учасники. Оригінальна робота Tyler Spivey і Christopher Toth</li>
+<li>Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth</li>
 <li>Сумісність з NVDA: 2019.3 і пізніші</li>
 <li>Завантажити <a href="https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA">стабільну версію</a></li>
 </ul>
@@ -28,13 +28,27 @@ NVDA. За допомогою цього додатка ви можете під
 Remote</a> і підтримується іспанською спільнотою
 NVDA. Він повністю сумісний із NVDA Remote. Ось поточні відмінності:</p>
 <ul>
+<li>A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.</li>
 <li>Параметр дозволяє блокувати віддалені мовленнєві команди, відмінні від
   тексту.</li>
+<li>An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.</li>
+<li>An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.</li>
 <li>Покращена підтримка проксі-серверів і прихованих служб TOR (потрібен
   <a href="https://addons.nvda-project.org/addons/proxy.uk.html">додаток підтримки
   проксі</a>)].</li>
 <li>Можливість змінити клавішу f11 на інший жест. Тепер це працює як звичайний
   сценарій, тому ви можете призначати жести в діалозі «Жести вводу».</li>
+<li>a gesture (unassigned by default) to open the addon options</li>
+<li>Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!</li>
 <li>Можливість повністю ігнорувати наступний жест, це корисно, якщо вам
   потрібно надіслати на віддалений компьютер жест, який використовується для
   перемикання між хостом і віддаленим комп’ютером.</li>
@@ -164,8 +178,9 @@ Remote, так і з TeleNVDA, і наразі є найбільш рекоме�
 <h2>Надіслати Ctrl+Alt+Del</h2>
 <p>При надсиланні клавіш неможливо відправити комбінацію CTRL+Alt+del звичайним
 натисканням.</p>
-<p>Якщо потрібно відправити CTRL+Alt+del, а віддалена система знаходиться на
-захищеному робочому столі, використовуйте цю команду.</p>
+<p>If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.</p>
 <h2>Надіслати жест перемикання між локальним і віддаленим комп'ютером</h2>
 <p>Зазвичай, коли ви натискаєте призначений жест для перемикання між локальним
 і віддаленим комп'ютером, він не надсилається на віддалений комп'ютер, а
@@ -212,12 +227,15 @@ Remote, так і з TeleNVDA, і наразі є найбільш рекоме�
 <p>Примітка: Параметри, пов'язані з автоматичним підключенням під час запуску в
 діалозі параметрів, не будуть застосовані до перезавантаження NVDA.</p>
 <h2>Вимкнення мовлення на віддаленому комп'ютері</h2>
-<p>Якщо ви не бажаєте чути мовлення й стандартні звуки NVDA з керованого
-комп'ютера, просто перейдіть до меню NVDA, "Інструменти" та "Віддалене
-керування". Стрілкою вниз виберіть пункт "Вимкнути звук віддаленого
-комп'ютера" та натисніть клавішу Enter. Зверніть увагу, що ця опція не
-відключає виведення віддаленого вмісту на дисплей Брайля керівного
-комп'ютера, коли керівний комп'ютер надсилає команди.</p>
+<p>If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.</p>
+<p>You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.</p>
 <h2>Завершення віддаленого сеансу</h2>
 <p>Для завершення віддаленого сеансу виконайте таке:</p>
 <ol>

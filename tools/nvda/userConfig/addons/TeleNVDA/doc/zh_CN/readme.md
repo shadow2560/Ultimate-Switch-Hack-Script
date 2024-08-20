@@ -1,6 +1,7 @@
 # TeleNVDA 远程协助 #
 
-* 作者： NVDA 西班牙社区和其他贡献者。原作者Tyler Spivey、Christopher Toth
+* Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth
 * NVDA 兼容性：2019.3 及更高版本
 * 下载 [稳定版][1]
 
@@ -12,10 +13,24 @@
 该插件是 [NVDA 远程插件](https://nvdaremote.com) 的修改版，由 NVDA 西班牙社区维护。该插件与 NVDA
 Remote 完全兼容。以下是与 NVDA Remote 的差异：
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * 选项： 在控制对方计算机时处理语音命令。
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
+* An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.
 * 改进了对代理服务器和 TOR 隐藏服务的支持（需
   [代理支持插件](https://addons.nvda-project.org/addons/proxy.zh_CN.html)）。
 * 支持将 f11 键更改为其他快捷键。目前，这是一个通用手势，因此您可以在“按键与手势”对话框中分配其他快捷键。
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!
 * 支持完全将下一个首饰交给被控方处理，如果您希望把用于在控制方和被控方之间切换的快捷键发送到被控方，则该特性很有用。
 * 支持在连接了同一会话的用户之间传送小文件（最多 10 MB）。
 * 支持通过 UPNP 转发端口。
@@ -115,7 +130,9 @@ f11 可停止控制并切换回本地计算机。您可以在“按键与手势�
 
 在控制另一台计算机的过程中，无法正常发送 CTRL + Alt + del 快捷键。
 
-如果需要发送CTRL + Alt + del，使远程计算机进入安全桌面，请使用此命令。
+If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.
 
 ## 发送用于在控制方和被控方之间切换的快捷键
 
@@ -146,8 +163,16 @@ f11 可停止控制并切换回本地计算机。您可以在“按键与手势�
 
 ## 远程计算机静音
 
-如果您不想听到远程计算机的语音或 NVDA 的提醒声音，只需打开 NVDA菜单 > 工具 >
-远程。下光标找到“远程计算机静音”，然后按回车键。请注意，当控制方在此状态下操作被控方计算机时，此选项不会禁用控制方点显器的远程盲文输出。
+If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## 结束远程会话
 

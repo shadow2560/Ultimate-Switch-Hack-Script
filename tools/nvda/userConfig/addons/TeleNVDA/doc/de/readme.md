@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Autoren: Asociación Comunidad Hispanohablante de NVDA und andere
-  Mitwirkende. ursprünglich von Tyler Spivey und Christopher Toth
+* Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth
 * NVDA-Kompatibilität: 2019.3 und neuer
 * [Stabile Version herunterladen][1]
 
@@ -23,8 +23,15 @@ NVDA-Erweiterung ist eine modifizierte Version der [NVDA-Remote]-Erweiterung
 gepflegt. Es ist vollständig kompatibel mit NVDA Remote. Dies sind die
 aktuellen Unterschiede:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Eine Option ermöglicht die Blockierung von Sprachbefehlen, die sich von
   Text unterscheiden.
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
+* An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.
 * Verbesserte Unterstützung für Proxy-Server und versteckte TOR-Dienste
   (NVDA-Erweiterung
   [Proxy-Unterstützung](https://addons.nvda-project.org/addons/proxy.en.html)
@@ -32,6 +39,13 @@ aktuellen Unterschiede:
 * Möglichkeit, die Taste F11 auf einen anderen Taste zu ändern. Dies
   funktioniert nun als allgemeines Skript, so dass Sie die Tastenbefehle im
   Dialogfeld "Tastenbefehle" zuweisen können.
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!
 * Möglichkeit, den nächsten unmittelbaren Tastenbefehl vollständig zu
   ignorieren. Dies ist nützlich, wenn Sie den Tastenbefehl, mit der Sie
   zwischen Host- und Remote-Computer umschalten, an den Remote-Computer
@@ -219,8 +233,9 @@ läuft.
 Beim Senden von Tasten ist es nicht möglich, die Kombination Strg+Alt+Entf
 normalerweise zu senden.
 
-Wenn Sie Strg+Alt+Entf senden müssen und der Remote-Computer sich auf dem
-sicheren Desktop befindet, verwenden Sie diesen Befehl.
+If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.
 
 ## Umschalt-Taste zwischen lokalem und entferntem Computer senden
 
@@ -283,12 +298,16 @@ Optionsdialog werden erst nach einem Neustart von NVDA wirksam.
 
 ## Stummschalten der Sprachausgabe auf dem Remote-Computer
 
-Wenn Sie die Sprachausgabe des Remote-Computers oder NVDA-spezifische Töne
-nicht hören möchten, rufen Sie einfach das NVDA-Menü, Extras und
-Fernbedienung auf. Gehen Sie mit dem Pfeil nach unten zu Stummschaltung der
-Fernbedienung und drücken Sie die Eingabetaste. Bitte beachten Sie, dass
-diese Option nicht die Ausgabe der Fern-Braille-Schrift auf dem
-Remote-Bildschirm deaktiviert, wenn der steuernde Rechner Tasten sendet.
+If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## Beenden einer Remote-Sitzung
 

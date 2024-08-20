@@ -20,14 +20,29 @@ Destek eklentisinin](https://nvdaremote.com) değiştirilmiş bir versiyonudur
 ve NVDA ispanyol topluluğu tarafından sağlanmaktadır. NVDA Uzaktan Destek
 ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
 
+* Bir hareket (varsayılan olarak atanmamış), uzak bir oturuma kaç
+  bilgisayarın bağlı olduğunu bildirir.
 * Bir seçenek, metinden farklı uzaktan konuşma komutlarının engellenmesini
   sağlar.
+* Bir seçenek, sunucu hoş geldiniz mesajının (günün mesajı olarak da
+  bilinir) yalnızca ilk bağlantıda veya mesaj değiştiğinde sunucu
+  tercihlerini göz ardı ederek görüntülenmesine olanak tanır.
+* Yerel makineyi kontrol ederken uzaktan konuşmayı susturma ve uzak makineyi
+  kontrol ederken sesini açma seçeneği.
 * Proxy sunucuları ve TOR gizli hizmetleri için geliştirilmiş destek ([Proxy
   desteği eklentisi](https://addons.nvda-project.org/addons/proxy.en.html)
   gereklidir).
 * F11 tuşunu başka bir hareketle değiştirebilme. Şimdi bu ortak bir komut
   olarak çalışır, böylece "Girdi Hareketleri" iletişim kutusunda hareketleri
   atayabilirsiniz.
+* eklenti seçeneklerini açmak için bir hareket (varsayılan olarak
+  atanmamıştır)
+* Girdi Hareketleri iletişim kutusundaki ctrl+alt+delete gönder seçeneğine
+  bir hareket atayabilme. Uyarı! Bu seçeneğe Ctrl+Alt+Delete tuşlarını
+  atamamalısınız. Bunu yapmak yine de normal şekilde çalışacaktır, ancak
+  ctrl+alt+delete'i uzak makineye göndermek için ctrl+alt+delete tuşlarına
+  her bastığınızda, kendi makineniz de ctrl+alt+delete işlevinden
+  etkilenecektir, ki bu muhtemelen beklediğiniz gibi değildir!
 * Bir sonraki hareketi tamamen görmezden gelme yeteneği, ana makine ile uzak
   makine arasında geçiş yapmak için kullanılan hareketi uzak makineye
   göndermeniz gerekiyorsa kullanışlıdır.
@@ -198,8 +213,9 @@ bağlantının çalışmayabileceğini unutmayın.
 Tuşları gönderirken CTRL+Alt+Sil kombinasyonunu normal şekilde göndermek
 mümkün değildir.
 
-CTRL+Alt+Sil göndermeniz gerekiyorsa ve uzak sistem güvenli masaüstündeyse
-bu komutu kullanın.
+CTRL+Alt+del göndermeniz gerekiyorsa ve uzaktaki sistem güvenli
+masaüstündeyse bu komutu kullanın. Girdi Hareketleri iletişim kutusunda da
+bu komut için bir hareket atayabilirsiniz.
 
 ## Yerel ve uzak bilgisayar arasında geçiş anahtarı gönder
 
@@ -258,10 +274,16 @@ ilgili seçenekler, NVDA yeniden başlatılana kadar geçerli değildir.
 ## Uzak Bilgisayarda Konuşmayı Susturma
 
 Uzak bilgisayarın konuşmasını veya NVDA'ya özgü sesleri duymak
-istemiyorsanız, NVDA menüsüne, Araçlar'a ve Uzak bağlantıya erişmeniz
-yeterlidir. Aşağı okla Uzaktan Sesi Kapat'a gidin ve Enter'a basın. Lütfen
-bu seçeneğin, kontrol eden makine anahtarları gönderirken kontrol eden
-ekrana uzaktan braille çıkışını devre dışı bırakmayacağını unutmayın.
+istemiyorsanız, NVDA menüsüne, Araçlar'a ve Uzak Bağlantı'ya erişmeniz
+yeterlidir. Uzaktakini sustura gidin ve Enter tuşuna basın. NVDA Girdi
+Hareketleri iletişim kutusundan bu seçeneğe bir hareket
+atayabilirsiniz. Lütfen bu seçeneğin, kontrol eden makine anahtarları
+gönderirken kontrol ekranına uzaktan braille çıkışını devre dışı
+bırakmayacağını unutmayın.
+
+NVDA ayarları iletişim kutusundaki TeleNVDA kategorisinden bu ayarı
+etkinleştirerek, yerel makinenizde çalışırken uzaktan konuşmayı kalıcı
+olarak susturabilirsiniz.
 
 ## Uzak Oturumu Sonlandırma
 

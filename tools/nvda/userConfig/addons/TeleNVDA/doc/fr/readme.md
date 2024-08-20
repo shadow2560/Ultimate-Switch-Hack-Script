@@ -22,14 +22,29 @@ dispenser une formation. Cette extension est une version modifiée de
 charge de la communauté espagnole de NVDA. Il est entièrement compatible
 avec NVDA Remote. Voici les différences actuelles :
 
+* Un geste (non attribué par défaut) indique le nombre d'ordinateurs
+  connectés à une session distante.
 * Une option vous permet de bloquer les commandes vocales distantes autres
   que le texte.
+* Une option permet d'afficher le message de bienvenue du serveur (également
+  appelé message du jour) uniquement lors de la première connexion ou à
+  chaque changement de message, en ignorant les préférences du serveur.
+* Une option pour désactiver la parole à distance lors du contrôle de la
+  machine locale et la réactiver lors du contrôle de la machine distante.
 * Amélioration du support des serveurs proxy et des services cachés TOR (est
   nécessaire [l'extension Support
   Proxy](https://addons.nvda-project.org/addons/proxy.fr.html)).
 * Possibilité de changer la touche F11 pour un autre geste. Maintenant, cela
   fonctionne comme un script commun, vous pouvez donc attribuer d'autres
   gestes dans le dialogue " Gestes de commandes ".
+* un geste (non attribué par défaut) pour ouvrir les options de l'extension
+* Possibilité d'attribuer un geste à l'option Envoyer Ctrl+Alt+Suppr dans la
+  boîte de dialogue Gestes de commandes. Avertissement ! vous ne devriez pas
+  attribuer les touches Ctrl+Alt+Suppr à cette option. Cela fonctionnera
+  toujours normalement, mais chaque fois que vous appuyez sur les touches
+  Ctrl+Alt+Suppr pour Envoyer Ctrl+Alt+Suppr à la machine distante, votre
+  propre machine sera également affectée par la fonction Ctrl+Alt+Suppr, ce
+  qui n'est probablement pas le cas. ce à quoi vous vous attendez !
 * Possibilité à ignorer complètement le geste immédiat suivant, il est utile
   si vous devez envoyer à l'ordinateur distant le geste utilisé pour
   alterner entre la machine locale et la machine distante.
@@ -211,7 +226,8 @@ de touches Ctrl+Alt+Suppr de façon normale.
 
 Si vous devez envoyer cette commande mais que le système distant est en mode
 bureau sécurisé, utilisez alors la commande de menu "Envoyer
-Ctrl+Alt+Suppr".
+Ctrl+Alt+Suppr". Vous pouvez également attribuer un geste à cette commande
+dans la boîte de dialogue Gestes de commandes.
 
 ## Envoyer une touche de bascule entre la machine locale et la machine distante
 
@@ -275,9 +291,15 @@ s'appliquent que lorsque NVDA est relancé.
 Si vous ne souhaitez pas entendre la synthèse vocale ainsi que les sons de
 NVDA de l'ordinateur distant, rendez-vous simplement dans le menu NVDA,
 outils puis Accès distant, puis descendez avec les flèches jusqu'à " Couper
-le son distant " et validez avec Entrée. Veuillez noter que cette option ne
-désactivera pas le terminal Braille distant pour l'écran à contrôler lorsque
-l'ordinateur contrôleur envoi des commandes.
+le son distant " et validez avec Entrée. Vous pouvez attribuer un geste à
+cette option à partir de la boîte de dialogue Gestes de commandes de
+NVDA. Veuillez noter que cette option ne désactivera pas le terminal Braille
+distant pour l'écran à contrôler lorsque l'ordinateur contrôleur envoi des
+commandes.
+
+Vous pouvez désactiver définitivement la parole distante pendant que vous
+travaillez sur votre ordinateur local en activant ce paramètre dans la
+catégorie TeleNVDA de la boîte de dialogue des paramètres NVDA.
 
 ## Fermer une session distante
 

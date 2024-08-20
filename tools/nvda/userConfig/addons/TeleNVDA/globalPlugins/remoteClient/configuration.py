@@ -31,7 +31,9 @@ configspec = StringIO("""
 [ui]
 	play_sounds = boolean(default=True)
 	alert_before_slave_disconnect = boolean(default=True)
+	mute_when_controlling_local_machine = boolean(default=False)
 	allow_speech_commands = boolean(default=True)
+	display_motd_once = boolean(default=False)
 	portcheck = string(default="https://nvda.es/portcheck.php?port={port}")
 """)
 def get_config():

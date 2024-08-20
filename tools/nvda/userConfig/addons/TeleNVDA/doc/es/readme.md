@@ -20,13 +20,27 @@ problema, o enseñarte algo. Este complemento es una versión modificada del
 cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con
 NVDA Remote. Estas son las diferencias actuales:
 
+* Un gesto (sin asignar por defecto) indica cuántos equipos hay conectados a
+  una sesión remota.
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
+* Una opción permite mostrar el mensaje de bienvenida del servidor (también
+  conocido como mensaje del día) sólo al conectarse por primera vez o
+  siempre que el mensaje cambia, ignorando las preferencias del servidor.
+* Una opción para silenciar el equipo remoto al controlar el equipo local y
+  retirar el silencio al volver al equipo remoto.
 * Soporte mejorado para servidores proxy y servicios ocultos TOR (es
   necesario el [complemento Soporte
   Proxy](https://addons.nvda-project.org/addons/proxy.es.html)).
 * Posibilidad de cambiar la tecla f11 por otro gesto. Ahora funciona como un
   script común, por lo que puedes asignar otros gestos en el diálogo "Gestos
   de entrada".
+* un gesto (sin asignar por defecto) para abrir las opciones del complemento
+* Posibilidad de asignar un gesto a la opción Enviar control+alt+suprimir
+  desde el diálogo Gestos de entrada. ¡Aviso! No deberías asignar a esta
+  opción la combinación control+alt+suprimir. Al hacerlo funcionará con
+  normalidad, pero siempre que pulses las teclas control+alt+suprimir para
+  enviarlas al equipo remoto, afectará a tu propio equipo ¡y eso es algo que
+  no quieres!
 * Capacidad de ignorar completamente el siguiente gesto inmediato, es útil
   si necesitas enviar a la máquina remota el gesto utilizado para alternar
   entre el equipo local y la máquina remota.
@@ -194,7 +208,8 @@ Aunque el envío de teclas esté activado, la combinación ctrl+alt+supr no se
 puede enviar como el resto.
 
 Si necesitas enviar ctrl+alt+supr, y el sistema remoto se encuentra en el
-escritorio seguro, elige esta opción.
+escritorio seguro, elige esta opción. También puedes asignar un gesto para
+esta orden en el diálogo Gestos de entrada.
 
 ## Enviar tecla de alternar entre equipo local y equipo remoto
 
@@ -251,9 +266,14 @@ el diálogo de opciones no tienen efecto hasta que se reinicia NVDA.
 
 Si no quieres oír la voz del ordenador remoto o sonidos específicos de NVDA,
 es tan simple como ir al menú de NVDA, herramientas, remoto. Baja con flecha
-abajo hasta oír silenciar equipo remoto, y pulsa intro. Ten en cuenta que
-esta opción no desactivará la salida braille remota a la pantalla
+abajo hasta oír silenciar equipo remoto, y pulsa intro. Puedes asignar un
+gesto a esta opción desde el diálogo Gestos de entrada de NVDA. Ten en
+cuenta que esta opción no desactivará la salida braille remota a la pantalla
 controladora cuando el equipo controlador esté enviando pulsaciones.
+
+Puedes silenciar permanentemente la voz remota mientras trabajas en tu
+equipo local activando esa opción desde la categoría TeleNVDA del diálogo
+Opciones de NVDA.
 
 ## Finalizar una sesión remota
 

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen">
-<title>Tele NVDA remote assistance 2023.10.2</title>
+<title>Tele NVDA remote assistance 2024.8.16</title>
 </head>
 <body>
 <h1>TeleNVDA</h1>
 <ul>
-<li>Forfattere: Asociación Comunidad Hispanohablante de NVDA og andre
-  bidragydere. Oprindeligt udviklet af Tyler Spivey og Christopher Toth</li>
+<li>Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth</li>
 <li>NVDA-kompatibilitet: 2019.3 og nyere</li>
 <li>Download <a href="https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA">stabil version</a></li>
 </ul>
@@ -28,14 +28,28 @@ Remote-tilføjelsen</a> og vedligeholdes af det spanske
 NVDA-fællesskab. Den er fuldt ud kompatibel med NVDA Fjernsupport (NVDA
 Remote). Dette er de nuværende forskelle:</p>
 <ul>
+<li>A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.</li>
 <li>En indstilling gør det muligt at blokere eksterne talekommandoer, der er
   forskellige fra tekst.</li>
+<li>An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.</li>
+<li>An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.</li>
 <li>Forbedret understøttelse af proxyservere og skjulte TOR-tjenester
   (<a href="https://addons.nvda-project.org/addons/proxy.en.html">Proxy-supporttilføjelse</a>
   er påkrævet).</li>
 <li>Mulighed for at ændre f11-tasten til en anden kommando. Nu fungerer dette
   som et almindeligt script, så du kan tildele en anden tastaturkommando i
   dialogen "Håndter kommandoer"".</li>
+<li>a gesture (unassigned by default) to open the addon options</li>
+<li>Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!</li>
 <li>Indstil værten til at ignorere og videresend den næste kommando direkte
   til gæsten. Dette er praktisk, når du vil sende tastaturkommandoen, der
   bruges til at skifte mellem kontrol af fjernmaskine og din lokale maskine,
@@ -171,8 +185,9 @@ udklipsholderen og køres fra dialogen "Kør".</p>
 server, der kører i den direkte forbindelsestilstand (server).</p>
 <h2>Send Ctrl+Alt+Del</h2>
 <p>Når du videresender taster, kan du normalt ikke benytte Alt+Ctrl+Delete.</p>
-<p>Hvis du skal sende CTRL+Alt+del, og fjernsystemet er på en sikker skærm,
-skal du bruge denne kommando.</p>
+<p>If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.</p>
 <h2>Send tasten til at skifte mellem lokal og fjerncomputer</h2>
 <p>Normalt når du trykker på den tildelte tastaturkommando for at skifte mellem
 den lokale og fjerncomputeren, vil den ikke blive sendt til
@@ -216,11 +231,15 @@ computer" i det andet sæt radioknapper.</p>
 <p>Bemærk: Indstillingerne for automatisk forbindelse ved opstart træder først
 i kraft, når NVDA er genstartet.</p>
 <h2>Deaktivering af tale på fjerncomputeren</h2>
-<p>Hvis du ikke ønsker at høre fjerncomputerens tale eller NVDA-specifikke
-lyde, skal du gå ind i NVDA-menuen&gt;Værktøjer&gt;Fjernsupport og vælge "Gør
-fjerncomputeren lydløs". Bemærk venligst, at denne mulighed ikke vil
-deaktivere ekstern punktoutput til det kontrollerende display, når den
-kontrollerende maskine sender taster.</p>
+<p>If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.</p>
+<p>You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.</p>
 <h2>Afslutning af en fjernsession</h2>
 <p>Gør følgende for at afslutte en fjernsession:</p>
 <ol>

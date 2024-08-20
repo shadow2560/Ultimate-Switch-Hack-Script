@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Tekijä: Asociación Comunidad Hispanohablante de NVDA ja muut
-  avustajat. Alkuperäisen lisäosan tehnyt Tyler Spivey ja Christopher Toth
+* Tekijät: Asociación Comunidad Hispanohablante de NVDA ja muut yhteisön
+  jäsenet (alkuperäisen lisäosan tehnyt Tyler Spivey ja Christopher Toth)
 * Yhteensopivuus: NVDA 2019.3 ja uudemmat
 * Lataa [vakaa versio][1]
 
@@ -21,14 +21,29 @@ tarjoamista varten. Tämä on muokattu versio
 NVDA:n espanjalaisyhteisö. Se on täysin yhteensopiva NVDA-etäkäyttö-lisäosan
 kanssa. Erot ovat tällä hetkellä seuraavat:
 
+* Näppäinkomento (oletusarvoisesti määrittämätön), joka ilmoittaa, kuinka
+  monta tietokonetta etäistuntoon on yhdistetty.
 * Asetus mahdollistaa sellaisten etäpuhekomentojen estämisen, jotka eroavat
   tekstistä.
+* Asetus mahdollistaa palvelimen tervetuloviestin (tunnetaan myös päivän
+  viestinä) näyttämisen vain ensimmäisellä yhdistämiskerralla tai aina, kun
+  viesti muuttuu, ohittaen palvelimen asetukset.
+* Asetus, joka mykistää etäpuheen paikallista konetta hallittaessa ja
+  poistaa sen mykistyksen etäkonetta hallittaessa.
 * Paranneltu tuki välityspalvelimille ja TOR-piilopalveluille
   ([Välityspalvelintuki-lisäosa](https://addons.nvda-project.org/addons/proxy.fi.html)
   vaaditaan).
 * Mahdollisuus F11-näppäinkomennon vaihtamiseen. Se toimii nyt
   yleisskriptinä, joten näppäinkomento voidaan määrittää
   Näppäinkomennot-valintaikkunassa.
+* Näppäinkomento (oletusarvoisesti määrittämätön), joka avaa lisäosan
+  asetukset
+* Mahdollisuus näppäinkomennon määrittämiseen "Lähetä Ctrl+Alt+Delete"
+  -toiminnolle Näppäinkomennot-valintaikkunassa. Varoitus:
+  Ctrl+Alt+Delete-näppäinyhdistelmää ei tule käyttää. Mikäli näin kuitenkin
+  tehdään, näppäinkomento kyllä toimii normaalisti, mutta aina kun sitä
+  painetaan sen lähettämiseksi etäkoneeseen, myös paikallinen kone reagoi
+  sen painamiseen, mikä ei todennäköisesti ole toivottua.
 * Mahdollisuus seuraavan näppäinkomennon ohittamiseen kokonaan. Tästä on
   hyötyä, mikäli sinun tarvitsee lähettää etä- ja isäntäkoneen välillä
   vaihtava näppäinkomento etäkoneelle.
@@ -199,7 +214,8 @@ Ctrl+Alt+Del-näppäinyhdistelmän lähettäminen ei ole mahdollista tavalliseen
 tapaan näppäinpainalluksia lähetettäessä.
 
 Käytä tätä komentoa, mikäli sinun on lähetettävä Ctrl+Alt+Del
-etäjärjestelmälle, jossa suojattu työpöytä on aktiivisena.
+etäjärjestelmälle, jossa suojattu työpöytä on aktiivisena. Voit myös
+määrittää näppäinkomennon tälle komennolle Näppäinkomennot-valintaikkunassa.
 
 ## Lähetä tilanvaihtonäppäin paikallisen ja etäkoneen välillä
 
@@ -237,7 +253,7 @@ ulkona toisen koneen kanssa. Tämä on mahdollista pienen valmistelun jälkeen.
    valintaruudun.
 4. Valitse toisesta valintapainikeryhmästä Salli tämän tietokoneen hallinta.
 5. Mikäli isännöit yhteyttä itse, sinun on varmistettava, että
-   hallitsevista koneista saadaan yhteys hallitsevassa koneessa
+   hallitsevista koneista saadaan yhteys hallittavassa koneessa
    Portti-muokkauskenttään syötettyyn porttiin (oletusarvoisesti 6837).
 6. Jos haluat käyttää välittäjäpalvelinta, täytä sekä Isäntä- että
    Avain-muokkauskentät, siirry Sarkaimella OK-painikkeen kohdalle ja paina
@@ -258,10 +274,15 @@ vaikutusta ennen NVDA:n uudelleenkäynnistystä.
 
 Jos et halua kuulla etäkoneen puhetta tai NVDA:n äänimerkkejä, avaa
 NVDA-valikko ja valitse Työkalut -> Etäkäyttö. Siirry lopuksi
-alanuolinäppäimellä kohtaan Mykistä etäkone ja paina Enter. Huom: Tämä
-asetus ei poista käytöstä hallitsevan koneen pistenäytölle tuotettavaa
-etäpistekirjoituspalautetta, kun hallitsevan koneen näppäinpainallusten
-lähettäminen on käytössä.
+alanuolinäppäimellä kohtaan Mykistä etäkone ja paina Enter. Voit määrittää
+näppäinkomennon tälle vaihtoehdolle NVDA:n
+Näppäinkomennot-valintaikkunasta. Huom: Tämä asetus ei poista käytöstä
+hallitsevan koneen pistenäytölle tuotettavaa etäpistekirjoituspalautetta,
+kun hallitsevan koneen näppäinpainallusten lähettäminen on käytössä.
+
+Voit mykistää etäpuheen pysyvästi työskennellessäsi paikallisella koneella
+ottamalla käyttöön tämän asetuksen NVDA:n asetusvalintaikkunan
+TeleNVDA-kategoriasta.
 
 ## Etäistunnon lopettaminen
 

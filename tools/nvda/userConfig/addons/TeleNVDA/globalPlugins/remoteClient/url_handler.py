@@ -15,7 +15,12 @@ import windowUtils
 import wx
 import gui  # provided by NVDA
 import addonHandler
-addonHandler.initTranslation()
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 
 class COPYDATASTRUCT(ctypes.Structure):
 	_fields_ = [

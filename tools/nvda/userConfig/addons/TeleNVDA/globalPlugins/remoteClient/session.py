@@ -14,12 +14,12 @@ from . import connection_info
 from . import cues
 import hashlib
 import addonHandler
-
-
-
-
-
-addonHandler.initTranslation()
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 if not (
 	versionInfo.version_year >= 2021 or
 	(versionInfo.version_year == 2020 and versionInfo.version_major >= 2)
@@ -44,6 +44,7 @@ class RemoteSession:
 		self.transport = transport
 		self.transport.callback_manager.register_callback('msg_version_mismatch', self.handle_version_mismatch)
 		self.transport.callback_manager.register_callback('msg_motd', self.handle_motd)
+		self.client_count = 1
 
 	def handle_version_mismatch(self, **kwargs):
 		#translators: Message for version mismatch
@@ -53,7 +54,8 @@ Please either use a different server or upgrade your version of the addon.""")
 		self.transport.close()
 
 	def handle_motd(self, motd: str, force_display=False, **kwargs):
-		if force_display or self.should_display_motd(motd):
+		displayOnce = configuration.get_config()['ui']['display_motd_once']
+		if (force_display and not displayOnce) or self.should_display_motd(motd):
 			gui.messageBox(parent=gui.mainFrame, caption=_("Message of the Day"), message=motd)
 
 	def should_display_motd(self, motd: str):
@@ -107,6 +109,7 @@ class SlaveSession(RemoteSession):
 			self.add_patch_callbacks()
 			self.patch_callbacks_added = True
 		cues.client_connected()
+		self.client_count += 1
 		if client['connection_type'] == 'master':
 			self.masters[client['id']]['active'] = True
 
@@ -132,6 +135,7 @@ class SlaveSession(RemoteSession):
 			del self.masters[client['id']]
 		if not self.masters:
 			self.patcher.unpatch()
+		self.client_count -= 1
 
 	def set_display_size(self, sizes=None, **kwargs):
 		self.master_display_sizes = sizes if sizes else [info.get("braille_numCells", 0) for info in self.masters.values()]
@@ -276,6 +280,7 @@ class MasterSession(RemoteSession):
 			self.patch_callbacks_added = True
 		self.send_braille_info()
 		cues.client_connected()
+		self.client_count += 1
 
 	def handle_client_disconnected(self, client=None, **kwargs):
 		self.patcher.unpatch()
@@ -283,6 +288,7 @@ class MasterSession(RemoteSession):
 			self.remove_patch_callbacks()
 			self.patch_callbacks_added = False
 		cues.client_disconnected()
+		self.client_count -= 1
 
 	def send_braille_info(self, display=None, displaySize=None, **kwargs):
 		if display is None:
