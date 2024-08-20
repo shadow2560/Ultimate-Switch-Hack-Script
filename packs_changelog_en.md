@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V582</h2>
+<ul>
+<li>Update Status-Monitor-Overlay to version 1.1.2.</li>
+<li>Update Salty-nx to version 0.9.2.</li>
+<li>Update Sys-con to version 1.3.0.</li>
+<li>Update FPSLocker to version 2.0.1.</li>
+</ul>
 <h2>V581</h2>
 <ul>
 <li>Update Hekate to version 6.2.1.</li>
