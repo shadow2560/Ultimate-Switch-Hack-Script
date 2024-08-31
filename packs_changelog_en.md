@@ -7,6 +7,7 @@
 <li>Update Sys-con to version 1.3.0.</li>
 <li>Update FPSLocker to version 2.0.1.</li>
 <li>Update Battery_desync_fix_nx to version 1.5.0.</li>
+<li>Update TinWoo to version 1.0.26.</li>
 </ul>
 <h2>V581</h2>
 <ul>
