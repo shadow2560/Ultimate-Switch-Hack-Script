@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V583</h2>
+<ul>
+<li>Update Sys-con to version 1.4.0.</li>
+<li>Update Status-Monitor-Overlay to version 1.1.3.</li>
+</ul>
 <h2>V582</h2>
 <ul>
 <li>Update Status-Monitor-Overlay to version 1.1.2.</li>
