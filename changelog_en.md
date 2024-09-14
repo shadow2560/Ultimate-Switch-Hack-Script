@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.335</h2>
+<ul>
+<li>Update the Picofly  firmware  to version 2.80.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 584.</li>
+</ul>
 <h2>V4.3.334</h2>
 <ul>
 <li>Update the Picofly  firmware  to version 2.78.</li>

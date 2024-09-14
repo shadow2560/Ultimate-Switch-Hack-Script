@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V584</h2>
+<ul>
+<li>Update the Picofly  firmware  to version 2.80.</li>
+<li>Update Sys-con to version 1.4.1.</li>
+</ul>
 <h2>V583</h2>
 <ul>
 <li>Add NX-Nonet Salty-nx plugin.</li>
