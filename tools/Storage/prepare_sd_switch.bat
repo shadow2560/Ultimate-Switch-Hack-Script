@@ -990,6 +990,8 @@ for /l %%i in (1,1,%temp_count%) do (
 		)
 		IF "!temp_module!"=="Fizeau" (
 			call :force_copy_overlays_base_files "%~1"
+			IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\atmosphere\ " /e >nul
+			IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\sxos\ " /e >nul
 		)
 	) else (
 		tools\gnuwin32\bin\sed.exe -i !temp_line!d "%temp_modules_profile_path%"
