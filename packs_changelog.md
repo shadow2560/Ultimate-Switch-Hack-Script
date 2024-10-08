@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V585</h2>
+<ul>
+<li>Mise à jour de Salty-nx en version 0.9.3.</li>
+</ul>
 <h2>V584</h2>
 <ul>
 <li>Mise à jour du firmware Picofly en version 2.80.</li>

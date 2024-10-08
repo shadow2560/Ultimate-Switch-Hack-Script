@@ -4,6 +4,7 @@
 <ul>
 <li>Mise à jour des liens de téléchargement des firmwares.</li>
 <li>Mise à jour de NVDA et de ses plugins.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 585.</li>
 </ul>
 <h2>V4.3.335</h2>
 <ul>
