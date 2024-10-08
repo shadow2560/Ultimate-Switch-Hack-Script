@@ -109,15 +109,16 @@ class SlaveSession(RemoteSession):
 			self.add_patch_callbacks()
 			self.patch_callbacks_added = True
 		cues.client_connected()
-		self.client_count += 1
 		if client['connection_type'] == 'master':
 			self.masters[client['id']]['active'] = True
+		self.client_count += 1
 
 	def handle_channel_joined(self, channel=None, clients=None, origin=None, **kwargs):
 		if clients is None:
 			clients = []
 		for client in clients:
 			self.handle_client_connected(client)
+		self.client_count = len(clients)+1
 
 	def handle_transport_closing(self):
 		self.patcher.unpatch()
@@ -272,6 +273,7 @@ class MasterSession(RemoteSession):
 			clients = []
 		for client in clients:
 			self.handle_client_connected(client)
+		self.client_count = len(clients)+1
 
 	def handle_client_connected(self, client=None, **kwargs):
 		self.patcher.patch()

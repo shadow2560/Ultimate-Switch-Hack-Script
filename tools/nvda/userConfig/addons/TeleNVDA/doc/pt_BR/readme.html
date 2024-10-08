@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen">
+<title>Tele NVDA remote assistance 2024.10.4</title>
+</head>
+<body>
+<h1>TeleNVDA</h1>
+<ul>
+<li>Autores: Asociación Comunidad Hispanohablante de NVDA e outros
+  colaboradores. Trabalho original de Tyler Spivey e Christopher Toth</li>
+<li>Compatibilidade com NVDA: 2019.3 e posterior</li>
+<li>Download <a href="https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA">versão estável</a></li>
+</ul>
+<p>Nota: para facilitar o download para usuários que precisam de assistência ou
+treinamento e têm habilidades computacionais limitadas, fornecemos um link
+alternativo para a versão estável mais recente que é fácil de lembrar e
+compartilhar. Você pode acessar [nvda.es/tele] (https://nvda.es/tele) e
+fazer o download do complemento diretamente, sem páginas da Web
+intermediárias.</p>
+<p>Bem-vindo ao complemento TeleNVDA, que permitirá que você se conecte a outro
+computador que esteja executando o leitor de tela gratuito NVDA. Com esse
+complemento, você pode se conectar ao computador de outra pessoa ou permitir
+que uma pessoa de confiança se conecte ao seu sistema para realizar
+manutenção de rotina, diagnosticar um problema ou fornecer treinamento. Esse
+complemento é uma versão modificada do [complemento NVDA Remote]
+(https://nvdaremote.com) e é mantido pela comunidade espanhola do NVDA. Ele
+é totalmente compatível com o NVDA Remote. Estas são as diferenças atuais:</p>
+<ul>
+<li>Um gesto (não atribuído por padrão) informa quantos computadores estão
+  conectados a uma sessão remota.</li>
+<li>Uma opção permite o bloqueio de comandos de voz remotos diferentes do
+  texto.</li>
+<li>Uma opção permite exibir a mensagem de boas-vindas do servidor (também
+  conhecida como mensagem do dia) somente na primeira conexão ou sempre que
+  a mensagem for alterada, ignorando as preferências do servidor.</li>
+<li>Uma opção para silenciar a fala remota ao controlar a máquina local e
+  ativar o silêncio ao controlar a máquina remota.</li>
+<li>Suporte aprimorado para servidores proxy e serviços ocultos TOR (<a href="https://addons.nvda-project.org/addons/proxy.en.html">Proxy
+  support add-on</a> é
+  necessário).</li>
+<li>Capacidade de alterar a tecla f11 para outro gesto. Agora isso funciona
+  como um script comum, portanto, você pode atribuir gestos na caixa de
+  diálogo Gestos de entrada.</li>
+<li>um gesto (não atribuído por padrão) para abrir as opções do complemento</li>
+<li>Capacidade de atribuir um gesto à opção enviar ctrl+alt+delete na caixa de
+  diálogo Gestos de entrada. Atenção: você não deve atribuir as teclas
+  ctrl+alt+delete a essa opção. Isso ainda funcionará normalmente, mas
+  sempre que você pressionar as teclas ctrl+alt+delete para enviar o
+  ctrl+alt+delete para a máquina remota, sua própria máquina também será
+  afetada pela função ctrl+alt+delete, o que provavelmente não é o que você
+  espera!</li>
+<li>Ao atualizar o complemento, se você tiver instalado o TeleNVDA na área de
+  trabalho segura, é recomendável que você também atualize a cópia na área
+  de trabalho segura.</li>
+<li>Capacidade de trocar arquivos pequenos (até 10 MB) entre usuários
+  conectados à mesma sessão.</li>
+<li>Capacidade de encaminhar portas via UPNP.</li>
+<li>Capacidade de usar um serviço de portcheck personalizado.</li>
+<li>Alguns ajustes na GUI.</li>
+<li>Diversas correções de bugs.</li>
+</ul>
+<h2>Antes de começar</h2>
+<p>Você precisará ter instalado o NVDA em ambos os computadores e obter o
+complemento TeleNVDA.</p>
+<p>A instalação do NVDA e do complemento TeleNVDA é padrão. Se precisar de mais
+informações, elas podem ser encontradas no Guia do usuário do NVDA.</p>
+<h2>Atualizando</h2>
+<p>Ao atualizar o complemento, se você tiver instalado o TeleNVDA na área de
+trabalho segura, é recomendável que você também atualize a cópia na área de
+trabalho segura.</p>
+<p>Para fazer isso, primeiro atualize o complemento existente. Em seguida, abra
+o menu NVDA, preferências, configurações gerais e pressione o botão “Use as
+configurações salvas atualmente no logon e em outras telas seguras (requer
+privilégios administrativos)”.</p>
+<h2>Início de uma sessão remota por meio de um servidor de retransmissão</h2>
+<h3>No computador a ser controlado</h3>
+<ol>
+<li>Abra o menu do NVDA, Ferramentas, Remoto, Connectar. Ou pressione
+   diretamente NVDA+alt+page up. Esse gesto pode ser modificado na caixa de
+   diálogo de gestos de entrada do NVDA.</li>
+<li>Escolha cliente no primeiro botão de rádio.</li>
+<li>Selecione Permitir que essa máquina seja controlada no segundo conjunto
+   de botões de rádio.</li>
+<li>No campo servidor, digite o host do servidor ao qual você está se
+   conectando, por exemplo, remote.nvda.es. Quando o servidor específico usa
+   uma porta alternativa, você pode inserir o servidor no formato
+   &lt;host&gt;:&lt;port&gt;, por exemplo, remote.nvda.es:1234. Se estiver
+   se conectando a um endereço IPV6, digite-o entre colchetes, por exemplo,
+   [2603:1020:800:2::32].</li>
+<li>Digite umm código no campo de código ou pressione o botão gerar código. O
+   código é o que outras pessoas usarão para controlar seu computador. A
+   máquina que está sendo controlada e todos os seus clientes precisam usar
+   o mesmo código.</li>
+<li>Pressione ok. Quando terminar, você ouvirá um tom e estará conectado. Se
+   o servidor incluir uma mensagem do dia, ela será exibida em uma caixa de
+   diálogo. Você verá essa caixa de diálogo sempre que se conectar ou
+   somente na primeira vez, dependendo da configuração do servidor.</li>
+</ol>
+<h3>No computador que será a máquina de controle</h3>
+<ol>
+<li>Abra o menu do NVDA, Ferramentas, Remoto, Connectar. Ou pressione
+   diretamente NVDA+alt+page up. Esse gesto pode ser modificado na caixa de
+   diálogo de gestos de entrada do NVDA.</li>
+<li>Escolha cliente no primeiro botão de rádio.</li>
+<li>Selecione Controlar outro computador no segundo conjunto de botões de
+   rádio.</li>
+<li>No campo servidor, digite o host do servidor ao qual você está se
+   conectando, por exemplo, remote.nvda.es. Quando o servidor específico usa
+   uma porta alternativa, você pode inserir o servidor no formato
+   &lt;host&gt;:&lt;port&gt;, por exemplo, remote.nvda.es:1234. Se estiver
+   se conectando a um endereço IPV6, digite-o entre colchetes, por exemplo,
+   [2603:1020:800:2::32].</li>
+<li>Digite um código no campo ou pressione o botão gerar código. A máquina
+   que está sendo controlada e todos os seus clientes precisam usar o mesmo
+   código.</li>
+<li>Pressione ok. Quando terminar, você ouvirá um tom e estará conectado. Se
+   o servidor incluir uma mensagem do dia, ela será exibida em uma caixa de
+   diálogo. Você verá essa caixa de diálogo sempre que se conectar ou
+   somente na primeira vez, dependendo da configuração do servidor.</li>
+</ol>
+<h3>Aviso de segurança da conexão</h3>
+<p>Se você se conectar a um servidor sem um certificado SSL válido, receberá um
+aviso de segurança de conexão.</p>
+<p>Isso pode significar que sua conexão não é segura. Se você confiar na
+impressão digital desse servidor, poderá pressionar “Conectar” (Conectar)
+para se conectar uma vez ou “Conecte-se e não solicite novamente esse
+servidor” (Conectar e não perguntar novamente por este servidor) para se
+conectar e salvar a impressão digital.</p>
+<h2>Conexões diretas</h2>
+<p>A opção de servidor na caixa de diálogo de conexão permite que você
+configure uma conexão direta.</p>
+<p>Depois de selecionar isso, selecione o modo em que sua extremidade da
+conexão estará.</p>
+<p>A outra pessoa se conectará a você usando o oposto.</p>
+<p>Depois que o modo for selecionado, você poderá usar o botão Get External IP
+para obter o endereço IP externo e verificar se a porta inserida no campo da
+porta foi encaminhada corretamente. Se estiver ativado no roteador, você
+poderá encaminhar a porta usando UPNP antes de executar a verificação de
+porta.</p>
+<p>Se o portcheck detectar que sua porta (6837 por padrão) não pode ser
+acessada, será exibido um aviso.</p>
+<p>Encaminhe sua porta e tente novamente. Além disso, certifique-se de que o
+processo do NVDA seja permitido pelo firewall do Windows.</p>
+<p>Nota: o processo de encaminhamento de portas, ativação de UPNP ou
+configuração do firewall do Windows está fora do escopo deste
+documento. Consulte as informações fornecidas com o seu roteador para obter
+mais instruções.</p>
+<p>Digite um código no campo ou pressione gerar. A outra pessoa precisará de
+seu IP externo junto com a chave para se conectar. Se você inseriu uma porta
+diferente da padrão (6837) no campo da porta, certifique-se de que a outra
+pessoa anexe a porta alternativa ao endereço do host no formato &lt;external
+ip&gt;:&lt;port&gt;.</p>
+<p>Se você quiser encaminhar a porta escolhida usando UPNP, ative a caixa de
+seleção “Use UPNP to forward this port if possible”.</p>
+<p>Quando ok for pressionado, você será conectado. Quando a outra pessoa se
+conectar, você poderá usar o TeleNVDA normalmente.</p>
+<h2>Controle da máquina remota</h2>
+<p>Quando a sessão estiver conectada, o usuário da máquina controladora poderá
+pressionar f11 para começar a controlar a máquina remota (por exemplo,
+enviando teclas do teclado ou entrada em braile). Esse gesto pode ser
+alterado na caixa de diálogo Gestos de entrada do NVDA.</p>
+<p>Quando o NVDA diz que está controlando a máquina remota, as teclas do
+teclado e do visor em braile que você pressionar irão para a máquina
+remota. Além disso, quando a máquina de controle estiver usando um visor em
+braile, as informações da máquina remota serão exibidas nele. Pressione f11
+novamente para interromper o envio de teclas e voltar para a máquina de
+controle.</p>
+<p>Para obter a melhor compatibilidade, certifique-se de que os layouts de
+teclado de ambas as máquinas sejam iguais.</p>
+<h2>Compartilhando sua sessão</h2>
+<p>Para compartilhar um link para que outra pessoa possa entrar facilmente na
+sua sessão do TeleNVDA, selecione Copiar link no menu Remoto. Você também
+pode atribuir gestos na caixa de diálogo Gestos de entrada do NVDA para
+acelerar essa tarefa.</p>
+<p>Você pode escolher entre dois formatos de link. O primeiro é compatível com
+o NVDA Remote e o TeleNVDA e, por enquanto, é o mais recomendado. O segundo
+é compatível apenas com o TeleNVDA.</p>
+<p>SE você estiver conectado como o computador de controle, esse link permitirá
+que outra pessoa se conecte e seja controlada.</p>
+<p>Se, em vez disso, você tiver configurado seu computador para ser controlado,
+o link permitirá que as pessoas com quem você o compartilha controlem sua
+máquina.</p>
+<p>Muitos aplicativos permitirão que os usuários ativem esse link
+automaticamente, mas se ele não for executado em um aplicativo específico,
+poderá ser copiado para a área de transferência e executado na caixa de
+diálogo Executar.</p>
+<p>Note que o link compartilhado pode não funcionar se você o copiar de um
+servidor em execução no modo de conexão direta.</p>
+<h2>Enviar Ctrl+Alt+Del</h2>
+<p>Ao enviar teclas, não é possível enviar a combinação CTRL+Alt+del
+normalmente.</p>
+<p>Se você precisar enviar CTRL+Alt+del e o sistema remoto estiver na área de
+trabalho segura, use esse comando. Você também pode atribuir um gesto a esse
+comando na caixa de diálogo Gestos de entrada.</p>
+<h2>Enviar tecla de alternância entre o computador local e o remoto</h2>
+<p>Normalmente, quando você pressiona o gesto atribuído para alternar entre a
+máquina local e a remota, ele não é enviado para a máquina remota; em vez
+disso, ele alterna entre a máquina local e a remota.</p>
+<p>Se precisar enviar esse ou qualquer outro gesto para a máquina remota, você
+poderá substituir esse comportamento para o próximo gesto imediato ativando
+o script ignorar próximo gesto.</p>
+<p>Por padrão, esse script é atribuído à tecla control + f11. Esse gesto pode
+ser alterado na caixa de diálogo Gestos de entrada do NVDA.</p>
+<p>Quando esse script for chamado, o próximo gesto será ignorado e enviado para
+a máquina remota, incluindo o gesto para ativar o script ignorar próximo
+gesto. Depois que o próximo gesto tiver sido enviado, ele voltará ao
+comportamento normal.</p>
+<h2>Controle remoto de um computador sem supervisão</h2>
+<p>Às vezes, você pode querer controlar um de seus próprios computadores
+remotamente. Isso é especialmente útil se estiver viajando e quiser
+controlar o PC de sua casa pelo laptop. Ou, talvez queira controlar um
+computador em um cômodo da casa enquanto está sentado do lado de fora com
+outro PC. Um pouco de preparação avançada torna isso conveniente e possível.</p>
+<ol>
+<li>Acesse o menu do NVDA e escolha Ferramentas e Remoto. Por fim, pressione
+   Enter em Opções.</li>
+<li>Marque a caixa que diz  Conexão automática ao servidor de controle na
+   inicialização.</li>
+<li>Selecione se deseja usar um servidor de retransmissão remota ou hospedar
+   a conexão localmente. Se decidir hospedar a conexão, você poderá tentar
+   encaminhar portas usando UPNP marcando a caixa de seleção fornecida.</li>
+<li>Selecione Permitir que essa máquina seja controlada no segundo conjunto
+   de botões de rádio.</li>
+<li>Se você mesmo hospedar a conexão, precisará garantir que a porta inserida
+   no campo de porta (6837 por padrão) na máquina controlada possa ser
+   acessada pelas máquinas controladoras.</li>
+<li>Se desejar usar um servidor de retransmissão, preencha os campos servidor
+   e código, pressione a guia OK e pressione Enter. A opção Gerar código não
+   está disponível nessa situação. É melhor criar uma chave da qual você se
+   lembrará para poder usá-la facilmente em qualquer local remoto.</li>
+</ol>
+<p>Para uso avançado, também é possível configurar o NVDA Remote para se
+conectar automaticamente a um servidor de retransmissão local ou remoto no
+modo de controle. Se quiser fazer isso, selecione Controlar outra máquina no
+segundo conjunto de botões de rádio.</p>
+<p>Nota: as opções relacionadas à conexão automática na inicialização na caixa
+de diálogo de opções não se aplicam até que o NVDA seja reiniciado.</p>
+<h2>Silenciar a fala no computador remoto</h2>
+<p>Se não quiser ouvir a fala do computador remoto ou os sons específicos do
+NVDA, basta acessar o menu NVDA, Ferramentas e Remoto. Use a seta para baixo
+até silenciar remoto e pressione Enter. Você pode atribuir um gesto a essa
+opção na caixa de diálogo Gestos de entrada do NVDA. Observe que essa opção
+não desativará a saída remota de braile para a tela de controle quando a
+máquina de controle estiver enviando teclas.</p>
+<p>Você pode silenciar permanentemente a fala remota enquanto trabalha em sua
+máquina local, ativando essa configuração na categoria TeleNVDA na caixa de
+diálogo de configurações do NVDA.</p>
+<h2>Encerramento de uma sessão remota</h2>
+<p>Para encerrar uma sessão remota, faça o seguinte:</p>
+<ol>
+<li>No computador de controle, pressione F11 para parar de controlar a
+   máquina remota. Você deverá ouvir ou ler a mensagem: “Controlando a
+   máquina local”. Se, em vez disso, ouvir ou ler uma mensagem de que está
+   controlando a máquina remota, pressione F11 mais uma vez.</li>
+<li>Acesse o menu NVDA, depois Ferramentas, Remoto e pressione Enter em
+   desconectar.</li>
+</ol>
+<p>Como alternativa, você pode pressionar NVDA+alt+page down para desconectar
+diretamente a sessão. Esse gesto pode ser alterado na caixa de diálogo
+Gestos de entrada do NVDA. Para manter a outra extremidade segura, você pode
+pressionar esse gesto ao enviar teclas para desconectar o computador remoto.</p>
+<h2>Enviar para área de transferência</h2>
+<p>A opção Enviar para área de transferência no menu remoto permite que você
+envie o texto da área de transferência.</p>
+<p>Quando ativado, qualquer texto na área de transferência será enviado para as
+outras máquinas.</p>
+<h2>Envio de arquivos</h2>
+<p>A opção Enviar arquivo no menu remoto permite enviar arquivos pequenos para
+todos os membros da sessão, inclusive para a máquina controlada. Observe que
+só é possível enviar arquivos com menos de 10 MB. Não é permitido enviar ou
+receber arquivos em telas seguras.</p>
+<p>Observe também que o envio de arquivos pode consumir muito tráfego de rede
+no servidor, dependendo do tamanho , dos computadores conectados à mesma
+sessão e da quantidade de arquivos enviados. Entre em contato com o
+administrador do servidor e pergunte se o tráfego é cobrado. Nesse caso,
+considere a possibilidade de usar outra plataforma para trocar arquivos.</p>
+<p>Quando o arquivo for recebido nas máquinas remotas, uma caixa de diálogo
+Salvar como será exibida, permitindo que você escolha onde salvá-lo.</p>
+<h2>Configuração do TeleNVDA para funcionar em uma área de trabalho segura</h2>
+<p>Para que o TeleNVDA funcione na área de trabalho segura, o complemento deve
+ser instalado no NVDA em execução na área de trabalho segura.</p>
+<ol>
+<li>No menu do NVDA, selecione Preferências e, em seguida, Configurações
+   gerais.</li>
+<li>Selecione o botão Use Configurações salvas no momento em telas de logon e
+   outras telas seguras  (requer privilégios administrativos) e pressione
+   Enter.</li>
+<li>Responda Yes aos avisos sobre a cópia de suas configurações e sobre a
+   cópia de plug-ins e responda ao aviso de Controle de Conta de Usuário que
+   pode ser exibido.</li>
+<li>Quando as configurações forem copiadas, pressione Enter para dispensar o
+   botão OK. Pressione Tab para OK e Enter mais uma vez para sair da caixa
+   de diálogo.</li>
+</ol>
+<p>Depois que o TeleNVDA for instalado na área de trabalho segura, se você
+estiver sendo controlado em uma sessão remota, terá acesso à fala e ao
+braile na área de trabalho segura quando alternar para ela.</p>
+<h2>Limpeza de impressões digitais de certificados SSL</h2>
+<p>Se você não quiser mais confiar nas impressões digitais do servidor em que
+confiou, poderá limpar todas as impressões digitais confiáveis pressionando
+o botão “Excluir todas as impressões digitais confiáveis” na caixa de
+diálogo Opções.</p>
+<h2>Uso de um serviço de portcheck personalizado</h2>
+<p>Por padrão, o TeleNVDA verifica as portas abertas usando um serviço
+fornecido pela comunidade espanhola do NVDA. Você pode alterar o URL do
+serviço na caixa de diálogo de opções. Verifique se a porta a ser verificada
+faz parte do URL personalizado e se os resultados são retornados no formato
+esperado. Um script de amostra de verificação de porta é distribuído no
+repositório TeleNVDA, portanto, você pode hospedar sua própria cópia, se
+desejar.</p>
+<h2>Alteração do TeleNVDA</h2>
+<p>Este projeto é coberto pela Licença Pública Geral GNU, versão 2 ou
+posterior. Você pode clonar <a href="https://github.com/nvda-es/TeleNVDA">este repositório</a> para fazer alterações no
+TeleNVDA, desde que leia, compreenda e respeite os termos da licença. O
+módulo MiniUPNP está licenciado sob uma licença BSD-3 clause.</p>
+<h3>Dependências de terceiros</h3>
+<p>Eles podem ser instalados com o pip:</p>
+<ul>
+<li>Markdown</li>
+<li>scons</li>
+</ul>
+<p>Para criar o executável do manipulador de URL, você precisa do Visual Studio
+2019 ou posterior.</p>
+<h3>Para empacotar o complemento para distribuição:</h3>
+<ol>
+<li>Abra uma linha de comando, mude para a raiz de <a href="https://github.com/nvda-es/TeleNVDA">este repositório</a></li>
+<li>Execute o comando <strong>scons</strong>. O add-on criado, se não houver erros, será
+   colocado no diretório atual.</li>
+</ol>
+<p>[[!tag dev stable]]</p>
+</body>
+</html>

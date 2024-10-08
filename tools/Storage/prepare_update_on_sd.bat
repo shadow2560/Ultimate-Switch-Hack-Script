@@ -93,68 +93,68 @@ goto:end_script_2
 :define_firmware_choice
 set firmware_choice=
 call "%associed_language_script%" "firmware_choice_begin"
-echo 1.0.0?
-echo 2.0.0?
-echo 2.1.0?
-echo 2.2.0?
-echo 2.3.0?
-echo 3.0.0?
-echo 3.0.1?
-echo 3.0.2?
-echo 4.0.0?
-echo 4.0.1?
-echo 4.1.0?
-echo 5.0.0?
-echo 5.0.1?
-echo 5.0.2?
+rem echo 1.0.0?
+rem echo 2.0.0?
+rem echo 2.1.0?
+rem echo 2.2.0?
+rem echo 2.3.0?
+rem echo 3.0.0?
+rem echo 3.0.1?
+rem echo 3.0.2?
+rem echo 4.0.0?
+rem echo 4.0.1?
+rem echo 4.1.0?
+rem echo 5.0.0?
+rem echo 5.0.1?
+rem echo 5.0.2?
 echo 5.1.0?
-echo 6.0.0?
-echo 6.0.1?
+rem echo 6.0.0?
+rem echo 6.0.1?
 echo 6.1.0?
-echo 6.2.0?
-echo 7.0.0?
-echo 7.0.1?
-echo 8.0.0?
-echo 8.0.1?
-echo 8.1.0?
-echo 8.1.1?
-echo 9.0.0?
-echo 9.0.1?
-echo 9.1.0?
-echo 9.2.0?
-echo 10.0.0?
-echo 10.0.1?
-echo 10.0.2?
-echo 10.0.3?
-echo 10.0.4?
-echo 10.1.0?
-echo 10.2.0?
+rem echo 6.2.0?
+rem echo 7.0.0?
+rem echo 7.0.1?
+rem echo 8.0.0?
+rem echo 8.0.1?
+rem echo 8.1.0?
+rem echo 8.1.1?
+rem echo 9.0.0?
+rem echo 9.0.1?
+rem echo 9.1.0?
+rem echo 9.2.0?
+rem echo 10.0.0?
+rem echo 10.0.1?
+rem echo 10.0.2?
+rem echo 10.0.3?
+rem echo 10.0.4?
+rem echo 10.1.0?
+rem echo 10.2.0?
 echo 11.0.0?
-echo 11.0.1?
-echo 12.0.0?
-echo 12.0.1?
-echo 12.0.2?
-echo 12.0.3?
-echo 12.1.0?
-echo 13.0.0?
-echo 13.1.0?
-echo 13.2.0?
-echo 13.2.1?
-echo 14.0.0?
-echo 14.1.0?
-echo 14.1.1?
-echo 14.1.2?
-echo 15.0.0?
-echo 15.0.1?
-echo 16.0.0?
-echo 16.0.1?
-echo 16.0.2?
-echo 16.0.3?
-echo 16.1.0?
-echo 17.0.0?
-echo 17.0.1?
-echo 18.0.0?
-echo 18.0.1?
+rem echo 11.0.1?
+rem echo 12.0.0?
+rem echo 12.0.1?
+rem echo 12.0.2?
+rem echo 12.0.3?
+rem echo 12.1.0?
+rem echo 13.0.0?
+rem echo 13.1.0?
+rem echo 13.2.0?
+rem echo 13.2.1?
+rem echo 14.0.0?
+rem echo 14.1.0?
+rem echo 14.1.1?
+rem echo 14.1.2?
+rem echo 15.0.0?
+rem echo 15.0.1?
+rem echo 16.0.0?
+rem echo 16.0.1?
+rem echo 16.0.2?
+rem echo 16.0.3?
+rem echo 16.1.0?
+rem echo 17.0.0?
+rem echo 17.0.1?
+rem echo 18.0.0?
+rem echo 18.0.1?
 echo 18.1.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
@@ -280,7 +280,7 @@ IF "%firmware_choice%"=="5.0.2" (
 )
 IF "%firmware_choice%"=="5.1.0" (
 	set expected_md5=656823850a70fb3050079423ee177c1a
-	set "firmware_link=https://mega.nz/#^!8BplGRQA^!z_2pCeh-8XV2Pf3E_38UfGhDPRSdN3nixb5s5-Q785w"
+	set "firmware_link=https://mega.nz/file/jJB1UahJ#ZUJTdBDrf-l6L0gDfQzJFlgSQGYcWwJzwHIlCmqeWG4"
 	set firmware_file_name=Firmware 5.1.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
@@ -301,7 +301,7 @@ IF "%firmware_choice%"=="6.0.1" (
 )
 IF "%firmware_choice%"=="6.1.0" (
 	set expected_md5=0547222834a00891ed82d4f58d1b2c7b
-	set "firmware_link=https://mega.nz/file/wAJQWYqa#X1LYmiJ7HrLyTo97lKuw8wzs6h2M_Ks-Jxf9NUXnFTw"
+	set "firmware_link=https://mega.nz/file/bYZgARIZ#10XPM21DHFYz2Bj_zsfbwRJL5cU66NxJzktPhTAoTLQ"
 	set firmware_file_name=Firmware 6.1.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
@@ -470,7 +470,7 @@ IF "%firmware_choice%"=="10.2.0" (
 )
 IF "%firmware_choice%"=="11.0.0" (
 	set expected_md5=7330b3c560f80caeb2fa3d831d5203f2
-	set "firmware_link=https://mega.nz/file/YRZjWSqC#D2IFvaI8t0mMQMbEZRIiNH5PPR5dOUx17IkhEYqhcfM"
+	set "firmware_link=https://mega.nz/file/yZRh3A7S#kV3EZN8mhDkI0C5gg6UcuoWzZFksBuAP-tioVAKjtqU"
 	set firmware_file_name=Firmware 11.0.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
@@ -703,8 +703,8 @@ IF "%firmware_choice%"=="18.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="18.1.0" (
-	set expected_md5=dfd91e2bc34ebf81897a2c65723ee396
-	set "firmware_link=https://mega.nz/file/tRB0Xawb#_hy2b6paUy2yvRHhqyD4xcaSVcreAjcuvmU8hSGJBDM"
+	set expected_md5=f8e8a3eea993de6ae4c5ef2f9152d6f7
+	set "firmware_link=https://mega.nz/file/Kdx1XRga#H_wenPp371UR4ujfb5Azus72hEdVFoI0i9kgal-ROpA"
 	set firmware_file_name=Firmware 18.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware

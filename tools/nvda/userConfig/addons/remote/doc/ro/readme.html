@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen">
-<title>Remote Support 2.6.3</title>
+<title>Remote Support 2.6.4</title>
 </head>
 <body>
 <p>﻿# NVDA Remote Access
-Versiunea 2.2</p>
+Versiunea 2.6</p>
 <p>Bun venit la suplimentul NVDA Remote Access, Care vă va permite să vă conectați la un alt computer folosind NVDA, cititorul de ecran gratuit. Nu contează că sunteți în camera alăturată sau la capătul lumii. Conectarea e simplă. Sunt doar câteva comenzi pe care trebuie să le țineți minte. Vă puteți conecta la calculatorul unei persoane, sau îi puteți permite uneia de încredere să se conecteze la calculatorul dumneavoastră pentru a efectua mentenanța de rutină, pentru a diagnostica o problemă, sau pentru a oferi antrenament (training).</p>
 <h2>Înainte de a începe</h2>
 <p>Trebuie neapărat să aveți NVDA instalat pe ambele calculatoare și să obțineți suplimentul NVDA Remote Access.
@@ -37,6 +37,9 @@ Calculatorul care este controlat și toți clienții săi trebuie să utilizeze 
 Calculatorul care este controlat și toți clienții săi trebuie să utilizeze aceeași cheie.</li>
 <li>Apăsați ok. Odată terminată operațiunea veți auzi un semnal sonor, iar în același timp pe NVDA spunând „conectat”.</li>
 </ol>
+<h3>Avertizarea de securitate a conexiunii</h3>
+<p>Dacă vă conectați la un server care nu are un certificat SSL valid, veți primi o avertizare de securitate a conexiunii.
+Acest lucru poate însemna că nu este sigură conexiunea. Dacă aveți încredere în server-ul respectiv, puteți apăsa butonul „Conectare” pentru a vă conecta o dată, sau pe butonul „Conectează-te și nu mai întreba din nou pentru acest server” pentru a vă conecta și a marca faptul că aveți încredere în acel server.</p>
 <h2>Conexiuni directe</h2>
 <p>Opțiunea server din dialogul de conectare vă permite să setați o conexiune directă.
 Odată selectată, selectați ce mod de conexiune va fi setat.
@@ -77,12 +80,8 @@ Dacă vreți să acționați această comandă, iar sistemul aflat la distanță
 <h2>Terminarea unei sesiuni la distanță</h2>
 <p>Pentru a termina o sesiune la distanță, faceți în felul următor:</p>
 <ol>
-<li>
-<p>Pe calculatorul care controlează, apăsați F11 pentru a opri controlarea computerului aflat la distanță.</p>
-</li>
-<li>
-<p>Accesați meniul NVDA, apoi Instrumente, Remote, apoi apăsați Enter pe Deconectare.</p>
-</li>
+<li>Pe calculatorul care controlează, apăsați F11 pentru a opri controlarea computerului aflat la distanță.</li>
+<li>Accesați meniul NVDA, apoi Instrumente, Remote, apoi apăsați Enter pe Deconectare.</li>
 </ol>
 <h2>Trimitere conținut la planșetă</h2>
 <p>Aceast[ opțiune din meniul Remote vă permite să trimiteți textul de pe planșeta dumneavoastră la cea a computerului pe care îl controlați.
@@ -90,18 +89,14 @@ Când e activată, orice text de pe planșetă va fi trimis la cealaltă.</p>
 <h2>Configurarea NVDA Remote să lucreze pe un spațiu de lucru sigur</h2>
 <p>Pentru ca NVDA să lucreze pe spațiul de lucru sigur, suplimentul trebuie să fie instalat în NVDA, care rulează pe acest spațiu de lucru.</p>
 <ol>
-<li>
-<p>Din meniul NVDA, selectați Preferințe, apoi Setări Generale.</p>
-</li>
-<li>
-<p>Apăsați Tab până la butonul „Utilizați preferințele curent salvate asupra ecranului de autentificare și a altor ecrane securizate (cere privilegii de administrator)”, apoi apăsați Enter.</p>
-</li>
-<li>
-<p>Confirmați această acțiune prin apăsarea butonului „Da”, apoi mai apăsați-l o dată pentru a scăpa de dialogul de UAC (User Account Control) (Control Cont Utilizator) care ar putea apărea.</p>
-</li>
+<li>Din meniul NVDA, selectați Preferințe, apoi Setări Generale.</li>
+<li>Apăsați Tab până la butonul „Utilizați preferințele curent salvate asupra ecranului de autentificare și a altor ecrane securizate (cere privilegii de administrator)”, apoi apăsați Enter.</li>
+<li>Confirmați această acțiune prin apăsarea butonului „Da”, apoi mai apăsați-l o dată pentru a scăpa de dialogul de UAC (User Account Control) (Control Cont Utilizator) care ar putea apărea.</li>
 <li>Când setările sunt copiate, apăsați butonul OK, apoi apăsați-l din nou pentru a închide dialogul setărilor generale.</li>
 </ol>
 <p>Odată ce NVDA Remote este instalat pe spațiul de lucru sigur, dacă sunteți controlat într-o sesiune la distanță, veți avea accesul vorbirii și al braille la spațiul de lucru sigur.</p>
+<h2>Ștergerea amprentelor pentru certificatele SSL</h2>
+<p>Dacă nu mai aveți încredere într-un anumit server, îi puteți șterge amprentele pentru certificatul SSL apăsând butonul „Șterge toate amprentele de încredere” din dialogul Opțiuni.</p>
 <h2>Contribuții</h2>
 <p>Dorim să menționăm următorii contributori care, împreună cu alții, au făcut ca proiectul NVDA Remote să fie o realitate.</p>
 <ul>
@@ -118,8 +113,44 @@ Când e activată, orice text de pe planșetă va fi trimis la cealaltă.</p>
 <li>Casey Mathews</li>
 <li>Babbage B.V.</li>
 <li>Leonard de Ruijter</li>
+<li>NV Access</li>
+<li>Reef Turner</li>
 </ul>
 <h2>Jurnal de modificări</h2>
+<h3>Versiunea 2.6</h3>
+<ul>
+<li>Suport pentru NVDA 2023.1</li>
+<li>A fost adăugat un gest care deschide dialogul de conectare</li>
+<li>Actualizări la traducerile pentru limbile italiană și ucraineană</li>
+<li>Indicații noi pentru planșetă</li>
+</ul>
+<h3>Versiunea 2.5</h3>
+<ul>
+<li>A fost rezolvată stabilitatea SSL</li>
+<li>A fost rezolvat suportul pentru spațiul de lucru sigur</li>
+<li>A fost rezolvată focalizarea inițială din dialogul de conectare</li>
+<li>Suport pentru pauza vorbirii de la distanță</li>
+<li>A fost înlocuită caseta de editare gazdă cu un edit combo pentru istoric</li>
+<li>Fișierele de configurare corupte sunt șterse automat</li>
+</ul>
+<h3>Versiunea 2.4</h3>
+<ul>
+<li>Au fost adăugate sunete</li>
+<li>Actualizat pentru NVDA 2021.1</li>
+<li>Se face verificarea certificatelor SSL ale serverelor gazdă la care ne conectăm</li>
+</ul>
+<h3>Versiunea 2.3</h3>
+<ul>
+<li>Am migrat la Python 3</li>
+<li>Am abandonat suportul pentru Python 2</li>
+<li>
+<p>Am actualizat suplimentul astfel încât să se potrivească cu API-ul modificat în NVDA 2019.3, incluzând:</p>
+</li>
+<li>
+<p>Rescrierea vorbirii</p>
+</li>
+<li>Modificări la afișajele Braille</li>
+</ul>
 <h3>Versiunea 2.2</h3>
 <ul>
 <li>Suport IPv6</li>

@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.336</h2>
+<ul>
+<li>Mise à jour des liens de téléchargement des firmwares.</li>
+<li>Mise à jour de NVDA et de ses plugins.</li>
+</ul>
 <h2>V4.3.335</h2>
 <ul>
 <li>Mise à jour du firmware Picofly en version 2.80.</li>
