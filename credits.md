@@ -90,6 +90,7 @@
 <li><a target="_blank" href="https://github.com/WerWolv/EdiZon">EdiZon</a>, replaced by <a target="_blank" href="https://github.com/tomvita/EdiZon-SE">EdiZon-SE</a> and for the overlay it's replaced by <a target="_blank" href="https://github.com/proferabg/EdiZon-Overlay">this fork</a>.</li>
 <li><a target="_blank" href="https://github.com/noirscape/emummc-toggler">EmuMMC-Toggle</a></li>
 <li><a target="_blank" href="https://github.com/noahc3/fakenews-injector">Fakenews-injector</a></li>
+<li><a target="_blank" href="https://github.com/mrdude2478/Switch-Firmware-Dumper">Firmware-Dumper</a></li>
 <li><a target="_blank" href="https://github.com/averne/Fizeau">Fizeau</a></li>
 <li><a target="_blank" href="https://github.com/mtheall/ftpd">Ftpd</a></li>
 <li><a target="_blank" href="https://github.com/Adubbz/Gag-Order">GagOrder</a></li>
@@ -135,6 +136,7 @@
 <li><a target="_blank" href="https://github.com/cy33hc/switch-ezremote-client">Switch-ezremote-client</a></li>
 <li><a target="_blank" href="https://github.com/cy33hc/switch-ftp-client">Switch-ftp-client</a></li>
 <li><a target="_blank" href="https://github.com/joel16/SwitchIdent">SwitchIdent</a></li>
+<li><a target="_blank" href="https://github.com/averne/SwitchWave">SwitchWave</a></li>
 <li><a target="_blank" href="https://github.com/CaiMiao/Tencent-Switch-switcher">Tencent-Switch-switcher</a> and <a target="_blank" href="https://github.com/CaiMiao/Tencent-switcher-GUI">Tencent-switcher-GUI</a></li>
 <li><a target="_blank" href="https://github.com/blawar/tinleaf">Tinleaf</a></li>
 <li><a target="_blank" href="https://github.com/mrdude2478/TinWoo">TinWoo-Installer</a></li>

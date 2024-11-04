@@ -1,5 +1,26 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V586</h2>
+<ul>
+<li>Ajout du homebrew Firmware-Dumper.</li>
+<li>Ajout du homebrew SwitchWave.</li>
+<li>Mise à jour d'Atmosphere en version 1.8.0-prerelease.</li>
+<li>Mise à jour de Hekate en version 6.2.2.</li>
+<li>Mise à jour de Sys-patch.</li>
+<li>Mise à jour de Ovl-menu.</li>
+<li>Mise à jour de Fizeau en version 2.6.0.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 1.1.4.</li>
+<li>Mise à jour de Sys-CLK en version 2.0.1.</li>
+<li>Mise à jour de MissionControl en version 0.12.0.</li>
+<li>Mise à jour de Sys-con en version 1.4.2.</li>
+<li>Mise à jour de Sys-botbase en version 2.4.</li>
+<li>Mise à jour de QuickNTP en version 1.2.8-1.</li>
+<li>Mise à jour de Switch-ezremote-client en version 1.05.</li>
+<li>Mise à jour de Flycast en version 2.4.</li>
+<li>Mise à jour des fichiers de patches utilisés par NXThemesInstaller.</li>
+<li>Mise à jour de Salty-nx en version 1.0.0.</li>
+<li>Mise à jour de FPSLocker en version 2.0.3.</li>
+</ul>
 <h2>V585</h2>
 <ul>
 <li>Mise à jour de Salty-nx en version 0.9.3.</li>

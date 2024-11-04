@@ -415,6 +415,8 @@ rem echo 17.0.1?
 rem echo 18.0.0?
 rem echo 18.0.1?
 echo 18.1.0?
+echo 19.0.0?
+echo 19.0.1?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -855,6 +857,20 @@ IF "%firmware_choice%"=="18.1.0" (
 	set expected_md5=f8e8a3eea993de6ae4c5ef2f9152d6f7
 	set "firmware_link=https://mega.nz/file/Kdx1XRga#H_wenPp371UR4ujfb5Azus72hEdVFoI0i9kgal-ROpA"
 	set firmware_file_name=Firmware 18.1.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="19.0.0" (
+	set expected_md5=72d6c73306c7f0b76723f989e7e1bdd1
+	set "firmware_link=https://mega.nz/file/SQxB1S4C#sxtiWU4tAUJoifn15Yf93QwDVruUkBvP6SIjQtt7Qg8"
+	set firmware_file_name=Firmware 19.0.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="19.0.1" (
+	set expected_md5=ec19f786c1653da36eb59256958a0d00
+	set "firmware_link=https://mega.nz/file/3dQExTrC#sB4yOLZpKmGfkVbGdSm0P2tJsCetGbSgmdOwuaILTkA"
+	set firmware_file_name=Firmware 19.0.1.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )

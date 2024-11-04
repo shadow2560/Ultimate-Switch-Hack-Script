@@ -52,6 +52,8 @@ echo 16: Inject a Sega Saturn game ^(beta function^)?
 echo.
 echo 17: Obtain the NCAs that identify the firmware?
 echo.
+echo 18: obtain infos on a firmware's NCAs?
+echo.
 echo All other choices: Go back to main menu?
 echo.
 echo.

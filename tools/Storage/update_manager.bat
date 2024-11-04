@@ -439,6 +439,7 @@ call :update_detect_firmware_titles.bat
 call :update_donate.bat
 call :update_emunand_migrate.bat
 call :update_extract_cert.bat
+call :update_firmware_ncas_infos.bat
 call :update_game_saves_unpack.bat
 call :update_GameMakerNSPBuilder.bat
 call :update_install_drivers.bat
@@ -1015,6 +1016,29 @@ IF NOT "%language_path%"=="languages\FR_fr" (
 			call :update_file
 		)
 	)
+)
+exit /b
+
+:update_firmware_ncas_infos.bat
+call :verif_file_version "tools\Storage\firmware_ncas_infos.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+call :verif_file_version "languages\FR_fr\tools\Storage\firmware_ncas_infos.bat"
+IF "!update_finded!"=="Y" (
+	call :update_file
+)
+IF NOT "%language_path%"=="languages\FR_fr" (
+	IF "%language_custom%"=="0" (
+		call :verif_file_version "%language_path%\tools\Storage\firmware_ncas_infos.bat"
+		IF "!update_finded!"=="Y" (
+			call :update_file
+		)
+	)
+)
+call :verif_folder_version "tools\python3_scripts\firmware_nca_infos"
+IF "!update_finded!"=="Y" (
+	call :update_folder
 )
 exit /b
 

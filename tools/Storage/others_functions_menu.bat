@@ -43,6 +43,7 @@ IF "%action_choice%"=="14" goto:create_forwarder
 IF "%action_choice%"=="15" goto:create_gamemaker_game
 IF "%action_choice%"=="16" goto:inject_saturn_game
 IF "%action_choice%"=="17" goto:detect_firmware_titles
+IF "%action_choice%"=="18" goto:get_firmware_ncas_infos
 goto:end_script
 
 :convert_game
@@ -247,6 +248,18 @@ IF EXIST "tools\Storage\detect_firmware_titles.bat" (
 	call tools\Storage\update_manager.bat "update_detect_firmware_titles.bat" "force"
 )
 call TOOLS\Storage\detect_firmware_titles.bat
+@echo off
+goto:define_action_choice
+:get_firmware_ncas_infos
+set action_choice=
+echo.
+cls
+IF EXIST "tools\Storage\firmware_ncas_infos.bat" (
+	call tools\Storage\update_manager.bat "update_firmware_ncas_infos.bat"
+) else (
+	call tools\Storage\update_manager.bat "update_firmware_ncas_infos.bat" "force"
+)
+call TOOLS\Storage\firmware_ncas_infos.bat
 @echo off
 goto:define_action_choice
 :end_script

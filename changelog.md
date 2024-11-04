@@ -1,5 +1,21 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.337</h2>
+<ul>
+<li>Support des firmwares 19.0.0 et 19.0.1.</li>
+<li>Ajout des dernières clés dans la vérification d'un fichier de clés.</li>
+<li>Ajout des runtime .net 7.0 hors ligne pour EmmcHaccGen au cas où aucune connexion à internet ne soit disponible pour l'installer ou si Winget n'est pas installé sur le système.</li>
+<li>Ajout d'une fonction pour obtenir les informations sur les NCAs d'un firmware.</li>
+<li>Correction pour que les forwarders créés supportent le firmware 19.0.0.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 19.0.0.</li>
+<li>Mise à jour de Switch-logo-patcher pour suporter le firmware 19.0.0.</li>
+<li>Mise à jour de NSTool en version 1.9.2.</li>
+<li>Mise à jour d'Atmosphere en version 1.8.0-prerelease.</li>
+<li>Mise à jour de Hekate en version 6.2.2.</li>
+<li>Mise à jour de Lockpick-RCM.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 586.</li>
+</ul>
 <h2>V4.3.336</h2>
 <ul>
 <li>Mise à jour des liens de téléchargement des firmwares.</li>
