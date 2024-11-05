@@ -16,6 +16,7 @@
 <li>Update Sys-botbase to version 2.4.</li>
 <li>Update QuickNTP to version 1.2.8-1.</li>
 <li>Update Switch-ezremote-client to version 1.05.</li>
+<li>Update JKSV to version 11/05/2024.</li>
 <li>Update Flycast to version 2.4.</li>
 <li>Update the patches files used by NXThemesInstaller.</li>
 <li>Update Salty-nx to version 1.0.0.</li>
