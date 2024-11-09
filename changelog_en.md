@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.338</h2>
+<ul>
+<li>Fix a problem in the config for the remote control  via NVDA.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 587.</li>
+</ul>
 <h2>V4.3.337</h2>
 <ul>
 <li>Suport the firmwares 19.0.0 and 19.0.1.</li>

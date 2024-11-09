@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.338</h2>
+<ul>
+<li>Correction d'un souci de configuration pour la prise de contrôle à distance via NVDA.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 587.</li>
+</ul>
 <h2>V4.3.337</h2>
 <ul>
 <li>Support des firmwares 19.0.0 et 19.0.1.</li>
