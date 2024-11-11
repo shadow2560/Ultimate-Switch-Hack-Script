@@ -3,8 +3,8 @@
 <h2>V587</h2>
 <ul>
 <li>Update Status-Monitor-Overlay to version 1.1.6.</li>
-<li>Update Fizeau to version 2.8.0.</li>
-<li>Update Salty-nx to version 1.0.4A.</li>
+<li>Update Fizeau to version 2.8.1.</li>
+<li>Update Salty-nx to version 1.0.5.</li>
 </ul>
 <h2>V586</h2>
 <ul>
