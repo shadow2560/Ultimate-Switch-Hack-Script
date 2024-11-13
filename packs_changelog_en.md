@@ -5,6 +5,7 @@
 <li>Update Sys-patch.</li>
 <li>Update Status-Monitor-Overlay to version 1.1.6.</li>
 <li>Update Fizeau to version 2.8.1.</li>
+<li>Update FTPD to version 3.2.0.</li>
 <li>Update Salty-nx to version 1.0.5.</li>
 </ul>
 <h2>V586</h2>
