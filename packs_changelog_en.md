@@ -1,11 +1,20 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V588</h2>
+<ul>
+<li>Update Sys-patch.</li>
+<li>Update EdiZon-overlay to version 1.0.9.</li>
+<li>Update Switch-ezremote-client to version 1.06.</li>
+<li>Update MGBA to version 00.10.4.</li>
+<li>Update Salty-nx to version 1.1.1.</li>
+<li>Update ReverseNX-RT to version 2.1.0.</li>
+</ul>
 <h2>V587</h2>
 <ul>
 <li>Update Sys-patch.</li>
 <li>Update Status-Monitor-Overlay to version 1.1.6.</li>
 <li>Update Fizeau to version 2.8.1.</li>
-<li>Update FTPD to version 3.2.0.</li>
+<li>Update FTPD to version 3.2.1.</li>
 <li>Update Salty-nx to version 1.0.6.</li>
 </ul>
 <h2>V586</h2>

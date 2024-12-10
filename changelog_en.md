@@ -1,5 +1,12 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.339</h2>
+<ul>
+<li>Use of the runtime .net 7.0 offline for EmmcHaccGen possibles in the unbrick script.</li>
+<li>Fix a problem in the config for the remote control  via NVDA.</li>
+<li>Update credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 588.</li>
+</ul>
 <h2>V4.3.338</h2>
 <ul>
 <li>Fix a problem in the config for the remote control  via NVDA.</li>

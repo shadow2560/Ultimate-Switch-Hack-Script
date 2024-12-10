@@ -992,6 +992,14 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 		"..\tools\EmmcHaccGen_old\EmmcHaccGen.exe" --keys "%keys_file_path%" --mariko --no-autorcm --fw "..\firmware_temp"
 	)
 	:skip_old_emmchacgen_file_copy
+	set winget_use=n
+	winget -v >nul 2>&1
+	IF %errorlevel% EQU 0 (
+		"%windir%\system32\ping.exe" /n 2 www.github.com >nul 2>&1
+		IF !errorlevel! EQU 0 (
+			set winget_use=Y
+		)
+	)
 	IF /i NOT "%mariko_console%"=="O" (
 		"..\tools\EmmcHaccGen\EmmcHaccGen.exe" --keys "%keys_file_path%" !autorcm! --fw "..\firmware_temp"
 	) else (
@@ -1003,7 +1011,15 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	) else (
 		call "%associed_language_script%" "emmchaccgen_package_creation_first_error"
 		if !errorlevel! EQU 1 (
-			winget install Microsoft.DotNet.DesktopRuntime.7
+			if "%winget_use%"=="Y" (
+				winget install Microsoft.DotNet.DesktopRuntime.7
+			) else (
+				if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+					"..\EmmcHaccGen\windowsdesktop-runtime-7.0.14-win-x64.exe" /passive
+				) else (
+					"..\EmmcHaccGen\windowsdesktop-runtime-7.0.14-win-x86.exe" /passive
+				)
+			)
 			IF !errorlevel! NEQ 0 (
 				call "%associed_language_script%" "netfx7_install_error"
 				cd ..
@@ -1011,7 +1027,15 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 				rmdir /s /q "update_packages"
 				goto:endscript
 			) else (
-				winget install Microsoft.DotNet.AspNetCore.7
+				if "%winget_use%"=="Y" (
+					winget install Microsoft.DotNet.AspNetCore.7
+				) else (
+					if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+						"..\EmmcHaccGen\windowsdesktop-runtime-7.0.14-win-x64.exe" /passive
+					) else (
+						"..\EmmcHaccGen\windowsdesktop-runtime-7.0.14-win-x86.exe" /passive
+					)
+				)
 				IF !errorlevel! NEQ 0 (
 					call "%associed_language_script%" "netfx7_install_error"
 					cd ..
