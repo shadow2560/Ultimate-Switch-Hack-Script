@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.340</h2>
+<ul>
+<li>Adaptation du script de préparation d'une SD pour la modification de NXFPS.</li>
+<li>Dans le script de préparation d'une SD, ajout de la possibilité de remplacer le Homebrew Menu par le homebrew Sphaira; si l'option associée est activée dans Sphaira ce choix sera forcé sur oui; si le fichier "switch\hbmenu.nro" n'existe pas et que ce choix est activé une copie du Homebrew Menu sera faite à cet emplacement pour permettre de le restaurer via Sphaira si souhaité.</li>
+<li>Mise à jour de IPS_Patch_Creator en version 1.5.9.</li>
+<li>Mise à jour de NxFileViewer en version 3.0.1.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 589.</li>
+</ul>
 <h2>V4.3.339</h2>
 <ul>
 <li>Utilisation des runtime .net 7.0 hors ligne pour EmmcHaccGen possibles dans le script de débrickage.</li>

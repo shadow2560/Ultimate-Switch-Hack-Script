@@ -56,6 +56,7 @@
 <li><a target="_blank" href="https://github.com/cathery/sys-con">Sys-con</a>, replaced by <a target="_blank" href="https://github.com/o0zz/sys-con">ce fork</a></li>
 <li><a target="_blank" href="https://github.com/jakibaki/sys-ftpd">Sys-FTPD</a></li>
 <li><a target="_blank" href="https://github.com/cathery/sys-ftpd-light">Sys-FTPD-Light</a></li>
+<li><a target="_blank" href="https://github.com/ITotalJustice/ftpsrv">ftpsrv</a></li>
 <li><a target="_blank" href="https://github.com/Cesura/nxsh">Sys-nxsh, Nxsh</a></li>
 <li><a target="_blank" href="https://github.com/tallbl0nde/TriPlayer">Triplayer</a></li>
 <li><a target="_blank" href="https://github.com/XorTroll/uLaunch">uLaunch</a></li>
@@ -130,6 +131,7 @@
 <li><a target="_blank" href="https://github.com/noahc3/sdsetup-switch">Sdsetup-switch</a></li>
 <li><a target="_blank" href="https://github.com/PoloNX/SimpleModDownloader">SimpleModDownloader</a></li>
 <li><a target="_blank" href="https://github.com/nadrino/SimpleModManager">SimpleModManager</a></li>
+<li><a target="_blank" href="https://github.com/iTotalJustice/sphaira">Sphaira</a></li>
 <li><a target="_blank" href="https://github.com/meganukebmp/Switch_90DNS_tester">Switch_90DNS_tester</a></li>
 <li><a target="_blank" href="https://github.com/suchmememanyskill/switch-90dns-setter">Switch-90dns-setter</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/switch-cheats-updater-update-your-cheat-files-from-your-switch.561878/">Switch-cheats-updater</a></li>

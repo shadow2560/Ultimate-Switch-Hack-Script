@@ -107,6 +107,10 @@ echo.
 set /p mixed_profile=Choisissez un profile de homebrews: 
 goto:eof
 
+:sphaira_replace_hbmenu_choice
+set /p sphaira_replace_hbmenu=Souhaitez-vous que le homebrew Sphaira remplace le Homebrew Menu?
+goto:eof
+
 :overlays_profile_choice_begin
 echo Sélection du profile pour la copie des overlays:
 goto:eof

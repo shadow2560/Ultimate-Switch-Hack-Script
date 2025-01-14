@@ -269,6 +269,23 @@ set mixed_profile_path=tools\sd_switch\mixed\profiles\%mixed_profile_path%
 :skip_verif_mixed_profile
 del /q templogs\profiles_list.txt >nul
 
+:sphaira_replace
+set sphaira_replace_hbmenu=n
+IF /i "%copy_sxos_pack%"=="o" goto:skip_ask_sphaira_replace
+if NOT EXIST "tools\sd_switch\mixed\modular\Sphaira\switch\sphaira\sphaira.nro" goto:skip_ask_sphaira_replace
+IF EXIST "%volume_letter%\config\sphaira\config.ini" (
+	tools\gnuwin32\bin\grep.exe "replace_hbmenu" <"%volume_letter%\config\sphaira\config.ini" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
+	set /p temp_sphaira_hbmenu_replace=<templogs\tempvar.txt
+	if "!temp_sphaira_hbmenu_replace!"=="1" (
+		set sphaira_replace_hbmenu=Y
+		goto:skip_ask_sphaira_replace
+	)
+)
+call "%associed_language_script2%" "sphaira_replace_hbmenu_choice"
+IF NOT "%sphaira_replace_hbmenu%"=="" set sphaira_replace_hbmenu=%sphaira_replace_hbmenu:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "sphaira_replace_hbmenu" "o/n_choice"
+:skip_ask_sphaira_replace
+
 :define_select_overlays_profile
 echo.
 set overlays_profile_path=

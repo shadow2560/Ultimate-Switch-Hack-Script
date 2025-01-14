@@ -302,6 +302,12 @@ rem IF NOT "%pass_copy_mixed_pack%"=="Y" (
 	rem )
 rem )
 echo.
+IF /i "%sphaira_replace_hbmenu%"=="o" (
+	echo Sphaira homebrew will replace the Homebrew Menu.
+) else (
+	echo Sphaira homebrew will not replace the Homebrew Menu.
+)
+echo.
 IF /i "%copy_emu%"=="o" (
 	echo Emulators:
 	IF "%pass_copy_emu_pack%"=="Y" (

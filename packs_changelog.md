@@ -1,5 +1,18 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V589</h2>
+<ul>
+<li>Ajout du homebrew Sphaira.</li>
+<li>Ajout du homebrew et du module Ftpsrv.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 1.1.7a.</li>
+<li>Mise à jour de Sys-con en version 1.5.0.</li>
+<li>Mise à jour de Switch-ezremote-client en version 1.08.</li>
+<li>Mise à jour du lien de Retroarch pour la version 1.20.0.</li>
+<li>Suppression de ScummVM.</li>
+<li>Mise à jour de Salty-nx en version 1.2.0.</li>
+<li>Mise à jour de NXFPS en version 2.1.0.</li>
+<li>Suppression des fichiers de configuration pour FPSLocker.</li>
+</ul>
 <h2>V588</h2>
 <ul>
 <li>Mise à jour de Sys-patch.</li>

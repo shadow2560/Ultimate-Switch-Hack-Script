@@ -788,6 +788,11 @@ call :copy_mixed_pack
 call :copy_overlays_pack
 call :copy_salty-nx_pack
 call :copy_emu_pack
+if /i "!sphaira_replace_hbmenu!"=="Y" (
+	copy /V /B ""tools\sd_switch\mixed\modular\Sphaira\switch\sphaira\sphaira.nro" "%volume_letter%\hbmenu.nro >nul
+	if EXIST "%volume_letter%\switch\sphaira\sphaira.nro" del /q "%volume_letter%\switch\sphaira\sphaira.nro"
+	if NOT EXIST "%volume_letter%\switch\hbmenu.nro" copy /V /B ""tools\sd_switch\mixed\base\hbmenu.nro" "%volume_letter%\switch\hbmenu.nro >nul
+)
 IF /i "%sd_folder_structure_to_copy_choice%"=="o" %windir%\System32\Robocopy.exe "%sd_folder_structure_to_copy_path% " "%volume_letter%\ " /e >nul
 %windir%\System32\Robocopy.exe "sd_user " "%volume_letter%\ " /e >nul
 
@@ -1380,12 +1385,12 @@ for /l %%i in (1,1,%temp_count%) do (
 			IF EXIST "%volume_letter%\atmosphere\contents" (
 				set one_cfw_chosen=Y
 				call :force_copy_overlays_base_files "atmosphere"
-				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
+				::%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
 			)
 			IF EXIST "%volume_letter%\sxos\titles" (
 				set one_cfw_chosen=Y
 				call :force_copy_overlays_base_files "sxos"
-				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+				::%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
 			)
 			IF EXIST "%volume_letter%\boot.dat" (
 				IF NOT "%sx_gear_present_on_sd%"=="Y" (
@@ -1395,7 +1400,7 @@ for /l %%i in (1,1,%temp_count%) do (
 						mkdir "%volume_letter%\sxos\titles"
 					)
 					call :force_copy_overlays_base_files "sxos"
-					%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+					::%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
 				)
 			)
 			IF /i "%copy_atmosphere_pack%"=="o" (
@@ -1405,7 +1410,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%\contents
 				)
 				call :force_copy_overlays_base_files "atmosphere"
-				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
+				::%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\atmosphere\contents " /e >nul
 			)
 			IF /i "%copy_sxos_pack%"=="o" (
 				set one_cfw_chosen=Y
@@ -1414,7 +1419,7 @@ for /l %%i in (1,1,%temp_count%) do (
 					mkdir "%volume_letter%\sxos\titles"
 				)
 				call :force_copy_overlays_base_files "sxos"
-				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
+				::%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\titles " "%volume_letter%\sxos\titles " /e >nul
 			)
 			IF "!one_cfw_chosen!"=="Y" (
 				%windir%\System32\Robocopy.exe "tools\sd_switch\salty-nx\pack\!temp_salty-nx!\others " "%volume_letter%\ " /e >nul
