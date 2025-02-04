@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.342</h2>
+<ul>
+<li>Update NxFileViewer to version 3.0.2.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 591.</li>
+</ul>
 <h2>V4.3.341</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 590.</li>

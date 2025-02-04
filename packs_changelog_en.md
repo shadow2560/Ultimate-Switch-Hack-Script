@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V591</h2>
+<ul>
+<li>Update Ftpsrv to version 1.2.2.</li>
+<li>Update Switch-ezremote-client to version 1.11.</li>
+</ul>
 <h2>V590</h2>
 <ul>
 <li>Update Sphaira to version 0.6.2.</li>
