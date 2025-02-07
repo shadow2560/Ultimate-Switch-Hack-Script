@@ -99,6 +99,10 @@ goto:eof
 echo Erreur, la version doit faire 4 caractères au maximum.
 goto:eof
 
+:set_args
+set /p args=Entrer les arguments additionnels passées au homebrew ^(laisser vide si aucun^): 
+goto:eof
+
 :set_keys_path
 echo Veuillez renseigner le fichier de clés dans la fenêtre suivante.
 echo Si vous fermez la fenêtre, le script se terminera sans rien faire.

@@ -2,14 +2,14 @@
 #AutoIt3Wrapper_Icon=..\OneDrive\Pictures\Icons\Programs\PortableApps_v3.ico
 #AutoIt3Wrapper_UseX64=n
 #AutoIt3Wrapper_Res_Comment=https://gbatemp.net/threads/gui-for-nsp-forwarder-tool-for-12.588018/
-#AutoIt3Wrapper_Res_ProductVersion=0.12
+#AutoIt3Wrapper_Res_ProductVersion=0.13
 #AutoIt3Wrapper_Res_CompanyName=EddCase
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #cs ----------------------------------------------------------------------------
 
  AutoIt Version: 3.3.14.5
  Author:         EddCase & Shadow256
- Script Version: 0.12Beta
+ Script Version: 0.13Beta
 
  Script Function:
 	GUI for mpham's NSP Forwarder tool for 12+
@@ -69,6 +69,8 @@ Changelog
 		Tidied up Menu Title
 		Added option to disable icon conversion, Tick the checkbox BEFORE selecting your images (I need to rework the menu to make this option easier)
 		Cleanup of files also added to the close (X) button
+	0.13 Beta (Shadow256)
+		Add the possibility to add args passed to the NRO
 
 Known Issues
 	Some forwarders are created with ? logo when installed on the switch, 0.12 Beta adds an option to disable the image conversion completely as a workaround as no rootcause has been identified
@@ -89,7 +91,7 @@ Known Issues
 
 
 ;Global Declerations
-$version = "0.12 Beta"
+$version = "0.13 Beta"
 $Title = "-=Menu v" & $version & "=-"
 $Credits = "Thank You To" & @LF & @LF & "The-4n for hacBrewPack" & @LF & "mpham for NSP Forwarder tool for 12+" & @LF & @LF & "This Gui would not be possible without their work"
 $hacbrewpac = '"' & @ScriptDir & "\hacbrewpack.exe" & '"'
@@ -158,10 +160,12 @@ $chkStandard = GUICtrlCreateCheckbox("Standard Nro Forwarder", 160, 288, 137, 17
 $chkRetroArch = GUICtrlCreateCheckbox("RetroArch Rom Forwarder", 336, 288, 145, 17)
 $lblNroPath = GUICtrlCreateLabel("Nro Path: sdmc:/", 16, 320, 56, 20, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-GUICtrlSetState(-1, $GUI_HIDE)
 $inpNroPath = GUICtrlCreateInput("switch/application.nro", 144, 318, 369, 25)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
-GUICtrlSetState(-1, $GUI_HIDE)
+$lblArgs = GUICtrlCreateLabel("Nro args", 16, 355, 63, 25, $SS_CENTERIMAGE)
+GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
+$inpArgs = GUICtrlCreateInput("", 144, 355, 369, 25)
+GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $lblRomPath = GUICtrlCreateLabel("Rom Path: sdmc:/", 16, 355, 63, 25, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 10, 400, 0, "MS Sans Serif")
 $inpRomPath = GUICtrlCreateInput("roms/rom_name.ext", 144, 355, 369, 25)
@@ -270,6 +274,8 @@ Func standardcheck()
 		If GUICtrlRead($chkStandard) = $GUI_CHECKED Then
 			GUICtrlSetState($lblNroPath, $GUI_SHOW)
 			GUICtrlSetState($inpNroPath, $GUI_SHOW)
+			GUICtrlSetState($lblArgs, $GUI_SHOW)
+			GUICtrlSetState($inpArgs, $GUI_SHOW)
 			GUICtrlSetState($inpCorePath, $GUI_HIDE)
 			GUICtrlSetState($lblCorePath, $GUI_HIDE)
 			GUICtrlSetState($lblRomPath, $GUI_HIDE)
@@ -284,6 +290,8 @@ Func retroarchcheck()
 		If GUICtrlRead($chkRetroArch) = $GUI_CHECKED Then
 			GUICtrlSetState($lblNroPath, $GUI_HIDE)
 			GUICtrlSetState($inpNroPath, $GUI_HIDE)
+			GUICtrlSetState($lblArgs, $GUI_HIDE)
+			GUICtrlSetState($inpArgs, $GUI_HIDE)
 			GUICtrlSetState($inpCorePath, $GUI_SHOW)
 			GUICtrlSetState($lblCorePath, $GUI_SHOW)
 			GUICtrlSetState($lblRomPath, $GUI_SHOW)
@@ -411,7 +419,7 @@ EndFunc
 Func pathwrites()
 	If GUICtrlRead($chkStandard) = $GUI_CHECKED Then
 		FileDelete (@ScriptDir & "\romfs\nextArgv")
-		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpNroPath))
+		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpNroPath)) & " " & GUICtrlRead( $inpArgs))
 		FileDelete (@ScriptDir & "\romfs\nextNroPath")
 		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:/" & GUICtrlRead( $inpNroPath))
 	Else

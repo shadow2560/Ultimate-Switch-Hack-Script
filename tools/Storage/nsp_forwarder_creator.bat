@@ -160,6 +160,13 @@ IF %nb% GTR 4 (
 	call "%associed_language_script%" "version_length_error"
 	goto:version_set
 )
+
+:args_set
+IF "%nsp_type%"=="nro" (
+echo.
+set args=
+call "%associed_language_script%" "set_args"
+)
 :keys_path_set
 echo.
 set keys_path=
@@ -236,7 +243,7 @@ IF NOT "%logo_path%"=="" (
 	del /q "tools\nsp_forwarder_creator\logo\logo.bmp" >nul
 )
 IF "%nsp_type%"=="nro" (
-	echo|set /p="sdmc:/%nro_path:\=/%"> tools\nsp_forwarder_creator\romfs\nextArgv
+	echo|set /p="sdmc:/%nro_path:\=/% %args%"> tools\nsp_forwarder_creator\romfs\nextArgv
 ) else IF "%nsp_type%"=="rom" (
 	echo|set /p="sdmc:/%nro_path:\=/% ^"sdmc:/%rom_path%^""> tools\nsp_forwarder_creator\romfs\nextArgv
 )

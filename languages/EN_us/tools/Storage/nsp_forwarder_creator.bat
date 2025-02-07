@@ -108,6 +108,10 @@ goto:eof
 echo Error, the version must be maximum 4 chars long.
 goto:eof
 
+:set_args
+set /p args=Enter the aditional args passed to the homebrew ^(leave empty if none^): 
+goto:eof
+
 :set_keys_path
 echo Please choose the key file in the following window.
 echo If you close the window, the script will end without doing anything.

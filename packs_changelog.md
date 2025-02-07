@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V592</h2>
+<ul>
+<li>Mise à jour de TinWoo en version 1.0.27.</li>
+</ul>
 <h2>V591</h2>
 <ul>
 <li>Mise à jour de Ftpsrv en version 1.2.2.</li>
