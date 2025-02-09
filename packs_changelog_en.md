@@ -3,6 +3,7 @@
 <h2>V592</h2>
 <ul>
 <li>Update TinWoo to version 1.0.27.</li>
+<li>Update Flycast to version master 3114344.</li>
 </ul>
 <h2>V591</h2>
 <ul>

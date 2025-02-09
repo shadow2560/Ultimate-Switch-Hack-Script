@@ -3,6 +3,7 @@
 <h2>V592</h2>
 <ul>
 <li>Mise à jour de TinWoo en version 1.0.27.</li>
+<li>Mise à jour de Flycast en version master 3114344.</li>
 </ul>
 <h2>V591</h2>
 <ul>
