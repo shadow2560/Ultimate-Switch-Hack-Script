@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.344</h2>
+<ul>
+<li>Correction d'une régression introduite en version 4.3.337 dans la fonction de création de forwarders via l'interface graphique.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 593.</li>
+</ul>
 <h2>V4.3.343</h2>
 <ul>
 <li>Ajout de la possibilité d'ajouter des arguments additionnels passés au homebrew lors de la création de forwarders.</li>
