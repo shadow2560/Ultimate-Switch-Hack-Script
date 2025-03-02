@@ -419,7 +419,7 @@ EndFunc
 Func pathwrites()
 	If GUICtrlRead($chkStandard) = $GUI_CHECKED Then
 		FileDelete (@ScriptDir & "\romfs\nextArgv")
-		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpNroPath)) & " " & GUICtrlRead( $inpArgs))
+		FileWrite (@ScriptDir & "\romfs\nextArgv", "sdmc:/" & GUICtrlRead( $inpNroPath) & " " & GUICtrlRead( $inpArgs))
 		FileDelete (@ScriptDir & "\romfs\nextNroPath")
 		FileWrite (@ScriptDir & "\romfs\nextNroPath", "sdmc:/" & GUICtrlRead( $inpNroPath))
 	Else
