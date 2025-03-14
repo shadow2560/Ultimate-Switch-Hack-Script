@@ -2,6 +2,7 @@
 &nbsp;
 <h2>V4.3.346</h2>
 <ul>
+<li>Update NVDA.</li>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 594.</li>
 </ul>
 <h2>V4.3.345</h2>

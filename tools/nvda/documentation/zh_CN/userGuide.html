@@ -2,20 +2,20 @@
 <html lang="zh_CN" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.3.1 用户指南</title>
+<title>NVDA 2024.4.2 用户指南</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="nvda-202431">NVDA 2024.3.1 用户指南</h1>
+<body><h1 id="nvda-202442">NVDA 2024.4.2 用户指南</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202431" title="NVDA 2024.3.1 用户指南">NVDA 2024.3.1 用户指南</a><ul>
+<li><a href="#nvda-202442" title="NVDA 2024.4.2 用户指南">NVDA 2024.4.2 用户指南</a><ul>
 <li><a href="#Introduction" title="前言">前言</a><ul>
 <li><a href="#GeneralFeatures" title="主要功能">主要功能</a></li>
 <li><a href="#SystemRequirements" title="系统要求">系统要求</a><ul>
-<li><a href="#MinimumSystemRequirements" title="推荐系统要求">推荐系统要求</a></li>
 <li><a href="#MinimumSystemRequirements" title="最低系统要求">最低系统要求</a></li>
+<li><a href="#RecommendedSystemRequirements" title="推荐系统要求">推荐系统要求</a></li>
 </ul>
 </li>
 <li><a href="#Internationalization" title="国际化">国际化</a></li>
@@ -156,7 +156,7 @@
 <li><a href="#WordElementsList" title="元素列表">元素列表</a></li>
 </ul>
 </li>
-<li><a href="#WordReportingComments" title="朗读注释">朗读注释</a></li>
+<li><a href="#WordReportingComments" title="朗读批注">朗读批注</a></li>
 </ul>
 </li>
 <li><a href="#MicrosoftExcel" title="Microsoft Excel">Microsoft Excel</a><ul>
@@ -244,11 +244,17 @@
 <li><a href="#BrailleTether" title="盲文光标跟随">盲文光标跟随</a></li>
 <li><a href="#BrailleSettingsReviewRoutingMovesSystemCaret" title="移动浏览光标时移动系统输入光标">移动浏览光标时移动系统输入光标</a></li>
 <li><a href="#BrailleSettingsReadByParagraph" title="按段落阅读">按段落阅读</a></li>
-<li><a href="#BrailleSettingsWordWrap" title="避免拆分单词（如果可能）">避免拆分单词（如果可能）</a></li>
-<li><a href="#BrailleUnicodeNormalization" title="Unicode 正规化">Unicode 正规化</a></li>
+<li><a href="#BrailleParagraphStartMarkers" title="段落开始标记">段落开始标记</a></li>
 <li><a href="#BrailleSettingsFocusContextPresentation" title="焦点上下文信息">焦点上下文信息</a></li>
-<li><a href="#BrailleSettingsInterruptSpeech" title="在滚动盲文显示时打断语音">在滚动盲文显示时打断语音</a></li>
 <li><a href="#BrailleSettingsShowSelection" title="盲文选中指示光标">盲文选中指示光标</a></li>
+<li><a href="#BrailleFormattingDisplay" title="格式化显示">格式化显示</a><ul>
+<li><a href="#BrailleFormattingDisplayTags" title="标记">标记</a></li>
+</ul>
+</li>
+<li><a href="#BrailleSpeakOnRouting" title="定位文本光标后读出光标所在处的字符">定位文本光标后读出光标所在处的字符</a></li>
+<li><a href="#BrailleSettingsWordWrap" title="尽可能避免拆分单词">尽可能避免拆分单词</a></li>
+<li><a href="#BrailleUnicodeNormalization" title="Unicode 正规化">Unicode 正规化</a></li>
+<li><a href="#BrailleSettingsInterruptSpeech" title="滚动时打断语音">滚动时打断语音</a></li>
 </ul>
 </li>
 <li><a href="#SelectBrailleDisplay" title="选择盲文点显器">选择盲文点显器</a><ul>
@@ -288,6 +294,7 @@
 <li><a href="#KeyboardSettingsSpeakCommandKeys" title="朗读命令键">朗读命令键</a></li>
 <li><a href="#KeyboardSettingsAlertForSpellingErrors" title="若键入时包含拼写错误则发出提示音">若键入时包含拼写错误则发出提示音</a></li>
 <li><a href="#KeyboardSettingsHandleKeys" title="从其他程序获取键盘控制权">从其他程序获取键盘控制权</a></li>
+<li><a href="#MultiPressTimeout" title="连按超时">连按超时</a></li>
 </ul>
 </li>
 <li><a href="#MouseSettings" title="鼠标设置">鼠标设置</a><ul>
@@ -353,6 +360,7 @@
 </li>
 <li><a href="#DocumentFormattingSettings" title="文档格式">文档格式</a><ul>
 <li><a href="#OpenDocumentFormattingSettings" title="打开文档格式设置">打开文档格式设置</a></li>
+<li><a href="#DocumentFormattingFontAttributes" title="字体属性">字体属性</a></li>
 <li><a href="#DocumentFormattingDetectFormatAfterCursor" title="朗读光标经过时的文本格式变化">朗读光标经过时的文本格式变化</a></li>
 <li><a href="#DocumentFormattingSettingsLineIndentation" title="行缩进的提示方式">行缩进的提示方式</a></li>
 </ul>
@@ -444,7 +452,7 @@
 <li><a href="#PythonConsole" title="Python 控制台">Python 控制台</a></li>
 <li><a href="#AddonStoreMenuItem" title="插件商店">插件商店</a></li>
 <li><a href="#CreatePortableCopy" title="创建便携版">创建便携版</a></li>
-<li><a href="#RunCOMRegistrationFixingTool" title="运行 COM 注册修复工具">运行 COM 注册修复工具</a></li>
+<li><a href="#RunCOMRegistrationFixingTool" title="运行 COM 注册修复工具...">运行 COM 注册修复工具...</a></li>
 <li><a href="#ReloadPlugins" title="重载插件">重载插件</a></li>
 </ul>
 </li>
@@ -458,41 +466,41 @@
 </li>
 <li><a href="#SupportedBrailleDisplays" title="支持的点显器">支持的点显器</a><ul>
 <li><a href="#AutomaticDetection" title="后台自动检测点显器">后台自动检测点显器</a></li>
-<li><a href="#FreedomScientificFocus" title="Freedom Scientific Focus/PAC Mate Series">Freedom Scientific Focus/PAC Mate Series</a></li>
-<li><a href="#OptelecALVA" title="Optelec ALVA 6 series/protocol converter">Optelec ALVA 6 series/protocol converter</a></li>
-<li><a href="#HandyTech" title="Handy Tech Displays">Handy Tech Displays</a></li>
+<li><a href="#FreedomScientificFocus" title="Freedom Scientific Focus/PAC Mate 系列">Freedom Scientific Focus/PAC Mate 系列</a></li>
+<li><a href="#OptelecALVA" title="Optelec ALVA 6 系列/协议转换器">Optelec ALVA 6 系列/协议转换器</a></li>
+<li><a href="#HandyTech" title="Handy Tech 点显器">Handy Tech 点显器</a></li>
 <li><a href="#MDVLilli" title="MDV Lilli">MDV Lilli</a></li>
-<li><a href="#Baum" title="Baum/Humanware/APH/Orbit Braille Displays">Baum/Humanware/APH/Orbit Braille Displays</a></li>
+<li><a href="#Baum" title="Baum/HumanWare/APH/Orbit 点显器">Baum/HumanWare/APH/Orbit 点显器</a></li>
 <li><a href="#HedoProfiLine" title="hedo ProfiLine USB">hedo ProfiLine USB</a></li>
 <li><a href="#HedoMobilLine" title="hedo MobilLine USB">hedo MobilLine USB</a></li>
-<li><a href="#HumanWareBrailliant" title="HumanWare Brailliant BI/B Series / BrailleNote Touch">HumanWare Brailliant BI/B Series / BrailleNote Touch</a><ul>
-<li><a href="#HumanWareBrailliantKeyAssignmentForAllModels" title="Key assignments for All models">Key assignments for All models</a></li>
-<li><a href="#HumanWareBrailliantKeyAssignmentForBI32BI40AndB80" title="Key assignments for Brailliant BI 32, BI 40 and B 80">Key assignments for Brailliant BI 32, BI 40 and B 80</a></li>
-<li><a href="#HumanWareBrailliantKeyAssignmentForBI14" title="Key assignments for Brailliant BI 14">Key assignments for Brailliant BI 14</a></li>
+<li><a href="#HumanWareBrailliant" title="HumanWare Brailliant BI/B 系列/ BrailleNote Touch">HumanWare Brailliant BI/B 系列/ BrailleNote Touch</a><ul>
+<li><a href="#HumanWareBrailliantKeyAssignmentForAllModels" title="所有型号的通用按键">所有型号的通用按键</a></li>
+<li><a href="#HumanWareBrailliantKeyAssignmentForBI32BI40AndB80" title="Brailliant BI 32、BI 40 和 B 80">Brailliant BI 32、BI 40 和 B 80</a></li>
+<li><a href="#HumanWareBrailliantKeyAssignmentForBI14" title="Brailliant BI 14">Brailliant BI 14</a></li>
 </ul>
 </li>
-<li><a href="#Hims" title="HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series">HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series</a></li>
-<li><a href="#Seika" title="Seika Braille Displays">Seika Braille Displays</a><ul>
-<li><a href="#SeikaBrailleDisplays" title="Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)">Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)</a></li>
-<li><a href="#SeikaNotetaker" title="MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)">MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)</a></li>
+<li><a href="#Hims" title="HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille 系列">HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille 系列</a></li>
+<li><a href="#Seika" title="Seika（清华）点显器">Seika（清华）点显器</a><ul>
+<li><a href="#SeikaBrailleDisplays" title="Seika V3/ V4/ V5（40 方）/ Seika80（80 方）">Seika V3/ V4/ V5（40 方）/ Seika80（80 方）</a></li>
+<li><a href="#SeikaNotetaker" title="MiniSeika （16 / 24 方） V6/V6Pro（40 方）">MiniSeika （16 / 24 方） V6/V6Pro（40 方）</a></li>
 </ul>
 </li>
-<li><a href="#Papenmeier" title="Papenmeier BRAILLEX Newer Models">Papenmeier BRAILLEX Newer Models</a></li>
-<li><a href="#PapenmeierOld" title="Papenmeier Braille BRAILLEX Older Models">Papenmeier Braille BRAILLEX Older Models</a></li>
+<li><a href="#Papenmeier" title="Papenmeier BRAILLEX 新型号">Papenmeier BRAILLEX 新型号</a></li>
+<li><a href="#PapenmeierOld" title="Papenmeier BRAILLEX 旧型号">Papenmeier BRAILLEX 旧型号</a></li>
 <li><a href="#HumanWareBrailleNote" title="HumanWare BrailleNote">HumanWare BrailleNote</a></li>
-<li><a href="#EcoBraille" title="EcoBraille">EcoBraille</a></li>
-<li><a href="#SuperBraille" title="SuperBraille">SuperBraille</a></li>
-<li><a href="#Eurobraille" title="Eurobraille displays">Eurobraille displays</a><ul>
-<li><a href="#EurobrailleBraille" title="Braille keyboard functions">Braille keyboard functions</a></li>
-<li><a href="#Eurobraillebbook" title="b.book keyboard commands">b.book keyboard commands</a></li>
-<li><a href="#Eurobraillebnote" title="b.note keyboard commands">b.note keyboard commands</a></li>
-<li><a href="#Eurobrailleesys" title="Esys keyboard commands">Esys keyboard commands</a></li>
-<li><a href="#EurobrailleEsytime" title="Esytime keyboard commands">Esytime keyboard commands</a></li>
+<li><a href="#EcoBraille" title="EcoBraille 点显器">EcoBraille 点显器</a></li>
+<li><a href="#SuperBraille" title="超点">超点</a></li>
+<li><a href="#Eurobraille" title="Eurobraille 点显器">Eurobraille 点显器</a><ul>
+<li><a href="#EurobrailleBraille" title="盲文键盘功能">盲文键盘功能</a></li>
+<li><a href="#Eurobraillebbook" title="b.book 键盘命令">b.book 键盘命令</a></li>
+<li><a href="#Eurobraillebnote" title="b.note 键盘命令">b.note 键盘命令</a></li>
+<li><a href="#Eurobrailleesys" title="Esys 键盘命令">Esys 键盘命令</a></li>
+<li><a href="#EurobrailleEsytime" title="Esytime键盘命令">Esytime键盘命令</a></li>
 </ul>
 </li>
-<li><a href="#NattiqTechnologies" title="Nattiq nBraille Displays">Nattiq nBraille Displays</a></li>
+<li><a href="#NattiqTechnologies" title="Nattiq 点显器">Nattiq 点显器</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
-<li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Albatross" title="Caiku Albatross 46/80">Caiku Albatross 46/80</a></li>
 <li><a href="#HIDBraille" title="HID 标准盲文点显器">HID 标准盲文点显器</a></li>
 </ul>
 </li>
@@ -508,7 +516,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: NVDA 2024.3.1 按键和手势快速参考 -->
+<!-- KC:title: NVDA 2024.4.2 按键和手势快速参考 -->
 
 <h2 id="Introduction">前言</h2>
 <p>欢迎使用 NVDA！</p>
@@ -520,31 +528,22 @@ NVDA 由 <a href="https://www.nvaccess.org/" rel="noopener" target="_blank" titl
 <p>可以在 NV Access YouTube 频道观看一个简短的视频演示，<a href="https://www.youtube.com/watch?v=tCFyyqy9mqo" rel="noopener" target="_blank" title="“什么是 NVDA？”">“什么是 NVDA？”</a>。</p>
 <p>主要特色包括：</p>
 <ul>
-<li>支持包括网页浏览器、电子邮件客户端、互联网聊天程序和 Office 套件在内的主流应用程序。</li>
-<li>集成的语音合成器（eSpeak NG）支持超过 80 种语言。</li>
-<li>支持文档格式的朗读（如字体名称或大小，样式或拼写错误等）。</li>
-<li>可自动朗读鼠标指向的文本，还包括用声音提示鼠标所在位置的选项。</li>
-<li>支持许多种可刷新点显器，并且支持部分品牌点显器的自动检测，实现即插即用，还支持带有盲文输入键盘的点显器的盲文输入。</li>
-<li>无需安装，可完全运行在 U 盘或者其他便携式存储设备上。</li>
-<li>便捷易用的语音安装程序。</li>
-<li>已翻译为 54 种语言。</li>
-<li>支持现代的 Windows 操作系统，包括 32 位和 64 位和其他衍生版本。</li>
+<li>支持包括网页浏览器、电子邮件客户端、互联网聊天程序和 Office 套件在内的主流应用程序</li>
+<li>集成的语音合成器（eSpeak NG）支持超过 80 种语言</li>
+<li>支持文档格式的朗读（如字体名称或大小，样式或拼写错误等）</li>
+<li>可自动朗读鼠标指向的文本，还包括用声音提示鼠标所在位置的选项</li>
+<li>支持许多种可刷新点显器，并且支持部分品牌点显器的自动检测，实现即插即用，还支持带有盲文输入键盘的点显器的盲文输入</li>
+<li>无需安装，可完全运行在 U 盘或者其他便携式存储设备上</li>
+<li>便捷易用的语音安装程序</li>
+<li>已翻译为 54 种语言</li>
+<li>支持现代的 Windows 操作系统，包括 32 位和 64 位和其他衍生版本</li>
 <li>能够在 Windows 登录界面和<a href="#SecureScreens" title="其他安全界面">其他安全界面</a>运行。</li>
-<li>支持使用触摸手势浏览屏幕时朗读控件和文本信息。</li>
-<li>支持常见的辅助功能接口，如 Microsoft Active Accessibility（MSAA）、Java Access Bridge、IAccessible2 和 UI automation。</li>
-<li>支持 Windows 命令提示符和其他控制台程序。</li>
-<li>能够以高亮突出显示各种焦点。</li>
+<li>支持使用触摸手势浏览屏幕时朗读控件和文本信息</li>
+<li>支持常见的辅助功能接口，如 Microsoft Active Accessibility（MSAA）、Java Access Bridge、IAccessible2 和 UI automation</li>
+<li>支持 Windows 命令提示符和其他控制台程序</li>
+<li>能够以高亮突出显示各种焦点</li>
 </ul>
 <h3 id="SystemRequirements">系统要求</h3>
-<h4 id="MinimumSystemRequirements">推荐系统要求</h4>
-<ul>
-<li>操作系统：64 位版本的 Windows 10、Windows 11 和 Windows Server 2022<ul>
-<li>支持 Windows 的 AMD64 和 ARM64 版本。</li>
-</ul>
-</li>
-<li>至少 150 MB 的存储空间。</li>
-<li>至少 4 GB 的内存。</li>
-</ul>
 <h4 id="MinimumSystemRequirements">最低系统要求</h4>
 <ul>
 <li>操作系统：所有 32 位和 64 位版本的 Windows 8.1、Windows 10、Windows 11，以及从 Windows Server 2012 R2 开始的所有服务器操作系统。<ul>
@@ -553,13 +552,22 @@ NVDA 由 <a href="https://www.nvaccess.org/" rel="noopener" target="_blank" titl
 <li>注意：Windows 8.1 和 Windows Server 2022 之前的版本不再受官方支持。</li>
 </ul>
 </li>
-<li>至少 150 MB 的存储空间。</li>
+<li>至少 500 MB 的存储空间。</li>
+</ul>
+<h4 id="RecommendedSystemRequirements">推荐系统要求</h4>
+<ul>
+<li>操作系统：64 位版本的 Windows 10、Windows 11 和 Windows Server 2022。<ul>
+<li>支持 Windows 的 AMD64 和 ARM64 版本。</li>
+</ul>
+</li>
+<li>至少 500 MB 的存储空间。</li>
+<li>至少 4 GB 的内存。</li>
 </ul>
 <h3 id="Internationalization">国际化</h3>
 <p>让世界上所有的人，无论使用何种语言，都可以公平且无障碍的使用辅助工具是非常重要的。
 除了英语之外，NVDA 还被翻译成了 54 种语言，包括：南非荷兰语、阿尔巴尼亚语、阿姆哈拉语、阿拉伯语、阿拉贡语、保加利亚语、缅甸语、加泰罗尼亚语、中文（简体和繁体）、克罗地亚语、捷克语、丹麦语、荷兰语、波斯语、芬兰语、法语、加利西亚语、格鲁吉亚与、德语（德国和瑞士）、希腊语、希伯来语、印地语、匈牙利语、冰岛语、爱尔兰语、意大利语、日语、卡纳达语、韩语、柯尔克孜语、立陶宛语、马其顿与、蒙古语、尼泊尔语、挪威语、波兰语、葡萄牙语（巴西和葡萄牙）、旁遮普语、罗马尼亚语、俄语、塞尔维亚语、斯洛伐克语、斯洛文尼亚语、西班牙语（哥伦比亚和西班牙）、瑞典语、泰米尔语、泰米尔语、泰语、土耳其语、乌克兰语和越南语。</p>
 <h3 id="SpeechSynthesizerSupport">支持的语音合成器</h3>
-<p>除了提供相应语言的消息和界面以外，只要拥有支持相应语言的语音合成器，NVDA 就可以让用户阅读任何语言的内容，</p>
+<p>除了提供相应语言的消息和界面以外，只要拥有支持相应语言的语音合成器，NVDA 就可以让用户阅读任何语言的内容。</p>
 <p>NVDA 集成的 <a href="https://github.com/espeak-ng/espeak-ng" rel="noopener" target="_blank" title="eSpeak NG">eSpeak NG</a> 是一个免费且开源的多语种语音合成器。</p>
 <p>有关于 NVDA 所支持的语音合成器的更多信息，可参看<a href="#SupportedSpeechSynths" title="支持的语音合成器">支持的语音合成器</a>章节。</p>
 <h3 id="BrailleSupport">点显器支持</h3>
@@ -595,10 +603,10 @@ NVDA 平均每年更新四次。
 <ul>
 <li>打开网页浏览器（按下 <code>Windows</code> 键，键入“internet”——不用加引号，按 <code>enter</code> 键）。</li>
 <li>加载NV Access（或 NVDA 中文站）的下载页面（按 <code>alt+d</code>，键入以下网址并按 <code>enter</code> 键）：
-https://www.nvaccess.org/download（官网）； https://nvdacn.com/index.php/nvda.html（中文站）。</li>
-<li>点击“下载”按钮。</li>
-<li>浏览器可能会提示有下载任务进行（有的浏览器可能没有此提示），并开始下载。</li>
-<li>根据浏览器的不同，下载到的文件可能会自动运行。</li>
+https://www.nvaccess.org/download（官网）； https://nvdacn.com/index.php/nvda.html（中文站）</li>
+<li>点击“下载”按钮</li>
+<li>浏览器可能会提示有下载任务进行（有的浏览器可能没有此提示），并开始下载</li>
+<li>根据浏览器的不同，下载到的文件可能会自动运行</li>
 <li>如果下载的文件需要手动运行，请按 <code>alt+n</code> 转到通知栏，然后按 <code>alt+r</code> 运行该文件（也可使用适合您的浏览器的方法）。</li>
 </ul>
 <h3 id="SettingUpNVDA">配置 NVDA</h3>
@@ -608,7 +616,7 @@ https://www.nvaccess.org/download（官网）； https://nvdacn.com/index.php/nv
 如果可以连接到互联网，NVDA 则可以定期检查可用更新。</p>
 <h4 id="StepsForRunningTheDownloadLauncher">运行下载的安装程序包</h4>
 <p>安装文件名为“nvda_2022.1.exe”或与之类似的名称。
-年份和表示版本信息的其它数字会随更新而改变，以反应最近发布的版本</p>
+年份和表示版本信息的其它数字会随更新而改变，以反应最近发布的版本。</p>
 <ol>
 <li>运行下载的文件。
 音乐响起，NVDA 临时副本也同时加载。
@@ -652,7 +660,7 @@ https://www.nvaccess.org/download（官网）； https://nvdacn.com/index.php/nv
 在这个过程中，NVDA 会发出音调不断升高的嘟嘟声。
 安装过程一般很快，而且可能不会被注意到。</li>
 <li>弹出一个对话框，证实 NVDA 已经成功安装。
-其中的消息提示“点击确定以启动安装好的副本。”
+其中的消息提示“点击确定以启动安装好的副本。”。
 按下 <code>enter</code> 启动安装好的副本。</li>
 <li>随着 NVDA 朗读出表示欢迎的消息，“欢迎使用 NVDA”的对话框出现了。
 此时的焦点位于“键盘配置”组合框。
@@ -696,25 +704,25 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>启动 NVDA</td>
 <td><code>control+alt+n</code></td>
 <td><code>control+alt+n</code></td>
-<td>启动或重启 NVDA。</td>
+<td>启动或重启 NVDA</td>
 </tr>
 <tr>
 <td>退出 NVDA</td>
 <td><code>NVDA+q</code> 然后按 <code>enter</code></td>
 <td><code>NVDA+q</code> 然后按 <code>enter</code></td>
-<td>退出 NVDA。</td>
+<td>退出 NVDA</td>
 </tr>
 <tr>
 <td>暂停或恢复语音</td>
 <td><code>shift</code></td>
 <td><code>shift</code></td>
-<td>立即暂停朗读。再次按下会从刚刚停止的地方继续朗读。</td>
+<td>立即暂停朗读。再次按下会从刚刚停止的地方继续朗读</td>
 </tr>
 <tr>
 <td>停止朗读</td>
 <td><code>control</code></td>
 <td><code>control</code></td>
-<td>立即停止朗读。</td>
+<td>立即停止朗读</td>
 </tr>
 </tbody>
 </table>
@@ -733,7 +741,7 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>全文朗读</td>
 <td><code>NVDA+下光标</code></td>
 <td><code>NVDA+a</code></td>
-<td>从当前位置开始朗读，并随朗读向下移动焦点。</td>
+<td>从当前位置开始朗读，并随朗读向下移动焦点</td>
 </tr>
 <tr>
 <td>朗读当前行</td>
@@ -770,7 +778,7 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>朗读窗口标题</td>
 <td><code>NVDA+t</code></td>
 <td><code>NVDA+t</code></td>
-<td>朗读当前激活窗口的标题。连按两次会拼读此信息。连按三次会复制此信息到剪贴板。</td>
+<td>朗读当前激活窗口的标题。连按两次会拼读此信息。连按三次会复制此信息到剪贴板</td>
 </tr>
 <tr>
 <td>朗读焦点</td>
@@ -788,7 +796,7 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>朗读状态栏</td>
 <td><code>NVDA+end</code></td>
 <td><code>NVDA+shift+end</code></td>
-<td>如果 NVDA 能找到状态栏则朗读它。连按两次会拼读此信息。连按三次会复制此信息到剪贴板。</td>
+<td>如果 NVDA 能找到状态栏则朗读它。连按两次会拼读此信息。连按三次会复制此信息到剪贴板</td>
 </tr>
 <tr>
 <td>朗读时间</td>
@@ -800,13 +808,13 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>朗读文本格式</td>
 <td><code>NVDA+f</code></td>
 <td><code>NVDA+f</code></td>
-<td>朗读文本的格式信息。连按两次在一个窗口中显示此信息。</td>
+<td>朗读文本的格式信息。连按两次在一个窗口中显示此信息</td>
 </tr>
 <tr>
 <td>读出链接网址</td>
 <td><code>NVDA+k</code></td>
 <td><code>NVDA+k</code></td>
-<td>读出当前光标或焦点所在链接指向的网址。连按两次在浏览模式下显示该信息，便于仔细查看。</td>
+<td>读出当前光标或焦点所在链接指向的网址。连按两次在浏览模式下显示该信息，便于仔细查看</td>
 </tr>
 </tbody>
 </table>
@@ -862,31 +870,31 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <td>移动到下一个合成器设置</td>
 <td><code>NVDA+control+右光标</code></td>
 <td><code>NVDA+shift+control+右光标</code></td>
-<td>移动到当前设置的下一个可用的语音设置，移动到最后一个设置后会再次循环至第一个。</td>
+<td>移动到当前设置的下一个可用的语音设置，移动到最后一个设置后会再次循环至第一个</td>
 </tr>
 <tr>
 <td>移动到上一个合成器设置</td>
 <td><code>NVDA+control+左光标</code></td>
 <td><code>NVDA+shift+control+左光标</code></td>
-<td>移动到当前设置的上一个可用的语音设置，移动到第一个设置后会再次循环至最后一个。。</td>
+<td>移动到当前设置的上一个可用的语音设置，移动到第一个设置后会再次循环至最后一个</td>
 </tr>
 <tr>
 <td>增加当前合成器设置的值</td>
 <td><code>NVDA+control+上光标</code></td>
 <td><code>NVDA+shift+control+上光标</code></td>
-<td>增加当前所在语音设置的值，例如加快速度，选择下一个语音，增大音量。</td>
+<td>增加当前所在语音设置的值，例如加快速度，选择下一个语音，增大音量</td>
 </tr>
 <tr>
 <td>以更大的步长增加当前语音选项的设置值</td>
 <td><code>NVDA+control+上翻页</code></td>
 <td><code>NVDA+shift+control+上翻页</code></td>
-<td>以更大的步长增加当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置（速度、音调等）时，每次会增加 20%。</td>
+<td>以更大的步长增加当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置（速度、音调等）时，每次会增加 20%</td>
 </tr>
 <tr>
 <td>减小当前合成器设置的值</td>
 <td><code>NVDA+control+下光标</code></td>
 <td><code>NVDA+shift+control+下光标</code></td>
-<td>减小当前所在语音设置的值，例如减慢速度，选择上一个语音，减小音量。</td>
+<td>减小当前所在语音设置的值，例如减慢速度，选择上一个语音，减小音量</td>
 </tr>
 <tr>
 <td>以更大的步长减小当前语音选项的设置值</td>
@@ -913,12 +921,12 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <tr>
 <td>标题</td>
 <td><code>h</code></td>
-<td>移动到下一个标题。</td>
+<td>移动到下一个标题</td>
 </tr>
 <tr>
 <td>1、2或3级标题</td>
 <td><code>1</code>、<code>2</code>、<code>3</code></td>
-<td>移动到下一个指定级别的标题。</td>
+<td>移动到下一个指定级别的标题</td>
 </tr>
 <tr>
 <td>表单区域</td>
@@ -928,32 +936,32 @@ NVDA 键也可以设定为<code>大小写锁定</code>键。</p>
 <tr>
 <td>链接</td>
 <td><code>k</code></td>
-<td>移动到下一个链接。</td>
+<td>移动到下一个链接</td>
 </tr>
 <tr>
 <td>路标</td>
 <td><code>d</code></td>
-<td>移动到下一个路标。</td>
+<td>移动到下一个路标</td>
 </tr>
 <tr>
 <td>列表</td>
 <td><code>l</code></td>
-<td>移动到下一个列表。</td>
+<td>移动到下一个列表</td>
 </tr>
 <tr>
 <td>表格</td>
 <td><code>t</code></td>
-<td>移动到下一个表格。</td>
+<td>移动到下一个表格</td>
 </tr>
 <tr>
 <td>反向移动</td>
 <td><code>shift</code>+ 字母</td>
-<td>按 <code>shift</code> 加上面列出的任意字母可移动到前一个相同类型的元素。</td>
+<td>按 <code>shift</code> 加上面列出的任意字母可移动到前一个相同类型的元素</td>
 </tr>
 <tr>
 <td>元素列表</td>
 <td><code>NVDA+f7</code></td>
-<td>列出各种元素的列表，如标题和链接等。</td>
+<td>列出各种元素的列表，如标题和链接等</td>
 </tr>
 </tbody>
 </table>
@@ -1121,7 +1129,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 您也可以在“开始菜单” 中的“运行”对话框中输入 NVDA，然后按回车启动 NVDA。
 如果 NVDA 已经在运行，它将重新启动。
 您也可以使用一些<a href="#CommandLineOptions" title="命令行选项">命令行选项</a>，使用这些命令行选项可以退出 NVDA（-q）、停用插件（--disable-addons）等。</p>
-<p>NVDA 安装版的配置在“漫游”应用程序配置文件夹（比如 "<code>C:\Users\&lt;用户名&gt;\AppData\Roaming</code>"）。
+<p>NVDA 安装版的配置在“漫游”应用程序配置文件夹（比如 "<code>C:\Users\&amp;lt;用户名&amp;gt;\AppData\Roaming</code>"）。
 可以更改注册表把安装版的配置存放在“本地”应用程序配置文件夹（比如 "C:\Users\&lt;用户名&gt;\AppData\Local"）。
 请查看<a href="#SystemWideParameters" title="系统范围参数">系统范围参数</a>这一节，了解更多信息。</p>
 <p>如果想启动便携版本的 NVDA，您可以找到您的便携版本所在的文件夹，按“回车键”选择或双击 nvda.exe 即可。
@@ -1133,7 +1141,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 请打开 NVDA 网站获取与如何报告此问题相关的信息。</p>
 <h4 id="WelcomeDialog">欢迎对话框</h4>
 <p>当您首次启动 NVDA 时会跳出一个“欢迎”对话框，其内包含了如何设置 NVDA 键及其菜单的基本信息。
-请参见以下章节以进一步了解此主题。
+请参见以下章节以进一步了解此主题
 此对话框包含一个组合框和三个复选框。
 组合框用于选择键盘布局。
 第一个允许您选择是否使用（大小写锁定键）作为 NVDA 键。
@@ -1148,8 +1156,8 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <h4 id="TheNVDAModifierKey">NVDA 键</h4>
 <p>大多数 NVDA 键盘命令都是由一个被称之为 NVDA 组合键的特殊按键和另外的一个或者多个其他的按键组成。
 需要注意的是，NVDA 的台式机键盘方案中，进行文本浏览仅需使用数字键盘（小键盘）的按键，但也有一些例外。</p>
-<p>NVDA 可以配置为使用 <code>insert</code> 键、小键盘 <code>numpadInsert</code> 键和/或 <code>capsLock</code> 键作为 <code>NVDA</code> 键。
-默认情况下，<code>insert</code> 键和小键盘 <code>numpadInsert</code> 键都被设置为 NVDA 键。</p>
+<p>NVDA 可以配置为使用<code>插入</code>键、<code>数字键盘插入</code>键或<code>大写锁定</code>键作为 <code>NVDA</code> 键。
+默认情况下，主键盘和数字键盘的<code>插入</code>键都被设置为 NVDA 键。</p>
 <p>假如您想在运行 NVDA 时执行该按键的其中一个原有动作（举例来说，如果您设置了大小写锁定键作为 NVDA 键，但又需要用它来切换大写锁定状态），您可以快速连按两次该键。</p>
 <h4 id="KeyboardLayouts">键盘布局</h4>
 <p>NVDA 目前共有两套被称为键盘布局的快捷键配置：一套是台式机按键布局，另一套是笔记本按键布局。
@@ -1217,7 +1225,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <li>按下 <code>Windows+b</code> 访问系统托盘，按 <code>下光标键</code> 导航到 NVDA 图标，接着按下 <code>enter</code> 键。</li>
 <li>又或者，按下 <code>Windows+b</code> 访问系统托盘，按 <code>下光标键</code> 导航到 NVDA 图标，接着按下 <code>应用（applications）</code> 键打开上下文菜单，该键通常位于键盘上右侧 control 键旁边。
 在没有<code>应用（applications）</code>键的键盘上，可按下 <code>shift+F10</code> 替代。</li>
-<li>用右键单机位于系统托盘上的 NVDA 图标。</li>
+<li>用右键单机位于系统托盘上的 NVDA 图标</li>
 </ul>
 <p>弹出 NVDA 菜单后，您可以使用光标键在菜单项之间移动，使用<code>回车</code>键激活。</p>
 <h3 id="BasicNVDACommands">基本的 NVDA 命令</h3>
@@ -1267,7 +1275,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <td>NVDA+1</td>
 <td>NVDA+1</td>
 <td>无</td>
-<td>在此模式之下，按下任何按键都将读出其名称和与其关联的 NVDA 命令。</td>
+<td>在此模式之下，按下任何按键都将读出其名称和与其关联的 NVDA 命令</td>
 </tr>
 <tr>
 <td>退出 NVDA</td>
@@ -1281,7 +1289,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <td>NVDA+f2</td>
 <td>NVDA+f2</td>
 <td>无</td>
-<td>告诉 NVDA：忽略下一次按键动作，使其能直接发送到激活的程序，即使它是 NVDA 的命令也不例外。</td>
+<td>告诉 NVDA：忽略下一次按键动作，使其能直接发送到激活的程序，即使它是 NVDA 的命令也不例外</td>
 </tr>
 <tr>
 <td>切换程序睡眠模式的开关</td>
@@ -1309,7 +1317,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <tr>
 <td>朗读日期/时间</td>
 <td>NVDA+f12</td>
-<td>按一次读出当前时间，连按两次读出日期。</td>
+<td>按一次读出当前时间，连按两次读出日期</td>
 </tr>
 <tr>
 <td>朗读电池状态</td>
@@ -1389,13 +1397,13 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <td>朗读当前焦点</td>
 <td>NVDA+tab</td>
 <td>NVDA+tab</td>
-<td>朗读当前焦点所在的对象和控件，连按两次将拼读此信息。</td>
+<td>朗读当前焦点所在的对象和控件，连按两次将拼读此信息</td>
 </tr>
 <tr>
 <td>朗读标题</td>
 <td>NVDA+t</td>
 <td>NVDA+t</td>
-<td>朗读当前激活窗口的标题，连按两次将拼读此信息，连按三次将复制此信息到剪贴板。</td>
+<td>朗读当前激活窗口的标题，连按两次将拼读此信息，连按三次将复制此信息到剪贴板</td>
 </tr>
 <tr>
 <td>朗读激活的窗口</td>
@@ -1407,7 +1415,7 @@ NV Access  还有一个定期的 <a href="https://www.nvaccess.org/category/in-p
 <td>朗读状态栏</td>
 <td>NVDA+end</td>
 <td>NVDA+shift+end</td>
-<td>读出当前应用程序的状态栏，连按两次拼读该信息，连按三次复制该信息到剪贴板。</td>
+<td>读出当前应用程序的状态栏，连按两次拼读该信息，连按三次复制该信息到剪贴板</td>
 </tr>
 <tr>
 <td>读出当前所聚焦对象的快捷键</td>
@@ -1441,7 +1449,7 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>全文朗读</td>
 <td>NVDA+下光标</td>
 <td>NVDA+a</td>
-<td>从系统输入焦点的当前位置开始朗读，焦点会随着朗读的内容移动。</td>
+<td>从系统输入焦点的当前位置开始朗读，焦点会随着朗读的内容移动</td>
 </tr>
 <tr>
 <td>朗读当前行</td>
@@ -1453,25 +1461,25 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>朗读文本格式</td>
 <td>NVDA+f</td>
 <td>NVDA+f</td>
-<td>朗读系统输入焦点当前位置的文本的格式信息，连按两次可使用浏览模式显示格式信息。</td>
+<td>朗读系统输入焦点当前位置的文本的格式信息，连按两次可使用浏览模式显示格式信息</td>
 </tr>
 <tr>
 <td>读出链接网址</td>
 <td>NVDA+k</td>
 <td>NVDA+k</td>
-<td>读出当前光标或焦点所在链接指向的网址。连按两次在浏览模式下显示该信息，便于仔细查看。</td>
+<td>读出当前光标或焦点所在链接指向的网址。连按两次在浏览模式下显示该信息，便于仔细查看</td>
 </tr>
 <tr>
 <td>读出系统光标的位置信息</td>
 <td><code>NVDA+数字键盘删除</code></td>
 <td><code>NVDA+删除</code></td>
-<td>读出系统光标处文本或对象的位置信息。例如，可能包括光标位置在文档内的百分比、与页面边缘的距离或确切的屏幕位置。连按两次获取详细信息。</td>
+<td>读出系统光标处文本或对象的位置信息。例如，可能包括光标位置在文档内的百分比、与页面边缘的距离或确切的屏幕位置。连按两次获取详细信息</td>
 </tr>
 <tr>
 <td>朗读当前选择的文本</td>
 <td>NVDA+Shift+上光标</td>
 <td>NVDA+shift+s</td>
-<td>朗读当前选择的所有文本</td>
+<td>朗读当前选择的所有文本。</td>
 </tr>
 <tr>
 <td>下一个句子</td>
@@ -1626,7 +1634,7 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>NVDA+数字键盘9</td>
 <td>NVDA+shift+[</td>
 <td>向左滑动（对象模式）</td>
-<td>移动导航对象到前一个对象，忽略层级关系。</td>
+<td>移动导航对象到前一个对象，忽略层级关系</td>
 </tr>
 <tr>
 <td>移动到此层级的下一个对象</td>
@@ -1640,21 +1648,21 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>NVDA+数字键盘3</td>
 <td>NVDA+shift+]</td>
 <td>向右滑动（对象模式）</td>
-<td>移动导航对象到后一个对象，忽略层级关系。</td>
+<td>移动导航对象到后一个对象，忽略层级关系</td>
 </tr>
 <tr>
 <td>移动到此对象的首个子对象</td>
 <td>NVDA+数字键盘2</td>
 <td>NVDA+shift+下光标</td>
 <td>向下滑动（对象模式）</td>
-<td>移动导航对象到此对象的第一个子对象。</td>
+<td>移动导航对象到此对象的第一个子对象</td>
 </tr>
 <tr>
 <td>移动到焦点对象</td>
 <td>NVDA+数字键盘减号</td>
 <td>NVDA+退格</td>
 <td>无</td>
-<td>移动到当前包含焦点的对象，也会放置在系统输入焦点的位置（如果有显示）。</td>
+<td>移动到当前包含焦点的对象，也会放置在系统输入焦点的位置（如果有显示）</td>
 </tr>
 <tr>
 <td>激活当前的浏览对象</td>
@@ -1668,7 +1676,7 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>NVDA+shift+数字键盘减号</td>
 <td>NVDA+shift+退格</td>
 <td>无</td>
-<td>按一次把系统焦点移动到当前浏览的对象，按两次把系统输入焦点移动到浏览光标所在的位置。</td>
+<td>按一次把系统焦点移动到当前浏览的对象，按两次把系统输入焦点移动到浏览光标所在的位置</td>
 </tr>
 <tr>
 <td>读出浏览光标的位置信息</td>
@@ -1744,14 +1752,14 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>shift+数字键盘9</td>
 <td>NVDA+control+行尾</td>
 <td>无</td>
-<td>移动浏览光标到文本的最后一行。</td>
+<td>移动浏览光标到文本的最后一行</td>
 </tr>
 <tr>
 <td>移动到查看对象的上一个词</td>
 <td>数字键盘4</td>
 <td>NVDA+control+左光标</td>
 <td>两个手指向左滑动（文本模式）</td>
-<td>移动浏览光标到文本的上一个词。</td>
+<td>移动浏览光标到文本的上一个词</td>
 </tr>
 <tr>
 <td>朗读查看对象的当前词</td>
@@ -1765,14 +1773,14 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>数字键盘6</td>
 <td>NVDA+control+右光标</td>
 <td>两个手指向右滑动（文本模式）</td>
-<td>移动浏览光标到文本的下一个词。</td>
+<td>移动浏览光标到文本的下一个词</td>
 </tr>
 <tr>
 <td>移动到查看对象的行首</td>
 <td>shift+数字键盘1</td>
 <td>NVDA+行首</td>
 <td>无</td>
-<td>移动浏览光标到文本的当前行的行首。</td>
+<td>移动浏览光标到文本的当前行的行首</td>
 </tr>
 <tr>
 <td>移动到当前查看对象的上一个字</td>
@@ -1793,63 +1801,63 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>数字键盘3</td>
 <td>NVDA+右光标</td>
 <td>向右滑动（文本模式）</td>
-<td>移动浏览光标到文本的当前行的下一个字符。</td>
+<td>移动浏览光标到文本的当前行的下一个字符</td>
 </tr>
 <tr>
 <td>移动到查看对象的行尾</td>
 <td>shift+数字键盘3</td>
 <td>NVDA+行尾</td>
 <td>无</td>
-<td>移动浏览光标到文本的当前行的行尾。</td>
+<td>移动浏览光标到文本的当前行的行尾</td>
 </tr>
 <tr>
 <td>移动到查看对象的上一页</td>
 <td><code>NVDA+上翻页</code></td>
 <td><code>NVDA+shift+上翻页</code></td>
 <td>无</td>
-<td>如果应用程序支持，将浏览光标移动到当前查看对象的上一页并将其读出。</td>
+<td>如果应用程序支持，将浏览光标移动到当前查看对象的上一页并将其读出</td>
 </tr>
 <tr>
 <td>移动到查看对象的下一页</td>
 <td><code>NVDA+下翻页</code></td>
 <td><code>NVDA+shift+下翻页</code></td>
 <td>无</td>
-<td>如果应用程序支持，将浏览光标移动到当前查看对象的下一页并将其读出。</td>
+<td>如果应用程序支持，将浏览光标移动到当前查看对象的下一页并将其读出</td>
 </tr>
 <tr>
 <td>导航对象全文朗读</td>
 <td>数字键盘加号</td>
 <td>NVDA+shift+a</td>
 <td>三个手指向下滑动（文本模式）</td>
-<td>从浏览光标所在位置开始朗读并随之移动。</td>
+<td>从浏览光标所在位置开始朗读并随之移动</td>
 </tr>
 <tr>
 <td>标记开始点</td>
 <td>NVDA+f9</td>
 <td>NVDA+f9</td>
 <td>无</td>
-<td>设置当前浏览光标所在位置为开始点，在您未设置结束点之前不会执行复制。</td>
+<td>设置当前浏览光标所在位置为开始点，在您未设置结束点之前不会执行复制</td>
 </tr>
 <tr>
 <td>标记结束点</td>
 <td>NVDA+f10</td>
 <td>NVDA+f10</td>
 <td>无</td>
-<td>按一次，选中开始点和结束点之间的文本；连按两次，把开始点和结束点之间的文本拷贝到剪贴板。如果系统输入焦点可以移动到结束点，当您按下此键时，文本将被真正的拷贝到 Windows 剪贴板。</td>
+<td>按一次，选中开始点和结束点之间的文本；连按两次，把开始点和结束点之间的文本拷贝到剪贴板。如果系统输入焦点可以移动到结束点，当您按下此键时，文本将被真正的拷贝到 Windows 剪贴板</td>
 </tr>
 <tr>
 <td>移动到已标记的开始点</td>
 <td>NVDA+shift+f9</td>
 <td>NVDA+shift+f9</td>
 <td>无</td>
-<td>将浏览光标移动到先前设置的开始复制标记的位置。</td>
+<td>将浏览光标移动到先前设置的开始复制标记的位置</td>
 </tr>
 <tr>
 <td>朗读文本格式</td>
 <td>NVDA+shift+f</td>
 <td>NVDA+shift+f</td>
 <td>无</td>
-<td>朗读浏览光标当前所在位置的文本的格式信息，连按两次可使用浏览模式显示格式信息。</td>
+<td>朗读浏览光标当前所在位置的文本的格式信息，连按两次可使用浏览模式显示格式信息</td>
 </tr>
 <tr>
 <td>朗读符号极其发音替换文本</td>
@@ -1912,14 +1920,14 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>NVDA+数字键盘7</td>
 <td>NVDA+上翻页</td>
 <td>两个手指向上滑动</td>
-<td>切换到下一个可用的浏览模式。</td>
+<td>切换到下一个可用的浏览模式</td>
 </tr>
 <tr>
 <td>切换到上一个浏览模式</td>
 <td>NVDA+数字键盘1</td>
 <td>NVDA+下翻页</td>
 <td>两个手指向下滑动</td>
-<td>切换到上一个可用的浏览模式。</td>
+<td>切换到上一个可用的浏览模式</td>
 </tr>
 </tbody>
 </table>
@@ -1970,14 +1978,14 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>数字键盘斜杠</td>
 <td>NVDA+[</td>
 <td>无</td>
-<td>点击鼠标左键一次，平常的双击可以通过快速连按两次此键执行。</td>
+<td>点击鼠标左键一次，平常的双击可以通过快速连按两次此键执行</td>
 </tr>
 <tr>
 <td>鼠标左键锁定</td>
 <td>shift+数字键盘斜杠</td>
 <td>NVDA+control+[</td>
 <td>点击并按住</td>
-<td>按下并锁定鼠标左键，再按一次则松开。要想拖拽鼠标，按下此键并使用物理鼠标或其他鼠标导航命令进行移动。</td>
+<td>按下并锁定鼠标左键，再按一次则松开。要想拖拽鼠标，按下此键并使用物理鼠标或其他鼠标导航命令进行移动</td>
 </tr>
 <tr>
 <td>鼠标右键单击</td>
@@ -1991,7 +1999,7 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>shift+数字键盘星号</td>
 <td>NVDA+control+]</td>
 <td>无</td>
-<td>按下并锁定鼠标右键，再按一次则松开。要想拖拽鼠标，按下此键并使用物理鼠标或其他鼠标导航命令进行移动。</td>
+<td>按下并锁定鼠标右键，再按一次则松开。要想拖拽鼠标，按下此键并使用物理鼠标或其他鼠标导航命令进行移动</td>
 </tr>
 <tr>
 <td>在鼠标位置向上滚动</td>
@@ -2026,14 +2034,14 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 <td>NVDA+数字键盘斜杠</td>
 <td>NVDA+shift+m</td>
 <td>无</td>
-<td>移动鼠标到浏览光标和当前浏览对象所在的位置。</td>
+<td>移动鼠标到浏览光标和当前浏览对象所在的位置</td>
 </tr>
 <tr>
 <td>移动到鼠标下方的对象</td>
 <td>NVDA+数字键盘星号</td>
 <td>NVDA+shift+n</td>
 <td>无</td>
-<td>设置导航对象到鼠标所在位置。</td>
+<td>设置导航对象到鼠标所在位置</td>
 </tr>
 </tbody>
 </table>
@@ -2041,7 +2049,7 @@ NVDA 将在您进行逐字、逐词甚至逐行移动时提示，也会对文本
 
 <h2 id="BrowseMode">浏览模式</h2>
 <p>NVDA 使用浏览模式来浏览复杂的只读文档，比如网页或者PDF文档。
-NVDA支持以下应用中的文档</p>
+NVDA支持以下应用中的文档：</p>
 <ul>
 <li>火狐浏览器</li>
 <li>IE浏览器</li>
@@ -2080,12 +2088,12 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>切换浏览/焦点模式</td>
 <td>NVDA+空格</td>
-<td>在焦点模式和浏览模式之间切换。</td>
+<td>在焦点模式和浏览模式之间切换</td>
 </tr>
 <tr>
 <td>退出焦点模式</td>
 <td>esc</td>
-<td>如果上次已经自动切换到了焦点模式则返回到浏览模式。</td>
+<td>如果上次已经自动切换到了焦点模式则返回到浏览模式</td>
 </tr>
 <tr>
 <td>刷新浏览模式文档</td>
@@ -2100,12 +2108,12 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>查找下一个</td>
 <td>NVDA+f3</td>
-<td>在当前文档查找下一个您先前键入的文本的结果。</td>
+<td>在当前文档查找下一个您先前键入的文本的结果</td>
 </tr>
 <tr>
 <td>查找上一个</td>
 <td>NVDA+shift+f3</td>
-<td>在当前文档查找上一个您先前键入的文本的结果。</td>
+<td>在当前文档查找上一个您先前键入的文本的结果</td>
 </tr>
 </tbody>
 </table>
@@ -2155,18 +2163,18 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>移动到容器的开始处</td>
 <td>shift+逗号</td>
-<td>移动到输入焦点所在容器的开头（列表、表格等）。</td>
+<td>移动到输入焦点所在容器的开头（列表、表格等）</td>
 </tr>
 <tr>
 <td>移动到容器的结尾处</td>
 <td>逗号</td>
-<td>移动到输入焦点所在容器的结尾（列表、表格等）。</td>
+<td>移动到输入焦点所在容器的结尾（列表、表格等）</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<p>一些 web 应用程序，如 Gmail、Twitter 和 Facebook，使用单字母作为快捷键
+<p>一些 web 应用程序，如 Gmail、Twitter 和 Facebook，使用单字母作为快捷键。
 如果您还想在可使用浏览模式的鼠标键进行文档浏览的前提下使用这些快捷键，您可以临时的停用 NVDA 单键导航按键。</p>
 <!-- KC:beginInclude -->
 <p>要想在当前文档中切换单键导航功能的开关，请使用“NVDA+shift+空格键”。</p>
@@ -2174,7 +2182,7 @@ NVDA支持以下应用中的文档</p>
 
 <h4 id="TextNavigationCommand">文本段落导航命令</h4>
 <p>您可以按 <code>p</code> 或 <code>shift+p</code> 跳到下一个或上一个文本段落。
-文本段落由一组完整句子组成，
+文本段落由一组完整句子组成。
 这对于在各种网页上定位正文文本的开头非常有用，例如：</p>
 <ul>
 <li>新闻网页</li>
@@ -2236,7 +2244,7 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>浏览模式元素列表</td>
 <td>NVDA+f7</td>
-<td>列举当前文档的各种元素。</td>
+<td>列举当前文档的各种元素</td>
 </tr>
 </tbody>
 </table>
@@ -2262,17 +2270,17 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>查找</td>
 <td>NVDA+control+f</td>
-<td>弹出搜索对话框。</td>
+<td>弹出搜索对话框</td>
 </tr>
 <tr>
 <td>查找下一个</td>
 <td>NVDA+f3</td>
-<td>在当前文档查找下一个您先前键入的文本的结果。</td>
+<td>在当前文档查找下一个您先前键入的文本的结果</td>
 </tr>
 <tr>
 <td>查找上一个</td>
 <td>NVDA+shift+f3</td>
-<td>在当前文档查找上一个您先前键入的文本的结果。</td>
+<td>在当前文档查找上一个您先前键入的文本的结果</td>
 </tr>
 </tbody>
 </table>
@@ -2299,7 +2307,7 @@ NVDA支持以下应用中的文档</p>
 <tr>
 <td>移动到浏览模式文档容器</td>
 <td>NVDA+control+空格</td>
-<td>移动焦点到此嵌入对象之外，返回到包含此对象的文档。</td>
+<td>移动焦点到此嵌入对象之外，返回到包含此对象的文档</td>
 </tr>
 </tbody>
 </table>
@@ -2331,7 +2339,7 @@ NVDA支持以下应用中的文档</p>
 
 <p>当应用原生选择打开时，使用 <code>Ctrl+c</code> 复制时，将使用应用程序的复制功能，这意味着格式信息等丰富内容将被复制到剪贴板，而不仅是纯文本。
 将这些内容粘贴到其他程序（如 Microsoft Word 或 Excel）时，格式（如表格、链接等）将包含在内。
-但请注意，在应用原生选择模式下，将不包括 NVDA 在浏览模式下生成的一些可访问标签或其他信息。
+但请注意，在应用原生选择模式下，将不包括 NVDA 在浏览模式下生成的一些可访问性标签或其他信息。
 此外，尽管应用程序会尽力将应用原生选择与 NVDA 的浏览模式选择相匹配，但可能并不总是完全准确。
 然而，对于希望复制整个表格或复杂格式的段落等情况，此功能应该很有用。</p>
 <h2 id="ReadingMath">阅读数学内容</h2>
@@ -2355,7 +2363,7 @@ Microsoft Word 提供了基于线性格式的数学公式导航支持，同时�
 NVDA 支持在 Microsoft Powerpoint 和 Microsoft word 中阅读和导航 MathType 公式。
 您必须先安装 MathType 软件才可以使用该功能。
 安装试用版即可。
-可以访问 <a href="https://www.wiris.com/en/mathtype/" rel="noopener" target="_blank" title="MathType presentation 页面">MathType presentation 页面</a>下载该软件</li>
+可以访问 <a href="https://www.wiris.com/en/mathtype/" rel="noopener" target="_blank" title="MathType presentation 页面">MathType presentation 页面</a>下载该软件。</li>
 <li>Adobe Reader 中的数学公式：
 注意，这仍不是一个官方标准，所以目前制作这些内容的软件没有可用的公开版本。</li>
 <li>Kindle Reader for PC 中的数学公式：
@@ -2370,7 +2378,7 @@ NVDA 支持在 Kindle for PC 中阅读和导航包含可访问性数学内容的
 <ol>
 <li>移动浏览光标到数学内容。
 默认情况下，浏览光标会跟随系统输入焦点，所以，实际上您可以直接使用系统输入焦点移动到期望的内容。</li>
-<li>之后就可以使用下面的命令浏览数学内容。</li>
+<li>之后就可以使用下面的命令浏览数学内容：</li>
 </ol>
 <!-- KC:beginInclude -->
 
@@ -2412,7 +2420,7 @@ MathPlayer 可从 Wiris 网站免费获得。
 请注意，有关 MathPlayer 的信息可能表明它仅适用于 IE 8 等较旧的浏览器。
 这仅指使用 MathPlayer 直观地显示数学内容，通过 NVDA 阅读或导航数学的人可以忽略。</p>
 <h2 id="Braille">盲文</h2>
-<p>如果您拥有点显器，NVDA可以以盲文的形式显示屏幕上的信息
+<p>如果您拥有点显器，NVDA可以以盲文的形式显示屏幕上的信息。
 如果您的点显器有 Perkins 键盘，您还可以键入简写或非简写盲文。
 您也可以使用<a href="#BrailleViewer" title="盲文查看器">盲文查看器</a>在屏幕上显示图形化的盲文，如果您愿意也可以同时使用实体的盲文点显器来显示盲文。</p>
 <p>有关支持的点显器的信息，请参阅<a href="#SupportedBrailleDisplays" title="支持的点显器">支持的点显器</a>部分。
@@ -2514,7 +2522,7 @@ MathPlayer 可从 Wiris 网站免费获得。
 </tr>
 <tr>
 <td>hN</td>
-<td>标题级别，例如，1 级标题 H1、2 级标题 H2</td>
+<td>标题级别，例如，1 级标题 H1、2 级标题 H2。</td>
 </tr>
 <tr>
 <td>hlp</td>
@@ -2820,8 +2828,8 @@ MathPlayer 可从 Wiris 网站免费获得。
 这些位置以彩色矩形轮廓突出显示。</p>
 <ul>
 <li>蓝色实线表示导航对象和系统焦点重合（通常是开启了<a href="#ReviewCursorFollowFocus" title="导航对象跟随系统焦点移动">导航对象跟随系统焦点移动</a>才会呈现这种视觉效果）。</li>
-<li>蓝色虚线表示系统焦点</li>
-<li>粉色实线表示导航对象</li>
+<li>蓝色虚线表示系统焦点。</li>
+<li>粉色实线表示导航对象。</li>
 <li>黄色虚线表示浏览模式的虚拟光标（通常是在浏览器里面出现）</li>
 </ul>
 <p>在 <a href="#NVDASettings" title="NVDA 设置对话框">NVDA 设置对话框</a><a href="#VisionSettings" title="视觉辅助">视觉辅助</a>类别下，您可以在启用<a href="#VisionSettingsFocusHighlight" title="高亮显示">高亮显示</a>后更改是否高亮显示系统焦点、导航对象以及浏览光标。</p>
@@ -2924,11 +2932,12 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <p>当处于 Microsoft Word 的浏览模式时，您可以通过按下“NVDA+F7”访问元素列表。</p>
 <!-- KC:endInclude -->
 <p>元素列表可以列举标题、链接和批注（可能包含注解和修改跟踪记录）。</p>
-<h4 id="WordReportingComments">朗读注释</h4>
+<h4 id="WordReportingComments">朗读批注</h4>
 <!-- KC:beginInclude -->
-<p>按下“NVDA+alt+c”可以查看系统输入焦点所在处的任何注释。</p>
+<p>按下 <code>NVDA+alt+c</code> 可以查看系统输入焦点所在处的任何批注。
+连按两次，可在浏览模式下显示该信息。</p>
 <!-- KC:endInclude -->
-<p>文档的所有注释都可以在元素列表中进行查看，只要把类型选择为“标注”即可。</p>
+<p>文档的所有批注都可以在元素列表中进行查看，只要把类型选择为“标注”即可。</p>
 <h3 id="MicrosoftExcel">Microsoft Excel</h3>
 <h4 id="ExcelAutomaticColumnAndRowHeaderReading">自动朗读表格的行列标题</h4>
 <p>NVDA 可在您浏览 Excel 工作表时自动读出恰当的行列标题。
@@ -2964,7 +2973,7 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <h4 id="ExcelElementsList">元素列表</h4>
 <p>与网页相似，NVDA 也有为 Microsoft Excel 开发的元素列表，在此允许您列举和访问一些种类的信息。</p>
 <!-- KC:beginInclude -->
-<p>要想访问 Excel 的元素列表，请按下“NVDA+F7”</p>
+<p>要想访问 Excel 的元素列表，请按下“NVDA+F7”。</p>
 <!-- KC:endInclude -->
 <p>可在元素列表下访问的信息种类有：</p>
 <ul>
@@ -2979,13 +2988,14 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <li>表格：这里列举了工作表中所有的表格。
 在所列表格中按下“F2”可重命名该表格。
 按下“回车键”或点击“移动到”按钮可以直接移动到所选的表格中。</li>
-<li>表单： 这里将列举所有工作表内所包含的表单
-对于每一个表单，元素列表将显示每一个地址所覆盖的单元格的替代文本
+<li>表单： 这里将列举所有工作表内所包含的表单。
+对于每一个表单，元素列表将显示每一个地址所覆盖的单元格的替代文本。
 选择一个表单项目之后按下“回车”或点击“移动到”按钮即可跳转到该表单项目。</li>
 </ul>
 <h4 id="ExcelReportingComments">朗读注释</h4>
 <!-- KC:beginInclude -->
-<p>要想朗读当前聚焦单元的所有注释，请按下“NVDA+alt+C”。
+<p>要想朗读当前聚焦单元的所有注释，请按 <code>NVDA+alt+C</code>。
+连按两次，可在浏览模式下显示该信息。
 在英文版Microsoft 2016、365和更高版本中，Microsoft Excel 中的注释“Comment”已重命名为“Notes”，与新的批注区分，中文版不变。</p>
 <!-- KC:endInclude -->
 <p>按 NVDA+F7 在元素列表中访问当前工作簿的所有注释。</p>
@@ -2995,7 +3005,7 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <p>按 shift+f2 在焦点单元格添加或编辑注释。</p>
 <!-- KC:endInclude -->
 
-<p>这个快捷键不在 NVDA 的按键与手势对话框里显示，因此不能修改</p>
+<p>这个快捷键不在 NVDA 的按键与手势对话框里显示，因此不能修改。</p>
 <p>注意：也可以从工作表任何单元格的上下文菜单中，打开 Excel 自带的注释编辑区域。
 但是，这将打开 NVDA 无法朗读的注释编辑区域，而不是 NVDA 添加的注释编辑对话框。</p>
 <p>在 Microsoft Office 2016、365 和更高版本中，添加了批注对话框。
@@ -3049,17 +3059,17 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <tr>
 <td>朗读剩余时间</td>
 <td>control+shift+r</td>
-<td>如果正在播放音乐 朗读当前播放的曲目的剩余时间</td>
+<td>如果正在播放音乐 朗读当前播放的曲目的剩余时间。</td>
 </tr>
 <tr>
 <td>朗读已播放时间</td>
 <td>control+shift+e</td>
-<td>如果正在播放音乐 朗读当前曲目已经播放的时间长度</td>
+<td>如果正在播放音乐 朗读当前曲目已经播放的时间长度。</td>
 </tr>
 <tr>
 <td>朗读总时长</td>
 <td>control+shift+t</td>
-<td>如果正在播放音乐 朗读当前曲目总时长</td>
+<td>如果正在播放音乐 朗读当前曲目总时长。</td>
 </tr>
 </tbody>
 </table>
@@ -3088,7 +3098,7 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <!-- KC:endInclude -->
 
 <h3 id="Poedit">Poedit</h3>
-<p>NVDA 为 Poedit 3.4 及更高版本提供了增强支持。</p>
+<p>NVDA 为 Poedit 3.5 及更高版本提供了增强支持。</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -3106,14 +3116,14 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <td>读出翻译者注释。连按两次，在浏览模式下显示该信息</td>
 </tr>
 <tr>
-<td>朗读批注</td>
+<td>朗读注释</td>
 <td><code>control+shift+c</code></td>
-<td>读出窗口内的批注。连按两次，在浏览模式下显示该信息</td>
+<td>读出窗口内的注释。连按两次，在浏览模式下显示该信息</td>
 </tr>
 <tr>
-<td>朗读旧的源文本</td>
+<td>朗读先前的源文本</td>
 <td><code>control+shift+o</code></td>
-<td>读出旧的源文本（如果有）。连按两次，在浏览模式下显示该信息</td>
+<td>读出先前的源文本（如果有）。连按两次，在浏览模式下显示该信息</td>
 </tr>
 <tr>
 <td>朗读翻译警告</td>
@@ -3158,7 +3168,7 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 </ol>
 <h3 id="Azardi">Azardi</h3>
 <!-- KC:beginInclude -->
-<p>在添加书目的表格里面，可以使用这些快捷键。</p>
+<p>在添加书目的表格里面，可以使用这些快捷键：</p>
 <table>
 <thead>
 <tr>
@@ -3246,9 +3256,9 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 点击“确认”按钮，保存所有您作过的更改，并且关闭对话框。</p>
 <p>有的分类具有特定的快捷键。
 按下对应快捷键可以打开 NVDA 设置对话框，并显示对应分类的设置。
-请注意：默认情况下不是所有的选项都可以使用按键或手势进行访问
+请注意：默认情况下不是所有的选项都可以使用按键或手势进行访问。
 如果您经常访问的选项没有专门的快捷键，使用<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>可给该选项添加自定义手势或快捷键。</p>
-<p>下面列出NVDA设置对话框里面的各个分类</p>
+<p>下面列出NVDA设置对话框里面的各个分类。</p>
 <h4 id="GeneralSettings">常规设置</h4>
 <!-- KC:setting -->
 
@@ -3278,7 +3288,7 @@ NVDA 可以借助该技术来识别图像中或无障碍支持不好的应用程
 <ul>
 <li>停用 除了 NVDA 启动的信息，不记录其他日志。</li>
 <li>基本信息 启动信息以及对开发者有用的其他信息。</li>
-<li>调试警告 包括信息级别的日志以及不严重的错误</li>
+<li>调试警告 包括信息级别的日志以及不严重的错误。</li>
 <li>输入/输出 包括上面几个级别的日志以及键盘和点显器的输入信息、语音和点显器输出信息，这些日志可能包含您的个人隐私，如果您希望保护隐私请不要把日志级别设为输入/输出。
 如果您担心个人隐私安全，请不要把日志级别调整到输入/输出。</li>
 <li>调试 包括上面几个级别的日志以及对调试有用的信息，这些日志同样可能包含您的个人隐私，如果您希望保护隐私请不要把日志级别设为调试。
@@ -3327,7 +3337,7 @@ NVDA 更新服务器只根据您的 IP 地址判断用户所在的国家/地区�
 <p>按键：<code>NVDA+control+v</code></p>
 <p>语音这个分类，允许您选择 NVDA 应该用来输出语音的合成器，并且更改合成器的设置。
 希望在任何地方使用另外一种更快的方式切换语音参数，请查看<a href="#SynthSettingsRing" title="循环切换合成器设置">循环切换合成器设置</a>章节。</p>
-<p>这个分类包含以下选项</p>
+<p>这个分类包含以下选项：</p>
 <h5 id="SpeechSettingsChange">修改按钮</h5>
 <p>这个分类第一个选项就是修改按钮，点击它可以打开<a href="#SelectSynthesizer" title="选择语音合成器">选择语音合成器</a>对话框，您可以在其中更改语音合成器以及语音输出设备。
 这个对话框会出现在 NVDA 设置对话框上面。
@@ -3507,37 +3517,37 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <td>移动到下一个合成器选项</td>
 <td>NVDA+control+右光标</td>
 <td>NVDA+shift+control+右光标</td>
-<td>移动到当前选项的下一个可用的语音选项。</td>
+<td>移动到当前选项的下一个可用的语音选项</td>
 </tr>
 <tr>
 <td>移动到上一个合成器选项</td>
 <td>NVDA+control+左光标</td>
 <td>NVDA+shift+control+左光标</td>
-<td>移动到当前选项的上一个可用的语音选项。</td>
+<td>移动到当前选项的上一个可用的语音选项</td>
 </tr>
 <tr>
 <td>增加当前合成器选项的值</td>
 <td>NVDA+control+上光标</td>
 <td>NVDA+shift+control+上光标</td>
-<td>增大当前所在选项的值，例如加快速度，选择下一个语音，增大音量。</td>
+<td>增大当前所在选项的值，例如加快速度，选择下一个语音，增大音量</td>
 </tr>
 <tr>
 <td>以更大的步长增加当前语音选项的设置值</td>
 <td><code>NVDA+control+上翻页</code></td>
 <td><code>NVDA+shift+control+上翻页</code></td>
-<td>以更大的步长增加当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置（速度、音调等）时，每次会增加 20%。</td>
+<td>以更大的步长增加当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置（速度、音调等）时，每次会增加 20%</td>
 </tr>
 <tr>
 <td>减小当前合成器选项的值</td>
 <td>NVDA+control+下光标</td>
 <td>NVDA+shift+control+下光标</td>
-<td>减小当前所在选项的值，例如减慢速度，选择上一个语音，减小音量。</td>
+<td>减小当前所在选项的值，例如减慢速度，选择上一个语音，减小音量</td>
 </tr>
 <tr>
 <td>以更大的步长减小当前语音选项的设置值</td>
 <td><code>NVDA+control+下翻页</code></td>
 <td><code>NVDA+shift+control+下翻页</code></td>
-<td>以更大的步长减小当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置时，每次会减小 20%。</td>
+<td>以更大的步长减小当前语音设置的值。例如当你处于语音设置时，每一次会跳过 20 个语音角色；当您处于滑块设置时，每次会减小 20%</td>
 </tr>
 </tbody>
 </table>
@@ -3545,9 +3555,9 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 
 <h4 id="BrailleSettings">盲文</h4>
 <p>您可以在 NVDA 设置对话框的盲文分类下，更改点显器相关的设置。
-这个分类包含以下选项</p>
+这个分类包含以下选项：</p>
 <h5 id="BrailleSettingsChange">更改点显器</h5>
-<p>按下盲文分类内的更改按钮，就会打开<a href="#SelectBrailleDisplay" title="选择点显器">选择点显器</a>对话框
+<p>按下盲文分类内的更改按钮，就会打开<a href="#SelectBrailleDisplay" title="选择点显器">选择点显器</a>对话框。
 这个对话框会出现在 NVDA 设置对话框上面。
 保存或者更改点显器设置之后，会回到 NVDA 设置对话框。</p>
 <h5 id="BrailleSettingsOutputTable">输出表</h5>
@@ -3572,7 +3582,7 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <h5 id="BrailleSettingsExpandToComputerBraille">将光标所在单词转换为计算机盲文</h5>
 <p>此选项可以把光标下面的单词以非缩写形式的计算机盲文进行显示。</p>
 <h5 id="BrailleSettingsShowCursor">显示光标</h5>
-<p>此选项允许您对盲文光标进行开关
+<p>此选项允许您对盲文光标进行开关。
 该设置会应用到系统输入焦点和浏览光标，而并不会作用于选择指示器。换言之，此选项对选择指示器无效。</p>
 <h5 id="BrailleSettingsBlinkCursor">光标闪烁</h5>
 <p>选中这个选项开启盲文光标闪烁。
@@ -3591,7 +3601,7 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <p>要在任何地方切换显示消息，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>中分配一个自定义按键或手势.</p>
 <h5 id="BrailleSettingsMessageTimeout">消息显示时间（以秒为单位）</h5>
 <p>这是一个数字区域，允许您控制 NVDA 的消息将在点显器上显示多长时间。
-当按下盲文显示器上的光标定位键时，NVDA 消息立即被消除，但是当按下触发消息的键时，NVDA 消息再次出现。
+当按下点显器上的光标定位键时，NVDA 消息立即被消除，但是当按下触发消息的键时，NVDA 消息再次出现。
 仅当“显示消息”设置为“使用超时”时，才显示此选项。</p>
 <!-- KC:setting -->
 
@@ -3600,29 +3610,11 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <p>此选项允许您选择是否希望点显器跟随系统焦点或浏览对象（即浏览光标）。
 如果选中了“自动”，盲文光标会跟随系统焦点或浏览对象（即浏览光标）
 此时，如果用户操作改变了浏览对象，NVDA 会让盲文光标暂时跟随浏览对象，直到系统焦点或者输入焦点改变为止。
-如果您想让盲文光标只跟随系统焦点或系统输入焦点，需要把这个设置改成焦点
+如果您想让盲文光标只跟随系统焦点或系统输入焦点，需要把这个设置改成焦点。
 此时，盲文光标不会跟随文本浏览或导航对象。
 如果您想让盲文光标只跟随文本浏览或对象浏览，需要把这个设置改成浏览光标。
 此时盲文光标不再跟随系统焦点或导航对象。</p>
 <h5 id="BrailleSettingsReviewRoutingMovesSystemCaret">移动浏览光标时移动系统输入光标</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>可选</td>
-<td>默认 （从不）、从不、仅当盲文光标设为自动跟随时、总是</td>
-</tr>
-<tr>
-<td>默认</td>
-<td>从不</td>
-</tr>
-</tbody>
-</table>
 <p>此设置决定是否应该在按下盲文点显器上的定位按键后移动系统光标。
 在默认情况下，此选项设置为“从不”，这意味着在点显器上按下定位按键移动浏览光标时从不移动系统光标。</p>
 <p>当此选项设置为“总是”，且<a href="#BrailleTether" title="盲文光标跟随">盲文光标跟随</a>设置为“自动”或“浏览光标”时，按盲文点显器上的定位按键也将在支持时移动系统光标或系统焦点。
@@ -3633,22 +3625,6 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 在这种情况下，当 NVDA 自动跟随浏览光标时，按光标定位键只会移动系统光标或系统焦点，而手动跟随到浏览光标时不会发生任何移动。</p>
 <p>仅当“<a href="#BrailleTether" title="盲文光标跟随">盲文光标跟随</a>”设置为“自动”或“浏览光标”时，才会显示此选项。</p>
 <p>如需在任意位置随意切换“移动浏览光标时移动系统输入光标”模式，请在<a href="#InputGestures" title="按键与首饰">按键与首饰</a>中分配一个快捷键。</p>
-<h5 id="BrailleSettingsReadByParagraph">按段落阅读</h5>
-<p>如果启用，盲文将用段落显示方式来代替逐行显示方式。
-上一行和下一行的命令将相应的用来按段落移动。
-这样的意思就是您不必在每一行的末尾进行点显器滚动，实际上，更多的文本将会显示在点显器上面。
-这样做将提高在阅读更大数量的文本时的效率。
-默认情况下，该选项是禁用的。</p>
-<h5 id="BrailleSettingsWordWrap">避免拆分单词（如果可能）</h5>
-<p>如果启用了该选项，对于点显器的一行而言太长的单词不会被拆分。
-剩余的位置会显示为空白。
-当您滚动点显器时您可以查看到完整的单词。
-有时候这被称为“自动换行”。
-请注意：如果单词对于整个点显器本身而言过长，单词仍然会被拆分。</p>
-<p>如果禁用该选项，点显器上会尽可能显示多的字符，但往往单词会被拆分成两部分显示。
-您需要滚动点显器以查看一个单词的另一部分。</p>
-<p>启用此选项可能会使阅读变的更加流畅，但通常也需要您多次滚动点显器。</p>
-<h5 id="BrailleUnicodeNormalization">Unicode 正规化</h5>
 <table>
 <thead>
 <tr>
@@ -3659,18 +3635,43 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <tbody>
 <tr>
 <td>选项</td>
-<td>默认（禁用）、启用、禁用</td>
+<td>默认（从不）、从不、仅当盲文光标设为自动跟随时、总是</td>
 </tr>
 <tr>
 <td>默认</td>
-<td>禁用</td>
+<td>从不</td>
 </tr>
 </tbody>
 </table>
-<p>启用此选项时，NVDA 会对显示在盲文点显器上的文本进行 Unicode 正规化。
-当在盲文中遇到特定盲文表中未知且有兼容替代的字符时（如社交媒体上常用的粗体和斜体字符），这个选项非常有用。
-关于 Unicode 正规化的其他优势，在<a href="#SpeechUnicodeNormalization" title="语音设置部分">语音设置部分</a>中有更详细的解释。</p>
-<p>如需切换 Unicode 正规化，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>为该功能分配自定义手势。</p>
+<h5 id="BrailleSettingsReadByParagraph">按段落阅读</h5>
+<p>如果启用，盲文将用段落显示方式来代替逐行显示方式。
+上一行和下一行的命令将相应的用来按段落移动。
+这样的意思就是您不必在每一行的末尾进行点显器滚动，实际上，更多的文本将会显示在点显器上面。
+这样做将提高在阅读更大数量的文本时的效率。
+默认情况下，该选项是禁用的。</p>
+<h5 id="BrailleParagraphStartMarkers">段落开始标记</h5>
+<p>如果选中“按段落阅读”，则会显示所选的开始标记以指示段落的开始。
+这对于阅读长文本（例如结构化文档或书籍）的应用程序特别有用。
+在此类文档中，知道段落从哪里开始可能有助于理解内容结构，或根据段落位置添加书签或注释。</p>
+<p>这些选项包括使用两个空格作为不明显的段落符，以及使用段落符号（¶）作为更明显的段落符。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选项</td>
+<td>无段落开始标记、双空格（  ）、 段落符（¶）</td>
+</tr>
+<tr>
+<td>默认</td>
+<td>无段落开始标记</td>
+</tr>
+</tbody>
+</table>
 <h5 id="BrailleSettingsFocusContextPresentation">焦点上下文信息</h5>
 <p>此选项允许您选择当对象获得焦点时 NVDA 将在点显器上显示的上下文信息。
 上下文信息是指包含焦点的对象的层次结构。
@@ -3692,31 +3693,12 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 因此，在上面的示例中，NVDA 将显示您关注列表项。
 但是，为了让您阅读上下文（即您在列表中并且列表是对话框的一部分），您将不得不向后滚动盲文显示。</p>
 <p>要想在任何地方切换焦点上下文信息的显示方法，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>定义一个自定义手势或快捷键。</p>
-<h5 id="BrailleSettingsInterruptSpeech">在滚动盲文显示时打断语音</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>可选</td>
-<td>默认（已启用）、禁用、已启用</td>
-</tr>
-<tr>
-<td>默认</td>
-<td>启用</td>
-</tr>
-</tbody>
-</table>
-<p>该选项决定在向后/向前滚动盲文显示时是否应打断语音朗读。
-移动点显器到上一行/下一行的命令是打断语音的。</p>
-<p>在阅读盲文时，语音朗读可能会分散注意力。
-出于此目的，该选项默认设置为启用，即在盲文滚动时会打断语音朗读。</p>
-<p>反之，禁用该选项则可以在阅读盲文的同时听到语音朗读。</p>
 <h5 id="BrailleSettingsShowSelection">盲文选中指示光标</h5>
+<p>该选项决定是否显示盲文选择指示光标（第 7 点和第 8 点）。
+默认情况下，该选项处于启用状态，因此会显示选择指示光标。
+阅读时显示选择只是光标可能会分散注意力。
+禁用该选项可以增加阅读时的专注力。</p>
+<p>要想在任何地方切换盲文选中指示光标，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>中分配一个自定义按键或手势。</p>
 <table>
 <thead>
 <tr>
@@ -3726,7 +3708,7 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 </thead>
 <tbody>
 <tr>
-<td>可选</td>
+<td>选项</td>
 <td>默认（启用）、启用、禁用</td>
 </tr>
 <tr>
@@ -3735,11 +3717,151 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 </tr>
 </tbody>
 </table>
-<p>该选项决定是否显示盲文选择指示光标（第 7 点和第 8 点）。
-默认情况下，该选项处于启用状态，因此会显示选择指示光标。
-阅读时显示选择只是光标可能会分散注意力。
-禁用该选项可以增加阅读时的专注力。</p>
-<p>要想在任何地方切换盲文选中指示光标，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>中分配一个自定义按键或手势。</p>
+<h5 id="BrailleFormattingDisplay">格式化显示</h5>
+<p>此设置用于配置 NVDA 如何以盲文呈现文本格式。
+仅当 NVDA 设置为<a href="#DocumentFormattingFontAttributes" title="以盲文提示字体属性">以盲文提示字体属性</a>时，此选项才有效。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选项</td>
+<td>默认（Liblouis）、Liblouis、标记</td>
+</tr>
+<tr>
+<td>默认</td>
+<td>Liblouis</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liblouis</td>
+<td>使用原生盲文格式。注，此选项仅支持呈现粗体、斜体和下划线文本，并且需要当前所选的盲文表支持这些属性。</td>
+</tr>
+<tr>
+<td><a href="#BrailleFormattingDisplayTags" title="标记">标记</a></td>
+<td>使用标记来描述文本格式变化的方式和位置。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="BrailleFormattingDisplayTags">标记</h6>
+<p>若“格式信息的显示方式”设置为“标记”，当检测到格式变化时，将以盲文显示格式标记。
+这些标记以 ⣋ 开头并以 ⣙ 结尾。
+格式标记会包含一个或多个描述文本格式的符号。
+定义了以下符号：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⠃（“b”）</td>
+<td>粗体开始</td>
+</tr>
+<tr>
+<td>⡃（“b”+7 点）</td>
+<td>粗体结束</td>
+</tr>
+<tr>
+<td>⠊（“i”）</td>
+<td>斜体开始</td>
+</tr>
+<tr>
+<td>⡊（“i”+7 点）</td>
+<td>斜体结束</td>
+</tr>
+<tr>
+<td>⠥（“u”）</td>
+<td>下划线开始</td>
+</tr>
+<tr>
+<td>⡥（“u”+7 点）</td>
+<td>下划线结束</td>
+</tr>
+<tr>
+<td>⠎（“s”）</td>
+<td>删除线开始</td>
+</tr>
+<tr>
+<td>⡎（“s”+7 点）</td>
+<td>删除线结束</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSpeakOnRouting">定位文本光标后读出光标所在处的字符</h5>
+<p>如果启用此功能，当使用盲文光标定位键定位到光标处的字符时，NVDA 会自动读出光标处的相应字符。</p>
+<p>如果希望随时切换此选项，请使用<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>分配自定义手势。</p>
+<h5 id="BrailleSettingsWordWrap">尽可能避免拆分单词</h5>
+<p>如果启用此功能，则不会拆分无法完整显示在剩余盲文单元中的单词。
+但点显器的行尾会有一些空白单元格。
+通过滚动盲文显示，您可以阅读道完整的单词。
+有时也称为“自动换行”。
+注，如果单词太长甚至无法完整显示为一行，则仍会拆分该单词。</p>
+<p>如果禁用此功能，将显示尽可能多的单词，但可能导致同一个单词被拆分为两行显示。
+通过向后滚动盲文显示，您可以阅读到单词的剩余部分。</p>
+<p>启用此功能可能会带来更流畅的阅读体验，但通常需要您多次滚动显示。</p>
+<h5 id="BrailleUnicodeNormalization">Unicode 正规化</h5>
+<p>启用此选项时，NVDA 会对显示在盲文点显器上的文本进行 Unicode 正规化。
+当在盲文中遇到特定盲文表中未知且有兼容替代的字符时（如社交媒体上常用的粗体和斜体字符），这个选项非常有用。
+关于 Unicode 正规化的其他优势，在<a href="#SpeechUnicodeNormalization" title="语音设置部分">语音设置部分</a>中有更详细的解释。</p>
+<p>如需切换 Unicode 正规化，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>为该功能分配自定义手势。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选项</td>
+<td>默认（禁用）、启用、禁用</td>
+</tr>
+<tr>
+<td>默认</td>
+<td>禁用</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSettingsInterruptSpeech">滚动时打断语音</h5>
+<p>此设置用于配置当盲文点显器向后/向前滚动时是否应打断语音。
+上一行/下一行命令总是会打断语音。</p>
+<p>阅读盲文时，语音朗读可能会分散注意力。
+因此，该选项默认启用，在滚动盲文显示时打断语音。</p>
+<p>禁用此选项可以在阅读盲文的同时听到语音。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选项</td>
+<td>默认（启用）、启用、禁用</td>
+</tr>
+<tr>
+<td>默认</td>
+<td>启用</td>
+</tr>
+</tbody>
+</table>
 <h4 id="SelectBrailleDisplay">选择盲文点显器</h4>
 <!-- KC:setting -->
 
@@ -3761,7 +3883,7 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 例如，如果您只有需要 Baum 驱动的点显器，则可以禁用除了 Baum 以外的其他驱动。</p>
 <p>默认情况下，所有支持自动检测的驱动都处于启用状态。
 新增的驱动（例如在 NVDA 的新版本或插件中）也将默认启用。</p>
-<p>您可以在<a href="#SupportedBrailleDisplays" title="支持的盲文显示器">支持的盲文显示器</a>部分查阅盲文点显器的文档，检查相应驱动是否支持自动检测。</p>
+<p>您可以在<a href="#SupportedBrailleDisplays" title="支持的点显器">支持的点显器</a>部分查阅盲文点显器的文档，检查相应驱动是否支持自动检测。</p>
 <h5 id="SelectBrailleDisplayPort">端口</h5>
 <p>此选项如果可用，可允许您为您选择的点显器指定与之交互的端口类型。
 这是一个组合框，包含您的点显器中所有可能的选择。</p>
@@ -3817,7 +3939,7 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 同样，若增大语音的音量，音效的音量也会增大。
 此选项仅在启用了“<a href="#WASAPI" title="音频输出使用 WASAPI">音频输出使用 WASAPI</a>” 的情况下生效。</p>
 <h5 id="SoundVolume">NVDA 音效音量</h5>
-<p>此滑块可以让您设置 NVDA 音效和 Beep 蜂鸣声的音量，
+<p>此滑块可以让您设置 NVDA 音效和 Beep 蜂鸣声的音量。
 仅当启用“音频输出使用 WASAPI”且禁用“NVDA 音效音量跟随语音音量”时，此设置才会生效。
 如果您在“高级设置”中<a href="#WASAPI" title="禁用音频输出使用 WASAPI">禁用音频输出使用 WASAPI</a>的情况下启动 NVDA，则该选项不可用。</p>
 <h5 id="SelectSoundSplitMode">声音拆分</h5>
@@ -3880,12 +4002,12 @@ Unicode 正规化确保在所有语音输出中只使用一种形式，即单个
 <p>将此值设置为 0 可以禁用该功能。</p>
 <h4 id="VisionSettings">视觉辅助</h4>
 <p>NVDA 设置对话框中的视觉辅助类别允许您启用，禁用和配置<a href="#Vision" title="视觉辅助">视觉辅助</a>。</p>
-<p>安装提供视觉辅助功能的<a href="#AddonsManager" title="NVDA 插件">NVDA 插件</a>可以在这个分类内增加更多选项
+<p>安装提供视觉辅助功能的<a href="#AddonsManager" title="NVDA 插件">NVDA 插件</a>可以在这个分类内增加更多选项。
 默认情况下，此类别包含以下选项：</p>
 <h5 id="VisionSettingsFocusHighlight">焦点高亮显示</h5>
 <p>这一组复选框控制 NVDA 内置的<a href="#VisionFocusHighlight" title="高亮显示功能">高亮显示功能</a>。</p>
 <ul>
-<li>启用高亮显示: 开启/关闭高亮显示功能</li>
+<li>启用高亮显示: 开启/关闭高亮显示功能。</li>
 <li>高亮显示系统焦点: 切换是否高亮显示<a href="#SystemFocus" title="系统焦点">系统焦点</a>。</li>
 <li>高亮显示导航对象: 切换是否高亮显示<a href="#ObjectNavigation" title="导航对象">导航对象</a>。</li>
 <li>高亮显示浏览光标: 切换是否高亮显示<a href="#BrowseMode" title="浏览光标">浏览光标</a>。</li>
@@ -3917,7 +4039,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <h5 id="KeyboardSettingsLayout">键盘布局</h5>
 <p>这个组合框允许您选择 NVDA 使用的键盘布局的类型，当前，NVDA 自带着台式机和笔记本两套键盘布局。</p>
 <h5 id="KeyboardSettingsModifiers">选择 NVDA 键</h5>
-<p>这个列表中有几个复选框，决定了哪些按键可以当作<a href="#TheNVDAModifierKey" title="NVDA 键">NVDA 键</a> 有以下几个选项</p>
+<p>这个列表中有几个复选框，决定了哪些按键可以当作<a href="#TheNVDAModifierKey" title="NVDA 键">NVDA 键</a> 有以下几个选项：</p>
 <ul>
 <li>大小写锁定键（capslock）</li>
 <li>数字键盘的插入键</li>
@@ -3955,6 +4077,14 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <h5 id="KeyboardSettingsHandleKeys">从其他程序获取键盘控制权</h5>
 <p>此选项允许您选择，是否希望 NVDA 接管其他程序（如屏幕键盘或语音识别程序）的键盘动作。
 默认情况下，此选项启用，某些特定的用户可能希望将其关闭，如使用 UniKey 进行越南语输入会造成错误的字符输入。</p>
+<h5 id="MultiPressTimeout">连按超时</h5>
+<p>某些 NVDA 快捷键根据快速连续按下相同按键的次数来执行不同的功能。
+一个例子是“读出当前查看对象光标所在位置的字符”命令。
+对于该命令，按一次读出当前查看对象光标所在位置的字符，连按两次解释该字符，连续按三次则读出该字符的十进制和十六进制代码。
+此选项用于设置超时，意味着在此时间后执行的相同手势将被视为新的手势，而不是第一个手势的延续。
+对于该例子，超时设置太短的话，连按两次会导致重复两次朗读当前字符，而不是解释该字符。
+默认超时为 500 毫秒，即 0.5 秒。
+增大此超时时间对于使用粘滞键或肢体障碍的用户可能尤其有用。</p>
 <h4 id="MouseSettings">鼠标设置</h4>
 <!-- KC:setting -->
 
@@ -3991,7 +4121,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 如果您还选中了启用鼠标导航复选框，NVDA不会读出这些软件远程控制端对鼠标的操作。</p>
 <h4 id="TouchInteraction">使用触摸屏与系统交互</h4>
 <p>这个部分只有在设备有触摸屏时可用。
-这个分类包含以下选项</p>
+这个分类包含以下选项：</p>
 <h5 id="TouchSupportEnable">启用触摸支持</h5>
 <p>此复选框启用了 NVDA 的触摸支持。
 如果启用，则可以使用触摸屏设备用 NVDA 的手势浏览屏幕上的项目。
@@ -4090,7 +4220,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <h5 id="InputCompositionReadingStringChanges">朗读预上屏字串的更新</h5>
 <p>一些输入法，例如中文的新注音或新仓颉输入法拥有 Reading 字串（有时也被认为是预上屏字串）。
 您可以使用此选项选择是否允许 NVDA 朗读被输入到预上屏字串的新字符。
-此选项默认启用
+此选项默认启用。
 请注意，一些旧的输入法，如中文仓颉输入法，可能不会使用 Reading 字串存放预上屏字串，取而代之的是直接使用上屏字串。请查看下一个选项获取更多上屏字串配置的信息。</p>
 <h5 id="InputCompositionCompositionStringChanges">朗读上屏字串</h5>
 <p>在完成预上屏之后，数据已经被组合成一个笔画图形，在他们最终被输入到文档之前，大多数输入法将这些图形放入上屏(conposition)字串之内暂时存储。
@@ -4102,7 +4232,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <h5 id="OpenBrowseModeSettings">打开浏览模式设置</h5>
 <p>按键：<code>NVDA+control+b</code></p>
 <p>“浏览模式设置”分类包含用NVDA浏览文档比如网页时的选项。
-这个分类包含以下选项</p>
+这个分类包含以下选项：</p>
 <h5 id="BrowseModeSettingsMaxLength">每行最大字符数</h5>
 <p>此区域设置浏览模式下每行的最大长度（以字符为单位）。</p>
 <h5 id="BrowseModeSettingsPageLines">每页最大行数</h5>
@@ -4132,7 +4262,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 如果停用，它将不会被朗读，且用快捷键也无法跳转。
 不管怎样，列表的内容都会作为文本被包含在阅读的进程中。
 这个选项默认情况下是关闭的。</p>
-<p>要想在任何地方切换包含布局表格设置，可在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>设置一个自定义手势或快捷键</p>
+<p>要想在任何地方切换包含布局表格设置，可在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>设置一个自定义手势或快捷键。</p>
 <h5 id="BrowseModeLinksAndHeadings">配置区域的朗读（如链接、标题）</h5>
 <p>请在“<a href="#NVDASettings" title="NVDA 设置">NVDA 设置</a>”中的<a href="#DocumentFormattingSettings" title="文档格式设置">文档格式设置</a>内查看相关选项，设置区域（如链接、标题和表格等）的朗读方式。</p>
 <h5 id="BrowseModeSettingsAutoPassThroughOnFocusChange">焦点改变时切换到焦点模式</h5>
@@ -4170,7 +4300,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <li>字体<ul>
 <li>字体名称</li>
 <li>字体大小</li>
-<li>字体属性</li>
+<li>字体属性<a href="#DocumentFormattingFontAttributes" title="（不提示、语音、盲文、语音和盲文）">（不提示、语音、盲文、语音和盲文）</a></li>
 <li>上标和下标</li>
 <li>强调</li>
 <li>突出显示（高亮）文本</li>
@@ -4217,14 +4347,24 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 </ul>
 </li>
 </ul>
-<p>要想在任何地方切换这些设置，可在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>设置一个自定义手势或快捷键</p>
+<p>要想在任何地方切换这些设置，可在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>设置一个自定义手势或快捷键。</p>
+<h5 id="DocumentFormattingFontAttributes">字体属性</h5>
+<p>此选项可以让您选择如何呈现某些字体属性，例如粗体、斜体、下划线和删除线。
+字体属性组合框包含四个选项：</p>
+<ul>
+<li>关闭：NVDA 不朗读这些字体属性。</li>
+<li>语音：NVDA 会在格式改变时读出。</li>
+<li>盲文：NVDA 将以盲文形式呈现这些属性。
+其具体显示方式可以在 <a href="#BrailleFormattingDisplay" title="NVDA 盲文设置">NVDA 盲文设置</a>中进行配置。</li>
+<li>语音和盲文：NVDA 将使用上述两种方法提示字体属性。</li>
+</ul>
 <h5 id="DocumentFormattingDetectFormatAfterCursor">朗读光标经过时的文本格式变化</h5>
 <p>如果启用，此设置告诉 NVDA 尝试去检测正在朗读的行的所有格式信息变化，选中该选项会牺牲一定的性能。</p>
 <p>默认情况下，NVDA 会检测系统输入焦点或者浏览光标所在位置的格式信息，某些情况也会检测这一行的剩余部分，前提是这样做不会降低执行效率。</p>
 <p>在文档校对时为某些程序（如 Wordpad）启用此选项非常实用，因为格式信息很重要。</p>
 <h5 id="DocumentFormattingSettingsLineIndentation">行缩进的提示方式</h5>
 <p>此选项允许您定义如何提示行首位置的缩进。
-“行缩进的提示方式为”组合框，包含四个选项：</p>
+“行缩进的提示方式为”组合框，包含四个选项。</p>
 <ul>
 <li>关闭：NVDA 不提示行首缩进。</li>
 <li>仅语音：如果选中该选项，当缩进个数发生变化时，NVDA 就会读出如“12 个空格”或“4 个制表符”这样的提示。</li>
@@ -4312,7 +4452,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 </table>
 <h4 id="Win10OcrSettings">Windows OCR 设置</h4>
 <p>这个部分可以让您设置 <a href="#Win10Ocr" title="Windows 光学字符识别">Windows 光学字符识别</a>。
-该类别包含以下选项</p>
+该类别包含以下选项：</p>
 <h5 id="Win10OcrSettingsRecognitionLanguage">识别语言</h5>
 <p>此组合框允许您选择用于光学字符识别的语言。
 要在任何地方循环切换可用的语言，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>分配一个自定义手势或快捷键。</p>
@@ -4325,7 +4465,7 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 <p>请注意！ 此类别中的设置适用于高级用户，如果不慎修改，可能会导致NVDA无法正常运行。
 只有在您确定知道自己在做什么，或者NVDA开发人员明确指示您修改时，才应该改变其中的设置。</p>
 <h5 id="AdvancedSettingsMakingChanges">更改高级设置</h5>
-<p>更改下面的设置之前必须选中这个复选框，表示用户了解随意更改这些设置可能的风险。</p>
+<p>更改下面的设置之前必须选中这个复选框，表示用户了解随意更改这些设置可能的风险</p>
 <h5 id="AdvancedSettingsRestoringDefaults">恢复高级设置为默认值</h5>
 <p>即使未勾选确认复选框，该按钮也会恢复高级设置为默认值。
 更改高级设置中的选项后，您可能希望恢复高级设置为默认值。
@@ -4374,8 +4514,8 @@ NVDA 将显示警告，提示您的屏幕将在激活这个选项后变黑。
 该设置包含以下选项：</p>
 <ul>
 <li>默认（符合要求时）</li>
-<li>仅必要时：Microsoft Word 对象模型完全不可用。</li>
-<li>符合要求时：Microsoft Word 版本在 16.0.15000 以上，或者传统的 Word 对象模型不可用。</li>
+<li>仅必要时：Microsoft Word 对象模型完全不可用</li>
+<li>符合要求时：Microsoft Word 版本在 16.0.15000 以上，或者传统的 Word 对象模型不可用</li>
 <li>总是：始终在 Microsoft Word 中使用 UIA 接口（无论其是否完整）。</li>
 </ul>
 <h5 id="UseUiaForExcel">在 Excel 中启用 UIA 接口（如果可用）</h5>
@@ -4429,7 +4569,7 @@ Microsoft Excel 的 UI Automation 接口实现不断变化，早于 16.0.13522.1
 这个选项不会影响新的 Windows Terminal 应用。
 在 Windows 10 版本 1709 中，Microsoft<a href="update/" title="向控制台添加了 UIA  接口的支持 https://devblogs.microsoft.com/commandline/whats-new-in-windows-console-in-windows-10-fall-creators-">向控制台添加了 UIA  接口的支持 https://devblogs.microsoft.com/commandline/whats-new-in-windows-console-in-windows-10-fall-creators-</a>，这一举措显著的改善了屏幕阅读器的性能和稳定性。
 在 UIA 接口不可用，或者已知存在影响用户体验的问题时，NVDA 旧版控制台的支持方式可作为备用。
-该选项的组合框中包含三个选项</p>
+该选项的组合框中包含三个选项：</p>
 <ul>
 <li>自动：在 Windows 11 22H2 及更高版本中的 Windows 控制台中使用 UIA 接口。
 推荐使用此选项，这也是默认设置。</li>
@@ -4466,7 +4606,7 @@ UIA 对基于 Chromium 的浏览器的支持目前处于早期开发阶段，可
 <li><code>accDescription</code> 有很多来源，其中一些具有混合或不可靠的语义。
   从历史上看，AT 无法区分 <code>accDescription</code> 的来源，由于混合语义，通常不会朗读。</li>
 <li>此选项正处于初期开发阶段，依赖于尚未被广泛应用的浏览器功能。</li>
-<li>预计适用于 Chromium 92.0.4479.0 以上。</li>
+<li>预计适用于 Chromium 92.0.4479.0 以上</li>
 </ul>
 </li>
 </ul>
@@ -4587,7 +4727,7 @@ WASAPI 被禁用后以下选项也会随之禁用：</p>
 <h5 id="AdvancedSettingsDebugLoggingCategories">调试日志</h5>
 <p>此列表中的复选框允许您在NVDA日志中启用特定类别的调试信息。
 记录这些信息可能会影响性能而且会增大日志文件的体积。
-例如 调试盲文显示器驱动程序时，NVDA开发者会让你打开其中一个，请不要同时开启多个。</p>
+例如调试点显器驱动程序时，NVDA开发者会让你打开其中一个，请不要同时开启多个。</p>
 <h5 id="PlayErrorSound">日志记录后播放错误提示音</h5>
 <p>此选项允许您选择 NVDA 是否在捕捉到错误时播放错误提示音。
 选择“仅测试版”（默认）仅当 NVDA 版本是测试版本（alpha、beta 或从源代码运行）时 NVDA 会播放错误提示音。
@@ -4679,7 +4819,7 @@ WASAPI 被禁用后以下选项也会随之禁用：</p>
 <p>注意:</p>
 <ul>
 <li>被模拟的键需要分配快捷键或手势，否则无法保存。</li>
-<li>有修饰键的按键模拟没有修饰键的按键会出问题，
+<li>有修饰键的按键模拟没有修饰键的按键会出问题。
 比如用 <code>Ctrl+m</code> 模拟按下 <code>a</code> 键，应用程序最终收到的其实是 <code>Ctrl+a</code>。</li>
 </ul>
 <p>当您完成修改之后，点击“确认”保存设置或点击“取消”按钮放弃。</p>
@@ -4706,7 +4846,7 @@ WASAPI 被禁用后以下选项也会随之禁用：</p>
 <td>保存设置</td>
 <td>NVDA+control+c</td>
 <td>NVDA+control+c</td>
-<td>保存您的当前配置，当您退出 NVDA 时也不会丢失。</td>
+<td>保存您的当前配置，当您退出 NVDA 时也不会丢失</td>
 </tr>
 <tr>
 <td>恢复配置</td>
@@ -4758,7 +4898,7 @@ WASAPI 被禁用后以下选项也会随之禁用：</p>
 任何您进行的修改都会被保存在手动激活的配置之内。
 要想停用手动激活的配置，可在“配置管理”对话框选择此配置并点击“手动停用”按钮。</p>
 <h4 id="ConfigProfileTriggers">关联</h4>
-<p>点击“管理配置”对话框的“关联”按钮允许您基于各种“关联”修改配置的自动激活</p>
+<p>点击“管理配置”对话框的“关联”按钮允许您基于各种“关联”修改配置的自动激活。</p>
 <p>下面显示了所有能在关联列表看到的关联：</p>
 <ul>
 <li>当前程序： 当您切换到当前程序时激活。</li>
@@ -4789,7 +4929,7 @@ WASAPI 被禁用后以下选项也会随之禁用：</p>
 <p>便携版本的 NVDA 设置（包括自定义程序模块、自定义驱动）都被直接存放在 NVDA 的 userConfig 目录下。</p>
 <p>安装版本的 NVDA 的所有插件和配置文件都被放在您的 Windows 用户配置的文件的NVDA目录之下。
 系统内的每个用户都可以拥有自己的配置。
-如果想随时访问 NVDA 配置目录可以在“<a href="#InputGestures" title="按键与手势">按键与手势</a>”对话框内为“浏览当前的 NVDA 用户配置目录”命令分配一个快捷键
+如果想随时访问 NVDA 配置目录可以在“<a href="#InputGestures" title="按键与手势">按键与手势</a>”对话框内为“浏览当前的 NVDA 用户配置目录”命令分配一个快捷键。
 此外，对于安装板的 NVDA 您还可以从开始菜单的 NVDA 文件夹内找到“浏览 NVDA 用户配置目录”入口。</p>
 <p>运行在欢迎屏幕或 UAC 屏幕时的 NVDA 设置都被存放在 NVDA 安装目录下的 SystemConfig 目录。
 通常情况下，不要接触这些配置文件。
@@ -4943,7 +5083,7 @@ NVDA 将询问您是否确认移除。
 <p>对于明眼的软件开发者或希望向明眼观众演示 NVDA 的人们，有一个浮动的窗口可以查看 NVDA 所有的语音输出文本。</p>
 <p>要想起用朗读查看器，可以再 NVDA 的“工具”菜单选中。
 取消选中菜单即可停用。</p>
-<p>朗读查看器窗口包含选项“启动时显示朗读查看器”
+<p>朗读查看器窗口包含选项“启动时显示朗读查看器”。
 如果选中，NVDA 会在启动时打开朗读查看器。
 此窗口若被关闭，重新打开时也将以相同的尺寸出现在相同的位置。</p>
 <p>当朗读查看器启用时，它会不断地更新，从而向您显示最近朗读的文本。
@@ -4968,7 +5108,7 @@ NVDA 将询问您是否确认移除。
 鼠标所停留的单元格会由浅黄色开始，然后过渡为橙色，进而变为绿色。</p>
 <p>要想在任何地方切换盲文查看器的开关，请在<a href="#InputGestures" title="按键与手势对话框">按键与手势对话框</a>定义一个自定义手势或快捷键。</p>
 <h3 id="PythonConsole">Python 控制台</h3>
-<p>NVDA工具菜单下面的 NVDA Python 控制台是调试 NVDA、了解 NVDA内部原理、以及查看其他软件无障碍支持情况的工具
+<p>位于工具菜单下的 NVDA Python 控制台，是调试 NVDA、了解 NVDA 内部原理、以及查看其他软件无障碍支持情况的工具。
 想了解更多信息请查看 <a href="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html" rel="noopener" target="_blank" title="NVDA 开发文档">NVDA 开发文档</a>。</p>
 <h3 id="AddonStoreMenuItem">插件商店</h3>
 <p>访问该菜单会打开 <a href="#AddonsManager" title="NVDA 插件商店">NVDA 插件商店</a>。
@@ -4976,7 +5116,7 @@ NVDA 将询问您是否确认移除。
 <h3 id="CreatePortableCopy">创建便携版</h3>
 <p>显示一个对话框，可以让您从已安装的版本中创建 NVDA 的便携版。</p>
 <p>有关更多信息，请参阅<a href="#CreatingAPortableCopy" title="创建可移植副本">创建可移植副本</a>。</p>
-<h3 id="RunCOMRegistrationFixingTool">运行 COM 注册修复工具</h3>
+<h3 id="RunCOMRegistrationFixingTool">运行 COM 注册修复工具...</h3>
 <p>在某些情况下，安装和卸载应用程序可能会导致 COM DLL 文件被取消注册。
 由于 IAccessible 等 COM 接口依赖于正确的 COM DLL 注册，因此如果缺少正确的 DLL 注册，就会出现问题。</p>
 <p>这可能发生在安装或卸载 Adobe Reader、Math Player 以及其他应用程序之后。</p>
@@ -4986,7 +5126,7 @@ NVDA 将询问您是否确认移除。
 <li>在 Firefox、Thunderbird 以及其他的浏览器中导航时，NVDA 朗读“未知”。</li>
 <li>NVDA 无法在焦点模式与浏览模式之间切换</li>
 <li>使用浏览模式在浏览器中导航时，NVDA 反应非常慢</li>
-<li>还可能出现其他的一些问题</li>
+<li>还可能出现其他的一些问题。</li>
 </ul>
 <h3 id="ReloadPlugins">重载插件</h3>
 <p>该功能可以在不重新启动 NVDA 的情况下重新加载应用程序模块和全局插件，此功能对于开发者非常有用。
@@ -5072,57 +5212,57 @@ eSpeak NG 支持超过 43 种不同的语言。</p>
 <p>以下点显器支持此自动检测功能。</p>
 <ul>
 <li>Handy Tech displays</li>
-<li>Baum/Humanware/APH/Orbit braille displays</li>
-<li>HumanWare Brailliant BI/B series</li>
+<li>Baum/Humanware/APH/Orbit 点显器</li>
+<li>HumanWare Brailliant BI/B 系列</li>
 <li>HumanWare BrailleNote</li>
-<li>SuperBraille</li>
-<li>Optelec ALVA 6 series</li>
-<li>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series</li>
-<li>Eurobraille Esys/Esytime/Iris displays</li>
-<li>Nattiq nBraille displays</li>
+<li>超点</li>
+<li>Optelec ALVA 6 系列</li>
+<li>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille 系列</li>
+<li>Eurobraille Esys/Esytime/Iris 点显器</li>
+<li>Nattiq nBraille 点显器</li>
 <li>Seika Notetaker（清华点显器） Mini （16 / 24方） V6/V6Pro（40方）</li>
-<li>Tivomatic Caiku Albatross 46/80 displays</li>
+<li>Tivomatic Caiku Albatross 46/80 点显器</li>
 <li>任何支持 HID 协议的点显器</li>
 </ul>
-<h3 id="FreedomScientificFocus">Freedom Scientific Focus/PAC Mate Series</h3>
-<p>All Focus and PAC Mate displays from <a href="https://www.freedomscientific.com/" rel="noopener" target="_blank" title="Freedom Scientific">Freedom Scientific</a> are supported when connected via USB or bluetooth.
-You will need the Freedom Scientific braille display drivers installed on your system.
-If you do not have them already, you can obtain them from the <a href="https://support.freedomscientific.com/Downloads/Focus/FocusBlueBrailleDisplayDriver" rel="noopener" target="_blank" title="Focus Blue Braille Display Driver page">Focus Blue Braille Display Driver page</a>.
-Although this page only mentions the Focus Blue display, the drivers support all Freedom Scientific Focus and Pacmate displays.</p>
-<p>By default, NVDA can automatically detect and connect to these displays either via USB or bluetooth.
-However, when configuring the display, you can explicitly select "USB" or "Bluetooth" ports to restrict the connection type to be used.
-This might be useful if you want to connect the focus display to NVDA using bluetooth, but still be able to charge it using USB power from your computer.
-NVDA's automatic braille display detection will also recognize the display on USB or Bluetooth.</p>
-<p>Following are the key assignments for this display with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<h3 id="FreedomScientificFocus">Freedom Scientific Focus/PAC Mate 系列</h3>
+<p>通过 USB 或蓝牙连接时，支持 <a href="https://www.freedomscientific.com/" rel="noopener" target="_blank" title="Freedom Scientific">Freedom Scientific</a> 的所有 Focus 和 PAC Mate 点显器。
+您需要在系统上安装 Freedom Scientific 点显器驱动程序。
+可从 <a href="https://support.freedomscientific.com/Downloads/Focus/FocusBlueBrailleDisplayDriver" rel="noopener" target="_blank" title="Focus Blue Braille Display Driver 页面">Focus Blue Braille Display Driver 页面</a>获取。
+虽然该页面仅提到 Focus Blue 点显器，但驱动程序支持所有 Freedom Scientific Focus 和 Pacmate 点显器。</p>
+<p>默认情况下，NVDA 可以通过 USB 或蓝牙自动检测并连接到这些点显器。
+但是，在配置点显器时，您可以明确选择“USB”或“蓝牙”端口来限制要使用的连接类型。
+如果您想将 NVDA 通过蓝牙连接到 focus 点显器，同时使用计算机的 USB 电源为点显器充电，这将非常有用。
+NVDA 的点显器自动检测将识别通过 USB 或蓝牙连接的点显器。</p>
+<p>以下是该点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>topRouting1 (first cell on display)</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>topRouting20/40/80 (last cell on display)</td>
 </tr>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>leftAdvanceBar</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>rightAdvanceBar</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>leftGDFButton+rightGDFButton</td>
 </tr>
 <tr>
@@ -5150,235 +5290,235 @@ Please see the display's documentation for descriptions of where these keys can 
 <td>rightWizWheelDown</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
-<td>brailleSpaceBar+dot1+dot2</td>
+<td>Shift+Tab 键</td>
+<td>brailleSpaceBar+1、2 点</td>
 </tr>
 <tr>
-<td>tab key</td>
-<td>brailleSpaceBar+dot4+dot5</td>
+<td>Tab 键</td>
+<td>brailleSpaceBar+4、5 点</td>
 </tr>
 <tr>
-<td>upArrow key</td>
-<td>brailleSpaceBar+dot1</td>
+<td>上光标键</td>
+<td>brailleSpaceBar+1 点</td>
 </tr>
 <tr>
-<td>downArrow key</td>
-<td>brailleSpaceBar+dot4</td>
+<td>下光标键</td>
+<td>brailleSpaceBar+4 点</td>
 </tr>
 <tr>
-<td>control+leftArrow key</td>
-<td>brailleSpaceBar+dot2</td>
+<td>Ctrl+左光标键</td>
+<td>brailleSpaceBar+2 点</td>
 </tr>
 <tr>
-<td>control+rightArrow key</td>
-<td>brailleSpaceBar+dot5</td>
+<td>Ctrl+右光标键</td>
+<td>brailleSpaceBar+5 点</td>
 </tr>
 <tr>
-<td>leftArrow</td>
-<td>brailleSpaceBar+dot3</td>
+<td>左光标键</td>
+<td>brailleSpaceBar+3 点</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
-<td>brailleSpaceBar+dot6</td>
+<td>右光标键</td>
+<td>brailleSpaceBar+6 点</td>
 </tr>
 <tr>
-<td>home key</td>
-<td>brailleSpaceBar+dot1+dot3</td>
+<td>行首键</td>
+<td>brailleSpaceBar+1、3 点</td>
 </tr>
 <tr>
-<td>end key</td>
-<td>brailleSpaceBar+dot4+dot6</td>
+<td>行尾键</td>
+<td>brailleSpaceBar+4、6 点</td>
 </tr>
 <tr>
-<td>control+home key</td>
-<td>brailleSpaceBar+dot1+dot2+dot3</td>
+<td>Ctrl+行首键</td>
+<td>brailleSpaceBar+1、2、3 点</td>
 </tr>
 <tr>
-<td>control+end key</td>
-<td>brailleSpaceBar+dot4+dot5+dot6</td>
+<td>Ctrl+行尾键</td>
+<td>brailleSpaceBar+4、5、6 点</td>
 </tr>
 <tr>
-<td>alt key</td>
-<td>brailleSpaceBar+dot1+dot3+dot4</td>
+<td>Alt 键</td>
+<td>brailleSpaceBar+1、3、4 点</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
-<td>brailleSpaceBar+dot2+dot3+dot4+dot5</td>
+<td>Alt+Tab 键</td>
+<td>brailleSpaceBar+2、3、4、5 点</td>
 </tr>
 <tr>
-<td>alt+shift+tab key</td>
-<td>brailleSpaceBar+dot1+dot2+dot5+dot6</td>
+<td>Alt+Shift+Tab 键</td>
+<td>brailleSpaceBar+1、2、5、6 点</td>
 </tr>
 <tr>
-<td>windows+tab key</td>
-<td>brailleSpaceBar+dot2+dot3+dot4</td>
+<td>Windows+Tab 键</td>
+<td>brailleSpaceBar+2、3、4 点</td>
 </tr>
 <tr>
-<td>escape key</td>
-<td>brailleSpaceBar+dot1+dot5</td>
+<td>ESC 键</td>
+<td>brailleSpaceBar+1、5 点</td>
 </tr>
 <tr>
-<td>windows key</td>
-<td>brailleSpaceBar+dot2+dot4+dot5+dot6</td>
+<td>Windows 键</td>
+<td>brailleSpaceBar+2、4、5、6 点</td>
 </tr>
 <tr>
-<td>space key</td>
+<td>空格键</td>
 <td>brailleSpaceBar</td>
 </tr>
 <tr>
-<td>Toggle control key</td>
-<td>brailleSpaceBar+dot3+dot8</td>
+<td>按下或放开 Ctrl 键</td>
+<td>brailleSpaceBar+3、8 点</td>
 </tr>
 <tr>
-<td>Toggle alt key</td>
-<td>brailleSpaceBar+dot6+dot8</td>
+<td>按下或放开 Alt 键</td>
+<td>brailleSpaceBar+6、8 点</td>
 </tr>
 <tr>
-<td>Toggle windows key</td>
-<td>brailleSpaceBar+dot4+dot8</td>
+<td>按下或放开 Windows 键</td>
+<td>brailleSpaceBar+4、8 点</td>
 </tr>
 <tr>
-<td>Toggle NVDA key</td>
-<td>brailleSpaceBar+dot5+dot8</td>
+<td>按下或放开 NVDA 键</td>
+<td>brailleSpaceBar+5、8 点</td>
 </tr>
 <tr>
-<td>Toggle shift key</td>
-<td>brailleSpaceBar+dot7+dot8</td>
+<td>按下或放开 Shift 键</td>
+<td>railleSpaceBar+7、8 点</td>
 </tr>
 <tr>
-<td>Toggle control and shift keys</td>
-<td>brailleSpaceBar+dot3+dot7+dot8</td>
+<td>按下或放开 Ctrl+Shift 键</td>
+<td>brailleSpaceBar+3、7、8 点</td>
 </tr>
 <tr>
-<td>Toggle alt and shift keys</td>
-<td>brailleSpaceBar+dot6+dot7+dot8</td>
+<td>按下或放开 Alt+Shift 键</td>
+<td>brailleSpaceBar+6、7、8 点</td>
 </tr>
 <tr>
-<td>Toggle windows and shift keys</td>
-<td>brailleSpaceBar+dot4+dot7+dot8</td>
+<td>按下或放开 Windows+Shift 键</td>
+<td>brailleSpaceBar+4、7、8 点</td>
 </tr>
 <tr>
-<td>Toggle NVDA and shift keys</td>
-<td>brailleSpaceBar+dot5+dot7+dot8</td>
+<td>按下或放开 NVDA+Shift 键</td>
+<td>brailleSpaceBar+5、7、8 点</td>
 </tr>
 <tr>
-<td>Toggle control and alt keys</td>
-<td>brailleSpaceBar+dot3+dot6+dot8</td>
+<td>按下或放开 Ctrl+Alt 键</td>
+<td>brailleSpaceBar+3、6、8 点</td>
 </tr>
 <tr>
-<td>Toggle control, alt, and shift keys</td>
-<td>brailleSpaceBar+dot3+dot6+dot7+dot8</td>
+<td>按下或放开 Ctrl+Alt+Shift 键</td>
+<td>brailleSpaceBar+3、6、7、8 点</td>
 </tr>
 <tr>
-<td>windows+d key (minimize all applications)</td>
-<td>brailleSpaceBar+dot1+dot2+dot3+dot4+dot5+dot6</td>
+<td>Windows+D 键（最小化所有应用程序）</td>
+<td>brailleSpaceBar+1、2、3、4、5、6 点</td>
 </tr>
 <tr>
-<td>Report Current Line</td>
-<td>brailleSpaceBar+dot1+dot4</td>
+<td>读出当前行</td>
+<td>brailleSpaceBar+1、4 点</td>
 </tr>
 <tr>
-<td>NVDA menu</td>
-<td>brailleSpaceBar+dot1+dot3+dot4+dot5</td>
+<td>NVDA 菜单</td>
+<td>brailleSpaceBar+1、3、4、5 点</td>
 </tr>
 </tbody>
 </table>
-<p>For newer Focus models that contain rocker bar keys (focus 40, focus 80 and focus blue):</p>
+<p>对于包含 rocker bar 键的较新 Focus 型号（focus 40、focus 80 和 focus blue）：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>leftRockerBarUp, rightRockerBarUp</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>leftRockerBarDown, rightRockerBarDown</td>
 </tr>
 </tbody>
 </table>
-<p>For Focus 80 only:</p>
+<p>仅适用于 Focus 80：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>leftBumperBarUp, rightBumperBarUp</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>leftBumperBarDown, rightBumperBarDown</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="OptelecALVA">Optelec ALVA 6 series/protocol converter</h3>
-<p>Both the ALVA BC640 and BC680 displays from <a href="https://www.optelec.com/" rel="noopener" target="_blank" title="Optelec">Optelec</a> are supported when connected via USB or bluetooth.
-Alternatively, you can connect an older Optelec display, such as a Braille Voyager, using a protocol converter supplied by Optelec.
-You do not need any specific drivers to be installed to use these displays.
-Just plug in the display and configure NVDA to use it.</p>
-<p>Note: NVDA might be unable to use an ALVA BC6 display over Bluetooth when it is paired using the ALVA Bluetooth utility.
-When you have paired your device using this utility and NVDA is unable to detect your device, we recommend you to pair your ALVA display the regular way using the Windows Bluetooth settings.</p>
-<p>Note: while some of these displays do have a braille keyboard, they handle translation from braille to text themselves by default.
-This means that NVDA's braille input system is not in use in the default situation (i.e. the input braille table setting has no effect).
-For ALVA displays with recent firmware, it is possible to disable this HID keyboard simulation using an input gesture.</p>
-<p>Following are key assignments for this display with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<h3 id="OptelecALVA">Optelec ALVA 6 系列/协议转换器</h3>
+<p>通过 USB 或蓝牙连接时，<a href="https://www.optelec.com/" rel="noopener" target="_blank" title="Optelec">Optelec</a> 的 ALVA BC640 和 BC680 点显器均受支持。
+或者，您可以使用 Optelec 提供的协议转换器连接较旧的 Optelec 点显器，例如 Braille Voyager。
+您不需要安装任何特定的驱动程序即可使用这些点显器。
+只需插入点显器并配置 NVDA 即可使用。</p>
+<p>注意：当使用 ALVA 蓝牙实用程序配对时，NVDA 可能无法通过蓝牙使用 ALVA BC6 点显器。
+当您使用此实用程序配对设备并且 NVDA 无法检测到您的设备时，我们建议您使用 Windows 蓝牙设置以常规方式配对 ALVA 点显器。</p>
+<p>注意：虽然其中一些点显器确实具有盲文键盘，但它们默认情况下会自行处理从盲文到文本的翻译。
+这意味着 NVDA 的盲文输入系统在默认情况下不使用（即盲文设置的输入表选项无效）。
+对于具有最新固件的 ALVA 点显器，可以使用按键与手势禁用此 HID 键盘模拟。</p>
+<p>以下是该点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>t1, etouch1</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>t2</td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td>t3</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>t4</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>t5, etouch3</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td>secondary routing</td>
 </tr>
 <tr>
-<td>Toggle HID keyboard simulation</td>
+<td>切换 HID 键盘模拟</td>
 <td>t1+spEnter</td>
 </tr>
 <tr>
@@ -5390,196 +5530,196 @@ Please see the display's documentation for descriptions of where these keys can 
 <td>t4+t5</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>t1+t3</td>
 </tr>
 <tr>
-<td>Report title</td>
+<td>读出标题</td>
 <td>etouch2</td>
 </tr>
 <tr>
-<td>Report status bar</td>
+<td>读出状态栏</td>
 <td>etouch4</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
+<td>Shift+Tab 键</td>
 <td>sp1</td>
 </tr>
 <tr>
-<td>alt key</td>
+<td>Alt 键</td>
 <td>sp2, alt</td>
 </tr>
 <tr>
-<td>escape key</td>
+<td>ESC 键</td>
 <td>sp3</td>
 </tr>
 <tr>
-<td>tab key</td>
+<td>Tab 键</td>
 <td>sp4</td>
 </tr>
 <tr>
-<td>upArrow key</td>
+<td>上光标键</td>
 <td>spUp</td>
 </tr>
 <tr>
-<td>downArrow key</td>
+<td>下光标键</td>
 <td>spDown</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
+<td>左光标键</td>
 <td>spLeft</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
+<td>右光标键</td>
 <td>spRight</td>
 </tr>
 <tr>
-<td>enter key</td>
+<td>回车键</td>
 <td>spEnter, enter</td>
 </tr>
 <tr>
-<td>Report date/time</td>
+<td>读出日期/时间</td>
 <td>sp2+sp3</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
+<td>NVDA 菜单</td>
 <td>sp1+sp3</td>
 </tr>
 <tr>
-<td>windows+d key (minimize all applications)</td>
+<td>Windows+D 键（最小化所有应用程序）</td>
 <td>sp1+sp4</td>
 </tr>
 <tr>
-<td>windows+b key (focus system tray)</td>
+<td>Windows+B 键（聚焦系统托盘）</td>
 <td>sp3+sp4</td>
 </tr>
 <tr>
-<td>windows key</td>
+<td>Windows 键</td>
 <td>sp1+sp2, windows</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
+<td>Alt+Tab 键</td>
 <td>sp2+sp4</td>
 </tr>
 <tr>
-<td>control+home key</td>
+<td>Ctrl+行首键</td>
 <td>t3+spUp</td>
 </tr>
 <tr>
-<td>control+end key</td>
+<td>Ctrl+行尾键</td>
 <td>t3+spDown</td>
 </tr>
 <tr>
-<td>home key</td>
+<td>行首键</td>
 <td>t3+spLeft</td>
 </tr>
 <tr>
-<td>end key</td>
+<td>行尾键</td>
 <td>t3+spRight</td>
 </tr>
 <tr>
-<td>control key</td>
+<td>Ctrl 键</td>
 <td>control</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="HandyTech">Handy Tech Displays</h3>
-<p>NVDA supports most displays from <a href="https://www.handytech.de/" rel="noopener" target="_blank" title="Handy Tech">Handy Tech</a> when connected via USB, serial port or bluetooth.
-For older USB displays, you will need to install the USB drivers from Handy Tech on your system.</p>
-<p>The following displays are not supported out of the box, but can be used via <a href="https://handytech.de/en/service/downloads-and-manuals/handy-tech-software/braille-display-drivers" rel="noopener" target="_blank" title="Handy Tech's universal driver">Handy Tech's universal driver</a> and NVDA add-on:</p>
+<h3 id="HandyTech">Handy Tech 点显器</h3>
+<p>通过 USB、串行端口或蓝牙连接时，NVDA 支持 <a href="https://www.handytech.de/" rel="noopener" target="_blank" title="Handy Tech">Handy Tech</a> 的大多数点显器。
+对于较旧的 USB 点显器，您需要在系统上安装 Handy Tech 的 USB 驱动程序。</p>
+<p>以下点显器不支持开箱即用，但可以通过 <a href="https://handytech.de/en/service/downloads-and-manuals/handy-tech-software/braille-display-drivers" rel="noopener" target="_blank" title="Handy Tech 的通用驱动程序">Handy Tech 的通用驱动程序</a>及 NVDA 插件来使用：</p>
 <ul>
 <li>Braillino</li>
 <li>Bookworm</li>
-<li>Modular displays with firmware version 1.13 or lower. Please note that the firmware of this displays can be updated.</li>
+<li>固件版本为 1.13 或更低的 Modular 点显器。请注意，该点显器的固件可以更新。</li>
 </ul>
-<p>Following are the key assignments for Handy Tech displays with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>以下是 Handy Tech 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left, up, b3</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right, down, b6</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>b4</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>b5</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
+<td>Shift+Tab 键</td>
 <td>esc, left triple action key up+down</td>
 </tr>
 <tr>
-<td>alt key</td>
+<td>Alt 键</td>
 <td>b2+b4+b5</td>
 </tr>
 <tr>
-<td>escape key</td>
+<td>ESC 键</td>
 <td>b4+b6</td>
 </tr>
 <tr>
-<td>tab key</td>
+<td>Tab 键</td>
 <td>enter, right triple action key up+down</td>
 </tr>
 <tr>
-<td>enter key</td>
+<td>回车键</td>
 <td>esc+enter, left+right triple action key up+down, joystickAction</td>
 </tr>
 <tr>
-<td>upArrow key</td>
+<td>上光标键</td>
 <td>joystickUp</td>
 </tr>
 <tr>
-<td>downArrow key</td>
+<td>下光标键</td>
 <td>joystickDown</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
+<td>左光标键</td>
 <td>joystickLeft</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
+<td>右光标键</td>
 <td>joystickRight</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
+<td>NVDA 菜单</td>
 <td>b2+b4+b5+b6</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>b2</td>
 </tr>
 <tr>
-<td>Toggle the braille cursor</td>
+<td>切换盲文光标</td>
 <td>b1</td>
 </tr>
 <tr>
-<td>Toggle focus context presentation</td>
+<td>切换盲文显示焦点上下文</td>
 <td>b7</td>
 </tr>
 <tr>
-<td>Toggle braille input</td>
+<td>切换盲文输入</td>
 <td>space+b1+b3+b4 (space+capital B)</td>
 </tr>
 </tbody>
@@ -5587,174 +5727,174 @@ Please see the display's documentation for descriptions of where these keys can 
 <!-- KC:endInclude -->
 
 <h3 id="MDVLilli">MDV Lilli</h3>
-<p>The Lilli braille display available from <a href="https://www.mdvbologna.it/" rel="noopener" target="_blank" title="MDV">MDV</a> is supported.
-You do not need any specific drivers to be installed to use this display.
-Just plug in the display and configure NVDA to use it.</p>
-<p>This display does not support NVDA's automatic background braille display detection functionality.</p>
-<p>Following are the key assignments for this display with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>支持 <a href="https://www.mdvbologna.it/" rel="noopener" target="_blank" title="MDV">MDV</a> 提供的 Lilli 点显器。
+您无需安装任何特定驱动程序即可使用该点显器。
+只需插入点显器并配置 NVDA 即可。</p>
+<p>该点显器不支持 NVDA 的后台自动检测功能。</p>
+<p>以下是该点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display backward</td>
+<td>向后滚动盲文显示</td>
 <td>LF</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>RG</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>UP</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>DN</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>route</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
+<td>Shift+Tab 键</td>
 <td>SLF</td>
 </tr>
 <tr>
-<td>tab key</td>
+<td>Tab 键</td>
 <td>SRG</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
+<td>Alt+Tab 键</td>
 <td>SDN</td>
 </tr>
 <tr>
-<td>alt+shift+tab key</td>
+<td>Alt+Shift+Tab 键</td>
 <td>SUP</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="Baum">Baum/Humanware/APH/Orbit Braille Displays</h3>
-<p>Several <a href="https://www.visiobraille.de/index.php?article_id=1&amp;clang=2" rel="noopener" target="_blank" title="Baum">Baum</a>, <a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a>, <a href="https://www.aph.org/" rel="noopener" target="_blank" title="APH">APH</a> and <a href="https://www.orbitresearch.com/" rel="noopener" target="_blank" title="Orbit">Orbit</a> displays are supported when connected via USB, bluetooth or serial.
-These include:</p>
+<h3 id="Baum">Baum/HumanWare/APH/Orbit 点显器</h3>
+<p>通过 USB、蓝牙或串行连接时，支持多种 <a href="https://www.visiobraille.de/index.php?article_id=1&amp;clang=2" rel="noopener" target="_blank" title="Baum">Baum</a>、<a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a>、<a href="https://www.aph.org/" rel="noopener" target="_blank" title="APH">APH</a> 和 <a href="https://www.orbitresearch.com/" rel="noopener" target="_blank" title="Orbit">Orbit</a> 点显器。
+这些包括：</p>
 <ul>
 <li>Baum: SuperVario, PocketVario, VarioUltra, Pronto!, SuperVario2, Vario 340</li>
 <li>HumanWare: Brailliant, BrailleConnect, Brailliant2</li>
 <li>APH: Refreshabraille</li>
 <li>Orbit: Orbit Reader 20</li>
 </ul>
-<p>Some other displays manufactured by Baum may also work, though this has not been tested.</p>
-<p>If connecting via USB to displays which do not use HID, you must first install the USB drivers provided by the manufacturer.
-The VarioUltra and Pronto! use HID.
-The Refreshabraille and Orbit Reader 20 can use HID if configured appropriately.</p>
-<p>The USB serial mode of the Orbit Reader 20 is currently only supported in Windows 10 and later.
-USB HID should generally be used instead.</p>
-<p>Following are the key assignments for these displays with NVDA.
-Please see your display's documentation for descriptions of where these keys can be found.</p>
+<p>Baum 制造的其他点显器也可使用，但尚未经过测试。</p>
+<p>如果通过 USB 连接到不使用 HID 的点显器，则必须首先安装制造商提供的 USB 驱动程序。
+VarioUltra 和 Pronto 使用 HID。
+如果配置适当，Refreshabraille 和 Orbit Reader 20 可以使用 HID。</p>
+<p>Orbit Reader 20 的 USB 串行模式目前仅在 Windows 10 及更高版本中受支持。
+通常应使用 USB HID 代替。</p>
+<p>以下是这些点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>d2</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>d5</code></td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td><code>d1</code></td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td><code>d3</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td><code>shift+tab</code> key</td>
-<td><code>space+dot1+dot3</code></td>
+<td><code>Shift+Tab</code> 键</td>
+<td><code>space+1、3 点</code></td>
 </tr>
 <tr>
-<td><code>tab</code> key</td>
-<td><code>space+dot4+dot6</code></td>
+<td><code>Tab</code> 键</td>
+<td><code>space+4、6 点</code></td>
 </tr>
 <tr>
-<td><code>alt</code> key</td>
-<td><code>space+dot1+dot3+dot4</code> (<code>space+m</code>)</td>
+<td><code>Alt</code> 键</td>
+<td><code>space+1、3、4 点</code> (<code>space+m</code>)</td>
 </tr>
 <tr>
-<td><code>escape</code> key</td>
-<td><code>space+dot1+dot5</code> (<code>space+e</code>)</td>
+<td><code>ESC</code> 键</td>
+<td><code>space+1、5 点</code>（<code>space+e</code>）</td>
 </tr>
 <tr>
-<td><code>windows</code> key</td>
-<td><code>space+dot3+dot4</code></td>
+<td><code>Windows</code> 键</td>
+<td><code>space+3、4 点</code></td>
 </tr>
 <tr>
-<td><code>alt+tab</code> key</td>
-<td><code>space+dot2+dot3+dot4+dot5</code> (<code>space+t</code>)</td>
+<td><code>Alt+Tab</code> 键</td>
+<td><code>space+2、3、4、5 点</code>（<code>space+t</code>）</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
-<td><code>space+dot1+dot3+dot4+dot5</code> (<code>space+n</code>)</td>
+<td>NVDA 菜单</td>
+<td><code>space+1、3、4、5 点</code>（<code>space+n</code>）</td>
 </tr>
 <tr>
-<td><code>windows+d</code> key (minimize all applications)</td>
-<td><code>space+dot1+dot4+dot5</code> (<code>space+d</code>)</td>
+<td><code>Windows+d</code> 键（最小化所有应用程序）</td>
+<td><code>space+1、4、5 点</code>（<code>space+d</code>）</td>
 </tr>
 <tr>
-<td>Say all</td>
-<td><code>space+dot1+dot2+dot3+dot4+dot5+dot6</code></td>
+<td>全文朗读</td>
+<td><code>space+1、2、3、4、5、6 点</code></td>
 </tr>
 </tbody>
 </table>
-<p>For displays which have a joystick:</p>
+<p>对于带有操纵杆的点显器：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>upArrow key</td>
+<td>上光标键</td>
 <td>up</td>
 </tr>
 <tr>
-<td>downArrow key</td>
+<td>下光标键</td>
 <td>down</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
+<td>左光标键</td>
 <td>left</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
+<td>右光标键</td>
 <td>right</td>
 </tr>
 <tr>
-<td>enter key</td>
+<td>回车键</td>
 <td>select</td>
 </tr>
 </tbody>
@@ -5762,47 +5902,47 @@ Please see your display's documentation for descriptions of where these keys can
 <!-- KC:endInclude -->
 
 <h3 id="HedoProfiLine">hedo ProfiLine USB</h3>
-<p>The hedo ProfiLine USB from <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="hedo Reha-Technik">hedo Reha-Technik</a> is supported.
-You must first install the USB drivers provided by the manufacturer.</p>
-<p>This display does not yet support NVDA's automatic background braille display detection functionality.</p>
-<p>Following are the key assignments for this display with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>支持 <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="hedo Reha-Technik">hedo Reha-Technik</a> 的 hedo ProfiLine USB。
+您必须首先安装制造商提供的 USB 驱动程序。</p>
+<p>该点显器不支持 NVDA 的后台自动检测功能。</p>
+<p>以下是该点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>K1</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>K3</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>B2</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>B5</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>K2</td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td>B6</td>
 </tr>
 </tbody>
@@ -5810,259 +5950,259 @@ Please see the display's documentation for descriptions of where these keys can 
 <!-- KC:endInclude -->
 
 <h3 id="HedoMobilLine">hedo MobilLine USB</h3>
-<p>The hedo MobilLine USB from <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="hedo Reha-Technik">hedo Reha-Technik</a> is supported.
-You must first install the USB drivers provided by the manufacturer.</p>
-<p>This display does not yet support NVDA's automatic background braille display detection functionality.</p>
-<p>Following are the key assignments for this display with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>支持 <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="hedo Reha-Technik">hedo Reha-Technik</a> 的 hedo MobilLine USB。
+您必须首先安装制造商提供的 USB 驱动程序。</p>
+<p>该点显器不支持 NVDA 的后台自动检测功能。</p>
+<p>以下是该点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>K1</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>K3</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>B2</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>B5</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>K2</td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td>B6</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="HumanWareBrailliant">HumanWare Brailliant BI/B Series / BrailleNote Touch</h3>
-<p>The Brailliant BI and B series of displays  from <a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a>, including the BI 14, BI 32, BI 20X, BI 40, BI 40X and B 80, are supported when connected via USB or bluetooth.
-If connecting via USB with the protocol set to HumanWare, you must first install the USB drivers provided by the manufacturer.
-USB drivers are not required if the protocol is set to OpenBraille.</p>
-<p>The following extra devices are also supported (and do not require any special drivers to be installed):</p>
+<h3 id="HumanWareBrailliant">HumanWare Brailliant BI/B 系列/ BrailleNote Touch</h3>
+<p>通过 USB 或蓝牙连接时，支持 <a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a> 的 Brailliant BI 和 B 系列点显器，包括 BI 14、BI 32、BI 20X、BI 40、BI 40X 和 B 80。
+如果通过 USB 连接且协议设置为 HumanWare，则必须首先安装制造商提供的 USB 驱动程序。
+如果协议设置为 OpenBraille，则不需要 USB 驱动程序。</p>
+<p>还支持以下设备（并且不需要安装任何特殊驱动程序）：</p>
 <ul>
 <li>APH Mantis Q40</li>
 <li>APH Chameleon 20</li>
 <li>Humanware BrailleOne</li>
 <li>NLS eReader<ul>
-<li>Note that the Zoomax is currently not supported without external drivers</li>
+<li>请注意，如果没有外部驱动程序，目前不支持 Zoomax</li>
 </ul>
 </li>
 </ul>
-<p>Following are the key assignments for  the Brailliant BI/B and BrailleNote touch displays with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
-<h4 id="HumanWareBrailliantKeyAssignmentForAllModels">Key assignments for All models</h4>
+<p>以下是 Brailliant BI/B 以及 BrailleNote touch 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
+<h4 id="HumanWareBrailliantKeyAssignmentForAllModels">所有型号的通用按键</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>down</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>up+down</td>
 </tr>
 <tr>
-<td>upArrow key</td>
-<td>space+dot1</td>
+<td>上光标键</td>
+<td>space+1 点</td>
 </tr>
 <tr>
-<td>downArrow key</td>
-<td>space+dot4</td>
+<td>下光标键</td>
+<td>space+4 点</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
-<td>space+dot3</td>
+<td>左光标键</td>
+<td>space+3 点</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
-<td>space+dot6</td>
+<td>右光标键</td>
+<td>space+6 点</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
-<td>space+dot1+dot3</td>
+<td>Shift+Tab 键</td>
+<td>space+1、3 点</td>
 </tr>
 <tr>
-<td>tab key</td>
-<td>space+dot4+dot6</td>
+<td>Tab 键</td>
+<td>space+4、6 点</td>
 </tr>
 <tr>
-<td>alt key</td>
-<td>space+dot1+dot3+dot4 (space+m)</td>
+<td>Alt 键</td>
+<td>space+1、3、4 点 (space+m)</td>
 </tr>
 <tr>
-<td>escape key</td>
-<td>space+dot1+dot5 (space+e)</td>
+<td>ESC 键</td>
+<td>space+1、5 点 (space+e)</td>
 </tr>
 <tr>
-<td>enter key</td>
-<td>dot8</td>
+<td>回车键</td>
+<td>8 点</td>
 </tr>
 <tr>
-<td>windows key</td>
-<td>space+dot3+dot4</td>
+<td>Windows 键</td>
+<td>space+3、4 点</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
-<td>space+dot2+dot3+dot4+dot5 (space+t)</td>
+<td>Alt+Tab 键</td>
+<td>space+2、3、4、5 点 (space+t)</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
-<td>space+dot1+dot3+dot4+dot5 (space+n)</td>
+<td>NVDA 菜单</td>
+<td>space+1、3、4、5 点 (space+n)</td>
 </tr>
 <tr>
-<td>windows+d key (minimize all applications)</td>
-<td>space+dot1+dot4+dot5 (space+d)</td>
+<td>Windows+D 键（最小化所有应用程序）</td>
+<td>space+1、4、5 点 (space+d)</td>
 </tr>
 <tr>
-<td>Say all</td>
-<td>space+dot1+dot2+dot3+dot4+dot5+dot6</td>
+<td>全文朗读</td>
+<td>space+1、2、3、4、5、6 点</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="HumanWareBrailliantKeyAssignmentForBI32BI40AndB80">Key assignments for Brailliant BI 32, BI 40 and B 80</h4>
+<h4 id="HumanWareBrailliantKeyAssignmentForBI32BI40AndB80">Brailliant BI 32、BI 40 和 B 80</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NVDA Menu</td>
+<td>NVDA 菜单</td>
 <td>c1+c3+c4+c5 (command n)</td>
 </tr>
 <tr>
-<td>windows+d key (minimize all applications)</td>
+<td>Windows+D 键（最小化所有应用程序）</td>
 <td>c1+c4+c5 (command d)</td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td>c1+c2+c3+c4+c5+c6</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="HumanWareBrailliantKeyAssignmentForBI14">Key assignments for Brailliant BI 14</h4>
+<h4 id="HumanWareBrailliantKeyAssignmentForBI14">Brailliant BI 14</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>up arrow key</td>
+<td>上光标键</td>
 <td>joystick up</td>
 </tr>
 <tr>
-<td>down arrow key</td>
+<td>下光标键</td>
 <td>joystick down</td>
 </tr>
 <tr>
-<td>left arrow key</td>
+<td>左光标键</td>
 <td>joystick left</td>
 </tr>
 <tr>
-<td>right arrow key</td>
+<td>右光标键</td>
 <td>joystick right</td>
 </tr>
 <tr>
-<td>enter key</td>
+<td>回车键</td>
 <td>joystick action</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="Hims">HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille Series</h3>
-<p>NVDA supports Braille Sense, Braille EDGE, Smart Beetle and Sync Braille displays from <a href="https://www.hims-inc.com/" rel="noopener" target="_blank" title="Hims">Hims</a> when connected via USB or bluetooth.
-If connecting via USB, you will need to install the <a href="http://www.himsintl.com/upload/HIMS_USB_Driver_v25.zip" rel="noopener" target="_blank" title="USB drivers from HIMS">USB drivers from HIMS</a> on your system.</p>
-<p>Following are the key assignments for these displays with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<h3 id="Hims">HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille 系列</h3>
+<p>通过 USB 或蓝牙连接时，NVDA 支持 <a href="https://www.hims-inc.com/" rel="noopener" target="_blank" title="Hims">Hims</a> 的 Braille Sense、Braille EDGE、Smart Beetle 和 Sync 点显器。
+如果通过 USB 连接，您需要在系统上安装 <a href="http://www.himsintl.com/upload/HIMS_USB_Driver_v25.zip" rel="noopener" target="_blank" title="HIMS 的 USB 驱动程序">HIMS 的 USB 驱动程序</a>。</p>
+<p>以下是这些点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>leftSideScrollUp, rightSideScrollUp, leftSideScroll</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>leftSideScrollDown, rightSideScrollDown, rightSideScroll</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>leftSideScrollUp+rightSideScrollUp</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>leftSideScrollDown+rightSideScrollDown</td>
 </tr>
 <tr>
@@ -6082,464 +6222,466 @@ Please see the display's documentation for descriptions of where these keys can 
 <td>rightSideRightArrow</td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td>leftSideScrollUp+leftSideScrollDown, rightSideScrollUp+rightSideScrollDown, leftSideScroll+rightSideScroll</td>
 </tr>
 <tr>
-<td>control key</td>
+<td>Ctrl 键</td>
 <td>smartbeetle:f1, brailleedge:f3</td>
 </tr>
 <tr>
-<td>windows key</td>
+<td>Windows 键</td>
 <td>f7, smartbeetle:f2</td>
 </tr>
 <tr>
-<td>alt key</td>
-<td>dot1+dot3+dot4+space, f2, smartbeetle:f3, brailleedge:f4</td>
+<td>Alt 键</td>
+<td>1、3、4 点+space, f2, smartbeetle:f3, brailleedge:f4</td>
 </tr>
 <tr>
-<td>shift key</td>
+<td>Shift 键</td>
 <td>f5</td>
 </tr>
 <tr>
-<td>insert key</td>
-<td>dot2+dot4+space, f6</td>
+<td>插入键</td>
+<td>2、4 点+space, f6</td>
 </tr>
 <tr>
-<td>applications key</td>
-<td>dot1+dot2+dot3+dot4+space, f8</td>
+<td>Application 键</td>
+<td>1、2、3、4点 +space, f8</td>
 </tr>
 <tr>
-<td>Caps Lock key</td>
-<td>dot1+dot3+dot6+space</td>
+<td>大写锁定键</td>
+<td>1、3、6 点+space</td>
 </tr>
 <tr>
-<td>tab key</td>
-<td>dot4+dot5+space, f3, brailleedge:f2</td>
+<td>Tab 键</td>
+<td>4、5 点+space, f3, brailleedge:f2</td>
 </tr>
 <tr>
-<td>shift+alt+tab key</td>
+<td>Shift+Alt+Tab 键</td>
 <td>f2+f3+f1</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
+<td>Alt+Tab 键</td>
 <td>f2+f3</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
-<td>dot1+dot2+space</td>
+<td>Shift+Tab 键</td>
+<td>1、2 点+space</td>
 </tr>
 <tr>
-<td>end key</td>
-<td>dot4+dot6+space</td>
+<td>行尾键</td>
+<td>4、6 点+space</td>
 </tr>
 <tr>
-<td>control+end key</td>
-<td>dot4+dot5+dot6+space</td>
+<td>Ctrl+行尾键</td>
+<td>4、5、6 点+space</td>
 </tr>
 <tr>
-<td>home key</td>
-<td>dot1+dot3+space, smartbeetle:f4</td>
+<td>行首键</td>
+<td>1、3 点+space, smartbeetle:f4</td>
 </tr>
 <tr>
-<td>control+home key</td>
-<td>dot1+dot2+dot3+space</td>
+<td>Ctrl+行首键</td>
+<td>1、2、3 点+space</td>
 </tr>
 <tr>
-<td>alt+f4 key</td>
-<td>dot1+dot3+dot5+dot6+space</td>
+<td>Alt+F4 键</td>
+<td>1、3、5、6 点+space</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
-<td>dot3+space, leftSideLeftArrow</td>
+<td>左光标键</td>
+<td>3 点+space, leftSideLeftArrow</td>
 </tr>
 <tr>
-<td>control+shift+leftArrow key</td>
-<td>dot2+dot8+space+f1</td>
+<td>Ctrl+Shift+左光标键</td>
+<td>2、8 点+space+f1</td>
 </tr>
 <tr>
-<td>control+leftArrow key</td>
-<td>dot2+space</td>
+<td>Ctrl+左光标键</td>
+<td>2 点+space</td>
 </tr>
 <tr>
-<td>shift+alt+leftArrow key</td>
-<td>dot2+dot7+f1</td>
+<td>Shift+Alt+左光标键</td>
+<td>2、7 点+f1</td>
 </tr>
 <tr>
-<td><code>alt+leftArrow</code></td>
-<td><code>dot2+dot7+space</code></td>
+<td><code>Alt+左光标</code> 键</td>
+<td><code>2、7 点+space</code></td>
 </tr>
 <tr>
-<td>rightArrow key</td>
-<td>dot6+space, leftSideRightArrow</td>
+<td>右光标键</td>
+<td>6 点+space, leftSideRightArrow</td>
 </tr>
 <tr>
-<td>control+shift+rightArrow key</td>
-<td>dot5+dot8+space+f1</td>
+<td>Ctrl+Shift+右光标键</td>
+<td>5、8 点+space+f1</td>
 </tr>
 <tr>
-<td>control+rightArrow key</td>
-<td>dot5+space</td>
+<td>Ctrl+右光标键</td>
+<td>5 点+space</td>
 </tr>
 <tr>
-<td>shift+alt+rightArrow key</td>
-<td>dot5+dot7+f1</td>
+<td>Shift+Alt+右光标键</td>
+<td>5、7 点+f1</td>
 </tr>
 <tr>
-<td><code>alt+rightArrow</code></td>
-<td><code>dot5+dot7+space</code></td>
+<td><code>Alt+右光标</code> 键</td>
+<td><code>5、7 点+space</code></td>
 </tr>
 <tr>
-<td>pageUp key</td>
-<td>dot1+dot2+dot6+space</td>
+<td>上翻页键</td>
+<td>1、2、6 点+space</td>
 </tr>
 <tr>
-<td>control+pageUp key</td>
-<td>dot1+dot2+dot6+dot8+space</td>
+<td>Ctrl+上翻页键</td>
+<td>1、2、6、8 点+space</td>
 </tr>
 <tr>
-<td>upArrow key</td>
-<td>dot1+space, leftSideUpArrow</td>
+<td>上光标键</td>
+<td>1 点+space, leftSideUpArrow</td>
 </tr>
 <tr>
-<td>control+shift+upArrow key</td>
-<td>dot2+dot3+dot8+space+f1</td>
+<td>Ctrl+Shift+上光标键</td>
+<td>2、3、8 点+space+f1</td>
 </tr>
 <tr>
-<td>control+upArrow key</td>
-<td>dot2+dot3+space</td>
+<td>Ctrl+上光标键</td>
+<td>2、3 点+space</td>
 </tr>
 <tr>
-<td>shift+alt+upArrow key</td>
-<td>dot2+dot3+dot7+f1</td>
+<td>Shift+Alt+上光标键</td>
+<td>2、3、7 点+f1</td>
 </tr>
 <tr>
-<td><code>alt+upArrow</code></td>
-<td><code>dot2+dot3+dot7+space</code></td>
+<td><code>Alt+上光标</code> 键</td>
+<td><code>2、3、7 点+space</code></td>
 </tr>
 <tr>
-<td>shift+upArrow key</td>
+<td>Shift+上光标键</td>
 <td>leftSideScrollDown+space</td>
 </tr>
 <tr>
-<td>pageDown key</td>
-<td>dot3+dot4+dot5+space</td>
+<td>下翻页键</td>
+<td>3、4、5 点+space</td>
 </tr>
 <tr>
-<td>control+pageDown key</td>
-<td>dot3+dot4+dot5+dot8+space</td>
+<td>Ctrl+下翻页键</td>
+<td>3、4、5、8 点+space</td>
 </tr>
 <tr>
-<td>downArrow key</td>
-<td>dot4+space, leftSideDownArrow</td>
+<td>下光标键</td>
+<td>4 点+space, leftSideDownArrow</td>
 </tr>
 <tr>
-<td>control+shift+downArrow key</td>
-<td>dot5+dot6+dot8+space+f1</td>
+<td>Ctrl+Shift+下光标键</td>
+<td>5、6、8 点+space+f1</td>
 </tr>
 <tr>
-<td>control+downArrow key</td>
-<td>dot5+dot6+space</td>
+<td>Ctrl+下光标键</td>
+<td>5、6 点+space</td>
 </tr>
 <tr>
-<td>shift+alt+downArrow key</td>
-<td>dot5+dot6+dot7+f1</td>
+<td>Shift+Alt+下光标键</td>
+<td>5、6、7 点+f1</td>
 </tr>
 <tr>
-<td><code>alt+downArrow</code></td>
-<td><code>dot5+dot6+dot7+space</code></td>
+<td><code>Alt+下光标</code> 键</td>
+<td><code>5、6、7 点+space</code></td>
 </tr>
 <tr>
-<td>shift+downArrow key</td>
+<td>Shift+下光标键</td>
 <td>space+rightSideScrollDown</td>
 </tr>
 <tr>
-<td>escape key</td>
-<td>dot1+dot5+space, f4, brailleedge:f1</td>
+<td>ESC 键</td>
+<td>1、5 点+space, f4, brailleedge:f1</td>
 </tr>
 <tr>
-<td>delete key</td>
-<td>dot1+dot3+dot5+space, dot1+dot4+dot5+space</td>
+<td>删除键</td>
+<td>1、3、5 点+space, 1、4、5 点+space</td>
 </tr>
 <tr>
-<td>f1 key</td>
-<td>dot1+dot2+dot5+space</td>
+<td>F1 键</td>
+<td>1、2、5 点+space</td>
 </tr>
 <tr>
-<td>f3 key</td>
-<td>dot1+dot4+dot8+space</td>
+<td>F3 键</td>
+<td>1、4、8 点+space</td>
 </tr>
 <tr>
-<td>f4 key</td>
-<td>dot7+f3</td>
+<td>F4 键</td>
+<td>7 点+f3</td>
 </tr>
 <tr>
-<td>windows+b key</td>
-<td>dot1+dot2+f1</td>
+<td>Windows+B 键</td>
+<td>1、2 点+f1</td>
 </tr>
 <tr>
-<td>windows+d key</td>
-<td>dot1+dot4+dot5+f1</td>
+<td>Windows+D 键</td>
+<td>1、4、5 点+f1</td>
 </tr>
 <tr>
-<td>control+insert key</td>
+<td>Ctrl+插入键</td>
 <td>smartbeetle:f1+rightSideScroll</td>
 </tr>
 <tr>
-<td>alt+insert key</td>
+<td>Alt+插入键</td>
 <td>smartbeetle:f3+rightSideScroll</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="Seika">Seika Braille Displays</h3>
-<p>The following Seika Braille displays from Nippon Telesoft are supported in two groups with different functionality:</p>
+<h3 id="Seika">Seika（清华）点显器</h3>
+<p>NVDA 支持 Nippon Telesoft 的 Seika 点显器，根据功能不同，分为以下两组：</p>
 <ul>
-<li><a href="#SeikaBrailleDisplays" title="Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)">Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)</a></li>
-<li><a href="#SeikaNotetaker" title="MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)">MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)</a></li>
+<li><a href="#SeikaBrailleDisplays" title="Seika V3/ V4/ V5（40 方）/ Seika80（80 方）">Seika V3/ V4/ V5（40 方）/ Seika80（80 方）</a></li>
+<li><a href="#SeikaNotetaker" title="MiniSeika （16 / 24 方） V6/V6Pro（40 方）">MiniSeika （16 / 24 方） V6/V6Pro（40 方）</a></li>
 </ul>
-<p>You can find more information about the displays on their <a href="https://en.seika-braille.com/down/index.html" rel="noopener" target="_blank" title="Demo and Driver Download page">Demo and Driver Download page</a>.</p>
-<h4 id="SeikaBrailleDisplays">Seika Version 3, 4, and 5 (40 cells), Seika80 (80 cells)</h4>
+<p>您可在其<a href="https://en.seika-braille.com/down/index.html" rel="noopener" target="_blank" title="演示和驱动程序下载">演示和驱动程序下载</a>页面上找到有关点显器的更多信息。</p>
+<h4 id="SeikaBrailleDisplays">Seika V3/ V4/ V5（40 方）/ Seika80（80 方）</h4>
 <ul>
-<li>These displays do not yet support NVDA's automatic background braille display detection functionality.</li>
-<li>Select "Seika Braille Displays" to manually configure</li>
-<li>A device drivers must be installed before using Seika v3/4/5/80.
-The drivers are <a href="https://en.seika-braille.com/down/index.html" rel="noopener" target="_blank" title="provided by the manufacturer">provided by the manufacturer</a>.</li>
+<li>这些点显器不支持 NVDA 的后台自动检测功能。</li>
+<li>选择“Seika（清华点显器） V3/ V4/ V5（40 方）/ Seika80（80 方）”进行手动配置</li>
+<li>使用 Seika v3/4/5/80 之前必须安装设备驱动程序。
+驱动程序<a href="https://en.seika-braille.com/down/index.html" rel="noopener" target="_blank" title="由制造商提供">由制造商提供</a>。</li>
 </ul>
-<p>The Seika Braille Display key assignments follow.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>以下是Seika 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>b3</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>b4</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>b5</td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td>b6</td>
 </tr>
 <tr>
-<td>tab</td>
+<td>Tab 键</td>
 <td>b1</td>
 </tr>
 <tr>
-<td>shift+tab</td>
+<td>Shift+Tab 键</td>
 <td>b2</td>
 </tr>
 <tr>
-<td>alt+tab</td>
+<td>Alt+Tab 键</td>
 <td>b1+b2</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
+<td>NVDA 菜单</td>
 <td>left+right</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="SeikaNotetaker">MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)</h4>
+<h4 id="SeikaNotetaker">MiniSeika （16 / 24 方） V6/V6Pro（40 方）</h4>
 <ul>
-<li>NVDA's automatic background braille display detection functionality is supported via USB and Bluetooth.</li>
-<li>Select "Seika Notetaker" or "auto" to configure.</li>
-<li>No extra drivers are required when using a Seika Notetaker braille display.</li>
+<li>USB 和蓝牙支持 NVDA 的后台自动检测点显器功能。</li>
+<li>选择“Seika Notetaker（清华点显器） Mini （16 / 24 方） V6/V6Pro（40 方）”或“自动”进行配置。</li>
+<li>使用 Seika Notetaker 点显器时不需要额外的驱动程序。</li>
 </ul>
-<p>The Seika Notetaker key assignments follow.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<p>以下是Seika Notetaker 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td>space+Backspace</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
+<td>NVDA 菜单</td>
 <td>Left+Right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>LJ up</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>LJ down</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>LJ center</td>
 </tr>
 <tr>
-<td>tab</td>
+<td>Tab 键</td>
 <td>LJ right</td>
 </tr>
 <tr>
-<td>shift+tab</td>
+<td>Shift+Tab 键</td>
 <td>LJ left</td>
 </tr>
 <tr>
-<td>upArrow key</td>
+<td>上光标键</td>
 <td>RJ up</td>
 </tr>
 <tr>
-<td>downArrow key</td>
+<td>下光标键</td>
 <td>RJ down</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
+<td>左光标键</td>
 <td>RJ left</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
+<td>右光标键</td>
 <td>RJ right</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>shift+upArrow key</td>
+<td>Shift+上光标键</td>
 <td>Space+RJ up, Backspace+RJ up</td>
 </tr>
 <tr>
-<td>shift+downArrow key</td>
+<td>Shift+下光标键</td>
 <td>Space+RJ down, Backspace+RJ down</td>
 </tr>
 <tr>
-<td>shift+leftArrow key</td>
+<td>Shift+左光标键</td>
 <td>Space+RJ left, Backspace+RJ left</td>
 </tr>
 <tr>
-<td>shift+rightArrow key</td>
+<td>Shift+右光标键</td>
 <td>Space+RJ right, Backspace+RJ right</td>
 </tr>
 <tr>
-<td>enter key</td>
-<td>RJ center, dot8</td>
+<td>回车键</td>
+<td>RJ center, 8 点</td>
 </tr>
 <tr>
-<td>escape key</td>
+<td>ESC 键</td>
 <td>Space+RJ center</td>
 </tr>
 <tr>
-<td>windows key</td>
+<td>Windows 键</td>
 <td>Backspace+RJ center</td>
 </tr>
 <tr>
-<td>space key</td>
+<td>空格键</td>
 <td>Space, Backspace</td>
 </tr>
 <tr>
-<td>backspace key</td>
-<td>dot7</td>
+<td>退格键</td>
+<td>7 点</td>
 </tr>
 <tr>
-<td>pageup key</td>
+<td>上翻页键</td>
 <td>space+LJ right</td>
 </tr>
 <tr>
-<td>pagedown key</td>
+<td>下翻页键</td>
 <td>space+LJ left</td>
 </tr>
 <tr>
-<td>home key</td>
+<td>行首键</td>
 <td>space+LJ up</td>
 </tr>
 <tr>
-<td>end key</td>
+<td>行尾键</td>
 <td>space+LJ down</td>
 </tr>
 <tr>
-<td>control+home key</td>
+<td>Ctrl+行首键</td>
 <td>backspace+LJ up</td>
 </tr>
 <tr>
-<td>control+end key</td>
+<td>Ctrl+行尾键</td>
 <td>backspace+LJ down</td>
 </tr>
 </tbody>
 </table>
-<h3 id="Papenmeier">Papenmeier BRAILLEX Newer Models</h3>
-<p>The following Braille displays are supported:</p>
+<!-- KC:endInclude -->
+
+<h3 id="Papenmeier">Papenmeier BRAILLEX 新型号</h3>
+<p>支持以下点显器：</p>
 <ul>
-<li>BRAILLEX EL 40c, EL 80c, EL 20c, EL 60c (USB)</li>
-<li>BRAILLEX EL 40s, EL 80s, EL 2d80s, EL 70s, EL 66s (USB)</li>
-<li>BRAILLEX Trio (USB and bluetooth)</li>
-<li>BRAILLEX Live 20, BRAILLEX Live and BRAILLEX Live Plus (USB and bluetooth)</li>
+<li>BRAILLEX EL 40c, EL 80c, EL 20c, EL 60c（USB）</li>
+<li>BRAILLEX EL 40s, EL 80s, EL 2d80s, EL 70s, EL 66s（USB）</li>
+<li>BRAILLEX Trio（USB 和蓝牙）</li>
+<li>BRAILLEX Live 20, BRAILLEX Live and BRAILLEX Live Plus（USB 和蓝牙）</li>
 </ul>
-<p>These displays do not support NVDA's automatic background braille display detection functionality.
-There is an option in the display's USB driver which can cause an issue with loading the display.
-Please try the following:</p>
+<p>这些点显器不支持 NVDA 的后台自动检测功能。
+点显器的 USB 驱动程序中有一个选项可能会导致加载点显器时出现问题。
+请尝试以下操作：</p>
 <ol>
-<li>Please make sure that you have installed the <a href="https://www.papenmeier-rehatechnik.de/en/service/downloadcenter/software/articles/software-braille-devices.html" rel="noopener" target="_blank" title="latest driver">latest driver</a>.</li>
-<li>Open the Windows Device Manager.</li>
-<li>Scroll down the list to "USB Controllers" or "USB Devices".</li>
-<li>Select "Papenmeier Braillex USB Device".</li>
-<li>Open the properties and switch to the "Advanced" tab.
-Sometimes the "Advanced" tab doesn't appear.
-If this is the case, disconnect the braille display from the computer, exit NVDA, wait a moment and reconnect the braille display.
-Repeat this 4 to 5 times if necessary.
-If the "Advanced" tab is still not displayed, please restart the computer.</li>
-<li>Disable the "Load VCP" option.</li>
+<li>请确保您已安装<a href="https://www.papenmeier-rehatechnik.de/en/service/downloadcenter/software/articles/software-braille-devices.html" rel="noopener" target="_blank" title="最新驱动程序">最新驱动程序</a>。</li>
+<li>打开 Windows 设备管理器。</li>
+<li>向下滚动列表至“通用串行总线控制器”或“USB 设备”。</li>
+<li>选择“Papenmeier Braillex USB 设备”。</li>
+<li>打开属性并切换到“高级”选项卡。
+有时不会出现“高级”选项卡。
+如果是这种情况，请断开点显器与计算机的连接，退出 NVDA，稍等片刻，然后重新连接点显器。
+如有必要，重复此操作 4 至 5 次。
+如果仍未显示“高级”选项卡，请重启计算机。</li>
+<li>禁用“加载 VCP”选项。</li>
 </ol>
-<p>Most devices have an Easy Access Bar (EAB) that allows intuitive and fast operation.
-The EAB can be moved in four directions where generally each direction has two switches.
-The C and Live series are the only exceptions to this rule.</p>
-<p>The c-series and some other displays have two routing rows whereby the upper row is used to report formatting information.
-Holding one of the upper routing keys and pressing the EAB on c-series devices emulates the second switch state.
-The live series displays have one routing row only and the EAB has one step per direction.
-The second step may be emulated by pressing one of the routing keys and pressing the EAB in the corresponding direction.
-Pressing and holding the up, down, right and left keys (or EAB) causes the corresponding action to be repeated.</p>
-<p>Generally, the following keys are available on these braille displays:</p>
+<p>大多数设备都有一个轻松访问栏（EAB），可实现直观、快速的操作。
+EAB 可以在四个方向上移动，通常每个方向有两个开关。
+C 和 Live 系列是此规则的唯一例外。</p>
+<p>c 系列和其他个别点显器有两行光标定位按键，位于最上面的一行用于显示格式信息。
+在 c 系列设备上按住上方光标定位键之一然后按 EAB 可以模拟第二个开关状态。
+live 系列点显器只有一行光标定位按键，且 EAB 按键在每个方向上只能移动一步。
+可以通过按下某个定位按键加 EAB 按键来模拟第二步操作。
+按住上、下、右、左键（或 EAB）会重复相应的操作。</p>
+<p>一般来说，这些点显器上有以下按键：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
@@ -6593,35 +6735,35 @@ Pressing and holding the up, down, right and left keys (or EAB) causes the corre
 </tr>
 </tbody>
 </table>
-<p>Following are the Papenmeier command assignments for NVDA:</p>
+<p>以下是 Papenmeier 点显器使用 NVDA 时的按键分配：</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>dn</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
@@ -6633,15 +6775,15 @@ Pressing and holding the up, down, right and left keys (or EAB) causes the corre
 <td>l2</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>r2</td>
 </tr>
 <tr>
-<td>Report title</td>
+<td>读出标题</td>
 <td>l1+up</td>
 </tr>
 <tr>
-<td>Report Status Bar</td>
+<td>读出状态栏</td>
 <td>l2+down</td>
 </tr>
 <tr>
@@ -6661,92 +6803,92 @@ Pressing and holding the up, down, right and left keys (or EAB) causes the corre
 <td>right2</td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td>upper routing row</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<p>The Trio model has four additional keys which are in front of the braille keyboard.
-These are (ordered from left to right):</p>
+<p>Trio 型号有四个附加键，位于盲文键盘前面。
+它们是（从左到右排序）：</p>
 <ul>
 <li>left thumb key (lt)</li>
 <li>space</li>
 <li>space</li>
 <li>right thumb key (rt)</li>
 </ul>
-<p>Currently, the right thumb key is not in use.
-The inner keys are both mapped to space.</p>
+<p>目前，right thumb key 尚未使用。
+内测的两个按键都映射到空格键。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>escape key</td>
+<td>ESC 键</td>
 <td>space with dot 7</td>
 </tr>
 <tr>
-<td>upArrow key</td>
+<td>上光标键</td>
 <td>space with dot 2</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
+<td>左光标键</td>
 <td>space with dot 1</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
+<td>右光标键</td>
 <td>space with dot 4</td>
 </tr>
 <tr>
-<td>downArrow</td>
+<td>下光标键</td>
 <td>space with dot 5</td>
 </tr>
 <tr>
-<td>control key</td>
-<td>lt+dot2</td>
+<td>Ctrl 键</td>
+<td>lt+2 点</td>
 </tr>
 <tr>
-<td>alt key</td>
-<td>lt+dot3</td>
+<td>Alt 键</td>
+<td>lt+3 点</td>
 </tr>
 <tr>
-<td>control+escape key</td>
+<td>Ctrl+ESC 键</td>
 <td>space with dot 1 2 3 4 5 6</td>
 </tr>
 <tr>
-<td>tab key</td>
+<td>Tab 键</td>
 <td>space with dot 3 7</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="PapenmeierOld">Papenmeier Braille BRAILLEX Older Models</h3>
-<p>The following Braille displays are supported:</p>
+<h3 id="PapenmeierOld">Papenmeier BRAILLEX 旧型号</h3>
+<p>支持以下点显器：</p>
 <ul>
 <li>BRAILLEX EL 80, EL 2D-80, EL 40 P</li>
 <li>BRAILLEX Tiny, 2D Screen</li>
 </ul>
-<p>Note that these displays can only be connected via a serial port.
-Due to this, these displays do not support NVDA's automatic background braille display detection functionality.
-You should select the port to which the display is connected after you have chosen this driver in the <a href="#SelectBrailleDisplay" title="Select Braille Display">Select Braille Display</a> dialog.</p>
-<p>Some of these devices have an Easy Access Bar (EAB) that allows intuitive and fast operation.
-The EAB can be moved in four directions where generally each direction has two switches.
-Pressing and holding the up, down, right and left keys (or EAB) causes the corresponding action to be repeated.
-Older devices do not have an EAB; front keys are used instead.</p>
-<p>Generally, the following keys are available on braille displays:</p>
+<p>请注意，这些点显器只能通过串行端口连接。
+因此，这些点显器不支持 NVDA 的后台自动检测功能。
+在<a href="#SelectBrailleDisplay" title="选择盲文点显器">选择盲文点显器</a>对话框中选择该驱动程序后，您应该选择点显器连接的端口。</p>
+<p>其中一些设备具有轻松访问栏（EAB），可实现直观、快速的操作。
+EAB 可以在四个方向上移动，通常每个方向有两个开关。
+按住上、下、右、左键（或 EAB）会重复相应的操作。
+较旧的设备没有 EAB；而是使用前键。</p>
+<p>一般来说，点显器上有以下按键：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
@@ -6800,35 +6942,35 @@ Older devices do not have an EAB; front keys are used instead.</p>
 </tr>
 </tbody>
 </table>
-<p>Following are the Papenmeier command assignments for NVDA:</p>
+<p>以下是 Papenmeier 点显器使用 NVDA 时的按键分配：</p>
 <!-- KC:beginInclude -->
-<p>Devices with EAB:</p>
+<p>具有 EAB 的设备：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>dn</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
@@ -6840,11 +6982,11 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <td>l2</td>
 </tr>
 <tr>
-<td>Report title</td>
+<td>读出标题</td>
 <td>l1up</td>
 </tr>
 <tr>
-<td>Report Status Bar</td>
+<td>读出状态栏</td>
 <td>l2down</td>
 </tr>
 <tr>
@@ -6864,7 +7006,7 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <td>left2</td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td>upper routing strip</td>
 </tr>
 </tbody>
@@ -6873,8 +7015,8 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
@@ -6887,23 +7029,23 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <td>l2</td>
 </tr>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>dn</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>r2</td>
 </tr>
 <tr>
@@ -6923,11 +7065,11 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <td>r1+right</td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td>upper routing strip</td>
 </tr>
 <tr>
-<td>Report title</td>
+<td>读出标题</td>
 <td>l1+up</td>
 </tr>
 <tr>
@@ -6940,8 +7082,8 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
@@ -6954,27 +7096,27 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <td>l2</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>r2</td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td>upper routing strip</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>dn</td>
 </tr>
 <tr>
@@ -6998,306 +7140,306 @@ Older devices do not have an EAB; front keys are used instead.</p>
 <!-- KC:endInclude -->
 
 <h3 id="HumanWareBrailleNote">HumanWare BrailleNote</h3>
-<p>NVDA supports the BrailleNote notetakers from <a href="https://www.humanware.com" rel="noopener" target="_blank" title="Humanware">Humanware</a> when acting as a display terminal for a screen reader.
-The following models are supported:</p>
+<p>NVDA 支持 <a href="https://www.humanware.com" rel="noopener" target="_blank" title="Humanware">Humanware</a> 的 BrailleNote notetakers。
+支持以下型号：</p>
 <ul>
-<li>BrailleNote Classic (serial connection only)</li>
-<li>BrailleNote PK (Serial and bluetooth connections)</li>
-<li>BrailleNote MPower (Serial and bluetooth connections)</li>
-<li>BrailleNote Apex (USB and Bluetooth connections)</li>
+<li>BrailleNote Classic（仅限串行连接）</li>
+<li>BrailleNote PK（串行和蓝牙连接）</li>
+<li>BrailleNote MPower（串行和蓝牙连接）</li>
+<li>BrailleNote Apex（USB 和蓝牙连接）</li>
 </ul>
-<p>For BrailleNote Touch, please refer to  the <a href="#HumanWareBrailliant" title="Brailliant BI Series / BrailleNote Touch">Brailliant BI Series / BrailleNote Touch</a> section.</p>
-<p>Except for BrailleNote PK, both braille (BT) and QWERTY (QT) keyboards are supported.
-For BrailleNote QT, PC keyboard emulation isn't supported.
-You can also enter braille dots using the QT keyboard.
-Please check the braille terminal section of the BrailleNote manual guide for details.</p>
-<p>If your device supports more than one type of connection, when connecting your BrailleNote to NVDA, you must set the braille terminal port in braille terminal options.
-Please check the BrailleNote manual for details.
-In NVDA, you may also need to set the port in the <a href="#SelectBrailleDisplay" title="Select Braille Display">Select Braille Display</a> dialog.
-If you are connecting via USB or bluetooth, you can set the port to "Automatic", "USB" or "Bluetooth", depending on the available choices.
-If connecting using a legacy serial port (or a USB to serial converter) or if none of the previous options appear, you must explicitly choose the communication port to be used from the list of hardware ports.</p>
-<p>Before connecting your BrailleNote Apex using its USB client interface, you must install the drivers provided by HumanWare.</p>
-<p>On the BrailleNote Apex BT, you can use the scroll wheel located between dots 1 and 4 for various NVDA commands.
-The wheel consists of four directional dots, a centre click button, and a wheel that spins clockwise or counterclockwise.</p>
-<p>Following are the BrailleNote command assignments for NVDA.
-Please check your BrailleNote's documentation to find where these keys are located.</p>
+<p>对于 BrailleNote Touch，请参阅 <a href="#HumanWareBrailliant" title="HumanWare Brailliant BI/B 系列 / BrailleNote Touch">HumanWare Brailliant BI/B 系列 / BrailleNote Touch</a> 章节。</p>
+<p>除 BrailleNote PK 外，还支持盲文 (BT) 和 QWERTY (QT) 键盘。
+对于 BrailleNote QT，不支持 PC 键盘模拟。
+您还可以使用 QT 键盘输入盲文点。
+请查看 BrailleNote 手册指南的盲文终端部分了解详细信息。</p>
+<p>如果您的设备支持多种连接类型，则将 BrailleNote 连接到 NVDA 时，您必须在盲文终端选项中设置盲文终端端口。
+详细信息请查看 BrailleNote 手册。
+在 NVDA 中，您可能还需要在<a href="#SelectBrailleDisplay" title="选择盲文点显器">选择盲文点显器</a>对话框中设置端口。
+如果您通过 USB 或蓝牙连接，则可以根据可用选项将端口设置为“自动”、“USB”或“蓝牙”。
+如果使用旧串行端口（或 USB 转串行转换器）进行连接，或上述选项均未出现，则必须从硬件端口列表中明确选择要使用的通信端口。</p>
+<p>在使用 USB 端口连接 BrailleNote Apex 之前，您必须安装 HumanWare 提供的驱动程序。</p>
+<p>在 BrailleNote Apex BT 上，您可使用位于点 1 和 4 之间的滚轮来执行各种 NVDA 命令。
+滚轮由四个方向点、一个中心点击按钮和一个顺时针或逆时针旋转的滚轮组成。</p>
+<p>以下是 BrailleNote 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>back</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>advance</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>previous</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>next</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 <tr>
-<td>NVDA menu</td>
-<td>space+dot1+dot3+dot4+dot5 (space+n)</td>
+<td>NVDA 菜单</td>
+<td>space+1、3、4、5 点 (space+n)</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>previous+next</td>
 </tr>
 <tr>
-<td>Up arrow key</td>
-<td>space+dot1</td>
+<td>上光标键</td>
+<td>space+1 点</td>
 </tr>
 <tr>
-<td>Down arrow key</td>
-<td>space+dot4</td>
+<td>下光标键</td>
+<td>space+4 点</td>
 </tr>
 <tr>
-<td>Left Arrow key</td>
-<td>space+dot3</td>
+<td>左光标键</td>
+<td>space+3 点</td>
 </tr>
 <tr>
-<td>Right arrow key</td>
-<td>space+dot6</td>
+<td>右光标键</td>
+<td>space+6 点</td>
 </tr>
 <tr>
-<td>Page up key</td>
-<td>space+dot1+dot3</td>
+<td>上翻页键</td>
+<td>space+1、3 点</td>
 </tr>
 <tr>
-<td>Page down key</td>
-<td>space+dot4+dot6</td>
+<td>下翻页键</td>
+<td>space+4、6 点</td>
 </tr>
 <tr>
-<td>Home key</td>
-<td>space+dot1+dot2</td>
+<td>行首键</td>
+<td>space+1、2 点</td>
 </tr>
 <tr>
-<td>End key</td>
-<td>space+dot4+dot5</td>
+<td>行尾键</td>
+<td>space+4、5 点</td>
 </tr>
 <tr>
-<td>Control+home keys</td>
-<td>space+dot1+dot2+dot3</td>
+<td>Ctrl+行首键</td>
+<td>space+1、2、3 点</td>
 </tr>
 <tr>
-<td>Control+end keys</td>
-<td>space+dot4+dot5+dot6</td>
+<td>Ctrl+行尾键</td>
+<td>space+4、5、6 点</td>
 </tr>
 <tr>
-<td>Space key</td>
+<td>空格键</td>
 <td>space</td>
 </tr>
 <tr>
-<td>Enter</td>
-<td>space+dot8</td>
+<td>回车键</td>
+<td>space+8 点</td>
 </tr>
 <tr>
-<td>Backspace</td>
-<td>space+dot7</td>
+<td>退格键</td>
+<td>space+7 点</td>
 </tr>
 <tr>
-<td>Tab key</td>
-<td>space+dot2+dot3+dot4+dot5 (space+t)</td>
+<td>Tab 键</td>
+<td>space+2、3、4、5 点 (space+t)</td>
 </tr>
 <tr>
-<td>Shift+tab keys</td>
-<td>space+dot1+dot2+dot5+dot6</td>
+<td>Shift+Tab 键</td>
+<td>space+1、2、5、6 点</td>
 </tr>
 <tr>
-<td>Windows key</td>
-<td>space+dot2+dot4+dot5+dot6 (space+w)</td>
+<td>Windows 键</td>
+<td>space+2、4、5、6 点 (space+w)</td>
 </tr>
 <tr>
-<td>Alt key</td>
-<td>space+dot1+dot3+dot4 (space+m)</td>
+<td>Alt 键</td>
+<td>space+1、3、4 点 (space+m)</td>
 </tr>
 <tr>
-<td>Toggle input help</td>
-<td>space+dot2+dot3+dot6 (space+lower h)</td>
+<td>切换输入帮助</td>
+<td>space+2、3、6 点 (space+lower h)</td>
 </tr>
 </tbody>
 </table>
-<p>Following are commands assigned to BrailleNote QT when it is not in braille input mode.</p>
+<p>以下是当 BrailleNote QT 未处于盲文输入模式时分配给 BrailleNote QT 的命令。</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NVDA menu</td>
+<td>NVDA 菜单</td>
 <td>read+n</td>
 </tr>
 <tr>
-<td>Up arrow key</td>
+<td>上光标键</td>
 <td>upArrow</td>
 </tr>
 <tr>
-<td>Down arrow key</td>
+<td>下光标键</td>
 <td>downArrow</td>
 </tr>
 <tr>
-<td>Left Arrow key</td>
+<td>左光标键</td>
 <td>leftArrow</td>
 </tr>
 <tr>
-<td>Right arrow key</td>
+<td>右光标键</td>
 <td>rightArrow</td>
 </tr>
 <tr>
-<td>Page up key</td>
+<td>上翻页键</td>
 <td>function+upArrow</td>
 </tr>
 <tr>
-<td>Page down key</td>
+<td>下翻页键</td>
 <td>function+downArrow</td>
 </tr>
 <tr>
-<td>Home key</td>
+<td>行首键</td>
 <td>function+leftArrow</td>
 </tr>
 <tr>
-<td>End key</td>
+<td>行尾键</td>
 <td>function+rightArrow</td>
 </tr>
 <tr>
-<td>Control+home keys</td>
+<td>Ctrl+行首键</td>
 <td>read+t</td>
 </tr>
 <tr>
-<td>Control+end keys</td>
+<td>Ctrl+行尾键</td>
 <td>read+b</td>
 </tr>
 <tr>
-<td>Enter key</td>
+<td>回车键</td>
 <td>enter</td>
 </tr>
 <tr>
-<td>Backspace key</td>
+<td>退格键</td>
 <td>backspace</td>
 </tr>
 <tr>
-<td>Tab key</td>
+<td>Tab 键</td>
 <td>tab</td>
 </tr>
 <tr>
-<td>Shift+tab keys</td>
+<td>Shift+Tab 键</td>
 <td>shift+tab</td>
 </tr>
 <tr>
-<td>Windows key</td>
+<td>Windows 键</td>
 <td>read+w</td>
 </tr>
 <tr>
-<td>Alt key</td>
+<td>Alt 键</td>
 <td>read+m</td>
 </tr>
 <tr>
-<td>Toggle input help</td>
+<td>切换输入帮助</td>
 <td>read+1</td>
 </tr>
 </tbody>
 </table>
-<p>Following are commands assigned to the scroll wheel:</p>
+<p>以下是分配给滚轮的命令：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Up arrow key</td>
+<td>上光标键</td>
 <td>upArrow</td>
 </tr>
 <tr>
-<td>Down arrow key</td>
+<td>下光标键</td>
 <td>downArrow</td>
 </tr>
 <tr>
-<td>Left Arrow key</td>
+<td>左光标键</td>
 <td>leftArrow</td>
 </tr>
 <tr>
-<td>Right arrow key</td>
+<td>右光标键</td>
 <td>rightArrow</td>
 </tr>
 <tr>
-<td>Enter key</td>
+<td>回车键</td>
 <td>centre button</td>
 </tr>
 <tr>
-<td>Tab key</td>
+<td>Tab 键</td>
 <td>scroll wheel clockwise</td>
 </tr>
 <tr>
-<td>Shift+tab keys</td>
+<td>Shift+Tab 键</td>
 <td>scroll wheel counterclockwise</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="EcoBraille">EcoBraille</h3>
-<p>NVDA supports EcoBraille displays from <a href="https://www.once.es/" rel="noopener" target="_blank" title="ONCE">ONCE</a>.
-The following models are supported:</p>
+<h3 id="EcoBraille">EcoBraille 点显器</h3>
+<p>NVDA 支持 <a href="https://www.once.es/" rel="noopener" target="_blank" title="ONCE">ONCE</a> 的 EcoBraille 点显器。
+支持以下型号：</p>
 <ul>
 <li>EcoBraille 20</li>
 <li>EcoBraille 40</li>
 <li>EcoBraille 80</li>
 <li>EcoBraille Plus</li>
 </ul>
-<p>In NVDA, you can set the serial port to which the display is connected in the <a href="#SelectBrailleDisplay" title="Select Braille Display">Select Braille Display</a> dialog.
-These displays do not support NVDA's automatic background braille display detection functionality.</p>
-<p>Following are the key assignments for EcoBraille displays.
-Please see the <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/ECO/" title="EcoBraille documentation">EcoBraille documentation</a> for descriptions of where these keys can be found.</p>
+<p>您可在 NVDA 的<a href="#SelectBrailleDisplay" title="选择盲文点显器">选择盲文点显器</a> 对话框中设置点显器连接的串行端口。
+这些点显器不支持 NVDA 的后台自动检测功能。</p>
+<p>以下是 EcoBraille 点显器使用 NVDA 时的按键分配。
+请参阅 <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/ECO/" title="EcoBraille 文档">EcoBraille 文档</a>，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>T2</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>T4</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>T1</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>T5</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>Routing</td>
 </tr>
 <tr>
@@ -7345,402 +7487,402 @@ Please see the <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/EC
 <td>F0</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>A</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="SuperBraille">SuperBraille</h3>
-<p>The SuperBraille device, mostly available in Taiwan, can be connected to by either USB or serial.
-As the SuperBraille does not have any physical typing keys or scrolling buttons, all input must be performed via a standard computer keyboard.
-Due to this, and to maintain compatibility with other screen readers in Taiwan, two key bindings for scrolling the braille display have been provided:</p>
+<h3 id="SuperBraille">超点</h3>
+<p>超点设备主要在台湾销售，可以通过 USB 或串行方式连接。
+由于超点没有任何物理输入按键或滚动按钮，因此所有输入都必须通过标准计算机键盘执行。
+因此，为了保持与台湾其他屏幕阅读器的兼容性，提供了两个用于滚动点显器的快捷键：</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
-<td>numpadMinus</td>
+<td>向后滚动盲文显示</td>
+<td>数字键盘减号</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
-<td>numpadPlus</td>
+<td>向前滚动盲文显示</td>
+<td>数字键盘加号</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="Eurobraille">Eurobraille displays</h3>
-<p>The b.book, b.note, Esys, Esytime and Iris displays from Eurobraille are supported by NVDA.
-These devices have a braille keyboard with 10 keys.
-Please refer to the display's documentation for descriptions of these keys.
-Of the two keys placed like a space bar, the left key is corresponding to the backspace key and the right key to the space key.</p>
-<p>These devices are connected via USB and have one stand-alone USB keyboard.
-It is possible to enable/disable this keyboard by toggling "HID Keyboard simulation" using an input gesture.
-The braille keyboard functions described directly below is when "HID Keyboard simulation" is disabled.</p>
-<h4 id="EurobrailleBraille">Braille keyboard functions</h4>
+<h3 id="Eurobraille">Eurobraille 点显器</h3>
+<p>Eurobraille 的 b.book、b.note、Esys、Esytime 和 Iris 点显器均受 NVDA 支持。
+这些设备配有 10 个按键的盲文键盘。
+有关这些按键的说明，请参阅点显器的文档。
+像空格键一样放置的两个按键中，左键对应退格键，右键对应空格键。</p>
+<p>这些设备通过 USB 连接并具有一个独立的 USB 键盘。
+可以通过使用按键与手势切换“HID 键盘模拟”来启用/禁用此键盘。
+下面直接描述的盲文键盘功能是在禁用“HID 键盘模拟”时的情况。</p>
+<h4 id="EurobrailleBraille">盲文键盘功能</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Erase the last entered braille cell or character</td>
+<td>删除最后输入的盲文单元格或字符</td>
 <td><code>backspace</code></td>
 </tr>
 <tr>
-<td>Translate any braille input and press the enter key</td>
+<td>翻译盲文输入并按回车键</td>
 <td><code>backspace+space</code></td>
 </tr>
 <tr>
-<td>Toggle <code>NVDA</code> key</td>
-<td><code>dot3+dot5+space</code></td>
+<td>按下或放开 <code>NVDA</code> 键</td>
+<td><code>3、5 点+space</code></td>
 </tr>
 <tr>
-<td><code>insert</code> key</td>
-<td><code>dot1+dot3+dot5+space</code>, <code>dot3+dot4+dot5+space</code></td>
+<td><code>插入</code> 键</td>
+<td><code>1、3、5 点+space</code>, <code>3、4、5 点+space</code></td>
 </tr>
 <tr>
-<td><code>delete</code> key</td>
-<td><code>dot3+dot6+space</code></td>
+<td><code>删除</code> 键</td>
+<td><code>3、6 点+space</code></td>
 </tr>
 <tr>
-<td><code>home</code> key</td>
-<td><code>dot1+dot2+dot3+space</code></td>
+<td><code>行首</code> 键</td>
+<td><code>1、2、3 点+space</code></td>
 </tr>
 <tr>
-<td><code>end</code> key</td>
-<td><code>dot4+dot5+dot6+space</code></td>
+<td><code>行尾</code>键</td>
+<td><code>4、5、6 点+space</code></td>
 </tr>
 <tr>
-<td><code>leftArrow</code> key</td>
-<td><code>dot2+space</code></td>
+<td><code>左光标</code>键</td>
+<td><code>2 点+space</code></td>
 </tr>
 <tr>
-<td><code>rightArrow</code> key</td>
-<td><code>dot5+space</code></td>
+<td><code>右光标</code>键</td>
+<td><code>5 点+space</code></td>
 </tr>
 <tr>
-<td><code>upArrow</code> key</td>
-<td><code>dot1+space</code></td>
+<td><code>上光标</code>键</td>
+<td><code>1 点+space</code></td>
 </tr>
 <tr>
-<td><code>downArrow</code> key</td>
-<td><code>dot6+space</code></td>
+<td><code>下光标</code>键</td>
+<td><code>6 点+space</code></td>
 </tr>
 <tr>
-<td><code>pageUp</code> key</td>
-<td><code>dot1+dot3+space</code></td>
+<td><code>上翻页</code> 键</td>
+<td><code>1、3 点+space</code></td>
 </tr>
 <tr>
-<td><code>pageDown</code> key</td>
-<td><code>dot4+dot6+space</code></td>
+<td><code>下翻页</code> 键</td>
+<td><code>4、6 点+space</code></td>
 </tr>
 <tr>
-<td><code>numpad1</code> key</td>
-<td><code>dot1+dot6+backspace</code></td>
+<td><code>数字键盘 1</code> 键</td>
+<td><code>1、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad2</code> key</td>
-<td><code>dot1+dot2+dot6+backspace</code></td>
+<td><code>数字键盘 2</code> 键</td>
+<td><code>1、2、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad3</code> key</td>
-<td><code>dot1+dot4+dot6+backspace</code></td>
+<td><code>数字键盘 3</code> 键</td>
+<td><code>1、4、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad4</code> key</td>
-<td><code>dot1+dot4+dot5+dot6+backspace</code></td>
+<td><code>数字键盘 4</code> 键</td>
+<td><code>1、4、5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad5</code> key</td>
-<td><code>dot1+dot5+dot6+backspace</code></td>
+<td><code>数字键盘 5</code> 键</td>
+<td><code>1、5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad6</code> key</td>
-<td><code>dot1+dot2+dot4+dot6+backspace</code></td>
+<td><code>数字键盘 6</code> 键</td>
+<td><code>1、2、4、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad7</code> key</td>
-<td><code>dot1+dot2+dot4+dot5+dot6+backspace</code></td>
+<td><code>数字键盘 7</code> 键</td>
+<td><code>1、2、4、5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad8</code> key</td>
-<td><code>dot1+dot2+dot5+dot6+backspace</code></td>
+<td><code>数字键盘 8</code> 键</td>
+<td><code>1、2、5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpad9</code> key</td>
-<td><code>dot2+dot4+dot6+backspace</code></td>
+<td><code>数字键盘 9</code> 键</td>
+<td><code>2、4、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadInsert</code> key</td>
-<td><code>dot3+dot4+dot5+dot6+backspace</code></td>
+<td><code>数字键盘插入</code> 键</td>
+<td><code>3、4、5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadDecimal</code> key</td>
-<td><code>dot2+backspace</code></td>
+<td><code>数字键盘删除</code> 键</td>
+<td><code>2 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadDivide</code> key</td>
-<td><code>dot3+dot4+backspace</code></td>
+<td><code>数字键盘斜杠</code> 键</td>
+<td><code>3、4 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadMultiply</code> key</td>
-<td><code>dot3+dot5+backspace</code></td>
+<td><code>数字键盘星号</code> 键</td>
+<td><code>3、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadMinus</code> key</td>
-<td><code>dot3+dot6+backspace</code></td>
+<td><code>数字键盘减号</code> 键</td>
+<td><code>3、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadPlus</code> key</td>
-<td><code>dot2+dot3+dot5+backspace</code></td>
+<td><code>数字键盘加号</code> 键</td>
+<td><code>2、3、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numpadEnter</code> key</td>
-<td><code>dot3+dot4+dot5+backspace</code></td>
+<td><code>数字键盘回车</code> 键</td>
+<td><code>3、4、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>escape</code> key</td>
-<td><code>dot1+dot2+dot4+dot5+space</code>, <code>l2</code></td>
+<td><code>ESC</code> 键</td>
+<td><code>1、2、4、5 点+space</code>, <code>l2</code></td>
 </tr>
 <tr>
-<td><code>tab</code> key</td>
-<td><code>dot2+dot5+dot6+space</code>, <code>l3</code></td>
+<td><code>Tab</code> 键</td>
+<td><code>2、5、6 点+space</code>, <code>l3</code></td>
 </tr>
 <tr>
-<td><code>shift+tab</code> keys</td>
-<td><code>dot2+dot3+dot5+space</code></td>
+<td><code>Shift+Tab</code> 键</td>
+<td><code>2、3、5 点+space</code></td>
 </tr>
 <tr>
-<td><code>printScreen</code> key</td>
-<td><code>dot1+dot3+dot4+dot6+space</code></td>
+<td><code>屏幕打印</code> 键</td>
+<td><code>1、3、4、6 点+space</code></td>
 </tr>
 <tr>
-<td><code>pause</code> key</td>
-<td><code>dot1+dot4+space</code></td>
+<td><code>pause</code> 键</td>
+<td><code>1、4 点+space</code></td>
 </tr>
 <tr>
-<td><code>applications</code> key</td>
-<td><code>dot5+dot6+backspace</code></td>
+<td><code>Application</code> 键</td>
+<td><code>5、6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f1</code> key</td>
-<td><code>dot1+backspace</code></td>
+<td><code>F1</code> 键</td>
+<td><code>1 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f2</code> key</td>
-<td><code>dot1+dot2+backspace</code></td>
+<td><code>F2</code> 键</td>
+<td><code>1、2 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f3</code> key</td>
-<td><code>dot1+dot4+backspace</code></td>
+<td><code>F3</code> 键</td>
+<td><code>1、4 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f4</code> key</td>
-<td><code>dot1+dot4+dot5+backspace</code></td>
+<td><code>F4</code> 键</td>
+<td><code>1、4、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f5</code> key</td>
-<td><code>dot1+dot5+backspace</code></td>
+<td><code>F5</code> 键</td>
+<td><code>1、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f6</code> key</td>
-<td><code>dot1+dot2+dot4+backspace</code></td>
+<td><code>F6</code> 键</td>
+<td><code>1、2、4 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f7</code> key</td>
-<td><code>dot1+dot2+dot4+dot5+backspace</code></td>
+<td><code>F7</code> 键</td>
+<td><code>1、2、4、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f8</code> key</td>
-<td><code>dot1+dot2+dot5+backspace</code></td>
+<td><code>F8</code> 键</td>
+<td><code>1、2、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f9</code> key</td>
-<td><code>dot2+dot4+backspace</code></td>
+<td><code>F9</code> 键</td>
+<td><code>2、4 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f10</code> key</td>
-<td><code>dot2+dot4+dot5+backspace</code></td>
+<td><code>F10</code> 键</td>
+<td><code>2、4、5 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f11</code> key</td>
-<td><code>dot1+dot3+backspace</code></td>
+<td><code>F11</code> 键</td>
+<td><code>1、3 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>f12</code> key</td>
-<td><code>dot1+dot2+dot3+backspace</code></td>
+<td><code>F12</code> 键</td>
+<td><code>1、2、3 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>windows</code> key</td>
-<td><code>dot1+dot2+dot4+dot5+dot6+space</code></td>
+<td><code>Windows</code> 键</td>
+<td><code>1、2、4、5、6 点+space</code></td>
 </tr>
 <tr>
-<td>Toggle <code>windows</code> key</td>
-<td><code>dot1+dot2+dot3+dot4+backspace</code>, <code>dot2+dot4+dot5+dot6+space</code></td>
+<td>按下或放开 <code>Windows</code> 键</td>
+<td><code>1、2、3、4 点+backspace</code>, <code>2、4、5、6 点+space</code></td>
 </tr>
 <tr>
-<td><code>capsLock</code> key</td>
-<td><code>dot7+backspace</code>, <code>dot8+backspace</code></td>
+<td><code>大写锁定</code> 键</td>
+<td><code>7 点+backspace</code>, <code>8 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>numLock</code> key</td>
-<td><code>dot3+backspace</code>, <code>dot6+backspace</code></td>
+<td><code>numLock</code> 键</td>
+<td><code>3 点+backspace</code>, <code>6 点+backspace</code></td>
 </tr>
 <tr>
-<td><code>shift</code> key</td>
-<td><code>dot7+space</code></td>
+<td><code>Shift</code> 键</td>
+<td><code>7 点+space</code></td>
 </tr>
 <tr>
-<td>Toggle <code>shift</code> key</td>
-<td><code>dot1+dot7+space</code>, <code>dot4+dot7+space</code></td>
+<td>按下或放开 <code>Shift</code> 键</td>
+<td><code>1、7 点+space</code>, <code>4、7 点+space</code></td>
 </tr>
 <tr>
-<td><code>control</code> key</td>
-<td><code>dot7+dot8+space</code></td>
+<td><code>Ctrl</code> 键</td>
+<td><code>7、8 点+space</code></td>
 </tr>
 <tr>
-<td>Toggle <code>control</code> key</td>
-<td><code>dot1+dot7+dot8+space</code>, <code>dot4+dot7+dot8+space</code></td>
+<td>按下或放开 <code>Ctrl</code> 键</td>
+<td><code>1、7、8 点+space</code>, <code>4、7、8 点+space</code></td>
 </tr>
 <tr>
-<td><code>alt</code> key</td>
-<td><code>dot8+space</code></td>
+<td><code>Alt</code> 键</td>
+<td><code>8 点+space</code></td>
 </tr>
 <tr>
-<td>Toggle <code>alt</code> key</td>
-<td><code>dot1+dot8+space</code>, <code>dot4+dot8+space</code></td>
+<td>按下或放开 <code>Alt</code> 键</td>
+<td><code>1、8 点+space</code>, <code>4、8 点+space</code></td>
 </tr>
 <tr>
-<td>Toggle HID Keyboard simulation</td>
+<td>切换 HID 键盘模拟</td>
 <td><code>switch1Left+joystick1Down</code>, <code>switch1Right+joystick1Down</code></td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="Eurobraillebbook">b.book keyboard commands</h4>
+<h4 id="Eurobraillebbook">b.book 键盘命令</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>backward</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>forward</code></td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td><code>backward+forward</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td><code>leftArrow</code> key</td>
+<td><code>左光标</code>键</td>
 <td><code>joystick2Left</code></td>
 </tr>
 <tr>
-<td><code>rightArrow</code> key</td>
+<td><code>右光标</code>键</td>
 <td><code>joystick2Right</code></td>
 </tr>
 <tr>
-<td><code>upArrow</code> key</td>
+<td><code>上光标</code>键</td>
 <td><code>joystick2Up</code></td>
 </tr>
 <tr>
-<td><code>downArrow</code> key</td>
+<td><code>下光标</code>键</td>
 <td><code>joystick2Down</code></td>
 </tr>
 <tr>
-<td><code>enter</code> key</td>
+<td><code>回车</code> 键</td>
 <td><code>joystick2Center</code></td>
 </tr>
 <tr>
-<td><code>escape</code> key</td>
+<td><code>ESC</code> 键</td>
 <td><code>c1</code></td>
 </tr>
 <tr>
-<td><code>tab</code> key</td>
+<td><code>Tab</code> 键</td>
 <td><code>c2</code></td>
 </tr>
 <tr>
-<td>Toggle <code>shift</code> key</td>
+<td>按下或放开 <code>Shift</code> 键</td>
 <td><code>c3</code></td>
 </tr>
 <tr>
-<td>Toggle <code>control</code> key</td>
+<td>按下或放开 <code>Ctrl</code> 键</td>
 <td><code>c4</code></td>
 </tr>
 <tr>
-<td>Toggle <code>alt</code> key</td>
+<td>按下或放开 <code>Alt</code> 键</td>
 <td><code>c5</code></td>
 </tr>
 <tr>
-<td>Toggle <code>NVDA</code> key</td>
+<td>按下或放开 <code>NVDA</code> 键</td>
 <td><code>c6</code></td>
 </tr>
 <tr>
-<td><code>control+Home</code> key</td>
+<td><code>Ctrl+行首</code> 键</td>
 <td><code>c1+c2+c3</code></td>
 </tr>
 <tr>
-<td><code>control+End</code> key</td>
+<td><code>Ctrl+行尾</code> 键</td>
 <td><code>c4+c5+c6</code></td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="Eurobraillebnote">b.note keyboard commands</h4>
+<h4 id="Eurobraillebnote">b.note 键盘命令</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>leftKeypadLeft</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>leftKeypadRight</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td><code>doubleRouting</code></td>
 </tr>
 <tr>
@@ -7756,62 +7898,62 @@ The braille keyboard functions described directly below is when "HID Keyboard si
 <td><code>leftKeypadRight+leftKeypadDown</code></td>
 </tr>
 <tr>
-<td><code>leftArrow</code> key</td>
+<td><code>左光标</code>键</td>
 <td><code>rightKeypadLeft</code></td>
 </tr>
 <tr>
-<td><code>rightArrow</code> key</td>
+<td><code>右光标</code>键</td>
 <td><code>rightKeypadRight</code></td>
 </tr>
 <tr>
-<td><code>upArrow</code> key</td>
+<td><code>上光标</code>键</td>
 <td><code>rightKeypadUp</code></td>
 </tr>
 <tr>
-<td><code>downArrow</code> key</td>
+<td><code>下光标</code>键</td>
 <td><code>rightKeypadDown</code></td>
 </tr>
 <tr>
-<td><code>control+home</code> key</td>
+<td><code>Ctrl+行首</code> 键</td>
 <td><code>rightKeypadLeft+rightKeypadUp</code></td>
 </tr>
 <tr>
-<td><code>control+end</code> key</td>
+<td><code>Ctrl+行尾</code>键</td>
 <td><code>rightKeypadLeft+rightKeypadUp</code></td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="Eurobrailleesys">Esys keyboard commands</h4>
+<h4 id="Eurobrailleesys">Esys 键盘命令</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>switch1Left</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>switch1Right</code></td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td><code>switch1Center</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td><code>doubleRouting</code></td>
 </tr>
 <tr>
@@ -7831,58 +7973,58 @@ The braille keyboard functions described directly below is when "HID Keyboard si
 <td><code>joystick1Right</code></td>
 </tr>
 <tr>
-<td><code>leftArrow</code> key</td>
+<td><code>左光标</code>键</td>
 <td><code>joystick2Left</code></td>
 </tr>
 <tr>
-<td><code>rightArrow</code> key</td>
+<td><code>右光标</code>键</td>
 <td><code>joystick2Right</code></td>
 </tr>
 <tr>
-<td><code>upArrow</code> key</td>
+<td><code>上光标</code>键</td>
 <td><code>joystick2Up</code></td>
 </tr>
 <tr>
-<td><code>downArrow</code> key</td>
+<td><code>下光标</code>键</td>
 <td><code>joystick2Down</code></td>
 </tr>
 <tr>
-<td><code>enter</code> key</td>
+<td><code>回车</code> 键</td>
 <td><code>joystick2Center</code></td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h4 id="EurobrailleEsytime">Esytime keyboard commands</h4>
+<h4 id="EurobrailleEsytime">Esytime键盘命令</h4>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>l1</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>l8</code></td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td><code>l1+l8</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td><code>doubleRouting</code></td>
 </tr>
 <tr>
@@ -7902,99 +8044,99 @@ The braille keyboard functions described directly below is when "HID Keyboard si
 <td><code>joystick1Right</code></td>
 </tr>
 <tr>
-<td><code>leftArrow</code> key</td>
+<td><code>左光标</code>键</td>
 <td><code>joystick2Left</code></td>
 </tr>
 <tr>
-<td><code>rightArrow</code> key</td>
+<td><code>右光标</code>键</td>
 <td><code>joystick2Right</code></td>
 </tr>
 <tr>
-<td><code>upArrow</code> key</td>
+<td><code>上光标</code>键</td>
 <td><code>joystick2Up</code></td>
 </tr>
 <tr>
-<td><code>downArrow</code> key</td>
+<td><code>下光标</code>键</td>
 <td><code>joystick2Down</code></td>
 </tr>
 <tr>
-<td><code>enter</code> key</td>
+<td><code>回车</code> 键</td>
 <td><code>joystick2Center</code></td>
 </tr>
 <tr>
-<td><code>escape</code> key</td>
+<td><code>ESC</code> 键</td>
 <td><code>l2</code></td>
 </tr>
 <tr>
-<td><code>tab</code> key</td>
+<td><code>Tab</code> 键</td>
 <td><code>l3</code></td>
 </tr>
 <tr>
-<td>Toggle <code>shift</code> key</td>
+<td>按下或放开 <code>Shift</code> 键</td>
 <td><code>l4</code></td>
 </tr>
 <tr>
-<td>Toggle <code>control</code> key</td>
+<td>按下或放开 <code>Ctrl</code> 键</td>
 <td><code>l5</code></td>
 </tr>
 <tr>
-<td>Toggle <code>alt</code> key</td>
+<td>按下或放开 <code>Alt</code> 键</td>
 <td><code>l6</code></td>
 </tr>
 <tr>
-<td>Toggle <code>NVDA</code> key</td>
+<td>按下或放开 <code>NVDA</code> 键</td>
 <td><code>l7</code></td>
 </tr>
 <tr>
-<td><code>control+home</code> key</td>
+<td><code>Ctrl+行首</code> 键</td>
 <td><code>l1+l2+l3</code>, <code>l2+l3+l4</code></td>
 </tr>
 <tr>
-<td><code>control+end</code> key</td>
+<td><code>Ctrl+行尾</code>键</td>
 <td><code>l6+l7+l8</code>, <code>l5+l6+l7</code></td>
 </tr>
 <tr>
-<td>Toggle HID Keyboard simulation</td>
+<td>切换 HID 键盘模拟</td>
 <td><code>l1+joystick1Down</code>, <code>l8+joystick1Down</code></td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="NattiqTechnologies">Nattiq nBraille Displays</h3>
-<p>NVDA supports displays from <a href="https://www.nattiq.com/" rel="noopener" target="_blank" title="Nattiq Technologies">Nattiq Technologies</a> when connected via USB.
-Windows 10 and later detects the Braille Displays once connected, you may need to install USB drivers if using older versions of Windows (below Win10).
-You can get them from the manufacturer's website.</p>
-<p>Following are the key assignments for Nattiq Technologies displays with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<h3 id="NattiqTechnologies">Nattiq 点显器</h3>
+<p>通过 USB 连接时，NVDA 支持 <a href="https://www.nattiq.com/" rel="noopener" target="_blank" title="Nattiq Technologies">Nattiq Technologies</a> 的点显器。
+连接后，Windows 10 及更高版本会自动检测点显器，如果使用旧版本的 Windows，您可能需要安装 USB 驱动程序。
+您可从制造商的网站获取。</p>
+<p>以下是 Nattiq Technologies 点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>up</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>down</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td>left</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td>right</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing</td>
 </tr>
 </tbody>
@@ -8002,63 +8144,63 @@ Please see the display's documentation for descriptions of where these keys can 
 <!-- KC:endInclude -->
 
 <h3 id="BRLTTY">BRLTTY</h3>
-<p><a href="https://www.brltty.app/" rel="noopener" target="_blank" title="BRLTTY">BRLTTY</a> is a separate program which can be used to support many more braille displays.
-In order to use this, you need to install <a href="https://www.brltty.app/download.html" rel="noopener" target="_blank" title="BRLTTY for Windows">BRLTTY for Windows</a>.
-You should download and install the latest installer package, which will be named, for example, brltty-win-4.2-2.exe.
-When configuring the display and port to use, be sure to pay close attention to the instructions, especially if you are using a USB display and already have the manufacturer's drivers installed.</p>
-<p>For displays which have a braille keyboard, BRLTTY currently handles braille input itself.
-Therefore, NVDA's braille input table setting is not relevant.</p>
-<p>BRLTTY is not involved in NVDA's automatic background braille display detection functionality.</p>
-<p>Following are the BRLTTY command assignments for NVDA.
-Please see the <a href="https://brltty.app/doc/KeyBindings/" rel="noopener" target="_blank" title="BRLTTY key binding lists">BRLTTY key binding lists</a> for information about how BRLTTY commands are mapped to controls on braille displays.</p>
+<p><a href="https://www.brltty.app/" rel="noopener" target="_blank" title="BRLTTY">BRLTTY</a> 是一个单独的程序，可用于支持更多点显器。
+为了使用该协议，您需要安装 <a href="https://www.brltty.app/download.html" rel="noopener" target="_blank" title="BRLTTY for Windows">BRLTTY for Windows</a>。
+您应下载并安装最新的安装程序，该安装程序的名称类似于 brltty-win-4.2-2.exe。
+配置要使用的点显器和端口时，请务必密切注意说明，特别是如果您使用的是 USB 点显器并且已经安装了制造商的驱动程序。</p>
+<p>对于具有盲文键盘的点显器，BRLTTY 目前自行处理盲文输入。
+因此，NVDA 盲文设置的输入表选项无效。</p>
+<p>BRLTTY 不支持 NVDA 的后台自动检测点显器功能。</p>
+<p>以下是 BRLTTY 使用 NVDA 时的按键分配。
+请参阅 <a href="https://brltty.app/doc/KeyBindings/" rel="noopener" target="_blank" title="BRLTTY key binding lists">BRLTTY key binding lists</a>，了解有关 BRLTTY 命令如何映射到点显器控件的信息。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>BRLTTY command</th>
+<th>名称</th>
+<th>BRLTTY 命令</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>fwinlt</code> (go left one window)</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>fwinrt</code> (go right one window)</td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td><code>lnup</code> (go up one line)</td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td><code>lndn</code> (go down one line)</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>route</code> (bring cursor to character)</td>
 </tr>
 <tr>
-<td>Toggle input help</td>
+<td>切换输入帮助</td>
 <td><code>learn</code> (enter/leave command learn mode)</td>
 </tr>
 <tr>
-<td>Open the NVDA menu</td>
+<td>打开 NVDA 菜单</td>
 <td><code>prefmenu</code> (enter/leave preferences menu)</td>
 </tr>
 <tr>
-<td>Revert configuration</td>
+<td>重新应用以保存的设置</td>
 <td><code>prefload</code> (restore preferences from disk)</td>
 </tr>
 <tr>
-<td>Save configuration</td>
+<td>保存设置</td>
 <td><code>prefsave</code> (save preferences to disk)</td>
 </tr>
 <tr>
-<td>Report time</td>
+<td>读出时间</td>
 <td><code>time</code> (show current date and time)</td>
 </tr>
 <tr>
@@ -8073,24 +8215,24 @@ Please see the <a href="https://brltty.app/doc/KeyBindings/" rel="noopener" targ
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="Albatross">Tivomatic Caiku Albatross 46/80</h3>
-<p>The Caiku Albatross devices, which were manufactured by Tivomatic and available in Finland, can be connected to by either USB or serial.
-You do not need any specific drivers to be installed to use these displays.
-Just plug in the display and configure NVDA to use it.</p>
-<p>Note: Baud rate 19200 is strongly recommended.
-If required, switch Baud rate setting value to 19200 from the braille device's menu.
-Although the driver supports 9600 baud rate, it has no way to control what baud rate the display uses.
-Because 19200 is the display default baud rate, the driver tries it at first.
-If baud rates are not the same, the driver may behave unexpectedly.</p>
-<p>Following are key assignments for these displays with NVDA.
-Please see the display's documentation for descriptions of where these keys can be found.</p>
+<h3 id="Albatross">Caiku Albatross 46/80</h3>
+<p>Caiku Albatross 设备由 Tivomatic 制造并在芬兰销售，可以通过 USB 或串行方式连接。
+您不需要安装任何特定的驱动程序即可使用这些点显器。
+只需插入点显器并配置 NVDA 即可使用。</p>
+<p>注意：强烈建议将波特率设置为 19200。
+如果需要，从盲文设备的菜单将波特率设置值切换为 19200。
+虽然驱动程序支持 9600 波特率，但其无法控制点显器使用的波特率。
+由于 19200 是点显器的默认波特率，因此驱动程序会首先尝试。
+如果波特率不同，驱动程序可能会出现异常行为。</p>
+<p>以下是这些点显器使用 NVDA 时的按键分配。
+请参阅点显器的文档，了解这些按键所在位置的说明。</p>
 <!-- KC:beginInclude -->
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
@@ -8107,7 +8249,7 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>eCursor1</code>, <code>eCursor2</code></td>
 </tr>
 <tr>
-<td>Move to current focus</td>
+<td>移动到当前焦点</td>
 <td><code>cursor1</code>, <code>cursor2</code></td>
 </tr>
 <tr>
@@ -8123,39 +8265,39 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>eCursor1+eCursor2</code></td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td><code>cursor1+cursor2</code></td>
 </tr>
 <tr>
-<td>Move braille display to previous line</td>
+<td>移动点显器到上一行</td>
 <td><code>up1</code>, <code>up2</code>, <code>up3</code></td>
 </tr>
 <tr>
-<td>Move braille display to next line</td>
+<td>移动点显器到下一行</td>
 <td><code>down1</code>, <code>down2</code>, <code>down3</code></td>
 </tr>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td><code>left</code>, <code>lWheelLeft</code>, <code>rWheelLeft</code></td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td><code>right</code>, <code>lWheelRight</code>, <code>rWheelRight</code></td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td><code>routing</code></td>
 </tr>
 <tr>
-<td>Report text formatting under braille cell</td>
+<td>读出盲文单元格下文本的格式</td>
 <td><code>secondary routing</code></td>
 </tr>
 <tr>
-<td>Toggle the way context information is presented in braille</td>
+<td>切换盲文显示焦点上下文</td>
 <td><code>attribute1+attribute3</code></td>
 </tr>
 <tr>
-<td>Cycles between speech modes</td>
+<td>循环语音模式</td>
 <td><code>attribute2+attribute4</code></td>
 </tr>
 <tr>
@@ -8191,7 +8333,7 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>f8</code></td>
 </tr>
 <tr>
-<td>Shows braille settings</td>
+<td>打开盲文设置</td>
 <td><code>f1+home1</code>, <code>f9+home2</code></td>
 </tr>
 <tr>
@@ -8199,19 +8341,19 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>f1+end1</code>, <code>f9+end2</code></td>
 </tr>
 <tr>
-<td>Cycle the braille cursor shape</td>
+<td>在光标形状之间切换</td>
 <td><code>f1+eCursor1</code>, <code>f9+eCursor2</code></td>
 </tr>
 <tr>
-<td>Toggle the braille cursor</td>
+<td>切换盲文光标</td>
 <td><code>f1+cursor1</code>, <code>f9+cursor2</code></td>
 </tr>
 <tr>
-<td>Cycle the braille show messages mode</td>
+<td>在盲文消息模式之间循环切换</td>
 <td><code>f1+f2</code>, <code>f9+f10</code></td>
 </tr>
 <tr>
-<td>Cycle the braille show selection state</td>
+<td>在盲文选中指示光标之间循环切换</td>
 <td><code>f1+f5</code>, <code>f9+f14</code></td>
 </tr>
 <tr>
@@ -8219,31 +8361,31 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>f1+f3</code>, <code>f9+f11</code></td>
 </tr>
 <tr>
-<td>Performs the default action on the current navigator object</td>
+<td>对当前导航对象执行默认操作</td>
 <td><code>f7+f8</code></td>
 </tr>
 <tr>
-<td>Reports date/time</td>
+<td>读出日期/时间</td>
 <td><code>f9</code></td>
 </tr>
 <tr>
-<td>Reports battery status and time remaining if AC is not plugged in</td>
+<td>如果没有连接交流电源，读出电池状态和可用时间</td>
 <td><code>f10</code></td>
 </tr>
 <tr>
-<td>Reports title</td>
+<td>读出标题</td>
 <td><code>f11</code></td>
 </tr>
 <tr>
-<td>Reports status bar</td>
+<td>读出状态栏</td>
 <td><code>f12</code></td>
 </tr>
 <tr>
-<td>Reports the current line under the application cursor</td>
+<td>读出应用程序焦点所在行的内容</td>
 <td><code>f13</code></td>
 </tr>
 <tr>
-<td>Say all</td>
+<td>全文朗读</td>
 <td><code>f14</code></td>
 </tr>
 <tr>
@@ -8267,19 +8409,19 @@ Please see the display's documentation for descriptions of where these keys can 
 <td><code>lWheelDown</code>, <code>rWheelDown</code></td>
 </tr>
 <tr>
-<td><code>Windows+d</code> key (minimize all applications)</td>
+<td><code>Windows+D</code> 键（最小化所有应用程序）</td>
 <td><code>attribute1</code></td>
 </tr>
 <tr>
-<td><code>Windows+e</code> key (this computer)</td>
+<td><code>Windows+E</code> 键（此电脑</td>
 <td><code>attribute2</code></td>
 </tr>
 <tr>
-<td><code>Windows+b</code> key (focus system tray)</td>
+<td><code>Windows+B</code> 键（聚焦系统托盘）</td>
 <td><code>attribute3</code></td>
 </tr>
 <tr>
-<td><code>Windows+i</code> key (Windows settings)</td>
+<td><code>Windows+I</code> 键（Windows 设置）</td>
 <td><code>attribute4</code></td>
 </tr>
 </tbody>
@@ -8296,82 +8438,82 @@ Please see the display's documentation for descriptions of where these keys can 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Key</th>
+<th>名称</th>
+<th>按键</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Scroll braille display back</td>
+<td>向后滚动盲文显示</td>
 <td>pan left or rocker up</td>
 </tr>
 <tr>
-<td>Scroll braille display forward</td>
+<td>向前滚动盲文显示</td>
 <td>pan right or rocker down</td>
 </tr>
 <tr>
-<td>Route to braille cell</td>
+<td>定位盲文单元</td>
 <td>routing set 1</td>
 </tr>
 <tr>
-<td>Toggle braille tethered to</td>
+<td>切换盲文显示跟随到</td>
 <td>up+down</td>
 </tr>
 <tr>
-<td>upArrow key</td>
-<td>joystick up, dpad up or space+dot1</td>
+<td>上光标键</td>
+<td>joystick up, dpad up or space+1 点</td>
 </tr>
 <tr>
-<td>downArrow key</td>
-<td>joystick down, dpad down or space+dot4</td>
+<td>下光标键</td>
+<td>joystick down, dpad down or space+4 点</td>
 </tr>
 <tr>
-<td>leftArrow key</td>
-<td>space+dot3, joystick left  or dpad left</td>
+<td>左光标键</td>
+<td>space+3 点, joystick left  or dpad left</td>
 </tr>
 <tr>
-<td>rightArrow key</td>
-<td>space+dot6, joystick right or dpad right</td>
+<td>右光标键</td>
+<td>space+6 点, joystick right or dpad right</td>
 </tr>
 <tr>
-<td>shift+tab key</td>
-<td>space+dot1+dot3</td>
+<td>Shift+Tab 键</td>
+<td>space+1、3 点</td>
 </tr>
 <tr>
-<td>tab key</td>
-<td>space+dot4+dot6</td>
+<td>Tab 键</td>
+<td>space+4、6 点</td>
 </tr>
 <tr>
-<td>alt key</td>
-<td>space+dot1+dot3+dot4 (space+m)</td>
+<td>Alt 键</td>
+<td>space+1、3、4 点 (space+m)</td>
 </tr>
 <tr>
-<td>escape key</td>
-<td>space+dot1+dot5 (space+e)</td>
+<td>ESC 键</td>
+<td>space+1、5 点 (space+e)</td>
 </tr>
 <tr>
-<td>enter key</td>
-<td>dot8, joystick center or dpad center</td>
+<td>回车键</td>
+<td>8 点, joystick center or dpad center</td>
 </tr>
 <tr>
-<td>windows key</td>
-<td>space+dot3+dot4</td>
+<td>Windows 键</td>
+<td>space+3、4 点</td>
 </tr>
 <tr>
-<td>alt+tab key</td>
-<td>space+dot2+dot3+dot4+dot5 (space+t)</td>
+<td>Alt+Tab 键</td>
+<td>space+2、3、4、5 点 (space+t)</td>
 </tr>
 <tr>
-<td>NVDA Menu</td>
-<td>space+dot1+dot3+dot4+dot5 (space+n)</td>
+<td>NVDA 菜单</td>
+<td>space+1、3、4、5 点 (space+n)</td>
 </tr>
 <tr>
-<td>windows+d key (minimize all applications)</td>
-<td>space+dot1+dot4+dot5 (space+d)</td>
+<td>Windows+D 键（最小化所有应用程序）</td>
+<td>space+1、4、5 点 (space+d)</td>
 </tr>
 <tr>
-<td>Say all</td>
-<td>space+dot1+dot2+dot3+dot4+dot5+dot6</td>
+<td>全文朗读</td>
+<td>space+1、2、3、4、5、6 点</td>
 </tr>
 </tbody>
 </table>
@@ -8383,19 +8525,19 @@ Please see the display's documentation for descriptions of where these keys can 
 NVDA 可以安装自定义插件，这些插件可以执行任意代码，包括在 NVDA 获得管理员权限时。
 NVDA 还可以让用户在 NVDA Python 控制台中执行任意代码。
 NVDA 安全模式可防止用户修改 NVDA 设置，并用其他方式限制其对系统的访问权限。</p>
-<p>在<a href="#SecureScreens" title="安全界面">安全界面</a>时，除非启用了 <code>serviceDebug</code> <a href="#SystemWideParameters" title="系统范围参数">系统范围参数</a>，否则 NVDA 默认将以安全模式运行，
+<p>在<a href="#SecureScreens" title="安全界面">安全界面</a>时，除非启用了 <code>serviceDebug</code> <a href="#SystemWideParameters" title="系统范围参数">系统范围参数</a>，否则 NVDA 默认将以安全模式运行。
 要强制 NVDA 始终以安全模式运行，请设置 <code>forceSecureMode</code> <a href="#SystemWideParameters" title="系统范围参数">系统范围参数</a>。
 NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令行选项">命令行选项</a>在安全模式下启动。</p>
 <p>在安全模式下禁用以下功能：</p>
 <ul>
-<li>将配置和其他设置信息保存到磁盘。</li>
-<li>将按键与手势设置保存到磁盘。</li>
+<li>将配置和其他设置信息保存到磁盘</li>
+<li>将按键与手势设置保存到磁盘</li>
 <li><a href="#ConfigurationProfiles" title="配置文件">配置文件</a>创建、删除、重命名配置文件等功能。</li>
 <li>使用 <a href="#CommandLineOptions" title="-c 命令行选项"><code>-c</code> 命令行选项</a>加载自定义配置文件夹</li>
-<li>更新 NVDA 以及创建便携版。</li>
+<li>更新 NVDA 以及创建便携版</li>
 <li><a href="#AddonsManager" title="插件商店">插件商店</a></li>
 <li><a href="#PythonConsole" title="NVDA Python 控制台">NVDA Python 控制台</a></li>
-<li><a href="#LogViewer" title="日志查看器">日志查看器</a>和日志记录。</li>
+<li><a href="#LogViewer" title="日志查看器">日志查看器</a>和日志记录</li>
 <li><a href="#BrailleViewer" title="盲文查看器">盲文查看器</a>和<a href="#SpeechViewer" title="朗读查看器">朗读查看器</a></li>
 <li>从 NVDA 菜单中打开外部文档，例如用户指南或贡献者名单。</li>
 </ul>
@@ -8414,8 +8556,8 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 可以将用户配置<a href="#GeneralSettingsCopySettings" title="应用到安全界面">应用到安全界面</a>。</p>
 <p>安全界面包括：</p>
 <ul>
-<li>Windows 登录界面。</li>
-<li>用户账户控制对话框，在以管理员权限执行程序时显示。<ul>
+<li>Windows 登录界面</li>
+<li>用户账户控制对话框，在以管理员权限执行程序时显示<ul>
 <li>包括安装程序</li>
 </ul>
 </li>
@@ -8442,11 +8584,11 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tbody>
 <tr>
 <td><code>nvda -mc CONFIGPATH</code></td>
-<td>按照指定的配置目录启动 NVDA 并在停用启动声音和启动消息。</td>
+<td>按照指定的配置目录启动 NVDA 并在停用启动声音和启动消息</td>
 </tr>
 <tr>
 <td><code>nvda -mc CONFIGPATH --disable-addons</code></td>
-<td>在上一行的效果的基础上另外停用了插件。</td>
+<td>在上一行的效果的基础上另外停用了插件</td>
 </tr>
 </tbody>
 </table>
@@ -8462,7 +8604,7 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tbody>
 <tr>
 <td><code>nvda -l 10</code></td>
-<td>告诉 NVDA 在日志记录级别为调试的状态下启动。</td>
+<td>告诉 NVDA 在日志记录级别为调试的状态下启动</td>
 </tr>
 <tr>
 <td><code>nvda --log-file=c:\nvda.log</code></td>
@@ -8487,17 +8629,17 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tr>
 <td><code>-h</code></td>
 <td><code>--help</code></td>
-<td>显示命令行帮助并退出。</td>
+<td>显示命令行帮助并退出</td>
 </tr>
 <tr>
 <td><code>-q</code></td>
 <td><code>--quit</code></td>
-<td>退出已运行的 NVDA 副本。</td>
+<td>退出已运行的 NVDA 副本</td>
 </tr>
 <tr>
 <td><code>-k</code></td>
 <td><code>--check-running</code></td>
-<td>通过退出代码报告 NVDA 是否在运行，0 表示运行，1 表示没有运行。</td>
+<td>通过退出代码报告 NVDA 是否在运行，0 表示运行，1 表示没有运行</td>
 </tr>
 <tr>
 <td><code>-f LOGFILENAME</code></td>
@@ -8532,7 +8674,7 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tr>
 <td>无</td>
 <td><code>--disable-addons</code></td>
-<td>禁用插件。</td>
+<td>禁用插件</td>
 </tr>
 <tr>
 <td>无</td>
@@ -8542,12 +8684,12 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tr>
 <td>无</td>
 <td><code>--no-logging</code></td>
-<td>禁用 NVDA 日志功能 注意 <code>--debug-logging</code> 和 <code>--loglevel</code> 会覆盖这个参数</td>
+<td>禁用 NVDA 日志功能 注意 <code>--debug-logging</code> 和 <code>--loglevel</code> 会覆盖这个参数。</td>
 </tr>
 <tr>
 <td>无</td>
 <td><code>--no-sr-flag</code></td>
-<td>不修改 Windows 系统全局屏幕阅读器标志。</td>
+<td>不修改 Windows 系统全局屏幕阅读器标志</td>
 </tr>
 <tr>
 <td>无</td>
@@ -8567,12 +8709,12 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tr>
 <td>无</td>
 <td><code>--copy-portable-config</code></td>
-<td>安装时，将便携版配置从所提供的路径（<code>--config-path</code>、<code>-c</code>）复制到当前用户帐户目录下。</td>
+<td>安装时，将便携版配置从所提供的路径（<code>--config-path</code>、<code>-c</code>）复制到当前用户帐户目录下</td>
 </tr>
 <tr>
 <td>无</td>
 <td><code>--create-portable</code></td>
-<td>创建一个便携版（并启动该便携版）。 必须和 <code>--portable-path</code> 一起使用。</td>
+<td>创建一个便携版（并启动该便携版）。 必须和 <code>--portable-path</code> 一起使用</td>
 </tr>
 <tr>
 <td>无</td>
@@ -8599,7 +8741,7 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <tr>
 <th>名称</th>
 <th>类型</th>
-<th>数值</th>
+<th>值</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -8608,13 +8750,13 @@ NVDA 还可以使用 <code>-s</code> <a href="#CommandLineOptions" title="命令
 <td><code>configInLocalAppData</code></td>
 <td>DWORD</td>
 <td>0（默认）禁用，1 启用</td>
-<td>如果启用，则将 NVDA 用户配置存储在本地应用程序数据目录，而不是漫游应用程序数据目录。</td>
+<td>如果启用，则将 NVDA 用户配置存储在本地应用程序数据目录，而不是漫游应用程序数据目录</td>
 </tr>
 <tr>
 <td><code>serviceDebug</code></td>
 <td>DWORD</td>
 <td>0（默认）禁用，1 启用</td>
-<td>如果启用，会让 NVDA 在<a href="#SecureScreens" title="安全界面">安全界面</a>禁用<a href="#SecureMode" title="安全模式">安全模式</a>。由于存在一些严重的安全隐患，强烈建议不要使用该选项。</td>
+<td>如果启用，会让 NVDA 在<a href="#SecureScreens" title="安全界面">安全界面</a>禁用<a href="#SecureMode" title="安全模式">安全模式</a>。由于存在一些严重的安全隐患，强烈建议不要使用该选项</td>
 </tr>
 <tr>
 <td><code>forceSecureMode</code></td>

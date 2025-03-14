@@ -2,20 +2,20 @@
 <html lang="de" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.3.1 Benutzerhandbuch</title>
+<title>NVDA 2024.4.2 Benutzerhandbuch</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="nvda-202431-benutzerhandbuch">NVDA 2024.3.1 Benutzerhandbuch</h1>
+<body><h1 id="nvda-202442-benutzerhandbuch">NVDA 2024.4.2 Benutzerhandbuch</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202431-benutzerhandbuch" title="NVDA 2024.3.1 Benutzerhandbuch">NVDA 2024.3.1 Benutzerhandbuch</a><ul>
+<li><a href="#nvda-202442-benutzerhandbuch" title="NVDA 2024.4.2 Benutzerhandbuch">NVDA 2024.4.2 Benutzerhandbuch</a><ul>
 <li><a href="#Introduction" title="Einleitung">Einleitung</a><ul>
 <li><a href="#GeneralFeatures" title="Allgemeine Features">Allgemeine Features</a></li>
 <li><a href="#SystemRequirements" title="Systemanforderungen">Systemanforderungen</a><ul>
-<li><a href="#MinimumSystemRequirements" title="Empfohlene Systemanforderungen">Empfohlene Systemanforderungen</a></li>
 <li><a href="#MinimumSystemRequirements" title="Minimale Systemanforderungen">Minimale Systemanforderungen</a></li>
+<li><a href="#RecommendedSystemRequirements" title="Empfohlene Systemanforderungen">Empfohlene Systemanforderungen</a></li>
 </ul>
 </li>
 <li><a href="#Internationalization" title="Internationalisierung">Internationalisierung</a></li>
@@ -244,11 +244,17 @@
 <li><a href="#BrailleTether" title="Text auf Braillezeile koppeln">Text auf Braillezeile koppeln</a></li>
 <li><a href="#BrailleSettingsReviewRoutingMovesSystemCaret" title="Den System-Cursor bei der Weiterleitung des NVDA-Cursors verschieben">Den System-Cursor bei der Weiterleitung des NVDA-Cursors verschieben</a></li>
 <li><a href="#BrailleSettingsReadByParagraph" title="Absatzweises Lesen">Absatzweises Lesen</a></li>
-<li><a href="#BrailleSettingsWordWrap" title="Wortumbruch verhindern, falls möglich">Wortumbruch verhindern, falls möglich</a></li>
-<li><a href="#BrailleUnicodeNormalization" title="Unicode-Normalisierung">Unicode-Normalisierung</a></li>
+<li><a href="#BrailleParagraphStartMarkers" title="Absatzanfangsmarkierung">Absatzanfangsmarkierung</a></li>
 <li><a href="#BrailleSettingsFocusContextPresentation" title="Kontextbezogene Informationen anzeigen">Kontextbezogene Informationen anzeigen</a></li>
-<li><a href="#BrailleSettingsInterruptSpeech" title="Unterbrechen der Sprachausgabe beim Navigieren">Unterbrechen der Sprachausgabe beim Navigieren</a></li>
 <li><a href="#BrailleSettingsShowSelection" title="Auswahl anzeigen">Auswahl anzeigen</a></li>
+<li><a href="#BrailleFormattingDisplay" title="Formattierung auf der Braillezeile ausgeben">Formattierung auf der Braillezeile ausgeben</a><ul>
+<li><a href="#BrailleFormattingDisplayTags" title="Tags">Tags</a></li>
+</ul>
+</li>
+<li><a href="#BrailleSpeakOnRouting" title="Speak character when routing cursor in text">Speak character when routing cursor in text</a></li>
+<li><a href="#BrailleSettingsWordWrap" title="Wortumbrüche vermeiden, falls möglich">Wortumbrüche vermeiden, falls möglich</a></li>
+<li><a href="#BrailleUnicodeNormalization" title="Unicode-Normalisierung">Unicode-Normalisierung</a></li>
+<li><a href="#BrailleSettingsInterruptSpeech" title="Interrupt speech while scrolling">Interrupt speech while scrolling</a></li>
 </ul>
 </li>
 <li><a href="#SelectBrailleDisplay" title="Braillezeile auswählen">Braillezeile auswählen</a><ul>
@@ -288,6 +294,7 @@
 <li><a href="#KeyboardSettingsSpeakCommandKeys" title="Funktionstasten ansagen">Funktionstasten ansagen</a></li>
 <li><a href="#KeyboardSettingsAlertForSpellingErrors" title="Sound während der Eingabe bei Rechtschreibfehlern wiedergeben">Sound während der Eingabe bei Rechtschreibfehlern wiedergeben</a></li>
 <li><a href="#KeyboardSettingsHandleKeys" title="Tastendrücke anderer Anwendungen verarbeiten">Tastendrücke anderer Anwendungen verarbeiten</a></li>
+<li><a href="#MultiPressTimeout" title="Multiple key press timeout">Multiple key press timeout</a></li>
 </ul>
 </li>
 <li><a href="#MouseSettings" title="Die Maus-Einstellungen">Die Maus-Einstellungen</a><ul>
@@ -353,6 +360,7 @@
 </li>
 <li><a href="#DocumentFormattingSettings" title="Die Einstellungen der Dokument-Formatierungen">Die Einstellungen der Dokument-Formatierungen</a><ul>
 <li><a href="#OpenDocumentFormattingSettings" title="Einstellungen der Dokument-Formatierung öffnen">Einstellungen der Dokument-Formatierung öffnen</a></li>
+<li><a href="#DocumentFormattingFontAttributes" title="Schriftattribute">Schriftattribute</a></li>
 <li><a href="#DocumentFormattingDetectFormatAfterCursor" title="Änderungen der Formatierungen nach der Cursor-Position mitteilen">Änderungen der Formatierungen nach der Cursor-Position mitteilen</a></li>
 <li><a href="#DocumentFormattingSettingsLineIndentation" title="Ausgabe von Zeileneinrückungen">Ausgabe von Zeileneinrückungen</a></li>
 </ul>
@@ -387,7 +395,7 @@
 <li><a href="#AdvancedSettingsKeyboardSupportInLegacy" title="Verwendung der erweiterten Unterstützung während der Eingabe von Zeichen in der alten Windows-Konsole, sofern verfügbar">Verwendung der erweiterten Unterstützung während der Eingabe von Zeichen in der alten Windows-Konsole, sofern verfügbar</a></li>
 <li><a href="#DiffAlgo" title="Der Diff-Algorithmus">Der Diff-Algorithmus</a></li>
 <li><a href="#WtStrategy" title="Neuen Text in Windows-Terminal mitteilen via">Neuen Text in Windows-Terminal mitteilen via</a></li>
-<li><a href="#CancelExpiredFocusSpeech" title="Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist:">Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist:</a></li>
+<li><a href="#CancelExpiredFocusSpeech" title="Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist">Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist</a></li>
 <li><a href="#AdvancedSettingsCaretMoveTimeout" title="Zeitüberschreitung beim Navigieren mit dem System-Cursor">Zeitüberschreitung beim Navigieren mit dem System-Cursor</a></li>
 <li><a href="#ReportTransparentColors" title="Transparente Farben mitteilen">Transparente Farben mitteilen</a></li>
 <li><a href="#WASAPI" title="WASAPI für die Audio-Ausgabe verwenden">WASAPI für die Audio-Ausgabe verwenden</a></li>
@@ -444,12 +452,12 @@
 <li><a href="#PythonConsole" title="Die Python-Konsole">Die Python-Konsole</a></li>
 <li><a href="#AddonStoreMenuItem" title="Der Store für NVDA-Erweiterungen">Der Store für NVDA-Erweiterungen</a></li>
 <li><a href="#CreatePortableCopy" title="Eine portable Version erstellen">Eine portable Version erstellen</a></li>
-<li><a href="#RunCOMRegistrationFixingTool" title="Tool zur Behebung für die COM-Registrierung ausführen">Tool zur Behebung für die COM-Registrierung ausführen</a></li>
+<li><a href="#RunCOMRegistrationFixingTool" title="Tool zur Behebung für die COM-Registrierung ausführen...">Tool zur Behebung für die COM-Registrierung ausführen...</a></li>
 <li><a href="#ReloadPlugins" title="Plugins neu laden">Plugins neu laden</a></li>
 </ul>
 </li>
 <li><a href="#SupportedSpeechSynths" title="Unterstützte Sprachausgaben">Unterstützte Sprachausgaben</a><ul>
-<li><a href="#eSpeakNG" title="eSpeak NG">eSpeak NG</a></li>
+<li><a href="#eSpeakNG" title="eSpeak-NG">eSpeak-NG</a></li>
 <li><a href="#SAPI4" title="Microsoft Speech API Version 4 (SAPI 4)">Microsoft Speech API Version 4 (SAPI 4)</a></li>
 <li><a href="#SAPI5" title="Microsoft Speech API Version 5 (SAPI 5)">Microsoft Speech API Version 5 (SAPI 5)</a></li>
 <li><a href="#MicrosoftSpeechPlatform" title="Microsoft Speech Platform">Microsoft Speech Platform</a></li>
@@ -508,7 +516,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: NVDA 2024.3.1 Kurzübersicht der Befehle -->
+<!-- KC:title: NVDA 2024.4.2 Kurzübersicht der Befehle -->
 
 <h2 id="Introduction">Einleitung</h2>
 <p>Willkommen bei NVDA!</p>
@@ -520,40 +528,40 @@ Entwickelt wird NVDA von <a href="https://www.nvaccess.org/" rel="noopener" targ
 <p>Eine kurze Video-Demonstration <a href="https://www.youtube.com/watch?v=tCFyyqy9mqo" rel="noopener" target="_blank" title="&quot;Was ist NVDA?&quot;">"Was ist NVDA?"</a> ist auf dem NV Access YouTube-Kanal verfügbar.</p>
 <p>Zu den wichtigsten Funktionen gehören:</p>
 <ul>
-<li>Unterstützung der am weitesten verbreiteten Anwendungen einschließlich Web-Browser, E-Mail-Clients, Programme für Internet-Chats und Office-Anwendungen.</li>
-<li>Integrierte Sprachausgabe, die über 80 Landessprachen unterstützt.</li>
-<li>Rückmeldungen von Textformatierungen und Rechtschreibfehlern.</li>
-<li>Automatische Ansage der Mausposition und optionaler Audio-Koordinaten.</li>
-<li>Unterstützung für viele Braillezeilen, einschließlich der Möglichkeit, viele davon automatisch zu erkennen sowie Braille-Eingabe auf Braillezeilen mit einer Braille-Tastatur.</li>
-<li>Ausführen von einem USB-Stick oder anderen transportablen Medien.</li>
-<li>Einfache Bedienung während der Installation mit Unterstützung durch die Sprachausgabe.</li>
-<li>Übersetzt in mehr als 54 Sprachen.</li>
-<li>Unterstützung für moderne Windows-Betriebssysteme (32- und 64-Bit).</li>
+<li>Unterstützung für gängige Anwendungen wie Web-Browser, E-Mail-Clients, Internet-Chat-Programme und Office-Pakete</li>
+<li>Integrierte Sprachausgabe mit Unterstützung für über 80 Sprachen</li>
+<li>Rückmeldungen von Textformatierungen und Rechtschreibfehlern</li>
+<li>Automatische Ansage der Mausposition und optionaler Audio-Koordinaten</li>
+<li>Unterstützung für viele Braillezeilen, auch viele mit automatischer Erkennung, sowie die Braille-Eingabe auf Braillezeilen mit einer Braille-Tastatur</li>
+<li>Ausführen von einem USB-Stick oder anderen transportablen Medien</li>
+<li>Einfache Bedienung während der Installation mit Unterstützung durch die Sprachausgabe</li>
+<li>Übersetzt in mehr als 54 Sprachen</li>
+<li>Unterstützung für moderne Windows-Betriebssysteme (32- und 64-Bit)</li>
 <li>Lauffähig während der Windows-Anmeldung und <a href="#SecureScreens" title="anderen Sicherheitsmeldungen">anderen Sicherheitsmeldungen</a>.</li>
-<li>Unterstützung für Touchscreens.</li>
-<li>Unterstützung gängiger Schnittstellen zur Barrierefreiheit wie Microsoft Active Accessibility, Java Access Bridge, IAccessible2 und UIA.</li>
-<li>Unterstützung für die Windows-Eingabeaufforderung und -Konsolenanwendungen.</li>
-<li>Möglichkeit, den System-Fokus hervorzuheben.</li>
+<li>Unterstützung für Touchscreens</li>
+<li>Unterstützung gängiger Schnittstellen zur Barrierefreiheit wie Microsoft Active Accessibility, Java Access Bridge, IAccessible2 und UIA</li>
+<li>Unterstützung für die Windows-Eingabeaufforderung und -Konsolenanwendungen</li>
+<li>Möglichkeit, den System-Fokus hervorzuheben</li>
 </ul>
 <h3 id="SystemRequirements">Systemanforderungen</h3>
-<h4 id="MinimumSystemRequirements">Empfohlene Systemanforderungen</h4>
-<ul>
-<li>Betriebssysteme (64-Bit): Windows 10, Windows 11 und Window Server 2022<ul>
-<li>Sowohl AMD64- als auch ARM64-Varianten von Windows werden unterstützt.</li>
-</ul>
-</li>
-<li>Mindestens 150 MB Speicherplatz.</li>
-<li>Mindestens 4 GB RAM.</li>
-</ul>
 <h4 id="MinimumSystemRequirements">Minimale Systemanforderungen</h4>
 <ul>
 <li>Betriebssysteme: Alle 32-Bit- und 64-Bit-Versionen von Windows 8.1, Windows 10, Windows 11 und alle Server-Versionen ab Windows Server 20012 R2.<ul>
 <li>Es werden sowohl AMD64- als auch ARM64-Varianten von Windows unterstützt.</li>
-<li>Hinweis: Betriebssysteme (32-Bit) werden nicht mehr aktiv unterstützt.</li>
+<li>Beachten Sie, dass 32-Bit-Betriebssysteme nicht mehr aktiv unterstützt werden.</li>
 <li>Beachten Sie, dass Windows 8.1 und Windows Server, die älter als 2022 sind, nicht mehr aktiv unterstützt werden.</li>
 </ul>
 </li>
-<li>Mindestens 150 MB Speicherplatz.</li>
+<li>Mindestens 500 MB Speicherplatz.</li>
+</ul>
+<h4 id="RecommendedSystemRequirements">Empfohlene Systemanforderungen</h4>
+<ul>
+<li>Betriebssysteme: 64-Bit-Versionen von Windows 10, Windows 11 und Windows Server 2022.<ul>
+<li>sowohl AMD64- als auch ARM64-Varianten von Windows werden unterstützt.</li>
+</ul>
+</li>
+<li>Mindestens 500 MB Speicherplatz.</li>
+<li>Mindestens 4 GB Arbeitsspeicher.</li>
 </ul>
 <h3 id="Internationalization">Internationalisierung</h3>
 <p>Auf der Welt sollten alle Menschen den gleichen Zugang zur Information und zu moderner Technologie erhalten, unabhängig von der Sprache.
@@ -596,9 +604,9 @@ Unter <a href="#SystemRequirements" title="Systemvoraussetzungen">Systemvorausse
 <li>Öffnen Sie einen Web-Browser (drücken Sie die <code>Windows</code>-Taste, geben Sie den Namen des gewünschten Web-Browsers ein und drücken Sie dann die <code>Eingabetaste</code>).</li>
 <li>Öffnen Sie die Download-Seite von NV Access (Drücken Sie <code>Alt+D</code>, geben Sie die folgende Adresse ein und drücken dann die <code>Eingabetaste</code>):
 https://www.nvaccess.org/download</li>
-<li>Klicken Sie auf den Schalter "Download".</li>
-<li>Es kann sein, dass der Browser nach dem Herunterladen zu einer Aktion auffordert und dann das Herunterladen startet.</li>
-<li>Je nach Browser kann die Datei nach dem Herunterladen automatisch ausgeführt werden.</li>
+<li>Klicken Sie auf den Schalter "Download"</li>
+<li>Es kann sein, dass der Browser nach dem Herunterladen zu einer Aktion auffordert und dann das Herunterladen startet</li>
+<li>Je nach Browser kann die Datei nach dem Herunterladen automatisch ausgeführt werden</li>
 <li>Wenn die Datei manuell gestartet werden muss, drücken Sie <code>Alt+N</code>, um in den Infobereich zu gelangen, dann <code>alt+r</code>, um die Datei zu starten (oder die Schritte für Ihren Browser).</li>
 </ul>
 <h3 id="SettingUpNVDA">NVDA einrichten</h3>
@@ -646,7 +654,7 @@ Weitere Einzelheiten zu den verfügbaren Optionen finden Sie unter <a href="#Ins
 Diese sind standardmäßig aktiviert.
 Wenn Sie möchten, können Sie mit den Tasten <code>Tab</code> und <code>Leertaste</code> eine dieser Optionen ändern oder die Standard-Einstellungen beibehalten.</li>
 <li>Drücken Sie die <code>Eingabetaste</code>, um fortzufahren.</li>
-<li>Es erscheint ein Windows-Dialogfeld "Benutzerkontensteuerung (UAC)" mit der Abfrage "Möchten Sie dieser Anwendung erlauben, Änderungen an Ihrem PC vorzunehmen?</li>
+<li>Es erscheint ein Windows-Dialog "Benutzerkontensteuerung (UAC)" mit der Frage "Möchten Sie dieser Anwendung erlauben, Änderungen an Ihrem PC vorzunehmen?".</li>
 <li>Drücken Sie <code>Alt+J</code>, um diese Aufforderung zu akzeptieren.</li>
 <li>Ein Fortschrittsbalken läuft während der Installation von NVDA durch.
 Während dieses Vorgangs gibt NVDA einen immer höher werdenden Signalton von sich.
@@ -696,25 +704,25 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>NVDA starten</td>
 <td><code>Strg+Alt+N</code></td>
 <td><code>Strg+Alt+N</code></td>
-<td>Startet NVDA oder bei Bedarf auch neu.</td>
+<td>Startet NVDA oder bei Bedarf auch neu</td>
 </tr>
 <tr>
 <td>NVDA beenden</td>
 <td><code>NVDA+Q</code>, dann <code>Eingabetaste</code></td>
 <td><code>NVDA+Q</code>, dann <code>Eingabetaste</code></td>
-<td>Beendet NVDA.</td>
+<td>Beendet NVDA</td>
 </tr>
 <tr>
 <td>Die Sprachausgabe beim Vorlesen pausieren oder fortfahren</td>
 <td><code>Umschalt-Taste</code></td>
 <td><code>Umschalt-Taste</code></td>
-<td>Pausiert die Sprachausgabe beim Vorlesen. Wird die Taste erneut gedrückt, liest NVDA an der zuvor aufgehörten Stelle weiter vor.</td>
+<td>Pausiert die Sprachausgabe beim Vorlesen. Wird die Taste erneut gedrückt, liest NVDA an der zuvor aufgehörten Stelle weiter vor</td>
 </tr>
 <tr>
 <td>Sprachausgabe unterbrechen</td>
 <td><code>Strg-Taste</code></td>
 <td><code>Strg-Taste</code></td>
-<td>Unterbricht die Sprachausgabe beim Vorlesen.</td>
+<td>Unterbricht die Sprachausgabe beim Vorlesen</td>
 </tr>
 </tbody>
 </table>
@@ -733,7 +741,7 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Alles vorlesen</td>
 <td><code>NVDA+Pfeiltaste nach unten</code></td>
 <td><code>NVDA+A</code></td>
-<td>Beginnt an der aktuellen Position mit dem Lesen und zieht  den Fokus dabei mit.</td>
+<td>Beginnt an der aktuellen Position mit dem Lesen und zieht  den Fokus dabei mit</td>
 </tr>
 <tr>
 <td>Aktuelle Zeile vorlesen</td>
@@ -745,13 +753,13 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Auswahl vorlesen</td>
 <td><code>NVDA+Umschalt+Pfeiltaste nach oben</code></td>
 <td><code>NVDA+Umschalt+S</code></td>
-<td>Liest markierten Text vor. Zweimaliges Drücken buchstabiert diesen und dreimaliges Drücken buchstabiert ihn phonetisch.</td>
+<td>Liest markierten Text vor. Zweimaliges Drücken buchstabiert diesen und dreimaliges Drücken buchstabiert ihn phonetisch</td>
 </tr>
 <tr>
 <td>Text aus der Zwischenablage vorlesen</td>
 <td><code>NVDA+C</code></td>
 <td><code>NVDA+C</code></td>
-<td>Liest beliebigen Text aus der Zwischenablage vor. Zweimaliges Drücken buchstabiert diesen und dreimaliges Drücken buchstabiert ihn phonetisch.</td>
+<td>Liest beliebigen Text aus der Zwischenablage vor. Zweimaliges Drücken buchstabiert diesen und dreimaliges Drücken buchstabiert ihn phonetisch</td>
 </tr>
 </tbody>
 </table>
@@ -770,13 +778,13 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Fenstertitel mitteilen</td>
 <td><code>NVDA+T</code></td>
 <td><code>NVDA+T</code></td>
-<td>Zeigt den Titel des derzeit aktiven Fensters an. Durch zweimaliges Drücken wird die Information buchstabiert. Durch dreimaliges Drücken wird die Information in die Zwischenablage kopiert.</td>
+<td>Zeigt den Titel des derzeit aktiven Fensters an. Durch zweimaliges Drücken wird die Information buchstabiert. Durch dreimaliges Drücken wird die Information in die Zwischenablage kopiert</td>
 </tr>
 <tr>
 <td>Focus mitteilen</td>
 <td><code>NVDA+Tab</code></td>
 <td><code>NVDA+Tab</code></td>
-<td>Teilt das aktuelle Steuerelement mit, welches den Fokus hat. Zweimaliges Drücken buchstabiert die Informationen und dreimaliges Drücken buchstabiert diese phonetisch.</td>
+<td>Teilt das aktuelle Steuerelement mit, welches den Fokus hat. Zweimaliges Drücken buchstabiert die Informationen und dreimaliges Drücken buchstabiert diese phonetisch</td>
 </tr>
 <tr>
 <td>Fenster vorlesen</td>
@@ -788,7 +796,7 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Statusleiste mitteilen</td>
 <td><code>NVDA+Ende</code></td>
 <td><code>NVDA+Umschalt+Ende</code></td>
-<td>Teilt den Inhalt der Statusleiste mit, wenn NVDA eine findet. Durch zweimaliges Drücken wird die Information buchstabiert. Durch dreimaliges Drücken wird die Information in die Zwischenablage kopiert.</td>
+<td>Teilt den Inhalt der Statusleiste mit, wenn NVDA eine findet. Durch zweimaliges Drücken wird die Information buchstabiert. Durch dreimaliges Drücken wird die Information in die Zwischenablage kopiert</td>
 </tr>
 <tr>
 <td>Datum und Uhrzeit mitteilen</td>
@@ -800,13 +808,13 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Textformatierung mitteilen</td>
 <td><code>NVDA+F</code></td>
 <td><code>NVDA+F</code></td>
-<td>Teilt die Textformatierung mit. Zweimaliges Drücken zeigt die Informationen in einem Fenster an.</td>
+<td>Teilt die Textformatierung mit. Zweimaliges Drücken zeigt die Informationen in einem Fenster an</td>
 </tr>
 <tr>
 <td>Link-Zieladresse mitteilen</td>
 <td><code>NVDA+K</code></td>
 <td><code>NVDA+K</code></td>
-<td>Bei einmaligem drücken wird die Zieladresse des Links an der aktuellen Cursor- oder Fokus-Position ausgegeben. Bei zweimaligem Drücken wird sie in einem Fenster zur genaueren Überprüfung angezeigt.</td>
+<td>Bei einmaligem drücken wird die Zieladresse des Links an der aktuellen Cursor- oder Fokus-Position ausgegeben. Bei zweimaligem Drücken wird sie in einem Fenster zur genaueren Überprüfung angezeigt</td>
 </tr>
 </tbody>
 </table>
@@ -874,19 +882,19 @@ Die eigentlichen Befehle werden im Eingabehilfemodus nicht ausgeführt.</p>
 <td>Erhöhen der aktuellen Sprachausgaben-Einstellung</td>
 <td><code>NVDA+Strg+Pfeiltaste nach oben</code></td>
 <td><code>NVDA+Umschalt+Strg+Pfeiltaste nach oben</code></td>
-<td>Erhöht die aktuelle Spracheinstellung, auf der Sie sich befinden. Erhöht z. B. die Geschwindigkeit, wählt die nächste Stimme aus, erhöht die Lautstärke.</td>
+<td>Erhöht die aktuelle Spracheinstellung, auf der Sie sich befinden. Erhöht z. B. die Geschwindigkeit, wählt die nächste Stimme aus, erhöht die Lautstärke</td>
 </tr>
 <tr>
 <td>Erhöhen der aktuellen Sprachausgaben-Einstellung in größeren Schritten</td>
 <td><code>NVDA+Strg+Seite nach oben</code></td>
 <td><code>NVDA+Umschalt+Strg+Seite nach oben</code></td>
-<td>Erhöht den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten. Wenn Sie sich z. B. auf einer Stimmen-Einstellung befinden, wird alle 20 Stimmen vorwärts mitgeteilt; wenn Sie sich auf Schiebereglereinstellungen (Geschwindigkeit, Tonhöhe, etc.) befinden, wird um bis zu 20 % vorwärts mitgeteilt.</td>
+<td>Erhöht den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten. Wenn Sie sich z. B. auf einer Stimmen-Einstellung befinden, wird alle 20 Stimmen vorwärts mitgeteilt; wenn Sie sich auf Schiebereglereinstellungen (Geschwindigkeit, Tonhöhe, etc.) befinden, wird um bis zu 20 % vorwärts mitgeteilt</td>
 </tr>
 <tr>
 <td>Verringern der aktuellen Sprachausgaben-Einstellung</td>
 <td><code>NVDA+Strg+Pfeiltaste nach unten</code></td>
 <td><code>NVDA+Umschalt+Strg+Pfeiltaste nach unten</code></td>
-<td>Verringert die aktuelle Spracheinstellung, auf der Sie sich befinden. Verringert z. B. die Geschwindigkeit, wählt die vorherige Stimme aus, verringert die Lautstärke.</td>
+<td>Verringert die aktuelle Spracheinstellung, auf der Sie sich befinden. Verringert z. B. die Geschwindigkeit, wählt die vorherige Stimme aus, verringert die Lautstärke</td>
 </tr>
 <tr>
 <td>Verringern der aktuellen Sprachausgaben-Einstellung in größeren Schritten</td>
@@ -913,12 +921,12 @@ Wenn Sie sich in einer Sprachausgaben-Einstellung befinden, wird die erste oder 
 <tr>
 <td>Überschrift</td>
 <td><code>H</code></td>
-<td>Weiter zur nächsten Überschrift.</td>
+<td>Weiter zur nächsten Überschrift</td>
 </tr>
 <tr>
 <td>Überschriftebene 1, 2, oder 3</td>
 <td><code>1</code>, <code>2</code>, <code>3</code></td>
-<td>Zur nächsten Überschrift auf der angegebenen Ebene wechseln.</td>
+<td>Zur nächsten Überschrift auf der angegebenen Ebene wechseln</td>
 </tr>
 <tr>
 <td>Formularfeld</td>
@@ -928,12 +936,12 @@ Wenn Sie sich in einer Sprachausgaben-Einstellung befinden, wird die erste oder 
 <tr>
 <td>Link</td>
 <td><code>K</code></td>
-<td>Wechselt zum nächsten Link.</td>
+<td>Wechselt zum nächsten Link</td>
 </tr>
 <tr>
 <td>Sprungmarke</td>
 <td><code>D</code></td>
-<td>Wechselt zur nächsten Sprungmarke.</td>
+<td>Wechselt zur nächsten Sprungmarke</td>
 </tr>
 <tr>
 <td>Liste</td>
@@ -943,17 +951,17 @@ Wenn Sie sich in einer Sprachausgaben-Einstellung befinden, wird die erste oder 
 <tr>
 <td>Tabelle</td>
 <td><code>T</code></td>
-<td>Wechselt zur nächsten Tabelle.</td>
+<td>Wechselt zur nächsten Tabelle</td>
 </tr>
 <tr>
 <td>Rückwärts gehen</td>
 <td><code>Umschalt+Buchstabe</code></td>
-<td>Drücken Sie <code>Umschalten</code> und einen der oben genannten Buchstaben, um zum vorherigen Element dieses Typs zu gelangen.</td>
+<td>Drücken Sie <code>Umschalten</code> und einen der oben genannten Buchstaben, um zum vorherigen Element dieses Typs zu gelangen</td>
 </tr>
 <tr>
 <td>Liste der Elemente</td>
 <td><code>NVDA+F7</code></td>
-<td>Listet verschiedene Arten von Elementen auf, z. B. Links und Überschriften.</td>
+<td>Listet verschiedene Arten von Elementen auf, z. B. Links und Überschriften</td>
 </tr>
 </tbody>
 </table>
@@ -1173,7 +1181,7 @@ Sie können den Finger dann auch über den Bildschirm bewegen, um Text und Steue
 <p>Weiter unten in diesem Benutzerhandbuch finden Sie bei den Beschreibungen zu den NVDA-Befehlen auch Gesten, mit denen die betreffenden Befehle ausgeführt werden können, wenn Sie einen Touchscreen verwenden.
 In den folgenden Abschnitten finden Sie Anweisungen, wie bestimmte Gesten mit dem Touchscreen verwendet werden.</p>
 <h5 id="Taps">Tippen</h5>
-<p>Tippen Sie schnell mit einem oder mehreren Fingern</p>
+<p>Tippen Sie schnell mit einem oder mehreren Fingern.</p>
 <p>Einmal Tippen mit einem Finger wird im Folgenden einfach als Tippen bezeichnet.
 Gleichzeitiges Tippen mit zwei Fingern wird als Zwei-Finger-Tippen bezeichnet, etc.</p>
 <p>Wenn Sie mehrmals in schneller Folge mit einem oder mehreren Fingern tippen, wird NVDA dies als Mehrfach-Tipp-Geste erkennen.
@@ -1246,7 +1254,7 @@ Auf einer Tastatur ohne <code>Kontextmenü</code>-Taste drücken Sie stattdessen
 <td>Strg</td>
 <td>Strg</td>
 <td>zwei-Finger-tippen</td>
-<td>unterbricht augenblicklich den laufenden Sprechvorgang.</td>
+<td>unterbricht augenblicklich den laufenden Sprechvorgang</td>
 </tr>
 <tr>
 <td>Sprachausgabe anhalten/fortsetzen</td>
@@ -1267,14 +1275,14 @@ Auf einer Tastatur ohne <code>Kontextmenü</code>-Taste drücken Sie stattdessen
 <td>NVDA+1</td>
 <td>NVDA+1</td>
 <td>Keine</td>
-<td>In diesem Modus wird beim Drücken einer Taste die in NVDA assoziierte Taste und die dazugehörige Beschreibung angesagt und in Braille angezeigt.</td>
+<td>In diesem Modus wird beim Drücken einer Taste die in NVDA assoziierte Taste und die dazugehörige Beschreibung angesagt und in Braille angezeigt</td>
 </tr>
 <tr>
 <td>NVDA beenden</td>
 <td>NVDA+Q</td>
 <td>NVDA+Q</td>
 <td>Keine</td>
-<td>Beendet NVDA.</td>
+<td>Beendet NVDA</td>
 </tr>
 <tr>
 <td>Taste durchreichen</td>
@@ -1309,7 +1317,7 @@ Auf einer Tastatur ohne <code>Kontextmenü</code>-Taste drücken Sie stattdessen
 <tr>
 <td>Datum und Uhrzeit mitteilen</td>
 <td>NVDA+F12</td>
-<td>Bei einmal Drücken wird das Datum und bei zweimal Drücken wird die Uhrzeit ausgegeben.</td>
+<td>Bei einmal Drücken wird das Datum und bei zweimal Drücken wird die Uhrzeit ausgegeben</td>
 </tr>
 <tr>
 <td>Akku-Status ansagen</td>
@@ -1369,7 +1377,7 @@ Ein Objekt ist ein einzelner Eintrag, wie z. B.: eine Textpassage, ein Schalter,
 <h3 id="SystemFocus">Mit dem System-Fokus navigieren</h3>
 <p>Der System-Fokus, auch Fokus genannt, ist dasjenige <a href="#Objects" title="Objekt">Objekt</a>, welches die Tastendrücke von der Tastatur entgegennimmt.
 Ein Beispiel: Wenn Sie einen Text in einem Eingabefeld eingeben, wird dieses hervorgehoben.</p>
-<p>Die gebräuchlichste Art, sich in einer Windows-Anwendung zu bewegen sind Windows-Standard-Tastenkombinationen, mit denen der System-Fokus bewegt wird. Beispiele für solche Standard-Tastenkombinationen sind Tab und Umschalt+Tab-Taste zum Wechseln zwischen Elementen in einem Dialogfeld, Alt-Taste oder F10 zum Aufrufen der Menüleiste und die Pfeiltasten zur Navigation innerhalb eines Menüs sowie Alt+Tab-Taste zum Wechseln zwischen laufenden Anwendungen
+<p>Die gebräuchlichste Art, sich in einer Windows-Anwendung zu bewegen sind Windows-Standard-Tastenkombinationen, mit denen der System-Fokus bewegt wird. Beispiele für solche Standard-Tastenkombinationen sind Tab und Umschalt+Tab-Taste zum Wechseln zwischen Elementen in einem Dialogfeld, Alt-Taste oder F10 zum Aufrufen der Menüleiste und die Pfeiltasten zur Navigation innerhalb eines Menüs sowie Alt+Tab-Taste zum Wechseln zwischen laufenden Anwendungen.
 Wenn Sie auf diese Weise navigieren, wird NVDA verschiedene Informationen über das Objekt ausgeben, welches den Fokus erhält. Hierzu zählen: Name, Beschreibung (erscheint meist als Sprechblase, wenn der Anwender die Maus über das betreffende Objekt zieht), Typ (Schalter, Kontrollkästchen, Eingabefeld, etc.), Wert (z. B., der aktuelle Inhalt eines Eingabefeldes), Positionsangabe (z. B. "1 von 5" in einer Liste oder "1 von 1 Ebene 0" in einer Baumansicht), den Status des Objektes (z. B. aktiviert, hervorgehoben, ausgewählt, etc.).
 Wenn <a href="#VisionFocusHighlight" title="Visuell hervorheben">Visuell hervorheben</a> aktiviert ist, wird die Position des aktuellen System-Fokus auch visuell dargestellt.</p>
 <p>Einige nützliche Tastenkombinationen zum Navigieren mit dem System-Fokus sind:</p>
@@ -1386,16 +1394,16 @@ Wenn <a href="#VisionFocusHighlight" title="Visuell hervorheben">Visuell hervorh
 </thead>
 <tbody>
 <tr>
-<td>Aktuellen Fokus ansagen</td>
+<td>Aktuellen Fokus mitteilen</td>
 <td>NVDA+Tab-Taste</td>
 <td>NVDA+Tab-Taste</td>
-<td>Spricht das aktuell hervorgehobene Objekt. Bei zweimal Drücken werden die Informationen buchstabiert.</td>
+<td>Teilt das aktuell hervorgehobene Objekt mit. Bei zweimal Drücken werden die Informationen buchstabiert</td>
 </tr>
 <tr>
 <td>Titelleiste ansagen</td>
 <td>NVDA+T</td>
 <td>NVDA+T</td>
-<td>Liest die Titelleiste der aktuellen Anwendung vor. Bei zweimal Drücken, werden die Informationen buchstabiert. Bei dreimal Drücken wird der Text in die Zwischenablage kopiert. Diese Information wird auch in Braille angezeigt.</td>
+<td>Liest die Titelleiste der aktuellen Anwendung vor. Bei zweimal Drücken, werden die Informationen buchstabiert. Bei dreimal Drücken wird der Text in die Zwischenablage kopiert. Diese Information wird auch in Braille angezeigt</td>
 </tr>
 <tr>
 <td>Aktives Fenster vorlesen</td>
@@ -1407,13 +1415,13 @@ Wenn <a href="#VisionFocusHighlight" title="Visuell hervorheben">Visuell hervorh
 <td>Statuszeile mitteilen</td>
 <td>NVDA+Ende</td>
 <td>NVDA+Umschalt+Ende</td>
-<td>Liest die Statusleiste vor, falls vorhanden. Durch zweimaliges Drücken werden die Informationen buchstabiert. Durch dreimaliges Drücken werden die Informationen in die Zwischenablage kopiert.</td>
+<td>Liest die Statusleiste vor, falls vorhanden. Durch zweimaliges Drücken werden die Informationen buchstabiert. Durch dreimaliges Drücken werden die Informationen in die Zwischenablage kopiert</td>
 </tr>
 <tr>
 <td>Kurztaste mitteilen</td>
 <td><code>Umschalt+Nummernblock 2</code></td>
 <td><code>NVDA+Strg+Umschalt+Punkt</code></td>
-<td>Gibt das Tastenkürzel (Taste) des aktuell fokussierten Objekts aus.</td>
+<td>Gibt das Tastenkürzel (Taste) des aktuell fokussierten Objekts aus</td>
 </tr>
 </tbody>
 </table>
@@ -1441,7 +1449,7 @@ NVDA wird hierbei jedes Zeichen, jedes Wort oder auch jede Zeile ansagen, wenn S
 <td>Alles vorlesen</td>
 <td>NVDA+Pfeiltaste nach unten</td>
 <td>NVDA+A</td>
-<td>Liest von der aktuellen Position des System-Cursors bis zum Textende und zieht dabei den System-Cursor mit.</td>
+<td>Liest von der aktuellen Position des System-Cursors bis zum Textende und zieht dabei den System-Cursor mit</td>
 </tr>
 <tr>
 <td>Aktuelle Zeile vorlesen</td>
@@ -1453,13 +1461,13 @@ NVDA wird hierbei jedes Zeichen, jedes Wort oder auch jede Zeile ansagen, wenn S
 <td>Markierten Text vorlesen</td>
 <td>NVDA+Umschalt+Pfeiltaste nach oben</td>
 <td>NVDA+Umschalt+S</td>
-<td>Liest den markierten Text vor, sofern vorhanden.</td>
+<td>Liest den markierten Text vor, sofern vorhanden</td>
 </tr>
 <tr>
 <td>Textformatierungen mitteilen</td>
 <td>NVDA+F</td>
 <td>NVDA+F</td>
-<td>Gibt die Textformatierungen unter dem System-Cursor aus. Bei zweimal Drücken werden diese Informationen im Lesemodus angezeigt.</td>
+<td>Gibt die Textformatierungen unter dem System-Cursor aus. Bei zweimal Drücken werden diese Informationen im Lesemodus angezeigt</td>
 </tr>
 <tr>
 <td>Linkziel mitteilen</td>
@@ -1612,49 +1620,49 @@ Standardmäßig folgt der Navigator dem System-Fokus, diese Kopplung kann jedoch
 <td>NVDA+Nummernblock 8</td>
 <td>NVDA+Umschalt+Pfeiltaste nach oben</td>
 <td>Nach oben streichen (Objektmodus)</td>
-<td>Navigiert zur übergeordneten Ebene des aktuellen Navigator-Objekts.</td>
+<td>Navigiert zur übergeordneten Ebene des aktuellen Navigator-Objekts</td>
 </tr>
 <tr>
 <td>Zum vorherigen Objekt navigieren</td>
 <td>NVDA+Nummernblock 4</td>
 <td>NVDA+Umschalt+Pfeiltaste nach links</td>
 <td>Keine</td>
-<td>Wechselt zu dem Objekt vor dem aktuellen Navigator-Objekt.</td>
+<td>Wechselt zu dem Objekt vor dem aktuellen Navigator-Objekt</td>
 </tr>
 <tr>
 <td>Zum vorherigen Objekt in der reduzierten Ansicht wechseln</td>
 <td>NVDA+Nummernblock 9</td>
 <td>NVDA+Umschalt+Ü</td>
 <td>Nach links streichen (Objektmodus)</td>
-<td>Wechselt zum vorherigen Objekt in einer reduzierten Ansicht der Hierarchie der Objekt-Navigation.</td>
+<td>Wechselt zum vorherigen Objekt in einer reduzierten Ansicht der Hierarchie der Objekt-Navigation</td>
 </tr>
 <tr>
 <td>Zum nächsten Objekt navigieren</td>
 <td>NVDA+Nummernblock 6</td>
 <td>NVDA+Umschalt+Pfeiltaste nach rechts</td>
 <td>Keine</td>
-<td>Wechselt zu dem Objekt nach dem aktuellen Navigator-Objekt.</td>
+<td>Wechselt zu dem Objekt nach dem aktuellen Navigator-Objekt</td>
 </tr>
 <tr>
 <td>Zum nächsten Objekt in der reduzierten Ansicht wechseln</td>
 <td>NVDA+Nummernblock 3</td>
 <td>NVDA+Umschalt+Plus</td>
 <td>Nach rechts streichen (Objektmodus)</td>
-<td>Wechselt zum nächsten Objekt in einer reduzierten Ansicht der Hierarchie der Objekt-Navigation.</td>
+<td>Wechselt zum nächsten Objekt in einer reduzierten Ansicht der Hierarchie der Objekt-Navigation</td>
 </tr>
 <tr>
 <td>Zum ersten untergeordneten Objekt navigieren</td>
 <td>NVDA+Nummernblock 2</td>
 <td>NVDA+Umschalt+Pfeiltaste nach unten</td>
 <td>Nach unten streichen (Objektmodus)</td>
-<td>Navigiert zum ersten untergeordneten Objekt ausgehend vom aktuellen Navigator-Objekt.</td>
+<td>Navigiert zum ersten untergeordneten Objekt ausgehend vom aktuellen Navigator-Objekt</td>
 </tr>
 <tr>
 <td>Zum Fokus-Objekt navigieren</td>
 <td>NVDA+Nummernblock-Minus</td>
 <td>NVDA+Rücktaste</td>
 <td>Keine</td>
-<td>Navigiert zum aktuell hervorgehobenen Objekt und zieht den NVDA-Cursor zum System-Cursor, sofern dieser sichtbar ist.</td>
+<td>Navigiert zum aktuell hervorgehobenen Objekt und zieht den NVDA-Cursor zum System-Cursor, sofern dieser sichtbar ist</td>
 </tr>
 <tr>
 <td>Aktuelles Navigator-Objekt aktivieren</td>
@@ -1668,7 +1676,7 @@ Standardmäßig folgt der Navigator dem System-Fokus, diese Kopplung kann jedoch
 <td>NVDA+Umschalt+Nummernblock-Minus</td>
 <td>NVDA+Umschalt+Rücktaste</td>
 <td>Keine</td>
-<td>Wird diese Tastenkombination einmal gedrückt, wird der System-Fokus zum aktuellen Navigator-Objekt gezogen. Wird sie zweimal gedrückt, so wird der System-Cursor zum NVDA-Cursor gezogen.</td>
+<td>Wird diese Tastenkombination einmal gedrückt, wird der System-Fokus zum aktuellen Navigator-Objekt gezogen. Wird sie zweimal gedrückt, so wird der System-Cursor zum NVDA-Cursor gezogen</td>
 </tr>
 <tr>
 <td>Position des NVDA-cursors mitteilen</td>
@@ -1688,7 +1696,7 @@ Standardmäßig folgt der Navigator dem System-Fokus, diese Kopplung kann jedoch
 </table>
 <!-- KC:endInclude -->
 
-<p>Hinweis: Um die Tasten auf dem Nummernblock zu benutzen, muss dieser deaktiviert sein!</p>
+<p>Hinweis: Um die Tasten auf dem Nummernblock zu benutzen, muss dieser deaktiviert sein.</p>
 <h3 id="ReviewingText">Befehle zum Text betrachten</h3>
 <p>NVDA ermöglicht den <a href="#ScreenReview" title="Bildschirminhalt">Bildschirminhalt</a>, den Inhalt des aktuellen <a href="#DocumentReview" title="Dokuments">Dokuments</a> oder das aktuelle <a href="#ObjectReview" title="Objekt">Objekt</a> zeichen-, wort- oder zeilenweise zu betrachten.
 Dies ist z. B. in Windows-Konsolenfenstern (wie der Eingabeaufforderung, in der PowerShell) oder in anderen Anwendungen sinnvoll, in denen der <a href="#SystemCaret" title="System-Cursor">System-Cursor</a> nicht oder nur eingeschränkt verfügbar ist.
@@ -1716,14 +1724,14 @@ Diese Kopplung kann ein- und ausgeschaltet werden.</p>
 <td>Umschalt+Nummernblock 7</td>
 <td>NVDA+Strg+Pos1</td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor in die erste Zeile des Textes.</td>
+<td>Zieht den NVDA-Cursor in die erste Zeile des Textes</td>
 </tr>
 <tr>
 <td>Zur vorherigen Zeile navigieren</td>
 <td>Nummernblock 7</td>
 <td>NVDA+Pfeiltaste nach oben</td>
 <td>Nach oben streichen (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zur vorherigen Zeile des Textes.</td>
+<td>Zieht den NVDA-Cursor zur vorherigen Zeile des Textes</td>
 </tr>
 <tr>
 <td>Aktuelle Zeile unter dem NVDA-Cursor ansagen</td>
@@ -1737,21 +1745,21 @@ Diese Kopplung kann ein- und ausgeschaltet werden.</p>
 <td>Nummernblock 9</td>
 <td>NVDA+Pfeiltaste nach unten</td>
 <td>Nach unten streichen (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zur nächsten Zeile des Textes.</td>
+<td>Zieht den NVDA-Cursor zur nächsten Zeile des Textes</td>
 </tr>
 <tr>
 <td>Zur untersten Zeile navigieren</td>
 <td>Umschalt+Nummernblock 9</td>
 <td>NVDA+Strg+Ende</td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor in die letzte Zeile des Textes.</td>
+<td>Zieht den NVDA-Cursor in die letzte Zeile des Textes</td>
 </tr>
 <tr>
 <td>Zum vorherigen Wort navigieren</td>
 <td>Nummernblock 4</td>
 <td>NVDA+Strg+Pfeiltaste nach links</td>
 <td>Nach links streichen mit zwei Fingern (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zum vorherigen Wort im Text.</td>
+<td>Zieht den NVDA-Cursor zum vorherigen Wort im Text</td>
 </tr>
 <tr>
 <td>Aktuelles Wort unter dem NVDA-Cursor mitteilen</td>
@@ -1765,21 +1773,21 @@ Diese Kopplung kann ein- und ausgeschaltet werden.</p>
 <td>Nummernblock 6</td>
 <td>NVDA+Strg+Pfeiltaste nach rechts</td>
 <td>Nach rechts streichen mit zwei Fingern (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zum nächsten Wort im Text.</td>
+<td>Zieht den NVDA-Cursor zum nächsten Wort im Text</td>
 </tr>
 <tr>
 <td>Zum Zeilenanfang navigieren</td>
 <td>Umschalt+Nummernblock 1</td>
 <td>NVDA+Pos1</td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor zum Zeilenanfang im Text.</td>
+<td>Zieht den NVDA-Cursor zum Zeilenanfang im Text</td>
 </tr>
 <tr>
 <td>Zum vorherigen Zeichen navigieren</td>
 <td>Nummernblock 1</td>
 <td>NVDA+Pfeiltaste nach links</td>
 <td>Nach links streichen (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zum vorherigen Zeichen der aktuellen Zeile im Text.</td>
+<td>Zieht den NVDA-Cursor zum vorherigen Zeichen der aktuellen Zeile im Text</td>
 </tr>
 <tr>
 <td>Aktuelles Zeichen unter dem NVDA-Cursor ansagen</td>
@@ -1793,63 +1801,63 @@ Diese Kopplung kann ein- und ausgeschaltet werden.</p>
 <td>Nummernblock 3</td>
 <td>NVDA+Pfeiltaste nach rechts</td>
 <td>Nach rechts streichen (Textmodus)</td>
-<td>Zieht den NVDA-Cursor zum nächsten Zeichen der aktuellen Zeile im Text.</td>
+<td>Zieht den NVDA-Cursor zum nächsten Zeichen der aktuellen Zeile im Text</td>
 </tr>
 <tr>
 <td>Zum Zeilenende navigieren</td>
 <td>Umschalt+Nummernblock 3</td>
 <td>NVDA+Ende</td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor zum Zeilenende im Text.</td>
+<td>Zieht den NVDA-Cursor zum Zeilenende im Text</td>
 </tr>
 <tr>
 <td>Zur vorherigen Seite in der Übersicht wechseln</td>
 <td><code>NVDA+Seite nach oben</code></td>
 <td><code>NVDA+Umschalt+Pfeiltaste nach oben</code></td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor auf die vorherige Textseite, sofern dies von der Anwendung unterstützt wird.</td>
+<td>Zieht den NVDA-Cursor auf die vorherige Textseite, sofern dies von der Anwendung unterstützt wird</td>
 </tr>
 <tr>
 <td>Zur nächsten  Seite in der Übersicht wechseln</td>
 <td><code>NVDA+Seite nach unten</code></td>
 <td><code>NVDA+Umschalt+Seite nach unten</code></td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor auf die nächste Textseite, sofern dies von der Anwendung unterstützt wird.</td>
+<td>Zieht den NVDA-Cursor auf die nächste Textseite, sofern dies von der Anwendung unterstützt wird</td>
 </tr>
 <tr>
 <td>Alles vorlesen</td>
 <td>Nummernblock Plus</td>
 <td>NVDA+Umschalt+A</td>
 <td>Nach unten streichen mit drei Fingern (Textmodus)</td>
-<td>Liest von der aktuellen Cursor-Position des NVDA-Cursors den Text vor und bewegt ihn mit.</td>
+<td>Liest von der aktuellen Cursor-Position des NVDA-Cursors den Text vor und bewegt ihn mit</td>
 </tr>
 <tr>
 <td>Vom NVDA-Cursor markieren und kopieren</td>
 <td>NVDA+F9</td>
 <td>NVDA+F9</td>
 <td>Keine</td>
-<td>Setzt eine Startmarke an der aktuellen Position des NVDA-Cursors ab, der markiert oder kopiert werden soll. Die Aktion (Markieren/Kopieren) wird nicht ausgeführt, bis Sie NVDA den Textende mitgeteilt haben.</td>
+<td>Setzt eine Startmarke an der aktuellen Position des NVDA-Cursors ab, der markiert oder kopiert werden soll. Die Aktion (Markieren/Kopieren) wird nicht ausgeführt, bis Sie NVDA den Textende mitgeteilt haben</td>
 </tr>
 <tr>
 <td>Bis zum NVDA-Cursor markieren und kopieren</td>
 <td>NVDA+F10</td>
 <td>NVDA+F10</td>
 <td>Keine</td>
-<td>Wird die Tastenkombination einmal gedrückt, markiert NVDA den Text zwischen der zuvor gesetzten Startmarke und der aktuellen Position des NVDA-Cursors. Ist die Startmarke mit dem System-Cursor erreichbar, wird der Fokus dorthin verschoben. Wird die Tastenkombination zweimal gedrückt, wird der markierte Text in die Zwischenablage kopiert.</td>
+<td>Wird die Tastenkombination einmal gedrückt, markiert NVDA den Text zwischen der zuvor gesetzten Startmarke und der aktuellen Position des NVDA-Cursors. Ist die Startmarke mit dem System-Cursor erreichbar, wird der Fokus dorthin verschoben. Wird die Tastenkombination zweimal gedrückt, wird der markierte Text in die Zwischenablage kopiert</td>
 </tr>
 <tr>
 <td>Zum markierten Start für die Kopie in der Ansicht navigieren</td>
 <td>NVDA+Umschalt+F9</td>
 <td>NVDA+Umschalt+F9</td>
 <td>Keine</td>
-<td>Zieht den NVDA-Cursor an die zuvor eingestellte Startmarkierung für das Kopieren.</td>
+<td>Zieht den NVDA-Cursor an die zuvor eingestellte Startmarkierung für das Kopieren</td>
 </tr>
 <tr>
 <td>Textformatierungen mitteilen</td>
 <td>NVDA+Umschalt+F</td>
 <td>NVDA+Umschalt+F</td>
 <td>Keine</td>
-<td>Gibt die Textformatierungen unter dem System-Cursor aus. Bei zweimaliges Drücken werden diese Informationen im Lesemodus angezeigt.</td>
+<td>Gibt die Textformatierungen unter dem System-Cursor aus. Bei zweimaliges Drücken werden diese Informationen im Lesemodus angezeigt</td>
 </tr>
 <tr>
 <td>Aktuellen Symbol-Ersatz mitteilen</td>
@@ -1862,7 +1870,7 @@ Diese Kopplung kann ein- und ausgeschaltet werden.</p>
 </table>
 <!-- KC:endInclude -->
 
-<p>Hinweis: Um die Tasten des Nummernblocks benutzen zu können, muss dieser deaktiviert sein!</p>
+<p>Hinweis: Um die Tasten des Nummernblocks benutzen zu können, muss dieser deaktiviert sein.</p>
 <p>Um sich bei der Verwendung des Desktop-Tastatur-Layouts auf hilfreiche Weise die Tastenkombinationen merken zu können, wird dieses Textraster grundsätzlich in drei Mal drei "Felder" angeordnet; von oben nach unten, von links nach rechts sowie zum vorherigen, aktuellen und nächsten.
 Das Layout ist wie folgt aufgebaut:</p>
 <table>
@@ -1912,14 +1920,14 @@ Das Layout ist wie folgt aufgebaut:</p>
 <td>NVDA+Nummernblock 7</td>
 <td>NVDA+Seite auf</td>
 <td>Mit zwei Fingern nach oben streichen</td>
-<td>Schaltet in den nächsten Betrachtungsmodus um.</td>
+<td>Schaltet in den nächsten Betrachtungsmodus um</td>
 </tr>
 <tr>
 <td>In den vorherigen Betrachtungsmodus wechseln</td>
 <td>NVDA+Nummernblock1</td>
 <td>NVDA+Seite ab</td>
 <td>Mit zwei Fingern nach unten streichen</td>
-<td>Schaltet im vorherigen Betrachtungsmodus um.</td>
+<td>Schaltet im vorherigen Betrachtungsmodus um</td>
 </tr>
 </tbody>
 </table>
@@ -1970,14 +1978,14 @@ Wenn Sie sie nutzen möchten, können Sie sie in den Einstellungen in der Katego
 <td>Nummernblock-Schrägstrich</td>
 <td>NVDA+Ü</td>
 <td>Keine</td>
-<td>Führt einen Linksklick aus. Bei zweimal Drücken wird ein Doppelklick ausgeführt.</td>
+<td>Führt einen Linksklick aus. Bei zweimal Drücken wird ein Doppelklick ausgeführt</td>
 </tr>
 <tr>
 <td>Linke Maustaste feststellen</td>
 <td>Umschalt+Nummernblock-Schrägstrich</td>
 <td>NVDA+Strg+Ü</td>
 <td>Keine</td>
-<td>Hält die linke Maustaste gedrückt. Wird die Tastenkombination erneut gedrückt, wird die Maustaste wieder losgelassen. Um "Drag and Drop" durchzuführen, führen Sie diesen Schritt auf einem Objekt aus und wandern anschließend mit der Maus oder auch mit den Navigationstasten für die Simulation der Maus an eine andere Stelle des Bildschirms und lösen die linke Maustaste wieder.</td>
+<td>Hält die linke Maustaste gedrückt. Wird die Tastenkombination erneut gedrückt, wird die Maustaste wieder losgelassen. Um "Drag and Drop" durchzuführen, führen Sie diesen Schritt auf einem Objekt aus und wandern anschließend mit der Maus oder auch mit den Navigationstasten für die Simulation der Maus an eine andere Stelle des Bildschirms und lösen die linke Maustaste wieder</td>
 </tr>
 <tr>
 <td>Rechtsklick</td>
@@ -1991,49 +1999,49 @@ Wenn Sie sie nutzen möchten, können Sie sie in den Einstellungen in der Katego
 <td>Umschalt+Nummernblock-Stern</td>
 <td>NVDA+Strg+Plus</td>
 <td>Keine</td>
-<td>Hält die rechte Maustaste gedrückt. Wird die Tastenkombination erneut gedrückt, wird die Maustaste wieder losgelassen. Um "Drag and Drop" durchzuführen, führen Sie diesen Schritt auf einem Objekt aus und wandern anschließend mit der Maus oder auch mit den Navigationstasten für die Simulation der Maus an eine andere Stelle des Bildschirms und lösen die rechte Maustaste wieder.</td>
+<td>Hält die rechte Maustaste gedrückt. Wird die Tastenkombination erneut gedrückt, wird die Maustaste wieder losgelassen. Um "Drag and Drop" durchzuführen, führen Sie diesen Schritt auf einem Objekt aus und wandern anschließend mit der Maus oder auch mit den Navigationstasten für die Simulation der Maus an eine andere Stelle des Bildschirms und lösen die rechte Maustaste wieder</td>
 </tr>
 <tr>
 <td>An der Maus-Position nach oben scrollen</td>
 <td>Keine</td>
 <td>Keine</td>
 <td>Keine</td>
-<td>Scrollt das Mausrad an der aktuellen Maus-Position nach oben.</td>
+<td>Scrollt das Mausrad an der aktuellen Maus-Position nach oben</td>
 </tr>
 <tr>
 <td>An der Maus-Position nach unten scrollen</td>
 <td>Keine</td>
 <td>Keine</td>
 <td>Keine</td>
-<td>Scrollt das Mausrad an der aktuellen Maus-Position nach unten.</td>
+<td>Scrollt das Mausrad an der aktuellen Maus-Position nach unten</td>
 </tr>
 <tr>
 <td>An der Maus-Position nach links scrollen</td>
 <td>Keine</td>
 <td>Keine</td>
 <td>Keine</td>
-<td>Scrollt das Mausrad an der aktuellen Maus-Position nach links.</td>
+<td>Scrollt das Mausrad an der aktuellen Maus-Position nach links</td>
 </tr>
 <tr>
 <td>An der Maus-Position nach rechts scrollen</td>
 <td>Keine</td>
 <td>Keine</td>
 <td>Keine</td>
-<td>Scrollt das Mausrad an der aktuellen Maus-Position nach rechts.</td>
+<td>Scrollt das Mausrad an der aktuellen Maus-Position nach rechts</td>
 </tr>
 <tr>
 <td>Mauszeiger zum aktuellen Navigator-Objekt ziehen</td>
 <td>NVDA+Nummernblock-Schrägstrich</td>
 <td>NVDA+Umschalt+M</td>
 <td>Keine</td>
-<td>Zieht die Maus zum aktuellen Standort des Navigator-Objektes oder des NVDA-Cursors.</td>
+<td>Zieht die Maus zum aktuellen Standort des Navigator-Objektes oder des NVDA-Cursors</td>
 </tr>
 <tr>
 <td>Zum Objekt unter dem Mauszeiger navigieren</td>
 <td>NVDA+Nummernblock-Stern</td>
 <td>NVDA+Umschalt+N</td>
 <td>Keine</td>
-<td>Zieht das Navigator-Objekt zur Objektposition an der Mausposition.</td>
+<td>Zieht das Navigator-Objekt zur Objektposition an der Mausposition</td>
 </tr>
 </tbody>
 </table>
@@ -2080,12 +2088,12 @@ Zusätzlich können Sie auch den Fokusmodus erzwingen. In diesem Fall bleibt der
 <tr>
 <td>Zwischen Lese- und Fokusmodus wechseln</td>
 <td>NVDA+Leertaste</td>
-<td>Schaltet zwischen Fokus- und Lesemodus um.</td>
+<td>Schaltet zwischen Fokus- und Lesemodus um</td>
 </tr>
 <tr>
 <td>Fokusmodus schließen</td>
 <td>Escape-Taste</td>
-<td>Schaltet zurück in den Lesemodus, wenn zuvor der Fokusmodus automatisch aktiviert wurde.</td>
+<td>Schaltet zurück in den Lesemodus, wenn zuvor der Fokusmodus automatisch aktiviert wurde</td>
 </tr>
 <tr>
 <td>Lesemodus aktualisieren</td>
@@ -2100,12 +2108,12 @@ Zusätzlich können Sie auch den Fokusmodus erzwingen. In diesem Fall bleibt der
 <tr>
 <td>Vorwärts suchen</td>
 <td>NVDA+F3</td>
-<td>Sucht die nächste Zeichenkette des gesuchten Textes im aktuellen Dokument, welche zuvor eingegeben wurde.</td>
+<td>Sucht die nächste Zeichenkette des gesuchten Textes im aktuellen Dokument, welche zuvor eingegeben wurde</td>
 </tr>
 <tr>
 <td>Rückwärts suchen</td>
 <td>NVDA+Umschalt+F3</td>
-<td>Sucht die vorherige Zeichenkette des gesuchten Textes im aktuellen Dokument, die zuvor eingegeben wurde.</td>
+<td>Sucht die vorherige Zeichenkette des gesuchten Textes im aktuellen Dokument, die zuvor eingegeben wurde</td>
 </tr>
 </tbody>
 </table>
@@ -2115,7 +2123,7 @@ Zusätzlich können Sie auch den Fokusmodus erzwingen. In diesem Fall bleibt der
 <p>Um im Lesemodus eine schnellere Navigation zu ermöglichen, stellt NVDA die sogenannten Schnellnavigationstasten für das Ansteuern bestimmter Seitenelemente zur Verfügung.
 Bitte beachten Sie, dass nicht alle Schnellnavigationstasten in jedem Dokumententyp verfügbar sind.</p>
 <!-- KC:beginInclude -->
-<p>Folgende Befehle springen ohne Umschalttaste gedrückt zum nächsten Element; zusammen mit der Umschalttaste springen Sie zum vorherigen Objekt.</p>
+<p>Mit den folgenden Tasten navigieren Sie zum nächsten verfügbaren Element, während Sie in der Kombination mit der Umschalt-Taste zum vorherigen verfügbaren Element navigieren:</p>
 <ul>
 <li>H: Überschrift</li>
 <li>L: Liste</li>
@@ -2155,12 +2163,12 @@ Bitte beachten Sie, dass nicht alle Schnellnavigationstasten in jedem Dokumenten
 <tr>
 <td>Zum Beginn des Container-Objekts springen</td>
 <td>Umschalt+Komma</td>
-<td>Zieht den System-Cursor zum Anfang des Container-Objekts (Liste, Tabelle, etc.) auf dem sich der Cursor befindet.</td>
+<td>Zieht den System-Cursor zum Anfang des Container-Objekts (Liste, Tabelle, etc.) auf dem sich der Cursor befindet</td>
 </tr>
 <tr>
 <td>Hinter das Container-Objekt springen</td>
 <td>Komma</td>
-<td>Zieht den System-Cursor zum Ende des Container-Objekts (Liste, Tabelle, etc.) auf dem sich der Cursor befindet.</td>
+<td>Zieht den System-Cursor zum Ende des Container-Objekts (Liste, Tabelle, etc.) auf dem sich der Cursor befindet</td>
 </tr>
 </tbody>
 </table>
@@ -2236,7 +2244,7 @@ Wenn Sie einmal einen Eintrag ausgewählt haben, können Sie mit den Schaltern i
 <tr>
 <td>Elementliste des Lesemodus</td>
 <td>NVDA+F7</td>
-<td>Zeigt eine Liste bestimmter Elemente im aktuellen Dokument an.</td>
+<td>Zeigt eine Liste bestimmter Elemente im aktuellen Dokument an</td>
 </tr>
 </tbody>
 </table>
@@ -2262,17 +2270,17 @@ Verwenden Sie die folgenden Tasten für die Suche:</p>
 <tr>
 <td>Text suchen</td>
 <td>NVDA+Strg+F</td>
-<td>Öffnet das Suchfeld.</td>
+<td>Öffnet das Suchfeld</td>
 </tr>
 <tr>
 <td>Weitersuchen</td>
 <td>NVDA+F3</td>
-<td>Sucht das nächste Vorkommen des aktuellen Suchbegriffs.</td>
+<td>Sucht das nächste Vorkommen des aktuellen Suchbegriffs</td>
 </tr>
 <tr>
 <td>Rückwärtssuchen</td>
 <td>NVDA+Umschalt+F3</td>
-<td>Sucht das vorherige Vorkommen des aktuellen Suchbegriffs.</td>
+<td>Sucht das vorherige Vorkommen des aktuellen Suchbegriffs</td>
 </tr>
 </tbody>
 </table>
@@ -2299,7 +2307,7 @@ Es gibt eine Tastenkombination, um in die Originalansicht der Seite zurückzukeh
 <tr>
 <td>Zum Inhalt des Lesemodus zurückkehren</td>
 <td>NVDA+Strg+Leertaste</td>
-<td>Verlässt den Fokus des eingebetteten Objekts und kehrt in den Lesemodus zurück.</td>
+<td>Verlässt den Fokus des eingebetteten Objekts und kehrt in den Lesemodus zurück</td>
 </tr>
 </tbody>
 </table>
@@ -2323,7 +2331,7 @@ Allerdings verfügt NVDA über eine native Auswahl, welche in bestimmten Dokumen
 <tr>
 <td>Native Auswahl ein- und ausschalten</td>
 <td><code>NVDA+Umschalt+F10</code></td>
-<td>Schaltet die native Auswahl ein oder aus.</td>
+<td>Schaltet die native Auswahl ein oder aus</td>
 </tr>
 </tbody>
 </table>
@@ -2368,7 +2376,7 @@ Falls Sie eine Braillezeile verwenden, wird dieser Inhalt auch in Braille ausgeg
 <p>Wenn Sie sich momentan im Lesemodus befinden, können Sie den Cursor auf den Ausdruck stellen und die Eingabetaste drücken.</p>
 <p>Wenn Sie sich nicht im Lesemodus befinden, gehen Sie folgendermaßen vor:</p>
 <ol>
-<li>Bewegen Sie den NVDA-Cursor auf den mathematischen Ausdruck
+<li>Bewegen Sie den NVDA-Cursor auf den mathematischen Ausdruck.
 Standardmäßig ist der NVDA-Cursor an den System-Cursor gekoppelt. Sie können also die Standard-Navigationstasten verwenden, um den NVDA-Cursor auf den mathematischen Inhalt zu bewegen.</li>
 <li>Führen Sie anschließend den folgenden Befehl aus:</li>
 </ol>
@@ -2386,7 +2394,7 @@ Standardmäßig ist der NVDA-Cursor an den System-Cursor gekoppelt. Sie können 
 <tr>
 <td>In mathematischen Inhalten navigieren</td>
 <td>NVDA+Alt+M</td>
-<td>Beginnt die Navigation in mathematischen Inhalten</td>
+<td>Beginnt die Navigation in mathematischen Inhalten.</td>
 </tr>
 </tbody>
 </table>
@@ -2417,7 +2425,7 @@ Falls die Braillezeile eine Tastatur besitzt, können Sie außerdem Kurz-, Voll-
 Die Braillezeile kann auch mit dem <a href="#BrailleViewer" title="Braille-Btrachter">Braille-Btrachter</a> anstelle oder gleichzeitig mit einer physischen Braille-Zeile auf dem Bildschirm angezeigt werden.</p>
 <p>Bitte lesen Sie im Abschnitt <a href="#SupportedBrailleDisplays" title="Unterstützte Braillezeilen">Unterstützte Braillezeilen</a>, ob die Braillezeile unterstützt wird.
 Dieser Abschnitt enthält auch Informationen darüber, welche Braillezeilen die automatische Braillezeilenerkennung von NVDA unterstützen.
-Sie können die Braille-Schrift über die Einstellungen in der Kategorie <a href="#BrailleSettings" title="Braille">Braille</a> in den <a href="#NVDASettings" title="NVDA-Einstellungen">NVDA-Einstellungen</a> konfigurieren.\</p>
+Sie können die Braille-Schrift über die Einstellungen in der Kategorie <a href="#BrailleSettings" title="Braille">Braille</a> in den <a href="#NVDASettings" title="NVDA-Einstellungen">NVDA-Einstellungen</a> konfigurieren.</p>
 <h3 id="BrailleAbbreviations">Abkürzungen für Steuerelementtypen, Status-Anzeigen und Sprungmarken</h3>
 <p>Damit möglichst viele Daten auf der Braillezeile Platz finden, wurden folgende Abkürzungen für Steuerelementtypen, Status-Anzeigen und Sprungmarken festgelegt.</p>
 <table>
@@ -2649,87 +2657,87 @@ Sie können die Braille-Schrift über die Einstellungen in der Kategorie <a href
 <tbody>
 <tr>
 <td>...</td>
-<td>Wird angezeigt, wenn ein Objekt automatische Vervollständigung unterstützt.</td>
+<td>Wird angezeigt, wenn ein Objekt automatische Vervollständigung unterstützt</td>
 </tr>
 <tr>
 <td>⢎⣿⡱</td>
-<td>Wird angezeigt, wenn ein Schalter gedrückt ist.</td>
+<td>Wird angezeigt, wenn ein Schalter gedrückt ist</td>
 </tr>
 <tr>
 <td>⢎⣀⡱</td>
-<td>Wird angezeigt, wenn ein Schalter nicht gedrückt wurde.</td>
+<td>Wird angezeigt, wenn ein Schalter nicht gedrückt wurde</td>
 </tr>
 <tr>
 <td>⣏⣿⣹</td>
-<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollfeld) aktiviert ist.</td>
+<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollfeld) aktiviert ist</td>
 </tr>
 <tr>
 <td>⣏⣸⣹</td>
-<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollfeld) teilweise aktiviert ist.</td>
+<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollfeld) teilweise aktiviert ist</td>
 </tr>
 <tr>
 <td>⣏⣀⣹</td>
-<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollkästchen) nicht aktiviert ist.</td>
+<td>Wird angezeigt, wenn ein Objekt (z. B. ein Kontrollkästchen) nicht aktiviert ist</td>
 </tr>
 <tr>
 <td>-</td>
-<td>Wird bei Objekten (z. B. Baum-Einträgen) angezeigt, die reduziert werden können.</td>
+<td>Wird bei Objekten (z. B. Baum-Einträgen) angezeigt, die reduziert werden können</td>
 </tr>
 <tr>
 <td>+</td>
-<td>Wird bei Objekten (z. B. Baum-Einträgen) angezeigt, die erweitert werden können.</td>
+<td>Wird bei Objekten (z. B. Baum-Einträgen) angezeigt, die erweitert werden können</td>
 </tr>
 <tr>
 <td>pef</td>
-<td>Wird bei Eingabefeldern für Passwörter angezeigt.</td>
+<td>Wird bei Eingabefeldern für Passwörter angezeigt</td>
 </tr>
 <tr>
 <td>klk</td>
-<td>Wird bei anklickbaren Elementen angezeigt.</td>
+<td>Wird bei anklickbaren Elementen angezeigt</td>
 </tr>
 <tr>
 <td>kmnt</td>
-<td>Wird angezeigt, wenn das aktuelle Objekt ein Kommentar ist.</td>
+<td>Wird angezeigt, wenn das aktuelle Objekt ein Kommentar ist</td>
 </tr>
 <tr>
 <td>frm</td>
-<td>Wird angezeigt, wenn das aktuelle Objekt eine Formel enthält.</td>
+<td>Wird angezeigt, wenn das aktuelle Objekt eine Formel enthält</td>
 </tr>
 <tr>
 <td>ungültig</td>
-<td>Wird angezeigt, sobald Sie in ein Formularfeld einen ungültigen Wert eingegeben haben.</td>
+<td>Wird angezeigt, sobald Sie in ein Formularfeld einen ungültigen Wert eingegeben haben</td>
 </tr>
 <tr>
 <td>lbesch</td>
-<td>Wird angezeigt, wenn das aktuelle Objekt (meist eine Grafik) eine ausführliche Beschreibung enthält.</td>
+<td>Wird angezeigt, wenn das aktuelle Objekt (meist eine Grafik) eine ausführliche Beschreibung enthält</td>
 </tr>
 <tr>
 <td>mz</td>
-<td>Wird angezeigt, wenn Sie in das Eingabefeld mehrere Zeilen Text eingeben können.</td>
+<td>Wird angezeigt, wenn Sie in das Eingabefeld mehrere Zeilen Text eingeben können</td>
 </tr>
 <tr>
 <td>erf</td>
-<td>Wird angezeigt, wenn in dem Eingabefeld eine Eingabe erforderlich ist.</td>
+<td>Wird angezeigt, wenn in dem Eingabefeld eine Eingabe erforderlich ist</td>
 </tr>
 <tr>
 <td>sef</td>
-<td>Wird bei Objekten (z. B. Eingabefeldern) angezeigt, die schreibgeschützt sind.</td>
+<td>Wird bei Objekten (z. B. Eingabefeldern) angezeigt, die schreibgeschützt sind</td>
 </tr>
 <tr>
 <td>(x)</td>
-<td>Wird angezeigt, wenn ein Objekt ausgewählt ist.</td>
+<td>Wird angezeigt, wenn ein Objekt ausgewählt ist</td>
 </tr>
 <tr>
 <td>( )</td>
-<td>Wird angezeigt, wenn das aktuelle Objekt nicht ausgewählt ist.</td>
+<td>Wird angezeigt, wenn das aktuelle Objekt nicht ausgewählt ist</td>
 </tr>
 <tr>
 <td>auf sortiert</td>
-<td>Wird angezeigt, wenn die Liste aufsteigend sortiert ist.</td>
+<td>Wird angezeigt, wenn die Liste aufsteigend sortiert ist</td>
 </tr>
 <tr>
 <td>ab sortiert</td>
-<td>Wird angezeigt, wenn die aktuelle Liste absteigend sortiert ist.</td>
+<td>Wird angezeigt, wenn die aktuelle Liste absteigend sortiert ist</td>
 </tr>
 <tr>
 <td>-&gt;</td>
@@ -2926,7 +2934,8 @@ Dies bedeutet, dass auch andere Anwender von Bildschirmlesern, die dieses Dokume
 <p>Die Elementliste enthält Überschriften, Links, Anmerkungen (einschließlich nachverfolgbarer Änderungen), und Fehler (derzeit auf Rechtschreibfehler limitiert).</p>
 <h4 id="WordReportingComments">Ausgeben von Kommentaren</h4>
 <!-- KC:beginInclude -->
-<p>Verwenden Sie die Tastenkombination NVDA+Alt+C, um sich einen Kommentar an der aktuellen Cursorposition anzeigen zu lassen, sofern vorhanden.</p>
+<p>To report any comments at the current caret position, press <code>NVDA+alt+c</code>.
+Zweimaliges Drücken zeigt die Informationen in einem Fenster zum Nachlesen an.</p>
 <!-- KC:endInclude -->
 <p>Alle Kommentare des aktuellen Dokuments sind außerdem in der Elementliste aufgeführt, wenn Sie als Elementtyp "Anmerkungen" auswählen.</p>
 <h3 id="MicrosoftExcel">Microsoft Excel</h3>
@@ -2985,7 +2994,8 @@ Wählen Sie ein Formularfeld in der Liste aus und verwenden Sie den Schalter "We
 </ul>
 <h4 id="ExcelReportingComments">Anmerkungen anzeigen</h4>
 <!-- KC:beginInclude -->
-<p>Verwenden Sie die Tastenkombination NVDA+Alt+C, um sich die Anmerkungen der aktuellen Zelle anzeigen zu lassen, sofern vorhanden.
+<p>To report any notes for the currently focused cell, press <code>NVDA+alt+c</code>.
+Pressing twice shows the information in a browsable message.
 In Microsoft 2016 / 365 und neuer wurden die klassischen Kommentare in Microsoft Excel in "Anmerkungen" umbenannt.</p>
 <!-- KC:endInclude -->
 <p>Alle Anmerkungen im Arbeitsblatt können nach Drücken von NVDA+F7 auch in der NVDA-Elementliste aufgelistet werden.</p>
@@ -3088,7 +3098,7 @@ Weitere Informationen über den Lesemodus und die Schnellnavigationstasten finde
 <!-- KC:endInclude -->
 
 <h3 id="Poedit">Poedit</h3>
-<p>NVDA bietet erweiterte Unterstützung für Poedit 3.4 oder neuer.</p>
+<p>NVDA bietet erweiterte Unterstützung für Poedit 3.5 oder neuer.</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -3103,17 +3113,17 @@ Weitere Informationen über den Lesemodus und die Schnellnavigationstasten finde
 <tr>
 <td>Anmerkungen für Übersetzer mitteilen</td>
 <td><code>Strg+Umschalt+A</code></td>
-<td>Gibt alle Anmerkungen für Übersetzer aus. Bei zweimaligem Drücken werden die Anmerkungen im Lesemodus angezeigt.</td>
+<td>Gibt alle Anmerkungen für Übersetzer aus. Bei zweimaligem Drücken werden die Anmerkungen im Lesemodus angezeigt</td>
 </tr>
 <tr>
 <td>Kommentare mitteilen</td>
 <td><code>Strg+Umschalt+C</code></td>
-<td>Gibt alle Kommentare im Kommmentarbereich aus. Zweimaliges Drücken zeigt die Kommentare im Lesemodus.</td>
+<td>Gibt alle Kommentare im Kommmentarbereich aus. Zweimaliges Drücken zeigt die Kommentare im Lesemodus</td>
 </tr>
 <tr>
 <td>Alten Quelltext mitteilen</td>
 <td><code>Strg+Umschalt+O</code></td>
-<td>Gibt den alten Quelltext aus, falls vorhanden. Bei zweimaligem Drücken wird der Text im Lesemodus angezeigt.</td>
+<td>Gibt den alten Quelltext aus, falls vorhanden. Bei zweimaligem Drücken wird der Text im Lesemodus angezeigt</td>
 </tr>
 <tr>
 <td>Übersetzungswarnung mitteilen</td>
@@ -3286,14 +3296,14 @@ Genau wie bei der Ein-/Ausgabe: Sollten Sie sich um den Datenschutz sorgen, empf
 </ul>
 <h5 id="GeneralSettingsStartAfterLogOn">NVDA automatisch nach der Windows-Anmeldung starten</h5>
 <p>Wenn diese Option aktiviert ist, wird NVDA automatisch gestartet, sobald Sie sich bei Windows anmelden.
-Diese Option ist nur in der installierten Version verfügbar!</p>
+Diese Option ist nur in der installierten Version verfügbar.</p>
 <h5 id="GeneralSettingsStartOnLogOnScreen">NVDA bei der Windows-Anmeldung verwenden (Administratorrechte sind erforderlich)</h5>
 <p>Wenn Sie sich bei Windows mit Ihrem Benutzernamen und Ihrem Passwort anmelden, bewirkt dieses Kontrollfeld, dass NVDA automatisch bereits bei der Anmeldung gestartet wird.
-Diese Option ist nur in der installierten Version verfügbar!</p>
+Diese Option ist nur in der installierten Version verfügbar.</p>
 <h5 id="GeneralSettingsCopySettings">Aktuell gespeicherte Einstellungen  für die Windows-Anmeldung und bei Sicherheitsmeldungen verwenden (erfordert Administrationsberechtigungen!)</h5>
 <p>Mit diesem Schalter wird die aktuell gespeicherte NVDA-Benutzerkonfiguration in das Systemkonfigurationsverzeichnis von NVDA kopiert, sodass NVDA sie bei der Anmeldung und bei der Benutzerkontensteuerung und <a href="#SecureScreens" title="anderen Sicherheitsmeldungen">anderen Sicherheitsmeldungen</a> verwendet.
 Speichern Sie zuvor Ihre Konfiguration, um sicherzustellen, dass auch tatsächlich all Ihre Einstellungen übernommen wurden. Sie können dies im NVDA-Menü oder mit der Tastenkombination NVDA+Strg+C vornehmen.
-Diese Option ist nur in der installierten Version verfügbar!</p>
+Diese Option ist nur in der installierten Version verfügbar.</p>
 <h5 id="GeneralSettingsCheckForUpdates">Automatisch nach Updates suchen</h5>
 <p>Wenn diese Option aktiviert ist, sucht NVDA automatisch nach Updates und informiert Sie, sobald eine neue Version verfügbar ist.
 Sie können auch manuell nach neuen Versionen suchen, indem Sie im Hilfe-Menü von NVDA den Eintrag "Nach Updates suchen" auswählen.
@@ -3310,8 +3320,8 @@ Auch wenn die IP-Adresse zum Ermitteln des (ungefähren) geografischen Standorte
 Wenn die Option aktiviert ist, werden die folgenden Daten zusätzlich gesendet:</p>
 <ul>
 <li>Eine eindeutige ID für den aktuellen NVDA-Benutzer, diese ändert sich einmal pro Monat.</li>
-<li>Eingestellte Landessprache in NVDA.</li>
-<li>Art der Instanz von NVDA (portabel oder installiert).</li>
+<li>Eingestellte Landessprache in NVDA</li>
+<li>Art der Instanz von NVDA (portabel oder installiert)</li>
 <li>Name der verwendeten Sprachausgabe (einschließlich Name der NVDA-Erweiterung, aus der die Sprachausgabe stammt).</li>
 <li>Name der verwendeten Braillezeile (einschließlich Name der NVDA-Erweiterung, aus der der Treiber stammt).</li>
 <li>Aktuelle Ausgabetabelle (sofern Braille benutzt wird).</li>
@@ -3403,7 +3413,7 @@ Dieser Aspekt der Normalisierung hilft auch beim Lesen von Gleichungen im Gleich
 Zum Beispiel kann das Zeichen "ü" (u mit Umlaut / Diaeresis), ein in Sprachen wie Deutsch und Türkisch gebräuchliches Zeichen, in zwei Formen dargestellt werden:</p>
 <ol>
 <li>Ein eigenständiges Unicode-Zeichen (ü).</li>
-<li>Eine Aufteilung in zwei Zeichen (ü), nämlich den normalen lateinischen Buchstaben u und einen Diaeresis-Modifikator.
+<li>Eine Aufteilung in zwei Zeichen (ü), nämlich den normalen lateinischen Buchstaben u und einen Diaeresis-Modifikator
 Die Unicode-Normalisierung stellt sicher, dass in der gesamten Sprachausgabe nur eine Form verwendet wird, nämlich die eine Zeichenvariante.</li>
 </ol>
 </li>
@@ -3519,25 +3529,25 @@ Dies ist für Anwender nützlich, die nur mit einer Braillezeile arbeiten möcht
 <td>Aktuelle Sprachausgaben-Einstellung erhöhen</td>
 <td>NVDA+Strg+Pfeiltaste nach oben</td>
 <td>NVDA+Strg+Umschalt+Pfeiltaste nach oben</td>
-<td>Erhöht die aktuelle Einstellung (z. B. die Sprechgeschwindigkeit erhöhen, die nächste Stimme auswählen, die Lautstärke erhöhen).</td>
+<td>Erhöht die aktuelle Einstellung (z. B. die Sprechgeschwindigkeit erhöhen, die nächste Stimme auswählen, die Lautstärke erhöhen)</td>
 </tr>
 <tr>
 <td>In Größeren Schritten die aktuellen Sprachausgaben-Einstellung erhöhen</td>
 <td><code>NVDA+Strg+Seite nach oben</code></td>
 <td><code>NVDA+Umschalt+Strg+Seite nach oben</code></td>
-<td>Erhöht den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten, z. B. wenn Sie sich auf einer Stimmen-Einstellung befinden, springt der Wert alle 20 Stimmen vorwärts; wenn Sie sich auf Schieberegler-Einstellungen (Geschwindigkeit, Tonhöhe, etc.) befinden, springt der Wert um bis zu 20 % vorwärts.</td>
+<td>Erhöht den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten, z. B. wenn Sie sich auf einer Stimmen-Einstellung befinden, springt der Wert alle 20 Stimmen vorwärts; wenn Sie sich auf Schieberegler-Einstellungen (Geschwindigkeit, Tonhöhe, etc.) befinden, springt der Wert um bis zu 20 % vorwärts</td>
 </tr>
 <tr>
 <td>Aktuelle Sprachausgaben-Einstellung verringern</td>
 <td>NVDA+Strg+Pfeiltaste nach unten</td>
 <td>NVDA+Strg+Umschalt+Pfeiltaste nach unten</td>
-<td>Verringert die aktuelle Einstellung (z. B. die Sprechgeschwindigkeit verringern, wählt die vorherige Stimme aus, verringert die Lautstärke).</td>
+<td>Verringert die aktuelle Einstellung (z. B. die Sprechgeschwindigkeit verringern, wählt die vorherige Stimme aus, verringert die Lautstärke)</td>
 </tr>
 <tr>
 <td>In größeren Schritten die aktuellen Sprachausgaben-Einstellung verringern</td>
 <td><code>NVDA+Strg+Seite nach unten</code></td>
 <td><code>NVDA+Umschalt+Strg+Seite nach unten</code></td>
-<td>Verringert den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten. Wenn Sie sich z. B. auf einer Stimmen-Einstellung befinden, springt der Wert alle 20 Stimmen rückwärts; wenn Sie sich auf einer Schieberegler-Einstellung befinden, springt der Wert um bis zu 20 % rückwärts.</td>
+<td>Verringert den Wert der aktuellen Sprachausgaben-Einstellung, auf der Sie sich befinden, in größeren Schritten. Wenn Sie sich z. B. auf einer Stimmen-Einstellung befinden, springt der Wert alle 20 Stimmen rückwärts; wenn Sie sich auf einer Schieberegler-Einstellung befinden, springt der Wert um bis zu 20 % rückwärts</td>
 </tr>
 </tbody>
 </table>
@@ -3605,6 +3615,16 @@ In diesem Fall folgt die Braillezeile nicht dem NVDA-Navigator während der Obje
 Wenn Sie möchten, dass die Braillezeile stattdessen der Objektnavigation und der Textüberprüfung folgt, müssen Sie die Braillezeile so konfigurieren, dass sie für die Anzeige angekoppelt ist.
 In diesem Fall folgt die Braillezeile weder dem System-Fokus, noch dem System-Cursor.</p>
 <h5 id="BrailleSettingsReviewRoutingMovesSystemCaret">Den System-Cursor bei der Weiterleitung des NVDA-Cursors verschieben</h5>
+<p>Diese Einstellung legt fest, ob der System-Cursor bei einem Druck auf die Routing-Taste mit verschoben werden soll.
+Diese Option ist standardmäßig auf "Niemals" eingestellt, das bedeutet, der Cursor wird bei der Weiterleitung des NVDA-Cursors nicht bewegt.</p>
+<p>Wenn diese Option auf Immer eingestellt ist und <a href="#BrailleTether" title="Braille-Ausgabe koppeln">Braille-Ausgabe koppeln</a> auf "Automatisch" oder "Zur Ansicht" eingestellt ist, wird durch Drücken einer Cursor-Routing-Taste auch der System-Cursor oder der Fokus bewegt, sofern dies unterstützt wird.
+Wenn der aktuelle Darstellungsmodus auf <a href="#ScreenReview" title="Bildschirm-Layout">Bildschirm-Layout</a> eingestellt ist, gibt es keinen physischen Cursor.
+In diesem Fall versucht NVDA, das Objekt unter dem Text zu fokussieren, zu dem Sie weitergeleitet werden.
+Dasselbe gilt für <a href="#ObjectReview" title="Objekt-Darstellungen">Objekt-Darstellungen</a>.</p>
+<p>Sie können diese Option auch so einstellen, dass die Einfügemarke nur dann bewegt wird, wenn sie automatisch gekoppelt ist.
+In diesem Fall führt das Drücken einer Cursor-Routing-Taste nur dann zu einer Verschiebung des System-Cursors oder des Fokus, wenn NVDA automatisch an den NVDA-Cursor gebunden ist, während bei einer manuellen Bindung an den NVDA-Cursor keine Bewegung erfolgt.</p>
+<p>Diese Option wird nur angezeigt, wenn "<a href="#BrailleTether" title="Braille-Ausgabe koppeln">Braille-Ausgabe koppeln</a>" auf "Automatisch" oder "Zur Ansicht" eingestellt ist.</p>
+<p>Um den System-Cursor zu ziehen, wenn Sie den NVDA-Cursor von einer beliebigen Stelle aus weiterleiten, weisen Sie bitte einen benutzerdefinierten Tastenbefehl zu, indem Sie das Dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> verwenden.</p>
 <table>
 <thead>
 <tr>
@@ -3623,32 +3643,17 @@ In diesem Fall folgt die Braillezeile weder dem System-Fokus, noch dem System-Cu
 </tr>
 </tbody>
 </table>
-<p>Diese Einstellung legt fest, ob der System-Cursor bei einem Druck auf die Routing-Taste mit verschoben werden soll.
-Diese Option ist standardmäßig auf "Niemals" eingestellt, das bedeutet, der Cursor wird bei der Weiterleitung des NVDA-Cursors nicht bewegt.</p>
-<p>Wenn diese Option auf Immer eingestellt ist und <a href="#BrailleTether" title="Braille-Ausgabe koppeln">Braille-Ausgabe koppeln</a> auf "Automatisch" oder "Zur Ansicht" eingestellt ist, wird durch Drücken einer Cursor-Routing-Taste auch der System-Cursor oder der Fokus bewegt, sofern dies unterstützt wird.
-Wenn der aktuelle Darstellungsmodus auf <a href="#ScreenReview" title="Bildschirm-Layout">Bildschirm-Layout</a> eingestellt ist, gibt es keinen physischen Cursor.
-In diesem Fall versucht NVDA, das Objekt unter dem Text zu fokussieren, zu dem Sie weitergeleitet werden.
-Dasselbe gilt für <a href="#ObjectReview" title="Objekt-Darstellungen">Objekt-Darstellungen</a>.</p>
-<p>Sie können diese Option auch so einstellen, dass die Einfügemarke nur dann bewegt wird, wenn sie automatisch gekoppelt ist.
-In diesem Fall führt das Drücken einer Cursor-Routing-Taste nur dann zu einer Verschiebung des System-Cursors oder des Fokus, wenn NVDA automatisch an den NVDA-Cursor gebunden ist, während bei einer manuellen Bindung an den NVDA-Cursor keine Bewegung erfolgt.</p>
-<p>Diese Option wird nur angezeigt, wenn "<a href="#BrailleTether" title="Braille-Ausgabe koppeln">Braille-Ausgabe koppeln</a>" auf "Automatisch" oder "Zur Ansicht" eingestellt ist.</p>
-<p>Um den System-Cursor zu ziehen, wenn Sie den NVDA-Cursor von einer beliebigen Stelle aus weiterleiten, weisen Sie bitte einen benutzerdefinierten Tastenbefehl zu, indem Sie das Dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> verwenden.</p>
 <h5 id="BrailleSettingsReadByParagraph">Absatzweises Lesen</h5>
 <p>Wenn diese Option aktiviert ist, erfolgt die Anzeige in Braille absatzweise statt zeilenweise.
 Ebenso bewirken die Tasten zum zeilenweisen Navigieren in diesem Modus eine absatzweise Navigation.
 Dies bedeutet, dass Sie die Braillezeile nicht am Ende jeder Zeile weiternavigieren müssen, auch wenn mehr Text auf die Zeile passen würde.
 Dies erlaubt Ihnen ein flüssigeres lesen größerer Textmengen.
 Diese Option ist standardmäßig deaktiviert.</p>
-<h5 id="BrailleSettingsWordWrap">Wortumbruch verhindern, falls möglich</h5>
-<p>Wenn diese Option aktiviert ist, trennt NVDA ein Wort nicht, das für die Darstellung auf der Braillezeile zu lang ist.
-Stattdessen bleibt der verbliebene Platz lehr.
-Wenn Sie dann auf den nächsten Bereich weiterbewegen, können Sie das Wort im Ganzen lesen.
-Dies wird manchmal auch als Wortumbruch bezeichnet.
-Bitte beachten Sie: Zu lange Wörter müssen trotzdem getrennt werden, um auf der Braillezeile angezeigt werden zu können.</p>
-<p>Wenn diese Option ausgeschaltet ist, zeigt NVDA so viel wie möglich vom Wort an, aber ein Teil kann abgeschnitten sein.
-NVDA zeigt dann den Rest des Wortes im nächsten Bereich an.</p>
-<p>Die Aktivierung dieser Funktion kann ein flüssigeres Lesen ermöglichen, erfordert aber in der Regel ein stärkeres Scrollen der Anzeige.</p>
-<h5 id="BrailleUnicodeNormalization">Unicode-Normalisierung</h5>
+<h5 id="BrailleParagraphStartMarkers">Absatzanfangsmarkierung</h5>
+<p>If "Read by paragraph" is checked, the selected start marker will be displayed to indicate the start of a paragraph.
+This can be especially helpful in applications used to read large pieces of text, like structured documents or books.
+In such documents, knowing where paragraphs start may be useful to understand the structure of the content, or to set bookmarks or annotations based on paragraph position.</p>
+<p>The options include using two spaces as a subtle paragraph break, and the paragraph symbol, pilcrow (¶), as a more obvious one.</p>
 <table>
 <thead>
 <tr>
@@ -3659,18 +3664,14 @@ NVDA zeigt dann den Rest des Wortes im nächsten Bereich an.</p>
 <tbody>
 <tr>
 <td>Optionen</td>
-<td>Standard (Ausgeschaltet), Eingeschaltet, Ausgeschaltet</td>
+<td>Keine Absatzanfangsmarkierung, Doppeltes Leerzeichen (  ), Absatzmarke (¶)</td>
 </tr>
 <tr>
 <td>Standard</td>
-<td>Ausgeschaltet</td>
+<td>Keine Absatzanfangsmarkierung</td>
 </tr>
 </tbody>
 </table>
-<p>Wenn diese Option aktiviert ist, wird eine Unicode-Normalisierung des Textes durchgeführt, der auf der Braillezeile angezeigt wird.
-Dies ist von Vorteil, wenn man auf Zeichen in Braille stößt, die in einer bestimmten Braille-Tabelle nicht vorkommen und für die es eine kompatible Alternative gibt, wie z. B. die Zeichen in fett und kursiv, die häufig in Social Media verwendet werden.
-Weitere Vorteile der Unicode-Normalisierung werden im <a href="#SpeechUnicodeNormalization" title="Abschnitt für die entsprechende Sprachausgaben-Einstellung">Abschnitt für die entsprechende Sprachausgaben-Einstellung</a> näher erläutert.</p>
-<p>Um die Unicode-Normalisierung von überall aus umzuschalten, weisen Sie bitte einen benutzerdefinierten Tastenbefehl über das Dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> zu.</p>
 <h5 id="BrailleSettingsFocusContextPresentation">Kontextbezogene Informationen anzeigen</h5>
 <p>Mit dieser Option können Sie festlegen wann kontextbezogene Informationen auf der Braillezeile angezeigt werden sollen, sobald ein Objekt fokussiert wird.
 Kontextbezogene Informationen sind z. B. Informationen über übergeordnete Objekte.
@@ -3692,54 +3693,175 @@ Dies ist das Standardverhalten von NVDA 2017.2 und älter.</p>
 Für das obige Beispiel bedeutet dies, dass NVDA immer nur den aktuellen Listeneintrag anzeigt.
 Wenn Sie dennoch Kontext-Informationen (wie z. B. den Namen der Liste) angezeigt bekommen möchten, müssen Sie auf der Braillezeile rückwärts navigieren.</p>
 <p>Um die Einstellung von überall aus zu ändern, weisen Sie eine Tastenkombination mit Hilfe des Dialogs <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> zu.</p>
-<h5 id="BrailleSettingsInterruptSpeech">Unterbrechen der Sprachausgabe beim Navigieren</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Optionen</td>
-<td>Eingeschaltet, Ausgeschaltet</td>
-</tr>
-<tr>
-<td>Standard</td>
-<td>Eingeschaltet</td>
-</tr>
-</tbody>
-</table>
-<p>Diese Einstellung legt fest, ob die Sprachausgabe unterbrochen werden soll, sobald die Braillezeile vorwärts oder rückwärts gescrollt wird.
-Befehle für die vorherige bzw. nächste Zeile unterbricht immer die Sprachausgabe.</p>
-<p>Das ständige Vorlesen kann beim Lesen der Braille-Schrift ablenken.
-Aus diesem Grund ist die Option standardmäßig aktiviert und unterbricht die Sprachausgabe beim Navigieren auf der Braillezeile.</p>
-<p>Wenn Sie diese Option deaktivieren, können Sie die Sprachausgabe hören und gleichzeitig auf der Braillezeile lesen.</p>
 <h5 id="BrailleSettingsShowSelection">Auswahl anzeigen</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Optionen</td>
-<td>Standard (eingeschaltet), Eingeschaltet, Ausgeschaltet</td>
-</tr>
-<tr>
-<td>Standard</td>
-<td>Eingeschaltet</td>
-</tr>
-</tbody>
-</table>
 <p>Diese Einstellung legt fest, ob die Auswahlanzeige (Punkte 7 und 8) auf der Braillezeile angezeigt werden.
 Die Option ist standardmäßig aktiviert, so dass der Auswahl-Indikator angezeigt wird.
 Die Auswahlanzeige kann manchmal beim Lesen auf der braillezeile als störend umpfunden werden.
 Das Ausschalten  dieser Option kann eventuell die Lesbarkeit verbessern.</p>
 <p>Um die Auswahl von einer beliebigen Stelle aus umzuschalten, weisen Sie bitte einen benutzerdefinierten Tastenbefehl zu, indem Sie das dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> verwenden.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optionen</td>
+<td>Standard (Eingeschaltet), Eingeschaltet, Ausgeschaltet</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Eingeschaltet</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleFormattingDisplay">Formattierung auf der Braillezeile ausgeben</h5>
+<p>This setting determines how NVDA will display text formatting in braille.
+This option only has an effect if NVDA is set to <a href="#DocumentFormattingFontAttributes" title="display font attributes in braille">display font attributes in braille</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optionen</td>
+<td>Standard (Liblouis), Liblouis, Tags</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Liblouis</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Verhalten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liblouis</td>
+<td>Use native Braille formatting. Note that this option will only indicate bold, italic and underlined text, and only if the selected braille table supports indicating these attributes.</td>
+</tr>
+<tr>
+<td><a href="#BrailleFormattingDisplayTags" title="Tags">Tags</a></td>
+<td>Verwenden Sie Tags, die beschreiben, wie und wo sich die Textformatierung ändert.</td>
+</tr>
+</tbody>
+</table>
+<h6 id="BrailleFormattingDisplayTags">Tags</h6>
+<p>When "Formatting display" is set to "Tags", a formatting tag is displayed in braille when a change in formatting is detected.
+Diese Tags beginnen mit ⣋ und enden mit ⣙.
+Ein Tag zur Formatierung enthält ein oder mehrere Symbole, die die Textformatierung beschreiben.
+Die folgenden Symbole sind definiert:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⠃ ("b")</td>
+<td>Fett (am Anfang)</td>
+</tr>
+<tr>
+<td>⡃ ("b" mit Punkt 7)</td>
+<td>Fett (am Ende)</td>
+</tr>
+<tr>
+<td>⠊ ("i")</td>
+<td>Kursiv (am Anfang)</td>
+</tr>
+<tr>
+<td>⡊ ("i" mit Punkt 7)</td>
+<td>Kursiv (am Ende)</td>
+</tr>
+<tr>
+<td>⠥ ("u")</td>
+<td>Unterstrichen (am Anfang)</td>
+</tr>
+<tr>
+<td>⡥ ("u" mit Punkt 7)</td>
+<td>Unterstrichen (am Ende)</td>
+</tr>
+<tr>
+<td>⠎ ("s")</td>
+<td>Durchgestrichen (am Anfang)</td>
+</tr>
+<tr>
+<td>⡎ ("s" mit Punkt 7)</td>
+<td>Durchgestrichen (am Ende)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSpeakOnRouting">Speak character when routing cursor in text</h5>
+<p>If this is enabled, NVDA will automatically speak the character at the cursor when routing to it with braille cursor routing keys.</p>
+<p>To toggle this option from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<h5 id="BrailleSettingsWordWrap">Wortumbrüche vermeiden, falls möglich</h5>
+<p>If this is enabled, a word which is too large to fit at the end of the braille display will not be split.
+Instead, there will be some blank space at the end of the display.
+When you scroll the display, you will be able to read the entire word.
+This is sometimes called "word wrap".
+Note that if the word is too large to fit on the display even by itself, the word must still be split.</p>
+<p>If this is disabled, as much of the word as possible will be displayed, but the rest will be cut off.
+When you scroll the display, you will then be able to read the rest of the word.</p>
+<p>Enabling this may allow for more fluent reading, but generally requires you to scroll the display more.</p>
+<h5 id="BrailleUnicodeNormalization">Unicode-Normalisierung</h5>
+<p>When this option is enabled, unicode normalization is performed on the text that is brailled on the braille display.
+This is beneficial when coming across characters in braille that are unknown in a particular braille table and which have a compatible alternative, like the bold and italic characters commonly used on social media.
+Other benefits of unicode normalization are explained in greater detail in the <a href="#SpeechUnicodeNormalization" title="section for the equivalent speech setting">section for the equivalent speech setting</a>.</p>
+<p>To toggle Unicode normalization from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optionen</td>
+<td>Standard (Ausgeschaltet), Eingeschaltet, Ausgeschaltet</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Ausgeschaltet</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSettingsInterruptSpeech">Interrupt speech while scrolling</h5>
+<p>This setting determines if speech should be interrupted when the Braille display is scrolled backwards/forwards.
+Previous/next line commands always interrupt speech.</p>
+<p>On-going speech might be a distraction while reading Braille.
+For this reason the option is enabled by default, interrupting speech when scrolling braille.</p>
+<p>Disabling this option allows speech to be heard while simultaneously reading Braille.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optionen</td>
+<td>Standard (Eingeschaltet), Eingeschaltet, Ausgeschaltet</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Eingeschaltet</td>
+</tr>
+</tbody>
+</table>
 <h4 id="SelectBrailleDisplay">Braillezeile auswählen</h4>
 <!-- KC:setting -->
 
@@ -3955,6 +4077,14 @@ Diese Option funktioniert nur, wenn in den NVDA-Einstellungen in der <a href="#D
 <h5 id="KeyboardSettingsHandleKeys">Tastendrücke anderer Anwendungen verarbeiten</h5>
 <p>Mit dieser Option legen Sie fest, ob per Software emulierte Tastendrücke von NVDA verarbeitet werden sollen. Hierzu zählen beispielsweise Tastendrücke auf einer Bildschirmtastatur oder per Spracherkennung erkannte Zeichen.
 Diese Option ist standardmäßig aktiviert, obwohl manche Benutzer dies bestimmt deaktivieren, z. B. diejenigen, die Vietnamesisch mit der UniKey-Software schreiben, da dies zu einer falschen Zeicheneingabe führt.</p>
+<h5 id="MultiPressTimeout">Multiple key press timeout</h5>
+<p>Some NVDA keyboard gestures perform different actions based upon how many times the same key is pressed in rapid succession.
+An example of this is the "Report current character of navigator object" command.
+This command reports the character if pressed once, a phonetic description of the character if pressed twice, and the numeric value of the character if pressed three times.
+This option configures the timeout after which an additional press of the same key will start a new gesture, rather than being taken as a subsequent press of the first one.
+For the example command, a too short timeout will cause two presses to report the current character twice, rather than the phonetic description.
+The default timeout is 500 ms, i.e. half a second.
+Increasing this timeout may be especially useful for people using sticky keys, or who have a physical disability.</p>
 <h4 id="MouseSettings">Die Maus-Einstellungen</h4>
 <!-- KC:setting -->
 
@@ -4084,7 +4214,7 @@ Bei phonetischen Eingabemethoden ist es jedoch sinnvoll, die Option abzuschalten
 Für Eingabemethoden, bei denen Sie die Auswahl mit den Pfeiltasten ändern können (wie z. B. Chinese New Phonetic) ist das Aktivieren dieser Option notwendig, bei anderen Eingabemethoden kann es jedoch effektiver sein, diese Option abzuschalten.
 Auch wenn Sie diese Option deaktiviert haben, wird der NVDA-Cursor auf den ausgewählten Schriftsatz gesetzt, sodass Sie den Navigator oder die Befehle zum Betrachten von Text benutzen können, um diesen oder andere Schriftsätze zu lesen.</p>
 <h5 id="InputCompositionCandidateIncludesShortCharacterDescription">Bei Angabe der Schriftsätze immer kurze Zeichenbeschreibungen einbeziehen</h5>
-<p>mit dieser Option, die standardmäßig aktiviert ist, können Sie festlegen, ob NVDA eine kurze Beschreibung für einen zeichensatz ausgeben soll - entweder wenn Sie ihn auswählen oder wenn NVDA die Liste der Schriftsätze ausgibt, sobald diese erscheint.
+<p>Mit dieser Option, die standardmäßig aktiviert ist, können Sie festlegen, ob NVDA eine kurze Beschreibung für einen zeichensatz ausgeben soll - entweder wenn Sie ihn auswählen oder wenn NVDA die Liste der Schriftsätze ausgibt, sobald diese erscheint.
 In einigen Sprachräumen, wie etwa im Chinesischen, hat diese Option jedoch keinen Einfluss auf die Ausgabe der Beschreibungen für die Zeichensätze.
 Diese Option ist lediglich für japanische und koreanische Eingabemethoden sinnvoll.</p>
 <h5 id="InputCompositionReadingStringChanges">Änderungen zu Leseketten mitteilen</h5>
@@ -4170,7 +4300,7 @@ Konfigurieren können Sie die Meldungen von:</p>
 <li>Schriftart<ul>
 <li>Name der Schriftart</li>
 <li>Schriftgröße</li>
-<li>Schrift-Attribute</li>
+<li>Schriftattribute <a href="#DocumentFormattingFontAttributes" title="(Aus, Über Sprachausgabe, In Braille, Über Sprachausgabe und in Braille)">(Aus, Über Sprachausgabe, In Braille, Über Sprachausgabe und in Braille)</a></li>
 <li>Hoch- und tiefgestellte Zeichen</li>
 <li>Betonter Text</li>
 <li>Hervorgehobener (markierter) Text</li>
@@ -4218,15 +4348,25 @@ Konfigurieren können Sie die Meldungen von:</p>
 </li>
 </ul>
 <p>Um diese Einstellungen überall ändern zu können, verwenden Sie bitte das Dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> um eigene Tastenkombinationen hinzuzufügen.</p>
+<h5 id="DocumentFormattingFontAttributes">Schriftattribute</h5>
+<p>This option allows you to select how certain font attributes, such as bold, italics, underline and strikethrough are reported.
+Das Kombinationsfeld für die Schriftattribute bietet vier Optionen:</p>
+<ul>
+<li>Off: NVDA will not report these font attributes.</li>
+<li>Speech: NVDA will announce when these font attributes change.</li>
+<li>Braille: NVDA will display these attributes in braille.
+Exactly how they are displayed can be configured in <a href="#BrailleFormattingDisplay" title="NVDA's braille settings">NVDA's braille settings</a>.</li>
+<li>Speech and braille: NVDA will report font attributes using both of the above methods.</li>
+</ul>
 <h5 id="DocumentFormattingDetectFormatAfterCursor">Änderungen der Formatierungen nach der Cursor-Position mitteilen</h5>
 <p>Diese Einstellung veranlasst NVDA dazu, ALLE Änderungen in den Formatierungen innerhalb einer Zeile mitzuteilen, wenn sie eingeschaltet ist. Das kann sehr leistungsintensiv sein.</p>
 <p>Standardmäßig erkennt NVDA die Formatierung an der Position des System-Cursors. In einigen Situationen erkennt auch NVDA die Formatierungen der gesamten Zeile. Dies könnte allerdings die Systemleistung beeinträchtigen.</p>
 <p>Schalten Sie diese Option nur dann ein, wenn beim Lesen in einem Dokument die Mitteilung dazu notwendig ist.</p>
 <h5 id="DocumentFormattingSettingsLineIndentation">Ausgabe von Zeileneinrückungen</h5>
 <p>Mit dieser Option legen Sie fest, wie Zeileneinrückungen durch NVDA wiedergegeben werden sollen.
-Das Kombinationsfeld enthält vier Einträge:</p>
+Das Kombinationsfeld enthält vier Einträge.</p>
 <ul>
-<li>Ausgeschaltet: NVDA wird Zeileneinrückungen in keiner Weise gesondert ausgeben</li>
+<li>Ausgeschaltet: NVDA wird Zeileneinrückungen in keiner Weise gesondert ausgeben.</li>
 <li>Sprache: Diese Einstellung bringt NVDA dazu die Anzahl von Zeichen anzusagen, mit denen eine Zeile eingerückt wurde (z. B. 12 Leerzeichen oder 4 Tabulatoren)</li>
 <li>Signaltöne: Diese Einstellung bringt NVDA dazu, die Einrückung mit Hilfe von Signaltönen anzugeben. Wenn sich die Einrückung ändert, wird der Signalton höher, je stärker eine Zeile eingerückt ist.
 Die Einrückung um einen Tabulator entspricht hierbei der Einrückung um vier Leerzeichen.</li>
@@ -4302,11 +4442,11 @@ Bei installierten Beta-Versionen der NVDA-Erweiterungen werden Sie beispielsweis
 <tbody>
 <tr>
 <td>Benachrichtigen</td>
-<td>Benachrichtigung, wenn Updates für NVDA-Erweiterungen innerhalb desselben Kanals verfügbar sind.</td>
+<td>Benachrichtigung, wenn Updates für NVDA-Erweiterungen innerhalb desselben Kanals verfügbar sind</td>
 </tr>
 <tr>
 <td>Ausgeschaltet</td>
-<td>Nicht automatisch nach Updates für NVDA-Erweiterungen suchen.</td>
+<td>Nicht automatisch nach Updates für NVDA-Erweiterungen suchen</td>
 </tr>
 </tbody>
 </table>
@@ -4325,7 +4465,7 @@ Diese Option ist standardmäßig deaktiviert.</p>
 <p>Achtung! Die Einstellungen in dieser Kategorie sind für fortgeschrittene Benutzer und können dazu führen, dass NVDA bei falscher Konfiguration nicht richtig funktioniert.
 Nehmen Sie Änderungen an diesen Einstellungen nur dann vor, wenn Sie sicher sind, dass Sie wissen, was Sie tun oder wenn Sie von einem NVDA-Entwickler ausdrücklich dazu angewiesen wurden.</p>
 <h5 id="AdvancedSettingsMakingChanges">Änderungen in den erweiterten Einstellungen vornehmen</h5>
-<p>Um Änderungen in den erweiterten Einstellungen vornehmen zu können, müssen die Bedienelemente aktiviert werden, indem Sie mit dem Kontrollkästchen bestätigen, dass Sie die Risiken einer Änderung dieser Einstellungen verstanden haben.</p>
+<p>Um Änderungen in den erweiterten Einstellungen vornehmen zu können, müssen die Bedienelemente aktiviert werden, indem Sie mit dem Kontrollkästchen bestätigen, dass Sie die Risiken einer Änderung dieser Einstellungen verstanden haben</p>
 <h5 id="AdvancedSettingsRestoringDefaults">Die Standard-Einstellungen wiederherstellen</h5>
 <p>Der Schalter stellt die Standardwerte für die Einstellungen wieder her, auch wenn das Kontrollkästchen zur Bestätigung nicht aktiviert ist.
 Nach dem Ändern der Einstellungen können Sie zu den Standardwerten zurückkehren.
@@ -4374,8 +4514,8 @@ Dies gilt sowohl für Dokumente in Microsoft Word selbst, als auch für Nachrich
 Diese Einstellung enthält die folgenden Werte:</p>
 <ul>
 <li>Standard (sofern geeignet).</li>
-<li>Nur bei Bedarf: Wenn das ältere Objektmodell in Microsoft Word überhaupt nicht verfügbar ist.</li>
-<li>Sofern geeignet: Microsoft Word Version 16.0.15000 oder neuer, oder wenn das ältere Objektmodell in Microsoft Word gar nicht verfügbar ist.</li>
+<li>Nur bei Bedarf: Wenn das ältere Objektmodell in Microsoft Word überhaupt nicht verfügbar ist</li>
+<li>Sofern geeignet: Microsoft Word Version 16.0.15000 oder neuer, oder wenn das ältere Objektmodell in Microsoft Word gar nicht verfügbar ist</li>
 <li>Immer: Wo auch immer UIA in Microsoft Word verfügbar ist (unabhängig davon, wie es funktioniert).</li>
 </ul>
 <h5 id="UseUiaForExcel">UIA verwenden, um auf die Steuerelemente in Tabellen in Microsoft Excel zuzugreifen, sofern verfügbar</h5>
@@ -4545,7 +4685,7 @@ Dies sollte die Leistung und Stabilität im Windows-Terminal deutlich verbessern
 Insbesondere werden Zeichen während der Eingabe, die nicht auf dem Bildschirm angezeigt werden, wie z. B. Kennwörter, mitgeteilt, wenn diese Option ausgewählt ist.
 Außerdem kann es vorkommen, dass zusammenhängende Abschnitte mit mehr als 1.000 Zeichen nicht korrekt mitgeteilt werden.</li>
 </ul>
-<h5 id="CancelExpiredFocusSpeech">Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist:</h5>
+<h5 id="CancelExpiredFocusSpeech">Sprachausgabe unterbrechen, wenn das Ereignis für den Fokus abgelaufen ist</h5>
 <p>Diese Option aktiviert ein Verhalten, welches bei abgelaufenen Ereignissen des Fokus versucht, die Sprachausgabe abzubrechen.
 Insbesondere das schnelle Durchlaufen von Nachrichten in GMail mit Google Chrome kann dazu führen, dass NVDA alte Informationen noch vorliest.
 Diese Funktion ist ab NVDA 2021.1 standardmäßig aktiviert.</p>
@@ -4599,7 +4739,7 @@ Der <a href="#TextNavigationCommand" title="Navigationsbefehl zu Textabsätzen">
 <p>Neben den <a href="#NVDASettings" title="NVDA-Einstellungen">NVDA-Einstellungen</a>, befinden sich weitere Einträge im NVDA-Menü unter "Optionen". Diese werden weiter unten erläutert.</p>
 <h4 id="SpeechDictionaries">Die Aussprache-Wörterbücher</h4>
 <p>Im Menü Optionen finden Sie den Eintrag Aussprache-Wörterbücher. Dieses Menü enthält Dialogfelder mit deren Hilfe Sie festlegen können, wie NVDA einzelne Wörter oder Satzteile ausspricht.
-Derzeit gibt es drei unterschiedliche Formen der Aussprache-Wörterbücher:
+Derzeit gibt es drei unterschiedliche Formen der Aussprache-Wörterbücher.
 Diese sind:</p>
 <ul>
 <li>Standard: Regeln in diesem Wörterbuch haben Einfluss auf alle Aussprachen in NVDA.</li>
@@ -4665,7 +4805,7 @@ Wenn Sie beispielsweise einen Befehl neu zuweisen möchten, der sich auf den Les
 <p>In diesem Dialogfeld werden alle verfügbaren NVDA-Funktionen in einer Baumansicht angezeigt, die nach Kategorien sortiert sind.
 Über das Eingabefeld "filtern" können Sie die Liste der angezeigten Funktionen einschränken. Geben Sie dazu einen Teil des Funktionsnamens als Suchbegriff ein.
 Unterhalb jeder Funktion werden die zugewiesenen Befehle, sofern vorhanden, angezeigt.</p>
-<p>um einen Befehl einer Funktion zuzuweisen, wählen Sie die Funktion aus und klicken Sie auf den Schalter "Hinzufügen".
+<p>Um einen Tastenbefehl zu einem Befehl hinzuzufügen, wählen Sie den Befehl aus und klicken Sie auf die Schaltfläche Hinzufügen.
 Führen Sie anschließend den zuzuweisenden Befehl aus - Drücken Sie die entsprechende Tastenkombination oder die Tasten an der Braillezeile.
 Oft kann eine NVDA-Funktion durch mehr als eine Tastenkombination ausgeführt werden.
 Bei Tastenkombinationen kann es beispielsweise sinnvoll sein, das Tastatur-Layout anzugeben, in dem diese Tastenkombination wirksam werden soll (Desktop/Laptop).
@@ -4706,7 +4846,7 @@ Wenn Sie die Konfiguration auf die Standard-Einstellungen zurücksetzen möchten
 <td>Konfiguration speichern</td>
 <td>NVDA+Strg+C</td>
 <td>NVDA+Strg+C</td>
-<td>Speichert die Konfiguration ab, sodass sie nicht beim Beenden von NVDA verloren geht.</td>
+<td>Speichert die Konfiguration ab, sodass sie nicht beim Beenden von NVDA verloren geht</td>
 </tr>
 <tr>
 <td>Konfiguration zurücksetzen</td>
@@ -4761,7 +4901,7 @@ Um ein manuell aktiviertes Profil wieder zu deaktivieren, klicken Sie auf den Sc
 <p>Mit diesem Schalter können Sie einen Trigger bestimmen, über den ein Profil automatisch aktiviert werden soll.</p>
 <p>Folgende Trigger stehen zur Verfügung:</p>
 <ul>
-<li>Aktuelle Anwendung; wird ausgelöst, wenn Sie in die aktuelle Anwendung wechseln</li>
+<li>Aktuelle Anwendung; wird ausgelöst, wenn Sie in die aktuelle Anwendung wechseln.</li>
 <li>Alles vorlesen; wird ausgelöst, sobald Sie den Befehl "Alles vorlesen" verwenden.</li>
 </ul>
 <p>Um das Profil zu bestimmen, das durch einen bestimmten Trigger aktiviert werden soll, wählen Sie zunächst den Trigger und anschließend das Profil aus.
@@ -4792,7 +4932,7 @@ Dies bedeutet, dass jeder Benutzer im System so seine individuellen Einstellunge
 Um das Einstellungs-Verzeichnis von überall her zu öffnen, können Sie das Dialogfeld für die <a href="#InputGestures" title="Tastenbefehle">Tastenbefehle</a> verwenden, um dieser Funktion eine Taste zuzuordnen.
 Zusätzlich können Sie bei einer installierten Version von NVDA im Startmenü zu auf "Programme -&gt; NVDA -&gt; Benutzerkonfigurationsverzeichnis öffnen" gehen.</p>
 <p>Die Einstellungen von NVDA für das Anmeldefenster und die Sicherheitsmeldungen der Benutzerkontensteuerung werden im Ordner "systemConfig" im Installationsordner von NVDA abgelegt.
-Für gewöhnlich sollte diese Konfiguration unberührt bleiben!
+Für gewöhnlich sollte diese Konfiguration unberührt bleiben.
 Um die Konfiguration von NVDA während der Anmeldung oder bei Sicherheitsmeldungen zu ändern, konfigurieren Sie NVDA wie gewünscht, während Sie bei Windows angemeldet sind, speichern Sie die Konfiguration und betätigen Sie dann den Schalter "Aktuell gespeicherte Einstellungen während der Anmeldung und bei Sicherheitsmeldungen verwenden" in der Kategorie "Allgemein" der <a href="#NVDASettings" title="NVDA-Einstellungen">NVDA-Einstellungen</a>.</p>
 <h2 id="AddonsManager">Die NVDA-Erweiterungen und der Store</h2>
 <p>NVDA-Erweiterungen sind Software-Pakete, die neue oder geänderte Funktionen für NVDA bereitstellen.
@@ -4837,7 +4977,7 @@ In der Standard-Einstellung werden sowohl aktivierte als auch deaktivierte NVDA-
 <ul>
 <li>Stabil: Der Entwickler hat dies als getestete NVDA-Erweiterung mit einer freigegebenen Version von NVDA veröffentlicht.</li>
 <li>Beta: Diese NVDA-Erweiterung muss möglicherweise noch weiter getestet werden, ist aber für Benutzer-Feedback freigegeben.
-Empfohlen für Tester:</li>
+Empfohlen für Tester.</li>
 <li>Dev: Dieser Kanal ist für Entwickler von NVDA-Erweiterungen gedacht, um noch nicht freigegebene API-Änderungen zu testen.
 Die NVDA-Alpha-Tester müssen möglicherweise eine "Dev"-Version ihrer NVDA-Erweiterungen verwenden.</li>
 <li>Extern: NVDA-Erweiterungen, die aus externen Quellen außerhalb des Stores für NVDA-Erweiterungen installiert wurden.</li>
@@ -4976,7 +5116,7 @@ Für weitere Informationen lesen Sie bitte den ausführlichen Abschnitt: <a href
 <h3 id="CreatePortableCopy">Eine portable Version erstellen</h3>
 <p>Es öffnet sich ein Dialogfeld, mit dem Sie eine portable Version aus der aktuell laufenden Version erstellen können.</p>
 <p>Folgen Sie den Anweisungen in <a href="#CreatingAPortableCopy" title="Erstellen einer portablen Version">Erstellen einer portablen Version</a> für weitere Informationen.</p>
-<h3 id="RunCOMRegistrationFixingTool">Tool zur Behebung für die COM-Registrierung ausführen</h3>
+<h3 id="RunCOMRegistrationFixingTool">Tool zur Behebung für die COM-Registrierung ausführen...</h3>
 <p>Das Installieren und Deinstallieren von Programmen auf einem Computer kann in bestimmten Fällen dazu führen, dass COM-DLL-Dateien nicht mehr registriert sind.
 Da COM-Schnittstellen wie IAccessible von korrekten COM-DLL-Registrierungen abhängig sind, können Probleme auftreten, sobald diese fehlen.</p>
 <p>Dies kann z. B. nach einer Installation und anschließender Deinstallation von Adobe Reader, MathPlayer und anderen Programmen vorkommen.</p>
@@ -4984,8 +5124,8 @@ Da COM-Schnittstellen wie IAccessible von korrekten COM-DLL-Registrierungen abh�
 <p>Im Einzelnen können folgende Probleme durch den Einsatz dieses Tools gelöst werden:</p>
 <ul>
 <li>NVDA meldet beim Navigieren in Firefox, Thunderbird, etc. anstelle "Unbekannt".</li>
-<li>In NVDA funktioniert das Umschalten zwischen dem Fokus- und dem Lesemodus nicht mehr richtig.</li>
-<li>NVDA reagiert sehr langsam beim Navigieren im Lesemodus in Web-Browsern.</li>
+<li>In NVDA funktioniert das Umschalten zwischen dem Fokus- und dem Lesemodus nicht mehr richtig</li>
+<li>NVDA reagiert sehr langsam beim Navigieren im Lesemodus in Web-Browsern</li>
 <li>Und möglicherweise andere Probleme.</li>
 </ul>
 <h3 id="ReloadPlugins">Plugins neu laden</h3>
@@ -5021,7 +5161,7 @@ Globale Plugins verwalten, wie NVDA mit allen Anwendungen interagiert.</p>
 <h2 id="SupportedSpeechSynths">Unterstützte Sprachausgaben</h2>
 <p>Dieser Bereich beinhaltet Informationen über die in NVDA unterstützten Sprachausgaben.
 Eine ausführliche Liste freier und kommerzieller Sprachausgaben, die zusammen mit NVDA verwendet werden können, finden Sie unter [https://github.com/nvaccess/nvda/wiki/ExtraVoices].</p>
-<h3 id="eSpeakNG">eSpeak NG</h3>
+<h3 id="eSpeakNG">eSpeak-NG</h3>
 <p>Die in NVDA integrierte Sprachausgabe <a href="https://github.com/espeak-ng/espeak-ng" rel="noopener" target="_blank" title="eSpeak NG">eSpeak NG</a> benötigt keine speziellen Treiber oder andere extra installierten Komponenten.
 Die Sprachausgabe eSpeak wird unter Windows 8.1 von NVDA standardmäßig verwendet, während unter Windows 10 und neuer <a href="#OneCore" title="Windows OneCore">Windows OneCore</a> standardmäßig verwendet wird.
 Das hat den enormen Vorteil, dass NVDA auf einen Betriebssystemen mit einem USB-Stick ohne weiteres betrieben werden kann.</p>
@@ -5591,7 +5731,7 @@ Bitte lesen Sie in der Dokumentation der Braillezeile für weitere Details.</p>
 Sie benötigen keine installierten Treiber, um diese Zeile verwenden zu können.
 Sie müssen lediglich die Braillezeile anschließen und in NVDA konfigurieren.</p>
 <p>Diese Braillezeile unterstützt nicht die automatische Braillezeilenerkennung im Hintergrund von NVDA.</p>
-<p>Folgende Tastenzuweisungen sind in NVDA bei dieser Zeile verfügbar:
+<p>Folgende Tastenzuweisungen sind in NVDA bei dieser Zeile verfügbar.
 Bitte lesen Sie in der Dokumentation zu ihrer Braillezeile nach, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -5654,11 +5794,11 @@ Dies sind auch:</p>
 </ul>
 <p>Einige andere Braillezeilen von der ehemaligen Firma Baum könnten ebenfalls funktionieren, dies wurde allerdings noch nicht getestet.</p>
 <p>Wenn Sie die Braillezeile über USB angeschlossen und den USB-Modus nicht auf HID eingestellt haben, müssen Sie zunächst den vom Hersteller bereitgestellten Treiber installieren.
-die Braillezeilenmodelle VarioUltra und Pronto! verwenden das HID-Protokoll.
+Die Braillezeilenmodelle VarioUltra und Pronto! verwenden das HID-Protokoll.
 Die Braillezeilen Refreshabraille und Orbit Reader 20 können so eingestellt werden, dass sie das HID-Protokoll verwenden.</p>
 <p>Der serielle Modus des orbit Readers 20 wird momentan nur unter Windows 10 und neuer unterstützt.
 Sie sollten stattdessen das HID-Protokoll über USB verwenden.</p>
-<p>Folgende Tastenzuweisungen sind in NVDA bei diesen Zeilen verfügbar:
+<p>Folgende Tastenzuweisungen sind in NVDA bei diesen Zeilen verfügbar.
 Bitte lesen Sie in der Dokumentation der Braillezeile nach, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -5765,7 +5905,7 @@ Bitte lesen Sie in der Dokumentation der Braillezeile nach, wo die entsprechende
 <p>Die Profiline USB der Firma <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="Hedo Reha-Technik">Hedo Reha-Technik</a> werden unterstützt.
 Zuerst müssen Sie den USB-Treiber des Herstellers installieren.</p>
 <p>Diese Braillezeile unterstützt nicht die automatische Braillezeilenerkennung im Hintergrund von NVDA.</p>
-<p>Die folgenden Tastenkombinationen für diese Braillezeile sind in NVDA verfügbar:
+<p>Die folgenden Tastenkombinationen für diese Braillezeile sind in NVDA verfügbar.
 Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -5813,7 +5953,7 @@ Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tas
 <p>Die MobilLine USB der Firma <a href="https://www.hedo.de/" rel="noopener" target="_blank" title="Hedo Reha-Technik">Hedo Reha-Technik</a> werden unterstützt.
 Zuerst müssen Sie den USB-Treiber des Herstellers installieren.</p>
 <p>Diese Braillezeile unterstützt nicht die automatische Braillezeilenerkennung im Hintergrund von NVDA.</p>
-<p>Die folgenden Tastenkombinationen für diese Braillezeile sind in NVDA verfügbar:
+<p>Die folgenden Tastenkombinationen für diese Braillezeile sind in NVDA verfügbar.
 Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -5867,11 +6007,11 @@ Verwenden Sie hingegen das Protokoll OpenBraille, wird kein USB-Treiber benötig
 <li>APH Chameleon 20</li>
 <li>Humanware BrailleOne</li>
 <li>NLS eReader<ul>
-<li>Beachten Sie, dass der Zoomax derzeit nicht ohne externe Treiber unterstützt wird.</li>
+<li>Beachten Sie, dass der Zoomax derzeit nicht ohne externe Treiber unterstützt wird</li>
 </ul>
 </li>
 </ul>
-<p>Folgende Tastenkombinationen sind bei diesen Braillezeilen verfügbar
+<p>Folgende Tastenkombinationen sind bei diesen Braillezeilen verfügbar.
 Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tasten zu finden sind.</p>
 <h4 id="HumanWareBrailliantKeyAssignmentForAllModels">Tastenzuweisungen für alle Braillezeilenmodelle</h4>
 <!-- KC:beginInclude -->
@@ -6033,7 +6173,7 @@ Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tas
 <h3 id="Hims">Serien der Braille Sense / Braille EDGE / Smart Beetle / SyncBraille von Hims</h3>
 <p>NVDA unterstützt die Braillezeilenmodelle Braille Sense, Braille EDGE, SyncBraille und Smart Beetle von <a href="https://www.hims-inc.com/" rel="noopener" target="_blank" title="Hims">Hims</a>, wahlweise mit USB- oder Bluetooth-Anbindung.
 Wenn Sie die Braillezeile per USB anschließen, müssen Sie noch die <a href="http://www.himsintl.com/upload/HIMS_USB_Driver_v25.zip" rel="noopener" target="_blank" title="USB-Treiber von Hims">USB-Treiber von Hims</a> auf Ihrem System installieren.</p>
-<p>Folgende Tastenkombinationen sind in NVDA verfügbar:
+<p>Folgende Tastenkombinationen sind in NVDA verfügbar.
 Bitte lesen Sie in der Dokumentation der Braillezeile, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -6503,6 +6643,8 @@ Wo sich diese Tasten befinden, entnehmen Sie bitte der Dokumentation der Braille
 </tr>
 </tbody>
 </table>
+<!-- KC:endInclude -->
+
 <h3 id="Papenmeier">Neuere Braillex-Modelle von Papenmeier</h3>
 <p>Folgende Braillezeilen werden unterstützt:</p>
 <ul>
@@ -6802,7 +6944,7 @@ Bei älteren Modellen, die keine Navigationsleiste besitzen, kommen stattdessen 
 </table>
 <p>Die folgenden Befehle sind in NVDA verfügbar:</p>
 <!-- KC:beginInclude -->
-<p>Geräte mit Navigationsleiste</p>
+<p>Geräte mit Navigationsleiste:</p>
 <table>
 <thead>
 <tr>
@@ -6936,7 +7078,7 @@ Bei älteren Modellen, die keine Navigationsleiste besitzen, kommen stattdessen 
 </tr>
 </tbody>
 </table>
-<p>BRAILLEX 2D Screen</p>
+<p>BRAILLEX 2D-Screen:</p>
 <table>
 <thead>
 <tr>
@@ -7019,7 +7161,7 @@ Wenn Sie einen seriellen Anschluss (oder einen USB-Zu-Seriell-Konverter) verwend
 <p>Bevor Sie die BrailleNote über USB verbinden können, müssen Sie den von Humanware bereitgestellten Treiber installieren.</p>
 <p>Bei der Braillenote Apex BT können Sie das Scrollrad für die Ausführung von NVDA-Befehlen verwenden. Es befindet sich zwischen den Punkten 1 und 4.
 Das Scrollrad besteht aus 4 punktförmigen Richtungstasten, einer mittleren Taste sowie dem eigentlichen Rad, das Sie mit und gegen den Uhrzeigersinn drehen können.</p>
-<p>Folgende BrailleNote-Befehle können Sie in NVDA verwenden:
+<p>Folgende BrailleNote-Befehle können Sie in NVDA verwenden.
 Bitte lesen Sie in der Dokumentation der Braillezeile, wo sich die entsprechenden Tasten befinden.</p>
 <!-- KC:beginInclude -->
 
@@ -7133,7 +7275,7 @@ Bitte lesen Sie in der Dokumentation der Braillezeile, wo sich die entsprechende
 </tr>
 </tbody>
 </table>
-<p>Die folgenden Befehle sind im Braillenote QT verfügbar, wenn die Brailleeingabe nicht aktiviert ist:</p>
+<p>Die folgenden Befehle sind im Braillenote QT verfügbar, wenn die Brailleeingabe nicht aktiviert ist.</p>
 <table>
 <thead>
 <tr>
@@ -7268,7 +7410,7 @@ Die folgenden Modelle werden unterstützt:</p>
 </ul>
 <p>In dem <a href="#SelectBrailleDisplay" title="Dialogfeld zum Auswählen der Braillezeile">Dialogfeld zum Auswählen der Braillezeile</a> in den NVDA-Einstellungen können Sie den seriellen Anschluss festlegen, mit dem die Braillezeile verbunden ist.
 Diese Braillezeilen unterstützen nicht die automatische Erkennung der Braillezeilen im Hintergrund von NVDA.</p>
-<p>Folgende Tastenbelegungen sind bei Verwendung der Ecobraille-Modelle verfügbar:
+<p>Folgende Tastenbelegungen sind bei Verwendung der Ecobraille-Modelle verfügbar.
 Bitte lesen Sie in der <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/ECO/" title="Dokumentation zur Ecobraille">Dokumentation zur Ecobraille</a>, um zu erfahren, wo die entsprechenden Tasten zu finden sind.</p>
 <!-- KC:beginInclude -->
 
@@ -7379,11 +7521,11 @@ Aus Kompatibilitätsgründen wurden deshalb zwei Tastenkombinationen definiert:<
 <!-- KC:endInclude -->
 
 <h3 id="Eurobraille">Braillezeilen von EuroBraille</h3>
-<p>Die Braillezeilen b.book, b.note, Esys, Esytime und Iris von EuroBraille werden von NVDA unterstützt.<br>
-Diese Geräte verfügen über eine Braille-Tastatur mit zehn Tasten. 
+<p>Die Braillezeilen b.book, b.note, Esys, Esytime und Iris von EuroBraille werden von NVDA unterstützt.
+Diese Geräte verfügen über eine Braille-Tastatur mit zehn Tasten.
 Eine Beschreibung dieser Tasten finden Sie in der Dokumentation der Braillezeile vom Hersteller.
 Es gibt zwei Tasten, welche wie die leertaste angeordnet sind. Die linke Taste entspricht der Rücktaste, die rechte entspricht der Leertaste.</p>
-<p>Diese Geräte werden über USB angeschlossen und verfügen über eine eigenständige USB-Tastatur. 
+<p>Diese Geräte werden über USB angeschlossen und verfügen über eine eigenständige USB-Tastatur.
 Es ist möglich, diese Tastatur zu aktivieren oder deaktivieren, indem man die "HID-Tastatur-Simulation" mit einem Tastenbefehl umschaltet.
 Die im Folgenden beschriebenen Funktionen der Braille-Tastatur gelten, wenn die "HID-Tastatur-Simulation" deaktiviert ist.</p>
 <h4 id="EurobrailleBraille">Funktionen der Braille-Tastatur</h4>
@@ -8290,7 +8432,7 @@ Wo diese Tasten zu finden sind, entnehmen Sie bitte der Dokumentation der Braill
 <p>Dies ist ein experimenteller Treiber für die neue Standard-HID-Braille-Spezifikation, die 2018 von Microsoft, Google, Apple und weiteren Unternehmen, die Hilfstechnologien verwenden, darunter NV Access, vereinbart wurde.
 Es besteht die Hoffnung, dass alle zukünftigen Braille-Display-Modelle aller Hersteller dieses Standardprotokoll verwenden, wodurch herstellerspezifische Braille-Treiber überflüssig werden.</p>
 <p>Die automatische Erkennung in NVDA unterstützt auch alle Braillezeilen-Modelle, die dieses Protokoll unterstützen.</p>
-<p>Im Folgenden sind die aktuellen Tastenbelegungen für diese Braillezeilen aufgeführt:</p>
+<p>Im Folgenden sind die aktuellen Tastenbelegungen für diese Braillezeilen aufgeführt.</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -8462,15 +8604,15 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tbody>
 <tr>
 <td><code>nvda -l 10</code></td>
-<td>Startet NVDA mit der Protokollierungsstufe "Debug".</td>
+<td>Legt fest, dass NVDA mit der Protokollierungsstufe Debug starten soll</td>
 </tr>
 <tr>
 <td><code>nvda --log-file=C:\\NVDA.log</code></td>
-<td>Speichert das Protokoll in der Datei <code>C:\\NVDA.log</code>.</td>
+<td>Speichert das Protokoll in die Datei <code>C:\\NVDA.log</code></td>
 </tr>
 <tr>
 <td><code>nvda --log-level=20 -f C:\\NVDA.log</code></td>
-<td>Legt die Protokollierungsstufe für Informationen fest und speichert das Protokoll in der Datei <code>C:\\NVDA.log</code>.</td>
+<td>Legt die Protokollierungsstufe fest auf Informationen und speichert das Protokoll in die Datei <code>C:\\NVDA.log</code></td>
 </tr>
 </tbody>
 </table>
@@ -8487,17 +8629,17 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tr>
 <td><code>-h</code></td>
 <td><code>--help</code></td>
-<td>Zeigt eine Hilfe zur Befehlszeile an und beendet NVDA.</td>
+<td>Zeigt eine Hilfe zur Befehlszeile an und beendet NVDA</td>
 </tr>
 <tr>
 <td><code>-q</code></td>
 <td><code>--quit</code></td>
-<td>Beendet eine laufende Instanz von NVDA.</td>
+<td>Beendet eine laufende Instanz von NVDA</td>
 </tr>
 <tr>
 <td><code>-k</code></td>
 <td><code>--check-running</code></td>
-<td>Prüft, ob NVDA bereits ausgeführt wird. Falls ja, wird ein Fehlercode 0 zurückgegeben, anderenfalls wird 1 zurückgegeben.</td>
+<td>Prüft, ob NVDA bereits ausgeführt wird. Falls ja, wird ein Fehlercode 0 zurückgegeben, anderenfalls wird 1 zurückgegeben</td>
 </tr>
 <tr>
 <td><code>-f &lt;Protokolldateiname&gt;</code></td>
@@ -8532,7 +8674,7 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tr>
 <td>Keine</td>
 <td><code>--disable-addons</code></td>
-<td>Deaktiviert alle NVDA-Erweiterungen.</td>
+<td>Deaktiviert alle NVDA-Erweiterungen</td>
 </tr>
 <tr>
 <td>Keine</td>
@@ -8547,7 +8689,7 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tr>
 <td>Keine</td>
 <td><code>--no-sr-flag</code></td>
-<td>Keine Mitteilung in Windows über einen installierten Screenreader.</td>
+<td>Keine Mitteilung in Windows über einen installierten Screenreader</td>
 </tr>
 <tr>
 <td>Keine</td>
@@ -8567,12 +8709,12 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tr>
 <td>Keine</td>
 <td><code>--copy-portable-config</code></td>
-<td>Kopieren Sie bei der Installation die portable Konfiguration vom angegebenen Pfad (<code>--config-path</code>, <code>-c</code>) im aktuellen Benutzerkonto.</td>
+<td>Kopieren Sie bei der Installation die portable Konfiguration vom angegebenen Pfad (<code>--config-path</code>, <code>-c</code>) im aktuellen Benutzerkonto</td>
 </tr>
 <tr>
 <td>Keine</td>
 <td><code>--create-portable</code></td>
-<td>Erstellt eine portable Version (und startet die neue Version). Erfordert die Angabe von <code>--portable-path</code>.</td>
+<td>Erstellt eine portable Version (und startet die neue Version). Erfordert die Angabe von <code>--portable-path</code></td>
 </tr>
 <tr>
 <td>Keine</td>
@@ -8582,7 +8724,7 @@ Die Parameter müssen durch ein Leerzeichen von der Option getrennt angegeben we
 <tr>
 <td>Keine</td>
 <td><code>--portable-path=Ordner</code></td>
-<td>Gibt den Ordner an, in dem die portable Version erstellt werden soll.</td>
+<td>Gibt den Ordner an, in dem die portable Version erstellt werden soll</td>
 </tr>
 </tbody>
 </table>
@@ -8608,13 +8750,13 @@ Diese Werte werden unter einem der folgenden Schlüssel gespeichert:</p>
 <td><code>configInLocalAppData</code></td>
 <td>DWORD</td>
 <td>0 (Standard) zum Deaktivieren, 1 zum Aktivieren</td>
-<td>Wenn aktiviert, wird die Benutzerkonfiguration von NVDA in den lokalen Anwendungsdaten statt in den Roaming-Anwendungsdaten gespeichert.</td>
+<td>Wenn aktiviert, wird die Benutzerkonfiguration von NVDA in den lokalen Anwendungsdaten statt in den Roaming-Anwendungsdaten gespeichert</td>
 </tr>
 <tr>
 <td><code>serviceDebug</code></td>
 <td>DWORD</td>
 <td>0 (Standard) zum Deaktivieren, 1 zum Aktivieren</td>
-<td>Wenn aktiviert, wird der <a href="#SecureMode" title="Geschützte Modus">Geschützte Modus</a> auf <a href="#SecureScreens" title="geschützte Sicherheitsmeldungen">geschützte Sicherheitsmeldungen</a> deaktiviert. Auf Grund mehrerer wichtiger Sicherheitsaspekte wird von der Verwendung dieser Option dringend abgeraten.</td>
+<td>Wenn aktiviert, wird der <a href="#SecureMode" title="Geschützte Modus">Geschützte Modus</a> auf <a href="#SecureScreens" title="geschützte Sicherheitsmeldungen">geschützte Sicherheitsmeldungen</a> deaktiviert. Auf Grund mehrerer wichtiger Sicherheitsaspekte wird von der Verwendung dieser Option dringend abgeraten</td>
 </tr>
 <tr>
 <td><code>forceSecureMode</code></td>

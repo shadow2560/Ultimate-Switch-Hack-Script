@@ -2,20 +2,20 @@
 <html lang="vi" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>Hướng dẫn sử dụng NVDA 2024.3.1</title>
+<title>Hướng dẫn sử dụng NVDA 2024.4.2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="huong-dan-su-dung-nvda-202431">Hướng dẫn sử dụng NVDA 2024.3.1</h1>
+<body><h1 id="huong-dan-su-dung-nvda-202442">Hướng dẫn sử dụng NVDA 2024.4.2</h1>
 <div class="toc">
 <ul>
-<li><a href="#huong-dan-su-dung-nvda-202431" title="Hướng dẫn sử dụng NVDA 2024.3.1">Hướng dẫn sử dụng NVDA 2024.3.1</a><ul>
+<li><a href="#huong-dan-su-dung-nvda-202442" title="Hướng dẫn sử dụng NVDA 2024.4.2">Hướng dẫn sử dụng NVDA 2024.4.2</a><ul>
 <li><a href="#Introduction" title="Giới thiệu">Giới thiệu</a><ul>
 <li><a href="#GeneralFeatures" title="Các tính năng chung">Các tính năng chung</a></li>
 <li><a href="#SystemRequirements" title="Yêu Cầu Hệ Thống">Yêu Cầu Hệ Thống</a><ul>
-<li><a href="#MinimumSystemRequirements" title="Yêu Cầu Hệ Thống Được Đề Xuất">Yêu Cầu Hệ Thống Được Đề Xuất</a></li>
 <li><a href="#MinimumSystemRequirements" title="Yêu cầu Hệ Thống Tối Thiểu">Yêu cầu Hệ Thống Tối Thiểu</a></li>
+<li><a href="#RecommendedSystemRequirements" title="Recommended System Requirements">Recommended System Requirements</a></li>
 </ul>
 </li>
 <li><a href="#Internationalization" title="Tính quốc tế">Tính quốc tế</a></li>
@@ -244,11 +244,17 @@
 <li><a href="#BrailleTether" title="Đưa Braille Theo">Đưa Braille Theo</a></li>
 <li><a href="#BrailleSettingsReviewRoutingMovesSystemCaret" title="Di chuyển dấu nháy hệ thống khi định tuyến con trỏ duyệt">Di chuyển dấu nháy hệ thống khi định tuyến con trỏ duyệt</a></li>
 <li><a href="#BrailleSettingsReadByParagraph" title="Đọc Theo Đoạn">Đọc Theo Đoạn</a></li>
-<li><a href="#BrailleSettingsWordWrap" title="Tránh Tách Từ">Tránh Tách Từ</a></li>
-<li><a href="#BrailleUnicodeNormalization" title="Chuẩn hóa Unicode">Chuẩn hóa Unicode</a></li>
+<li><a href="#BrailleParagraphStartMarkers" title="Paragraph start marker">Paragraph start marker</a></li>
 <li><a href="#BrailleSettingsFocusContextPresentation" title="Trình Bày Ngữ Cảnh tại Focus">Trình Bày Ngữ Cảnh tại Focus</a></li>
-<li><a href="#BrailleSettingsInterruptSpeech" title="Ngừng đọc trong khi cuộn">Ngừng đọc trong khi cuộn</a></li>
 <li><a href="#BrailleSettingsShowSelection" title="Hiện vùng chọn">Hiện vùng chọn</a></li>
+<li><a href="#BrailleFormattingDisplay" title="Formatting display">Formatting display</a><ul>
+<li><a href="#BrailleFormattingDisplayTags" title="Tags">Tags</a></li>
+</ul>
+</li>
+<li><a href="#BrailleSpeakOnRouting" title="Speak character when routing cursor in text">Speak character when routing cursor in text</a></li>
+<li><a href="#BrailleSettingsWordWrap" title="Avoid splitting words when possible">Avoid splitting words when possible</a></li>
+<li><a href="#BrailleUnicodeNormalization" title="Unicode normalization">Unicode normalization</a></li>
+<li><a href="#BrailleSettingsInterruptSpeech" title="Interrupt speech while scrolling">Interrupt speech while scrolling</a></li>
 </ul>
 </li>
 <li><a href="#SelectBrailleDisplay" title="Chọn màn hình chữ nổi">Chọn màn hình chữ nổi</a><ul>
@@ -288,6 +294,7 @@
 <li><a href="#KeyboardSettingsSpeakCommandKeys" title="Đọc phím lệnh">Đọc phím lệnh</a></li>
 <li><a href="#KeyboardSettingsAlertForSpellingErrors" title="Phát âm thanh báo lỗi chính tả khi nhập liệu">Phát âm thanh báo lỗi chính tả khi nhập liệu</a></li>
 <li><a href="#KeyboardSettingsHandleKeys" title="Quản lý phím từ ứng dụng khác">Quản lý phím từ ứng dụng khác</a></li>
+<li><a href="#MultiPressTimeout" title="Multiple key press timeout">Multiple key press timeout</a></li>
 </ul>
 </li>
 <li><a href="#MouseSettings" title="Thiết Lập Chuột">Thiết Lập Chuột</a><ul>
@@ -353,6 +360,7 @@
 </li>
 <li><a href="#DocumentFormattingSettings" title="Định Dạng Tài Liệu">Định Dạng Tài Liệu</a><ul>
 <li><a href="#OpenDocumentFormattingSettings" title="Mở cài đặt định dạng tài liệu">Mở cài đặt định dạng tài liệu</a></li>
+<li><a href="#DocumentFormattingFontAttributes" title="Font attributes">Font attributes</a></li>
 <li><a href="#DocumentFormattingDetectFormatAfterCursor" title="Thông báo thông tin định dạng sau con trỏ">Thông báo thông tin định dạng sau con trỏ</a></li>
 <li><a href="#DocumentFormattingSettingsLineIndentation" title="Thông Báo Thụt Lề Dòng">Thông Báo Thụt Lề Dòng</a></li>
 </ul>
@@ -508,7 +516,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: Danh sách các phím tắt trong NVDA 2024.3.1  -->
+<!-- KC:title: Danh sách các phím tắt trong NVDA 2024.4.2 -->
 
 <h2 id="Introduction">Giới thiệu</h2>
 <p>Chào mừng bạn đến với NVDA!</p>
@@ -536,24 +544,24 @@ NVDA được phát triển bởi công ty <a href="https://www.nvaccess.org/" r
 <li>Khả năng làm nổi bật focus hệ thống</li>
 </ul>
 <h3 id="SystemRequirements">Yêu Cầu Hệ Thống</h3>
-<h4 id="MinimumSystemRequirements">Yêu Cầu Hệ Thống Được Đề Xuất</h4>
-<ul>
-<li>Hệ điều hành: các phiên bản 64-bit của Windows 10, Windows 11, và Window Server 2022<ul>
-<li>đã hỗ trợ cả hai biến thể AMD64 và ARM64 của Windows.</li>
-</ul>
-</li>
-<li>tối thiểu 150 MB không gian lưu trữ.</li>
-<li>tối thiểu 4 GB RAM.</li>
-</ul>
 <h4 id="MinimumSystemRequirements">Yêu cầu Hệ Thống Tối Thiểu</h4>
 <ul>
 <li>Hệ điều hành: tất cả các phiên bản 32bit và 64bit của Windows 8.1,  Windows 10, Windows 11 và các bản máy chủ từ bản Windows Server 2012 R2.<ul>
 <li>đã hỗ trợ cả hai biến thể AMD64 và ARM64 của Windows.</li>
-<li>Lưu ý rằng hệ điều hành 32-bit không còn được hỗ trợ tích cực nữa.</li>
+<li>Note that 32-bit operating systems are no longer under active support.</li>
 <li>Lưu ý rằng các phiên bản Windows 8.1 và Windows Server cũ hơn 2022 không còn được hỗ trợ tích cực nữa.</li>
 </ul>
 </li>
-<li>Không gian lưu trữ tối thiểu là 150 MB</li>
+<li>at least 500 MB of storage space.</li>
+</ul>
+<h4 id="RecommendedSystemRequirements">Recommended System Requirements</h4>
+<ul>
+<li>Operating Systems: 64-bit editions of Windows 10, Windows 11, and Windows Server 2022.<ul>
+<li>both AMD64 and ARM64 variants of Windows are supported.</li>
+</ul>
+</li>
+<li>at least 500 MB of storage space.</li>
+<li>at least 4 GB of RAM.</li>
 </ul>
 <h3 id="Internationalization">Tính quốc tế</h3>
 <p>Một điều quan trọng là tất cả mọi người trên thế giới đều có quyền ngang nhau trong việc tiếp cận với công nghệ; cho dù họ đang giao tiếp bằng ngôn ngữ nào.
@@ -594,8 +602,8 @@ Xem phần <a href="#SystemRequirements" title="Yêu cầu hệ thống">Yêu c�
 <p>Các bước này xem như người dùng đã có chút kĩ năng trong việc lướt web.</p>
 <ul>
 <li>Mở trình duyệt của bạn (bấm phím <code>Windows</code>, gõ từ "internet" không có dấu ngoặc kép, và bấm <code>enter</code>)</li>
-<li>Mở trang tải phần mềm của NV Access (bấm <code>alt+d</code>, gõ vào địa chỉ sau và bấm <code>enter</code>): 
-https://www.nvaccess.org/download </li>
+<li>Mở trang tải phần mềm của NV Access (bấm <code>alt+d</code>, gõ vào địa chỉ sau và bấm <code>enter</code>):
+https://www.nvaccess.org/download</li>
 <li>Bấm vào nút "download"</li>
 <li>Trình duyệt có thể đưa ra hoặc không đưa ra yêu cầu sau khi tải về, và sẽ bắt đầu tải về</li>
 <li>Tùy vào trình duyệt, tập tin có thể tự chạy sau khi được tải về</li>
@@ -618,17 +626,17 @@ Bấm <code>mũi tên xuống</code> để đọc giấy phép sử dụng, nế
 <li>Bấm <code>tab</code> để chuyển đến hộp kiểm "Tôi đồng ý", rồi bấm <code>khoảng trắng</code> để đánh dấu chọn nó.</li>
 <li>Bấm <code>tab</code> để di chuyển qua các tùy chọn, rồi bấm <code>enter</code> với các tùy chọn mong muốn.</li>
 </ol>
-<p>Các tùy chọn bao gồm: </p>
+<p>Các tùy chọn bao gồm:</p>
 <ul>
-<li>"Cài NVDA vào máy tính": đây là tùy chọn chính được đa số người dùng lựa chọn để sử dụng NVDA dễ hơn. </li>
+<li>"Cài NVDA vào máy tính": đây là tùy chọn chính được đa số người dùng lựa chọn để sử dụng NVDA dễ hơn.</li>
 <li>"Tạo bản chạy trực tiếp": tùy chọn này cho phép cài đặt NVDA vào một thư mục bất kì, thay vì cài vào máy.
 Tùy chọn này hữu ích với các máy tính không có quyền quản trị, hoặc một thiết bị lưu trữ của bạn.
 Khi được chọn, NVDA sẽ đi qua các bước để tạo một bản chạy trực tiếp.
-Cái chính mà NVDA cần biết là thư mục để tạo bản chạy trực tiếp. </li>
+Cái chính mà NVDA cần biết là thư mục để tạo bản chạy trực tiếp.</li>
 <li>"Tiếp tục sử dụng": cho phép tiếp tục dùng bản tạm của NVDA.
 Tùy chọn này hữu ích khi muốn thử nghiệm các tính năng của phiên bản mới trước khi cài đặt vào máy.
 Khi được chọn, cửa sổ của trình chạy bị đóng lại và bản chạy tạm thời của NVDA sẽ tiếp tục hoạt động cho đến khi nó bị thoát ra hoặc máy tính bị tắt.
-Lưu ý là các thay đổi thiết lập sẽ không được lưu lại. </li>
+Lưu ý là các thay đổi thiết lập sẽ không được lưu lại.</li>
 <li>"Hủy bỏ": tùy chọn này sẽ đóng NVDA mà không thực hiện hành động nào.</li>
 </ul>
 <p>Nếu có dự định dùng NVDA luôn trên máy này, bạn nên chọn cài đặt vào máy.
@@ -680,7 +688,7 @@ Phím này cũng có thể thiết lập thành phím <code>capsLock</code>.</p>
 <h4 id="InputHelp">Trợ giúp nhập</h4>
 <p>để học vị trí và thực hành các phím lệnh, bấm <code>NVDA+1</code>  bật chức năng trợ giúp nhập.
 Khi ở trong chế độ trợ giúp nhập, việc thực hiện một thao tác bất kì (bấm một phím lệnh hay thực hiện một thao tác cảm ứng chẳng hạn) sẽ cho biết tên hành động và mô tả tính năng của nó (nếu có).
-Chức năng thật sự của thao tác sẽ không được thực thi khi ở trong chế độ trợ giúp nhập. </p>
+Chức năng thật sự của thao tác sẽ không được thực thi khi ở trong chế độ trợ giúp nhập.</p>
 <h4 id="StartingAndStoppingNVDA">Gọi chạy và tắt NVDA</h4>
 <table>
 <thead>
@@ -1031,7 +1039,7 @@ Bấm <code>enter</code> trên add-on để mở danh sách hành động; chọ
 <p>Mặc Định, sau khi khởi động NVDA, bạn sẽ được thông báo nếu có cập nhật cho bất cứ add-on nào.
 Để tìm hiểu và cấu hình cho tùy chọn này, hãy tham khảo phần <a href="#AutomaticAddonUpdates" title="&quot;Thông báo cập nhật&quot;">"Thông báo cập nhật"</a>.</p>
 <h3 id="Community">Cộng đồng</h3>
-<p>NVDA có một cộng đồng người dùng sôi động. 
+<p>NVDA có một cộng đồng người dùng sôi động.
 <a href="https://nvda.groups.io/g/nvda" rel="noopener" target="_blank" title="Diễn đàn trao đổi qua thư điện tử chính thức  bằng tiếng Anh">Diễn đàn trao đổi qua thư điện tử chính thức  bằng tiếng Anh</a> và một trang với đầy đủ các <a href="https://github.com/nvaccess/nvda-community/wiki/Connect" rel="noopener" target="_blank" title="nhóm ngôn ngữ bản địa">nhóm ngôn ngữ bản địa</a>.
 NV Access, nhà phát triển  NVDA cũng hoạt động trên <a href="https://twitter.com/nvaccess" rel="noopener" target="_blank" title="Twitter">Twitter</a> và <a href="https://www.facebook.com/NVAccess" rel="noopener" target="_blank" title="Facebook">Facebook</a>.
 NV Access cũng có một bảng tin phát hành thường xuyên, tên gọi <a href="https://www.nvaccess.org/category/in-process/" rel="noopener" target="_blank" title="In-Process blog">In-Process blog</a>.</p>
@@ -1099,7 +1107,7 @@ Khi hoàn tất, sẽ có một thông báo xác nhận là việc tạo bản c
 Bấm Đồng ý để đóng hộp thoại này.</p>
 <h3 id="PortableAndTemporaryCopyRestrictions">Hạn chế của phiên bản tạm thời và bản chạy trực tiếp</h3>
 <p>Nếu muốn dùng NVDA từ USB hay các phương tiện lưu trữ khác, bạn có thể chọn tạo bản chạy trực tiếp.
-Bản đang cài trên máy cũng có khả năng tự tạo bản chạy trực tiếp bất cứ lúc nào. 
+Bản đang cài trên máy cũng có khả năng tự tạo bản chạy trực tiếp bất cứ lúc nào.
 Bản chạy trực tiếp cũng có khả năng tự cài vào máy bất cứ lúc nào.
 Tuy nhiên, nếu muốn tạo bản chạy trực tiếp trên ổ CD (phương tiện lưu trữ có thuộc tính chỉ đọc) thì bạn chỉ nên chép gói cài đặt đã tải về.
 Hiện tại, NVDA chưa hỗ trợ dùng bản chạy trực tiếp trên các phương tiện lưu trữ có thuộc tính chỉ đọc (read-only).</p>
@@ -1150,7 +1158,7 @@ Tuy nhiên, bạn có thể bật hay tắt thủ công việc thu thập dữ l
 Ngoại trừ trường hợp duyệt văn bản trong kiểu bàn phím Desktop sử dụng các phím số bên bàn phím số và một vài trường hợp ngoại lệ khác.</p>
 <p>Có thể cấu hình NVDA để dùng phím <code>Insert</code>, <code>Insert bên bàn phím số (numpad Insert)</code> hay <code>phím Khóa hoa (Caps Lock)</code> làm phím bổ trợ <code>NVDA</code>.
 Mặc định thì cả phím <code>Insert</code> và <code>Insert bàn phím số</code>đều được chọn là phím bổ trợ cho NVDA.</p>
-<p>Nếu muốn phím bổ trợ hoạt động theo đúng chức năng của nó(ví dụ phím Khóa hoa) thì bạn bấm nhanh hai lần phím đó </p>
+<p>Nếu muốn phím bổ trợ hoạt động theo đúng chức năng của nó(ví dụ phím Khóa hoa) thì bạn bấm nhanh hai lần phím đó</p>
 <h4 id="KeyboardLayouts">Kiểu bàn phím</h4>
 <p>Hiện tại, NVDA có 2 kiểu phím tắt(hay còn gọi là kiểu bàn phím): là kiểu bàn phím Desktop và Laptop.
 Mặc định, NVDA được thiết lập theo kiểu bàn phím Desktop, nhưng bạn có thể chuyển sang kiểu Laptop bằng cách chọn mục đó ở phân loại bàn phím trong hộp thoại <a href="#NVDASettings" title="Cấu hình NVDA">Cấu hình NVDA</a>, được tìm thấy trong  trình đơn tùy chọn  của NVDA.</p>
@@ -1159,7 +1167,7 @@ Mặc dù hầu hết Laptop không có bàn phím số riêng, nhưng một s�
 Nếu kiểu bàn phím của bạn không cho phép làm điều đó thì bạn nên chọn kiểu bàn phím là Laptop.</p>
 <h3 id="NVDATouchGestures">Thao tác cảm ứng trong NVDA</h3>
 <p>Nếu đang chạy NVDA trên các thiết bị có màn hình cảm ứng, bạn có thể điều khiển trực tiếp NVDA thông qua các thao tác cảm ứng.
-Nếu như NVDA đang chạy, trừ khi thao tác cảm ứng bị tắt, tất cả các hành động trên màn hình cảm ứng sẽ được gửi trực tiếp đến NVDA. 
+Nếu như NVDA đang chạy, trừ khi thao tác cảm ứng bị tắt, tất cả các hành động trên màn hình cảm ứng sẽ được gửi trực tiếp đến NVDA.
 Vì vậy, các hành động có thể thực hiện khi NVDA không chạy sẽ không hoạt động nếu NVDA đang chạy.</p>
 <!-- KC:beginInclude -->
 <p>Để bật / tắt hỗ trợ tương tác cảm ứng, bấm NVDA+control+alt+t.</p>
@@ -1187,7 +1195,7 @@ Dĩ nhiên, những thao tác đa chạm cũng nhận biết được số ngón
 Do vậy mà bạn có thể thực hiện các thao tác như vuốt lên 2-ngón và vuốt 4-ngón sang trái.</p>
 <h4 id="TouchModes">Chế độ cảm ứng</h4>
 <p>NVDA có nhiều lệnh hơn so với số lượng hành động cảm ứng có thể thực hiện. NVDA có một vài chế độ cảm ứng cho phép bạn chuyển đổi để thực hiện các tập lệnh của những hành động cảm ứng khác nhau.
-Có hai chế độ là chế độ đối tượng (object mode) và chế độ văn bản(text mode) 
+Có hai chế độ là chế độ đối tượng (object mode) và chế độ văn bản(text mode)
 Một số lệnh nhất định của NVDA được liệt kê trong tài liệu này có thể có chế độ cảm ứng được ghi trong dấu ngoặc vuông ngay sau thao tác cảm ứng.
 Ví dụ: hành động cảm ứng: Vuốt lên (chế độ văn bản), nghĩa là hành động vuốt lên cho lệnh  hiện tại của NVDA chỉ hoạt động trong chế độ văn bản.
 Nếu như hành động nào không được ghi kèm theo chế độ cảm ứng thì nó có thể hoạt động trong mọi chế độ.</p>
@@ -1938,7 +1946,7 @@ Khi bạn di chuyển trong tài liệu với các lệnh duyệt thì đối t�
 <h4 id="ScreenReview">chế độ duyệt màn hình</h4>
 <p>Chế độ duyệt màn hình cho phép bạn duyệt nội dung như nó được hiển thị trên màn hình của ứng dụng hiện tại.
 Chức năng này tương tự như chức năng duyệt nội dung trên màn hình hoặc con trỏ chuột của các trình đọc màn hình khác cho Windows.</p>
-<p>Khi chuyển qua chế độ duyệt màn hình, con trỏ duyệt sẽ nằm tại vị trí màn hình của <a href="#ObjectNavigation" title="đối tượng điều hướng">đối tượng điều hướng</a> hiện tại.sẽ tự động đi theo 
+<p>Khi chuyển qua chế độ duyệt màn hình, con trỏ duyệt sẽ nằm tại vị trí màn hình của <a href="#ObjectNavigation" title="đối tượng điều hướng">đối tượng điều hướng</a> hiện tại.sẽ tự động đi theo
 Khi di chuyển trên màn hình với các lệnh duyệt, đối tượng điều hướng sẽ tự động chuyển đến đối tượng tại vị trí màn hình của con trỏ duyệt.</p>
 <p>Lưu ý là với một số ứng dụng mới thì NVDA có thể chưa nhận biết được hết nội dung trên màn hình do có thể là ứng dụng đã dùng công nghệ vẽ màn hình mới hiện chưa được hỗ trợ.</p>
 <h3 id="NavigatingWithTheMouse">Di chuyển với chuột</h3>
@@ -2217,8 +2225,8 @@ Ví dụ, nếu muốn dùng phím lệnh <code>y</code> / <code>shift+y</code> 
 <li>Gán <code>shift+y</code> cho thao tác.</li>
 </ol>
 <h3 id="ElementsList">Hộp thoại danh sách các thành phần</h3>
-<p>NVDA cho phép bạn lọc và truy cập nhanh đến các đối tượng trong tài liệu 
-Ví dụ: trên các trình duyệt, có thể liệt kê các liên kết (link), tiêu đề (heading), biểu mẫu (form), nút (button) hay cột mốc (landmarks) bằng hộp thoại danh sách các thành phần. 
+<p>NVDA cho phép bạn lọc và truy cập nhanh đến các đối tượng trong tài liệu
+Ví dụ: trên các trình duyệt, có thể liệt kê các liên kết (link), tiêu đề (heading), biểu mẫu (form), nút (button) hay cột mốc (landmarks) bằng hộp thoại danh sách các thành phần.
 Bạn có thể thay đổi liệt kê giữa các loại thành phần trên ở nhóm nút radio.
 Có ô nhập liệu cũng cho phép bạn nhập các ký tự để lọc các đối tượng trong danh sách.
 Khi tìm thấy đối tượng mong muốn, bạn có thể đi đến đối tượng đó hoặc kích hoạt luôn nó.</p>
@@ -2351,7 +2359,7 @@ Dù vậy, lưu ý rằng các công thức toán được tạo trước đây 
 Hãy chắc rằng bạn đang dùng phiên bản mới nhất của MathType trước khi làm điều này.
 Microsoft Word  cung cấp phương pháp điều hướng theo dòng kí hiệu thông qua chính các công thức, và hỗ trợ nhập nội dung toán sử dụng vài cú pháp, bao gồm LateX.
 Để có thêm thông tin, vui lòng xem <a href="https://support.microsoft.com/en-us/office/linear-format-equations-using-unicodemath-and-latex-in-word-2e00618d-b1fd-49d8-8cb4-8d17f25754f8" rel="noopener" target="_blank" title="Các công thức định dạng tuyến tính sử dụng UnicodeMath và LaTeX trong Word">Các công thức định dạng tuyến tính sử dụng UnicodeMath và LaTeX trong Word</a></li>
-<li>Microsoft Powerpoint và các phiên bản cũ của Microsoft Word: 
+<li>Microsoft Powerpoint và các phiên bản cũ của Microsoft Word:
 NVDA có thể đọc và duyệt các công thức của MathType trong cả Microsoft Powerpoint và Microsoft word.
 Cần phải cài MathType để chức năng này hoạt động.
 Chỉ cần cài phiên bản chạy thử là đủ.
@@ -2886,7 +2894,7 @@ Cũng có thể thực hiện tác vụ này trong <a href="#Win10OcrSettings" t
 Tác vụ này yêu cầu bật các tùy chọn thông báo tiêu đề cột / dòng trong cài đặt định dạng tài liệu của NVDA, tìm thấy trong hộp thoại <a href="#NVDASettings" title="Cài đặt NVDA">Cài đặt NVDA</a>.</p>
 <p>Nếu bạn dùng <a href="#MSWordUIA" title="UIA để truy cập tài liệu Word">UIA để truy cập tài liệu Word</a>, là tính năng mặc định trong các phiên bản gần đây của Word và Windows, các ô của dòng đầu sẽ được xem là tiêu đề cột; tương tự, các ô của cột đầu tiên sẽ được xem là tiêu đề dòng.</p>
 <p>Ngược lại, nếu không dùng <a href="#MSWordUIA" title="UIA để truy cập tài liệu Word">UIA để truy cập tài liệu Word</a>, bạn phải báo cho NVDA biết đâu là cột hay dòng có tiêu đề với mọi bảng biểu.
-Sau khi chuyển đến ô đầu tiên của dòng hoặc cột chứa tiêu đề,  sử dụng một trong các phím tắt sau:  </p>
+Sau khi chuyển đến ô đầu tiên của dòng hoặc cột chứa tiêu đề,  sử dụng một trong các phím tắt sau:</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -2926,7 +2934,8 @@ Nghĩa là khi người dùng sử dụng trình đọc màn hình khác và m�
 <p>Danh sách các thành phần có thể liệt kê các tiêu đề, liên kết, chú thích ( bao gồm phần bình luận, thay đổi) và các lỗi (hiện chỉ giới hạn ở các lỗi chính tả).</p>
 <h4 id="WordReportingComments">Thông Báo Chú Thích</h4>
 <!-- KC:beginInclude -->
-<p>Bấm NVDA+alt+c để thông báo phần chú thích tại vị trí dấu nháy.</p>
+<p>To report any comments at the current caret position, press <code>NVDA+alt+c</code>.
+Pressing twice shows the information in a browsable message.</p>
 <!-- KC:endInclude -->
 <p>Tất cả các chú thích cũng như những thay đổi liên quan của tài liệu đều có thể liệt kê trong danh sách thành phần của NVDA khi chọn theo loại thuộc thành phần chú thích (annotation).</p>
 <h3 id="MicrosoftExcel">Microsoft Excel</h3>
@@ -2985,7 +2994,8 @@ Chọn biểu mẫu, bấm enter hoặc nút Chuyển đến để đi đến bi
 </ul>
 <h4 id="ExcelReportingComments">Thông Báo Chú Thích (notes)</h4>
 <!-- KC:beginInclude -->
-<p>Bấm NVDA+alt+c để đọc thông báo phần chú thích của ô hiện tại.
+<p>To report any notes for the currently focused cell, press <code>NVDA+alt+c</code>.
+Pressing twice shows the information in a browsable message.
 Trong Microsoft 2016, 365 và mới hơn, thuật ngữ comments trong Microsoft Excel đã được đổi tên thành "notes". Trong tiếng Việt, chúng đều có thể hiểu là ghi chú hay chú thích.</p>
 <!-- KC:endInclude -->
 <p>Có thể liệt kê toàn bộ các chú thích của bảng tính hiện tại trong phần danh sách thành phần sau khi bấm NVDA+f7.</p>
@@ -3088,7 +3098,7 @@ Khi bạn chuyển đến một biểu mẫu ở chế độ duyệt, tùy theo 
 <!-- KC:endInclude -->
 
 <h3 id="Poedit">Poedit</h3>
-<p>NVDA cung cấp hỗ trợ nâng cao cho Poedit 3.4 hoặc mới hơn.</p>
+<p>NVDA offers enhanced support for Poedit 3.5 or newer.</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -3185,7 +3195,7 @@ Sau đó, chọn Add Note (Thêm ghi chú vào).</p>
 <h3 id="WinConsole">Windows Console</h3>
 <p>NVDA cung cấp hỗ trợ cho Windows command console sử dụng bởi Command Prompt, PowerShell và Windows Subsystem for Linux.
 Cửa sổ console có kích thước cố định, thường nhỏ hơn nhiều so với màn hình hiển thị đầu ra nội dung.
-Khi văn bản mới được nhập vào, nội dung sẽ được cuộn lên trên và các văn bản trước đó không hiển thị nữa. 
+Khi văn bản mới được nhập vào, nội dung sẽ được cuộn lên trên và các văn bản trước đó không hiển thị nữa.
 Trên các phiên bản Windows trước Windows 11 22H2, văn bản không hiển thị trực quan trên cửa sổ thì không tiếp cận được với các lệnh duyệt văn bản của NVDA.
 Vậy nên, cần phải cuộn cửa sổ console để đọc các nội dung phía trên.
 Trong các phiên bản mới hơn của console và trong Windows Terminal, đã có thể xem lại toàn bộ văn bản hiển thị trước đó mà không cần phải cuộn cửa sổ.</p>
@@ -3605,24 +3615,6 @@ Trường hợp này, con trỏ nổi sẽ không đi theo con trỏ NVDA trong 
 Nếu muốn con trỏ nổi đi theo khi duyệt đối tượng  và nội dung, bạn cần cấu hình con trỏ nổi đi theo con trỏ duyệt.
 Trường hợp này, con trỏ nổi sẽ không đi theo focus và dấu nháy hệ thống.</p>
 <h5 id="BrailleSettingsReviewRoutingMovesSystemCaret">Di chuyển dấu nháy hệ thống khi định tuyến con trỏ duyệt</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Các tùy chọn</td>
-<td>Mặc định (Không bao giờ), Không bao giờ, Chỉ khi tự đi theo, Luôn luôn</td>
-</tr>
-<tr>
-<td>Mặc Định</td>
-<td>Không bao giờ</td>
-</tr>
-</tbody>
-</table>
 <p>Thiết lập này xác định việc dấu nháy hệ thống bị di chuyển khi nút định tuyến được bấm.
 Mặc định, tùy chọn này được thiết lập là không bao giờ, nghĩa là nút định tuyến sẽ không di chuyển dấu nháy hệ thống khi định tuyến con trỏ duyệt.</p>
 <p>Khi thiết lập tùy chọn này là luôn luôn, và <a href="#BrailleTether" title="chế độ con trỏ nổi đi theo">chế độ con trỏ nổi đi theo</a> được thiết lập là "tự động" hoặc "đến con trỏ duyệt", việc bấm phím định tuyến con trỏ cũng sẽ di chuyển dấu nháy hệ thống hoặc focus khi được hỗ trợ.
@@ -3633,22 +3625,6 @@ Trường hợp này, NVDA sẽ nỗ lực lấy tiêu điểm là đối tượ
 Trường hợp đó, bấm phím định tuyến con trỏ sẽ chỉ di chuyển dấu nháy hệ thống hoặc focus khi NVDA tự đi theo con trỏ duyệt, tức là không có việc di chuyển con trỏ khi đi theo con trỏ duyệt bằng cách thủ công.</p>
 <p>Tùy chọn này chỉ hiển thị khi "<a href="#BrailleTether" title="chữ nổi đi theo">chữ nổi đi theo</a>" được thiết lập là "Tự động" hoặc "Đến con trỏ duyệt".</p>
 <p>Để bật / tắt di chuyển dấu nháy hệ thống khi định tuyến con trỏ duyệt ở bất cứ đâu, vui lòng gán thao tác / phím tắt thông qua <a href="#InputGestures" title="hộp thoại Quản lý các thao tác">hộp thoại Quản lý các thao tác</a>.</p>
-<h5 id="BrailleSettingsReadByParagraph">Đọc Theo Đoạn</h5>
-<p>Khi bật, nội dung sẽ được hiển thị trên màn hình chữ nổi theo đoạn thay vì dòng.
-Lệnh chuyển về dòng trước và dòng kế cũng sẽ chuyển qua đoạn tương ứng.
-Điều này có nghĩa là bạn không cần cuộn màn hình ở cuối mỗi dòng, khi nội dung có thể hiển thị đầy đủ trên màn hình chữ nổi.
-Nó có thể giúp bạn đọc xuyên suốt một đoạn nội dung dài.
-Tùy chọn này mặc định không được bật.</p>
-<h5 id="BrailleSettingsWordWrap">Tránh Tách Từ</h5>
-<p>Nếu được bật, một từ quá dài nằm cuối màn hình chữ nổi sẽ không bị tách ra.
-Thay vào đó, nó sẽ chừa ra vài ô trắng ở cuối màn hình.
-Khi cuộn màn hình, bạn có thể đọc toàn bộ từ đó.
-Tính năng này đôi khi được gọi là "Word wrap".
-Lưu ý, nếu một từ quá dài và không thể hiển thị trên màn hình chữ nổi, từ đó vẫn phải bị tách.</p>
-<p>Nếu tùy chọn được tắt, phần lớn của một từ sẽ được hiển thị, trong khi phần còn lại sẽ bị cắt.
-Khi cuộn màn hình, bạn sẽ đọc được phần còn lại của từ.</p>
-<p>Bật tùy chọn này có thể giúp bạn đọc trôi chảy hơn, nhưng cũng đòi hỏi thực hiện thao tác cuộn màn hình nhiều lần hơn.</p>
-<h5 id="BrailleUnicodeNormalization">Chuẩn hóa Unicode</h5>
 <table>
 <thead>
 <tr>
@@ -3658,19 +3634,44 @@ Khi cuộn màn hình, bạn sẽ đọc được phần còn lại của từ.<
 </thead>
 <tbody>
 <tr>
-<td>Tùy chọn</td>
-<td>Mặc định (Tắt), Bật, Tắt</td>
+<td>Options</td>
+<td>Default (Never), Never, Only when tethered automatically, Always</td>
 </tr>
 <tr>
-<td>Mặc định</td>
-<td>Tắt</td>
+<td>Default</td>
+<td>Never</td>
 </tr>
 </tbody>
 </table>
-<p>Khi tùy chọn này được bật, quá trình chuẩn hóa unicode sẽ được thực hiện trên văn bản có thể hiện bằng chữ nổi trên màn hình chữ nổi.
-Điều này có lợi khi gặp các ký tự bằng chữ nổi chưa được biết đến trong một bảng chữ nổi cụ thể và có ký tự thay thế tương thích, chẳng hạn như các ký tự in đậm và in nghiêng thường được sử dụng trên mạng xã hội.
-Các lợi ích khác của việc chuẩn hóa unicode đã được giải thích trong greater chi tiết trong <a href="#SpeechUnicodeNormalization" title="phần dành cho cài đặt tiếng nói tương đương">phần dành cho cài đặt tiếng nói tương đương</a>.</p>
-<p>Để bật / tắt tính năng chuẩn hóa unicode ở mọi nơi, vui lòng gán thao tác / phím tắt thông qua <a href="#InputGestures" title="hộp thoại Quản lý các thao tác">hộp thoại Quản lý các thao tác</a>.</p>
+<h5 id="BrailleSettingsReadByParagraph">Đọc Theo Đoạn</h5>
+<p>Khi bật, nội dung sẽ được hiển thị trên màn hình chữ nổi theo đoạn thay vì dòng.
+Lệnh chuyển về dòng trước và dòng kế cũng sẽ chuyển qua đoạn tương ứng.
+Điều này có nghĩa là bạn không cần cuộn màn hình ở cuối mỗi dòng, khi nội dung có thể hiển thị đầy đủ trên màn hình chữ nổi.
+Nó có thể giúp bạn đọc xuyên suốt một đoạn nội dung dài.
+Tùy chọn này mặc định không được bật.</p>
+<h5 id="BrailleParagraphStartMarkers">Paragraph start marker</h5>
+<p>If "Read by paragraph" is checked, the selected start marker will be displayed to indicate the start of a paragraph.
+This can be especially helpful in applications used to read large pieces of text, like structured documents or books.
+In such documents, knowing where paragraphs start may be useful to understand the structure of the content, or to set bookmarks or annotations based on paragraph position.</p>
+<p>The options include using two spaces as a subtle paragraph break, and the paragraph symbol, pilcrow (¶), as a more obvious one.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>No paragraph start marker, Double space (  ), Pilcrow (¶)</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>No paragraph start marker</td>
+</tr>
+</tbody>
+</table>
 <h5 id="BrailleSettingsFocusContextPresentation">Trình Bày Ngữ Cảnh tại Focus</h5>
 <p>Tùy chọn này cho phép chọn những thông tin ngữ cảnh nào sẽ hiển thị trên màn hình chữ nổi khi một đối tượng có focus.
 Thông tin ngữ cảnh là những thông tin của những đối tượng liên quan theo cấp nằm trong đối tượng hiện tại.
@@ -3692,54 +3693,175 @@ Nó có thể bất tiện cho bạn khi duyệt một danh sách có nhiều m�
 Vì vậy, nó chỉ hiển thị bạn đang đứng tại mục có focus.
 Để đọc thông tin ngữ cảnh, bạn cần cuộn màn hình chữ nổi về trước.</p>
 <p>Để chuyển đổi giữa các chế độ trình bày ngữ cảnh, bạn có thể gán phím tắt / thao tác tùy chỉnh cho nó trong <a href="#InputGestures" title="hộp thoại quản lý thao tác">hộp thoại quản lý thao tác</a>.</p>
-<h5 id="BrailleSettingsInterruptSpeech">Ngừng đọc trong khi cuộn</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tùy chọn</td>
-<td>Mặc định (Bật), bật, Tắt</td>
-</tr>
-<tr>
-<td>Mặc định</td>
-<td>Bật</td>
-</tr>
-</tbody>
-</table>
-<p>Thiết lập này xác định việc bộ đọc sẽ bị ngừng khi màn hình chữ nổi được cuộn lùi/tới.
-các lệnh di chuyển đến dòng trước / dòng kế đều làm NVDA ngừng đọc.</p>
-<p>Việc bộ phát âm cứ đọc nội dung có thể gây mất tập trung khi đọc chữ nổi.
-Vì lí do đó, tùy chọn ngừng đọc khi cuộn chữ nổi mặc định được bật.</p>
-<p>Tắt tùy chọn này cho phép bạn nghe đọc nội dung song song với đọc chữ nổi.</p>
 <h5 id="BrailleSettingsShowSelection">Hiện vùng chọn</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Các tùy chọn</td>
-<td>Mặc định (Bật), Bật, Tắt</td>
-</tr>
-<tr>
-<td>Mặc định</td>
-<td>Bật</td>
-</tr>
-</tbody>
-</table>
 <p>Thiết lập này giúp nhận biết khi chỉ báo vùng chọn (các chấm 7 và 8) hiện trên màn hình chữ nổi.
 Mặc định thì tùy chọn này được bật nên chỉ báo vùng chọn sẽ được hiển thị.
 Việc hiện chỉ báo vùng chọn có thể gây mất tập trung trong khi đọc.
 Tắt tùy chọn này có thể cải thiện khả năng đọc.</p>
 <p>Để bật / tắt việc  hiện vùng chọn ở bất cứ đâu, hãy gán một thao tác / phím tắt thông qua <a href="#InputGestures" title="Hộp thoại quản lý thao tác">Hộp thoại quản lý thao tác</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Default (Enabled), Enabled, Disabled</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleFormattingDisplay">Formatting display</h5>
+<p>This setting determines how NVDA will display text formatting in braille.
+This option only has an effect if NVDA is set to <a href="#DocumentFormattingFontAttributes" title="display font attributes in braille">display font attributes in braille</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Default (Liblouis), Liblouis, Tags</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Liblouis</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liblouis</td>
+<td>Use native Braille formatting. Note that this option will only indicate bold, italic and underlined text, and only if the selected braille table supports indicating these attributes.</td>
+</tr>
+<tr>
+<td><a href="#BrailleFormattingDisplayTags" title="Tags">Tags</a></td>
+<td>Use tags that describe how and where text formatting changes.</td>
+</tr>
+</tbody>
+</table>
+<h6 id="BrailleFormattingDisplayTags">Tags</h6>
+<p>When "Formatting display" is set to "Tags", a formatting tag is displayed in braille when a change in formatting is detected.
+These tags start with ⣋ and end with ⣙.
+A formatting tag will contain one or more symbols which describe the text formatting.
+The following symbols are defined:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⠃ ("b")</td>
+<td>Start bold</td>
+</tr>
+<tr>
+<td>⡃ ("b" with dot 7)</td>
+<td>End bold</td>
+</tr>
+<tr>
+<td>⠊ ("i")</td>
+<td>Start italic</td>
+</tr>
+<tr>
+<td>⡊ ("i" with dot 7)</td>
+<td>End italic</td>
+</tr>
+<tr>
+<td>⠥ ("u")</td>
+<td>Start underline</td>
+</tr>
+<tr>
+<td>⡥ ("u" with dot 7)</td>
+<td>End underline</td>
+</tr>
+<tr>
+<td>⠎ ("s")</td>
+<td>Start strikethrough</td>
+</tr>
+<tr>
+<td>⡎ ("s" with dot 7)</td>
+<td>End strikethrough</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSpeakOnRouting">Speak character when routing cursor in text</h5>
+<p>If this is enabled, NVDA will automatically speak the character at the cursor when routing to it with braille cursor routing keys.</p>
+<p>To toggle this option from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<h5 id="BrailleSettingsWordWrap">Avoid splitting words when possible</h5>
+<p>If this is enabled, a word which is too large to fit at the end of the braille display will not be split.
+Instead, there will be some blank space at the end of the display.
+When you scroll the display, you will be able to read the entire word.
+This is sometimes called "word wrap".
+Note that if the word is too large to fit on the display even by itself, the word must still be split.</p>
+<p>If this is disabled, as much of the word as possible will be displayed, but the rest will be cut off.
+When you scroll the display, you will then be able to read the rest of the word.</p>
+<p>Enabling this may allow for more fluent reading, but generally requires you to scroll the display more.</p>
+<h5 id="BrailleUnicodeNormalization">Unicode normalization</h5>
+<p>When this option is enabled, unicode normalization is performed on the text that is brailled on the braille display.
+This is beneficial when coming across characters in braille that are unknown in a particular braille table and which have a compatible alternative, like the bold and italic characters commonly used on social media.
+Other benefits of unicode normalization are explained in greater detail in the <a href="#SpeechUnicodeNormalization" title="section for the equivalent speech setting">section for the equivalent speech setting</a>.</p>
+<p>To toggle Unicode normalization from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Default (Disabled), Enabled, Disabled</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Disabled</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSettingsInterruptSpeech">Interrupt speech while scrolling</h5>
+<p>This setting determines if speech should be interrupted when the Braille display is scrolled backwards/forwards.
+Previous/next line commands always interrupt speech.</p>
+<p>On-going speech might be a distraction while reading Braille.
+For this reason the option is enabled by default, interrupting speech when scrolling braille.</p>
+<p>Disabling this option allows speech to be heard while simultaneously reading Braille.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Default (Enabled), Enabled, Disabled</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
 <h4 id="SelectBrailleDisplay">Chọn màn hình chữ nổi</h4>
 <!-- KC:setting -->
 
@@ -3953,8 +4075,16 @@ Do vậy, chức năng này khá hữu ích trong trường hợp trên.</p>
 <p>Nếu được bật, một âm thanh ngắn sẽ được phát khi từ bạn gõ có lỗi chính tả.
 Tùy chọn này chỉ hoạt động khi tùy chọn thông báo lỗi chính tả được bật trong phân loại  <a href="#DocumentFormattingSettings" title="định dạng tài liệu">định dạng tài liệu</a>, được tìm thấy trong hộp thoại cấu hình NVDA.</p>
 <h5 id="KeyboardSettingsHandleKeys">Quản lý phím từ ứng dụng khác</h5>
-<p>Tùy chọn này cho phép quản lý việc sử dụng bàn phím từ các ứng dụng như bàn phím trên màn hình hay phần mềm nhận dạng tiếng nói. 
+<p>Tùy chọn này cho phép quản lý việc sử dụng bàn phím từ các ứng dụng như bàn phím trên màn hình hay phần mềm nhận dạng tiếng nói.
 Nó được bật mặc định. Do vậy, một số người dùng nhất định có thể cần tắt nó đi. Ví dụ với những ai gõ tiếng Việt bằng phần mềm UniKey, cần tắt nó để gõ được chữ cái tiếng Việt.</p>
+<h5 id="MultiPressTimeout">Multiple key press timeout</h5>
+<p>Some NVDA keyboard gestures perform different actions based upon how many times the same key is pressed in rapid succession.
+An example of this is the "Report current character of navigator object" command.
+This command reports the character if pressed once, a phonetic description of the character if pressed twice, and the numeric value of the character if pressed three times.
+This option configures the timeout after which an additional press of the same key will start a new gesture, rather than being taken as a subsequent press of the first one.
+For the example command, a too short timeout will cause two presses to report the current character twice, rather than the phonetic description.
+The default timeout is 500 ms, i.e. half a second.
+Increasing this timeout may be especially useful for people using sticky keys, or who have a physical disability.</p>
 <h4 id="MouseSettings">Thiết Lập Chuột</h4>
 <!-- KC:setting -->
 
@@ -3996,7 +4126,7 @@ Phân loại này gồm các mục sau:</p>
 <p>Hộp kiểm này bật hỗ trợ tương tác cảm ứng của NVDA.
 Nếu bật, bạn có thể dùng các ngón tay để duyệt và tương tác với các thành phần trên màn hình của thiết bị cảm ứng.
 Nếu tắt, hỗ trợ màn hình cảm ứng sẽ bị vô hiệu hóa, trừ khi không chạy NVDA.
-Có thể bật / tắt tùy chọn này bằng phím tắt NVDA+control+alt+t. </p>
+Có thể bật / tắt tùy chọn này bằng phím tắt NVDA+control+alt+t.</p>
 <h5 id="TouchTypingMode">Chế độ gõ cảm ứng</h5>
 <p>Hộp kiểm này cho phép bạn thiết lập cách thức muốn sử dụng khi nhập văn bản bằng bàn phím cảm ứng.
 Nếu chọn hộp kiểm này, khi đi đến một phím trên bàn phím cảm ứng, bạn có thể buông ngón tay và phím đó sẽ được bấm.
@@ -4170,7 +4300,7 @@ Bạn có thể chọn các mục sau:</p>
 <li>Phông chữ<ul>
 <li>Tên phông chữ</li>
 <li>Cỡ Chữ</li>
-<li>Thuộc tính phông chữ</li>
+<li>Font attributes <a href="#DocumentFormattingFontAttributes" title="(Off, Speech, Braille, Speech and braille)">(Off, Speech, Braille, Speech and braille)</a></li>
 <li>Chỉ số trên và chỉ số dưới</li>
 <li>Nhấn mạnh</li>
 <li>Điểm đã đánh dấu (văn bản được làm nổi)</li>
@@ -4218,6 +4348,16 @@ Bạn có thể chọn các mục sau:</p>
 </li>
 </ul>
 <p>Để bật / tắt thiết lập này ở bất cứ đâu, hãy gán thao tác/phím tắt cho nó trong hộp thoại <a href="#InputGestures" title="Quản lý thao tác">Quản lý thao tác</a>.</p>
+<h5 id="DocumentFormattingFontAttributes">Font attributes</h5>
+<p>This option allows you to select how certain font attributes, such as bold, italics, underline and strikethrough are reported.
+The font attributes combo box has four options:</p>
+<ul>
+<li>Off: NVDA will not report these font attributes.</li>
+<li>Speech: NVDA will announce when these font attributes change.</li>
+<li>Braille: NVDA will display these attributes in braille.
+Exactly how they are displayed can be configured in <a href="#BrailleFormattingDisplay" title="NVDA's braille settings">NVDA's braille settings</a>.</li>
+<li>Speech and braille: NVDA will report font attributes using both of the above methods.</li>
+</ul>
 <h5 id="DocumentFormattingDetectFormatAfterCursor">Thông báo thông tin định dạng sau con trỏ</h5>
 <p>Nếu được chọn, NVDA sẽ tìm và phân tích các thông tin định dạng của nội dung khác nhau và thông báo cho người dùng, dù điều này có thể khiến NVDA chạy chậm hơn.</p>
 <p>Mặc định thì NVDA sẽ dò tìm thông tin định dạng của nội dung tại vị trí con trỏ nháy hay con trỏ duyệt và trong một vài trường hợp thì nó cũng sẽ dò tìm thông tin cho phần còn lại của dòng văn bản nhưng chỉ khi điều đó không làm NVDA chạy chậm.</p>
@@ -4456,7 +4596,7 @@ Vài tính năng thuộc nhóm này có thể chưa được hoàn thiện.</p>
 <p>Để "Thông báo tổng quan cho mọi chi tiết chú thích tại dấu nháy", bấm NVDA+d.</p>
 <!-- KC:endInclude -->
 
-<p>Hiện có các tùy chọn sau: </p>
+<p>Hiện có các tùy chọn sau:</p>
 <ul>
 <li>"Thông báo 'có chi tiết' cho các chú thích có cấu trúc": bật thông báo nếu văn bản hoặc điều khiển có thêm các chi tiết.</li>
 <li>"Luôn thông báo mô tả aria":
@@ -4855,7 +4995,7 @@ Cũng có thể mở trình đơn này qua nút Hành động trong phần chi t
 <h4 id="AddonStoreInstalling">Cài đặt add-on</h4>
 <p>Chỉ vì một add-on có trên Cửa Hàng Add-On của NVDA thì không có nghĩa là nó đã được chấp thuận hoặc đảm bảo bởi NV Access hay bất cứ ai khác.
 Điều rất quan trọng là chỉ nên cài các add-on từ những nguồn mà bạn tin tưởng.
-Chức năng của add-on trong NVDA là không giới hạn. 
+Chức năng của add-on trong NVDA là không giới hạn.
 Nó có thể bao gồm cả việc truy suất dữ liệu cá nhân, hay thậm chí là toàn bộ hệ thống.</p>
 <p>Bạn có thể cài và cập nhật các add-on bằng cách <a href="#AddonStoreBrowsing" title="duyệt qua các add-on đang có">duyệt qua các add-on đang có</a>.
 Chọn một add-on từ thẻ "Add-on hiện hành" hoặc thẻ "Add-on có bản cập nhật".
@@ -5032,7 +5172,7 @@ eSpeak NG hỗ trợ hơn  43 ngôn ngữ khác nhau.</p>
 <p>SAPI 4 là một chuẩn cũ của các bộ tổng hợp tiếng nói của Microsoft.
 NVDA vẫn còn hỗ trợ cho bộ tổng hợp âm này.
 Tuy nhiên, Microsoft đã ngưng hỗ trợ cho phiên bản này. Vì vậy, bạn không thể tải bộ cài đặt hoặc những gói dữ liệu liên quan từ trang web của Microsoft.</p>
-<p>Khi sử dụng bộ đọc này với NVDA, các giọng đọc hiện hành có thể chọn ở  phân loại <a href="#SpeechSettings" title="tiếng nói">tiếng nói</a> trong <a href="#NVDASettings" title="hộp thoại cấu hình NVDA">hộp thoại cấu hình NVDA</a> hoặc <a href="#SynthSettingsRing" title="vòng thiết lập tham số giọng đọc">vòng thiết lập tham số giọng đọc</a> sẽ thấy tất cả các giọng được cài cho bộ đọc chuẩn SAPI 4 trên máy của bạn. </p>
+<p>Khi sử dụng bộ đọc này với NVDA, các giọng đọc hiện hành có thể chọn ở  phân loại <a href="#SpeechSettings" title="tiếng nói">tiếng nói</a> trong <a href="#NVDASettings" title="hộp thoại cấu hình NVDA">hộp thoại cấu hình NVDA</a> hoặc <a href="#SynthSettingsRing" title="vòng thiết lập tham số giọng đọc">vòng thiết lập tham số giọng đọc</a> sẽ thấy tất cả các giọng được cài cho bộ đọc chuẩn SAPI 4 trên máy của bạn.</p>
 <h3 id="SAPI5">Microsoft Speech API phiên bản 5 (SAPI 5)</h3>
 <p>SAPI 5 cũng là một chuẩn bộ đọc của Microsoft cho các phần mềm phát âm.
 Có thể mua  hoặc tải và sử dụng miễn phí nhiều bộ tổng hợp tiếng nói chuẩn này từ trang web của các công ty khác nhau, và hệ thống của bạn thường cũng được cài sẵn ít nhất một giọng SAPI 5.
@@ -5054,7 +5194,7 @@ Các giọng đọc này cũng có thể được sử dụng với NVDA.</p>
 <p>Windows 10 trở lên đi kèm với những giọng đọc mới, được gọi là OneCore hoặc còn gọi là "Mobil voices" (giọng Mobile).
 Những giọng đọc mới hỗ trợ cho khá nhiều ngôn ngữ khác nhau và  phản hồi nhanh hơn so với những giọng theo chuẩn SAPI-5.
 Trên Windows 10 trở lên, NVDA mặc định dùng các giọng Windows OneCore (<a href="#eSpeakNG" title="eSpeak NG">eSpeak NG</a> thì dùng cho các bản phát hành khác).</p>
-<p>Để thêm các giọng đọc Windows OneCore mới, truy cập vào "Speech Settings" trong Windows system settings. 
+<p>Để thêm các giọng đọc Windows OneCore mới, truy cập vào "Speech Settings" trong Windows system settings.
 Dùng tùy chọn "Add voices" và tìm kiếm ngôn ngữ mong muốn.
 Nhiều ngôn ngữ có bao gồm nhiều biến thể.
 "United Kingdom" (tiếng Anh của người Anh) và "Australia" (tiếng Anh của người Úc) là hai biến thể của tiếng Anh.
@@ -6503,8 +6643,10 @@ Vui lòng xem tài liệu hướng dẫn của màn hình chữ nổi để bi�
 </tr>
 </tbody>
 </table>
+<!-- KC:endInclude -->
+
 <h3 id="Papenmeier">Các Mẫu Papenmeier BRAILLEX Mới</h3>
-<p>Hiện đã hỗ trợ các màn hình chữ nổi sau: </p>
+<p>Hiện đã hỗ trợ các màn hình chữ nổi sau:</p>
 <ul>
 <li>BRAILLEX EL 40c, EL 80c, EL 20c, EL 60c (USB)</li>
 <li>BRAILLEX EL 40s, EL 80s, EL 2d80s, EL 70s, EL 66s (USB)</li>
@@ -6533,7 +6675,7 @@ Chỉ có dòng C và Live là ngoại lệ cho nguyên tắc này.</p>
 Giữ một phím routing ở dòng trên và bấm EAB ở dòng sản phẩm C mô phỏng tình trạng của switch thứ hai.
 Dòng sản phẩm Live chỉ có một dòng phím routing và mỗi chiều của EAB chỉ có một bước.
 Bước thứ hai có thể thực hiện bằng cách bấm một phím routing và bấm EAB theo chiều tương ứng.
-Bấm, giữ phím lên, xuống, trái, phải (hoặc EAB) sẽ lập lại thao tác tương ứng. </p>
+Bấm, giữ phím lên, xuống, trái, phải (hoặc EAB) sẽ lập lại thao tác tương ứng.</p>
 <p>Sau đây là các phím có trên những màn hình chữ nổi này:</p>
 <table>
 <thead>
@@ -7269,7 +7411,7 @@ Sau đây là các mẫu màn hình được hỗ trợ:</p>
 <p>Ở <a href="#SelectBrailleDisplay" title="hộp thoại chọn màn hình chữ nổi">hộp thoại chọn màn hình chữ nổi</a> của NVDA, bạn có thể thiết lập cổng serial cho màn hình được kết nối.
 Các màn hình này không hỗ trợ tính năng ngầm tự nhận biết của NVDA.</p>
 <p>Sau đây là các lệnh cho màn hình chữ nổi EcoBraille.
-Vui lòng xem <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/ECO/" title="Tài Liệu của EcoBraille">Tài Liệu của EcoBraille</a> cho phần mô tả vị trí các phím. </p>
+Vui lòng xem <a href="ftp://ftp.once.es/pub/utt/bibliotecnia/Lineas_Braille/ECO/" title="Tài Liệu của EcoBraille">Tài Liệu của EcoBraille</a> cho phần mô tả vị trí các phím.</p>
 <!-- KC:beginInclude -->
 
 <table>

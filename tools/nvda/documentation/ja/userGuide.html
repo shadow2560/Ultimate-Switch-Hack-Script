@@ -2,20 +2,20 @@
 <html lang="ja" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.3.1 ユーザーガイド</title>
+<title>NVDA 2024.4.2 ユーザーガイド</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="nvda-202431">NVDA 2024.3.1 ユーザーガイド</h1>
+<body><h1 id="nvda-202442">NVDA 2024.4.2 ユーザーガイド</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202431" title="NVDA 2024.3.1 ユーザーガイド">NVDA 2024.3.1 ユーザーガイド</a><ul>
+<li><a href="#nvda-202442" title="NVDA 2024.4.2 ユーザーガイド">NVDA 2024.4.2 ユーザーガイド</a><ul>
 <li><a href="#Introduction" title="はじめに">はじめに</a><ul>
 <li><a href="#GeneralFeatures" title="一般的な機能">一般的な機能</a></li>
 <li><a href="#SystemRequirements" title="システム要件">システム要件</a><ul>
-<li><a href="#MinimumSystemRequirements" title="推奨システム要件">推奨システム要件</a></li>
 <li><a href="#MinimumSystemRequirements" title="最低システム要件">最低システム要件</a></li>
+<li><a href="#RecommendedSystemRequirements" title="推奨システム要件">推奨システム要件</a></li>
 </ul>
 </li>
 <li><a href="#Internationalization" title="国際化">国際化</a></li>
@@ -244,11 +244,17 @@
 <li><a href="#BrailleTether" title="点字表示の切り替え">点字表示の切り替え</a></li>
 <li><a href="#BrailleSettingsReviewRoutingMovesSystemCaret" title="点字タッチカーソルでテキストカーソルを移動">点字タッチカーソルでテキストカーソルを移動</a></li>
 <li><a href="#BrailleSettingsReadByParagraph" title="段落単位で読む">段落単位で読む</a></li>
-<li><a href="#BrailleSettingsWordWrap" title="可能な場合単語が切れないようにする">可能な場合単語が切れないようにする</a></li>
-<li><a href="#BrailleUnicodeNormalization" title="Unicode正規化">Unicode正規化</a></li>
+<li><a href="#BrailleParagraphStartMarkers" title="段落開始マーカー">段落開始マーカー</a></li>
 <li><a href="#BrailleSettingsFocusContextPresentation" title="フォーカスの前後の情報">フォーカスの前後の情報</a></li>
-<li><a href="#BrailleSettingsInterruptSpeech" title="スクロールで読み上げを中断">スクロールで読み上げを中断</a></li>
 <li><a href="#BrailleSettingsShowSelection" title="選択範囲の点字表示">選択範囲の点字表示</a></li>
+<li><a href="#BrailleFormattingDisplay" title="書式の表示">書式の表示</a><ul>
+<li><a href="#BrailleFormattingDisplayTags" title="タグ">タグ</a></li>
+</ul>
+</li>
+<li><a href="#BrailleSpeakOnRouting" title="テキストでのタッチカーソル操作で文字を読み上げ">テキストでのタッチカーソル操作で文字を読み上げ</a></li>
+<li><a href="#BrailleSettingsWordWrap" title="可能な場合に単語が切れないようにする">可能な場合に単語が切れないようにする</a></li>
+<li><a href="#BrailleUnicodeNormalization" title="Unicode正規化">Unicode正規化</a></li>
+<li><a href="#BrailleSettingsInterruptSpeech" title="スクロールで読み上げを中断">スクロールで読み上げを中断</a></li>
 </ul>
 </li>
 <li><a href="#SelectBrailleDisplay" title="点字ディスプレイの選択">点字ディスプレイの選択</a><ul>
@@ -288,6 +294,7 @@
 <li><a href="#KeyboardSettingsSpeakCommandKeys" title="コマンドキーの読み上げ">コマンドキーの読み上げ</a></li>
 <li><a href="#KeyboardSettingsAlertForSpellingErrors" title="スペルミスを入力中にビープ音で報告">スペルミスを入力中にビープ音で報告</a></li>
 <li><a href="#KeyboardSettingsHandleKeys" title="外部アプリからの文字入力">外部アプリからの文字入力</a></li>
+<li><a href="#MultiPressTimeout" title="複数キー押下のタイムアウト">複数キー押下のタイムアウト</a></li>
 </ul>
 </li>
 <li><a href="#MouseSettings" title="マウス">マウス</a><ul>
@@ -353,6 +360,7 @@
 </li>
 <li><a href="#DocumentFormattingSettings" title="書式とドキュメント情報">書式とドキュメント情報</a><ul>
 <li><a href="#OpenDocumentFormattingSettings" title="NVDA設定ダイアログ「書式とドキュメント情報」カテゴリを開く">NVDA設定ダイアログ「書式とドキュメント情報」カテゴリを開く</a></li>
+<li><a href="#DocumentFormattingFontAttributes" title="フォント属性">フォント属性</a></li>
 <li><a href="#DocumentFormattingDetectFormatAfterCursor" title="テキストカーソル移動後に書式の変化を報告">テキストカーソル移動後に書式の変化を報告</a></li>
 <li><a href="#DocumentFormattingSettingsLineIndentation" title="行インデント">行インデント</a></li>
 </ul>
@@ -459,7 +467,7 @@
 <li><a href="#SupportedBrailleDisplays" title="サポートされている点字ディスプレイ">サポートされている点字ディスプレイ</a><ul>
 <li><a href="#AutomaticDetection" title="自動検出に対応している点字ディスプレイ">自動検出に対応している点字ディスプレイ</a></li>
 <li><a href="#FreedomScientificFocus" title="Freedom Scientific Focus/PAC Mateシリーズ">Freedom Scientific Focus/PAC Mateシリーズ</a></li>
-<li><a href="#OptelecALVA" title="Optelec ALVA 6 series/protocol converter">Optelec ALVA 6 series/protocol converter</a></li>
+<li><a href="#OptelecALVA" title="Optelec ALVA 6 シリーズ/プロトコルコンバーター">Optelec ALVA 6 シリーズ/プロトコルコンバーター</a></li>
 <li><a href="#HandyTech" title="Handy Tech 点字ディスプレイ">Handy Tech 点字ディスプレイ</a></li>
 <li><a href="#MDVLilli" title="MDV Lilli">MDV Lilli</a></li>
 <li><a href="#Baum" title="Baum/Humanware/APH/Orbit 点字ディスプレイ">Baum/Humanware/APH/Orbit 点字ディスプレイ</a></li>
@@ -491,7 +499,7 @@
 </ul>
 </li>
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille ディスプレイ">Nattiq nBraille ディスプレイ</a></li>
-<li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
+<li><a href="#BRLTTY" title="BRTTY">BRTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
 <li><a href="#HIDBraille" title="標準 HID 点字ディスプレイ">標準 HID 点字ディスプレイ</a></li>
 </ul>
@@ -508,7 +516,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: NVDA 2024.3.1 コマンド一覧表 -->
+<!-- KC:title: NVDA 2024.4.2 コマンド一覧表 -->
 
 <h2 id="Introduction">はじめに</h2>
 <p>NVDAにようこそ！</p>
@@ -536,24 +544,24 @@ NVDAは、コミュニティーの援助により<a href="https://www.nvaccess.o
 <li>フォーカス位置のハイライト</li>
 </ul>
 <h3 id="SystemRequirements">システム要件</h3>
-<h4 id="MinimumSystemRequirements">推奨システム要件</h4>
-<ul>
-<li>オペレーティングシステム: 64ビット版の Windows 10, Windows 11, および Windows Server 2022<ul>
-<li>AMD64 および ARM64 の Windows に対応</li>
-</ul>
-</li>
-<li>150MB以上のディスク空き容量 (訳注: NVDA日本語版では 200MB 程度)</li>
-<li>4GB以上のRAM</li>
-</ul>
 <h4 id="MinimumSystemRequirements">最低システム要件</h4>
 <ul>
 <li>オペレーティングシステム: 32ビット版と64ビット版の Windows 8.1, Windows 10, Windows 11 および Windows Server 2012 R2 以降のサーバー用オペレーティングシステム<ul>
 <li>AMD64 および ARM64 の Windows に対応</li>
-<li>32ビット版のオペレーティングシステムへの対応は積極的には行われていません</li>
+<li>32ビット版のオペレーティングシステムへの対応は積極的には行われていません。</li>
 <li>Windows 8.1 と Windows Server 2022 以前のオペレーティングシステムはサポート終了</li>
 </ul>
 </li>
-<li>150MB以上のディスク空き容量 (訳注: NVDA日本語版では 200MB 程度)</li>
+<li>500MB以上のディスク空き容量</li>
+</ul>
+<h4 id="RecommendedSystemRequirements">推奨システム要件</h4>
+<ul>
+<li>オペレーティングシステム: Windows 10、Windows 11、およびWindows Server 2022の64ビット版。<ul>
+<li>AMD64 および ARM64 の Windows に対応</li>
+</ul>
+</li>
+<li>500MB以上のディスク空き容量</li>
+<li>4GB以上のRAM</li>
 </ul>
 <h3 id="Internationalization">国際化</h3>
 <p>世界中の誰もが、話している言語に関わらず、等しくテクノロジーにアクセスできるということが重要です。
@@ -594,7 +602,7 @@ NVDA はだいたい1年間に4回アップデートを行っています。
 <p>以下の説明は Web サイトの閲覧操作の知識を前提としています。</p>
 <ul>
 <li>ウェブブラウザを開きます (例えば <code>Windows</code> キーを押して「edge」（カギカッコは不要）と入力して <code>Enter</code> を押します)</li>
-<li>「NVDA日本語版 ダウンロードと説明」ページを開きます (<code>Alt+D</code> を押して以下のアドレスを入力して <code>Enter</code> を押します): 
+<li>「NVDA日本語版 ダウンロードと説明」ページを開きます (<code>Alt+D</code> を押して以下のアドレスを入力して <code>Enter</code> を押します):
 https://www.nvda.jp/#dl</li>
 <li><code>Tab</code> を押して、リンク「NVDA日本語版をダウンロード」に移動して <code>Enter</code> を押します。</li>
 <li>ダウンロードが始まります。その前に、ダウンロード終了後の操作を確認するメッセージが出る場合もあります。</li>
@@ -618,7 +626,7 @@ NVDA の読み込みが終わると、NVDA がインストールの操作を音�
 <li><code>Tab</code> を押して「同意する」チェックボックスに移動します。さらに <code>スペース</code> を押して「チェック」に切り替えます。</li>
 <li><code>Tab</code> を押して選択肢を確認します。必要に応じて項目を選んで <code>Enter</code> を押します。</li>
 </ol>
-<p>選択肢は以下の通りです: </p>
+<p>選択肢は以下の通りです:</p>
 <ul>
 <li>"このコンピューターにNVDAをインストール": NVDA の一般的なユーザーはこの項目を選ぶとよいでしょう。</li>
 <li>"ポータブル版の作成": NVDA をインストールせず、任意のフォルダーで実行するためのコピーを作ることができます。
@@ -1334,7 +1342,7 @@ Microsoft Surface Pro などのタブレットでは、キーボードが装着�
 <li>声 (既定のモード): 画面の変更、通知、フォーカスの移動やコマンドの実行などのアクションに対して、NVDAは通常どおりに読み上げます。</li>
 <li>オンデマンド: NVDAは何かを報告するコマンド（例えばウィンドウのタイトルの報告）を実行したときに読み上げを行います。フォーカスやテキストカーソルの移動などの操作では読み上げを行いません。</li>
 <li>なし: NVDAは読み上げを行いませんが、スリープモードとは異なり、コマンドは実行されます。</li>
-<li>ビープ音: NVDAは読み上げを行わず、かわりに短いビープ音を鳴らします。 </li>
+<li>ビープ音: NVDAは読み上げを行わず、かわりに短いビープ音を鳴らします。</li>
 </ul>
 <p>ビープ音のモードは、例えばターミナルウィンドウで非常に詳細な出力がスクロールしており、出力の内容は気にせず、スクロールが続いていることだけが重要な場合に便利かもしれません。他にも、出力があるという事実が出力自体よりも重要な状況で役立つかもしれません。</p>
 <p>オンデマンドのモードは、画面やPCで起こっていることについて常時のフィードバックは必要としないが、レビューコマンドなどを使用して特定のことを定期的に確認したい場合に有用かもしれません。
@@ -2926,7 +2934,8 @@ NVDA はこのエンジンを使って画像やアクセシブルでないアプ
 <p>要素リストでは見出し、リンク、コメント（変更履歴を含む）、文章校正（スペルミス）の一覧が利用できます。</p>
 <h4 id="WordReportingComments">コメントの報告</h4>
 <!-- KC:beginInclude -->
-<p>テキストカーソルの位置のテキストについているコメントを報告するには NVDA+Alt+C を押します。</p>
+<p>現在のテキストカーソルの位置でコメントを報告するには <code>NVDA+Alt+C</code> を押します。
+2回押すとウィンドウを開いて情報を表示します。</p>
 <!-- KC:endInclude -->
 <p>ドキュメントのすべてのコメントと変更履歴の一覧は NVDA の要素リストの種別「コメント」から利用できます。</p>
 <h3 id="MicrosoftExcel">Microsoft Excel</h3>
@@ -2985,7 +2994,8 @@ NVDA はこのエンジンを使って画像やアクセシブルでないアプ
 </ul>
 <h4 id="ExcelReportingComments">メモの報告</h4>
 <!-- KC:beginInclude -->
-<p>フォーカス位置のセルにあるメモを報告するには NVDA+Alt+C を押します。
+<p>フォーカス位置のセルにあるメモを報告するには <code>NVDA+Alt+C</code> を押します。
+2回押すとウィンドウを開いて情報を表示します。
 Microsoft Office 2016, 365 およびそれ以降のバージョンでは、Microsoft Excel の従来のコメント機能はメモ機能という名前になりました。</p>
 <!-- KC:endInclude -->
 <p>ワークシートのすべてのメモの一覧は NVDA+F7 で開く要素リストの中にあります。</p>
@@ -2997,7 +3007,7 @@ Microsoft Office 2016, 365 およびそれ以降のバージョンでは、Micro
 
 <p>このキー操作は NVDA の入力ジェスチャーのダイアログには表示されず、変更もできません。</p>
 <p>注意: ワークシートのセルのコンテキストメニューからも Microsoft Excel のノート編集を開くことができます。
-ただし、これは NVDA 独自のノート編集ダイアログを開きません。この方法で開くノート編集領域はアクセシブルではありません。 </p>
+ただし、これは NVDA 独自のノート編集ダイアログを開きません。この方法で開くノート編集領域はアクセシブルではありません。</p>
 <p>Microsoft Office 2016, 365 およびそれ以降のバージョンでは、新しいスタイルのコメントのダイアログが導入されました。
 このダイアログはアクセシブルです。また、コメントへの返信などの機能が追加されています。
 これはセルのコンテキストメニューから開くことができます。
@@ -3088,7 +3098,7 @@ Microsoft Office 2016, 365 およびそれ以降のバージョンでは、Micro
 <!-- KC:endInclude -->
 
 <h3 id="Poedit">Poedit</h3>
-<p>Poedit 3.4 またはそれ以降では以下の機能が利用できます。</p>
+<p>NVDAはPoedit 3.5以降のバージョンへの対応を強化しています。</p>
 <!-- KC:beginInclude -->
 
 <table>
@@ -3238,7 +3248,7 @@ NVDAのダイアログは多くの場合コンテキストヘルプをサポー�
 <h3 id="NVDASettings">NVDA設定ダイアログ</h3>
 <!-- KC:settingsSection: || 名称 | デスクトップ用キー | ラップトップ用キー | 説明 | -->
 <p>NVDA は、設定ダイアログを使用して多くの設定を変更できます。
-変更したい設定の種類を簡単に見つけるために、ダイアログには選択できるカテゴリのリストが表示されます。 
+変更したい設定の種類を簡単に見つけるために、ダイアログには選択できるカテゴリのリストが表示されます。
 カテゴリを選択すると、そのカテゴリの設定項目がダイアログに表示されます。
 カテゴリ間を移動するには、<code>Tab</code>または<code>Shift+Tab</code>を使用してカテゴリのリストに移動し、上下矢印キーでリスト項目を選択します。
 ダイアログ内の任意の場所から、<code>Ctrl+Tab</code>を押して1つ前のカテゴリに移動するか、<code>Shift+Ctrl+Tab</code>を押して1つ後ろのカテゴリに移動することもできます。</p>
@@ -3298,7 +3308,7 @@ NVDAのダイアログは多くの場合コンテキストヘルプをサポー�
 <p>このチェックボックスをチェックすると、NVDAは新しいバージョンが入手できるかどうかを自動的に確認し、それを通知します。
 NVDAメニュー「ヘルプ」の「更新を確認」を使って手動で更新を確認することもできます。
 更新を確認するときには、NVDA は利用できる更新を正しく判断するために、ある決められた情報を更新サーバーに送る必要があります。
-以下は必ず更新サーバーに送信される情報です: </p>
+以下は必ず更新サーバーに送信される情報です:</p>
 <ul>
 <li>現在の NVDA のバージョン</li>
 <li>オペレーティングシステムのバージョン</li>
@@ -3564,7 +3574,7 @@ NVDA にこのデータに基づく絵文字の読み上げをさせたい場合
 <!-- KC:setting -->
 
 <h5 id="BrailleMode">点字モード</h5>
-<p>Key: <code>NVDA+alt+t</code></p>
+<p>キー: <code>NVDA+alt+t</code></p>
 <p>このオプションでは、利用可能な点字モードを選択できます。</p>
 <p>現在サポートされている点字モードは「カーソルに追従」と「音声出力を表示」です。</p>
 <p>「カーソルに追従」が選択されている場合、点字ディスプレイはシステムフォーカス/テキストカーソルまたはナビゲーターオブジェクト/レビューカーソルのいずれかに追従します。どちらに追従するかは「点字表示の切り替え」によります。</p>
@@ -3605,6 +3615,16 @@ NVDA にこのデータに基づく絵文字の読み上げをさせたい場合
 「レビュー」を選択すると、点字表示はオブジェクトナビゲーションとテキストのレビューに追従します。
 この場合、点字はシステムフォーカスやテキストカーソルには追従しません。</p>
 <h5 id="BrailleSettingsReviewRoutingMovesSystemCaret">点字タッチカーソルでテキストカーソルを移動</h5>
+<p>この設定は、タッチカーソルを押したときにテキストカーソルを移動するかどうかを決定します。
+既定の値は「使用しない」です。つまりタッチカーソルを押したときにテキストカーソルは移動しません。</p>
+<p>「常に使用」に設定し、<a href="#BrailleTether" title="点字表示の切り替え">点字表示の切り替え</a>が「自動」または「レビュー」に設定されている場合、タッチカーソルを押すと、テキストカーソルまたはフォーカスが移動します。
+現在のレビューモードが<a href="#ScreenReview" title="画面レビュー">画面レビュー</a>の場合、テキストカーソルは利用できません。
+この場合、テキストの位置のオブジェクトにフォーカスを移動します。
+これは<a href="#ObjectReview" title="オブジェクトレビュー">オブジェクトレビュー</a>でも同様です。</p>
+<p>点字表示の切り替えが「自動追従の場合のみ」テキストカーソル移動を行うこともできます。
+この場合、タッチカーソルを押すと、点字表示の切り替えが「レビュー」の場合のみ、テキストカーソルまたはフォーカスが移動します。点字表示を手動でレビューカーソルに追従したときにはテキストカーソルは移動しません。</p>
+<p><a href="#BrailleTether" title="点字表示の切り替え">点字表示の切り替え</a> が「自動」または「レビュー」の場合のみ、選択肢「自動追従の場合のみ」が表示されます。</p>
+<p>NVDA設定ダイアログを開かないで「点字タッチカーソルでテキストカーソル移動」を切り替えたい場合は<a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a> でこの操作にショートカットを割り当ててください。</p>
 <table>
 <thead>
 <tr>
@@ -3618,37 +3638,22 @@ NVDA にこのデータに基づく絵文字の読み上げをさせたい場合
 <td>既定の値 (使用しない), 使用しない, 自動追従の場合のみ, 常に使用</td>
 </tr>
 <tr>
-<td>既定の値</td>
-<td>使用しない</td>
+<td>既定</td>
+<td>しない</td>
 </tr>
 </tbody>
 </table>
-<p>この設定は、タッチカーソルを押したときにテキストカーソルを移動するかどうかを決定します。
-既定の値は「使用しない」です。つまりタッチカーソルを押したときにテキストカーソルは移動しません。</p>
-<p>「常に使用」に設定し、<a href="#BrailleTether" title="点字表示の切り替え">点字表示の切り替え</a>が「自動」または「レビュー」に設定されている場合、タッチカーソルを押すと、テキストカーソルまたはフォーカスが移動します。
-現在のレビューモードが<a href="#ScreenReview" title="画面レビュー">画面レビュー</a>の場合、テキストカーソルは利用できません。
-この場合、テキストの位置のオブジェクトにフォーカスを移動します。
-これは<a href="#ObjectReview" title="オブジェクトレビュー">オブジェクトレビュー</a>でも同様です。</p>
-<p>点字表示の切り替えが「自動追従の場合のみ」テキストカーソル移動を行うこともできます。
-この場合、タッチカーソルを押すと、点字表示の切り替えが「レビュー」の場合のみ、テキストカーソルまたはフォーカスが移動します。点字表示を手動でレビューカーソルに追従したときにはテキストカーソルは移動しません。</p>
-<p><a href="#BrailleTether" title="点字表示の切り替え">点字表示の切り替え</a> が「自動」または「レビュー」の場合のみ、選択肢「自動追従の場合のみ」が表示されます。</p>
-<p>NVDA設定ダイアログを開かないで「点字タッチカーソルでテキストカーソル移動」を切り替えたい場合は<a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a> でこの操作にショートカットを割り当ててください。</p>
 <h5 id="BrailleSettingsReadByParagraph">段落単位で読む</h5>
 <p>チェックされている場合、点字は行ごとではなく段落ごとに表示されます。
 また、次および前の行への移動コマンドも段落ごとに移動するようになります。
 これにより、それぞれの行末に到達した場合で、より多くのテキストがディスプレイにフィットする際、スクロールする必要がなくなります。
 これは、より多くのテキストを早く読みたい時に有効です。
 この機能は初期状態では無効化されています。</p>
-<h5 id="BrailleSettingsWordWrap">可能な場合単語が切れないようにする</h5>
-<p>チェックすると、単語が長すぎて点字ディスプレイの表示に最後まで入りきらないような場合に、単語が切れないようにします。
-入りきらない単語はその行に表示されず、点字ディスプレイの残りの部分は空白で埋められます。
-表示をスクロールすると、単語全体が表示されます。
-このような処理はワードラップと呼ばれています。
-ひとつの単語が単独で点字ディスプレイの表示の幅を超えてしまうような場合は、その単語は末尾が欠けた表示になります。</p>
-<p>チェックなしにすると、点字ディスプレイの表示は行末まで有効に活用できますが、単語の末尾が欠けた表示になります。
-スクロールすると欠けていた部分が表示されます。</p>
-<p>このチェックボックスをチェックすると、単語の読み取りが自然になりますが、頻繁にスクロールを使う必要があります。</p>
-<h5 id="BrailleUnicodeNormalization">Unicode正規化</h5>
+<h5 id="BrailleParagraphStartMarkers">段落開始マーカー</h5>
+<p>「段落単位で読む」がチェックされている場合、選択したマーカーが段落の始まりで表示されます。
+これは、構造化されたドキュメントや書籍など、大きな文章を読むためのアプリで特に役立ちます。
+そのようなドキュメントでは、段落の開始位置を知ることで、内容の構造を理解しやすくなります。また、段落の位置に基づいてブックマークや注釈を設定したりするのに役立ちます。</p>
+<p>選択肢には、段落の区切りとして2個の空白を使用する方法と、より明確な段落記号の文字(⣏⣹)を使用する方法があります。</p>
 <table>
 <thead>
 <tr>
@@ -3659,18 +3664,14 @@ NVDA にこのデータに基づく絵文字の読み上げをさせたい場合
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>既定の値(無効), 有効, 無効</td>
+<td>段落開始マーカーなし, 空白2個, 段落記号(⣏⣹)</td>
 </tr>
 <tr>
-<td>既定の値</td>
-<td>無効</td>
+<td>既定</td>
+<td>段落開始マーカーなし</td>
 </tr>
 </tbody>
 </table>
-<p>このオプションを有効にすると、点字ディスプレイに表示されるテキストに対してUnicode正規化が行われます。
-これは、特定の点字テーブルで扱えない文字に互換の代替文字がある場合に役立ちます。例えば、ソーシャルメディアでよく使用される太字や斜体の文字などです。
-Unicode正規化については、<a href="#SpeechUnicodeNormalization" title="音声設定のUnicode正規化">音声設定のUnicode正規化</a>で詳しく説明しています。</p>
-<p>NVDA設定ダイアログを開かないでUnicode正規化を切り替えるには、<a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a>でカスタムジェスチャーを割り当ててください。</p>
 <h5 id="BrailleSettingsFocusContextPresentation">フォーカスの前後の情報</h5>
 <p>このオプションで、フォーカスの前後の情報を点字ディスプレイにどのように表示するかを選択できます。
 フォーカスの前後の情報とは、ここではオブジェクトの親子・兄弟の階層構造を意味しています。
@@ -3692,54 +3693,175 @@ NVDA 2017.2 以前はこの設定と同じ仕様でした。</p>
 先ほどの例では、NVDA はフォーカスがあるリスト項目だけを表示します。
 フォーカスの前後の情報を確認するには（例えば現在位置の親オブジェクトはリスト、そのリストのさらに親オブジェクトはダイアログ、のように）点字ディスプレイをスクロールして戻します。</p>
 <p>NVDA設定ダイアログを開かないでこの設定を切り替えたい場合は <a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a> でこの操作にショートカットを割り当ててください。</p>
-<h5 id="BrailleSettingsInterruptSpeech">スクロールで読み上げを中断</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>選択肢</td>
-<td>既定の値(有効), 有効, 無効</td>
-</tr>
-<tr>
-<td>既定の値</td>
-<td>有効</td>
-</tr>
-</tbody>
-</table>
-<p>この設定は点字ディスプレイで「点字表示をスクロールして戻る」や「点字表示をスクロールして進む」を行ったときに、音声読み上げを中断するかどうかを選択します。
-「点字表示を前の行に移動」や「点字表示を次の行に移動」を行ったときには、常に音声読み上げを中断します。</p>
-<p>音声が中断されずに読み上げられると、点字の読み取りに集中することが難しくなります。
-そのため、この項目の既定の設定は「有効」です。つまり、スクロールして「戻る」や「進む」と音声を中断します。</p>
-<p>このオプションを無効にすると、点字を読みながら並行して音声を聞くことができます。</p>
 <h5 id="BrailleSettingsShowSelection">選択範囲の点字表示</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>選択肢</td>
-<td>既定の値（有効）, 有効, 無効</td>
-</tr>
-<tr>
-<td>既定の値</td>
-<td>有効</td>
-</tr>
-</tbody>
-</table>
 <p>この設定は、点字ディスプレイにおける選択範囲（7の点と8の点）の表示を切り替えます。
 既定の設定ではこのオプションは有効で、選択範囲が表示されます。
 選択範囲を表示すると、テキストが読みにくくなる可能性があります。
 そのような場合は、このオプションを無効にすると、読みやすくなるかもしれません。</p>
 <p>NVDA設定ダイアログを開かないで選択範囲の表示を切り替えるには、<a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a>でこの操作にショートカットを割り当ててください。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選択肢</td>
+<td>既定の値(有効)、有効、無効</td>
+</tr>
+<tr>
+<td>既定</td>
+<td>有効</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleFormattingDisplay">書式の表示</h5>
+<p>この設定で NVDA が点字でテキストの書式を表示する方法を選択できます。
+NVDAが<a href="#DocumentFormattingFontAttributes" title="点字でフォント属性を表示する">点字でフォント属性を表示する</a>に設定されている場合のみ、このオプションは有効です。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選択肢</td>
+<td>既定の値 (Liblouis), Liblouis, タグ</td>
+</tr>
+<tr>
+<td>既定の値</td>
+<td>Liblouis</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>選択肢</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liblouis</td>
+<td>点字テーブルの仕様で書式を表示します。 この場合は、太字、斜体、下線が対象となり、選択した点字テーブルがこれらに対応している場合にのみ表示できます。</td>
+</tr>
+<tr>
+<td><a href="#BrailleFormattingDisplayTags" title="タグ">タグ</a></td>
+<td>テキストの書式の変化をタグで表示します。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="BrailleFormattingDisplayTags">タグ</h6>
+<p>「書式の表示」が「タグ」に設定されている場合、書式が変更されるときに点字で書式のタグが表示されます。
+これらのタグは ⣋ で始まり ⣙ で終わります。
+書式タグには、テキスト書式を記述する1つまたは複数の記号が含まれます。
+次の記号が定義されています:</p>
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⠃ ("b")</td>
+<td>太字の開始</td>
+</tr>
+<tr>
+<td>⡃ ("b" と7の点)</td>
+<td>太字の終了</td>
+</tr>
+<tr>
+<td>⠊ ("i")</td>
+<td>斜体の開始</td>
+</tr>
+<tr>
+<td>⡊ ("i" と7の点)</td>
+<td>斜体の終了</td>
+</tr>
+<tr>
+<td>⠥ ("u")</td>
+<td>下線の開始</td>
+</tr>
+<tr>
+<td>⡥ ("u" と7の点)</td>
+<td>下線の終了</td>
+</tr>
+<tr>
+<td>⠎ ("s")</td>
+<td>取り消し線の開始</td>
+</tr>
+<tr>
+<td>⡎ ("s" と7の点)</td>
+<td>取り消し線の終了</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSpeakOnRouting">テキストでのタッチカーソル操作で文字を読み上げ</h5>
+<p>これを有効にすると、タッチカーソルキーで移動する際、NVDAはテキストカーソルの位置の文字を自動的に読み上げます。</p>
+<p>NVDA設定ダイアログを開かないでこのオプションを切り替えるには、<a href="#InputGestures" title="入力ジェスチャー ダイアログ">入力ジェスチャー ダイアログ</a>を使用してカスタムジェスチャーを割り当ててください。</p>
+<h5 id="BrailleSettingsWordWrap">可能な場合に単語が切れないようにする</h5>
+<p>これを有効にすると、点字ディスプレイの末尾に収まらない大きな単語は分割されません。
+代わりに、ディスプレイの最後が空白となります。
+ディスプレイをスクロールすると、単語全体を読むことができます。
+これは「ワードラップ」と呼ばれます。
+ただし、単語自体がディスプレイに収まらないほど大きい場合は、その単語は分割される必要があります。</p>
+<p>これを無効にすると、単語の一部が可能な限り表示され、残りは切り捨てられます。
+ディスプレイをスクロールすると、単語の残りを読むことができます。</p>
+<p>これを有効にすると、より流暢に読むことができる場合があります。しかし、通常はディスプレイをより頻繁にスクロールする必要があります。</p>
+<h5 id="BrailleUnicodeNormalization">Unicode正規化</h5>
+<p>このオプションを有効にすると、点字ディスプレイに表示されるテキストに対してUnicode正規化が行われます。
+これは、特定の点字テーブルで扱えない文字に互換の代替文字がある場合に役立ちます。例えば、ソーシャルメディアでよく使用される太字や斜体の文字などです。
+Unicode正規化については、<a href="#SpeechUnicodeNormalization" title="音声設定のUnicode正規化">音声設定のUnicode正規化</a>で詳しく説明しています。</p>
+<p>NVDA設定ダイアログを開かないでこのオプションを切り替えるには、<a href="#InputGestures" title="入力ジェスチャー ダイアログ">入力ジェスチャー ダイアログ</a>を使用してカスタムジェスチャーを割り当ててください。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選択肢</td>
+<td>既定の値 (無効), 有効, 無効</td>
+</tr>
+<tr>
+<td>既定</td>
+<td>無効</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BrailleSettingsInterruptSpeech">スクロールで読み上げを中断</h5>
+<p>この設定では、点字ディスプレイを後方または前方にスクロールするときに音声を中断するかどうかを選択できます。
+前後の行のコマンドは常に音声を中断します。</p>
+<p>読み上げが止まらないことは、点字を読むことの邪魔になるかもしれません。
+このため、既定の設定ではこのオプションが有効になっており、点字スクロール時に音声を中断します。</p>
+<p>このオプションを無効にすると、点字を読みながら音声を聞き続けることができます。</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選択肢</td>
+<td>既定の値 (有効), 有効, 無効</td>
+</tr>
+<tr>
+<td>既定</td>
+<td>有効</td>
+</tr>
+</tbody>
+</table>
 <h4 id="SelectBrailleDisplay">点字ディスプレイの選択</h4>
 <!-- KC:setting -->
 
@@ -3772,7 +3894,7 @@ NVDA 2017.2 以前はこの設定と同じ仕様でした。</p>
 <p>お使いの点字ディスプレイが対応している接続方法やポート選択方法については、 <a href="#SupportedBrailleDisplays" title="サポートされている点字ディスプレイ">サポートされている点字ディスプレイ</a> の各項目もお読みください。</p>
 <p>注意: 同じ点字ディスプレイドライバーを使用する複数の点字ディスプレイを同時に PC に接続すると、
 NVDA は通信先の点字ディスプレイを区別できません。
-特定の機種または製造元の点字ディスプレイは、同時に1台だけを接続することをお勧めします。 </p>
+特定の機種または製造元の点字ディスプレイは、同時に1台だけを接続することをお勧めします。</p>
 <h4 id="AudioSettings">オーディオ</h4>
 <!-- KC:setting -->
 
@@ -3955,6 +4077,14 @@ NVDA のポータブル版やインストーラーではオーディオのダッ
 <h5 id="KeyboardSettingsHandleKeys">外部アプリからの文字入力</h5>
 <p>スクリーンキーボードや音声認識ソフトウェアなど、外部アプリからの文字入力をNVDAが処理するかどうかを制御できます。
 このチェックボックスは既定値でチェックされています。例えばベトナム語入力システムUniKeyを使う場合には、不適切な文字入力が起こらないように、このチェックボックスをチェックなしにするとよいでしょう。</p>
+<h5 id="MultiPressTimeout">複数キー押下のタイムアウト</h5>
+<p>NVDAキーボードジェスチャーの中には、同じキーが連続して押される回数に応じて異なる操作を行うものがあります。
+例えば「ナビゲーターオブジェクトの現在の文字を報告」コマンドです。
+このコマンドは、1回押すと文字を報告、2回押すと文字の説明を報告します。 3回押すと文字コードを報告します。
+このオプションは、同じキーを繰り返し押したときに、直前のキー操作の続きとするか、新しいジェスチャーの開始と見なすかを判断する時間を設定します。
+前述の例では、タイムアウト時間が短すぎると、2回押したときに、文字の説明の報告ではなく、現在の文字を2回報告します。
+既定のタイムアウト時間は500ミリ秒、つまり0.5秒です。
+このタイムアウトを増やすことは、固定キーを使用している人や身体に障害のある人にとって特に有用です。</p>
 <h4 id="MouseSettings">マウス</h4>
 <!-- KC:setting -->
 
@@ -3996,7 +4126,7 @@ Windowsのマウスカーソルは、例えば編集可能や読み込み中の�
 <p>このチェックボックスは NVDA のタッチ操作サポートを有効化します。
 チェックされている場合、タッチスクリーンにより、画面の項目に指で触って移動や操作ができます。
 チェックなしの場合、NVDA のタッチ操作サポートは無効化され、NVDA が起動していない場合と同様の動作となります。
-この設定は NVDA+Ctrl+Alt+T でも切り替えることができます。 </p>
+この設定は NVDA+Ctrl+Alt+T でも切り替えることができます。</p>
 <h5 id="TouchTypingMode">タッチ文字入力モード</h5>
 <p>このチェックボックスでは、タッチキーボードで文字を入力する方法の切り替えを行います。
 チェックされている場合、指でキーボードのキーを探し、指を画面から離すと選択されていたキーの入力が実行されます。
@@ -4170,7 +4300,7 @@ Windowsのマウスカーソルは、例えば編集可能や読み込み中の�
 <li>フォント<ul>
 <li>フォント名</li>
 <li>フォントサイズ</li>
-<li>フォント属性</li>
+<li>フォント属性 <a href="#DocumentFormattingFontAttributes" title="(なし, 読み上げ, 点字, 読み上げと点字)">(なし, 読み上げ, 点字, 読み上げと点字)</a></li>
 <li>上付き文字と下付き文字</li>
 <li>強調</li>
 <li>テキストのハイライト</li>
@@ -4218,6 +4348,16 @@ Windowsのマウスカーソルは、例えば編集可能や読み込み中の�
 </li>
 </ul>
 <p>NVDA設定ダイアログを開かないでこれらの設定を変更したい場合は、<a href="#InputGestures" title="入力ジェスチャーのダイアログ">入力ジェスチャーのダイアログ</a>でこの操作にショートカットを割り当ててください。</p>
+<h5 id="DocumentFormattingFontAttributes">フォント属性</h5>
+<p>このオプションでは、太字、斜体、下線、取り消しのようなフォント属性の報告の方法を選択できます。
+フォント属性コンボボックスには4個の選択肢があります:</p>
+<ul>
+<li>オフ: NVDA はこれらのフォント属性を報告しません。</li>
+<li>読み上げ: NVDA はこれらのフォント属性が変更されたときに読み上げます。</li>
+<li>点字: NVDAはこれらの属性を点字で表示します。
+表示方法は<a href="#BrailleFormattingDisplay" title="NVDAの点字設定">NVDAの点字設定</a>で設定できます。</li>
+<li>読み上げと点字: NVDAは上記の両方の方法を使用してフォント属性を報告します。</li>
+</ul>
 <h5 id="DocumentFormattingDetectFormatAfterCursor">テキストカーソル移動後に書式の変化を報告</h5>
 <p>チェックされている場合、NVDAの動作が遅くなる可能性があっても、書式のすべての変化を報告します。</p>
 <p>初期状態では、NVDAはテキストカーソルおよびレビューカーソルの位置について、さらに場合によっては現在の文字の位置から行末までについて、NVDAの動作が遅くならない場合に限って変化を報告します。</p>
@@ -4247,7 +4387,7 @@ Windowsのマウスカーソルは、例えば編集可能や読み込み中の�
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>既定 (アプリによる処理), アプリによる処理, 改行, 連続改行</td>
+<td>既定の値 (アプリによる処理), アプリによる処理, 改行, 連続改行</td>
 </tr>
 <tr>
 <td>既定の値</td>
@@ -4284,7 +4424,7 @@ Windowsのマウスカーソルは、例えば編集可能や読み込み中の�
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>通知 (既定の値), 無効</td>
+<td>既定の値 (通知), 無効</td>
 </tr>
 <tr>
 <td>既定の値</td>
@@ -4481,7 +4621,7 @@ Chromium ベースのブラウザに対するUIオートメーションのサポ
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>既定(有効), 無効, 有効</td>
+<td>既定の値(有効), 無効, 有効</td>
 </tr>
 <tr>
 <td>既定の値</td>
@@ -4525,7 +4665,7 @@ Chromium ベースのブラウザに対するUIオートメーションのサポ
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>既定(差分アルゴリズム), 差分アルゴリズム, UIオートメーションの通知</td>
+<td>既定の値(差分アルゴリズム), 差分アルゴリズム, UIオートメーションの通知</td>
 </tr>
 <tr>
 <td>既定の値</td>
@@ -4568,7 +4708,7 @@ Windows のレガシーな API には背景色を塗りつぶさずにテキス�
 <tbody>
 <tr>
 <td>選択肢</td>
-<td>既定(有効), 無効, 有効</td>
+<td>既定の値(有効), 無効, 有効</td>
 </tr>
 <tr>
 <td>既定の値</td>
@@ -4759,7 +4899,7 @@ NVDAの設定プロファイルを使うとこのようなことができます�
 プロファイルを無効化するには、設定プロファイルのダイアログで「手動で無効化」のボタンを押してください。</p>
 <h4 id="ConfigProfileTriggers">トリガー</h4>
 <p>設定プロファイルのダイアログでトリガーのボタンを押すと、いろいろなトリガーでどのプロファイルをアクティブにするかを設定できます。</p>
-<p>トリガーのリストにはトリガーの選択肢として以下の項目が表示されます: </p>
+<p>トリガーのリストにはトリガーの選択肢として以下の項目が表示されます:</p>
 <ul>
 <li>現在のアプリ: 現在のアプリに切り替えたときにトリガーします。</li>
 <li>すべて読み上げ: すべて読み上げコマンドで読み上げるときにトリガーします。</li>
@@ -5074,7 +5214,7 @@ Windows 10 以降においては Windows OneCore 音声は NVDA の既定の音�
 <li>Handy Tech 点字ディスプレイ</li>
 <li>Baum/Humanware/APH/Orbit 点字ディスプレイ</li>
 <li>HumanWare Brailliant BI/Bシリーズ</li>
-<li>HumanWare BrailleNote</li>
+<li>HumanWareブレイルノート</li>
 <li>SuperBraille</li>
 <li>Optelec ALVA 6 シリーズ</li>
 <li>HIMS Braille Sense/Braille EDGE/Smart Beetle/Sync Braille シリーズ</li>
@@ -5327,7 +5467,7 @@ NVDAの点字ディスプレイ自動検出はUSBまたはBluetooth接続の場�
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="OptelecALVA">Optelec ALVA 6 series/protocol converter</h3>
+<h3 id="OptelecALVA">Optelec ALVA 6 シリーズ/プロトコルコンバーター</h3>
 <p>USBまたはBluetooth接続された<a href="https://www.optelec.com/" rel="noopener" target="_blank" title="Optelec">Optelec</a>のALVA BC640およびBC680ディスプレイの両方をサポートします。
 Braille Voyager などの旧式ディスプレイを、 Optelec 社のプロトコルコンバーター経由で接続することもできます。
 これらのディスプレイを使用するために、特別なドライバーは必要ありません。
@@ -6504,6 +6644,7 @@ USB 接続のときは <a href="http://www.himsintl.com/upload/HIMS_USB_Driver_v
 </tbody>
 </table>
 <!-- KC:endInclude -->
+
 <h3 id="Papenmeier">Papenmeier BRAILLEX 新型機種</h3>
 <p>次の点字ディスプレイをサポートしています：</p>
 <ul>
@@ -8002,7 +8143,7 @@ Windows 10 以降はこの点字ディスプレイの接続を検出します。
 </table>
 <!-- KC:endInclude -->
 
-<h3 id="BRLTTY">BRLTTY</h3>
+<h3 id="BRLTTY">BRTTY</h3>
 <p><a href="https://www.brltty.app/" rel="noopener" target="_blank" title="BRLTTY">BRLTTY</a>を使うとNVDAをより多くの点字ディスプレイに対応させることができます。
 使用するには、<a href="http://www.brltty.app/download.html" rel="noopener" target="_blank" title="BRLTTY for Windows">BRLTTY for Windows</a>をインストールする必要があります。
 最新のパッケージ、例えばbrltty-win-4.2-2.exeのような名前のものをダウンロードしてインストールしてください。
@@ -8386,7 +8527,7 @@ NVDA はアドオンのインストールを許可しています。アドオン
 NVDA のセキュアモードは、ユーザーが NVDA の設定を変更することを防ぎ、不正なシステムアクセスを制限します。</p>
 <p><a href="#SecureScreens" title="セキュアデスクトップ">セキュアデスクトップ</a> でも NVDA はセキュアモードで動作します。ただし <a href="#SystemWideParameters" title="システム全体のパラメーター">システム全体のパラメーター</a> で <code>serviceDebug</code> を使用した場合を除きます。
 <a href="#SystemWideParameters" title="システム全体のパラメーター">システム全体のパラメーター</a> で <code>forceSecureMode</code> を使うと、常にセキュアモードで NVDA を起動することができます。
-<a href="#CommandLineOptions" title="コマンドラインオプション">コマンドラインオプション</a> <code>-s</code> を使って NVDA をセキュアモードで起動することもできます。 </p>
+<a href="#CommandLineOptions" title="コマンドラインオプション">コマンドラインオプション</a> <code>-s</code> を使って NVDA をセキュアモードで起動することもできます。</p>
 <p>セキュアモードでは以下を利用できません:</p>
 <ul>
 <li>設定の保存、その他の設定ファイルの書き込み</li>
