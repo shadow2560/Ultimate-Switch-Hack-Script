@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V595</h2>
+<ul>
+<li>Update ULaunch to version 1.1.0.</li>
+</ul>
 <h2>V594</h2>
 <ul>
 <li>Update Switch-ezremote-client to version 1.12.</li>

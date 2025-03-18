@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.347</h2>
+<ul>
+<li>Update 7zip to version 24.09.</li>
+<li>Update NVDA.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 595.</li>
+</ul>
 <h2>V4.3.346</h2>
 <ul>
 <li>Update NVDA.</li>
