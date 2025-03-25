@@ -3,6 +3,7 @@
 <h2>V595</h2>
 <ul>
 <li>Mise à jour de ULaunch en version 1.1.0.</li>
+<li>Mise à jour de Switch-ezremote-client en version 1.13.</li>
 </ul>
 <h2>V594</h2>
 <ul>
