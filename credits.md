@@ -14,7 +14,7 @@
 <li><a target="_blank" href="https://github.com/switchbrew/nx-hbloader">NX-Hbloader</a></li>
 <li><a target="_blank" href="https://github.com/switchbrew/nx-hbmenu">NX-Hbmenu</a></li>
 <li><a target="_blank" href="https://gbatemp.net/threads/homebrew-menu-loader-legal-nsp.518433/">Forwarders to launch the Homebrew Menu</a></li>
-<li><a target="_blank" href="https://github.com/WerWolv/nx-ovlloader">nx-ovlloader</a> and <a target="_blank" href="https://github.com/WerWolv/Tesla-Menu">Tesla-Menu</a></li>
+<li><a target="_blank" href="https://github.com/WerWolv/nx-ovlloader">nx-ovlloader</a> and <a target="_blank" href="https://github.com/WerWolv/Tesla-Menu">Tesla-Menu</a>, respectively replaced by <a target="_blank" href="https://github.com/ppkantorski/nx-ovlloader">Ultrahand nx-ovlloader</a> and <a target="_blank" href="https://github.com/ppkantorski/Ultrahand-Overlay">Ultrahand-overlay</a></li>
 <li><a target="_blank" href="https://github.com/Hartie95/fastCFWswitch">FastCFWSwitch</a></li>
 <li><a target="_blank" href="https://github.com/WerWolv/ovl-sysmodules">OvlSysmodules</a></li>
 <li><a target="_blank" href="https://github.com/nedex/QuickNTP">QuickNTP</a></li>
@@ -50,7 +50,7 @@
 <li><a target="_blank" href="https://github.com/StevenMattera/OJDS-NX">OJDS-NX</a></li>
 <li><a target="_blank" href="https://github.com/jonyluke/SlideNX">Slidenx</a></li>
 <li><a target="_blank" href="https://github.com/SunTheCourier/SwitchPresence-Rewritten">SwitchPresence-Rewritten</a> and <a target="_blank" href="https://github.com/Sun-Research-University/PresenceClient">PresenceClient</a></li>
-<li><a target="_blank" href="https://github.com/jakibaki/sys-audioplayer">Sys-audioplayer</a>, replaced by <a target="_blank" href="https://github.com/HookedBehemoth/sys-tune">Sys-tune</a></li>
+<li><a target="_blank" href="https://github.com/jakibaki/sys-audioplayer">Sys-audioplayer</a>, replaced by <a target="_blank" href="https://github.com/HookedBehemoth/sys-tune">Sys-tune</a>, replaced by <a target="_blank" href="https://github.com/TheReconJacob/sys-tune">This fork of Sys-tune</a>.</li>
 <li><a target="_blank" href="https://github.com/olliz0r/sys-botbase">Sys-botbase</a> replaced by <a target="_blank" href="https://github.com/fishguy6564/USB-Botbase">USB-Botbase</a></li>
 <li><a target="_blank" href="https://github.com/retronx-team/sys-clk">Sys-clk</a> and <a target="_blank" href="https://github.com/SunTheCourier/sys-clk-Editor/">Sys-clk-Editor</a></li>
 <li><a target="_blank" href="https://github.com/cathery/sys-con">Sys-con</a>, replaced by <a target="_blank" href="https://github.com/o0zz/sys-con">ce fork</a></li>

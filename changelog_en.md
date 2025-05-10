@@ -1,5 +1,17 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.348</h2>
+<ul>
+<li>Suport the firmwares 20.0.0 and 20.0.1.</li>
+<li>Add the last keys in the keys file verification.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmwares 19.0.1, 20.0.0 and 20.0.1.</li>
+<li>Update Switch-logo-patcher to suport the firmware 20.0.0.</li>
+<li>Update Atmosphere to version 1.9.0.</li>
+<li>Update Hekate to version 6.3.0.</li>
+<li>Update Lockpick-RCM.</li>
+<li>Update documentation and credits.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 596.</li>
+</ul>
 <h2>V4.3.347</h2>
 <ul>
 <li>Update 7zip to version 24.09.</li>
