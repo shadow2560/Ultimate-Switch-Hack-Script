@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.350</h2>
+<ul>
+<li>Update the content for some  Trinket modchips in the unbrick pack and in the sd preparation pack.</li>
+<li>The payload Hekate will be copied in the folder "0" and named "start.bin" during the sd preparation, can be used by some Trinket configuration.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 598.</li>
+</ul>
 <h2>V4.3.349</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 597.</li>

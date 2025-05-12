@@ -1,5 +1,9 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V598</h2>
+<ul>
+<li>Mise à jour du contenu dans le dossier "0" pour certaines puces Trinket.</li>
+</ul>
 <h2>V597</h2>
 <ul>
 <li>Mise à jour de Goldleaf en version 1.1.0.</li>

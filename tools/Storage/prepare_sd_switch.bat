@@ -620,6 +620,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	)
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\payload.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\start.bin" >nul
+	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\0\start.bin" >nul
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000000D"
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000002B\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000002B"
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000003C\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000003C"

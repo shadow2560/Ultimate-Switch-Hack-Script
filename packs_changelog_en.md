@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V598</h2>
+<ul>
+<li>Update the content of the folder  "0" form some Trinket modchips.</li>
+</ul>
 <h2>V597</h2>
 <ul>
 <li>Update Goldleaf to version 1.1.0.</li>
