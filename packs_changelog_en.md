@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V597</h2>
+<ul>
+<li>Update Goldleaf to version 1.1.0.</li>
+<li>Update Nxmp to version 0.9.1.</li>
+<li>Update ULaunch to version 1.2.0.</li>
+</ul>
 <h2>V596</h2>
 <ul>
 <li>Update Atmosphere to version 1.9.0.</li>
