@@ -1,10 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V600</h2>
+<ul>
+<li>Update Sphaira to version 0.10.2.</li>
+<li>Update NXMP to version 0.9.2.</li>
+</ul>
 <h2>V599</h2>
 <ul>
 <li>Update MissionControl to version 0.13.1.</li>
 <li>Update NXThemesInstaller to version 2.8.</li>
-<li>Update NXMP to version 0.9.2.</li>
 <li>Update Sys-con to version 1.5.2.</li>
 <li>Update Salty-nx to version 1.2.3.</li>
 <li>Update FPSLocker to version 2.1.2.</li>
