@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.353</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 601.</li>
+</ul>
 <h2>V4.3.352</h2>
 <ul>
 <li>Update Hactoolnet.</li>

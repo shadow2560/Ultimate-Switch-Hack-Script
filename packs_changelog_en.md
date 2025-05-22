@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V601</h2>
+<ul>
+<li>Update Sphaira to version 0.10.3.</li>
+<li>Update Salty-nx to version 1.2.4.</li>
+</ul>
 <h2>V600</h2>
 <ul>
 <li>Update Sphaira to version 0.10.2.</li>
