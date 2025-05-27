@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V603</h2>
+<ul>
+<li>Update Sphaira to version 0.11.1.</li>
+<li>Update Ultrahand-Overlay to version 1.8.4.</li>
+<li>Update FPSLocker to version 2.1.4.</li>
+</ul>
 <h2>V602</h2>
 <ul>
 <li>Update Status-Monitor-Overlay to version 1.1.9.</li>
