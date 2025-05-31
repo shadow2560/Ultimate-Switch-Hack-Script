@@ -160,6 +160,7 @@ echo 19.0.0?
 echo 19.0.1?
 echo 20.0.0?
 echo 20.0.1?
+echo 20.1.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -746,6 +747,15 @@ IF "%firmware_choice%"=="20.0.1" (
 	set expected_md5=552422f6fcb135b47a1250c48ae5a2d7
 	set "firmware_link=https://mega.nz/file/TFlj2YRS#6ttxsEZCt0ausr8QpbHShqwVe5EepeDwQ-KMHUDQByQ"
 	set firmware_file_name=Firmware 20.0.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="20.1.0" (
+	set expected_md5=5278fe9dc09bab28eac0a72c21076ad7
+	set "firmware_link=https://mega.nz/file/TZR1zYSJ#6g2PEwa-uw5Sr6JSA5eNHCTySPWk_maWTSVePxLoyww"
+	set firmware_file_name=Firmware 20.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

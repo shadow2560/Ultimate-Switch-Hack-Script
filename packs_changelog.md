@@ -1,5 +1,17 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V604</h2>
+<ul>
+<li>Mise à jour d'Atmosphere en version 1.9.1.</li>
+<li>Mise à jour de Hekate en version 6.3.1.</li>
+<li>Mise à jour de Sphaira en version 0.11.3.</li>
+<li>Mise à jour de MissionControl en version 0.13.2.</li>
+<li>Mise à jour de Ultrahand-Overlay en version 1.8.5.</li>
+<li>Mise à jour de QuickNTP en version 1.5.1.</li>
+<li>Mise à jour des fichiers de patches utilisés par NXThemesInstaller.</li>
+<li>Mise à jour de Salty-nx en version 1.2.7.</li>
+<li>Mise à jour de FPSLocker en version 2.1.6.</li>
+</ul>
 <h2>V603</h2>
 <ul>
 <li>Mise à jour de Sphaira en version 0.11.1.</li>

@@ -1,5 +1,17 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V604</h2>
+<ul>
+<li>Update Atmosphere to version 1.9.1.</li>
+<li>Update Hekate to version 6.3.1.</li>
+<li>Update Sphaira to version 0.11.3.</li>
+<li>Update MissionControl to version 0.13.2.</li>
+<li>Update Ultrahand-Overlay to version 1.8.5.</li>
+<li>Update QuickNTP to version 1.5.1.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
+<li>Update Salty-nx to version 1.2.7.</li>
+<li>Update FPSLocker to version 2.1.6.</li>
+</ul>
 <h2>V603</h2>
 <ul>
 <li>Update Sphaira to version 0.11.1.</li>
