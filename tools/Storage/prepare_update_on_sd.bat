@@ -753,8 +753,8 @@ IF "%firmware_choice%"=="20.0.1" (
 	goto:download_firmware
 )
 IF "%firmware_choice%"=="20.1.0" (
-	set expected_md5=5278fe9dc09bab28eac0a72c21076ad7
-	set "firmware_link=https://mega.nz/file/TZR1zYSJ#6g2PEwa-uw5Sr6JSA5eNHCTySPWk_maWTSVePxLoyww"
+	set expected_md5=4d1c20eb807813c6838fc0732cb6452e
+	set "firmware_link=https://mega.nz/file/uBcFSS5A#IcMVzD-dmNQVtjaDaBQCuWZC__JgJvIJJ2QwDKnGnvM"
 	set firmware_file_name=Firmware 20.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware

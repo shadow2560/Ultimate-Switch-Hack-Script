@@ -1,5 +1,10 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V605</h2>
+<ul>
+<li>Update Ultrahand-Overlay to version 1.8.7.</li>
+<li>Update Sys-con to version 1.5.3.</li>
+</ul>
 <h2>V604</h2>
 <ul>
 <li>Update Atmosphere to version 1.9.1.</li>
