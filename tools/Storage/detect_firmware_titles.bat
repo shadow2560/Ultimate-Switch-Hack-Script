@@ -56,6 +56,13 @@ IF EXIST "templogs\firmware_chosen.txt" (
 	goto:endscript
 )
 echo.
+call "%associed_language_script%" "keys_file_choice"
+set /p keys_file_path=<"templogs\tempvar.txt"
+if "%keys_file_path%"=="" (
+	call "%associed_language_script%" "no_keys_file_selected_error"
+	goto:endscript
+)
+echo.
 call "%associed_language_script%" "output_folder_choice"
 set /p output_folder=<templogs\tempvar.txt
 IF "%output_folder%"=="" (
@@ -65,9 +72,9 @@ IF "%output_folder%"=="" (
 IF NOT "%output_folder%"=="" set output_folder=%output_folder%\
 IF NOT "%output_folder%"=="" set output_folder=%output_folder:\\=\%
 set titles_output_file=titles_output.txt
-tools\Hactool_based_programs\hactoolnet.exe -t switchfs "firmware_temp" --listncas | tools\gnuwin32\bin\grep.exe "0100000000000809" | tools\gnuwin32\bin\grep.exe "Data" | tools\gnuwin32\bin\cut.exe -d " " -f 1 >templogs\tempvar.txt
+tools\Hactool_based_programs\hactoolnet.exe -k %keys_file_path% -t switchfs "firmware_temp" --listncas | tools\gnuwin32\bin\grep.exe "0100000000000809" | tools\gnuwin32\bin\grep.exe "Data" | tools\gnuwin32\bin\cut.exe -d " " -f 1 >templogs\tempvar.txt
 set /p fat32=<templogs\tempvar.txt
-tools\Hactool_based_programs\hactoolnet.exe -t switchfs "firmware_temp" --listncas | tools\gnuwin32\bin\grep.exe "010000000000081B" | tools\gnuwin32\bin\grep.exe "Data" | tools\gnuwin32\bin\cut.exe -d " " -f 1 >templogs\tempvar.txt
+tools\Hactool_based_programs\hactoolnet.exe -k %keys_file_path% -t switchfs "firmware_temp" --listncas | tools\gnuwin32\bin\grep.exe "010000000000081B" | tools\gnuwin32\bin\grep.exe "Data" | tools\gnuwin32\bin\cut.exe -d " " -f 1 >templogs\tempvar.txt
 set /p exfat=<templogs\tempvar.txt
 IF "%fat32%"=="" (
 	call "%associed_language_script%" "extract_error"

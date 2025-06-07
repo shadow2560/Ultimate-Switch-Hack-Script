@@ -1,5 +1,13 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.358</h2>
+<ul>
+<li>Support du firmware 20.1.1.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 20.1.1.</li>
+<li>La fonction permettant d'extraire les infos d'identification d'un firmware demande maintenant de fournir un fichier de clés.</li>
+<li>Mise à jour d'Atmosphere vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 606.</li>
+</ul>
 <h2>V4.3.357</h2>
 <ul>
 <li>Mise à jour des infos de téléchargement du firmware 20.1.0.</li>

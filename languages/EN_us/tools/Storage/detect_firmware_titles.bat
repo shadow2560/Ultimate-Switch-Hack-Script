@@ -26,6 +26,16 @@ goto:eof
 echo No firmware selected or an error occurred during firmware preparation.
 goto:eof
 
+:keys_file_choice
+echo You will have to select the keys file to decrypt thhe firmware.
+pause
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "all files ^(*.*^)|*.*|" "Select keys file" "templogs\tempvar.txt"
+goto:eof
+
+:no_keys_file_selected_error
+echo No keys file selected, the script will stop.
+goto:eof
+
 :output_folder_choice
 echo You will have to select the folder where to create the file containing the extracted information.
 pause

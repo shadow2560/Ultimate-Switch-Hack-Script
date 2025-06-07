@@ -1,5 +1,11 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V606</h2>
+<ul>
+<li>Mise à jour d'Atmosphere vers la version master du Github, compilé par moi-même.</li>
+<li>Mise à jour de Sphaira en version 0.12.0.</li>
+<li>Mise à jour de Ultrahand-Overlay en version 1.8.9.</li>
+</ul>
 <h2>V605</h2>
 <ul>
 <li>Mise à jour de Ultrahand-Overlay en version 1.8.7.</li>

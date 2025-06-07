@@ -17,6 +17,16 @@ goto:eof
 echo Aucun firmware sélectionné ou une erreur s'est produite durant la préparation du firmware.
 goto:eof
 
+:keys_file_choice
+echo Vous allez devoir choisir le fichier de clés à utiliser pour déchiffrer le firmware.
+pause
+%windir%\system32\wscript.exe //Nologo "TOOLS\Storage\functions\open_file.vbs" "" "Tous les fichiers ^(*.*^)|*.*|" "Sélection du fichier de clés" "templogs\tempvar.txt"
+goto:eof
+
+:no_keys_file_selected_error
+echo Aucun fichier sélectionné, le script va s'arrêter.
+goto:eof
+
 :output_folder_choice
 echo Vous allez devoir sélectionner le dossier vers lequel créer le fichier contenant les informations extraites.
 pause
