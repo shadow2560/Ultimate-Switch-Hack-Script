@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.359</h2>
+<ul>
+<li>Suport the firmwares 20.1.5.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmwares 20.1.5.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 607.</li>
+</ul>
 <h2>V4.3.358</h2>
 <ul>
 <li>Suport the firmwares 20.1.1.</li>

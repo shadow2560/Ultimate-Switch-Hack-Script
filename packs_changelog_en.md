@@ -1,5 +1,17 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V607</h2>
+<ul>
+<li>Update Sphaira to version 0.13.3.</li>
+<li>Update Goldleaf to version 1.1.1.</li>
+<li>Update ULaunch to version 1.2.1.</li>
+<li>Update Sys-con to version 1.5.4.</li>
+<li>Update Ldn-mitm to version 1.18.0.</li>
+<li>Update Ultrahand-nx-ovlloader to version 1.1.1.</li>
+<li>Update Ultrahand-Overlay to version 1.9.4.</li>
+<li>Update EdiZon-overlay to version 1.0.10.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
+</ul>
 <h2>V606</h2>
 <ul>
 <li>Update Atmosphere to the master version of the Github, compiled by myself.</li>
