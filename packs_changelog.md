@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V608</h2>
+<ul>
+<li>Mise à jour de NXThemesInstaller en version 2.8.1.</li>
+<li>Mise à jour de Checkpoint en version 3.10.1.</li>
+<li>Mise à jour de NXDumpTool en dernière version pre-release.</li>
+<li>Mise à jour de Ultrahand-Overlay en version 1.9.7.</li>
+</ul>
 <h2>V607</h2>
 <ul>
 <li>Mise à jour de Sphaira en version 0.13.3.</li>
