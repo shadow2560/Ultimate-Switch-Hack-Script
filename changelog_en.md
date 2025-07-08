@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.361</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 609.</li>
+</ul>
 <h2>V4.3.360</h2>
 <ul>
 <li>Update SwitchThemeInjector to version 4.8.1.</li>

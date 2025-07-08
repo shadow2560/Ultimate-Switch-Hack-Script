@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V609</h2>
+<ul>
+<li>Update Ultrahand-Overlay to version 1.9.10.</li>
+</ul>
 <h2>V608</h2>
 <ul>
 <li>Update NXThemesInstaller to version 2.8.1.</li>
