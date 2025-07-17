@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V610</h2>
+<ul>
+<li>Update Atmosphere to version 1.9.2.</li>
+<li>Update MissionControl to version 0.13.3.</li>
+<li>Update SimpleModDownloader to version 2.2.0.</li>
+<li>Update Ultrahand-Overlay to version 1.10.0.</li>
+<li>Update Salty-nx to version 1.3.1.</li>
+<li>Update FPSLocker to version 2.2.1.</li>
+</ul>
 <h2>V609</h2>
 <ul>
 <li>Update Ultrahand-Overlay to version 1.9.10.</li>
