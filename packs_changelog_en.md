@@ -9,6 +9,7 @@
 <li>Update Ultrahand-Overlay to version 1.10.0.</li>
 <li>Update Salty-nx to version 1.3.1.</li>
 <li>Update FPSLocker to version 2.2.1.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
 </ul>
 <h2>V609</h2>
 <ul>
