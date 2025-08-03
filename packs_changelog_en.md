@@ -1,5 +1,13 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V611</h2>
+<ul>
+<li>Update Atmosphere to version 1.9.3.</li>
+<li>Update MissionControl to version 0.13.4.</li>
+<li>Update Status-Monitor-Overlay to version 1.2.0.</li>
+<li>Update Salty-nx to version 1.4.2.</li>
+<li>Update FPSLocker to version 2.3.0.</li>
+</ul>
 <h2>V610</h2>
 <ul>
 <li>Update Atmosphere to version 1.9.2.</li>
