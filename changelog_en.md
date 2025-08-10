@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.364</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 612.</li>
+</ul>
 <h2>V4.3.363</h2>
 <ul>
 <li>Suport the firmwares 20.3.0.</li>
