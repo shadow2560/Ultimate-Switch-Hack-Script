@@ -1,5 +1,14 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.366</h2>
+<ul>
+<li>Support du firmware 20.4.0.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 20.4.0.</li>
+<li>Mise à jour de SwitchThemeInjector en version 4.8.2.</li>
+<li>Mise à jour d'Atmosphere en version 1.9.4.</li>
+<li>Mise à jour de Rekado en version 5.4.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 614.</li>
+</ul>
 <h2>V4.3.365</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 613.</li>
