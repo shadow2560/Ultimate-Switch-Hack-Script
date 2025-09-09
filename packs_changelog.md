@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V615</h2>
+<ul>
+<li>Mise à jour de Salty-nx en version 1.5.0.</li>
+<li>Mise à jour de FPSLocker en version 3.0.0.</li>
+</ul>
 <h2>V614</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 1.9.4.</li>
