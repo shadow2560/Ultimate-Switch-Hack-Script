@@ -1,5 +1,10 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.368</h2>
+<ul>
+<li>Add the exefs patches copy of Salty-nx and fix some bugs in the SD preparation script.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 616.</li>
+</ul>
 <h2>V4.3.367</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 615.</li>

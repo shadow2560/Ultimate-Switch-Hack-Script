@@ -620,7 +620,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	)
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\payload.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\start.bin" >nul
-	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\0\start.bin" >nul
+	IF EXIST "%volume_letter%\0\*.*" copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\0\start.bin" >nul
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000000D\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000000D"
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000002B\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000002B"
 	IF EXIST "%volume_letter%\atmosphere\contents\010000000000003C\*.*" rmdir /s /q "%volume_letter%\atmosphere\contents\010000000000003C"
@@ -661,7 +661,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	IF /i "%atmosphere_enable_nogc_patch%"=="O" (
 		%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_patches_nogc " "%volume_letter%\ " /e >nul
 	)
-	::%windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_fs_and_es_patches " "%volume_letter%\ " /e >nul
+	rem %windir%\System32\Robocopy.exe "TOOLS\sd_switch\atmosphere_fs_and_es_patches " "%volume_letter%\ " /e >nul
 	IF /i "%atmosphere_enable_cheats%"=="o" (
 		IF "%copy_all_cheats_pack%"=="Y" (
 			%windir%\System32\Robocopy.exe "TOOLS\sd_switch\cheats\titles " "%volume_letter%\atmosphere\contents" /e >nul
@@ -809,11 +809,11 @@ IF /I "%mariko_console%"=="o" (
 IF EXIST "%volume_letter%\switch\ChoiDuJourNX.nro" del /q "%volume_letter%\switch\ChoiDuJourNX.nro" >nul
 IF /i "%sx_core_lite_chip%"=="o" (
 	IF EXIST "%volume_letter%\0" rmdir /s /q "%volume_letter%\0"
-	IF EXIST "%volume_letter%\start.bin" del  /q "%volume_letter%\start.bin" >nul
+	IF EXIST "%volume_letter%\start.bin" del /q "%volume_letter%\start.bin" >nul
 )
 IF /i "%pico_chip%"=="o" (
 	IF EXIST "%volume_letter%\0" rmdir /s /q "%volume_letter%\0"
-	IF EXIST "%volume_letter%\start.bin" del  /q "%volume_letter%\start.bin" >nul
+	IF EXIST "%volume_letter%\start.bin" del /q "%volume_letter%\start.bin" >nul
 )
 IF EXIST "%volume_letter%\sept\payload.bin" del /q "%volume_letter%\sept\payload.bin" >nul
 set prepare_another_sd=
@@ -953,6 +953,10 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\sxos\ " /e >nul
 				IF EXIST "%volume_letter%\atmosphere\config_templates\missioncontrol.ini" del /q "%volume_letter%\atmosphere\config_templates\missioncontrol.ini"
 				IF EXIST "%volume_letter%\atmosphere\config\missioncontrol.ini" del /q "%volume_letter%\atmosphere\config\missioncontrol.ini"
+			)
+			IF "!temp_module!"=="Salty-nx" (
+				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\atmosphere\ " /e >nul
+				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\sxos\ " /e >nul
 			)
 			rem IF "%~1"=="sxos" (
 			rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
@@ -1828,7 +1832,7 @@ echo ; Note that this setting is ignored (and treated as 1) when htc is enabled.
 echo ; 0 = Disabled, 1 = Enabled>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo enable_log_manager = u8!%atmo_enable_log_manager%>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; Controls whether the bluetooth pairing database is redirected to the SD card (shared across sysmmc/all emummcs)>>"%volume_letter%\atmosphere\config\system_settings.ini"
-echo ; NOTE: On <13.0.0, the database size was 10 instead of 20; booting pre-13.0.0 will truncate the database.>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo ; NOTE: On ^<13.0.0, the database size was 10 instead of 20; booting pre-13.0.0 will truncate the database.>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; 0 = Disabled, 1 = Enabled>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo enable_external_bluetooth_db = u8!%atmo_enable_external_bluetooth_db% >>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo [hbloader]>>"%volume_letter%\atmosphere\config\system_settings.ini"

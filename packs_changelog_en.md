@@ -1,5 +1,11 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V616</h2>
+<ul>
+<li>Update Ultrahand-overlay to version 2.1.0.</li>
+<li>Update Salty-nx to version 1.5.2.</li>
+<li>Update FPSLocker to version 3.0.1.</li>
+</ul>
 <h2>V615</h2>
 <ul>
 <li>Update Salty-nx to version 1.5.0.</li>
