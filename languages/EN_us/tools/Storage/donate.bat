@@ -19,8 +19,8 @@ echo.
 echo How do you want to do the donation:
 echo 1: Donate via Paypal if you have a Paypal account ^(open my Paypal page, no transaction fees^)?
 echo 2: Donate by credit card if you don't have a Paypal account ^(opens my Paypal page, transaction fees^)?
-echo 2: Crypto-money?
-echo 3: Obtain assistance with unbricking?
+echo 3: Crypto-money?
+echo 4: Obtain assistance with unbricking?
 echo All other choices: Go back to previous menu.
 echo.
 set /p action_choice=Make your choice: 

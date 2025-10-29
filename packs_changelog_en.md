@@ -1,5 +1,16 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V617</h2>
+<ul>
+<li>Update Atmosphere to version 1.9.5.</li>
+<li>Update Ultrahand-overlay to version 2.1.4.</li>
+<li>Update MissionControl to version 0.13.6.</li>
+<li>Update LDN_mitm to version 1.22.0.</li>
+<li>Update Status-Monitor-Overlay to version 1.2.4.</li>
+<li>Update EdiZon-overlay to version 1.0.11.</li>
+<li>Update Salty-nx to version 1.5.5.</li>
+<li>Update FPSLocker to version 3.0.3.</li>
+</ul>
 <h2>V616</h2>
 <ul>
 <li>Update Ultrahand-overlay to version 2.1.0.</li>
