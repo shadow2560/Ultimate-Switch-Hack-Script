@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.371</h2>
+<ul>
+<li>Fix an important bug that make file selection not possible under recents versions of Windows.</li>
+</ul>
 <h2>V4.3.370</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 618.</li>

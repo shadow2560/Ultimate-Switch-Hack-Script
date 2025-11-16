@@ -1,33 +1,91 @@
-Function GetFileDlgEx(sIniDir,sFilter,sTitle) 
-	Set oDlg = CreateObject("WScript.Shell").Exec("mshta.exe ""about:<object id=d classid=clsid:3050f4e1-98b5-11cf-bb82-00aa00bdce0b></object><script>moveTo(0,-9999);eval(new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(0).Read("&Len(sIniDir)+Len(sFilter)+Len(sTitle)+41&"));function window.onload(){var p=/[^\0]*/;new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1).Write(p.exec(d.object.openfiledlg(iniDir,null,filter,title)));close();}</script><hta:application showintaskbar=no />""") 
-	oDlg.StdIn.Write "var iniDir='" & sIniDir & "';var filter='" & sFilter & "';var title='" & sTitle & "';" 
-	GetFileDlgEx = oDlg.StdOut.ReadAll 
+Option Explicit
+Dim fso, shell, tmpPath, exePath
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set shell = CreateObject("WScript.Shell")
+
+exePath = fso.GetParentFolderName(WScript.ScriptFullName) & "\openhelper.exe"
+Dim BASE64_EXE
+If Not fso.FileExists(exePath) Then
+    BASE64_EXE = CleanBase64(ReadFileToString(fso.GetParentFolderName(WScript.ScriptFullName) & "\openhelper.b64"))
+End If
+
+If Not fso.FileExists(exePath) Then
+    If Len(BASE64_EXE) = 0 Then
+        ' No exe embedded and not present on disk -> error
+        WScript.Echo "vbs_openhelper.exe not found next to script and no embedded EXE."
+        WScript.Quit 1
+    Else
+        DecodeBase64ToFile BASE64_EXE, exePath
+    End If
+End If
+
+Dim sIniDir, sFilter, sTitle, outFile, cmd, exec, out
+sIniDir = WScript.Arguments.Item(0)
+sFilter = WScript.Arguments.Item(1)
+sTitle  = WScript.Arguments.Item(2)
+outFile = WScript.Arguments.Item(3)
+
+cmd = Chr(34) & exePath & Chr(34) & " file " & _
+      Chr(34) & sIniDir & Chr(34) & " " & _
+      Chr(34) & sFilter & Chr(34) & " " & _
+      Chr(34) & sTitle & Chr(34)
+
+Set exec = shell.Exec(cmd)
+out = exec.StdOut.ReadAll
+out = Trim(out)
+
+' Write UTF-8
+Dim s1, s2
+Set s1 = CreateObject("ADODB.Stream")
+s1.Type = 2
+s1.Charset = "UTF-8"
+s1.Open
+s1.WriteText out
+
+Set s2 = CreateObject("ADODB.Stream")
+s2.Type = 1
+s2.Open
+s1.Position = 0
+s1.CopyTo s2
+s2.SaveToFile outFile, 2
+s1.Close
+s2.Close
+
+WScript.Quit 0
+
+' -------------------------
+Sub DecodeBase64ToFile(b64, target)
+    Dim xml, node
+    ' Use MSXML2 DOM to decode base64
+    Set xml = CreateObject("Msxml2.DOMDocument.6.0")
+    Set node = xml.createElement("b64")
+    node.dataType = "bin.base64"
+    node.text = b64
+    Dim stream
+    Set stream = CreateObject("ADODB.Stream")
+    stream.Type = 1
+    stream.Open
+    stream.Write node.nodeTypedValue
+    stream.SaveToFile target, 2
+    stream.Close
+End Sub
+
+Function CleanBase64(s)
+    Dim re
+    Set re = New RegExp
+    re.Pattern = "[^A-Za-z0-9+/=]"
+    re.Global = True
+    CleanBase64 = re.Replace(s, "")
 End Function
 
-sIniDir = Wscript.Arguments.Item(0)
-sFilter = Wscript.Arguments.Item(1)
-sTitle = Wscript.Arguments.Item(2)
-rep = GetFileDlgEx(Replace(sIniDir,"\","\\"),sFilter,sTitle) 
-'MsgBox rep & vbcrlf & Len(rep)
-
-Set objStream = CreateObject("ADODB.Stream" )
-objStream.Open
-objStream.Type = 2
-objStream.Position = 0
-objStream.Charset = "UTF-8"
-objStream.WriteText rep
-objStream.Position = 3
-Set objStream2 = CreateObject("ADODB.Stream" )
-objStream2.Open
-objStream2.Type = 1
-objStream.CopyTo objStream2
-objStream2.SaveToFile Wscript.Arguments.Item(3), 2
-objStream.Close
-objStream2.Close
-
-'Const ForReading = 1, ForWriting = 2
-'Set fso = CreateObject("Scripting.FileSystemObject")
-'Set fichier = fso.OpenTextFile(Wscript.Arguments.Item(3), ForWriting,true)
-'fichier.write("" &rep)
-'fichier.close()
-WScript.Quit
+Function ReadFileToString(filename)
+    Dim fso, f
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    If Not fso.FileExists(filename) Then
+        ReadFileToString = ""
+        Exit Function
+    End If
+    Set f = fso.OpenTextFile(filename, 1, False) ' ForReading
+    ReadFileToString = f.ReadAll
+    f.Close
+End Function
