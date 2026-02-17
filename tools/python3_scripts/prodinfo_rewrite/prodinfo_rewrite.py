@@ -71,11 +71,16 @@ def data_getdatas(prodinfo_file_src, offset_start, datas_length, description):
 
 def crc_getdatas(prodinfo_file_src, offset_start, datas_length, padding_size, description, crc_source):
 	global prodinfo_datas
-	crc_16_padding = crc_source + (b'\0'*padding_size)
-	temp_crc_16 = get_crc_16(crc_16_padding, len(crc_16_padding))
-	temp_crc_16 = (b'\0'*padding_size) + bytes(temp_crc_16)
-	temp_info = struct.pack(str(datas_length) + 's', prodinfo_file_src.read(datas_length))
-	prodinfo_datas.append(['crc', offset_start, datas_length, description, padding_size, temp_info, temp_crc_16])
+	cur_pos = prodinfo_file_src.tell()
+	prodinfo_file_src.seek(offset_start)
+	raw_crc_field = prodinfo_file_src.read(datas_length)
+	real_padding = raw_crc_field[:padding_size]
+	prodinfo_file_src.seek(cur_pos)
+	crc_input = crc_source + real_padding
+	crc_bytes_le = get_crc_16(crc_input, len(crc_input))
+	expected_crc_field = real_padding + crc_bytes_le
+	temp_info = struct.pack(str(datas_length) + 's', raw_crc_field)
+	prodinfo_datas.append(['crc', offset_start, datas_length, description, padding_size, temp_info, expected_crc_field])
 	return(0)
 
 def sha256_getdatas(prodinfo_file_src, offset_start, datas_length, description, begin_sha256_data_offset, sha256_data_size):
@@ -227,13 +232,13 @@ def read_prodinfo(prodinfo_file_src_path):
 			data_getdatas(prodinfo_file_src, 0x4270, 0x1, '[9.0.0+] AnalogStickModuleTypeL')
 			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xf, 0xd, 'AnalogStickModuleTypeL crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x4280, 0x12, '[9.0.0+] AnalogStickModelParameterL')
-			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xc, 0xe, 'AnalogStickModelParameterL crc16', prodinfo_datas[-1][4])
+			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xe, 0xc, 'AnalogStickModelParameterL crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x42a0, 0x9, '[9.0.0+] AnalogStickFactoryCalibrationL')
 			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0x7, 0x5, 'AnalogStickFactoryCalibrationL crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x42b0, 0x1, '[9.0.0+] AnalogStickModuleTypeR')
 			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xf, 0xd, 'AnalogStickModuleTypeR crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x42c0, 0x12, '[9.0.0+] AnalogStickModelParameterR')
-			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xc, 0xe, 'AnalogStickModelParameterR crc16', prodinfo_datas[-1][4])
+			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0xe, 0xc, 'AnalogStickModelParameterR crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x42e0, 0x9, '[9.0.0+] AnalogStickFactoryCalibrationR')
 			crc_getdatas(prodinfo_file_src, prodinfo_file_src.tell(), 0x7, 0x5, 'AnalogStickFactoryCalibrationR crc16', prodinfo_datas[-1][4])
 			data_getdatas(prodinfo_file_src, 0x42f0, 0x1, '[9.0.0+] ConsoleSixAxisSensorModuleType')
@@ -288,11 +293,13 @@ def verif_prodinfo_hashes(prodinfo_file_src_path):
 		if (item[0] == 'crc'):
 			if (item[5] != item[6]):
 				hashes_errors += 1
-			elif (item[0] == 'sha256'):
-				if (item[4] != item[5]):
-					hashes_errors += 1
-			elif (item[0] == 'data'):
-				continue
+				print("Error crc: " + item[3])
+		elif (item[0] == 'sha256'):
+			if (item[4] != item[5]):
+				hashes_errors += 1
+				print("Error sha256: " + item[3])
+		elif (item[0] == 'data'):
+			continue
 	if (hashes_errors != 0):
 		print("Nombre d'erreurs de hashes trouvées: " + str(hashes_errors))
 		return(1)

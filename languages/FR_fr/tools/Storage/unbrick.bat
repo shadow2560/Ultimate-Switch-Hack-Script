@@ -35,8 +35,7 @@ goto:eof
 :dump_keys_instructions_begin
 echo.
 echo Insérez votre SD dans la Switch et allumez-là en mode RCM.
-echo ATTENTION: Si votre firmware actuel est supérieur au firmware 7.0.0, le dossier "sept" d'Atmosphere est nécessaire pour pouvoir dumper les clés donc veuillez copier celui-ci à la racine de votre SD.
-echo Attention: Si votre console est un modèle patché, vous devrez lancer le payload Lockpick-RCM via une méthode non prise en charge via ce script.
+echo Attention: Si votre console est un modèle patché, vous devrez lancer le payload LockSmith-RCM via une méthode non prise en charge via ce script.
 goto:eof
 
 :dump_keys_instructions_end
@@ -44,7 +43,6 @@ echo Le payload devrait être lancé sur votre console.
 echo Appuyez sur le bouton "Power" pour lancer le dump des clés.
 echo.
 echo Si le dump n'a pas fonctionné, veuillez le préciser dans le choix qui va suivre pour arrêter le script.
-echo Si vous n'avez pas copié le dossier "sept" d'Atmosphere à la racine de votre SD, faites-le et relancez le script.
 echo Si cela ne fonctionne toujours pas, le problème de la console ne pourra probablement pas être résolu seulement avec cette méthode de débrickage.
 echo.
 echo Si le dump a fonctionné ou que vous souhaitez tout de même continuer la procédure, vous pouvez remettre la SD dans le PC pour la suite, le fichier de clés sera le fichier "switch\prod.keys" situé sur la SD.
@@ -235,7 +233,7 @@ goto:eof
 
 :firmware_choice_begin
 if "%method_creation_firmware_unbrick_choice%"=="1" (
-	echo Choisissez le firmware que vous souhaitez installer via ChoiDuJourNX lorsque la console fonctionnera de nouveau.
+	echo Choisissez le firmware que vous souhaitez installer via Daybreak lorsque la console fonctionnera de nouveau.
 ) else (
 	echo Choisissez le firmware que vous souhaitez préparer via EmmcHaccGen.
 )
@@ -302,9 +300,9 @@ echo Vous pouvez essayer de quitter le script, redémarrer votre système et ret
 goto:eof
 
 :boot0_keyblobs_reparation_choice
-echo Vous pouvez réparer les keyblobs dans le fichier BOOT0 si vous avez des erreurs liées à celles-ci lors du dump des clés via Lockpick-RCM.
+echo Vous pouvez réparer les keyblobs dans le fichier BOOT0 si vous avez des erreurs liées à celles-ci lors du dump des clés via Lockpick-RCM ou LockSmith-RCM.
 echo Attention, ceci est une opération avancée et rarement nécessaire, ne l'effectuer que si vous savez se que vous faites.
-echo Attention également, il est nécessaire d'avoir choisi le fichier de clés lié à la console et dumpé avec Lockpick-RCM sur celle-ci lors de votre choix du fichier de clés durant ce script.
+echo Attention également, il est nécessaire d'avoir choisi le fichier de clés lié à la console et dumpé avec Lockpick-RCM ou LockSmith-RCM sur celle-ci lors de votre choix du fichier de clés durant ce script.
 echo.
 echo Que souhaitez-vous faire?
 echo 1: Ne pas modifier le fichier BOOT0 et continuer (recommandé^).
@@ -350,15 +348,52 @@ goto:eof
 
 :restore_method_choice
 echo Quelle méthode de restauration souhaitez-vous effectuer?
-echo 1: Méthode uniquement via TegraExplorer, recommandée dans la plupart des cas?
-echo 2: Méthode via TegraExplorer et HacDiskMount, par exemple si vous restaurez la nand via une autre console que celle à laquelle la nand est liée, à ne faire que si vous savez vraiment se que vous faites?
+echo 1: Méthode  via LockSmith-RCM, recommandée dans la plupart des cas?
+echo 2: Méthode uniquement via TegraExplorer?
+echo 3: Méthode via TegraExplorer et HacDiskMount, par exemple si vous restaurez la nand via une autre console que celle à laquelle la nand est liée, à ne faire que si vous savez vraiment se que vous faites?
 echo 0: Terminer ce script.
 echo.
-choice /c 120 /n /m "Faites votre choix: "
+choice /c 1230 /n /m "Faites votre choix: "
 goto:eof
 
 :copying_end
 echo Les fichiers nécessaires ont été préparés, vous pouvez remettre la SD dans la Switch.
+goto:eof
+
+:locksmith-rcm_launch_begin
+echo La restauration de la nand va commencer, si vous n'avez pas encore fait un dump de la nand via Hekate par exemple c'est le moment ou jamais de le faire, ceci ne sera pas couvert ici.
+pause
+echo.
+echo Maintenant, avec l'aide de LockSmith-RCM, nous allons restaurer la nand.
+echo.
+echo Passer la console en RCM.
+echo.
+echo Attention: Pour les consoles patchées, le lancement des payloads doit se faire via une méthode non traitée par ce script.
+goto:eof
+
+:locksmith-rcm_launch_correctly_question
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Le payload LockSmith-RCM s'est-il lancé sur la console? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:locksmith-rcm_launch_end
+echo.
+echo Pour naviguer dans le payload LockSmith-RCM, se déplacer avec  les boutons de volume et valider avec le bouton "Power".
+echo Le payload se lance et présente un menu.
+echo Attention: Vérifiez bien la nand sur laquelle le payload travail, si vous avez une emunand configurée le payload essaiera de travailler dessus en premier lieu donc si vous souhaitez travailler sur la sysnand vous devrez utiliser l'option "Switch nand work".
+echo En premier lieu, lancer le choix "Dump PRODINFO" ^(à ne faire qu'une seule fois^) et garder le fichier créé de côté, c'est le fichier le plus important à avoir absoluement en cas de problèmes.
+	echo Sélectionner le choix "Wip and unbrick with EmmcHacGen package" ^(attention, une fois ce script exécuté, toutes les données de la sysnand seront supprimés^) ou le choix "Unbrick with EmmcHacGen package" ^(moins de chances de fonctionner^).
+echo Attention, cette fonction de LockSmith-RCM nécessite des fichiers précédemment copiés par ce script, ne jamais l'exécuter autrement que durant cette procédure.
+IF "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
+) else IF "%method_creation_firmware_unbrick_choice%"=="2" (
+	IF /i NOT "%patched_console%"=="O" (
+		IF NOT "%autorcm%"=="--no-autorcm" (
+			echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
+		)
+	)
+)
+echo.
+echo Une fois le script sur la console terminé sans erreur, éteindre la console ou redémarrer sur le payload Hekate via LockSmith-RCM.
 goto:eof
 
 :tegraexplorer_launch_begin
@@ -382,17 +417,17 @@ echo Une fois le payload lancé, vous devriez voir un script nomé "cdj_restore_
 echo Aller dessus avec les flèches dirrectionnel ou avec les boutons de volume et valider avec le bouton "A" ou le bouton "Power".
 echo Le script se lance et présente un menu.
 echo En premier lieu, lancer le choix "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF" ^(à ne faire qu'une seule fois^) et garder les fichiers créés de côté, se sont les fichiers les plus importants à avoir absoluement en cas de problèmes.
-IF "%restore_method%"=="1" (
+IF "%restore_method%"=="2" (
 	echo Sélectionner le choix "Restaurer avec suppression de données" ^(attention, une fois ce script exécuté, toutes les données de la sysnand seront supprimés^) ou le choix "Restaurer sans suppression de données" ^(moins de chances de fonctionner^).
-) else IF "%restore_method%"=="2" (
+) else IF "%restore_method%"=="3" (
 	echo Sélectionner le choix "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*".
 	echo Attention, une fois le script exécuté, il faudra ensuite restaurer les partitions SYSTEM et USER grâce à Memloader et HacDiskMount ou via une autre méthode.
 )
 echo Attention, ce script de TegraExplorer nécessite des fichiers précédemment copiés par ce script, ne jamais l'exécuter autrement que durant cette procédure.
 echo Attention également, n'utiliser la possibilité de choix du dossier à restaurer que si vous savez se que vous faites, sinon gardez les actions par défaut.
-IF "%restore_method%"=="1" (
+IF "%method_creation_firmware_unbrick_choice%"=="1" (
 	echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
-) else IF "%restore_method%"=="2" (
+) else IF "%method_creation_firmware_unbrick_choice%"=="2" (
 	IF /i NOT "%patched_console%"=="O" (
 		IF NOT "%autorcm%"=="--no-autorcm" (
 			echo Notez également que la console, si le script a bien fonctionné, est maintenant en auto-RCM donc simplement appuyer sur le bouton "Power" au démarrage ou brancher la console éteinte à une prise USB démarrera la console en RCM.
@@ -400,9 +435,9 @@ IF "%restore_method%"=="1" (
 	)
 )
 echo.
-IF "%restore_method%"=="1" (
+IF "%restore_method%"=="2" (
 	echo Une fois le script sur la console terminé sans erreur, éteindre la console ou redémarrer sur le payload Hekate via TegraExplorer.
-) else IF "%restore_method%"=="2" (
+) else IF "%restore_method%"=="3" (
 	echo Une fois le script sur la console terminé sans erreur, éteindre la console.
 )
 goto:eof
@@ -466,7 +501,7 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	echo Ensuite, cliquez sur "sysnand first launch FW 5.1.0" ^(premier icône en haut à gauche^).
 	echo.
 	IF "%optional_firmware_download%"=="Y" (
-		echo Si la console a démarrée, vous pourez démarrer Atmosphere avec une des configurations disponibles dans le menu "More configs" de Hekate puis mettre à jour sur le firmware que vous avez choisi au début de ce script grâce à ChoiDuJourNX ^(choisir de préférence le firmware EXFAT que vous proposera ChoiDuJourNX, le reste des instructions ne seront pas couverte ici^). Vous pouvez aussi mettre à jour la console de manière officielle si celle-ci n'est pas bannie, attention rien n'est garantie sur la sureté de mise à jour via cette procédure.
+		echo Si la console a démarrée, vous pourez démarrer Atmosphere avec une des configurations disponibles dans le menu "More configs" de Hekate puis mettre à jour sur le firmware que vous avez choisi au début de ce script grâce à Daybreak ^(choisir de préférence le firmware EXFAT que vous proposera Daybreak, le reste des instructions ne seront pas couverte ici^). Vous pouvez aussi mettre à jour la console de manière officielle si celle-ci n'est pas bannie, attention rien n'est garantie sur la sureté de mise à jour via cette procédure.
 	) else (
 		echo Si la console a démarrée, vous pouvez faire se que vous voulez avec elle.
 	)

@@ -43,6 +43,11 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 		) else (
 			echo Upload infos to Nintendo servers disabled.
 		)
+		IF /i "%atmo_default_auto_upload_global_setting%"=="o" (
+			echo Upload infos of global settings to Nintendo servers enabled.
+		) else (
+			echo Upload infos of global settings to Nintendo servers disabled.
+		)
 		IF /i "%atmo_usb30_force_enabled%"=="o" (
 			echo USB3 enabled.
 		) else (

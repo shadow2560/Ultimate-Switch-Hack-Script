@@ -26,6 +26,9 @@ Setlocal disabledelayedexpansion
 IF /i NOT "%atmo_upload_enabled%"=="o" (
 	set atmo_upload_enabled=n
 )
+IF /i NOT "%atmo_default_auto_upload_global_setting%"=="o" (
+	set atmo_default_auto_upload_global_setting=n
+)
 IF /i NOT "%atmo_usb30_force_enabled%"=="o" (
 	set atmo_usb30_force_enabled=n
 )

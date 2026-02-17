@@ -5,7 +5,7 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quitter sans rien faire", "Redémarrer en OFW", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Supprimer la sauvegarde de Erpt (peut corriger l'erreur 0xffe du Title ID 010000000000002b d'Atmosphere)", "Réinitialiser la console", "Passer   la première configuration (non fonctionnel pour l'instant)", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Flasher un PRODINFO créé via ProdinfoGen", "Switcher le travail du script entre SYSNAND et EMUNAND"]
+main_menu_options = ["Quitter sans rien faire", "Redémarrer en OFW", "Sauvegarder BOOT0, BOOT1, PRODINFO et PRODINFOF", "Restaurer avec suppression de données", "Restaurer sans suppression de données", "Restaurer seulement les partitions BOOT0, BOOT1 et BCPKG2-*", "Supprimer le contrôle parental", "Supprimer la sauvegarde de Erpt (peut corriger l'erreur 0xffe du Title ID 010000000000002b d'Atmosphere)", "Réinitialiser la console", "Passer   la première configuration (non fonctionnel pour l'instant)", "Copier les paramètres de synchronisation des manettes de la SYSNAND vers l'EMUNAND (fonction en beta)", "Migrer l'emunand (fonctions en alpha test)", "Flasher un PRODINFO créé via ProdinfoGen", "Fixer le downgrade du firmware 21.0.0+ à un firmware inférieur", "Switcher le travail du script entre SYSNAND et EMUNAND"]
 migrate_emunand_menu_options = ["Revenir au menu principal", "Rendre compatible l'emunand via partition de SXOS avec Atmosphere", "Convertir l'emunand via fichiers de SXOS pour Atmosphere", "Inverser la convertion de l'emunand via fichiers de SXOS pour Atmosphere"]
 flash_prodinfogen_options = ["Revenir au menu principal", "Flasher le PRODINFO from scratch", "Flasher le PRODINFO from donor"]
 explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
@@ -33,7 +33,7 @@ prepare_paths = {
 }
 
 checkIfImportantSave = {
-	importantSaves = ["8000000000000120", "80000000000000d1", "8000000000000047"]
+	importantSaves = ["8000000000000000", "8000000000000120", "80000000000000d1", "8000000000000047", "8000000000000053"]
 	j = 0
 	important = 0
 	while (j < importantSaves.len()){
@@ -915,7 +915,15 @@ restore_system_partition = {
 		delfile("bis:/PRF2SAFE.RCV")
 	}
 	copydir(SYSTEM_Contents_path, "bis:/")
+		RESULT = fsexists("bis:/save/0000000000000000")
+	if (RESULT){
+		movefile("bis:/save/0000000000000000", "bis:/0000000000000000")
+	}
 	copydir(SYSTEM_save_path, "bis:/")
+		RESULT = fsexists("bis:/0000000000000000")
+	if (RESULT){
+		movefile("bis:/0000000000000000", "bis:/save/0000000000000000")
+	}
 }
 
 restore_user_partition = {
@@ -1063,6 +1071,17 @@ if (restore_accepted == 1) {
 	}
 }
 
+fix_fw21_downgrade = {
+	println("Fix du downgrade du firmware 21.0.0 ou supérieur à un firmware inférieur...")
+	mount_system()
+				if (return_code != 1){
+		delfile("bis:/save/8000000000000073")
+		println("")
+		println("Opération terminée avec succès, Appuyez sur n'importe quelle touche pour revenir au menu.")
+		pause()
+	}
+}
+
 while (1) {
 	main_action = 0
 	explorerIsCalled = 0
@@ -1110,6 +1129,9 @@ while (1) {
 		flash_prodinfogen_menu()
 	}
 	if (main_action == 14){
+		fix_fw21_downgrade()
+	}
+	if (main_action == 15){
 		switch_working_nand()
 	}
 }

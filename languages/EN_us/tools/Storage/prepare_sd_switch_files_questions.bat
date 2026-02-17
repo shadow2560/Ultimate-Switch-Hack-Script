@@ -217,6 +217,10 @@ goto:eof
 set /p atmo_upload_enabled=Enable the upload infos on nintendo's servers ^(not recommanded^): ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_config_atmo_default_auto_upload_global_setting_param_choice
+set /p atmo_default_auto_upload_global_setting=Enable the upload infos of global settings on nintendo's servers ^(not recommanded^): ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_config_usb3_param_choice
 set /p atmo_usb30_force_enabled=Enable USB 3  ^(can cause problems^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

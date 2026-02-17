@@ -5,7 +5,7 @@
 
 wait={t=timer()while(timer()<(t+tw)){print("Wait for",(t+tw-timer()/1000),"seconds \r")}}
 
-main_menu_options = ["Quit without doing anything", "Reboot to OFW", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Remove the Erpt save (can fix the 0xffe error of the Title ID 010000000000002b with Atmosphere)", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Flash a PRODINFO created via ProdinfoGen", "Switch script work between SYSNAND and EMUNAND"]
+main_menu_options = ["Quit without doing anything", "Reboot to OFW", "Backup BOOT0, BOOT1, PRODINFO and PRODINFOF", "Restore with data deletion", "Restore without data deletion", "Restore only BOOT0, BOOT1 and BCPKG2-* partitions", "Remove parental control", "Remove the Erpt save (can fix the 0xffe error of the Title ID 010000000000002b with Atmosphere)", "Reset console", "Bypass the first configuration (doesn't work for now", "Copy controller synchronization settings from SYSNAND to EMUNAND (function in beta)", "Migrate emunand (functions in alpha test)", "Flash a PRODINFO created via ProdinfoGen", "Fix downgrade from firmware 21.0.0+ to an older firmware", "Switch script work between SYSNAND and EMUNAND"]
 migrate_emunand_menu_options = ["Return to main menu", "Make SXOS partition emunand compatible with Atmosphere", "Convert SXOS files emunand  for Atmosphere", "Reverse the conversion of SXOS files emunand  for Atmosphere"]
 flash_prodinfogen_options = ["Return to main menu", "Flash the PRODINFO from scratch", "Flash the PRODINFO from donor"]
 explorer_menu_static_options = ["Revenir au menu principal", "Utiliser ce répertoire", "Revenir à la racine de la SD", "Remonter d'un répertoire"]
@@ -33,7 +33,7 @@ prepare_paths = {
 }
 
 checkIfImportantSave = {
-	importantSaves = ["8000000000000120", "80000000000000d1", "8000000000000047"]
+	importantSaves = ["8000000000000000", "8000000000000120", "80000000000000d1", "8000000000000047", "8000000000000053"]
 	j = 0
 	important = 0
 	while (j < importantSaves.len()){
@@ -915,7 +915,15 @@ restore_system_partition = {
 		delfile("bis:/PRF2SAFE.RCV")
 	}
 	copydir(SYSTEM_Contents_path, "bis:/")
+	RESULT = fsexists("bis:/save/0000000000000000")
+	if (RESULT){
+		movefile("bis:/save/0000000000000000", "bis:/0000000000000000")
+	}
 	copydir(SYSTEM_save_path, "bis:/")
+		RESULT = fsexists("bis:/0000000000000000")
+	if (RESULT){
+		movefile("bis:/0000000000000000", "bis:/save/0000000000000000")
+	}
 }
 
 restore_user_partition = {
@@ -1064,6 +1072,17 @@ if (restore_accepted == 1) {
 	}
 }
 
+fix_fw21_downgrade = {
+	println("Fix  downgrade  firmware 21.0.0 and up to an older firmware...")
+	mount_system()
+	if (return_code != 1){
+		delfile("bis:/save/8000000000000073")
+		println("")
+		println("println("Opperation successfully completed, press any key to go bakc to the menu.")
+		pause()
+	}
+}
+
 while (1) {
 	main_action = 0
 	explorerIsCalled = 0
@@ -1111,6 +1130,9 @@ while (1) {
 		flash_prodinfogen_menu()
 	}
 	if (main_action == 14){
+		fix_fw21_downgrade()
+	}
+	if (main_action == 15){
 		switch_working_nand()
 	}
 }

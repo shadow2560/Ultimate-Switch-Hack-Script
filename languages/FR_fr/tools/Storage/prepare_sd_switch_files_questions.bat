@@ -208,6 +208,10 @@ goto:eof
 set /p atmo_upload_enabled=Activer l'upload d'infos vers les serveurs Nintendo ^(non recommandé^): ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
 
+:atmosphere_manual_config_atmo_default_auto_upload_global_setting_param_choice
+set /p atmo_default_auto_upload_global_setting=Activer l'upload d'infos des paramètres globaux vers les serveurs Nintendo ^(non recommandé^): ^(%lng_yes_choice%/%lng_no_choice%^): 
+goto:eof
+
 :atmosphere_manual_config_usb3_param_choice
 set /p atmo_usb30_force_enabled=Activer l'USB 3 pour les homebrews ^(peut causer des problèmes^)? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof

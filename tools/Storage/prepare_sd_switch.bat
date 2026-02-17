@@ -674,7 +674,7 @@ IF /i "%copy_atmosphere_pack%"=="o" (
 	call :force_copy_overlays_base_files "atmosphere"
 	copy /V /B "TOOLS\sd_switch\payloads\Hekate.bin" "%volume_letter%\atmosphere\reboot_payload.bin" >nul
 	rem copy /V /B TOOLS\sd_switch\payloads\Hekate.bin %volume_letter%\switch\HekateBrew\payload.bin >nul
-	copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\bootloader\payloads\Lockpick_RCM.bin" >nul
+	copy /V /B "TOOLS\sd_switch\payloads\LockSmith-RCM.bin" "%volume_letter%\bootloader\payloads\LockSmith-RCM.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\bootloader\payloads\udpih_nxpayload.bin" >nul
 		copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\bootloader\payloads\Incognito_RCM.bin" >nul
 	copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\bootloader\payloads\Prodinfo_gen.bin" >nul
@@ -1090,7 +1090,7 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF "!temp_homebrew:~0,16!"=="Payload_Launcher" (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF NOT EXIST "%volume_letter%\payloads\*.*" mkdir "%volume_letter%\payloads"
-				copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\payloads\Lockpick_RCM.bin" >nul
+				copy /V /B "TOOLS\sd_switch\payloads\LockSmith-RCM.bin" "%volume_letter%\payloads\LockSmith-RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\payloads\udpih_nxpayload.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\payloads\Incognito_RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\payloads\Prodinfo_gen.bin" >nul
@@ -1136,7 +1136,7 @@ for /l %%i in (1,1,%temp_count%) do (
 		IF "!temp_homebrew!"=="Aio-switch-updater" (
 			IF /i NOT "%mariko_console%"=="o" (
 				IF NOT EXIST "%volume_letter%\payloads\*.*" mkdir "%volume_letter%\payloads"
-				copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\payloads\Lockpick_RCM.bin" >nul
+				copy /V /B "TOOLS\sd_switch\payloads\LockSmith-RCM.bin" "%volume_letter%\payloads\LockSmith-RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\udpih_nxpayload.bin" "%volume_letter%\payloads\udpih_nxpayload.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\payloads\Incognito_RCM.bin" >nul
 				copy /V /B "TOOLS\sd_switch\payloads\prodinfo_gen.bin" "%volume_letter%\payloads\Prodinfo_gen.bin" >nul
@@ -1182,10 +1182,10 @@ for /l %%i in (1,1,%temp_count%) do (
 					echo type=section>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo name=Payloads>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo.>>"%volume_letter%\config\fastCFWSwitch\config.ini"
-					copy /V /B "TOOLS\sd_switch\payloads\Lockpick_RCM.bin" "%volume_letter%\payloads\Lockpick_RCM.bin" >nul
+					copy /V /B "TOOLS\sd_switch\payloads\LockSmith-RCM.bin" "%volume_letter%\payloads\LockSmith-RCM.bin" >nul
 					echo [Lockpick-RCM]>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo name=Lockpick-RCM>>"%volume_letter%\config\fastCFWSwitch\config.ini"
-					echo path=/payloads/Lockpick_RCM.bin>>"%volume_letter%\config\fastCFWSwitch\config.ini"
+					echo path=/payloads/LockSmith-RCM.bin>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					echo.>>"%volume_letter%\config\fastCFWSwitch\config.ini"
 					copy /V /B "TOOLS\sd_switch\payloads\Incognito_RCM.bin" "%volume_letter%\payloads\Incognito_RCM.bin" >nul
 					echo [Incognito-RCM]>>"%volume_letter%\config\fastCFWSwitch\config.ini"
@@ -1623,6 +1623,11 @@ IF /i "%atmo_upload_enabled%"=="o" (
 ) else (
 	set atmo_upload_enabled=0x0
 )
+IF /i "%atmo_default_auto_upload_global_setting%"=="o" (
+	set atmo_default_auto_upload_global_setting=0x1
+) else (
+	set atmo_default_auto_upload_global_setting=0x0
+)
 IF /i "%atmo_usb30_force_enabled%"=="o" (
 	set atmo_usb30_force_enabled=0x1
 ) else (
@@ -1766,6 +1771,8 @@ IF "%atmo_cheats_override_key%"=="" (
 echo ; Disable uploading error reports to Nintendo>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo [eupld]>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo upload_enabled = u8!%atmo_upload_enabled%>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo [olsc]>>"%volume_letter%\atmosphere\config\system_settings.ini"
+echo default_auto_upload_global_setting = u8!%atmo_default_auto_upload_global_setting%>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo ; Enable USB 3.0 superspeed for homebrew>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo [usb]>>"%volume_letter%\atmosphere\config\system_settings.ini"
 echo usb30_force_enabled = u8!%atmo_usb30_force_enabled%>>"%volume_letter%\atmosphere\config\system_settings.ini"

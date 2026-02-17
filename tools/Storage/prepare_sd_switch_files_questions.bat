@@ -634,6 +634,10 @@ set atmo_upload_enabled=
 call "%associed_language_script2%" "atmosphere_manual_config_upload_param_choice"
 IF NOT "%atmo_upload_enabled%"=="" set atmo_upload_enabled=%atmo_upload_enabled:~0,1%
 call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_upload_enabled" "o/n_choice"
+set atmo_default_auto_upload_global_setting=
+call "%associed_language_script2%" "atmosphere_manual_config_atmo_default_auto_upload_global_setting_param_choice"
+IF NOT "%atmo_default_auto_upload_global_setting%"=="" set atmo_default_auto_upload_global_setting=%atmo_default_auto_upload_global_setting:~0,1%
+call "tools\Storage\functions\modify_yes_no_always_never_vars.bat" "atmo_default_auto_upload_global_setting" "o/n_choice"
 set atmo_usb30_force_enabled=
 call "%associed_language_script2%" "atmosphere_manual_config_usb3_param_choice"
 IF NOT "%atmo_usb30_force_enabled%"=="" set atmo_usb30_force_enabled=%atmo_usb30_force_enabled:~0,1%

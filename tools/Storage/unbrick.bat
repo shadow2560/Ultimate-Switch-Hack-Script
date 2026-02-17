@@ -58,22 +58,23 @@ echo.
 call "%associed_language_script%" "dump_keys_choice"
 IF %errorlevel% EQU 1 (
 	call "%associed_language_script%" "dump_keys_instructions_begin"
-	IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\Lockpick_RCM.bin"
+	IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\LockSmith-RCM.bin"
 	call "%associed_language_script%" "dump_keys_instructions_end"
 	IF !errorlevel! EQU 2 goto:endscript2
 )
 
 	IF /i "%mariko_console%"=="O" goto:keys_file_creation
 
-call "%associed_language_script%" "method_creation_firmware_unbrick_choice"
-if "%errorlevel%"=="1" (
-	set method_creation_firmware_unbrick_choice=1
-) else if "%errorlevel%"=="2" (
-	set method_creation_firmware_unbrick_choice=2
-	goto:keys_file_creation
-) else (
-	goto:endscript2
-)
+rem call "%associed_language_script%" "method_creation_firmware_unbrick_choice"
+rem if "%errorlevel%"=="1" (
+	rem set method_creation_firmware_unbrick_choice=1
+rem ) else if "%errorlevel%"=="2" (
+	rem set method_creation_firmware_unbrick_choice=2
+	rem goto:keys_file_creation
+rem ) else (
+	rem goto:endscript2
+rem )
+set method_creation_firmware_unbrick_choice=2
 
 if "%method_creation_firmware_unbrick_choice%"=="1" (
 	IF EXIST tools\Hactool_based_programs\keys.txt (
@@ -426,6 +427,10 @@ echo 20.2.0?
 echo 20.3.0?
 echo 20.4.0?
 echo 20.5.0?
+echo 21.0.0?
+echo 21.0.1?
+echo 21.1.0?
+echo 21.2.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF "%firmware_choice%"=="1.0.0" (
@@ -946,6 +951,34 @@ IF "%firmware_choice%"=="20.5.0" (
 	set firmware_folder=firmware_temp\
 	goto:download_firmware
 )
+IF "%firmware_choice%"=="21.0.0" (
+	set expected_md5=240b675e2d8b6c9d86b406e6101b47d7
+	set "firmware_link=https://mega.nz/file/TZR1zYSJ#6g2PEwa-uw5Sr6JSA5eNHCTySPWk_maWTSVePxLoyww"
+	set firmware_file_name=Firmware 21.0.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.0.1" (
+	set expected_md5=dd09f2514c793a05c0d6acbd7a196a6e
+	set "firmware_link=https://mega.nz/file/6FhynKAD#U6hI5c9uTjE2GVP9nlcgmwYMkO-okQxuCKXl1-m6djM"
+	set firmware_file_name=Firmware 21.0.1.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.1.0" (
+	set expected_md5=671a92f8415c1a54e8e2fd779bddff56
+	set "firmware_link=https://mega.nz/file/aIQn0Cia#fW6XgwSB01M0YMj7u-_gRRrqbUbgY8-e5JStMZ0TUsI"
+	set firmware_file_name=Firmware 21.1.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.2.0" (
+	set expected_md5=adffe1d8b65f4918f8d6dac5cfe735b8
+	set "firmware_link=https://mega.nz/file/yEgTQKrI#Su2dGx8twzd3OEzgls_xg1fKAeo3XID7PijoygR_ANs"
+	set firmware_file_name=Firmware 21.2.0.zip
+	set firmware_folder=firmware_temp\
+	goto:download_firmware
+)
 goto:endscript2
 
 :download_firmware
@@ -1366,9 +1399,28 @@ IF %errorlevel% equ 2 (
 	set restore_method=2
 	goto:end_copy_to_sd
 )
+IF %errorlevel% equ 3 (
+	set restore_method=3
+	goto:end_copy_to_sd
+)
 goto:endscript2
 :end_copy_to_sd
 call "%associed_language_script%" "copying_end"
+if not "%restore_method%" == "1" goto:launch_tegraexplorer
+
+:launch_locksmith-rcm
+echo.
+call "%associed_language_script%" "locksmith-rcm_launch_begin"
+IF /i NOT "%patched_console%"=="O" tools\TegraRcmSmash\TegraRcmSmash.exe -w "tools\payloads\LockSmith-RCM.bin"
+IF /i NOT "%patched_console%"=="O" call "%associed_language_script%" "locksmith-rcm_launch_correctly_question"
+IF /i NOT "%patched_console%"=="O" (
+	IF %errorlevel% EQU 2 goto:launch_locksmith-rcm
+)
+call "%associed_language_script%" "locksmith-rcm_launch_end"
+pause
+IF "%restore_method%"=="1" goto:launch_hekate
+call "%associed_language_script%" "script_end_message"
+goto:endscript
 
 :launch_tegraexplorer
 echo.
@@ -1380,7 +1432,7 @@ IF /i NOT "%patched_console%"=="O" (
 )
 call "%associed_language_script%" "tegraexplorer_launch_end"
 pause
-IF NOT "%restore_method%"=="2" goto:launch_hekate
+IF NOT "%restore_method%"=="3" goto:launch_hekate
 :hacdiskmount_step
 echo.
 call "%associed_language_script%" "memloader_launch_begin"

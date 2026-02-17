@@ -47,6 +47,7 @@ IF "%input_file%"=="" (
 	goto:define_main_action_choice
 )
 call :output_folder_config
+if %errorlevel% NEQ 0 goto:define_main_action_choice
 call "%associed_language_script%" "extract_begin"
 call :file_unpack "%input_file%"
 call "%associed_language_script%" "extract_end"
@@ -64,6 +65,7 @@ IF "%input_folder%"=="" (
 )
 set input_folder=%input_folder:\\=\%
 call :output_folder_config
+if %errorlevel% NEQ 0 goto:define_main_action_choice
 call "%associed_language_script%" "extract_begin"
 call :folder_unpack
 call "%associed_language_script%" "extract_end"
@@ -87,7 +89,7 @@ set /p output_folder=<"templogs\tempvar.txt"
 IF "%output_folder%"=="" (
 	call "%associed_language_script%" "no_output_folder_error"
 	pause
-	goto:define_main_action_choice
+	exit /b 1
 )
 set output_folder=%output_folder:\\=\%
 exit /b

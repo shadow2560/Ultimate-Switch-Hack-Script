@@ -167,6 +167,10 @@ echo 20.2.0?
 echo 20.3.0?
 echo 20.4.0?
 echo 20.5.0?
+echo 21.0.0?
+echo 21.0.1?
+echo 21.1.0?
+echo 21.2.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -816,6 +820,42 @@ IF "%firmware_choice%"=="20.5.0" (
 	set expected_md5=4ea8aeb49ab60e2c1a3d08949f979600
 	set "firmware_link=https://mega.nz/file/bB5SUBhK#9enH-ObS3cP_4zo7c9Bl2Y8b_1uN5wIhBjjY85LIz6k"
 	set firmware_file_name=Firmware 20.5.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.0.0" (
+	set expected_md5=240b675e2d8b6c9d86b406e6101b47d7
+	set "firmware_link=https://mega.nz/file/TZR1zYSJ#6g2PEwa-uw5Sr6JSA5eNHCTySPWk_maWTSVePxLoyww"
+	set firmware_file_name=Firmware 21.0.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.0.1" (
+	set expected_md5=dd09f2514c793a05c0d6acbd7a196a6e
+	set "firmware_link=https://mega.nz/file/6FhynKAD#U6hI5c9uTjE2GVP9nlcgmwYMkO-okQxuCKXl1-m6djM"
+	set firmware_file_name=Firmware 21.0.1.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.1.0" (
+	set expected_md5=671a92f8415c1a54e8e2fd779bddff56
+	set "firmware_link=https://mega.nz/file/aIQn0Cia#fW6XgwSB01M0YMj7u-_gRRrqbUbgY8-e5JStMZ0TUsI"
+	set firmware_file_name=Firmware 21.1.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="21.2.0" (
+	set expected_md5=adffe1d8b65f4918f8d6dac5cfe735b8
+	set "firmware_link=https://mega.nz/file/yEgTQKrI#Su2dGx8twzd3OEzgls_xg1fKAeo3XID7PijoygR_ANs"
+	set firmware_file_name=Firmware 21.2.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

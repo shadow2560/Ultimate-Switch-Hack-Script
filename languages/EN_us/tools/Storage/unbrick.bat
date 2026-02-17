@@ -44,8 +44,7 @@ goto:eof
 :dump_keys_instructions_begin
 echo.
 echo Insert your SD into the switch and turn it on in RCM mode.
-echo WARNING: If your current firmware is equal or higher than firmware 7.0.0, the folder "sept" of Atmosphere is necessary to be able to dump the keys so please copy this one to the root of your SD.
-echo Warning: If your Switch is a patched model, you will have to launch the Lockpick-RCM payload via a method witch is not supported on this script.
+echo Warning: If your Switch is a patched model, you will have to launch the Lockpick-RCM or LockSmith-RCM payload via a method witch is not supported on this script.
 goto:eof
 
 :dump_keys_instructions_end
@@ -53,7 +52,6 @@ echo The payload should be launched on your console.
 echo Press the "Power" button to launch the keys dump.
 echo.
 echo If the dump didn't work, please specify this in the following choice to stop the script.
-echo If you have not copied the Atmosphere's "sept" folder to the root of your SD, do so and restart the script.
 echo If this still doesn't work, the console problem probably can't be solved with this unbricking method alone.
 echo.
 echo If the dump worked well or if you want to try this procedure, you should put your SD in the PC. The keys file is the file "switch\prod.keys" on your SD.
@@ -240,7 +238,7 @@ goto:eof
 
 :firmware_choice_begin
 if "%method_creation_firmware_unbrick_choice%"=="1" (
-	echo Choose the firmware you want to install via ChoiDuJourNX when the console will be running again.
+	echo Choose the firmware you want to install via Daybreak when the console will be running again.
 ) else (
 	echo Choose the firmware you want to prepare via EmmcHaccGen.
 )
@@ -307,9 +305,9 @@ echo You can try to quit the script, reboot your system and retry the procedure.
 goto:eof
 
 :boot0_keyblobs_reparation_choice
-echo You can repair the keyblobs in the BOOT0 file if you have errors related to them during the key dump via Lockpick-RCM.
+echo You can repair the keyblobs in the BOOT0 file if you have errors related to them during the key dump via Lockpick-RCM or LockSmith-RCM.
 echo Be careful, this is an advanced and rarely necessary operation, do it only if you know what you are doing.
-echo An other warning, it is necessary to have chosen the key file linked to the console and dumped with Lockpick-RCM on it when you choose the key file during this script.
+echo An other warning, it is necessary to have chosen the key file linked to the console and dumped with Lockpick-RCM or LockSmith-RCM on it when you choose the key file during this script.
 echo Also note that in firmware 6.1.0 or lower, official boot will not work and the console will remain on a black screen, booting will only be possible in CFW. However, in firmware higher than 6.1.0, official boot will be possible again.
 echo.
 echo What do you want to do?
@@ -356,15 +354,52 @@ goto:eof
 
 :restore_method_choice
 echo Which restoration method do you want to use?
-echo 1: Method only via TegraExplorer, recommanded in most case?
-echo 2: Method via TegraExplorer and HacDiskMount, e.g. if you restore the nand via another console than the one to which the nand is linked, to be done only if you really know what you are doing?
+echo 1: Method  via LockSmith-RCM, recommanded in most case?
+echo 2: Method only via TegraExplorer, recommanded in most case?
+echo 3: Method via TegraExplorer and HacDiskMount, e.g. if you restore the nand via another console than the one to which the nand is linked, to be done only if you really know what you are doing?
 echo 0: End this script?
 echo.
-choice /c 120 /n /m "Make your choice: "
+choice /c 1230 /n /m "Make your choice: "
 goto:eof
 
 :copying_end
 echo The necessary files have been prepared, you can put the SD back into the Switch.
+goto:eof
+
+:locksmith-rcm_launch_begin
+echo The restoration of the nand will start, if you haven't done a dump of the nand via Hekate for example it's now or never time to do it, this will not be covered here.
+pause
+echo.
+echo Now, with the help of LockSmith-RCM, we will restore the nand.
+echo.
+echo Boot the console to RCM.
+echo.
+echo Warning: For the patched consoles, the payload launch should be made with a method not supported by this script.
+goto:eof
+
+:locksmith-rcm_launch_correctly_question
+choice /c %lng_yes_choice%%lng_no_choice% /n /m "Did the LockSmith-RCM payload launch on the console? ^(%lng_yes_choice%/%lng_no_choice%^): "
+goto:eof
+
+:locksmith-rcm_launch_end
+echo.
+echo To navigate in the LockSmith-RCM payload, move with the volume buttons and confirm with the "Power" button.
+echo The payload launches and displays a menu.
+echo Warning: Pay attention to the working nand, if you have an emunand configured on the console the payload will try to work on it so if you want to work on the sysnand you will need to use the option "Switch nand work".
+echo First, run the "Dump PRODINFO" option ^(only to be done once^) and keep the created file aside, it is the most important file to absolutely have in case of problems.
+	echo Select the "Wipe and unbrick with EmmcHacGen package" option ^(warning, once this script is executed, all data on the sysNAND will be deleted^) or the "Unbrick with EmmcHacGen package" option ^(less chance of success^).
+echo Warning, this LockSmith-RCM function requires files previously copied by this script, never run it outside of this procedure.
+IF "%method_creation_firmware_unbrick_choice%"=="1" (
+	echo Also note that the console, if the script worked correctly, is now in auto-RCM so simply press the "Power" button at startup or plug the powered-off console into a USB port to boot it into RCM.
+) else IF "%method_creation_firmware_unbrick_choice%"=="2" (
+	IF /i NOT "%patched_console%"=="O" (
+		IF NOT "%autorcm%"=="--no-autorcm" (
+			echo Also note that the console, if the script worked correctly, is now in auto-RCM so simply press the "Power" button at startup or plug the powered-off console into a USB port to boot it into RCM.
+		)
+	)
+)
+echo.
+echo Once the script on the console has finished without errors, power off the console or reboot into the Hekate payload via LockSmith-RCM.
 goto:eof
 
 :tegraexplorer_launch_begin
@@ -388,26 +423,26 @@ echo Once the payload is launched, you should see a script named "cdj_restore_fi
 echo Select it with the directional arrows or with the volume buttons and validate with the "A" button or the "Power" button.
 echo The script starts, presenting a menu to you.
 echo First, run the "Save BOOT0, BOOT1, PRODINFO and PRODINFOF" choice ^(to be done only once^) and keep the created files aside, these are the most important files to have absolutely in case of problems.
-IF "%restore_method%"=="1" (
+IF "%restore_method%"=="2" (
 	echo Launch "Restore with datas wip" ^(be careful, once this script is executed, all data in the sysnand will be deleted^) or "Restore without datas wip" ^(less chance to work^).
-) else IF "%restore_method%"=="2" (
+) else IF "%restore_method%"=="3" (
 	echo Launch "Only restore the  BOOT0, BOOT1 and BCPKG2-* partitions".
 	echo Be careful, once this script is executed, it will then be necessary to restore the SYSTEM and USER partitions with  Memloader and HacDiskMount or an other method.
 )
 echo Warning, this script of TegraExplorer requires files previously copied by this script, never execute it otherwise than during this procedure.
 echo An other warning, only use the restore from a chosen folder only if you know what you're doing, else prefer the default options.
-IF "%restore_method%"=="1" (
+IF "%method_creation_firmware_unbrick_choice%"=="1" (
 	echo Also note that the console, if the script worked well, is now in auto-RCM so simply pressing the "Power" button at startup or plugging the off console into a USB outlet will start the console in RCM.
-) else IF "%restore_method%"=="2" (
+) else IF "%method_creation_firmware_unbrick_choice%"=="2" (
 	IF /i NOT "%patched_console%"=="O" (
 		IF NOT "%autorcm%"=="--no-autorcm" (
 			echo Also note that the console, if the script worked well, is now in auto-RCM so simply pressing the "Power" button at startup or plugging the off console into a USB outlet will start the console in RCM.
 	)
 )
 echo.
-IF "%restore_method%"=="1" (
+IF "%restore_method%"=="2" (
 	echo Once the script on the console finished without error, shut down the console or reboot on the payload Hekate via TegraExplorer.
-) else IF "%restore_method%"=="2" (
+) else IF "%restore_method%"=="3" (
 	echo Once the script on the console has finished without error, turn off the console.
 )
 goto:eof
@@ -471,7 +506,7 @@ if "%method_creation_firmware_unbrick_choice%"=="1" (
 	echo Next, click on "sysnand first launch FW 5.1.0" ^(first icon in the top left corner^).
 	echo.
 	IF "%optional_firmware_download%"=="Y" (
-		echo If the console has booted, you will be able to start Atmosphere with one of the configurations available in Hekate's "More configs" menu and then update to the firmware you chose at the beginning of this script using ChoiDuJourNX ^(preferably choose the EXFAT firmware that ChoiDuJourNX will offer you, the rest of the instructions won't be covered here^). You can also update the console via official method if you are not banned but it's an choice that could make Nintendo ban the console.
+		echo If the console has booted, you will be able to start Atmosphere with one of the configurations available in Hekate's "More configs" menu and then update to the firmware you've chosen at the beginning of this script using Daybreak ^(preferably choose the EXFAT firmware that Daybreak will offer you, the rest of the instructions won't be covered here^). You can also update the console via official method if you are not banned but it's an choice that could make Nintendo ban the console.
 	) else (
 		echo If the console has booted, you can do what you want to do with it.
 	)
@@ -504,7 +539,7 @@ goto:eof
 
 :daybreak_convert_keys_warning
 echo Warning: Some keys seem to be missing in your key file, the conversion to Daybreak can neither be verified nor performed.
-echo For this to work, please dump the latest keys using the latest version of the Lockpick-RCM payload and then specify the file dumped as the key file.
+echo For this to work, please dump the latest keys using the latest version of the Lockpick-RCM or LockSmith-RCM payload and then specify the file dumped as the key file.
 echo.
 set /p temp_choice=Would you like to use the file size based method to try the conversion? ^(%lng_yes_choice%/%lng_no_choice%^): 
 goto:eof
