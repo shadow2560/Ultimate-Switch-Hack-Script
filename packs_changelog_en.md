@@ -1,5 +1,9 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V620</h2>
+<ul>
+<li>Update Cyberfwal to version 1.4.1.</li>
+</ul>
 <h2>V619</h2>
 <ul>
 <li>Remove the payloads Incognito-RCM and Lockpick-RCM, replaced by LockSmith-RCM.</li>

@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.373</h2>
+<ul>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 620.</li>
+</ul>
 <h2>V4.3.372</h2>
 <ul>
 <li>fix some bugs in the  PRODINFO verification script.</li>
