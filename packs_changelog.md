@@ -1,5 +1,14 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V621</h2>
+<ul>
+<li>Mise à jour de NXDumpTool.</li>
+<li>Mise à jour de DBI en version 871.</li>
+<li>Mise à jour de CheckPoint en version 3.11.0.</li>
+<li>Mise à jour de SimpleModManager en version 2.1.4.</li>
+<li>Mise à jour de Ultrahand-overlay en version 2.2.9.</li>
+<li>Mise à jour de FPSLocker en version 3.3.1.</li>
+</ul>
 <h2>V620</h2>
 <ul>
 <li>Mise à jour de Cyberfwal en version 1.4.1.</li>
