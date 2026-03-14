@@ -376,10 +376,9 @@ set pass_prepare_packs=Y
 :skip_verif_general_profile
 del /q templogs\profiles_list.txt >nul 2>&1
 IF NOT "%pass_prepare_packs%"=="Y" (
-	call tools\Storage\prepare_sd_switch_files_questions.bat
+	call tools\Storage\prepare_sd_switch_files_questions.bat "sd_prepare"
 	call "%associed_language_script%" "display_title"
 	IF "%language_important_error%"=="Y" goto:endscript2
-	goto:test_copy_launch
 ) else (
 	IF EXIST "%general_profile_path%" (
 		call "%general_profile_path%"
@@ -789,10 +788,10 @@ call :copy_mixed_pack
 call :copy_overlays_pack
 call :copy_salty-nx_pack
 call :copy_emu_pack
-if /i "!sphaira_replace_hbmenu!"=="Y" (
-	copy /V /B ""tools\sd_switch\mixed\modular\Sphaira\switch\sphaira\sphaira.nro" "%volume_letter%\hbmenu.nro >nul
+if /i "!sphaira_replace_hbmenu!"=="o" (
+	copy /V /B "tools\sd_switch\mixed\modular\Sphaira\switch\sphaira\sphaira.nro" "%volume_letter%\hbmenu.nro" >nul
 	if EXIST "%volume_letter%\switch\sphaira\sphaira.nro" del /q "%volume_letter%\switch\sphaira\sphaira.nro"
-	if NOT EXIST "%volume_letter%\switch\hbmenu.nro" copy /V /B ""tools\sd_switch\mixed\base\hbmenu.nro" "%volume_letter%\switch\hbmenu.nro >nul
+	if NOT EXIST "%volume_letter%\switch\hbmenu.nro" copy /V /B "tools\sd_switch\mixed\base\hbmenu.nro" "%volume_letter%\switch\hbmenu.nro" >nul
 )
 IF /i "%sd_folder_structure_to_copy_choice%"=="o" %windir%\System32\Robocopy.exe "%sd_folder_structure_to_copy_path% " "%volume_letter%\ " /e >nul
 %windir%\System32\Robocopy.exe "sd_user " "%volume_letter%\ " /e >nul

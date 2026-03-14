@@ -277,7 +277,7 @@ IF EXIST "%volume_letter%\config\sphaira\config.ini" (
 	tools\gnuwin32\bin\grep.exe "replace_hbmenu" <"%volume_letter%\config\sphaira\config.ini" | tools\gnuwin32\bin\cut.exe -d = -f 2 >templogs\tempvar.txt
 	set /p temp_sphaira_hbmenu_replace=<templogs\tempvar.txt
 	if "!temp_sphaira_hbmenu_replace!"=="1" (
-		set sphaira_replace_hbmenu=Y
+		set sphaira_replace_hbmenu=o
 		goto:skip_ask_sphaira_replace
 	)
 )
@@ -523,6 +523,7 @@ call "%associed_language_script2%" "bad_choice"
 goto:define_del_files_dest_copy
 
 :confirm_settings
+if "%~1"=="sd_prepare" goto:endscript
 call tools\Storage\prepare_sd_switch_infos.bat
 call "%associed_language_script2%" "display_title"
 set confirm_copy=

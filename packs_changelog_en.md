@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V622</h2>
+<ul>
+<li>Add the overlay (here package) Alchemist.</li>
+<li>The SimpleModManager homebrew will not be in the Atmosphere's pack by default, it will now be proposed in the optional homebrew list.</li>
+<li>Update SwitchWave to version 1.1.0.</li>
+<li>Update DBI to version 878.</li>
+<li>Update CheckPoint to version 3.12.0.</li>
+<li>Update Ultrahand-overlay to version 2.3.0.</li>
+</ul>
 <h2>V621</h2>
 <ul>
 <li>Update NXDumpTool.</li>
