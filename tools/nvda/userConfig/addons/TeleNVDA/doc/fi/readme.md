@@ -67,15 +67,15 @@ Jos olet asentanut TeleNVDA-lisäosan suojatulle työpöydälle,  lisäosaa
 päivittäessäsi on suositeltavaa, että päivität myös sen version.
 
 Tämä tehdään päivittämällä ensin olemassa oleva lisäosa ja valitsemalla
-sitten NVDA-valikosta Asetukset -> Asetukset -> Yleiset ja painamalla "Käytä
+sitten NVDA-valikosta Mukautukset > Asetukset > Yleiset ja painamalla "Käytä
 tallennettuja asetuksia kirjautumisikkunassa ja muissa suojatuissa ruuduissa
 (edellyttää järjestelmänvalvojan oikeuksia)" -painiketta.
 
-## Etäistunnon aloittaminen välittäjäpalvelimen kautta
+## Etäistunnon aloittaminen reitityspalvelimen kautta
 
 ### Hallittavassa tietokoneessa
 
-1. Avaa NVDA-valikko ja valitse Työkalut -> Etäkäyttö -> Yhdistä tai paina
+1. Avaa NVDA-valikko ja valitse Työkalut > Etäkäyttö > Yhdistä tai paina
    NVDA+Alt+Page up. Tätä näppäinkomentoa on mahdollista vaihtaa NVDA:n
    Näppäinkomennot-valintaikkunasta.
 2. Valitse ensimmäisestä valintapainikeryhmästä Asiakas.
@@ -98,7 +98,7 @@ tallennettuja asetuksia kirjautumisikkunassa ja muissa suojatuissa ruuduissa
 
 ### Hallitsevassa tietokoneessa
 
-1. Avaa NVDA-valikko ja valitse Työkalut -> Etäkäyttö -> Yhdistä tai paina
+1. Avaa NVDA-valikko ja valitse Työkalut > Etäkäyttö > Yhdistä tai paina
    NVDA+Alt+Page up. Tätä näppäinkomentoa on mahdollista vaihtaa NVDA:n
    Näppäinkomennot-valintaikkunasta.
 2. Valitse ensimmäisestä valintapainikeryhmästä Asiakas.
@@ -247,7 +247,7 @@ ulkona toisen koneen kanssa. Tämä on mahdollista pienen valmistelun jälkeen.
    Enter Asetukset-vaihtoehdon kohdalla.
 2. Valitse "Muodosta yhteys hallintapalvelimeen automaattisesti
    käynnistyksen yhteydessä" -valintaruutu.
-3. Valitse, käytetäänkö etävälittäjäpalvelinta vai isännöidäänkö yhteyttä
+3. Valitse, käytetäänkö etäreitityspalvelinta vai isännöidäänkö yhteyttä
    paikallisesti. Jos päätät isännöidä yhteyttä, voit yrittää
    uudelleenohjata portit UPNP:tä käyttäen valitsemalla asianmukaisen
    valintaruudun.
@@ -255,14 +255,14 @@ ulkona toisen koneen kanssa. Tämä on mahdollista pienen valmistelun jälkeen.
 5. Mikäli isännöit yhteyttä itse, sinun on varmistettava, että
    hallitsevista koneista saadaan yhteys hallittavassa koneessa
    Portti-muokkauskenttään syötettyyn porttiin (oletusarvoisesti 6837).
-6. Jos haluat käyttää välittäjäpalvelinta, täytä sekä Isäntä- että
+6. Jos haluat käyttää reitityspalvelinta, täytä sekä Isäntä- että
    Avain-muokkauskentät, siirry Sarkaimella OK-painikkeen kohdalle ja paina
    Enter. Luo avain -vaihtoehto ei ole käytettävissä, joten parasta on
    keksiä helposti muistettava avain, jotta voit käyttää sitä mistä tahansa
    etäsijainnista.
 
 Voit  määrittää TeleNVDA:n muodostamaan yhteyden edistynyttä käyttöä varten
-myös automaattisesti paikalliseen tai etävälittäjäpalvelimeen
+myös automaattisesti paikalliseen tai etäreitityspalvelimeen
 hallintatilassa. Tämä tehdään valitsemalla toisena olevasta
 valintapainikeryhmästä Hallitse toista konetta -vaihtoehto.
 
@@ -272,8 +272,8 @@ vaikutusta ennen NVDA:n uudelleenkäynnistystä.
 
 ## Puheen mykistäminen etätietokoneessa
 
-Jos et halua kuulla etäkoneen puhetta tai NVDA:n äänimerkkejä, avaa
-NVDA-valikko ja valitse Työkalut -> Etäkäyttö. Siirry lopuksi
+Jos et halua kuulla etäkoneen puhetta tai NVDA:n merkkiääniä, avaa
+NVDA-valikko ja valitse Työkalut > Etäkäyttö. Siirry lopuksi
 alanuolinäppäimellä kohtaan Mykistä etäkone ja paina Enter. Voit määrittää
 näppäinkomennon tälle vaihtoehdolle NVDA:n
 Näppäinkomennot-valintaikkunasta. Huom: Tämä asetus ei poista käytöstä
@@ -292,7 +292,7 @@ Lopeta etäistunto seuraavasti:
    pitäisi nyt sanoa tai pistenäytöllä lukea "Hallitaan paikallista
    konetta". Jos sen sijaan kuulet tai näet pistenäytöllä ilmoituksen
    etäkoneen hallitsemisesta, paina vielä kerran F11.
-2. Avaa NVDA-valikko, valitse Työkalut -> Etäkäyttö ja paina Enter Katkaise
+2. Avaa NVDA-valikko, valitse Työkalut > Etäkäyttö ja paina Enter Katkaise
    yhteys -vaihtoehdon kohdalla.
 
 Vaihtoehtoisesti voit katkaista istunnon yhteyden suoraan painamalla
@@ -331,7 +331,7 @@ Kun tiedosto on vastaanotettu etäkoneilla, näkyviin tulee Tallenna nimellä
 Jotta TeleNVDA-lisäosa toimisi suojatulla työpöydällä, se on asennettava
 suojatulla työpöydällä käynnissä olevaan NVDA:han.
 
-1. Valitse NVDA-valikosta Asetukset -> Asetukset -> Yleiset.
+1. Valitse NVDA-valikosta Mukautukset > Asetukset > Yleiset.
 2. Siirry Sarkaimella Käytä tallennettuja asetuksia kirjautumis- ja muissa
    suojatuissa ruuduissa (edellyttää järjestelmänvalvojan oikeuksia)
    -painikkeen kohdalle ja paina Enter.
@@ -354,11 +354,12 @@ sormenjäljet" -painiketta.
 ## Mukautetun portintarkistuspalvelun käyttäminen
 
 TeleNVDA tarkistaa oletusarvoisesti avoimet portit NVDA:n
-espanjalaisyhteisön tarjoamaa palvelua käyttäen. Voit vaihtaa palvelun URLia
-Asetukset-valintaikkunasta. Varmista, että tarkistettava portti sisältyy
-mukautettuun URLiin ja että tulokset palautetaan odotetussa
-muodossa. Portintarkistuksen esimerkkiskripti on saatavilla TeleNVDA:n
-koodivarastosta, jotta voit halutessasi isännöidä omaa versiotasi.
+espanjalaisyhteisön tarjoamaa palvelua käyttäen. Voit vaihtaa palvelun
+URL-osoitetta Asetukset-valintaikkunasta. Varmista, että tarkistettava
+portti sisältyy mukautettuun URL-osoitteeseen ja että tulokset palautetaan
+odotetussa muodossa. Portintarkistuksen esimerkkiskripti on saatavilla
+TeleNVDA:n koodivarastosta, jotta voit halutessasi isännöidä omaa
+versiotasi.
 
 ## TeleNVDA:n muokkaaminen
 

@@ -2,15 +2,16 @@
 <html lang="da" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.4.2 Brugervejledning</title>
+<title>NVDA 2025.3.3 Brugervejledning</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="nvda-202442-brugervejledning">NVDA 2024.4.2 Brugervejledning</h1>
+<body><h1 id="nvda-202533-brugervejledning">NVDA 2025.3.3 Brugervejledning</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202442-brugervejledning" title="NVDA 2024.4.2 Brugervejledning">NVDA 2024.4.2 Brugervejledning</a><ul>
+<li><a href="#nvda-202533-brugervejledning" title="NVDA 2025.3.3 Brugervejledning">NVDA 2025.3.3 Brugervejledning</a><ul>
 <li><a href="#Introduction" title="Introduktion">Introduktion</a><ul>
 <li><a href="#GeneralFeatures" title="Generelle funktioner">Generelle funktioner</a></li>
 <li><a href="#SystemRequirements" title="Systemkrav">Systemkrav</a><ul>
@@ -195,6 +196,8 @@
 <li><a href="#GeneralSettingsCheckForUpdates" title="Søg automatisk efter opdateringer af NVDA">Søg automatisk efter opdateringer af NVDA</a></li>
 <li><a href="#GeneralSettingsGatherUsageStats" title="Tillad, at NV Access indsamler brugsdata om NVDA">Tillad, at NV Access indsamler brugsdata om NVDA</a></li>
 <li><a href="#GeneralSettingsNotifyPendingUpdates" title="Meddel om ventende opdateringer, når NVDA startes">Meddel om ventende opdateringer, når NVDA startes</a></li>
+<li><a href="#UpdateMirror" title="Opdateringsspejl">Opdateringsspejl</a></li>
+<li><a href="#PreventDisplayTurningOff" title="Undgå, at skærmen slukker under sig alt eller læsning med punkt">Undgå, at skærmen slukker under sig alt eller læsning med punkt</a></li>
 </ul>
 </li>
 <li><a href="#SpeechSettings" title="Taleindstillinger">Taleindstillinger</a><ul>
@@ -207,8 +210,11 @@
 <li><a href="#SpeechSettingsPitch" title="Toneleje">Toneleje</a></li>
 <li><a href="#SpeechSettingsVolume" title="lydstyrke">lydstyrke</a></li>
 <li><a href="#SpeechSettingsInflection" title="Udsving">Udsving</a></li>
+<li><a href="#SpeechSettingsUseWasapi" title="Brug moderne lydoutputsystem (WASAPI)">Brug moderne lydoutputsystem (WASAPI)</a></li>
 <li><a href="#SpeechSettingsLanguageSwitching" title="Automatisk skift af sprog">Automatisk skift af sprog</a></li>
 <li><a href="#SpeechSettingsDialectSwitching" title="Automatisk skift af dialekt">Automatisk skift af dialekt</a></li>
+<li><a href="#ReportLanguage" title="Meddel ændring af sprog under oplæsning">Meddel ændring af sprog under oplæsning</a></li>
+<li><a href="#ReportIfLanguageIsNotSupportedBySynthesizer" title="Meddel, hvis automatisk sprogskift ikke er understøttet af talesyntesen">Meddel, hvis automatisk sprogskift ikke er understøttet af talesyntesen</a></li>
 <li><a href="#SpeechSettingsSymbolLevel" title="Niveau for sætningstegn og symboler">Niveau for sætningstegn og symboler</a></li>
 <li><a href="#SpeechSettingsTrust" title="Brug stemmens aktuelle sprog til behandling af specialtegn og symboler">Brug stemmens aktuelle sprog til behandling af specialtegn og symboler</a></li>
 <li><a href="#SpeechUnicodeNormalization" title="Unicode-normalisering">Unicode-normalisering</a></li>
@@ -252,6 +258,7 @@
 </ul>
 </li>
 <li><a href="#BrailleSpeakOnRouting" title="Oplæs tegn, når markørknapper flytter markøren i tekst">Oplæs tegn, når markørknapper flytter markøren i tekst</a></li>
+<li><a href="#BrailleSpeakOnNavigating" title="Læs op, når du navigerer efter &amp;linje eller afsnit">Læs op, når du navigerer efter &amp;linje eller afsnit</a></li>
 <li><a href="#BrailleSettingsWordWrap" title="Undgå at opdele ord hvis muligt">Undgå at opdele ord hvis muligt</a></li>
 <li><a href="#BrailleUnicodeNormalization" title="Unicode-normalisering">Unicode-normalisering</a></li>
 <li><a href="#BrailleSettingsInterruptSpeech" title="Afbryd talen, mens du panorerer">Afbryd talen, mens du panorerer</a></li>
@@ -355,7 +362,6 @@
 <li><a href="#BrowseModeSettingsAutoPassThroughOnCaretMove" title="Automatisk fokustilstand ved flytning af systemmarkør">Automatisk fokustilstand ved flytning af systemmarkør</a></li>
 <li><a href="#BrowseModeSettingsPassThroughAudioIndication" title="Lydindikering af fokus- og gennemsynstilstand">Lydindikering af fokus- og gennemsynstilstand</a></li>
 <li><a href="#BrowseModeSettingsTrapNonCommandGestures" title="Forhindre alle ikke-NVDA-kommandoer i at nå til dokumentet">Forhindre alle ikke-NVDA-kommandoer i at nå til dokumentet</a></li>
-<li><a href="#BrowseModeSettingsAutoFocusFocusableElements" title="Placer automatisk systemfokus på fokuserbare elementer">Placer automatisk systemfokus på fokuserbare elementer</a></li>
 </ul>
 </li>
 <li><a href="#DocumentFormattingSettings" title="Dokumentformatering">Dokumentformatering</a><ul>
@@ -370,12 +376,33 @@
 </ul>
 </li>
 <li><a href="#AddonStoreSettings" title="Indstillinger for Tilføjelsescenter">Indstillinger for Tilføjelsescenter</a><ul>
-<li><a href="#AutomaticAddonUpdates" title="Opdateringsmeddelelser">Opdateringsmeddelelser</a></li>
+<li><a href="#AutomaticAddonUpdates" title="Automatiske oppdateringer">Automatiske oppdateringer</a></li>
+<li><a href="#DefaultAddonUpdateChannel" title="Standard opdateringskanal">Standard opdateringskanal</a></li>
+<li><a href="#AllowIncompatibleAddonUpdates" title="Tillad automatiske opdateringer at installere inkompatible tilføjelser">Tillad automatiske opdateringer at installere inkompatible tilføjelser</a></li>
+<li><a href="#AddonStoreMetadataMirror" title="Spejlserver">Spejlserver</a></li>
+</ul>
+</li>
+<li><a href="#RemoteSettings" title="Indstillinger For Fjernstyring">Indstillinger For Fjernstyring</a><ul>
+<li><a href="#RemoteEnable" title="Aktivér Fjernstyring">Aktivér Fjernstyring</a></li>
+<li><a href="#RemoteConfirmDisconnect" title="Bekræft afbrydelse af forbindelsen, når denne computer fjernstyres">Bekræft afbrydelse af forbindelsen, når denne computer fjernstyres</a></li>
+<li><a href="#RemoteMuteOnLocalControl" title="Mute when controlling the local computer">Mute when controlling the local computer</a></li>
+<li><a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a></li>
+<li><a href="#RemoteAutoconnectMode" title="Tilstand">Tilstand</a></li>
+<li><a href="#RemoteAutoconnectServer" title="Server">Server</a></li>
+<li><a href="#RemoteAutoconnectHost" title="Vært">Vært</a></li>
+<li><a href="#RemoteAutoconnectPort" title="Port">Port</a></li>
+<li><a href="#RemoteAutoconnectKey" title="Nøgle">Nøgle</a></li>
+<li><a href="#RemoteDeleteFingerprints" title="Slet alle gemte fingeraftryk">Slet alle gemte fingeraftryk</a></li>
 </ul>
 </li>
 <li><a href="#Win10OcrSettings" title="Windows Tekstgenkendelse">Windows Tekstgenkendelse</a><ul>
 <li><a href="#Win10OcrSettingsRecognitionLanguage" title="Sprog til tekstgenkendelse">Sprog til tekstgenkendelse</a></li>
 <li><a href="#Win10OcrSettingsAutoRefresh" title="Opdater regelmæssigt genkendt indhold">Opdater regelmæssigt genkendt indhold</a></li>
+</ul>
+</li>
+<li><a href="#SetURLDialog" title="Dialogen Indstil Spejl">Dialogen Indstil Spejl</a><ul>
+<li><a href="#SetURLTextbox" title="Webadresse">Webadresse</a></li>
+<li><a href="#SetURLTest" title="Test...">Test...</a></li>
 </ul>
 </li>
 <li><a href="#AdvancedSettings" title="Avancerede Indstillinger">Avancerede Indstillinger</a><ul>
@@ -396,9 +423,10 @@
 <li><a href="#DiffAlgo" title="Diff-algoritme">Diff-algoritme</a></li>
 <li><a href="#WtStrategy" title="Sig ny tekst i Windows-terminaler via">Sig ny tekst i Windows-terminaler via</a></li>
 <li><a href="#CancelExpiredFocusSpeech" title="Forsøg at annullere tale for udløbne fokushændelser">Forsøg at annullere tale for udløbne fokushændelser</a></li>
+<li><a href="#TrimLeadingSilenceSpeech" title="Fjern indledende stilhed i talens lydoutput">Fjern indledende stilhed i talens lydoutput</a></li>
+<li><a href="#UseWASAPIForSAPI4" title="Brug WASAPI for SAPI 4 lydoutput">Brug WASAPI for SAPI 4 lydoutput</a></li>
 <li><a href="#AdvancedSettingsCaretMoveTimeout" title="Interval for markøren (i MS)">Interval for markøren (i MS)</a></li>
 <li><a href="#ReportTransparentColors" title="Oplys gennemsigtige farveværdier">Oplys gennemsigtige farveværdier</a></li>
-<li><a href="#WASAPI" title="Brug WASAPI til lydoutput">Brug WASAPI til lydoutput</a></li>
 <li><a href="#AdvancedSettingsDebugLoggingCategories" title="Aktiverede logningskategorier">Aktiverede logningskategorier</a></li>
 <li><a href="#PlayErrorSound" title="Afspil en lyd, når fejl opstår">Afspil en lyd, når fejl opstår</a></li>
 <li><a href="#TextParagraphRegexEdit" title="Regulært udtryk, der bruges, når kommandoerne til at springe mellem tekstafsnit benyttes i gennemsynstilstand">Regulært udtryk, der bruges, når kommandoerne til at springe mellem tekstafsnit benyttes i gennemsynstilstand</a></li>
@@ -426,6 +454,19 @@
 <li><a href="#LocationOfConfigurationFiles" title="Placering af indstillingsprofiler">Placering af indstillingsprofiler</a></li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="Fjernstyring">Fjernstyring</a><ul>
+<li><a href="#RemoteAccessGettingStarted" title="Kom godt i gang">Kom godt i gang</a></li>
+<li><a href="#RemoteAccessSetup" title="Opsætning af en fjernstyringssession">Opsætning af en fjernstyringssession</a><ul>
+<li><a href="#RemoteAccessMode" title="Valg af tilstand (Fjernstyrende eller fjernstyret)">Valg af tilstand (Fjernstyrende eller fjernstyret)</a></li>
+<li><a href="#RemoteAccessJoin" title="Forbind til en eksisterende server (vært og nøgle angivet)">Forbind til en eksisterende server (vært og nøgle angivet)</a></li>
+<li><a href="#RemoteAccessConnectRelay" title="Start af en forbindelse via en relæserver">Start af en forbindelse via en relæserver</a></li>
+<li><a href="#RemoteAccessConnectSelfHosted" title="Brug af NVDA som server">Brug af NVDA som server</a></li>
+</ul>
+</li>
+<li><a href="#RemoteAccessUsage" title="Brug af NVDA Fjernstyring">Brug af NVDA Fjernstyring</a></li>
+<li><a href="#RemoteAccessGestures" title="Oversigt over genvejstaster til Fjernstyring">Oversigt over genvejstaster til Fjernstyring</a></li>
+</ul>
+</li>
 <li><a href="#AddonsManager" title="Tilføjelser og Tilføjelsescenter">Tilføjelser og Tilføjelsescenter</a><ul>
 <li><a href="#AddonStoreBrowsing" title="Gennemse tilføjelser">Gennemse tilføjelser</a><ul>
 <li><a href="#AddonStoreFilterStatus" title="Visninger af tilføjelseslisten">Visninger af tilføjelseslisten</a></li>
@@ -433,6 +474,7 @@
 <li><a href="#AddonStoreFilterIncompatible" title="Inkluder inkompatible tilføjelser">Inkluder inkompatible tilføjelser</a></li>
 <li><a href="#AddonStoreFilterChannel" title="Filtrér tilføjelser efter kanal">Filtrér tilføjelser efter kanal</a></li>
 <li><a href="#AddonStoreFilterSearch" title="Søg efter tilføjelser">Søg efter tilføjelser</a></li>
+<li><a href="#AddonStoreSortByColumn" title="Sortering af tilføjelseslisten efter kolonne">Sortering af tilføjelseslisten efter kolonne</a></li>
 </ul>
 </li>
 <li><a href="#AddonStoreActions" title="Tilføjelseshandlinger">Tilføjelseshandlinger</a><ul>
@@ -440,6 +482,7 @@
 <li><a href="#AddonStoreRemoving" title="Fjernelse af tilføjelser">Fjernelse af tilføjelser</a></li>
 <li><a href="#AddonStoreDisablingEnabling" title="Aktivering og deaktivering af tilføjelser">Aktivering og deaktivering af tilføjelser</a></li>
 <li><a href="#AddonStoreReviews" title="Lav og læs anmeldelser for en tilføjelse">Lav og læs anmeldelser for en tilføjelse</a></li>
+<li><a href="#AddonStoreUpdateChannel" title="Ændring af den automatiske opdateringskanal">Ændring af den automatiske opdateringskanal</a></li>
 </ul>
 </li>
 <li><a href="#incompatibleAddonsManager" title="Inkompatible tilføjelser">Inkompatible tilføjelser</a></li>
@@ -501,13 +544,16 @@
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille Displays">Nattiq nBraille Displays</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="Standard HID Braille displays">Standard HID Braille displays</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 <li><a href="#AdvancedTopics" title="Avancerede emner">Avancerede emner</a><ul>
 <li><a href="#SecureMode" title="Sikker tilstand">Sikker tilstand</a></li>
 <li><a href="#SecureScreens" title="Sikre skærme">Sikre skærme</a></li>
 <li><a href="#CommandLineOptions" title="indstillinger på kommandolinjen">indstillinger på kommandolinjen</a></li>
+<li><a href="#UninstallingNVDA" title="Uninstalling NVDA">Uninstalling NVDA</a></li>
 <li><a href="#SystemWideParameters" title="Systemspecifikke parametre">Systemspecifikke parametre</a></li>
 </ul>
 </li>
@@ -516,7 +562,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: NVDA 2024.4.2 Kommandooversigt -->
+<!-- KC:title: NVDA 2025.3.3 Kommandooversigt -->
 
 <h2 id="Introduction">Introduktion</h2>
 <p>Velkommen til NVDA!</p>
@@ -533,6 +579,7 @@ NVDA er udviklet af <a href="https://www.nvaccess.org/" rel="noopener" target="_
 <li>Rapportering af tekstformatering hvor det er muligt, såsom skrifttype og størrelse, typografi og stavefejl</li>
 <li>Læser automatisk teksten under musen op og kan angive musens position akustisk</li>
 <li>Understøttelse af mange punktdisplays, herunder mulighed for at tilkoble mange af disse automatisk og indtastning af punkt på punktdisplays med et punkttastatur</li>
+<li>Mulighed for at <a href="#RemoteAccess" title="oprette forbindelse til og styre en anden computer, der kører NVDA">oprette forbindelse til og styre en anden computer, der kører NVDA</a> til fjernhjælp eller samarbejde</li>
 <li>Kan køre fra et USB-drev eller andet bærbart medie uden installation</li>
 <li>Talende installation der er let at bruge</li>
 <li>Oversat til 54 sprog</li>
@@ -547,7 +594,7 @@ NVDA er udviklet af <a href="https://www.nvaccess.org/" rel="noopener" target="_
 <h4 id="MinimumSystemRequirements">Minimum Systemkrav</h4>
 <ul>
 <li>Operativsystemer: alle 32-bit og 64-bit udgaver af Windows 8.1, Windows 10, Windows 11, og alle Server Operativsystemer fra og med Windows Server 2012 R2.<ul>
-<li>både AMD64 og ARM64 varianter af Windows understøttes.</li>
+<li>både AMD64 og ARM64 varianter af Windows understøttes, herunder Copilot+ pc'er.</li>
 <li>Bemærk, at 32-bit operativsystemer ikke længere er under aktiv support.</li>
 <li>Bemærk, at Windows 8.1 og Windows Server versioner ældre end 2022 ikke længere er under aktiv support.</li>
 </ul>
@@ -557,7 +604,7 @@ NVDA er udviklet af <a href="https://www.nvaccess.org/" rel="noopener" target="_
 <h4 id="RecommendedSystemRequirements">Anbefalede Systemkrav</h4>
 <ul>
 <li>Operativsystemer: 64-bit udgaver af Windows 10, Windows 11, og Windows Server 2022.<ul>
-<li>både AMD64 og ARM64 varianter af Windows understøttes.</li>
+<li>både AMD64 og ARM64 varianter af Windows understøttes, herunder Copilot+ pc'er.</li>
 </ul>
 </li>
 <li>mindst 500 MB lagerplads.</li>
@@ -565,7 +612,7 @@ NVDA er udviklet af <a href="https://www.nvaccess.org/" rel="noopener" target="_
 </ul>
 <h3 id="Internationalization">Internationalisering</h3>
 <p>Det er vigtigt, at folk overalt i verden, uanset hvilket sprog de taler, får lige adgang til teknologi.
-Udover Engelsk er NVDA blevet oversat til 54 sprog herunder: Afrikaans, albansk, amharisk, arabisk, aragonisk, brasiliansk portugisisk, bulgarsk, burmesisk, catalansk, colombiansk spansk, kroatisk, tjekkisk, dansk, hollandsk, farsi, finsk, fransk, galicisk, græsk, georgisk, tysk (Tyskland og Schweiz), hebraisk, hindi, ungarsk, islandsk, irsk, italiensk, japansk, kannada, koreansk, kirgisisk, litauisk, makedonsk, nepalesisk, norsk, polsk, portugisisk, punjabi, rumænsk, russisk, serbisk, slovakisk, slovensk, spansk, svensk, tamilsk, thai, traditionelt og forenklet kinesisk, tyrkisk, ukrainsk og vietnamesisk.</p>
+Udover engelsk er NVDA blevet oversat til 55 sprog, herunder: afrikaans, albansk, amharisk, arabisk, aragonisk, bosnisk, bulgarsk, burmesisk, catalansk, kinesisk (traditionelt og forenklet), kroatisk, tjekkisk, dansk, hollandsk, farsi, finsk, fransk, galicisk, georgisk, græsk, hebraisk, hindi, ungarsk, islandsk, irsk, italiensk, japansk, kannada, koreansk, kirgisisk, litauisk, makedonsk, mongolsk, nepalesisk, norsk, polsk, portugisisk (brasiliansk og Portugal), punjabi, rumænsk, russisk, serbisk, slovakisk, slovensk, spansk (colombiansk og spansk), svensk, tamilsk, thai, tyrkisk, ukrainsk, tysk (Tyskland og Schweiz) og vietnamesisk.</p>
 <h3 id="SpeechSynthesizerSupport">Understøttelse af talesynteser</h3>
 <p>Udover at programmets meddelelser og brugerflade findes på flere sprog, kan NVDA også sætte brugeren i stand til at læse tekster på alle sprog, så længe de har en talesyntese, der kan tale det pågældende sprog.</p>
 <p>NVDA leveres med <a href="https://github.com/espeak-ng/espeak-ng" rel="noopener" target="_blank" title="eSpeak NG">eSpeak NG</a>, en gratis, open-source, flersproget talesyntese.</p>
@@ -578,7 +625,7 @@ Desuden kan NVDA tilkoble sig mange af disse displays automatisk som standard.
 Se venligst afsnittet <a href="#SupportedBrailleDisplays" title="Understøttede punktdisplays">Understøttede punktdisplays</a> for oplysninger om understøttede punktdisplays.</p>
 <p>NVDA understøtter punkttabeller for mange sprog, herunder forkortet, fuldskrift og computer braille.</p>
 <h3 id="LicenseAndCopyright">Licens og Ophavsret</h3>
-<p>NVDA er ophavsret 2006-2024 NVDA bidragydere.</p>
+<p>NVDA er ophavsret 2006-2025 NVDA bidragydere.</p>
 <p>NVDA er omfattet under GNU General Public License (version 2) med to undtagelser.
 Undtagelserne beskrives i licensdokumentet under paragrafferne "Non-GPL Components in Plugins and Drivers" og "Microsoft Distributable Code".
 NVDA inkluderer og benytter også komponenter, der omfattes af forskellige gratis og open source licenser, der gør komponenterne tilgængelige.
@@ -587,8 +634,13 @@ Dette gælder både originale og modificerede kopier af softwaren, plus software
 <p>For yderligere oplysninger, kan du <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" rel="noopener" target="_blank" title="læse den fulde licens">læse den fulde licens</a>.
 For oplysninger om, hvilke undtagelser gør sig gældende, læs licensvilkårene under "Licens" under NVDA-menu&gt;Hjælp.</p>
 <h2 id="NVDAQuickStartGuide">NVDA-hurtigstartguide</h2>
-<p>Denne hurtigstartguide indeholder tre hovedafsnit: download, opsætning og kørsel af NVDA.
-Disse efterfølges af information om, hvordan man justere indstillinger, bruger tilføjelser, deltager i fællesskabet og får hjælp.
+<p>This quick start guide contains three main sections:</p>
+<ul>
+<li><a href="#GettingAndSettingUpNVDA" title="Downloading">Downloading</a>: Where to get NVDA and steps for downloading it</li>
+<li><a href="#SettingUpNVDA" title="Initial setup">Initial setup</a>: Steps to install and setup NVDA</li>
+<li><a href="#RunningNVDA" title="Running NVDA">Running NVDA</a>: Commonly used keystrokes and NVDA features</li>
+</ul>
+<p>These are followed by information on <a href="#Preferences" title="adjusting preferences">adjusting preferences</a>, <a href="#Addons" title="using add-ons">using add-ons</a>, <a href="#Community" title="participating in the community">participating in the community</a> and <a href="#GettingHelp" title="getting help">getting help</a>.
 Oplysningerne i denne vejledning er en sammenfatning af andre dele af NVDAs brugervejledning.
 Se venligst den fulde brugervejledning for mere detaljeret information om hvert emne.</p>
 <h3 id="GettingAndSettingUpNVDA">Download NVDA</h3>
@@ -619,10 +671,10 @@ En internetforbindelse gør det dog muligt at hente opdateringer til programmet.
 Årstal og version ændres mellem opdateringer for at afspejle den aktuelle version.</p>
 <ol>
 <li>Kør den downloadede fil.
-Musik afspilles, mens en midlertidig kopi af NVDA indlæses.
+Det kan være nødvendigt at vente et par sekunder, mens en midlertidig kopi af NVDA indlæses.
 Når den er indlæst, taler NVDA gennem resten af processen.</li>
 <li>NVDA-installationsprogrammet viser licensaftalen.
-Tryk på <code>pil ned</code> for at læse licensaftalen, hvis du ønsker dette.</li>
+Tryk på <code>pil ned</code> for at læse licensaftalen.</li>
 <li>Tryk på <code>tab</code> for at flytte til check boxen "Enig", og tryk derefter på <code>mellemrumstasten</code> for at markere det.</li>
 <li>Tryk på <code>tab</code> for at gå gennem mulighederne, og tryk derefter på <code>enter</code> på den ønskede indstilling.</li>
 </ol>
@@ -811,6 +863,12 @@ De faktiske kommandoer vil ikke udføres, når tastaturhjælpen er slået til. T
 <td>Denne kommando oplyser formatteringsoplysninger for den aktuelle tekst. Ved to tryk vises disse informationer i et vindue</td>
 </tr>
 <tr>
+<td>Oplys sprog</td>
+<td>Ikke tildelt</td>
+<td>ikke tildelt</td>
+<td>Oplyser sprog for den aktuelle tekst. Ved to tryk vises denne information i et vindue</td>
+</tr>
+<tr>
 <td>Oplys adresse for link</td>
 <td><code>NVDA+k</code></td>
 <td><code>NVDA+k</code></td>
@@ -833,13 +891,13 @@ De faktiske kommandoer vil ikke udføres, når tastaturhjælpen er slået til. T
 <td>Sig indtastede tegn</td>
 <td><code>NVDA+2</code></td>
 <td><code>NVDA+2</code></td>
-<td>Når dette er slået til, vil NVDA oplyse alle tegn, når du skriver på tastaturet.</td>
+<td>Når denne funktion er slået til, oplæser NVDA alle de tegn, du skriver på tastaturet.</td>
 </tr>
 <tr>
 <td>Sig indtastede ord</td>
 <td><code>NVDA+3</code></td>
 <td><code>NVDA+3</code></td>
-<td>Når dette er slået til, vil NVDA oplyse alle ord, når du skriver på tastaturet.</td>
+<td>Når denne funktion er slået til, oplæser NVDA alle de ord, du skriver på tastaturet.</td>
 </tr>
 <tr>
 <td>Oplys funktionstaster</td>
@@ -924,8 +982,8 @@ Hvis du står på stemme i ringen af synteseindstillinger, vil dette springe til
 <td>Flyt til næste overskrift</td>
 </tr>
 <tr>
-<td>Overskriftsniveau 1, 2 eller 3</td>
-<td><code>1</code>, <code>2</code>, <code>3</code></td>
+<td>Overskriftsniveau 1, 2, osv</td>
+<td><code>1</code>, <code>2</code>, osv</td>
 <td>Flytter til det tilsvarende overskriftsniveau</td>
 </tr>
 <tr>
@@ -1040,9 +1098,9 @@ Tryk <code>enter</code> på tilføjelsen for at åbne handlingsmenuen og vælg "
 For at lære mere om, hvordan denne indstilling konfigureres, læs <a href="#AutomaticAddonUpdates" title="&quot;Opdateringsmeddelelser&quot;">"Opdateringsmeddelelser"</a>.</p>
 <h3 id="Community">NVDAs internationale fællesskab</h3>
 <p>NVDA har et stærkt brugerfællesskab.
-Der er en <a href="https://nvda.groups.io/g/nvda" rel="noopener" target="_blank" title="e-mail-liste på engelsk">e-mail-liste på engelsk</a> og en side fuld af <a href="https://github.com/nvaccess/nvda-community/wiki/Connect" rel="noopener" target="_blank" title="lokale sproggrupper">lokale sproggrupper</a> .
-NV Access, udviklerne af NVDA, er aktive på <a href="https://twitter.com/nvaccess" rel="noopener" target="_blank" title="Twitter">Twitter</a> og <a href="https://www.facebook.com/NVAccess" rel="noopener" target="_blank" title="Facebook">Facebook</a>.
-NV Access har også en regelmæssig <a href="https://www.nvaccess.org/category/in-process/" rel="noopener" target="_blank" title="In-Process blog">In-Process blog</a>.</p>
+NV Access, folkene bag NVDA, er aktiv på <a href="https://fosstodon.org/@NVAccess" rel="noopener" target="_blank" title="Mastodon">Mastodon</a>, <a href="https://x.com/nvaccess" rel="noopener" target="_blank" title="Twitter/X">Twitter/X</a> og <a href="https://www.facebook.com/NVAccess" rel="noopener" target="_blank" title="Facebook">Facebook</a>.
+NV Access har også en regelmæssig <a href="https://www.nvaccess.org/category/in-process/" rel="noopener" target="_blank" title="In-Process blog">In-Process blog</a>.
+Der er en <a href="https://groups.google.com/a/nvaccess.org/g/nvda-users" rel="noopener" target="_blank" title="NV Access-styret mailingliste på engelsk">NV Access-styret mailingliste på engelsk</a> og en side med <a href="https://github.com/nvaccess/nvda/wiki/Connect" rel="noopener" target="_blank" title="andre grupper styret af fællesskabet">andre grupper styret af fællesskabet</a>.</p>
 <p>Der er også et <a href="https://certification.nvaccess.org/" rel="noopener" target="_blank" title="NVDA Certified Expert">NVDA Certified Expert</a>-program.
 Dette er en online eksamen, du kan gennemføre for at demonstrere dine færdigheder i NVDA.
 <a href="https://certification.nvaccess.org/" rel="noopener" target="_blank" title="NVDA Certified Experts">NVDA Certified Experts</a> kan angive deres kontaktpersoner og relevante forretningsoplysninger.</p>
@@ -1117,7 +1175,12 @@ Midlertidige kopier tillader ikke, at du gemmer NVDA-indstillinger.
 <p>Flytbar eller midlertidig kopier af NVDA har følgende begrænsninger:</p>
 <ul>
 <li>Manglende evne til at start ved eller after logon</li>
-<li>manglende evne til at interagere med programmer der kører med administratorrettigheder, med mindre NVDA ligeledes kører med administratorrettigheder (anbefales ikke).</li>
+<li>Manglende evne til at interagere med programmer der kører med administratorrettigheder, med mindre NVDA ligeledes kører med administratorrettigheder (anbefales ikke) Eksempler på dette kunne være:<ul>
+<li>Kommandoprompt og PowerShell kørende som administrator</li>
+<li>Jobliste</li>
+<li>Windows 11 stemmeadgang</li>
+</ul>
+</li>
 <li>Manglende evne til at læse Kontrol af Brugerkonti (UAC) skærme når du forsøger at starte et program med administratorrettigheder.</li>
 <li>Understøtter ikke input for berøringsfølsomme skærme.</li>
 <li>NVDA er ikke i stand til at benytte funktioner såsom gennemsynstilstand, samt evnen til at udtale indtastede tegn i Windows Store apps.</li>
@@ -1215,7 +1278,7 @@ Når du finder den ønskede tast, skal du dobbelttrykke med en finger eller løf
 <p>For at slå tastaturhjælp til, skal du trykke på NVDA+1.
 For at slå tastaturhjælp fra igen, tryk på NVDA+1.
 Når tastaturhjælp er slået til, vil enhver udført kommando, såsom et tastetryk eller en udført berøringsbevægelse annoncere, hvilken handling den er knyttet til.
-Selve kommandoerne vil ikke blive udført, mens tastaturhjælp er slåët til.</p>
+De faktiske kommandoer vil ikke udføres, når tastaturhjælpen er slået til.</p>
 <h3 id="TheNVDAMenu">NVDA-menuen</h3>
 <p>I NVDA-menuen kan du styre NVDA indstillingerne, få adgang til hjælp, gemme/gendanne din konfiguration, Ændre taleordbøger, få adgang til yderligere værktøjer og afslutte NVDA.</p>
 <p>For at komme til NVDA-menuen fra et hvilket som helst sted i Windows, mens NVDA kører, kan du gøre følgende:</p>
@@ -1825,6 +1888,20 @@ Dette kan slås til og fra.</p>
 <td>Flytter læsemarkøren til den næste side med tekst, hvis denne funktion understøttes af det aktuelle program</td>
 </tr>
 <tr>
+<td>Flyt til starten af læsemarkørens valgte tekst</td>
+<td><code>NVDA+alt+home</code></td>
+<td><code>NVDA+alt+home</code></td>
+<td>None</td>
+<td>Flytter læsemarkøren til det første tegn i den valgte tekst</td>
+</tr>
+<tr>
+<td>Flyt til slutningen af læsemarkørens valgte tekst</td>
+<td><code>NVDA+alt+end</code></td>
+<td><code>NVDA+alt+end</code></td>
+<td>None</td>
+<td>Flytter læsemarkøren til det sidste tegn i den valgte tekst</td>
+</tr>
+<tr>
 <td>Sig alt i læsetilstand</td>
 <td>Numpad-plus</td>
 <td>NVDA+Shift+a</td>
@@ -2145,7 +2222,7 @@ Bemærk, at ikke alle disse kommandoer understøttes i alle dokumenttyper.</p>
 <li>g: grafik</li>
 <li>d: landmærke</li>
 <li>o: indlejret objekt (lyd- og videoafspiller, apllikation, dialog, osv.)</li>
-<li>1-6: overskrifter på niveauer fra 1 til 6.</li>
+<li>1 til 9: overskrifter 1 til 9</li>
 <li>a: Annotation (kommentar, revision o.s.v.)</li>
 <li><code>p</code>: Tekstafsnit</li>
 <li>w: Stavefejl</li>
@@ -2316,7 +2393,14 @@ du kan med et tastetryk vende tilbage til den oprindelige side, der indeholder d
 <h3 id="NativeSelectionMode">Oprindelig markeringstilstand</h3>
 <p>Når du vælger tekst ved brug af <code>shift+piletasterne</code>, vil teksten kun blive valgt i NVDAs præsentation af webindholdet, og ikke i selve browseren.
 Dette betyder, at markeringen af tekst ikke er synlig på skærmen, når du bruger <code>control+c</code>. Det er udelukkende tekst, der kopieres. Derfor bevares formatering af tabeller, eller om noget er et link ikke i det indhold, som du har kopieret.
-NVDA har en indstilling, der kan aktiveres, der vil bevare denne formatering. Dette hedder "Oprindelig markeringstilstand". Dette virker indtil videre kun i Mozilla Firefox.</p>
+NVDA har en oprindelig markeringstilstand, der kan aktiveres i gennemsynstilstand, hvor dette understøttes.
+Denne indstilling gør, at den oprindelige formatering bliver kopieret, når du vælger noget med NVDA. Dette kan inkludere links og tabeller, samt andet formatering.
+Oprindelig markeringstilstand understøttes i øjeblikket følgende steder:</p>
+<ul>
+<li>Mozilla Firefox</li>
+<li>Mozilla Thunderbird</li>
+<li>Chrome, Edge, og enhver browser baseret på Chromium 134 eller nyere</li>
+</ul>
 <!-- KC:beginInclude -->
 
 <table>
@@ -2873,7 +2957,8 @@ Hvis du for eksempel flytter markøren der benyttes i gennemsynstilstand til en 
 Du kan også benytte objektnavigation til for eksempel at genkende indholdet af et helt programvindue.</p>
 <p>Når tekstgenkendelsen er udført, vil resultatet blive præsenteret i et dokument, der ligner gennemsynstilstand, så du kan læse oplysningerne med markørtaster osv.
 Et tryk på Enter eller mellemrum vil aktivere (normalt klikke) teksten ved markøren, hvis det er muligt.
-Et tryk på escape afviser genkendelsesresultatet.</p>
+Et tryk på escape afviser genkendelsesresultatet.
+Et tryk på <code>NVDA+F5</code> opdaterer genkendelsesresultatet.</p>
 <h3 id="Win10Ocr">Windows Tekstgenkendelse</h3>
 <p>Windows 10 og nyere indeholder tekstgenkendelsesfunktionalitet til mange sprog.
 NVDA kan bruge denne funktionalitet til at genkende tekst fra billeder eller utilgængelige applikationer.</p>
@@ -3276,8 +3361,15 @@ Når dialogen til at bekræfte ændring til et andet sprog vises, skal du tage s
 <p>Denne indstilling er en check box, der får NVDA til automatisk at gemme den aktuelle konfiguration ved afslutning, når den er slået til.</p>
 <h5 id="GeneralSettingsShowExitOptions">Vis muligheder ved afslutning af NVDA</h5>
 <p>Denne indstillingsmulighed er en check box, der giver mulighed for at vælge, hvorvidt en dialog skal fremkomme ved afslutning af NVDA med spørgsmålet om hvilken handling, du vil foretage dig.
-Når den er slået til, fremkommer en dialog, når du forsøger at afslutte NVDA, hvor du skal tage stilling til, hvorvidt du ønsker at afslutte, genstarte, genstarte med tilføjelsesprogrammer deaktiverede eller installere ventende opdateringer (hvis relevant).
-Når den er slået fra, bliver NVDA afsluttet med det samme.</p>
+Hvis markeret, vises en dialog når du forsøger at afslutte NVDA, hvilket giver følgende muligheder:</p>
+<ul>
+<li>afslut</li>
+<li>genstart</li>
+<li>genstart med tilføjelser deaktiveret og fejlfindingslogning aktiveret</li>
+<li>genstart med logning for fejlrettelse aktiveret</li>
+<li>installér afventende opdateringer (hvis nogen).</li>
+</ul>
+<p>Når den er slået fra, bliver NVDA afsluttet med det samme.</p>
 <h5 id="GeneralSettingsPlaySounds">Afspil lyd ved start og afslutning af NVDA</h5>
 <p>Dette er en check box, der, når den er slået til, får NVDA til at afspille en lyd ved opstart og afslutning af programmet.</p>
 <h5 id="GeneralSettingsLogLevel">Logningsniveau</h5>
@@ -3329,7 +3421,20 @@ Bortset fra de obligatoriske oplysninger, der kræves for at kontrollere efter o
 <p>Disse informationer hjælper i høj grad NV Access med at prioritere fremtidig udvikling af NVDA.</p>
 <h5 id="GeneralSettingsNotifyPendingUpdates">Meddel om ventende opdateringer, når NVDA startes</h5>
 <p>Hvis denne indstilling er slået til, vil NVDA lade dig installere ventende opdateringer, når NVDA starter, hvis en opdatering venter på installation.
-Du kan også manuelt installere de ventende opdateringer fra dialogen "Afslut NVDA", eller ved at søge efter opdateringer fra menupunktet "Hjælp" i NVDA-menuen.</p>
+Du kan også manuelt installere de ventende opdateringer fra dialogen "Afslut NVDA" (hvis aktiveret), eller ved at søge efter opdateringer fra menupunktet "Hjælp" i NVDA-menuen.</p>
+<h5 id="UpdateMirror">Opdateringsspejl</h5>
+<p>Disse indstillinger giver dig mulighed for at angive en alternativ webadresse, når du søger efter opdateringer til NVDA.
+Dette kan være nyttigt, hvis adgang til NV Access NVDA opdateringsserveren er langsom eller utilgængelig.</p>
+<p>Det skrivebeskyttede tekstfeltet viser den aktuelle webadresse, der bruges som spejlserver.
+Hvis der ikke er noget spejl i brug (dvs. at NV Access-opdateringsserveren anvendes), vises "Intet spejl".</p>
+<p>Hvis du ønsker at ændre opdateringsspejlet, skal du trykke på knappen "Skift..." for at åbne <a href="#SetURLDialog" title="Indstil opdateringsspejldialog">Indstil opdateringsspejldialog</a>.</p>
+<p>Bemærk venligst, at når der anvendes et opdateringsspejl, har ejeren af serveren adgang til <a href="#GeneralSettingsCheckForUpdates" title="oplysninger sendt under søgningen efter opdateringer">oplysninger sendt under søgningen efter opdateringer</a>.
+Kontakt ejeren af opdateringsspejlet for detaljer om deres datahåndteringspolitikker for at sikre, at du er komfortabel med den måde, dine oplysninger vil blive håndteret på, før du indstiller et opdateringsspejl.</p>
+<h5 id="PreventDisplayTurningOff">Undgå, at skærmen slukker under sig alt eller læsning med punkt</h5>
+<p>Denne check box, hvis markeret, sikrer at din skærm forbliver tændt, når du læser ved brug af sig alt eller med punkt (f.eks. ved panorering).
+Dette forhindrer, at skærmen utilsigtet låser under brugen af sig alt.
+Denne indstilling er slået til som standard.
+Overvej at deaktivere denne indstilling, hvis du oplever forkortet batterilevetid.</p>
 <h4 id="SpeechSettings">Taleindstillinger</h4>
 <!-- KC:setting -->
 
@@ -3339,7 +3444,8 @@ Du kan også manuelt installere de ventende opdateringer fra dialogen "Afslut NV
 Du kan finde en alternativ, hurtigere måde til styring af taleparametre fra et hvilket som helst sted i afsnittet <a href="#SynthSettingsRing" title="Ringen af talesynteseindstillinger">Ringen af talesynteseindstillinger</a>.</p>
 <p>Talekategorien indeholder følgende valgmuligheder:</p>
 <h5 id="SpeechSettingsChange">Skift talesyntese</h5>
-<p>Den første mulighed er knappen "Skift...". Denne knap åbner dialogboksen <a href="#SelectSynthesizer" title="Vælg talesyntese">Vælg talesyntese</a>, der lader dig vælge den aktuelle talesyntese og output-enhed.
+<p>Den første indstilling i kategorien Taleindstillinger er knappen Skift.
+Denne knap aktiverer dialogen <a href="#SelectSynthesizer" title="Vælg talesyntese">Vælg talesyntese</a> som lader dig vælge den aktive talesyntese.
 Denne dialog åbnes oveni dialogen med NVDAs indstillinger.
 Ved at gemme eller kassere dine ændringer, vil du få fokus i NVDAs indstillingsdialog.</p>
 <h5 id="SpeechSettingsVoice">Stemme</h5>
@@ -3363,6 +3469,19 @@ Det er en skyderkontrol, der går fra 0 til 100, (med 0 som det laveste toneleje
 <p>Det er en skyderkontrol, der går fra 0 til 100, (med 0 som den laveste lydstyrke og 100 som den højeste).</p>
 <h5 id="SpeechSettingsInflection">Udsving</h5>
 <p>Denne indstilling er en skyder, som giver mulighed for at bestemme, hvor stort udsving (stigning og fald i tonehøjde) den pågældende talesyntese skal bruge under oplæsning. (Den eneste talesyntese, der p.t. understøtter denne funktion, er eSpeak NG).</p>
+<h5 id="SpeechSettingsUseWasapi">Brug moderne lydoutputsystem (WASAPI)</h5>
+<p>Denne indstilling muliggør lydoutput via Windows Audio Session API (WASAPI).
+This option only exists for Microsoft Speech API version 5 (SAPI 5) voices.
+This may improve the responsiveness of some SAPI 5 voices.
+Nogle SAPI-stemmer fungerer måske ikke med den aktuelle WASAPI-implementering.
+Hvis du oplever, at din ønskede stemme ikke fungerer med denne indstilling, skal du deaktivere den.</p>
+<p>Note that the following features depend on WASAPI, and will be disabled if WASAPI is turned off:</p>
+<ul>
+<li>Rate boost</li>
+<li>Leading silence trimming</li>
+<li>Keep audio device awake</li>
+</ul>
+<p>Note that in Advanced settings, there is a similar <a href="#UseWASAPIForSAPI4" title="option for SAPI 4 voices">option for SAPI 4 voices</a>, not to be confused with this one.</p>
 <h5 id="SpeechSettingsLanguageSwitching">Automatisk skift af sprog</h5>
 <p>Med denne check box kan du vælge, om NVDA skal skifte sprog for talesyntesen automatisk, hvis den tekst, der bliver læst op, rummer information om sproget.
 Denne indstilling er slået til som standard.</p>
@@ -3370,6 +3489,31 @@ Denne indstilling er slået til som standard.</p>
 <p>Med denne check box kan du vælge, om NVDA også skal skifte dialekt automatisk i stedet for bare at skifte sprog.
 Hvis du fx. læser med den amerikanske stemme, men et dokument er specificeret til at være på britisk engelsk, vil talesyntesen skifte dialekt, hvis denne indstilling er slået til.
 Denne indstilling er slået fra som standard.</p>
+<h5 id="ReportLanguage">Meddel ændring af sprog under oplæsning</h5>
+<p>Denne check box giver dig mulighed for at slå til eller fra, om NVDA skal annoncere det registrerede sprog i den læste tekst, når sproget ændrer sig fra standardsproget.
+Det sprog, der bruges som standard, vil ikke blive annonceret.
+Denne indstilling er som standard slået fra.</p>
+<h5 id="ReportIfLanguageIsNotSupportedBySynthesizer">Meddel, hvis automatisk sprogskift ikke er understøttet af talesyntesen</h5>
+<p>Denne combo box giver dig mulighed for at vælge, hvordan NVDA skal informere dig, når talesyntesen ikke understøtter sproget i den aktuelle tekst.
+Hvis <a href="#SpeechSettingsLanguageSwitching" title="automatisk skift af sprog">automatisk skift af sprog</a> er deaktiveret, kan du ikke ændre valget i denne combo box, da indstillingen ingen virkning har.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Muligheder</td>
+<td>Tale, bip, fra</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Tale</td>
+</tr>
+</tbody>
+</table>
 <!-- KC:setting -->
 
 <h5 id="SpeechSettingsSymbolLevel">Niveau for sætningstegn og symboler</h5>
@@ -3381,24 +3525,6 @@ Denne indstilling gælder for alle talesynteser og ikke kun den, der er aktiv i 
 <p>Med den indstilling, som er slået til som standard, kan du vælge om du vil benytte sproget for den aktuelle stemme til udtale af tegn og symboler.
 Hvis du opdager, at NVDA læser tegn og symboler på et forkert sprog med en bestemt talesyntese eller stemme, kan du slå denne indstilling fra for at tvinge NVDA til at benytte sin globale sprogindstilling.</p>
 <h5 id="SpeechUnicodeNormalization">Unicode-normalisering</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Muligheder</td>
-<td>Standard (Deaktiveret), Aktiveret, Deaktiveret</td>
-</tr>
-<tr>
-<td>Standard</td>
-<td>Deaktiveret</td>
-</tr>
-</tbody>
-</table>
 <p>Når denne indstilling er aktiveret, udføres unicode-normalisering på den tekst, der siges af NVDA.
 Dette er gavnligt, når der siges tegn, der kan repræsenteres i flere former.
 NVDA bruger NFKC (Normalization Form Compatibility Composition) algoritmen, som giver følgende fordele blandt andre:</p>
@@ -3425,6 +3551,24 @@ Unicode-normalisering sikrer, at kun én form vil blive brugt i hele taleoutputt
 </li>
 </ol>
 <p>For at aktivere eller deaktivere unicode-normalisering fra ethvert sted, bedes du tildele en brugerdefineret kommando ved hjælp af <a href="#InputGestures" title="Dialogen Håndter Kommandoer">Dialogen Håndter Kommandoer</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Muligheder</td>
+<td>Standard (Aktiveret), Aktiveret, Deaktiveret</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Aktiveret</td>
+</tr>
+</tbody>
+</table>
 <h5 id="SpeechReportNormalizedForCharacterNavigation">Rapportér "Normaliseret" ved navigation efter tegn</h5>
 <p>Dette er en check box, der, når den er markeret, får NVDA til at oplyse, at et tegn er normaliseret, når det udtales som et enkelt tegn, f.eks. under stavning.
 Når denne indstilling er aktiveret, vil stavning af tegnet 'ĳ' for eksempel få det udtalt som 'i j normaliseret'.</p>
@@ -3564,7 +3708,8 @@ Ved at gemme eller kassere dine ændringer, vil du få fokus i NVDAs indstilling
 <p>Den næste indstilling, du kommer til i denne kategori, er combo boxen oversættelsestabel.
 I denne combo box finder du punkttabeller for en lang række sprog, punktstandarder og forkortelsesniveauer.
 Den valgte tabel vil blive brugt til at oversætte punkt til visning på dit punktdisplay.
-Med piletasterne kan du flytte fra den ene punkttabel til den næste på listen.</p>
+Med piletasterne kan du flytte fra den ene punkttabel til den næste på listen.
+Hvis du vælger "Automatisk", vælges tabellen ud fra NVDAs aktuelle sprog.</p>
 <h5 id="BrailleSettingsInputTable">Indtastningstabel</h5>
 <p>Komplementært til den foregående indstilling er Den næste indstilling combo boxen indtastningstabel.
 Den valgte tabel vil blive benyttet til at oversatte det, du indtaster på dit Perkins punkttastatur, til tekst.
@@ -3806,6 +3951,9 @@ Følgende symboler er defineret:</p>
 <h5 id="BrailleSpeakOnRouting">Oplæs tegn, når markørknapper flytter markøren i tekst</h5>
 <p>Hvis dette er aktiveret, vil NVDA automatisk sige tegnet ved markøren, når du flytter markøren ved brug af markørknapperne.</p>
 <p>For at ændre denne indstilling fra et hvilket som helst sted, skal du tildele et brugerdefineret tastetryk ved hjælp af <a href="#InputGestures" title="dialogen Håndter kommandoer">dialogen Håndter kommandoer</a>.</p>
+<h5 id="BrailleSpeakOnNavigating">Læs op, når du navigerer efter &amp;linje eller afsnit</h5>
+<p>Hvis du aktiverer denne indstilling, vil NVDA læse op, når du navigerer mellem linjer eller afsnit ved brug af dit punktdisplay.</p>
+<p>For at aktivere og deaktivere denne indstilling fra hvor som helst, tildel venligst en brugerdefineret kommando til "Tale ved linje- eller afsnitsnavigation" i afsnittet "Punkt" i <a href="#InputGestures" title="dialogen Håndter Kommandoer">dialogen Håndter Kommandoer</a>.</p>
 <h5 id="BrailleSettingsWordWrap">Undgå at opdele ord hvis muligt</h5>
 <p>Hvis denne indstilling er slået til, vil et ord, som er for langt til at være for enden af linjen på dit punktdisplay, ikke blive opdelt.
 I stedet vil der blive vist nogle blanke tegn for enden af displayet.
@@ -3936,12 +4084,10 @@ Det er ikke muligt at understøtte lyddæmpning for midlertidige og flytbare kop
 </table>
 <p>Når denne indstilling er aktiveret, vil lydstyrken af NVDA-lyde og bip-lyde følge stemmens lydstyrke for den stemme, du bruger.
 Hvis du sænker stemmelydstyrken, vil lydstyrken af lydeffekter også blive sænket.
-På samme måde vil lydstyrken af lydeffekter blive øget, hvis du øger  for stemmen.lydstyrken
-Denne indstilling er ikke tilgængelig, hvis du slår <a href="#WASAPI" title="WASAPI fra som lydoutput">WASAPI fra som lydoutput</a> i NVDAs avancerede indstillinger.</p>
+På samme måde vil lydstyrken af lydeffekter blive øget, hvis du øger  for stemmen.lydstyrken</p>
 <h5 id="SoundVolume">Lydstyrke for NVDA-lyde</h5>
 <p>Denne skyder lader dig indstille lydstyrken for NVDAs lyde og bip.
-Denne indstilling træder kun i kraft, hvis "Brug WASAPI for lydoutput" er aktiveret og "Lydstyrken af NVDA-lyde følger stemmelydstyrken" er deaktiveret.
-Denne indstilling er ikke tilgængelig, hvis du slår <a href="#WASAPI" title="WASAPI fra som lydoutput">WASAPI fra som lydoutput</a> i NVDAs avancerede indstillinger.</p>
+Denne indstilling træder kun i kraft, hvis "Brug WASAPI for lydoutput" er aktiveret og "Lydstyrken af NVDA-lyde følger stemmelydstyrken" er deaktiveret.</p>
 <h5 id="SelectSoundSplitMode">Lydopdeling</h5>
 <p>Lydopdelingsfunktionen giver brugere mulighed for at udnytte deres stereo-udgangsenheder, såsom hovedtelefoner og højttalere.
 Lydopdeling gør det muligt at have NVDA-tale i den ene kanal (f.eks. venstre) og have alle andre programmer afspille deres lyde i den anden kanal (f.eks. højre).
@@ -3978,7 +4124,6 @@ Blandt disse tilstande, vil indstillingen "NVDA og programmer i begge kanaler" t
 Denne indstilling kan virke anderledes end hvis du blot Deaktiverer lydopdeling, såfremt anden lydbehandling påvirker kanalernes lydstyrke.</p>
 <p>Bemærk venligst, at lydopdeling ikke fungerer som en mixer.
 For eksempel, hvis et program afspiller et stereo-lydspor, mens lydopdelingen er sat til "NVDA i venstre og programmer i højre", vil du kun høre højre kanal af lydsporet, mens venstre kanal af lydsporet vil være slået fra.</p>
-<p>Denne indstilling er ikke tilgængelig, hvis du har startet NVDA med <a href="#WASAPI" title="WASAPI deaktiveret for lydudgang">WASAPI deaktiveret for lydudgang</a> i avancerede indstillinger.</p>
 <p>Bemærk venligst, at hvis NVDA går ned, vil den ikke være i stand til at genoprette programmernes lydstyrke, og disse kan stadig udsende lyd i én kanal efter NVDA-nedbrud.
 For at afhjælpe dette, genstart NVDA og vælg "NVDA og programmer i begge kanaler".</p>
 <h5 id="CustomizeSoundSplitModes">Tilpasning af lydopdeling</h5>
@@ -3990,8 +4135,7 @@ Som standard er kun tre tilstande inkluderet.</p>
 <li>NVDA i venstre og alle andre programmer i højre kanal.</li>
 <li>NVDA i venstre og alle andre programmer i begge kanaler.</li>
 </ul>
-<p>Bemærk, at det er nødvendigt at afkrydse mindst én tilstand.
-Denne mulighed er ikke tilgængelig, hvis du har startet NVDA med <a href="#WASAPI" title="WASAPI deaktiveret for lydudgang">WASAPI deaktiveret for lydudgang</a> i avancerede indstillinger.</p>
+<p>Bemærk, at det er nødvendigt at afkrydse mindst én tilstand.</p>
 <h5 id="AudioAwakeTime">Tid lydenheden skal holdes i gang, når tale er stoppet</h5>
 <p>Denne combo box bestemmer, hvor længe NVDA holder lydenheden aktiv, efter at talen er stoppet.
 Dette giver NVDA mulighed for at undgå visse talefejl som udeladte dele af ord.
@@ -4049,13 +4193,25 @@ Denne indstillingskategori indeholder følgende indstillingsmuligheder:</p>
 <!-- KC:setting -->
 
 <h5 id="KeyboardSettingsSpeakTypedCharacters">Sig indtastede tegn</h5>
-<p>Tast: NVDA+2</p>
-<p>Når denne funktion er slået til, oplæser NVDA alle de tegn, du skriver på tastaturet.</p>
+<p>Tast: <code>NVDA+2</code></p>
+<p>Denne indstilling bestemmer, om NVDA annoncerer de tegn, du skriver på tastaturet.
+De tilgængelige indstillinger er:</p>
+<ul>
+<li>Fra: NVDA vil ikke annoncere indtastede tegn.</li>
+<li>Kun i redigeringsfelter: NVDA vil kun annoncere tegn indtastet i redigeringsfelter og andre områder, hvor tekst kan indtastes.</li>
+<li>Altid: NVDA vil altid annoncere indtastede tegn.</li>
+</ul>
 <!-- KC:setting -->
 
 <h5 id="KeyboardSettingsSpeakTypedWords">Sig indtastet ord</h5>
-<p>Tast: NVDA+3</p>
-<p>Når denne funktion er slået til, oplæser NVDA hvert ord, du skriver på tastaturet.</p>
+<p>Tast: <code>NVDA+3</code></p>
+<p>Denne indstilling bestemmer, om NVDA annoncerer de ord, du skriver på tastaturet.
+De tilgængelige indstillinger er:</p>
+<ul>
+<li>Fra: NVDA vil ikke annoncere indtastede ord.</li>
+<li>Kun i redigeringsfelter: NVDA vil kun annoncere tegn indtastet i ord og andre områder, hvor tekst kan indtastes.</li>
+<li>Altid: NVDA vil altid annoncere indtastede ord.</li>
+</ul>
 <h5 id="KeyboardSettingsSpeechInteruptForCharacters">Afbryd tale ved indtastning</h5>
 <p>Hvis denne indstilling er slået til, vil talen blive afbrudt, hver gang du indtaster et tegn. Dette er slået til som standard.</p>
 <h5 id="KeyboardSettingsSpeechInteruptForEnter">Afbryd talen ved tryk på Enter</h5>
@@ -4076,7 +4232,7 @@ Derfor kan det være meget rart at blive advaret om det.</p>
 Denne indstilling er kun tilgængelig hvis "Annoncér stavefejl" indstillingen er slået til i NVDAs <a href="#DocumentFormattingSettings" title="Dokumentformateringsindstillinger">Dokumentformateringsindstillinger</a> i NVDAs indstillinger.</p>
 <h5 id="KeyboardSettingsHandleKeys">Håndter tastetryk fra andre programmer</h5>
 <p>Med denne indstilling kan du vælge, om NVDA skal behandle tastetryk, der bliver genereret af andre programmer som fx. skærmtastaturer eller talegenkendelsesprogrammer.
-Denne indstilling er slået til som standard, men nogle brugere vil måske foretrække at slå den fra, fx. hvis man skriver vietnamesisk med UniKey. I dette tilfælde kan det forårsage indtastning af forkerte bogstaver.</p>
+Denne indstilling er slået til som standard, men nogle brugere vil måske foretrække at slå den fra, f.eks. hvis man skriver vietnamesisk med UniKey-software til indtastning. I dette tilfælde kan det forårsage indtastning af forkerte bogstaver.</p>
 <h5 id="MultiPressTimeout">Timeout for flere tryk af et tastetryk, der udfører mere end én handling</h5>
 <p>Nogle NVDA-tastaturkommandoer udfører forskellige handlinger baseret på, hvor mange gange den samme tast trykkes hurtigt efter hinanden.
 Et eksempel på dette er kommandoen "Oplys det aktuelle tegn for navigatorobjekt".
@@ -4206,7 +4362,7 @@ Listen med auto-forslag lukkes, når du bevæger dig væk fra editfeltet, og i n
 <p>Denne indstillingskategori lader dig styre, hvordan NVDA rapporterer input af asiatiske tegn, såsom med IME eller indtastningstmetoder med TextService.
 Bemærk, at indtastningsmetoder kan variere meget med hensyn til tilgængelige funktioner, samt hvordan de formidler information. Det vil højst sandsynligt være nødvendigt at konfigurere disse indstillinger for hver indtastningsmetode, så du kan opnå den mest effektive oplevelse, når du skriver.</p>
 <h5 id="InputCompositionReportAllCandidates">Oplys automatisk alle tilgængelige kandidater</h5>
-<p>Denne indstilling, der er slået til som standard, giver dig mulighed for automatisk at få alle synlige kandidater rapporteret, når de vises, eller når listen ændres.
+<p>Denne indstilling, der er slået til som standard, giver dig mulighed for automatisk at få alle synlige kandidater rapporteret, når de vises, eller når siden ændres.
 Denne indstilling er nyttig for piktografiske indtastningsmetoder, såsom Nykenesisk ChangJie eller Boshiami, eftersom du automatisk kan høre deres symboler og numre og derefter vælge med det samme.
 For fonetiske indtastningsmetoder såsom Kinesisk Nyfonetisk, kan det dog være mere hensigtsmæssigt at slå denne indstilling fra, da alle symboler vil lyde ens. Du vil blive nød til at bruge piletasterne og navigere listeelementerne enkeltvis for, at få flere oplysninger fra tegnets beskrivelse.</p>
 <h5 id="InputCompositionAnnounceSelectedCandidate">Annoncér valgte kandidat</h5>
@@ -4224,7 +4380,7 @@ Denne indstilling er slået til som standard.
 Bemærk, at nogle ældre indtastningsmetoder såsom kinesisk ChangJie må ikke bruge oplæsningsstrengen til at holde kompositionstegn, men i stedet direkte bruge kompositionsstrengen. Se venligst den næste indstilling til konfiguration af rapportering af kompositionsstrengen direkte. Se næste indstilling for mulighed for at få annonceret kompositionsstrengen.</p>
 <h5 id="InputCompositionCompositionStringChanges">Oplys ændringer i kompositionsstrengen</h5>
 <p>Efter at oplæsning eller prekompositionsdata er blevet kombineret til et gyldigt billedskrifttegn, placere de fleste indtastningsmetoder dette symbol i en kompositionsstreng sammen med andre kombinerede symboler for midlertidig opbevaring, indtil disse symboler til sidst bliver indssat i dokumentet.
-Denne indstilling bestemmer om NVDA automatisk skal annoncere nye symboler efterhånden som de kommer til syne i kompositionsstrengen.
+Denne indstilling bestemmer, om NVDA automatisk skal annoncere nye symboler, efterhånden som de vises i kompositionsstrengen.
 Denne indstilling er slået til som standard.</p>
 <h4 id="BrowseModeSettings">Gennemsynstilstand</h4>
 <!-- KC:setting -->
@@ -4245,7 +4401,8 @@ Indstillingskategorien indeholder følgende indstillinger:</p>
 Bemærk, at denne indstilling ikke vil påvirke adfærden i Office-programmer herunder Word og Outlook. Disse vil altid benytte skærmlayout.
 Hvis denne indstilling er slået til, vil hele sidens opbygning blive vist ligesom på skærmen.
 Eksempelvis vil en visuel linje med flere links blive vist som en del af den samlede linje både i talestrømmen og på punktskrift.
-Hvis indstillingen deaktiveres, vil ethvert element på siden blive vist på sin egen linje.
+Hvis det er deaktiveret, vil interaktive elementer, såsom links og knapper, blive placeret på deres egne linjer.
+Ikke-interaktiv tekst efter et link eller en knap vil stadig vises på den samme linje for at lette læsningen.
 Dette kan gøre det nemmere for nogle brugere at navigere på websider.</p>
 <h5 id="BrowseModeSettingsEnableOnPageLoad">Aktivér gennemsynstilstand ved sideindlæsning</h5>
 <p>Denne check box lader dig vælge, om gennemsynstilstand skal aktiveres automatisk, når en side indlæses.
@@ -4275,18 +4432,9 @@ Når du med piletasterne bevæger dig ud af editfeltet, skifter NVDA automatisk 
 <h5 id="BrowseModeSettingsPassThroughAudioIndication">Lydindikering af fokus- og gennemsynstilstand</h5>
 <p>Hvis denne indstilling er slået til, afspiller NVDA en særlig lyd i stedet for at oplæse ændringen.</p>
 <h5 id="BrowseModeSettingsTrapNonCommandGestures">Forhindre alle ikke-NVDA-kommandoer i at nå til dokumentet</h5>
-<p>med denne indstilling, som er slået til som udgangspunkt, kan du vælge om kommandobevægelser, f.eks. tastetryk, som ikke udgør en NVDA-kommando, og som ikke anses for at være en generel kommando, skal forhindres i at komme videre til det dokument, du har fokus på.
+<p>Med denne indstilling, der som udgangspunkt er slået til, kan du vælge, om kommandoer, f.eks. tastetryk, der hverken er NVDA-kommandoer eller generelle kommandoer, skal forhindres i at blive sendt videre til det dokument, du har fokus på.
 Hvis denne indstilling er slået til, og du f.eks. trykker på bogstavet j, vil tastetrykket blive forhindret i at komme videre til dokumentet, selv om det ikke er en kommando til hurtignavigation, og det heller ikke er sandsynligt, at det er en kommando i selve programmet.
 I dette tilfæld vil NVDA få Windows til at afspille en standardlyde, hver gang en kommando forhindres i at nå dokumentet.</p>
-<!-- KC:setting -->
-
-<h5 id="BrowseModeSettingsAutoFocusFocusableElements">Placer automatisk systemfokus på fokuserbare elementer</h5>
-<p>Tast: NVDA+8</p>
-<p>Denne indstilling bestemmer om systemfokus automatisk skal flyttes til fokuserbare elementer der kan overtage systemfokus (formfelter, links, osv), når du navigerer indhold med gennemsynstilstand. Denne indstilling er deaktiveret som standard.
-Ved at deaktivere denne indstilling vil elementer der er valgt med markøren i gennemsynstilstand ikke automatisk få fokus.
-Dette kan resultere i hurtigere navigation på nettet og forekomme mere responsivt.
-Fokus vil stadig blive opdateret, hvis du trykker på en knap, markere en check box, osv.
-Aktivering af denne indstilling kan forbedre oplevelsen på nogle sider, men med risiko for ustabilitet og dårlig ydeevne.</p>
 <h4 id="DocumentFormattingSettings">Dokumentformatering</h4>
 <!-- KC:setting -->
 
@@ -4335,6 +4483,7 @@ Du kan tilpasse annoncering af:</p>
 <li>Elementer<ul>
 <li>Overskrifter</li>
 <li>Links</li>
+<li>Linktype (destination på samme side)</li>
 <li>Grafik</li>
 <li>Lister</li>
 <li>Bloksitater</li>
@@ -4409,11 +4558,13 @@ Bemærk, at du ikke kan benytte denne indstilling i Microsoft Word eller Outlook
 <p>Du kan skifte mellem disse indstillinger fra hvor som helst, hvis du tilknytter en kommando til funktionen via <a href="#InputGestures" title="dialogen Håndter kommandoer">dialogen Håndter kommandoer</a>.</p>
 <h4 id="AddonStoreSettings">Indstillinger for Tilføjelsescenter</h4>
 <p>Denne kategori giver dig mulighed for at justere adfærden for Tilføjelsescenteret.</p>
-<h5 id="AutomaticAddonUpdates">Opdateringsmeddelelser</h5>
+<h5 id="AutomaticAddonUpdates">Automatiske oppdateringer</h5>
 <p>Når denne indstilling er indstillet til "Underret", vil Tilføjelsescenteret underrette dig efter NVDA opstart, hvis der er tilgængelige opdateringer til tilføjelser.
 Denne kontrol udføres hver 24. time.
-Underretninger vil kun forekomme for tilføjelser med tilgængelige opdateringer inden for samme kanal.
-For eksempel vil du for installerede beta-tilføjelser kun blive underrettet om opdateringer inden for beta-kanalen.</p>
+Som standard vil notifikationer kun forekomme for tilføjelser med tilgængelige opdateringer inden for samme <a href="#AddonStoreFilterChannel" title="kanal">kanal</a> (f.eks. stabil, beta eller dev).
+Du kan konfigurere tilføjelsesopdateringskanaler <a href="#AddonStoreUpdateChannel" title="individuelt for hver tilføjelse">individuelt for hver tilføjelse</a> eller for <a href="#DefaultAddonUpdateChannel" title="alle tilføjelser">alle tilføjelser</a>.</p>
+<p>Når dette er indstillet til "Opdater automatisk", vil tilføjelser automatisk opdatere i baggrunden.
+Du vil blive bedt om at genstarte NVDA, når opdateringerne er færdige.</p>
 <table>
 <thead>
 <tr>
@@ -4424,7 +4575,7 @@ For eksempel vil du for installerede beta-tilføjelser kun blive underrettet om 
 <tbody>
 <tr>
 <td>Muligheder</td>
-<td>Underret (Standard), Deaktiveret</td>
+<td>Underret (Standard), Opdater Automatisk, Deaktiveret</td>
 </tr>
 <tr>
 <td>Standard</td>
@@ -4442,7 +4593,11 @@ For eksempel vil du for installerede beta-tilføjelser kun blive underrettet om 
 <tbody>
 <tr>
 <td>Underret</td>
-<td>Underret, når der er tilgængelige opdateringer til tilføjelser inden for samme kanal</td>
+<td>Giv besked, når opdateringer for tilføjelser er tilgængelige</td>
+</tr>
+<tr>
+<td>Opdatér automatisk</td>
+<td>Opdatér automatisk tilføjelser i baggrunden</td>
 </tr>
 <tr>
 <td>Deaktiveret</td>
@@ -4450,6 +4605,159 @@ For eksempel vil du for installerede beta-tilføjelser kun blive underrettet om 
 </tr>
 </tbody>
 </table>
+<h5 id="DefaultAddonUpdateChannel">Standard opdateringskanal</h5>
+<p>Når <a href="#AutomaticAddonUpdates" title="Automatisk tilføjelsesopdateringer">Automatisk tilføjelsesopdateringer</a> er aktiveret (standard), opdateres tilføjelser kun til den samme <a href="#AddonStoreFilterChannel" title="kanal">kanal</a>.
+For eksempel vil en installeret betaversion kun blive opdateret til en nyere betaversion.
+Denne indstilling bestemmer den opdateringskanal, der bruges for alle tilføjelser som standard.
+Du kan også ændre opdateringskanalen for en <a href="#AddonStoreUpdateChannel" title="specifik tilføjelse fra tilføjelsescenteret">specifik tilføjelse fra tilføjelsescenteret</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mulighed</td>
+<td>Samme (Standard), Enhver, Opdatér ikke, Stabil, Beta eller dev, Beta, Dev</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>Samme</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Mulighed</th>
+<th>Adfærd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Samme</td>
+<td>Tilføjelser forbliver på deres kanal</td>
+</tr>
+<tr>
+<td>Enhver</td>
+<td>Tilføjelse vil altid opdaterer til den nyeste version, uanset kanal</td>
+</tr>
+<tr>
+<td>Opdatér ikke</td>
+<td>Tilføjelser vil ikke automatisk opdatere, og du skal aktivere dem individuelt</td>
+</tr>
+<tr>
+<td>Stabil</td>
+<td>Tilføjelser opdateres automatisk til stabile versioner</td>
+</tr>
+<tr>
+<td>Beta eller dev</td>
+<td>Tilføjelser opdateres automatisk til beta eller dev-versioner</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>Tilføjelser opdateres automatisk til betaversioner</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Tilføjelser vil automatisk opdatere til udviklingsversioner (dev)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="AllowIncompatibleAddonUpdates">Tillad automatiske opdateringer at installere inkompatible tilføjelser</h5>
+<p>Denne indstilling aktiverer automatiske opdateringer til tilføjelser, der muligvis ikke er fuldt kompatible med den aktuelle version af NVDA.
+Som standard er dette deaktiveret, hvilket betyder at automatiske opdateringer kun opgraderer til versioner af tilføjelser, som er kompatible med den aktuelle version af NVDA.
+Automatiske opdateringer vil stadig opdatere en inkompatibel version af tilføjelsen til en kompatibel version, når den udgives.
+Det kan være nyttigt at aktivere dette, når NVDA opdateres og tilføjelsesudgivelser, der bryder kompatibiliteten med NVDA (årets første udgivelse) anvendes.
+Dette er især nyttigt for alfa og beta-testere, der tester tilføjelser under en tidlig fase for en version, der bryder kompatibiliteten med NVDA.</p>
+<h5 id="AddonStoreMetadataMirror">Spejlserver</h5>
+<p>Disse indstillinger giver dig mulighed for at angive en alternativ webadresse, når du henter data til Tilføjelsescenteret.
+Dette kan være nyttigt, hvis adgang til serveren for tilføjelsescenteret hos NV Access er langsom eller utilgængelig.</p>
+<p>Det skrivebeskyttede tekstfelt viser den aktuelle webadresse, der bruges som spejlserver.
+Hvis der ikke er noget spejl i brug (dvs. at serveren for tilføjelsescenteret hos NV Access anvendes), vises "Intet spejl".</p>
+<p>Hvis du ønsker at ændre spejlet for tilføjelsescenteret, skal du trykke på knappen "Ændre ..." for at åbne <a href="#SetURLDialog" title="Indstil spejl for tilføjelsescenter">Indstil spejl for tilføjelsescenter</a>.</p>
+<h4 id="RemoteSettings">Indstillinger For Fjernstyring</h4>
+<p>Denne kategori giver dig mulighed for at konfigurere indstillingerne for <a href="#RemoteAccess" title="Fjernstyring">Fjernstyring</a>.</p>
+<h5 id="RemoteEnable">Aktivér Fjernstyring</h5>
+<p>Brug denne check box til at aktivere eller deaktivere NVDAs Fjernstyring.</p>
+<p>Når dette ikke er markeret, er Fjernstyring helt utilgængelig.</p>
+<p>Bemærk, at for at kunne fortsætte en fjernstyringssession på sikre skærme som for eksempel Kontrol af Brugerkonti, skal du aktivere denne indstilling, gemme ændringerne og derefter <a href="#GeneralSettingsCopySettings" title="kopiere dine indstillinger til NVDAs systemkonfigurationsmappe">kopiere dine indstillinger til NVDAs systemkonfigurationsmappe</a>.
+Fjernstyring vil kun fortsætte sessioner startet af den installerede kopi af NVDA på sikre skriveborde.
+Det betyder, at du for eksempel ikke kan starte en fjernstyringssession med en flytbar kopi af NVDA og fortsætte sessionen på sikre skærme.</p>
+<p>Følgende indstillinger er kun tilgængelige, hvis Fjernstyring er aktiveret.</p>
+<h5 id="RemoteConfirmDisconnect">Bekræft afbrydelse af forbindelsen, når denne computer fjernstyres</h5>
+<p>Denne indstilling styrer, om der skal kræves bekræftelse, før forbindelsen afbrydes fra en Fjernstyringssession, når man er forbundet som den fjernstyrede computer.</p>
+<p>Når dette er markeret, vil NVDA bede om bekræftelse før du afbryder.
+Når dette ikke er markeret, vil NVDA straks afbryde uden bekræftelse.</p>
+<h5 id="RemoteMuteOnLocalControl">Mute when controlling the local computer</h5>
+<p>This option controls whether you can hear speech and sounds from the remote computer when controlling the local computer.</p>
+<p>When checked, Remote Access will be muted automatically when first connecting as the controlling computer, and when switching to controlling the local computer.
+When unchecked, Remote Access sessions start unmuted, and must be muted explicitly.</p>
+<p>You can still manually mute or unmute Remote Access when controlling the local computer <a href="#RemoteAccessUsage" title="via the Remote Access menu">via the Remote Access menu</a>, or by assigning a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<h5 id="RemoteAutoconnect">Forbind automatisk efter NVDA starter</h5>
+<p>Denne indstilling giver dig mulighed for automatisk at oprette en fjernstyringssession, når NVDA starter.
+Dette kunne f.eks. være nyttigt til at styre din hjemmecomputer, når du er væk hjemmefra.</p>
+<p>Vær forsigtig, når du aktiverer denne mulighed, da det kan øge risikoen for uautoriseret adgang til din computer.</p>
+<p>For yderligere detaljer om følgende muligheder, henvises til afsnittet <a href="#RemoteAccessSetup" title="Opsætning af en fjernstyringssession">Opsætning af en fjernstyringssession</a></p>
+<h5 id="RemoteAutoconnectMode">Tilstand</h5>
+<p>Vælg forbindelsestilstand for automatiske forbindelser.</p>
+<p>Denne indstilling er kun tilgængelig, når <a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a> er markeret.</p>
+<table>
+<thead>
+<tr>
+<th>Indstilling</th>
+<th>Adfærd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tillad, at denne computer fjernstyres</td>
+<td>Tillader, at denne computer fjernstyres. Det gør det muligt for personen, der fjernstyrer, at betjene computeren, som om de sad foran den.</td>
+</tr>
+<tr>
+<td>Fjernstyr en anden computer</td>
+<td>Brug denne computer til at fjernstyre en anden. Dette lader dig fjernstyre en anden computer.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="RemoteAutoconnectServer">Server</h5>
+<p>Vælg servertypen for automatiske forbindelser.</p>
+<p>Denne indstilling er kun tilgængelig, når <a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a> er markeret.</p>
+<table>
+<thead>
+<tr>
+<th>Indstilling</th>
+<th>Adfærd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brug eksisterende - Brug en eksisterende fjernstyringsserver til at oprette forbindelsen (anbefales).</td>
+<td></td>
+</tr>
+<tr>
+<td>Lokal vært</td>
+<td>Brug denne instans af NVDA som fjernstyringsserver(avanceret). Denne indstilling kan kræve netværkskonfiguration, der ikke er beskrevet i NVDAs brugervejledning.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="RemoteAutoconnectHost">Vært</h5>
+<p>Brug dette felt til at indstille webadressen på den fjernstyringsserver, du ønsker at bruge til automatiske forbindelser.
+Hvis serveren bruger en anden port end 6837, skal den inkluderes efter et kolon (f.eks. <code>example.com:1234</code>).</p>
+<p>Denne indstilling er kun tilgængelig, når <a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a> er markeret, og <a href="#RemoteAutoconnectServer" title="Server">Server</a> er indstillet til "Brug eksisterende".</p>
+<h5 id="RemoteAutoconnectPort">Port</h5>
+<p>Brug dette felt til at indstille TCP-porten på den fjernstyringsserver, du ønsker at bruge til automatiske forbindelser.</p>
+<p>Denne indstilling er kun tilgængelig, når <a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a> er markeret, og <a href="#RemoteAutoconnectServer" title="Server">Server</a> er indstillet til "Lokal vært".</p>
+<h5 id="RemoteAutoconnectKey">Nøgle</h5>
+<p>Brug dette felt til at indstille nøglen (adgangskoden) på den fjernstyringsserver, du ønsker at bruge til automatiske forbindelser.</p>
+<p>Denne indstilling er kun tilgængelig, når <a href="#RemoteAutoconnect" title="Forbind automatisk efter NVDA starter">Forbind automatisk efter NVDA starter</a> er markeret.</p>
+<h5 id="RemoteDeleteFingerprints">Slet alle gemte fingeraftryk</h5>
+<p>Denne knap sletter fingeraftryk fra alle tidligere servere brugt til fjernstyring.
+Det betyder, at du igen vil blive spurgt, om du vil oprette forbindelse til alle ikke-genkendte fjernadgangsservere, selv dem, du tidligere har tilsluttet til.
+Du vil blive bedt om at bekræfte, før alle godkendte fingeraftryk slettes.</p>
+<p>Denne indstilling er kun tilgængelig, hvis der er godkendte fingeraftryk gemt i din konfiguration.</p>
 <h4 id="Win10OcrSettings">Windows Tekstgenkendelse</h4>
 <p>Indstillingerne i denne kategori lader dig konfigurere <a href="#Win10Ocr" title="Windows Tekstgenkendelse">Windows Tekstgenkendelse</a>.
 Denne kategori indeholder følgende indstillinger:</p>
@@ -4461,6 +4769,22 @@ For at skifte mellem tilgængelige sprog fra hvor som helst, tilknyt et tastetry
 Dette kan være meget brugbart, når du vil holde øje med tekst, der løbende ændres. Dette kan være, at du ser en video med undertekster.
 Teksten opdateres hvert halvanden sekund.
 Denne indstilling er som standard slået fra.</p>
+<h4 id="SetURLDialog">Dialogen Indstil Spejl</h4>
+<p>Denne dialog lader dig angive webadressen på et spejl, der skal bruges ved <a href="#GeneralSettingsCheckForUpdates" title="opdatering af NVDA">opdatering af NVDA</a> eller <a href="#AddonsManager" title="brug af tilføjelsescenteret">brug af tilføjelsescenteret</a>.
+Dette kan være nyttigt, hvis adgang til serveren for disse funktioner hos NV Access er langsom eller utilgængelig.</p>
+<ul>
+<li>Ved indstilling af <a href="#UpdateMirror" title="spejlserver til opdatering af NVDA">spejlserver til opdatering af NVDA</a>, vil titlen på denne dialog være "Indstil spejlserver for NVDA-opdateringer".</li>
+<li>Ved indstilling af <a href="#AddonStoreMetadataMirror" title="spejlserver til opdatering af tilføjelser">spejlserver til opdatering af tilføjelser</a>, vil titlen på denne dialog være "Indstil spejlserver for tilføjelsescenter".</li>
+</ul>
+<h5 id="SetURLTextbox">Webadresse</h5>
+<p>Angiv webadressen for det spejl, du ønsker at bruge her.
+Kun HTTP og HTTPS-adresser understøttes.
+For at beskytte dit privatliv, anbefaler NV Access, at du benytter HTTPS, når det er muligt.</p>
+<p>Lad dette felt være tomt for at bruge standard NV Access server.</p>
+<h5 id="SetURLTest">Test...</h5>
+<p>Tryk på denne knap for at teste den webadresse, du har indtastet.
+Du skal være forbundet til internettet, for at testen kan lykkes.
+Det anbefales, at du altid tester webadressen, før du gemmer den.</p>
 <h4 id="AdvancedSettings">Avancerede Indstillinger</h4>
 <p>Advarsel! Indstillingerne i denne kategori gælder for avancerede brugere. Hvis du ændrer disse, kan NVDA fungere uhensigtsmæssigt.
 Du skal kun ændre disse, hvis du ved hvad du laver eller er specifikt instrueret af NVDA-udviklere.</p>
@@ -4515,7 +4839,7 @@ Indstillingen indeholder følgende muligheder:</p>
 <ul>
 <li>Standard (Hvor det er passende)</li>
 <li>Kun hvis det er nødvendigt: Bruges i tilfælde, hvor Microsoft Word objektmodellen ikke kan benyttes</li>
-<li>Hvor det er passende: Microsoft Word version 16.0.15000 eller nyere, eller når Microsoft Word objektmodellen ikke er tilgængelig</li>
+<li>Where suitable: Microsoft Word version 16.0.15000 or higher on Windows 11, or where the Microsoft Word object model is unavailable</li>
 <li>Altid: Denne mulighed vil benytte UI Automation i Microsoft Word i ethvert tilfælde, selv når understøttelsen for UI Automation ikke er fuldstændig.</li>
 </ul>
 <h5 id="UseUiaForExcel">Benyt UI Automation til at få adgang til kontrolelementer for Microsoft Excel-regneark, når det er tilgængeligt</h5>
@@ -4689,15 +5013,16 @@ Dette kan dog medføre, at lange output af tekst på over 1.000 tegn muligvis ik
 <p>Denne indstilling gør det muligt for NVDA at forsøge på at annullere tale for udløbne fokushændelser
 Som et eksempel kan hurtig navigation gennem GMail i Chrome forårsage, at NVDA oplæser forældede  informationer.
 Denne indstilling er automatisk aktiveret som standard i NVDA 2021.1.</p>
-<h5 id="AdvancedSettingsCaretMoveTimeout">Interval for markøren (i MS)</h5>
-<p>Denne indstilling lader dig konfigurere hvor mange millisekunder NVDA skal vente på systemmarkøren (indsættelsesmarkøren) i redigerbare tekstfelter.
-Hvis du opdager, at NVDA har problemer med at følge systemmarkøren (f.eks. hvis NVDA konsekvent er et tegn bagud eller gentager linjer), kan du forøge denne værdi.</p>
-<h5 id="ReportTransparentColors">Oplys gennemsigtige farveværdier</h5>
-<p>Denne indstilling lader NVDA oplyse, når farver er gennemsigtige. Dette er brugbart, hvis man er ved at udvikle en tilføjelse eller et app-modul, der har til hensigt at forbedre brugeroplevelsen for tredjepartsprogrammer.
-Nogle GDI-applikationer vil fremhæve tekst med en baggrundsfarve. NVDA (via display model) vil forsøge at oplyse farven.
-I nogle tilfælde kan det være, at tekstens baggrund er fuldstændig gennemsigtig, hvor selve teksten befinder sig i lag på et andet gui-element.
-Med flere historisk populære GUI API'er kan teksten gengives med en gennemsigtig baggrund, men visuelt er baggrundsfarven nøjagtig.</p>
-<h5 id="WASAPI">Brug WASAPI til lydoutput</h5>
+<h5 id="TrimLeadingSilenceSpeech">Fjern indledende stilhed i talens lydoutput</h5>
+<p>Når aktiveret, vil NVDA fjerne indledende stilhed, der forekommer med nogle talesynteser. Dette kan øge reaktionshastigheden.
+Denne indstilling er aktiveret som standard, og bør kun påvirke stilheden i begyndelsen af talen.
+Hvis du oplever, at nogle nødvendige stilhedsperioder også mangler (f.eks. pause mellem to sætninger), når du bruger en talesyntese via en tilføjelse, kan du deaktivere denne funktion helt for at løse problemet.</p>
+<h5 id="UseWASAPIForSAPI4">Brug WASAPI for SAPI 4 lydoutput</h5>
+<p>Denne indstilling aktiverer Microsoft Speech API version 4 (SAPI 4) stemmer til output lyd via Windows Audio Session API (WASAPI).
+Dette kan gøre det muligt for SAPI 4-stemmer at fungere med flere funktioner, såsom automatisk dæmpning af lyd, fjernelse af indledende stilhed og at holde lydenheden aktiv.
+Men nogle SAPI 4 stemmer fungerer måske ikke med den aktuelle WASAPI implementering.
+Hvis du oplever, at SAPI 4-stemmen, du bruger stopper med at fungere, kan du deaktivere denne indstilling.</p>
+<p>Note that in Speech settings, there is a similar <a href="#SpeechSettingsUseWasapi" title="option for SAPI 5 voices">option for SAPI 5 voices</a>, not to be confused with this one.</p>
 <table>
 <thead>
 <tr>
@@ -4708,7 +5033,7 @@ Med flere historisk populære GUI API'er kan teksten gengives med en gennemsigti
 <tbody>
 <tr>
 <td>Muligheder</td>
-<td>Standard (Aktiveret) Deaktiveret, Aktiveret</td>
+<td>Standard (Aktiveret), Deaktiveret, Aktiveret</td>
 </tr>
 <tr>
 <td>Standard</td>
@@ -4716,14 +5041,14 @@ Med flere historisk populære GUI API'er kan teksten gengives med en gennemsigti
 </tr>
 </tbody>
 </table>
-<p>Denne indstilling muliggør lydoutput via Windows Audio Session API (WASAPI).
-WASAPI er en mere moderne lydteknologi, der kan forbedre reaktionsevne, ydeevne og stabilitet for NVDA-lydoutput, herunder både tale og lydeffekter.
-Efter ændring af denne indstilling skal du genstarte NVDA, for at ændringen træder i kraft.
-Hvis du deaktiverer WASAPI, vil følgende indstillinger blive deaktiveret:</p>
-<ul>
-<li><a href="#SoundVolumeFollowsVoice" title=" Lydstyrke af NVDA-lyde følger stemmelydstyrken"> Lydstyrke af NVDA-lyde følger stemmelydstyrken</a></li>
-<li><a href="#SoundVolume" title="Lydstyrke for NVDA-lyde">Lydstyrke for NVDA-lyde</a></li>
-</ul>
+<h5 id="AdvancedSettingsCaretMoveTimeout">Interval for markøren (i MS)</h5>
+<p>Denne indstilling lader dig konfigurere hvor mange millisekunder NVDA skal vente på systemmarkøren (indsættelsesmarkøren) i redigerbare tekstfelter.
+Hvis du opdager, at NVDA har problemer med at følge systemmarkøren (f.eks. hvis NVDA konsekvent er et tegn bagud eller gentager linjer), kan du forøge denne værdi.</p>
+<h5 id="ReportTransparentColors">Oplys gennemsigtige farveværdier</h5>
+<p>Denne indstilling lader NVDA oplyse, når farver er gennemsigtige. Dette er brugbart, hvis man er ved at udvikle en tilføjelse eller et app-modul, der har til hensigt at forbedre brugeroplevelsen for tredjepartsprogrammer.
+Nogle GDI-applikationer vil fremhæve tekst med en baggrundsfarve. NVDA (via display model) vil forsøge at oplyse farven.
+I nogle tilfælde kan det være, at tekstens baggrund er fuldstændig gennemsigtig, hvor selve teksten befinder sig i lag på et andet gui-element.
+Med flere historisk populære GUI API'er kan teksten gengives med en gennemsigtig baggrund, men visuelt er baggrundsfarven nøjagtig.</p>
 <h5 id="AdvancedSettingsDebugLoggingCategories">Aktiverede logningskategorier</h5>
 <p>Check boxene i denne liste lader dig vælge, hvilke logningskategorier der skal benyttes under skrivning af NVDAs logfil.
 Logning af disse hændelser kan resultere i lavere ydeevne og store logfiler.
@@ -4797,7 +5122,7 @@ Du kan så  ændre felterne for det nye symbol, præcist som med andre symboler.
 <p>Du kan fjerne et symbol, som du tidligere har tilføjet, ved at trykke på Fjern-knappen.</p>
 <p>Når du er færdig, skal du trykke på OK-knappen for at gemme dine ændringer, eller Annuller-knappen for at kassere dem.</p>
 <p>I tilfælde af komplekse symboler skal feltet Erstatning muligvis omfatte nogle gruppereferencer for den matchede tekst. F.eks. et mønster, der skal matche til en hel dato, vil det være nødvendigt at inkludere \1, \2, og \3 i feltet, hvorefter erstatningen ville blive ændret til den tilsvarende del af den pågældende dato.
-Normale omvendte skråstreger () skal derfor skrives to gange, f.eks. "a\b" skal indtastes for at få "a\b" erstattet.</p>
+Almindelige omvendte skråstreger i erstatningsfeltet skal derfor angives dobbelt, for eksempel skal "a\\b" skrives for at få erstatningen "a\b".</p>
 <h4 id="InputGestures">Håndter Kommandoer</h4>
 <p>I denne dialog kan du tilpasse kommandoer for de forskellige NVDA-funktioner (taster på tastaturet, knapper på et punktdisplay osv.)</p>
 <p>Du får kun vist de kommandoer, som er tilgængelige på det tidspunkt, hvor du åbner dialogen.
@@ -4852,7 +5177,7 @@ Du kan også nulstille dine indstillinger til de oprindelige fabriksindstillinge
 <td>Vend tilbage til konfiguration</td>
 <td>NVDA+Ctrl+r</td>
 <td>NVDA+Ctrl+r</td>
-<td>Gendanner de indstillinger, som NVDA havde, da du senest gemte NVDAs konfiguration</td>
+<td>Gendanner de indstillinger, som NVDA havde, da du senest gemte NVDAs konfiguration.</td>
 </tr>
 </tbody>
 </table>
@@ -4934,6 +5259,150 @@ Hvis du har NVDA installeret, kan du finde mappen med dine NVDA-indstillinger ve
 <p>De indstillinger, som NVDA bruger ved kørsel på logon-skærmen eller skærmbilledet i forbindelse med brugerkonto-kontrol findes i mappen systemConfig i NVDAs installationsmappe.
 Det er normalt ikke nødvendigt at ændre disse indstillinger.
 Hvis du vil ændre indstillingerne, som NVDA benytter på logon-skærmen eller skærmbilledet i forbindelse med brugerkonto-kontrol, skal du sætte NVDAs indstillinger, som du ønsker dem, mens du er logget ind på dit Windows-system. Aktivér derefter knappen til kopiering af dine indstillinger til logon-skærmen, der kan findes i den generelle indstillingskategori i <a href="#NVDASettings" title="NVDAs indstillinger">NVDAs indstillinger</a>.</p>
+<h2 id="RemoteAccess">Fjernstyring</h2>
+<p>Med NVDAs indbyggede fjernstyringsfunktion kan du styre en anden computer, der kører NVDA, eller tillade nogen at styre din computer.
+Dette gør det nemt at yde eller modtage assistance, samarbejde eller få adgang til din egen computer eksternt.</p>
+<p>Fjernstyring er som standard deaktiveret for din sikkerhed.
+Du kan aktivere Fjernstyring i <a href="#RemoteSettings" title="indstillingerne for Fjernstyring">indstillingerne for Fjernstyring</a>.</p>
+<h3 id="RemoteAccessGettingStarted">Kom godt i gang</h3>
+<p>Før du begynder, skal du sørge for, at NVDA er installeret og kører på begge computere.
+Sørg også for, at check boxen Aktivér Fjernstyring <a href="#RemoteSettings" title="i Fjernstyring">i Fjernstyring</a> er markeret på begge computere.
+Funktionen Fjernstyring bliver herefter tilgængelig i menuen Funktioner i NVDA. Der er ikke behov for yderligere downloads eller installationer.</p>
+<p>Hvis NVDA kører i <a href="#SecureMode" title="sikker tilstand">sikker tilstand</a>, kan du ikke manuelt starte en ny fjernstyringssession.
+NVDA vil dog stadig automatisk starte en ny Fjernstyringssession, hvis den er konfigureret til det med indstillingen <a href="#RemoteAutoconnect" title="Automatisk forbindelse efter NVDA starter">Automatisk forbindelse efter NVDA starter</a>.
+Du kan stadig manuelt afbryde forbindelsen i sikker tilstand.</p>
+<h3 id="RemoteAccessSetup">Opsætning af en fjernstyringssession</h3>
+<p>Fjernstyringssessioner er konfigureret via forbindelsesdialogen Fjernstyring.
+Åbn NVDA-menuen og vælg Værktøjer, derefter "Fjernstyring", derefter "Forbind ...".
+Eller fra hvor som helst tryk <code>NVDA+alt+r</code>.</p>
+<h4 id="RemoteAccessMode">Valg af tilstand (Fjernstyrende eller fjernstyret)</h4>
+<p>Her skal du bestemme, hvilken computer der skal fungere som den fjernstyrende computer, og hvilken der skal fungere som den fjernstyrede computer.</p>
+<p>Combo boxen lader dig vælge, om du vil lade denne maskine blive fjernstyret af en anden person, eller om denne maskine skal fjernstyre en anden computer.</p>
+<ul>
+<li>Hvis du har brug for en anden person til at hjælpe dig med din computer, skal du vælge "Tillad, at denne computer fjernstyres".</li>
+<li>Hvis du vil hjælpe nogen med deres computer, skal du vælge "Fjernstyr en anden computer".</li>
+</ul>
+<h4 id="RemoteAccessJoin">Forbind til en eksisterende server (vært og nøgle angivet)</h4>
+<p>I dette tilfælde har den anden person enten startet forbindelsen via en relæserver, eller er vært for forbindelsen lokalt.</p>
+<ol>
+<li>For server, vælg "Brug eksisterende".</li>
+<li>I feltet Vært, Indtast værtsadressen (og port hvis det også er angivet).<ul>
+<li>Du kan inkludere porten, der skal forbindes til, ved at tilføje et kolon (":") og portnummeret til værtsadressen.
+F.eks. <code>example.com:1234</code>.</li>
+</ul>
+</li>
+<li>I feltet "nøgle" skal du indtaste nøglen.
+Sørg for, at du skriver nøglen nøjagtigt.</li>
+<li>Tryk OK.</li>
+</ol>
+<h4 id="RemoteAccessConnectRelay">Start af en forbindelse via en relæserver</h4>
+<p>Hvis en anden person skal oprette forbindelse til dig via internettet, er den nemmeste mulighed at bruge en relæserver. For at gøre dette:</p>
+<ol>
+<li>For server, vælg "Brug eksisterende".</li>
+<li>For vært, angive værtsnavnet på en relæserver, såsom <code>nvdaremote.com</code>.
+Du skal dele denne adresse med den anden person.<ul>
+<li>Du kan inkludere porten, der skal forbindes til, ved at tilføje et kolon (":") og portnummeret til værtsadressen.
+F.eks. <code>example.com:1234</code>.</li>
+</ul>
+</li>
+<li>For nøglen: Find på en adgangskode,der er lang og svær at gætte, eller tryk på knappen "Generer Nøgle" for at få en automatisk genereret.
+Du skal dele denne nøgle med den anden person.<ul>
+<li>Bemærk, at nøglen fungerer som både identifikator for sessionen og adgangskoden, så det er meget vigtigt, at den er svær at gætte.</li>
+</ul>
+</li>
+<li>Tryk OK.</li>
+<li>Giv forbindelsesoplysningerne (vært og nøgle) til den anden person, så de kan forbinde.</li>
+</ol>
+<h4 id="RemoteAccessConnectSelfHosted">Brug af NVDA som server</h4>
+<p>Hvis du ikke ønsker at bruge en relæserver eller du forbinder over et lokalt netværk:</p>
+<ol>
+<li>For server, vælg "Lokal vært".</li>
+<li>Hvis du forbinder over internettet, kan du trykke på knappen "Hent ekstern IP" for at vise din eksterne IP (synlig på nettet) adresse.
+Du skal dele denne adresse med den anden person.</li>
+<li>Hvis du forbinder over et lokalt netværk, skal du give den anden person din lokale IP.
+Hvordan du finder denne er ikke en del af denne brugervejledning.</li>
+<li>For port skal du indtast den port, du vil bruge til indgående fjernforbindelser.
+Den anden person har også brug for denne oplysning.<ul>
+<li>Dette skal være en port, der ikke bruges af andre tjenester.</li>
+<li>Som standard bruger Fjernstyring port 6837.</li>
+<li>Hvis der forbindes over internettet, kan "port forwarding" være nødvendig.
+Dette er ikke en del af denne brugervejledning.
+Du skal måske kontakte din netværksadministrator for at gøre dette.</li>
+</ul>
+</li>
+<li>For nøglen: Find på en adgangskode,der er lang og svær at gætte, eller tryk på knappen "Generer Nøgle" for at få en automatisk genereret.
+Du skal dele denne nøgle med den anden person.<ul>
+<li>Bemærk, at nøglen fungerer som både identifikator for sessionen og adgangskoden, så det er meget vigtigt, at den er svær at gætte.</li>
+</ul>
+</li>
+<li>Tryk OK.</li>
+<li>Giv forbindelsesoplysningerne (vært og nøgle) til den anden person, så de kan forbinde.</li>
+</ol>
+<h3 id="RemoteAccessUsage">Brug af NVDA Fjernstyring</h3>
+<p>Når en fjernstyringssession er aktiv, kan du skifte mellem at styre fjerncomputeren og din egen, del din udklipsholder, og slå lyden for fjernsessionen til og fra:</p>
+<ul>
+<li>Tryk på <code>NVDA+alt+tab</code> for at skifte mellem at styre og vende tilbage til din egen computer.</li>
+<li>Send tekst fra din udklipsholder til den anden computer ved at åbne NVDA-menuen, vælge Værktøjer, derefter "Fjernstyring" og til sidst "Send udklipsholder".</li>
+<li>Hvis du er forbundet som den computer, der fjernstyrer en anden maskine, kan du slå den fjernstyrede computers taleoutput fra på din lokale computer ved at åbne NVDA-menuen, vælge Værktøjer, derefter "Fjernstyring" og til sidst "Gør fjerncomputeren lydløs".</li>
+<li>Hvis du er forbundet som den computer, der styrer en anden maskine, kan du sende <code>control+alt+delete</code> til den styrede computer ved at åbne NVDA-menuen, vælge Værktøjer, derefter "Fjernstyring" og til sidst "Send control+alt+delete".
+  For at dette kan fungere, skal den fjernstyrede computer køre en installeret kopi af NVDA.
+  Det kan være muligt, at denne funktion ikke altid vil virke, afhængigt af indstillingerne på den maskine, der fjernstyres.</li>
+</ul>
+<h3 id="RemoteAccessGestures">Oversigt over genvejstaster til Fjernstyring</h3>
+<!-- KC:beginInclude -->
+<table>
+<thead>
+<tr>
+<th>Navn</th>
+<th>Tast</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forbinder til eller afbryder fjernstyringssession</td>
+<td><code>NVDA+alt+r</code></td>
+<td>Starter en ny Fjernstyringssession eller, hvis en session allerede er i gang, afbryder forbindelsen til den.</td>
+</tr>
+<tr>
+<td>Skifter mellem tastaturinput for lokal og fjernstyret computer</td>
+<td><code>NVDA+alt+tab</code></td>
+<td>Skifter tastaturinput mellem den lokale computer og fjerncomputeren.</td>
+</tr>
+<tr>
+<td>Forbind</td>
+<td>Ingen</td>
+<td>Starter en ny fjernstyringssession. Ikke tilgængelig i <a href="#SecureMode" title="sikker tilstand">sikker tilstand</a>.</td>
+</tr>
+<tr>
+<td>Kopier link</td>
+<td>Ingen</td>
+<td>Kopierer et link for den aktuelle fjernstyringssession til udklipsholderen.</td>
+</tr>
+<tr>
+<td>Afbryd</td>
+<td>Ingen</td>
+<td>Afslutter en fjernstyringssession.</td>
+</tr>
+<tr>
+<td>Gør fjerncomputeren lydløs</td>
+<td>Ingen</td>
+<td>Slå talen, der kommer fra fjerncomputeren, til eller fra.</td>
+</tr>
+<tr>
+<td>Send udklipsholder</td>
+<td>Ingen</td>
+<td>Sender indholdet fra din udklipsholder til fjerncomputeren.</td>
+</tr>
+<tr>
+<td>Send <code>control+alt+delete</code></td>
+<td>None</td>
+<td>Sends <code>control+alt+delete</code> to the controlled computer.</td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h2 id="AddonsManager">Tilføjelser og Tilføjelsescenter</h2>
 <p>Tilføjelser er softwarepakker, der giver ny eller ændret funktionalitet til NVDA.
 De udvikles af NVDA-fællesskabet og eksterne organisationer som kommercielle udbydere.
@@ -4988,6 +5457,11 @@ NVDA-alpha-testere kan være nødt til at bruge en "Dev"-version af deres tilfø
 Du kan nå det ved at trykke på <code>shift+tab</code> fra listen over tilføjelser.
 Indtast ét eller to nøgleord, der beskriver den type tilføjelse, du leder efter, og naviger derefter tilbage til listen over tilføjelser ved at trykke på <code>tab</code>.
 Tilføjelserne vil blive vist, hvis søgeteksten kan findes i ID, displaynavnet, udgiveren, forfatter eller beskrivelsen.</p>
+<h4 id="AddonStoreSortByColumn">Sortering af tilføjelseslisten efter kolonne</h4>
+<p>Som standard er tilføjelseslisten sorteret efter tilføjelsernes visningsnavn.
+Combo boxen "Sorter efter kolonne" kan bruges til at sortere listen efter de tilgængelige kolonner for hvert faneblad.
+F.eks. vil du måske gerne sorterer tilføjelser efter udgiver, tilgængelig version, osv.
+Tilføjelser kan sorteres i stigende eller faldende rækkefølge.</p>
 <h3 id="AddonStoreActions">Tilføjelseshandlinger</h3>
 <p>Tilføjelser har tilknyttede handlinger, såsom Installér, Hjælp, Deaktivér eller Fjern.
 Du kan få adgang til handlingsmenuen i listen over tilføjelser ved at trykke på <code>applications</code>-tasten, <code>enter</code>, højreklikke eller dobbeltklikke på tilføjelsen.
@@ -4999,7 +5473,9 @@ Funktionaliteten af tilføjelser er ubegrænset inden i NVDA.
 Dette kan omfatte adgang til dine personlige data eller endda hele systemet.</p>
 <p>Du kan installere og opdatere tilføjelser ved at <a href="#AddonStoreBrowsing" title="gennemse tilgængelige tilføjelser">gennemse tilgængelige tilføjelser</a>.
 Vælg en tilføjelse fra fanen "Tilgængelige tilføjelser" eller "Opdaterbare tilføjelser".
-Brug derefter handlingerne "Opdater", "Installér" eller "Erstat" for at starte installationen.</p>
+Brug derefter handlingerne "Opdater", "Installér" eller "Erstat" for at starte installationen.
+Hvis download eller installation fejler, kan du forsøge installationen igen.
+Det er også muligt at annullere installationen, før du lukker tilføjelsescenteret.</p>
 <p>Du kan også installere flere tilføjelser på én gang.
 Dette kan du gøre ved at vælge flere tilføjelser, og derefter aktivere kontekstmenuen med mellemrum og vælge "Installér tilføjelser" fra fanen med tilgængelige tilføjelser.</p>
 <p>For at installere en tilføjelse, du har fået uden for Tilføjelsescenteret, skal du trykke på knappen "Installer fra ekstern kilde".
@@ -5032,6 +5508,52 @@ For at læse anmeldelser, skal du vælge en tilføjelse fra fanen for opdaterbar
 Dette fører til en diskussion på GitHub, hvor du kan læse og skrive anmeldelser for tilføjelsen. Denne åbnes i din webbrowser.
 Husk, at dette ikke betyder, at det ikke er en god idé at kommunikere direkte med en udvikler af en tilføjelse, som du benytter.
 Anmeldelsernes formål er blot at gøre det nemmere for andre brugere at beslutte, hvor vidt en tilføjelse kan være nyttig for dem.</p>
+<h4 id="AddonStoreUpdateChannel">Ændring af den automatiske opdateringskanal</h4>
+<p>Du kan administrere de automatiske opdateringskanaler for tilføjelser fra fanerne <a href="#AddonStoreFilterStatus" title="installeret og opdaterbare tilføjelser">installeret og opdaterbare tilføjelser</a>.
+Når <a href="#AutomaticAddonUpdates" title="Automatiske tilføjelsesopdateringer">Automatiske tilføjelsesopdateringer</a> er aktiveret, opdateres tilføjelser som udgangspunkt til den samme <a href="#AddonStoreFilterChannel" title="kanal">kanal</a>, som de blev installeret fra som standard ifølge <a href="#DefaultAddonUpdateChannel" title="standardindstillingen">standardindstillingen</a>.
+Du kan ændre, hvilken kanal en bestemt tilføjelse benytter, når den opdateres. Dette gøres under menupunktet "Opdatér kanal" i handlingsmenuen.</p>
+<table>
+<thead>
+<tr>
+<th>Mulighed</th>
+<th>Adfærd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td>Tilføjelsen vil benytte <a href="#DefaultAddonUpdateChannel" title="opdateringskanalen, der er indstillet som standard">opdateringskanalen, der er indstillet som standard</a></td>
+</tr>
+<tr>
+<td>Samme</td>
+<td>Tilføjelser benytter den samme kanal</td>
+</tr>
+<tr>
+<td>Enhver</td>
+<td>Tilføjelse vil altid opdaterer til den nyeste version, uanset kanal</td>
+</tr>
+<tr>
+<td>Opdater ikke</td>
+<td>Tilføjelsen vil ikke automatisk blive opdateret</td>
+</tr>
+<tr>
+<td>Stabil</td>
+<td>Tilføjelser opdateres automatisk til stabile versioner</td>
+</tr>
+<tr>
+<td>Beta eller dev</td>
+<td>Tilføjelser opdateres automatisk til beta eller dev-versioner</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>Tilføjelser opdateres automatisk til betaversioner</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Tilføjelser vil automatisk opdatere til udviklingsversioner (dev)</td>
+</tr>
+</tbody>
+</table>
 <h3 id="incompatibleAddonsManager">Inkompatible tilføjelser</h3>
 <p>Nogle ældre tilføjelser er måske ikke længere kompatible med den version af NVDA du har.
 Hvis du bruger en ældre version af NVDA, kan nogle nyere tilføjelser også være inkompatible.
@@ -5109,7 +5631,7 @@ Cellen starter som en lysegul farve, overgår til orange og bliver pludselig gr�
 <p>For at aktivere og deaktivere punktviseren fra hvor som helst, kan du tildele en kommando til funktionen   i <a href="#InputGestures" title="dialogen &quot;Håndter Kommandoer&quot;">dialogen "Håndter Kommandoer"</a>.</p>
 <h3 id="PythonConsole">Python-konsol</h3>
 <p>Python-konsollen, der er at finde i menuen "Værktøjer" i NVDA-menuen fungerer som et udviklingsværktøj. Dette værktøj kan benyttes til generel fejlfinding, undersøgelse af interne komponenter i NVDA eller tilgængeligheden af en applikation.
-For yderligere information, læs <a href="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html" rel="noopener" target="_blank" title="NVDA Developer Guide">NVDA Developer Guide</a>.</p>
+For yderligere information, læs <a href="https://download.nvaccess.org/documentation/developerGuide.html" rel="noopener" target="_blank" title="udviklervejledningen">udviklervejledningen</a>.</p>
 <h3 id="AddonStoreMenuItem">Tilføjelsescenteret</h3>
 <p>Dette åbner <a href="#AddonsManager" title="Tilføjelsescenteret">Tilføjelsescenteret</a>.
 For flere informationer, læse afnisttet <a href="#AddonsManager" title="Tilføjelser og tilføjelsescenteret">Tilføjelser og tilføjelsescenteret</a>.</p>
@@ -5117,17 +5639,18 @@ For flere informationer, læse afnisttet <a href="#AddonsManager" title="Tilføj
 <p>Dette vil åbne en dialog, således du kan oprette en flytbar kopi fra den installerede version af NVDA.</p>
 <p>Følg vejledningen <a href="#CreatingAPortableCopy" title="Opret en flytbar kopi">Opret en flytbar kopi</a> for yderligere oplysninger.</p>
 <h3 id="RunCOMRegistrationFixingTool">Kør værktøj til løsning af almindelige problemer...</h3>
-<p>Installation og afinstallation af programmer på computeren kan i nogle tilfælde resultere i at nogle COM DLL filer bliver afregistrerede.
-Eftersom COM-interfaces som IAccessible afhænger af korrekte registrering af COM DLL, vil problemer nogle gange opstå, hvis nogle filregistreringer mangler.</p>
-<p>Dette kan eksempelvis forekomme, hvis du har installeret og derefter afinstalleret Adobe Reader, Math Player og andre programmer.</p>
-<p>De manglende filregistreringer kan forårsage problemer med diverse browsere, skrivebordsprogrammer, joblinjen og andre brugergrænseflader.</p>
-<p>Følgende problemer kan løses ved at køre dette værktøj:</p>
+<p>Nogle gange kan problemer forekomme med Windows-registreringsdatabasen, der forårsager, at NVDA fungerer uhensigtsmæssig.
+Dette kan f.eks. skyldes installation eller afinstallation af visse programmer (som Adobe Reader eller Math Player), samt Windows-opdateringer og andre hændelser.
+Værktøjet til rettelse af COM-registreringer forsøger at løse disse problemer ved at reparere tilgængelighedsoplysninger i registreringsdatabasen.</p>
+<p>De typer af problemer dette værktøj kan løse omfatter:</p>
 <ul>
-<li>NVDA rapporterer "Ukendt", når der navigeres i browsere som Firefox, Thunderbird osv.</li>
-<li>NVDA er ikke i stand til at skifte korrekt mellem fokus- og gennemsynstilstand.</li>
+<li>NVDA siger "ukendt" eller "rude", når du navigerer i browsere som Firefox eller Edge, mail-programmer som Thunderbird, Windows Stifinder, proceslinjen og andre programmer.</li>
+<li>NVDA vil ikke korrekt skifte mellem fokus- og gennemsynstilstand.</li>
+<li>Knapper, som tidligere havde navne, vises nu blot som "knap" for NVDA.</li>
 <li>NVDA forekommer meget langsom, når du navigere i gennemsynstilstand.</li>
-<li>Evt. andre problemer.</li>
 </ul>
+<p>Fordi dette værktøj retter oplysninger i Windows registreringsdatabasen, kræver det administrativ adgang, ligesom når du installerer et program.
+Hvis du har Kontrol af brugerkonti aktiveret, hvilket mange brugere har, skal du følge vejledningen i disse dialoger, før du kan køre værktøjet.</p>
 <h3 id="ReloadPlugins">Genindlæs plugins</h3>
 <p>Denne indstilling vil genindlæse alle app-moduler og globale plugins uden at genstarte NVDA. Dette kan være nyttigt for udviklere.
 App-moduler bestemmer, hvordan NVDA fungerer med det pågældende program.
@@ -5222,6 +5745,7 @@ Denne indstilling er valgt som standard.</p>
 <li>Nattiq nBraille displays</li>
 <li>Seika Notetaker: MiniSeika (16, 24 celler), V6, og V6Pro (40 celler)</li>
 <li>Tivomatic Caiku Albatross 46/80 displays</li>
+<li>NLS eReader Zoomax</li>
 <li>Ethvert punktdisplay, der understøtter HID Braille-protokollen.</li>
 </ul>
 <h3 id="FreedomScientificFocus">Freedom Scientific Focus/PAC Mate Series</h3>
@@ -6006,10 +6530,7 @@ USB drivere kræves ikke, hvis protokollen er sat til OpenBraille.</p>
 <li>APH Mantis Q40</li>
 <li>APH Chameleon 20</li>
 <li>Humanware BrailleOne</li>
-<li>NLS eReader<ul>
-<li>Bemærk, at Zoomax ikke er Understøtet uden tredjepartsdrivere</li>
-</ul>
-</li>
+<li>NLS eReader HumanWare</li>
 </ul>
 <p>Dette er tastekombinationerne til Brailliant BI/B og BrailleNote Touch displays til brug med NVDA.
 Se venligst dokumentationen til dit display for at finde ud af, hvor du kan finde knapperne.</p>
@@ -8428,6 +8949,68 @@ Læs venligst dokumentationen for det pågældende display der beskriver, hvor d
 </table>
 <!-- KC:endInclude -->
 
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<p>NLS eReader Zoomax understøtter både USB og bluetooth-forbindelser.
+Windows 10 og Windows 11-operativsystemer vil automatisk finde og installere de nødvendige drivere til dette display.
+Hvis computeren ikke har internet eller netværk er deaktiveret, kan du <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener" target="_blank" title="hente og installere USB to serial CH340 chip driver">hente og installere USB to serial CH340 chip driver</a> og displayet vil herefter virke med USB.</p>
+<p>Som standard kan NVDA automatisk finde og forbinde til dette display via USB og Bluetooth.
+Når du konfigurerer disse displays kan du dog selv vælge, hvilken forbindelsestype du ønsker at benytte.</p>
+<p>Dette er tastekombinationerne til dette display til brug med NVDA.
+Læs venligst dokumentationen for det pågældende display der beskriver, hvor disse taster findes.</p>
+<!-- KC:beginInclude -->
+
+<table>
+<thead>
+<tr>
+<th>Navn</th>
+<th>Tast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rul display tilbage</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Rul display fremad</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Flyt display til forrige linje</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Flyt display til næste linje</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Flyt til punktcelle</td>
+<td><code>markørknapper</code></td>
+</tr>
+<tr>
+<td>Pil op</td>
+<td><code>op</code></td>
+</tr>
+<tr>
+<td>Pil-ned</td>
+<td><code>ned</code></td>
+</tr>
+<tr>
+<td>Pil venstre</td>
+<td><code>venstre</code></td>
+</tr>
+<tr>
+<td>Højre pil</td>
+<td><code>højre</code></td>
+</tr>
+<tr>
+<td>Enter tast</td>
+<td><code>select</code></td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h3 id="HIDBraille">Standard HID Braille displays</h3>
 <p>Dette er en eksperimentel driver for den nye HID Braille standard, som firmaerne Microsoft, Google, Apple samt flere virksomheder bag hjælpeteknologier herunder NV Access nåede til enighed om i 2018.
 Håbet er, at denne standard vil blive vedtaget og benyttet af fremtidige fabrikanter af punktdisplays, hvilket vil fjerne behovet for særskilte drivere.</p>
@@ -8519,6 +9102,41 @@ Håbet er, at denne standard vil blive vedtaget og benyttet af fremtidige fabrik
 </table>
 <!-- KC:endInclude -->
 
+<h3 id="dotPad">Dot Pad</h3>
+<p>Dot Pad fra Dot Inc er en enhed, der kan vise opdaterbar taktil grafik og punktskrift.
+NVDA kan enten vise en enkelt linje med punktskrift på enhedens linje til læsning af punkt, eller flere linjer af punktskrift på området beregnet til taktil grafik.
+A300-modellen har et taktilt grafikområde på 120 gange 80 punktceller, hvilket kan rumme 8 linjer med 20 celler i hver.</p>
+<p>Du kan indstille, om NVDA skal vise braille på den dedikerede punktdisplaylinje eller på det taktile grafikområde via indstillingen "Destination for output via punkt" i NVDAs brailleindstillinger for denne driver.</p>
+<p>Knapper til panorering understøttes, men grundet et begrænset antal knapper på enheden, understøttes andre kommandoer og flytning af markøren ikke.</p>
+<p>The Dot Pad driver supports automatic detection of USB-connected devices.
+However, automatic detection is disabled by default due to the device using generic USB identifiers that could conflict with other devices.
+To enable automatic detection, go to NVDA's Braille settings and check "Dot Pad" in the automatic detection list.
+When automatic detection is enabled and a compatible device is detected, NVDA will automatically connect to it.
+You can also manually select a specific USB or Bluetooth virtual serial port if needed.</p>
+<p>Bemærk venligst, at på grund af hardwarebegrænsninger vil Dot Pad ikke opdatere alle punkter korrekt, mens din hånd er på enheden.
+Sørg for at løfte din hånd helt fra enheden, når du navigerer med NVDA, og begynd først at læse igen, når den er fuldt opdateret.</p>
+<!-- KC:beginInclude -->
+
+<table>
+<thead>
+<tr>
+<th>Navn</th>
+<th>Tast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rul punktdisplay tilbage</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>Rul punktdisplay fremad</td>
+<td><code>pan_right</code></td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h2 id="AdvancedTopics">Avancerede emner</h2>
 <h3 id="SecureMode">Sikker tilstand</h3>
 <p>Systemadministratorer kan ønske at indstille NVDA, så man forhindrer uautoriseret adgang til systemet.
@@ -8539,7 +9157,7 @@ NVDA kan startes i sikker tilstand ved brug af <code>-s</code> <a href="#Command
 <li><a href="#PythonConsole" title="Python-konsollen">Python-konsollen</a></li>
 <li><a href="#LogViewer" title="Logviseren">Logviseren</a> og logføring</li>
 <li><a href="#BrailleViewer" title="Punktskriftsviseren">Punktskriftsviseren</a> og <a href="#SpeechViewer" title="Taleviseren">Taleviseren</a></li>
-<li>Åbning af eksterne filer fra NVDAs menu, såsom brugervejledningen og filen, hvor bidragydere er anførte</li>
+<li>Åbning af eksterne filer fra NVDAs menu, såsom brugervejledningen.</li>
 </ul>
 <p>Installerede versioner af NVDA lagrer deres opsætning, herunder tilføjelsesprogrammer, i <code>%APPDATA%\nvda</code>.
 For at sikre, at NVDA-brugere ikke direkte kan ændre på opsætningen eller tilføjelserne, bør adgangen til denne mappe begrænses.</p>
@@ -8657,8 +9275,8 @@ Disse yderligere parametre skal skrives efter indstillingen og adskilles fra ind
 <td>Stien, hvor alle indstillinger i NVDA skal gemmes. Standardværdien vil blive brugt, hvis sikker tilstand er aktiv.</td>
 </tr>
 <tr>
-<td>None</td>
-<td><code>--lang=SPROG</code></td>
+<td><code>-n LANGUAGE</code></td>
+<td><code>--lang=sprog</code></td>
 <td>Brug et specifikt sprog uanset NVDAs konfiguration. Skriv "Windows" for standardsprog, "en" for engelsk, osv.</td>
 </tr>
 <tr>
@@ -8672,7 +9290,7 @@ Disse yderligere parametre skal skrives efter indstillingen og adskilles fra ind
 <td>Starter NVDA i <a href="#SecureMode" title="sikker tilstand">sikker tilstand</a></td>
 </tr>
 <tr>
-<td>Ingen</td>
+<td><code>-d</code></td>
 <td><code>--disable-addons</code></td>
 <td>ingen tilføjelsesprogrammer</td>
 </tr>
@@ -8719,12 +9337,36 @@ Disse yderligere parametre skal skrives efter indstillingen og adskilles fra ind
 <tr>
 <td>Ingen</td>
 <td><code>--create-portable-silent</code></td>
-<td>Opretter en flytbar kopi af NVDA (starter ikke den nyoprettede kopi). Kræver <code>--portable-path</code> angives</td>
+<td>Opretter en flytbar kopi af NVDA (uden at starte den nye kopi). Kræver, at <code>--portable-path</code> er angivet. Denne mulighed undertrykker advarsler ved skrivning til ikke-tomme mapper og kan overskrive filer uden advarsel.</td>
 </tr>
 <tr>
 <td>Ingen</td>
 <td><code>--portable-path=sti</code></td>
 <td>Stien, hvor den flytbare kopi oprettes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UninstallingNVDA">Uninstalling NVDA</h3>
+<p>NVDA's uninstaller is called <code>uninstall.exe</code> and resides under the NVDA installation directory, <code>%ProgramFiles(x86)%\nvda</code> on 64-bit Windows, or <code>%ProgramFiles%\nvda</code> on 32-bit Windows.</p>
+<p>Note: It is possible to stop NVDA from starting automatically without needing to uninstall NVDA.
+To stop NVDA starting automatically, please refer to the options: <a href="#GeneralSettingsStartAfterLogOn" title="Start NVDA after I sign in">Start NVDA after I sign in</a> and <a href="#GeneralSettingsStartOnLogOnScreen" title="Use NVDA during sign-in">Use NVDA during sign-in</a> in NVDA's general settings.</p>
+<p>Ligesom du kan installere NVDA uden brugerinteraktion ved at tilføje kommandolinjeoptionen <code>--install-silent</code> til NVDA, kan den også afinstalleres stille ved at tilføje kommandoen <code>/S</code> til afinstallationsprogrammet.</p>
+<p>Installed copies of NVDA store their configuration including add-ons in <code>%APPDATA%\nvda</code>.
+These files are not removed by NVDA's uninstaller.</p>
+<p>De mulige kommandolinjeparametre til NVDAs afinstallationsprogram er følgende:</p>
+<table>
+<thead>
+<tr>
+<th>Kort</th>
+<th>Lang</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/S</code></td>
+<td>Ingen</td>
+<td>Affinstallér NVDA uden brugerinteraktion.</td>
 </tr>
 </tbody>
 </table>

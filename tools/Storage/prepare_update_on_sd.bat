@@ -171,6 +171,8 @@ echo 21.0.0?
 echo 21.0.1?
 echo 21.1.0?
 echo 21.2.0?
+echo 22.0.0?
+echo 22.1.0?
 echo.
 call "%associed_language_script%" "firmware_choice_end"
 IF NOT "%no_dir_choice%"=="Y" (
@@ -856,6 +858,24 @@ IF "%firmware_choice%"=="21.2.0" (
 	set expected_md5=adffe1d8b65f4918f8d6dac5cfe735b8
 	set "firmware_link=https://mega.nz/file/yEgTQKrI#Su2dGx8twzd3OEzgls_xg1fKAeo3XID7PijoygR_ANs"
 	set firmware_file_name=Firmware 21.2.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="22.0.0" (
+	set expected_md5=67d9373f2bffb2d4331f822c13687bdd
+	set "firmware_link=https://mega.nz/file/yYZTTLqI#QjAmzw0q98onVejPbusKPSHKFcXDB3mvnXHxLcDZ9hU"
+	set firmware_file_name=Firmware 22.0.0.zip
+	set firmware_folder=firmware_temp\
+	call :cdj_test_max_firmware
+	IF !errorlevel! EQU 1 goto:define_firmware_choice
+	goto:download_firmware
+)
+IF "%firmware_choice%"=="22.1.0" (
+	set expected_md5=d12b63272c93f35aa4136de11597287e
+	set "firmware_link=https://mega.nz/file/uEZ2SALK#aDkIuT986GT3KOFd_LM2lnhQQZigPe7DicsWmt5gh2E"
+	set firmware_file_name=Firmware 22.1.0.zip
 	set firmware_folder=firmware_temp\
 	call :cdj_test_max_firmware
 	IF !errorlevel! EQU 1 goto:define_firmware_choice

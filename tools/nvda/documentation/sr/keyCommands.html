@@ -2,15 +2,16 @@
 <html lang="sr" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.4.2 Kratka napomena za komande</title>
+<title>NVDA 2025.3.3 Kratka napomena za komande</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 
 </head>
-<body><h1 id="nvda-202442-kratka-napomena-za-komande">NVDA 2024.4.2 Kratka napomena za komande</h1>
+<body><h1 id="nvda-202533-kratka-napomena-za-komande">NVDA 2025.3.3 Kratka napomena za komande</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202442-kratka-napomena-za-komande" title="NVDA 2024.4.2 Kratka napomena za komande">NVDA 2024.4.2 Kratka napomena za komande</a><ul>
+<li><a href="#nvda-202533-kratka-napomena-za-komande" title="NVDA 2025.3.3 Kratka napomena za komande">NVDA 2025.3.3 Kratka napomena za komande</a><ul>
 <li><a href="#GettingStartedWithNVDA" title="Korišćenje NVDA-a">Korišćenje NVDA-a</a><ul>
 <li><a href="#NVDATouchGestures" title="NVDA prečice za ekrane osetljive na dodir">NVDA prečice za ekrane osetljive na dodir</a><ul>
 <li><a href="#TouchModes" title="Režimi dodira">Režimi dodira</a></li>
@@ -51,7 +52,7 @@
 </ul>
 </li>
 <li><a href="#ContentRecognition" title="Prepoznavanje sadržaja">Prepoznavanje sadržaja</a><ul>
-<li><a href="#Win10Ocr" title="Windows OCR">Windows OCR</a></li>
+<li><a href="#Win10Ocr" title="Windows optičko prepoznavanje znakova">Windows optičko prepoznavanje znakova</a></li>
 </ul>
 </li>
 <li><a href="#ApplicationSpecificFeatures" title="Posebne karakteristike za aplikacije">Posebne karakteristike za aplikacije</a><ul>
@@ -114,6 +115,10 @@
 </li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="Daljinski pristup">Daljinski pristup</a><ul>
+<li><a href="#RemoteAccessGestures" title="Kratak opis komandi daljinskog pristupa">Kratak opis komandi daljinskog pristupa</a></li>
+</ul>
+</li>
 <li><a href="#ExtraTools" title="Dodatni alati">Dodatni alati</a><ul>
 <li><a href="#LogViewer" title="Pregled dnevnika">Pregled dnevnika</a></li>
 <li><a href="#ReloadPlugins" title="Ponovo učitaj dodatke">Ponovo učitaj dodatke</a></li>
@@ -126,7 +131,7 @@
 <li><a href="#MDVLilli" title="MDV Lilli">MDV Lilli</a></li>
 <li><a href="#Baum" title="Baum/Humanware/APH/Orbit Brajevi Redovi">Baum/Humanware/APH/Orbit Brajevi Redovi</a></li>
 <li><a href="#HedoProfiLine" title="hedo ProfiLine USB">hedo ProfiLine USB</a></li>
-<li><a href="#HedoMobilLine" title="Hedo MobilLine USB">Hedo MobilLine USB</a></li>
+<li><a href="#HedoMobilLine" title="hedo MobilLine USB">hedo MobilLine USB</a></li>
 <li><a href="#HumanWareBrailliant" title="HumanWare Brailliant BI/B serije / BrailleNote Touch">HumanWare Brailliant BI/B serije / BrailleNote Touch</a><ul>
 <li><a href="#HumanWareBrailliantKeyAssignmentForAllModels" title="Komande za sve modele">Komande za sve modele</a></li>
 <li><a href="#HumanWareBrailliantKeyAssignmentForBI32BI40AndB80" title="Komande za Brailliant BI 32, BI 40 i B 80">Komande za Brailliant BI 32, BI 40 i B 80</a></li>
@@ -155,7 +160,9 @@
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille redovi">Nattiq nBraille redovi</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="Standardni HID brajevi redovi">Standardni HID brajevi redovi</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 </ul>
@@ -674,6 +681,20 @@
 <td>Premešta pregledni kursor na sledeću stranicu teksta ako je podržano od aplikacije</td>
 </tr>
 <tr>
+<td>Pomeri se na početak izbora pregledom</td>
+<td><code>NVDA+alt+home</code></td>
+<td><code>NVDA+alt+home</code></td>
+<td>Nema</td>
+<td>Pomera pregledni kursor na prvi znak izabranog teksta</td>
+</tr>
+<tr>
+<td>Pomeri se na kraj izbora pregledom</td>
+<td><code>NVDA+alt+end</code></td>
+<td><code>NVDA+alt+end</code></td>
+<td>Nema</td>
+<td>Pomera pregledni kursor na poslednji znak izabranog teksta</td>
+</tr>
+<tr>
 <td>Izgovori sve uz pregled</td>
 <td>Numerički plus</td>
 <td>NVDA+šift+a</td>
@@ -894,7 +915,7 @@
 <li>g: Slika</li>
 <li>d: Region</li>
 <li>o: Umetnuti objekat (audio i video playeri, aplikacije, dijalozi, etc.)</li>
-<li>1 do 6: Naslovi nivoa 1 do 6</li>
+<li>1 do 9: naslovi na nivoima od 1 do 9</li>
 <li>a: Napomena (komentar, revizija autora, i tako dalje.)</li>
 <li><code>p</code>: Pasus teksta</li>
 <li>w: Greška u pravopisu</li>
@@ -950,9 +971,9 @@
 </thead>
 <tbody>
 <tr>
-<td>Pronađi tekst</td>
-<td>NVDA+control+f</td>
-<td>Otvara dijalog za pretragu</td>
+<td>Pretraži tekst</td>
+<td>NVDA+kontrol+f</td>
+<td>Otvara dijalog pretrage</td>
 </tr>
 <tr>
 <td>Pronađi sledeće</td>
@@ -960,9 +981,9 @@
 <td>Traži sledeće pojavljivanje trenutnog termina pretrage</td>
 </tr>
 <tr>
-<td>Pronađi prethodno</td>
+<td>Pronađi prethodni</td>
 <td>NVDA+šift+f3</td>
-<td>Pretražuje prethodno pojavljivanje trenutnog termina pretrage</td>
+<td>Pretražuje prethodnu pojavu trenutnog termina pretrage</td>
 </tr>
 </tbody>
 </table>
@@ -1042,7 +1063,7 @@ Pritiskanje tačke7 i 8 prevodi brajev unos, bez pritiskanja tastera enter.</p>
 </tbody>
 </table>
 <h2 id="ContentRecognition">Prepoznavanje sadržaja</h2>
-<h3 id="Win10Ocr">Windows OCR</h3>
+<h3 id="Win10Ocr">Windows optičko prepoznavanje znakova</h3>
 <p>Da prepoznate tekst trenutnog navigacionog objekta koristeći Windows OCR, pritisnite NVDA+r.</p>
 <h2 id="ApplicationSpecificFeatures">Posebne karakteristike za aplikacije</h2>
 <h3 id="MicrosoftWord">Microsoft Word</h3>
@@ -1057,14 +1078,14 @@ Pritiskanje tačke7 i 8 prevodi brajev unos, bez pritiskanja tastera enter.</p>
 </thead>
 <tbody>
 <tr>
-<td>Postavi zaglavlja kolona</td>
-<td>NVDA+šift+c</td>
-<td>Ako se pritisne jednom govori programu NVDA da je ovo prva ćelija koja sadrži red sa zaglavljem kolona, koja treba automatski biti izgovorena kada se pomerate ispod kolona ovog reda. Pritiskanje dva puta briše podešavanje.</td>
+<td>Set column headers</td>
+<td><code>NVDA+shift+c</code></td>
+<td>Pressing this once tells NVDA this is the first header cell in the row that contains column headers, which should be automatically announced when moving between columns below this row. Pressing twice will clear the setting.</td>
 </tr>
 <tr>
-<td>Podesi zaglavlje redova</td>
-<td>NVDA+šift+r</td>
-<td>Ako se pritisne jednom govori programu NVDA da je ovo prva ćelija koja sadrži kolone zaglavlja redova, Što treba automatski biti izgovoreno kada se krećete između kolona ovog reda. Pritiskanje dva puta briše podešavanje.</td>
+<td>Postavi zaglavlja redova</td>
+<td><code>NVDA+šift+r</code></td>
+<td>Pritiskanje jednom govori NVDA-u da je ovo prva ćelija zaglavlja u koloni koja sadrži zaglavlja redova, koje treba automatski izgovoriti kada se krećete po redovima nakon ove kolone. Ako se pritisne dva puta podešavanje će biti obrisano.</td>
 </tr>
 </tbody>
 </table>
@@ -1087,14 +1108,14 @@ Ako se pritisne dva puta informacija će biti prikazana u poruci koja se može i
 </thead>
 <tbody>
 <tr>
-<td>Postavi zaglavlja kolona</td>
-<td>NVDA+šift+c</td>
-<td>Ako se pritisne jednom govori programu NVDA da je ovo prva ćelija koja sadrži red sa zaglavljem kolona, koja treba automatski biti izgovorena kada se pomerate ispod kolona ovog reda. Pritiskanje dva puta briše podešavanje.</td>
+<td>Postavi zaglavlja kolone</td>
+<td><code>NVDA+šift+c</code></td>
+<td>Pritiskanje jednom govori NVDA-u da je ovo prva ćelija zaglavlja u redu koji sadrži zaglavlja kolone, koja automatski treba izgovoriti kada se krećete po kolonama ispod ovog reda. Pritiskanje dva puta će obrisati ovo podešavanje.</td>
 </tr>
 <tr>
-<td>Podesi zaglavlje redova</td>
-<td>NVDA+šift+r</td>
-<td>Ako se pritisne jednom govori programu NVDA da je ovo prva ćelija koja sadrži kolone zaglavlja redova, Što treba automatski biti izgovoreno kada se krećete između kolona ovog reda. Pritiskanje dva puta briše podešavanje.</td>
+<td>Postavi zaglavlja redova</td>
+<td><code>NVDA+šift+r</code></td>
+<td>Pritiskanje jednom govori NVDA-u da je ovo prva ćelija zaglavlja u koloni koja sadrži zaglavlja redova, koje treba automatski izgovoriti kada se krećete po redovima nakon ove kolone. Ako se pritisne dva puta podešavanje će biti obrisano.</td>
 </tr>
 </tbody>
 </table>
@@ -1480,15 +1501,15 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedCharacters">Izgovaraj ukucane znakove</td>
-<td>NVDA+2</td>
-<td>NVDA+2</td>
-<td>Kada je omogućeno, NVDA će izgovoriti sve znakove koje upišete na tastaturi.</td>
+<td><code>NVDA+2</code></td>
+<td><code>NVDA+2</code></td>
+<td>Ova opcija kontroliše kada će NVDA izgovoriti znakove koje upisujete na tastaturi.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedWords">Izgovaraj ukucane reči</td>
-<td>NVDA+3</td>
-<td>NVDA+3</td>
-<td>Kada je omogućeno, NVDA će izgovoriti sve reči koje upišete na tastaturi.</td>
+<td><code>NVDA+3</code></td>
+<td><code>NVDA+3</code></td>
+<td>Ova opcija kontroliše kada će NVDA izgovoriti reči koje upisujete na tastaturi.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakCommandKeys">Izgovaraj komandne tastere</td>
@@ -1602,12 +1623,6 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 <td>NVDA+v</td>
 <td>Ova opcija vam dozvoljava da odredite da li će režim pretraživanja staviti klikabilne elemente (linkove, dugmad i polja za unos) na posebnom redu, ili da ostanu u tekstu kako su vizuelno prikazani.</td>
 </tr>
-<tr>
-<td id="BrowseModeSettingsAutoFocusFocusableElements">Automatski postavi sistemski fokus na elemente koji se mogu fokusirati u režimu pretraživanja</td>
-<td>NVDA+8</td>
-<td>NVDA+8</td>
-<td>Onemogućena po podrazumevanim podešavanjima, ova opcija vam omogućava da izaberete da li će sistemski fokus automatski biti postavljen na elemente koji se mogu fokusirati (linkovi, polja za unos, i tako dalje.) u toku navigacije kroz sadržaj kursorom režima pretraživanja.</td>
-</tr>
 </tbody>
 </table>
 <h4 id="DocumentFormattingSettings">Formatiranje dokumenta</h4>
@@ -1644,16 +1659,16 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 </thead>
 <tbody>
 <tr>
-<td>Сачувај подешаванја</td>
-<td>NVDA+контрол+c</td>
-<td>NVDA+контрол+c</td>
-<td>Чува ваша тренутна подешаванја тако да нису изгублјена када изађете из програма НВДА</td>
+<td>Sačuvaj podešavanja</td>
+<td><code>NVDA+kontrol+c</code></td>
+<td><code>NVDA+kontrol+c</code></td>
+<td>Čuva vaša trenutna podešavanja kako ne bi bila izgubljena kada zatvorite NVDA</td>
 </tr>
 <tr>
-<td>Врати подешаванја</td>
-<td>NVDA+контрол+r</td>
-<td>NVDA+контрол+r</td>
-<td>Ако се притисне једном подешаванја се враћају на сачувана. Ако се притисне 3 пута подешаванја се враћају на подразумевана.</td>
+<td>Vrati podešavanja</td>
+<td><code>NVDA+kontrol+r</code></td>
+<td><code>NVDA+kontrol+r</code></td>
+<td>Pritiskanje jednom vraća podešavanja na ona koja ste poslednji put sačuvali. Pritiskanje tri puta ih vraća na fabrička.</td>
 </tr>
 </tbody>
 </table>
@@ -1662,6 +1677,59 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 <ul>
 <li>NVDA+контрол+p: Прикажи дијалог за профиле подешаванја.</li>
 </ul>
+<h2 id="RemoteAccess">Daljinski pristup</h2>
+<h3 id="RemoteAccessGestures">Kratak opis komandi daljinskog pristupa</h3>
+<table>
+<thead>
+<tr>
+<th>Ime</th>
+<th>Komanda</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uspostavi ili prekini daljinsku vezu</td>
+<td><code>NVDA+alt+r</code></td>
+<td>Uspostavlja novu vezu daljinskog pristupa ili, ako je veza već uspostavljena, prekida je.</td>
+</tr>
+<tr>
+<td>Prebaci kontrolisanje</td>
+<td><code>NVDA+alt+tab</code></td>
+<td>Prebacuje se između kontrolisanja udaljenog i lokalnog računara.</td>
+</tr>
+<tr>
+<td>Poveži se</td>
+<td>Nema komande</td>
+<td>Započinje novu vezu daljinskog pristupa. Nedostupno u <a href="#SecureMode" title="bezbednom režimu">bezbednom režimu</a>.</td>
+</tr>
+<tr>
+<td>Kopiraj link</td>
+<td>Nema komande</td>
+<td>Kopira link daljinske veze u vašu privremenu memoriju.</td>
+</tr>
+<tr>
+<td>Prekini vezu</td>
+<td>Nema komadne</td>
+<td>Prekida postojeću vezu daljinskog pristupa.</td>
+</tr>
+<tr>
+<td>Isključi govor udaljenog računara</td>
+<td>Nema komande</td>
+<td>Isključuje ili uključuje dolazni govor sa udaljenog računara.</td>
+</tr>
+<tr>
+<td>Pošalji privremenu memoriju</td>
+<td>Nema komande</td>
+<td>Šalje sadržaj privremene memorije udaljenom računaru.</td>
+</tr>
+<tr>
+<td>Pošalji <code>kontrol+alt+delete</code></td>
+<td>Nema</td>
+<td>Šalje <code>kontrol+alt+delete</code> kontrolisanom računaru.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ExtraTools">Dodatni alati</h2>
 <h3 id="LogViewer">Pregled dnevnika</h3>
 <table>
@@ -2351,7 +2419,7 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 </tr>
 </tbody>
 </table>
-<h3 id="HedoMobilLine">Hedo MobilLine USB</h3>
+<h3 id="HedoMobilLine">hedo MobilLine USB</h3>
 <table>
 <thead>
 <tr>
@@ -4461,6 +4529,57 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 </tr>
 </tbody>
 </table>
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<table>
+<thead>
+<tr>
+<th>Ime</th>
+<th>komanda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pomeri brajev red nazad</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Pomeri brajev red napred</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Pomeri brajev red u prethodni red</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Pomeri brajev red u sledeći red</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Prebaci se na brajevu ćeliju</td>
+<td><code>routing</code></td>
+</tr>
+<tr>
+<td>Strelica gore</td>
+<td><code>up</code></td>
+</tr>
+<tr>
+<td>Strelica dole</td>
+<td><code>down</code></td>
+</tr>
+<tr>
+<td>Strelica levo</td>
+<td><code>left</code></td>
+</tr>
+<tr>
+<td>Strelica desno</td>
+<td><code>right</code></td>
+</tr>
+<tr>
+<td>Enter</td>
+<td><code>select</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="HIDBraille">Standardni HID brajevi redovi</h3>
 <table>
 <thead>
@@ -4495,8 +4614,8 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 <td>Džojstik dole, strelica dole ili razmak+tačka4</td>
 </tr>
 <tr>
-<td>strelica levo</td>
-<td>Razmak+tačka3, džojstik levo ili strelica levo</td>
+<td>strelicaLevo</td>
+<td>Razmak+tačka3, džojstik levo ili dpad levo</td>
 </tr>
 <tr>
 <td>strelica desno</td>
@@ -4541,6 +4660,25 @@ U Microsoft 2016, 365 i novijim office verzijama, komentari u programu Microsoft
 <tr>
 <td>Izgovori sve</td>
 <td>Razmak+tačka1+tačka2+tačka3+tačka4+tačka5+tačka6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dotPad">Dot Pad</h3>
+<table>
+<thead>
+<tr>
+<th>Ime</th>
+<th>Komanda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pomeri brajev red nazad</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>Pomeri brajev red napred</td>
+<td><code>pan_right</code></td>
 </tr>
 </tbody>
 </table>

@@ -2,15 +2,16 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.4.2 User Guide</title>
+<title>NVDA 2025.3.3 User Guide</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="numberedHeadings.css">
 </head>
-<body><h1 id="nvda-202442-user-guide">NVDA 2024.4.2 User Guide</h1>
+<body><h1 id="nvda-202533-user-guide">NVDA 2025.3.3 User Guide</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202442-user-guide" title="NVDA 2024.4.2 User Guide">NVDA 2024.4.2 User Guide</a><ul>
+<li><a href="#nvda-202533-user-guide" title="NVDA 2025.3.3 User Guide">NVDA 2025.3.3 User Guide</a><ul>
 <li><a href="#Introduction" title="Introduction">Introduction</a><ul>
 <li><a href="#GeneralFeatures" title="General Features">General Features</a></li>
 <li><a href="#SystemRequirements" title="System Requirements">System Requirements</a><ul>
@@ -195,6 +196,8 @@
 <li><a href="#GeneralSettingsCheckForUpdates" title="Automatically check for updates to NVDA">Automatically check for updates to NVDA</a></li>
 <li><a href="#GeneralSettingsGatherUsageStats" title="Allow NV Access to gather NVDA usage statistics">Allow NV Access to gather NVDA usage statistics</a></li>
 <li><a href="#GeneralSettingsNotifyPendingUpdates" title="Notify for pending updates on startup">Notify for pending updates on startup</a></li>
+<li><a href="#UpdateMirror" title="Update Mirror">Update Mirror</a></li>
+<li><a href="#PreventDisplayTurningOff" title="Prevent display from turning off during say all or reading with braille">Prevent display from turning off during say all or reading with braille</a></li>
 </ul>
 </li>
 <li><a href="#SpeechSettings" title="Speech Settings">Speech Settings</a><ul>
@@ -207,8 +210,11 @@
 <li><a href="#SpeechSettingsPitch" title="Pitch">Pitch</a></li>
 <li><a href="#SpeechSettingsVolume" title="Volume">Volume</a></li>
 <li><a href="#SpeechSettingsInflection" title="Inflection">Inflection</a></li>
+<li><a href="#SpeechSettingsUseWasapi" title="Use modern audio output system (WASAPI)">Use modern audio output system (WASAPI)</a></li>
 <li><a href="#SpeechSettingsLanguageSwitching" title="Automatic Language switching">Automatic Language switching</a></li>
 <li><a href="#SpeechSettingsDialectSwitching" title="Automatic Dialect switching">Automatic Dialect switching</a></li>
+<li><a href="#ReportLanguage" title="Report language changes while reading">Report language changes while reading</a></li>
+<li><a href="#ReportIfLanguageIsNotSupportedBySynthesizer" title="Report when switching to language is not supported by synthesizer">Report when switching to language is not supported by synthesizer</a></li>
 <li><a href="#SpeechSettingsSymbolLevel" title="Punctuation/Symbol Level">Punctuation/Symbol Level</a></li>
 <li><a href="#SpeechSettingsTrust" title="Trust voice's language when processing characters and symbols">Trust voice's language when processing characters and symbols</a></li>
 <li><a href="#SpeechUnicodeNormalization" title="Unicode normalization">Unicode normalization</a></li>
@@ -252,6 +258,7 @@
 </ul>
 </li>
 <li><a href="#BrailleSpeakOnRouting" title="Speak character when routing cursor in text">Speak character when routing cursor in text</a></li>
+<li><a href="#BrailleSpeakOnNavigating" title="Speak when navigating by line or paragraph">Speak when navigating by line or paragraph</a></li>
 <li><a href="#BrailleSettingsWordWrap" title="Avoid splitting words when possible">Avoid splitting words when possible</a></li>
 <li><a href="#BrailleUnicodeNormalization" title="Unicode normalization">Unicode normalization</a></li>
 <li><a href="#BrailleSettingsInterruptSpeech" title="Interrupt speech while scrolling">Interrupt speech while scrolling</a></li>
@@ -355,7 +362,6 @@
 <li><a href="#BrowseModeSettingsAutoPassThroughOnCaretMove" title="Automatic focus mode for caret movement">Automatic focus mode for caret movement</a></li>
 <li><a href="#BrowseModeSettingsPassThroughAudioIndication" title="Audio indication of Focus and Browse modes">Audio indication of Focus and Browse modes</a></li>
 <li><a href="#BrowseModeSettingsTrapNonCommandGestures" title="Trap non-command gestures from reaching the document">Trap non-command gestures from reaching the document</a></li>
-<li><a href="#BrowseModeSettingsAutoFocusFocusableElements" title="Automatically set system focus to focusable elements">Automatically set system focus to focusable elements</a></li>
 </ul>
 </li>
 <li><a href="#DocumentFormattingSettings" title="Document Formatting">Document Formatting</a><ul>
@@ -370,12 +376,33 @@
 </ul>
 </li>
 <li><a href="#AddonStoreSettings" title="Add-on Store Settings">Add-on Store Settings</a><ul>
-<li><a href="#AutomaticAddonUpdates" title="Update Notifications">Update Notifications</a></li>
+<li><a href="#AutomaticAddonUpdates" title="Automatic updates">Automatic updates</a></li>
+<li><a href="#DefaultAddonUpdateChannel" title="Default Update Channel">Default Update Channel</a></li>
+<li><a href="#AllowIncompatibleAddonUpdates" title="Allow automatic updates to install incompatible add-ons">Allow automatic updates to install incompatible add-ons</a></li>
+<li><a href="#AddonStoreMetadataMirror" title="Mirror server">Mirror server</a></li>
+</ul>
+</li>
+<li><a href="#RemoteSettings" title="Remote Access Settings">Remote Access Settings</a><ul>
+<li><a href="#RemoteEnable" title="Enable Remote Access">Enable Remote Access</a></li>
+<li><a href="#RemoteConfirmDisconnect" title="Confirm before disconnecting when controlled">Confirm before disconnecting when controlled</a></li>
+<li><a href="#RemoteMuteOnLocalControl" title="Mute when controlling the local computer">Mute when controlling the local computer</a></li>
+<li><a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a></li>
+<li><a href="#RemoteAutoconnectMode" title="Mode">Mode</a></li>
+<li><a href="#RemoteAutoconnectServer" title="Server">Server</a></li>
+<li><a href="#RemoteAutoconnectHost" title="Host">Host</a></li>
+<li><a href="#RemoteAutoconnectPort" title="Port">Port</a></li>
+<li><a href="#RemoteAutoconnectKey" title="Key">Key</a></li>
+<li><a href="#RemoteDeleteFingerprints" title="Delete all trusted fingerprints">Delete all trusted fingerprints</a></li>
 </ul>
 </li>
 <li><a href="#Win10OcrSettings" title="Windows OCR Settings">Windows OCR Settings</a><ul>
 <li><a href="#Win10OcrSettingsRecognitionLanguage" title="Recognition language">Recognition language</a></li>
 <li><a href="#Win10OcrSettingsAutoRefresh" title="Periodically refresh recognized content">Periodically refresh recognized content</a></li>
+</ul>
+</li>
+<li><a href="#SetURLDialog" title="Set Mirror Dialog">Set Mirror Dialog</a><ul>
+<li><a href="#SetURLTextbox" title="URL">URL</a></li>
+<li><a href="#SetURLTest" title="Test...">Test...</a></li>
 </ul>
 </li>
 <li><a href="#AdvancedSettings" title="Advanced Settings">Advanced Settings</a><ul>
@@ -396,9 +423,10 @@
 <li><a href="#DiffAlgo" title="Diff algorithm">Diff algorithm</a></li>
 <li><a href="#WtStrategy" title="Speak new text in Windows Terminal via">Speak new text in Windows Terminal via</a></li>
 <li><a href="#CancelExpiredFocusSpeech" title="Attempt to cancel speech for expired focus events">Attempt to cancel speech for expired focus events</a></li>
+<li><a href="#TrimLeadingSilenceSpeech" title="Trim leading silence in speech audio">Trim leading silence in speech audio</a></li>
+<li><a href="#UseWASAPIForSAPI4" title="Use WASAPI for SAPI 4 audio output">Use WASAPI for SAPI 4 audio output</a></li>
 <li><a href="#AdvancedSettingsCaretMoveTimeout" title="Caret move timeout (in MS)">Caret move timeout (in MS)</a></li>
 <li><a href="#ReportTransparentColors" title="Report transparency for colors">Report transparency for colors</a></li>
-<li><a href="#WASAPI" title="Use WASAPI for audio output">Use WASAPI for audio output</a></li>
 <li><a href="#AdvancedSettingsDebugLoggingCategories" title="Debug logging categories">Debug logging categories</a></li>
 <li><a href="#PlayErrorSound" title="Play a sound for logged errors">Play a sound for logged errors</a></li>
 <li><a href="#TextParagraphRegexEdit" title="Regular expression for text paragraph quick navigation commands">Regular expression for text paragraph quick navigation commands</a></li>
@@ -426,6 +454,19 @@
 <li><a href="#LocationOfConfigurationFiles" title="Location of Configuration files">Location of Configuration files</a></li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="Remote Access">Remote Access</a><ul>
+<li><a href="#RemoteAccessGettingStarted" title="Getting Started">Getting Started</a></li>
+<li><a href="#RemoteAccessSetup" title="Setting Up a Remote Access Session">Setting Up a Remote Access Session</a><ul>
+<li><a href="#RemoteAccessMode" title="Mode Selection (Controlling or Controlled)">Mode Selection (Controlling or Controlled)</a></li>
+<li><a href="#RemoteAccessJoin" title="Connecting to an existing server (Host and Key Provided)">Connecting to an existing server (Host and Key Provided)</a></li>
+<li><a href="#RemoteAccessConnectRelay" title="Starting a Connection Via a Relay Server">Starting a Connection Via a Relay Server</a></li>
+<li><a href="#RemoteAccessConnectSelfHosted" title="Using NVDA as the server">Using NVDA as the server</a></li>
+</ul>
+</li>
+<li><a href="#RemoteAccessUsage" title="Using Remote Access">Using Remote Access</a></li>
+<li><a href="#RemoteAccessGestures" title="Remote Access Key Commands Summary">Remote Access Key Commands Summary</a></li>
+</ul>
+</li>
 <li><a href="#AddonsManager" title="Add-ons and the Add-on Store">Add-ons and the Add-on Store</a><ul>
 <li><a href="#AddonStoreBrowsing" title="Browsing add-ons">Browsing add-ons</a><ul>
 <li><a href="#AddonStoreFilterStatus" title="Add-on list views">Add-on list views</a></li>
@@ -433,6 +474,7 @@
 <li><a href="#AddonStoreFilterIncompatible" title="Include incompatible add-ons">Include incompatible add-ons</a></li>
 <li><a href="#AddonStoreFilterChannel" title="Filter add-ons by channel">Filter add-ons by channel</a></li>
 <li><a href="#AddonStoreFilterSearch" title="Searching for add-ons">Searching for add-ons</a></li>
+<li><a href="#AddonStoreSortByColumn" title="Sorting the add-ons list by column">Sorting the add-ons list by column</a></li>
 </ul>
 </li>
 <li><a href="#AddonStoreActions" title="Add-on actions">Add-on actions</a><ul>
@@ -440,6 +482,7 @@
 <li><a href="#AddonStoreRemoving" title="Removing Add-ons">Removing Add-ons</a></li>
 <li><a href="#AddonStoreDisablingEnabling" title="Disabling and Enabling Add-ons">Disabling and Enabling Add-ons</a></li>
 <li><a href="#AddonStoreReviews" title="Reviewing add-ons and reading reviews">Reviewing add-ons and reading reviews</a></li>
+<li><a href="#AddonStoreUpdateChannel" title="Changing the automatic update channel">Changing the automatic update channel</a></li>
 </ul>
 </li>
 <li><a href="#incompatibleAddonsManager" title="Incompatible Add-ons">Incompatible Add-ons</a></li>
@@ -501,13 +544,16 @@
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille Displays">Nattiq nBraille Displays</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="Standard HID Braille displays">Standard HID Braille displays</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 <li><a href="#AdvancedTopics" title="Advanced Topics">Advanced Topics</a><ul>
 <li><a href="#SecureMode" title="Secure Mode">Secure Mode</a></li>
 <li><a href="#SecureScreens" title="Secure Screens">Secure Screens</a></li>
 <li><a href="#CommandLineOptions" title="Command Line Options">Command Line Options</a></li>
+<li><a href="#UninstallingNVDA" title="Uninstalling NVDA">Uninstalling NVDA</a></li>
 <li><a href="#SystemWideParameters" title="System Wide Parameters">System Wide Parameters</a></li>
 </ul>
 </li>
@@ -516,7 +562,7 @@
 </li>
 </ul>
 </div>
-<!-- KC:title: NVDA 2024.4.2 Commands Quick Reference -->
+<!-- KC:title: NVDA 2025.3.3 Commands Quick Reference -->
 
 <h2 id="Introduction">Introduction</h2>
 <p>Welcome to NVDA!</p>
@@ -533,11 +579,12 @@ NVDA is developed by <a href="https://www.nvaccess.org/" rel="noopener" target="
 <li>Reporting of textual formatting where available such as font name and size, style and spelling errors</li>
 <li>Automatic announcement of text under the mouse and optional audible indication of the mouse position</li>
 <li>Support for many refreshable braille displays, including the ability to detect many of them automatically as well as braille input on braille displays with a braille keyboard</li>
+<li>Ability to <a href="#RemoteAccess" title="connect to and control another computer running NVDA">connect to and control another computer running NVDA</a> for remote assistance or collaboration</li>
 <li>Ability to run entirely from a USB flash drive or other portable media without the need for installation</li>
 <li>Easy to use talking installer</li>
 <li>Translated into 54 languages</li>
 <li>Support for modern Windows Operating Systems including both 32 and 64 bit variants</li>
-<li>Ability to run during Windows sign-in and <a href="#SecureScreens" title="other secure screens">other secure screens</a>.</li>
+<li>Ability to run during Windows sign-in and <a href="#SecureScreens" title="other secure screens">other secure screens</a></li>
 <li>Announcing controls and text while using touch gestures</li>
 <li>Support for common accessibility interfaces such as Microsoft Active Accessibility, Java Access Bridge, IAccessible2 and UI Automation</li>
 <li>Support for Windows Command Prompt and console applications</li>
@@ -547,7 +594,7 @@ NVDA is developed by <a href="https://www.nvaccess.org/" rel="noopener" target="
 <h4 id="MinimumSystemRequirements">Minimum System Requirements</h4>
 <ul>
 <li>Operating Systems: all 32-bit and 64-bit editions of Windows 8.1, Windows 10, Windows 11, and all Server Operating Systems starting from Windows Server 2012 R2.<ul>
-<li>both AMD64 and ARM64 variants of Windows are supported.</li>
+<li>both AMD64 and ARM64 variants of Windows are supported, including Copilot+ PCs.</li>
 <li>Note that 32-bit operating systems are no longer under active support.</li>
 <li>Note that Windows 8.1 and Windows Server versions older than 2022 are no longer under active support.</li>
 </ul>
@@ -557,7 +604,7 @@ NVDA is developed by <a href="https://www.nvaccess.org/" rel="noopener" target="
 <h4 id="RecommendedSystemRequirements">Recommended System Requirements</h4>
 <ul>
 <li>Operating Systems: 64-bit editions of Windows 10, Windows 11, and Windows Server 2022.<ul>
-<li>both AMD64 and ARM64 variants of Windows are supported.</li>
+<li>both AMD64 and ARM64 variants of Windows are supported, including Copilot+ PCs.</li>
 </ul>
 </li>
 <li>at least 500 MB of storage space.</li>
@@ -565,7 +612,7 @@ NVDA is developed by <a href="https://www.nvaccess.org/" rel="noopener" target="
 </ul>
 <h3 id="Internationalization">Internationalization</h3>
 <p>It is important that people anywhere in the world, no matter what language they speak, get equal access to technology.
-Besides English, NVDA has been translated into 54 languages including: Afrikaans, Albanian, Amharic, Arabic, Aragonese, Bulgarian, Burmese, Catalan, Chinese (simplified and traditional), Croatian, Czech, Danish, Dutch, Farsi, Finnish, French, Galician, Georgian, German (Germany and Switzerland), Greek, Hebrew, Hindi, Hungarian, Icelandic, Irish, Italian, Japanese, Kannada, Korean, Kyrgyz, Lithuanian, Macedonian, Mongolian, Nepali, Norwegian, Polish, Portuguese (Brazil and Portugal), Punjabi, Romanian, Russian, Serbian, Slovak, Slovenian, Spanish (Colombia and Spain), Swedish, Tamil, Thai, Turkish, Ukrainian and Vietnamese.</p>
+Besides English, NVDA has been translated into 55 languages including: Afrikaans, Albanian, Amharic, Arabic, Aragonese, Bosnian, Bulgarian, Burmese, Catalan, Chinese (simplified and traditional), Croatian, Czech, Danish, Dutch, Farsi, Finnish, French, Galician, Georgian, German (Germany and Switzerland), Greek, Hebrew, Hindi, Hungarian, Icelandic, Irish, Italian, Japanese, Kannada, Korean, Kyrgyz, Lithuanian, Macedonian, Mongolian, Nepali, Norwegian, Polish, Portuguese (Brazil and Portugal), Punjabi, Romanian, Russian, Serbian, Slovak, Slovenian, Spanish (Colombia and Spain), Swedish, Tamil, Thai, Turkish, Ukrainian and Vietnamese.</p>
 <h3 id="SpeechSynthesizerSupport">Speech Synthesizer Support</h3>
 <p>Apart from providing its messages and interface in several languages, NVDA can also enable the user to read content in any language, as long as they have a speech synthesizer that can speak that language.</p>
 <p>NVDA is bundled with <a href="https://github.com/espeak-ng/espeak-ng" rel="noopener" target="_blank" title="eSpeak NG">eSpeak NG</a>, a free, open-source, multi-lingual speech synthesizer.</p>
@@ -578,7 +625,7 @@ Furthermore, NVDA will detect many braille displays automatically by default.
 Please see the <a href="#SupportedBrailleDisplays" title="Supported Braille Displays">Supported Braille Displays</a> section for information about the supported braille displays.</p>
 <p>NVDA supports braille codes for many languages, including contracted, uncontracted and computer braille codes.</p>
 <h3 id="LicenseAndCopyright">License and Copyright</h3>
-<p>NVDA is copyright 2006-2024 NVDA contributors.</p>
+<p>NVDA is copyright 2006-2025 NVDA contributors.</p>
 <p>NVDA is available under the GNU General Public License version 2, with two special exceptions.
 The exceptions are outlined in the license document under the sections "Non-GPL Components in Plugins and Drivers" and "Microsoft Distributable Code".
 NVDA also includes and uses components which are made available under different free and open source licenses.
@@ -587,8 +634,13 @@ This applies to both original and modified copies of this software, plus any der
 <p>For further details, you can <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" rel="noopener" target="_blank" title="view the full license.">view the full license.</a>
 For details regarding exceptions, access the license document from the NVDA menu under the "help" section.</p>
 <h2 id="NVDAQuickStartGuide">NVDA Quick Start Guide</h2>
-<p>This quick start guide contains three main sections: downloading, initial setup, and running NVDA.
-These are followed by information on adjusting preferences, using add-ons, participating in the community and getting help.
+<p>This quick start guide contains three main sections:</p>
+<ul>
+<li><a href="#GettingAndSettingUpNVDA" title="Downloading">Downloading</a>: Where to get NVDA and steps for downloading it</li>
+<li><a href="#SettingUpNVDA" title="Initial setup">Initial setup</a>: Steps to install and setup NVDA</li>
+<li><a href="#RunningNVDA" title="Running NVDA">Running NVDA</a>: Commonly used keystrokes and NVDA features</li>
+</ul>
+<p>These are followed by information on <a href="#Preferences" title="adjusting preferences">adjusting preferences</a>, <a href="#Addons" title="using add-ons">using add-ons</a>, <a href="#Community" title="participating in the community">participating in the community</a> and <a href="#GettingHelp" title="getting help">getting help</a>.
 The information in this guide is condensed from other parts of the NVDA User Guide.
 Please refer to the full User Guide for more detailed information on each topic.</p>
 <h3 id="GettingAndSettingUpNVDA">Downloading NVDA</h3>
@@ -619,10 +671,10 @@ If available, an internet connection does enable NVDA to check for updates perio
 The year and version changes between updates to reflect the current release.</p>
 <ol>
 <li>Run the downloaded file.
-Music plays while a temporary copy of NVDA loads.
+You may need to wait a few seconds while a temporary copy of NVDA loads.
 Once loaded, NVDA will speak throughout the rest of the process.</li>
-<li>The NVDA Launcher window appears with the license agreement.
-Press <code>downArrow</code> to read the license agreement if desired.</li>
+<li>The NVDA Launcher window appears with a button to open the license agreement.
+Press the <code>downArrow</code> to read the license agreement.</li>
 <li>Press <code>tab</code> to move to the "I agree" checkbox, then press the <code>spacebar</code> to check it.</li>
 <li>Press <code>tab</code> to move through the options, then press <code>enter</code> on the desired option.</li>
 </ol>
@@ -659,7 +711,7 @@ If desired, press <code>tab</code> and <code>spaceBar</code> to change any of th
 <li>A progress bar fills up as NVDA installs.
 During this process NVDA sounds an increasingly higher pitched beep.
 This process is often fast and may not be noticed.</li>
-<li>A dialog box appears confirm that the install of NVDA has been successful.
+<li>A dialog box appears to confirm that the install of NVDA has been successful.
 The message advises to "Press OK to start the installed copy".
 Press <code>enter</code> to start the installed copy.</li>
 <li>The "Welcome to NVDA" dialog appears, and NVDA reads a welcome message.
@@ -811,6 +863,12 @@ The actual commands will not execute while in input help mode.</p>
 <td>Reports text formatting. Pressing twice shows the information in a window</td>
 </tr>
 <tr>
+<td>Report language</td>
+<td>Not assigned</td>
+<td>Not assigned</td>
+<td>Reports text language. Pressing twice shows the information in a window</td>
+</tr>
+<tr>
 <td>Report link destination</td>
 <td><code>NVDA+k</code></td>
 <td><code>NVDA+k</code></td>
@@ -833,13 +891,13 @@ The actual commands will not execute while in input help mode.</p>
 <td>Speak typed characters</td>
 <td><code>NVDA+2</code></td>
 <td><code>NVDA+2</code></td>
-<td>When enabled, NVDA will announce all characters you type on the keyboard.</td>
+<td>Controls when NVDA announces characters you type.</td>
 </tr>
 <tr>
 <td>Speak typed words</td>
 <td><code>NVDA+3</code></td>
 <td><code>NVDA+3</code></td>
-<td>When enabled, NVDA will announce word you type on the keyboard.</td>
+<td>Controls when NVDA announces words you type.</td>
 </tr>
 <tr>
 <td>Speak command keys</td>
@@ -924,8 +982,8 @@ When you're on a voice setting, it will set the first or last voice.</p>
 <td>Move to the next heading</td>
 </tr>
 <tr>
-<td>Heading level 1, 2, or 3</td>
-<td><code>1</code>, <code>2</code>, <code>3</code></td>
+<td>Heading level 1, 2, etc.</td>
+<td><code>1</code>, <code>2</code>, etc.</td>
 <td>Move to the next heading at the specified level</td>
 </tr>
 <tr>
@@ -1040,9 +1098,9 @@ Press <code>enter</code> on the add-on to open the actions list; choose "Update"
 To learn more about and configure this behaviour, refer to <a href="#AutomaticAddonUpdates" title="&quot;Update Notifications&quot;">"Update Notifications"</a>.</p>
 <h3 id="Community">Community</h3>
 <p>NVDA has a vibrant user community.
-There is a main <a href="https://nvda.groups.io/g/nvda" rel="noopener" target="_blank" title="English language email list">English language email list</a> and a page full of <a href="https://github.com/nvaccess/nvda/wiki/Connect" rel="noopener" target="_blank" title="local language groups">local language groups</a>.
-NV Access, makers of NVDA, are active on <a href="https://twitter.com/nvaccess" rel="noopener" target="_blank" title="Twitter">Twitter</a> and <a href="https://www.facebook.com/NVAccess" rel="noopener" target="_blank" title="Facebook">Facebook</a>.
-NV Access also have a regular <a href="https://www.nvaccess.org/category/in-process/" rel="noopener" target="_blank" title="In-Process blog">In-Process blog</a>.</p>
+NV Access, makers of NVDA, are active on <a href="https://fosstodon.org/@NVAccess" rel="noopener" target="_blank" title="Mastodon">Mastodon</a>, <a href="https://x.com/nvaccess" rel="noopener" target="_blank" title="Twitter/X">Twitter/X</a> and <a href="https://www.facebook.com/NVAccess" rel="noopener" target="_blank" title="Facebook">Facebook</a>.
+NV Access also have a regular <a href="https://www.nvaccess.org/category/in-process/" rel="noopener" target="_blank" title="In-Process blog">In-Process blog</a>.
+There is a main <a href="https://groups.google.com/a/nvaccess.org/g/nvda-users" rel="noopener" target="_blank" title="NV Access owned email list">NV Access owned email list</a> and a page full of <a href="https://github.com/nvaccess/nvda/wiki/Connect" rel="noopener" target="_blank" title="other community groups">other community groups</a>.</p>
 <p>There is also an <a href="https://certification.nvaccess.org/" rel="noopener" target="_blank" title="NVDA Certified Expert">NVDA Certified Expert</a> program.
 This is an online exam you can complete to demonstrate your skills in NVDA.
 <a href="https://certification.nvaccess.org/" rel="noopener" target="_blank" title="NVDA Certified Experts">NVDA Certified Experts</a> can list their contact and relevant business details.</p>
@@ -1051,7 +1109,7 @@ This is an online exam you can complete to demonstrate your skills in NVDA.
 From this submenu you can access the User Guide, a quick reference of commands, history of new features and more.
 These first three options open in the default web browser.
 There is also more comprehensive Training Material available in the <a href="https://www.nvaccess.org/shop" rel="noopener" target="_blank" title="NV Access Shop">NV Access Shop</a>.</p>
-<p>We recommend starting with the "Basic Training for NVDA module".
+<p>We recommend starting with the "Basic Training for NVDA" module.
 This module covers concepts from getting started up to browsing the web and using object navigation.
 It is available in:</p>
 <ul>
@@ -1088,7 +1146,7 @@ This option is enabled by default for fresh installations.</p>
 <p>This option allows you to choose whether or not NVDA should create a shortcut on the desktop to start NVDA.
 If created, this shortcut will also be assigned a shortcut key of <code>control+alt+n</code>, allowing you to start NVDA at any time with this keystroke.</p>
 <h4 id="CopyPortableConfigurationToCurrentUserAccount">Copy Portable Configuration to Current User Account</h4>
-<p>This option allows you to choose whether or not NVDA should copy the user configuration from the currently running NVDA into the configuration for the currently logged on  user, for the installed copy of NVDA.
+<p>This option allows you to choose whether or not NVDA should copy the user configuration from the currently running NVDA into the configuration for the currently logged on user, for the installed copy of NVDA.
 This will not copy the configuration for any other users of this system nor to the system configuration for use during Windows sign-in and <a href="#SecureScreens" title="other secure screens">other secure screens</a>.
 This option is only available when installing from a portable copy, not when installing directly from the downloaded Launcher package.</p>
 <h3 id="CreatingAPortableCopy">Creating a Portable Copy</h3>
@@ -1117,7 +1175,12 @@ This includes disabling usage of the <a href="#AddonsManager" title="Add-on Stor
 <p>Portable and temporary copies of NVDA have the following restrictions:</p>
 <ul>
 <li>The inability to automatically start during and/or after log-on.</li>
-<li>The inability to interact with applications running with administrative privileges, unless of course NVDA itself has been run also with these privileges (not recommended).</li>
+<li>The inability to interact with applications running with administrative privileges, unless of course NVDA itself has been run also with these privileges (not recommended). Examples include:<ul>
+<li>Command Prompt and PowerShell running in admin mode</li>
+<li>Task Manager</li>
+<li>Windows 11 Voice Access</li>
+</ul>
+</li>
 <li>The inability to read User Account Control (UAC) screens when trying to start an application with administrative privileges.</li>
 <li>The inability to support input from a touchscreen.</li>
 <li>The inability to provide features such as browse mode and speaking of typed characters in Windows Store apps.</li>
@@ -1161,7 +1224,7 @@ By default, both the <code>insert</code> and <code>numpadInsert</code> keys are 
 <p>If you wish to cause one of the NVDA modifier keys to behave as it usually would if NVDA were not running (e.g. you wish to turn Caps Lock on when you have set Caps Lock to be an NVDA modifier key), you can press the key twice in quick succession.</p>
 <h4 id="KeyboardLayouts">Keyboard Layouts</h4>
 <p>NVDA currently comes with two sets of key commands (known as keyboard layouts): the desktop layout and the laptop layout.
-By default, NVDA  is set to use the Desktop layout, though you can switch to the Laptop layout in the Keyboard category of the <a href="#NVDASettings" title="NVDA Settings">NVDA Settings</a> dialog, found under Preferences in the NVDA menu.</p>
+By default, NVDA is set to use the Desktop layout, though you can switch to the Laptop layout in the Keyboard category of the <a href="#NVDASettings" title="NVDA Settings">NVDA Settings</a> dialog, found under Preferences in the NVDA menu.</p>
 <p>The Desktop layout makes heavy use of the numpad (with Num Lock off).
 Although most laptops do not have a physical numpad, some laptops can emulate one by holding down the FN key and pressing letters and numbers on the right-hand side of the keyboard (7, 8, 9, u, i, o, j, k, l, etc.).
 If your laptop cannot do this or does not allow you to turn Num Lock off, you may want to switch to the Laptop layout instead.</p>
@@ -1182,7 +1245,7 @@ You can also keep your finger on the screen and move it around to read other con
 Following are some instructions on how to perform the various touch gestures.</p>
 <h5 id="Taps">Taps</h5>
 <p>Tap the screen quickly with one or more fingers.</p>
-<p>Tapping once with one  finger is simply known as a tap.
+<p>Tapping once with one finger is simply known as a tap.
 Tapping with 2 fingers at the same time is a 2-finger tap and so on.</p>
 <p>If the same tap is performed one or more times again in quick succession, NVDA will instead treat this as a multi-tap gesture.
 Tapping twice will result in a double-tap.
@@ -1215,7 +1278,7 @@ When you find the key you wish to press, double-tap the key or lift your finger,
 <p>To turn on input help, press NVDA+1.
 To turn it off, press NVDA+1 again.
 While in input help, performing any input gesture (such as pressing a key or performing a touch gesture) will report the action and describe what it does (if anything).
-The actual  commands will not execute while in input help mode.</p>
+The actual commands will not execute while in input help mode.</p>
 <h3 id="TheNVDAMenu">The NVDA menu</h3>
 <p>The NVDA menu allows you to control NVDA's settings, access help, save/revert your configuration, Modify speech dictionaries, access additional tools and exit NVDA.</p>
 <p>To get to the NVDA menu from anywhere in Windows while NVDA is running, you may do any of the following:</p>
@@ -1825,6 +1888,20 @@ This can be toggled on and off.</p>
 <td>Moves the review cursor to the next page of text if supported by the application</td>
 </tr>
 <tr>
+<td>Move to start of selection in review</td>
+<td><code>NVDA+alt+home</code></td>
+<td><code>NVDA+alt+home</code></td>
+<td>None</td>
+<td>Moves the review cursor to the first character of the selected text</td>
+</tr>
+<tr>
+<td>Move to end of selection in review</td>
+<td><code>NVDA+alt+end</code></td>
+<td><code>NVDA+alt+end</code></td>
+<td>None</td>
+<td>Moves the review cursor to the last character of the selected text</td>
+</tr>
+<tr>
 <td>Say all with review</td>
 <td>numpadPlus</td>
 <td>NVDA+shift+a</td>
@@ -1871,7 +1948,7 @@ This can be toggled on and off.</p>
 <!-- KC:endInclude -->
 
 <p>Note: numpad keys require the Num Lock to be turned off to work properly.</p>
-<p>A good way to remember the basic text review commands  when using the Desktop layout  is to think of them as being in a grid of three by three, with top to bottom being line, word and character and left to right being previous, current and next.
+<p>A good way to remember the basic text review commands when using the Desktop layout is to think of them as being in a grid of three by three, with top to bottom being line, word and character and left to right being previous, current and next.
 The layout is illustrated as follows:</p>
 <table>
 <thead>
@@ -2145,7 +2222,7 @@ Note that not all of these commands are supported in every type of document.</p>
 <li>g: graphic</li>
 <li>d: landmark</li>
 <li>o: embedded object (audio and video player, application, dialog, etc.)</li>
-<li>1 to 6: headings at levels 1 to 6 respectively</li>
+<li>1 to 9: headings at levels 1 to 9 respectively</li>
 <li>a: annotation (comment, editor revision, etc.)</li>
 <li><code>p</code>: text paragraph</li>
 <li>w: spelling error</li>
@@ -2270,7 +2347,7 @@ Use the following keys for performing searches:</p>
 <tr>
 <td>Find text</td>
 <td>NVDA+control+f</td>
-<td>Opens the  search dialog</td>
+<td>Opens the search dialog</td>
 </tr>
 <tr>
 <td>Find next</td>
@@ -2280,7 +2357,7 @@ Use the following keys for performing searches:</p>
 <tr>
 <td>Find previous</td>
 <td>NVDA+shift+f3</td>
-<td>searches the previous  occurrence of the current search term</td>
+<td>searches the previous occurrence of the current search term</td>
 </tr>
 </tbody>
 </table>
@@ -2316,7 +2393,14 @@ A key command is provided to return to the original page containing the embedded
 <h3 id="NativeSelectionMode">Native Selection Mode</h3>
 <p>By default when selecting text with the <code>shift+arrow</code> keys in Browse Mode, a selection is only made within NVDA's Browse Mode representation of the document, and not within the application itself.
 This means that the selection is not visible on screen, and copying text with <code>control+c</code> will only copy NVDA's plain text representation of the content. i.e. formatting of tables, or whether something is a link will not be copied.
-However, NVDA has a Native Selection Mode which can be turned on in particular Browse Mode documents (so far only Mozilla Firefox) which causes the document's native selection to follow NVDA's Browse Mode selection.</p>
+However, NVDA has a Native Selection Mode which can be turned on in particular Browse Mode documents which can support it.
+Native Selection causes the document's native selection to follow NVDA's Browse Mode selection, which enables details such as formatting, links, and tables to be copied.
+Currently, Native Selection Mode is supported in:</p>
+<ul>
+<li>Mozilla Firefox</li>
+<li>Mozilla Thunderbird</li>
+<li>Chrome, Edge, and any browser based on Chromium 134 or newer</li>
+</ul>
 <!-- KC:beginInclude -->
 
 <table>
@@ -2873,7 +2957,8 @@ For example, if you move the browse mode cursor to a graphic, recognition will r
 However, you may wish to use object navigation directly to, for example, recognize the content of an entire application window.</p>
 <p>Once recognition is complete, the result will be presented in a document similar to browse mode, allowing you to read the information with cursor keys, etc.
 Pressing enter or space will activate (normally click) the text at the cursor if possible.
-Pressing escape dismisses the recognition result.</p>
+Pressing escape dismisses the recognition result.
+Pressing <code>NVDA+f5</code> refreshes the recognition result.</p>
 <h3 id="Win10Ocr">Windows OCR</h3>
 <p>Windows 10 and later includes OCR for many languages.
 NVDA can use this to recognize text from images or inaccessible applications.</p>
@@ -2887,7 +2972,7 @@ This can also be done in the <a href="#Win10OcrSettings" title="Windows OCR cate
 <!-- KC:endInclude -->
 
 <h2 id="ApplicationSpecificFeatures">Application Specific Features</h2>
-<p>NVDA provides its own extra features  for some applications to make certain tasks easier or to provide access to functionality which is not otherwise accessible to screen reader users.</p>
+<p>NVDA provides its own extra features for some applications to make certain tasks easier or to provide access to functionality which is not otherwise accessible to screen reader users.</p>
 <h3 id="MicrosoftWord">Microsoft Word</h3>
 <h4 id="WordAutomaticColumnAndRowHeaderReading">Automatic Column and Row Header Reading</h4>
 <p>NVDA is able to automatically announce appropriate row and column headers when navigating around tables in Microsoft Word.
@@ -2908,19 +2993,19 @@ After moving to the first cell in the column or row containing the headers, use 
 <tbody>
 <tr>
 <td>Set column headers</td>
-<td>NVDA+shift+c</td>
+<td><code>NVDA+shift+c</code></td>
 <td>Pressing this once tells NVDA this is the first header cell in the row that contains column headers, which should be automatically announced when moving between columns below this row. Pressing twice will clear the setting.</td>
 </tr>
 <tr>
 <td>Set row headers</td>
-<td>NVDA+shift+r</td>
-<td>Pressing this once tells NVDA this is the first header cell in the column that contains row headers, which should be automatically announced when moving between rows after  this column. Pressing twice will clear the setting.</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Pressing this once tells NVDA this is the first header cell in the column that contains row headers, which should be automatically announced when moving between rows after this column. Pressing twice will clear the setting.</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 <p>These settings will be stored in the document as bookmarks compatible with other screen readers such as JAWS.
-This means that users of other screen readers who open this document at a later date will automatically  have the row and column headers already set.</p>
+This means that users of other screen readers who open this document at a later date will automatically have the row and column headers already set.</p>
 <h4 id="BrowseModeInMicrosoftWord">Browse Mode in Microsoft Word</h4>
 <p>Similar to the web, Browse mode can be used in Microsoft Word to allow you to use features such as Quick navigation and the Elements List.</p>
 <!-- KC:beginInclude -->
@@ -2937,7 +3022,7 @@ This means that users of other screen readers who open this document at a later 
 <p>To report any comments at the current caret position, press <code>NVDA+alt+c</code>.
 Pressing twice shows the information in a browsable message.</p>
 <!-- KC:endInclude -->
-<p>All comments for the document, along with other tracked changes, can also be listed in the NVDA Elements List  when selecting Annotations as the type.</p>
+<p>All comments for the document, along with other tracked changes, can also be listed in the NVDA Elements List when selecting Annotations as the type.</p>
 <h3 id="MicrosoftExcel">Microsoft Excel</h3>
 <h4 id="ExcelAutomaticColumnAndRowHeaderReading">Automatic Column and Row Header Reading</h4>
 <p>NVDA is able to automatically announce appropriate row and column headers when navigating around Excel worksheets.
@@ -2957,19 +3042,19 @@ After moving to the first cell in the column or row containing the headers, use 
 <tbody>
 <tr>
 <td>Set column headers</td>
-<td>NVDA+shift+c</td>
+<td><code>NVDA+shift+c</code></td>
 <td>Pressing this once tells NVDA this is the first header cell in the row that contains column headers, which should be automatically announced when moving between columns below this row. Pressing twice will clear the setting.</td>
 </tr>
 <tr>
 <td>Set row headers</td>
-<td>NVDA+shift+r</td>
-<td>Pressing this once tells NVDA this is the first header cell in the column that contains row headers, which should be automatically announced when moving between rows after  this column. Pressing twice will clear the setting.</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Pressing this once tells NVDA this is the first header cell in the column that contains row headers, which should be automatically announced when moving between rows after this column. Pressing twice will clear the setting.</td>
 </tr>
 </tbody>
 </table>
 <!-- KC:endInclude -->
 <p>These settings will be stored in the workbook as defined name ranges compatible with other screen readers such as JAWS.
-This means that users of other screen readers who open this workbook at a later date will automatically  have the row and column headers already set.</p>
+This means that users of other screen readers who open this workbook at a later date will automatically have the row and column headers already set.</p>
 <h4 id="ExcelElementsList">The Elements List</h4>
 <p>Similar to the web, NVDA has an Elements List for Microsoft Excel that allows you to list and access several different types of information.</p>
 <!-- KC:beginInclude -->
@@ -3276,8 +3361,15 @@ When the confirmation dialog appears, select "restart now" or "restart later" if
 <p>This option is a checkbox that, when checked, tells NVDA to automatically save the current configuration when you exit NVDA.</p>
 <h5 id="GeneralSettingsShowExitOptions">Show exit options when exiting NVDA</h5>
 <p>This option is a checkbox that allows you to choose whether or not a dialog appears when you exit NVDA that asks what action you want to perform.
-When checked, a dialog will appear when you attempt to exit NVDA asking whether you want to exit, restart, restart with add-ons disabled or install pending updates (if any).
-When unchecked, NVDA will exit immediately.</p>
+When checked, a dialog will appear when you attempt to exit NVDA, offering the following possibilities:</p>
+<ul>
+<li>exit</li>
+<li>restart</li>
+<li>restart with add-ons disabled and debug logging enabled</li>
+<li>restart with debug logging enabled</li>
+<li>install pending updates (if any).</li>
+</ul>
+<p>When unchecked, NVDA will exit immediately.</p>
 <h5 id="GeneralSettingsPlaySounds">Play sounds when starting or exiting NVDA</h5>
 <p>This option is a checkbox that, when checked, tells NVDA to play sounds when it starts or exits.</p>
 <h5 id="GeneralSettingsLogLevel">Logging level</h5>
@@ -3329,7 +3421,20 @@ Apart from the mandatory information required to check for updates, the followin
 <p>This information greatly aides NV Access to prioritize future development of NVDA.</p>
 <h5 id="GeneralSettingsNotifyPendingUpdates">Notify for pending updates on startup</h5>
 <p>If this is enabled, NVDA will inform you when there is a pending update on startup, offering you the possibility to install it.
-You can also manually install the pending update from the Exit NVDA dialog (if enabled),  from the NVDA menu, or when you perform a new check from the Help menu.</p>
+You can also manually install the pending update from the Exit NVDA dialog (if enabled), from the NVDA menu, or when you perform a new check from the Help menu.</p>
+<h5 id="UpdateMirror">Update Mirror</h5>
+<p>These controls allow you to specify an alternative URL to use to check for updates to NVDA.
+This may be of use in locations where access to the NV Access NVDA update server is slow or unavailable.</p>
+<p>The read-only text box shows the current mirror URL.
+If no mirror is in use (i.e. the NV Access update server is being used), "No mirror" is displayed.</p>
+<p>If you wish to change the update mirror, press the "Change..." button to open the <a href="#SetURLDialog" title="Set Update Mirror dialog">Set Update Mirror dialog</a>.</p>
+<p>Please note that when using an update mirror, the operator of the mirror has access to all <a href="#GeneralSettingsCheckForUpdates" title="information sent with update checks">information sent with update checks</a>.
+Contact the operator of the update mirror for details of their data handling policies to ensure you are comfortable with the way your information will be handled before setting an update mirror.</p>
+<h5 id="PreventDisplayTurningOff">Prevent display from turning off during say all or reading with braille</h5>
+<p>This check box, when enabled, ensures that the display stays on when reading with say all or with braille (e.g. when pressing scroll buttons).
+This avoids the situation where the screen unexpectedly locks during a say all.
+This option is enabled by default.
+Consider disabling this option if you are suffering from a shorter battery life.</p>
 <h4 id="SpeechSettings">Speech Settings</h4>
 <!-- KC:setting -->
 
@@ -3339,7 +3444,8 @@ You can also manually install the pending update from the Exit NVDA dialog (if e
 For a quicker alternative way of controlling speech parameters from anywhere, please see the <a href="#SynthSettingsRing" title="Synth Settings Ring">Synth Settings Ring</a> section.</p>
 <p>The Speech Settings category contains the following options:</p>
 <h5 id="SpeechSettingsChange">Change synthesizer</h5>
-<p>The first option in the Speech Settings category is the Change... button. This button activates the <a href="#SelectSynthesizer" title="Select Synthesizer">Select Synthesizer</a> dialog, which allows you to select the active speech synthesizer and output device.
+<p>The first option in the Speech Settings category is the Change... button.
+This button activates the <a href="#SelectSynthesizer" title="Select Synthesizer">Select Synthesizer</a> dialog, which allows you to select the active speech synthesizer.
 This dialog opens on top of the NVDA Settings dialog.
 Saving or dismissing the settings in the Select Synthesizer dialog will return you to the NVDA Settings dialog.</p>
 <h5 id="SpeechSettingsVoice">Voice</h5>
@@ -3363,6 +3469,19 @@ It is a slider which goes from 0 to 100 - 0 being the lowest pitch and 100 being
 <p>This option is a slider which goes from 0 to 100 - 0 being the lowest volume and 100 being the highest.</p>
 <h5 id="SpeechSettingsInflection">Inflection</h5>
 <p>This option is a slider that lets you choose how much inflection (rise and fall in pitch) the synthesizer should use to speak with.</p>
+<h5 id="SpeechSettingsUseWasapi">Use modern audio output system (WASAPI)</h5>
+<p>This option enables audio output via the Windows Audio Session API (WASAPI).
+This option only exists for Microsoft Speech API version 5 (SAPI 5) voices.
+This may improve the responsiveness of some SAPI 5 voices.
+However, some voices might not work with the current WASAPI implementation.
+If you find that the voice you are using stops working, you may disable this option.</p>
+<p>Note that the following features depend on WASAPI, and will be disabled if WASAPI is turned off:</p>
+<ul>
+<li>Rate boost</li>
+<li>Leading silence trimming</li>
+<li>Keep audio device awake</li>
+</ul>
+<p>Note that in Advanced settings, there is a similar <a href="#UseWASAPIForSAPI4" title="option for SAPI 4 voices">option for SAPI 4 voices</a>, not to be confused with this one.</p>
 <h5 id="SpeechSettingsLanguageSwitching">Automatic Language switching</h5>
 <p>This checkbox allows you to toggle whether NVDA should switch speech synthesizer languages automatically if the text being read specifies its language.
 This option is enabled by default.</p>
@@ -3370,6 +3489,31 @@ This option is enabled by default.</p>
 <p>This checkbox allows you to toggle whether or not dialect changes should be made, rather than just actual language changes.
 For example, if reading in an English U.S. voice but a document specifies that some text is in English U.K., then the synthesizer will switch accents if this option is enabled.
 This option is disabled by default.</p>
+<h5 id="ReportLanguage">Report language changes while reading</h5>
+<p>This checkbox allows you to toggle whether NVDA should report the detected language of the text being read, when the language changes from the default language.
+The language configured to be used by default won't be reported.
+This option is disabled by default.</p>
+<h5 id="ReportIfLanguageIsNotSupportedBySynthesizer">Report when switching to language is not supported by synthesizer</h5>
+<p>This combo box is used to set how NVDA should report if the language of the text being read is not supported by the current synthesizer.
+If <a href="#SpeechSettingsLanguageSwitching" title="Automatic Language switching">Automatic Language switching</a> is disabled, this option won't take effect, and the combo box will be readonly.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Speech, Beep, Off</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Speech</td>
+</tr>
+</tbody>
+</table>
 <!-- KC:setting -->
 
 <h5 id="SpeechSettingsSymbolLevel">Punctuation/Symbol Level</h5>
@@ -3381,24 +3525,6 @@ This option applies to all synthesizers, not just the currently active synthesiz
 <p>On by default, this option tells NVDA if the current voice's language can be trusted when processing symbols and characters.
 If you find that NVDA is reading punctuation in the wrong language for a particular synthesizer or voice, you may wish to turn this off to force NVDA to use its global language setting instead.</p>
 <h5 id="SpeechUnicodeNormalization">Unicode normalization</h5>
-<table>
-<thead>
-<tr>
-<th class="hideHeaderRow">.</th>
-<th>.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Options</td>
-<td>Default (Disabled), Enabled, Disabled</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>Disabled</td>
-</tr>
-</tbody>
-</table>
 <p>When this option is enabled, unicode normalization is performed on the text that is spoken by NVDA.
 This is beneficial when speaking characters that can be represented in several forms.
 NVDA uses the NFKC (Normalization Form Compatibility Composition) algorithm, which provides the following benefits, among others:</p>
@@ -3425,6 +3551,24 @@ Unicode normalization ensures that only one form will be used throughout all spe
 </li>
 </ol>
 <p>To toggle Unicode normalization from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Default (Enabled), Enabled, Disabled</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
 <h5 id="SpeechReportNormalizedForCharacterNavigation">Report "Normalized" when navigating by character</h5>
 <p>This setting is a checkbox that, when checked, tells NVDA to explicitly report that a character is normalized when spoken as an individual character such as when spelling.
 For example, when this option is enabled, spelling the character "ĳ" will pronounce it as "i j normalized".</p>
@@ -3564,7 +3708,8 @@ Saving or dismissing the settings in the Select Braille Display dialog will retu
 <p>The next option you will come to in this category is the braille output table combo box.
 In this combo box, you will find braille tables for different languages, braille standards and grades.
 The chosen table will be used to translate text into braille to be presented on your braille display.
-You can move from braille table to braille table in the list by using the arrow keys.</p>
+You can move from braille table to braille table in the list by using the arrow keys.
+If you select "Automatic", the table will be selected according with NVDA's current language.</p>
 <h5 id="BrailleSettingsInputTable">Input Table</h5>
 <p>Complementary to the previous option, the next setting you will find is the braille input table combo box.
 The chosen table will be used to translate braille entered on your braille display's Perkins-style keyboard into text.
@@ -3613,7 +3758,7 @@ In this case, when the navigator object or the review cursor position is changed
 If you want it to follow the focus and caret only, you need to configure braille to be tethered to focus.
 In this case, braille will not follow the NVDA navigator during object navigation or the review cursor during review.
 If you want braille to follow object navigation and text review instead, you need to configure braille to be tethered to review.
-In this case, Braille  will not follow system focus and system caret.</p>
+In this case, Braille will not follow system focus and system caret.</p>
 <h5 id="BrailleSettingsReviewRoutingMovesSystemCaret">Move system caret when routing review cursor</h5>
 <p>This setting determines if the system caret should also be moved with a routing button press.
 This option is set to Never by default, meaning that routing will never move the caret when routing the review cursor.</p>
@@ -3806,6 +3951,9 @@ The following symbols are defined:</p>
 <h5 id="BrailleSpeakOnRouting">Speak character when routing cursor in text</h5>
 <p>If this is enabled, NVDA will automatically speak the character at the cursor when routing to it with braille cursor routing keys.</p>
 <p>To toggle this option from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<h5 id="BrailleSpeakOnNavigating">Speak when navigating by line or paragraph</h5>
+<p>Enabling this option will cause NVDA to speak lines or paragraphs reached using the braille display's navigation controls.</p>
+<p>To toggle this option from anywhere, please assign a custom gesture to "speakOnNavigatingByUnit" in the "Braille" section of the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
 <h5 id="BrailleSettingsWordWrap">Avoid splitting words when possible</h5>
 <p>If this is enabled, a word which is too large to fit at the end of the braille display will not be split.
 Instead, there will be some blank space at the end of the display.
@@ -3936,12 +4084,10 @@ It is not possible to support audio ducking for portable and temporary copies of
 </table>
 <p>When this option is enabled, the volume of NVDA sounds and beeps will follow the volume setting of the voice you are using.
 If you decrease the volume of the voice, the volume of sounds will decrease.
-Similarly, if you increase the volume of the voice, the volume of sounds will increase.
-This option is not available if you have started NVDA with <a href="#WASAPI" title="WASAPI disabled for audio output">WASAPI disabled for audio output</a> in Advanced Settings.</p>
+Similarly, if you increase the volume of the voice, the volume of sounds will increase.</p>
 <h5 id="SoundVolume">Volume of NVDA sounds</h5>
 <p>This slider allows you to set the volume of NVDA sounds and beeps.
-This setting only takes effect when "Volume of NVDA sounds follows voice volume" is disabled.
-This option is not available if you have started NVDA with <a href="#WASAPI" title="WASAPI disabled for audio output">WASAPI disabled for audio output</a> in Advanced Settings.</p>
+This setting only takes effect when "Volume of NVDA sounds follows voice volume" is disabled.</p>
 <h5 id="SelectSoundSplitMode">Sound split</h5>
 <p>The sound split feature allows users to make use of their stereo output devices, such as headphones and speakers.
 Sound split makes it possible to have NVDA speech in one channel (e.g. left) and have all other applications play their sounds in the other channel (e.g. right).
@@ -3971,14 +4117,13 @@ A gesture allows cycling through the various sound split modes:</p>
 <ul>
 <li>Sound split disabled: NVDA does not apply any sound split processing.</li>
 <li>NVDA on the left and applications on the right: NVDA will speak in the left channel, while other applications will play sounds in the right channel.</li>
-<li>NVDA on the left and applications in both channels: NVDA will speak in the left channel, while other applications will play sounds in  both left and right channels.</li>
+<li>NVDA on the left and applications in both channels: NVDA will speak in the left channel, while other applications will play sounds in both left and right channels.</li>
 </ul>
 <p>There are more advanced sound split modes available in NVDA setting combo box.
 Among these modes, "NVDA in both channels and applications in both channels" forces all the sounds to be directed in both channels.
 This mode may differ from "Sound split disabled" mode in case other audio processing interfers with channel volumes.</p>
 <p>Please note, that sound split doesn't work as a mixer.
 For example, if an application is playing a stereo sound track while sound split is set to "NVDA on the left and applications on the right", then you will only hear the right channel of the sound track, while the left channel of the sound track will be muted.</p>
-<p>This option is not available if you have started NVDA with <a href="#WASAPI" title="WASAPI disabled for audio output">WASAPI disabled for audio output</a> in Advanced Settings.</p>
 <p>Please note, that if NVDA crashes, then it won't be able to restore application sounds volume, and those applications might still output sound only in one channel after NVDA crash.
 In order to mitigate this, please restart NVDA and select the mode "NVDA in both channels and applications in both channels".</p>
 <h5 id="CustomizeSoundSplitModes">Customizing Sound split modes</h5>
@@ -3990,8 +4135,7 @@ By default only three modes are included.</p>
 <li>NVDA on the left and applications on the right.</li>
 <li>NVDA on the left and applications in both channels.</li>
 </ul>
-<p>Note that it is necessary to check at least one mode.
-This option is not available if you have started NVDA with <a href="#WASAPI" title="WASAPI disabled for audio output">WASAPI disabled for audio output</a> in Advanced Settings.</p>
+<p>Note that it is necessary to check at least one mode.</p>
 <h5 id="AudioAwakeTime">Time to keep audio device awake after speech</h5>
 <p>This edit box specifies how long NVDA keeps the audio device awake after speech ends.
 This allows NVDA to avoid certain speech glitches like dropped parts of words.
@@ -4049,13 +4193,25 @@ This settings category contains the following options:</p>
 <!-- KC:setting -->
 
 <h5 id="KeyboardSettingsSpeakTypedCharacters">Speak Typed Characters</h5>
-<p>Key: NVDA+2</p>
-<p>When enabled, NVDA will announce all characters you type on the keyboard.</p>
+<p>Key: <code>NVDA+2</code></p>
+<p>This option controls when NVDA announces characters you type on the keyboard.
+The available options are:</p>
+<ul>
+<li>Off: NVDA will not announce typed characters.</li>
+<li>Only in edit controls: NVDA will only announce characters typed in edit controls and other areas where text can be typed.</li>
+<li>Always: NVDA will announce all typed characters.</li>
+</ul>
 <!-- KC:setting -->
 
 <h5 id="KeyboardSettingsSpeakTypedWords">Speak Typed Words</h5>
-<p>Key: NVDA+3</p>
-<p>When enabled, NVDA will announce all words you type on the keyboard.</p>
+<p>Key: <code>NVDA+3</code></p>
+<p>This option controls when NVDA announces words you type on the keyboard.
+The available options are:</p>
+<ul>
+<li>Off: NVDA will not announce typed words.</li>
+<li>Only in edit controls: NVDA will only announce words typed in edit controls and other areas where text can be typed.</li>
+<li>Always: NVDA will announce all typed words.</li>
+</ul>
 <h5 id="KeyboardSettingsSpeechInteruptForCharacters">Speech interrupt for typed characters</h5>
 <p>If on, this option will cause speech to be interrupted each time a character is typed. This is on by default.</p>
 <h5 id="KeyboardSettingsSpeechInteruptForEnter">Speech interrupt for Enter key</h5>
@@ -4076,7 +4232,7 @@ Therefore, it can be quite helpful to be warned about this.</p>
 This option is only available if reporting of spelling errors is enabled in NVDA's <a href="#DocumentFormattingSettings" title="Document Formatting Settings">Document Formatting Settings</a>, found in the NVDA Settings dialog.</p>
 <h5 id="KeyboardSettingsHandleKeys">Handle keys from other applications</h5>
 <p>This option allows the user to control if key presses generated by applications such as on-screen keyboards and speech recognition software should be processed by NVDA.
-This option is on by default, though certain users may wish to turn this off, such as those typing Vietnamese with the UniKey typing software as it will  cause incorrect character input.</p>
+This option is on by default, though certain users may wish to turn this off, such as those typing Vietnamese with the UniKey typing software as it will cause incorrect character input.</p>
 <h5 id="MultiPressTimeout">Multiple key press timeout</h5>
 <p>Some NVDA keyboard gestures perform different actions based upon how many times the same key is pressed in rapid succession.
 An example of this is the "Report current character of navigator object" command.
@@ -4206,12 +4362,12 @@ The auto-suggestions list will close once you move away from the edit field, and
 <p>The Input Composition category allows you to control how NVDA reports the input of Asian characters, such as with IME or Text Service input methods.
 Note that due to the fact that input methods vary greatly by available features and by how they convey information, it will most likely be necessary to configure these options differently for each input method to get the most efficient typing experience.</p>
 <h5 id="InputCompositionReportAllCandidates">Automatically report all available candidates</h5>
-<p>This option, which is on by default,  allows you to choose whether or not all visible candidates should be reported automatically when a candidate list appears or its page is changed.
+<p>This option, which is on by default, allows you to choose whether or not all visible candidates should be reported automatically when a candidate list appears or its page is changed.
 Having this option on for pictographic input methods such as Chinese New ChangJie or Boshiami is useful, as you can automatically hear all symbols and their numbers and you can choose one right away.
-However, for phonetic input methods such as Chinese New Phonetic, it may be more useful to turn this option off, as all the symbols will sound the same and you will have to use the arrow keys to navigate the list items individually to gain more information  from the character descriptions for each candidate.</p>
+However, for phonetic input methods such as Chinese New Phonetic, it may be more useful to turn this option off, as all the symbols will sound the same and you will have to use the arrow keys to navigate the list items individually to gain more information from the character descriptions for each candidate.</p>
 <h5 id="InputCompositionAnnounceSelectedCandidate">Announce Selected Candidate</h5>
 <p>This option, which is on by default, allows you to choose whether NVDA should announce the selected candidate when a candidate list appears or when the selection is changed.
-For input methods where the selection can be changed with the arrow keys  (such as Chinese New Phonetic) this is necessary, but for some input methods it may be more efficient typing with this option turned off.
+For input methods where the selection can be changed with the arrow keys (such as Chinese New Phonetic) this is necessary, but for some input methods it may be more efficient typing with this option turned off.
 Note that even with this option off, the review cursor will still be placed on the selected candidate allowing you to use object navigation / review to manually read this or other candidates.</p>
 <h5 id="InputCompositionCandidateIncludesShortCharacterDescription">Always include short character descriptions for candidates</h5>
 <p>This option, which is on by default, allows you to choose whether or not NVDA should provide a short description for each character in a candidate, either when it's selected or when it's automatically read when the candidate list appears.
@@ -4224,7 +4380,7 @@ This option is on by default.
 Note some older input methods such as Chinese ChangJie may not use the reading string to hold precomposition characters, but instead use the composition string directly. Please see the next option for configuring reporting of the composition string.</p>
 <h5 id="InputCompositionCompositionStringChanges">Report changes to the composition string</h5>
 <p>After reading or precomposition data has been combined into a valid pictographic symbol, most input methods place this symbol into a composition string for temporary storage along with other combined symbols before they are finally inserted into the document.
-This option allows you to choose whether or not NVDA should report new symbols as they appear  in the composition string.
+This option allows you to choose whether or not NVDA should report new symbols as they appear in the composition string.
 This option is on by default.</p>
 <h4 id="BrowseModeSettings">Browse Mode</h4>
 <!-- KC:setting -->
@@ -4245,7 +4401,8 @@ This category contains the following options:</p>
 Note that this option doesn't apply to Microsoft Office apps such as Outlook and Word, which always use screen layout.
 When screen layout is enabled, page elements will stay as they are visually shown.
 For example, a visual line of multiple links will be presented in speech and braille as multiple links on the same line.
-If it is disabled, then page elements will be placed on their own lines.
+If it is disabled, interactive elements, such as links and buttons, will be placed on their own lines.
+Non-interactive text following a link or button will still follow on the same line for ease of reading.
 This may be easier to understand during line by line page navigation and make items easier to interact with for some users.</p>
 <h5 id="BrowseModeSettingsEnableOnPageLoad">Enable browse mode on page load</h5>
 <p>This checkbox toggles whether browse mode should be automatically enabled when loading a page.
@@ -4275,18 +4432,9 @@ If you arrow out of the edit box, NVDA will put you back in browse mode.</p>
 <h5 id="BrowseModeSettingsPassThroughAudioIndication">Audio indication of Focus and Browse modes</h5>
 <p>If this option is enabled, NVDA will play special sounds when it switches between browse mode and focus mode, rather than speaking the change.</p>
 <h5 id="BrowseModeSettingsTrapNonCommandGestures">Trap non-command gestures from reaching the document</h5>
-<p>Enabled by default, this option allows you to choose if gestures (such as key presses) that  do not result in an NVDA command and are not considered to be a command key in general, should be trapped from going through to the document you are currently focused on.
+<p>Enabled by default, this option allows you to choose if gestures (such as key presses) that do not result in an NVDA command and are not considered to be a command key in general, should be trapped from going through to the document you are currently focused on.
 As an example, if enabled and the letter j was pressed, it would be trapped from reaching the document, even though it is not a quick navigation command nor is it likely to be a command in the application itself.
 In this case NVDA will tell Windows to play a default sound whenever a key which gets trapped is pressed.</p>
-<!-- KC:setting -->
-
-<h5 id="BrowseModeSettingsAutoFocusFocusableElements">Automatically set system focus to focusable elements</h5>
-<p>Key: NVDA+8</p>
-<p>Disabled by default, this option allows you to choose if the system focus should automatically be set to elements that can take the system focus (links, form fields, etc.) when navigating content with the browse mode caret.
-Leaving this option disabled will not automatically focus focusable elements when they are selected with the browse mode caret.
-This might result in faster browsing experience and better responsiveness in browse mode.
-The focus will yet be updated to the particular element when interacting with it (e.g. pressing a button, checking a check box).
-Enabling this option may improve support for some websites at the cost of performance and stability.</p>
 <h4 id="DocumentFormattingSettings">Document Formatting</h4>
 <!-- KC:setting -->
 
@@ -4335,6 +4483,7 @@ You can configure reporting of:</p>
 <li>Elements<ul>
 <li>Headings</li>
 <li>Links</li>
+<li>Link type (destination to same page)</li>
 <li>Graphics</li>
 <li>Lists</li>
 <li>Block quotes</li>
@@ -4367,8 +4516,8 @@ Exactly how they are displayed can be configured in <a href="#BrailleFormattingD
 The Report line indentation with combo box has four options.</p>
 <ul>
 <li>Off: NVDA will not treat indentation specially.</li>
-<li>Speech: If speech is selected, when the  amount of indentation changes, NVDA will say something like "twelve space" or "four tab."</li>
-<li>Tones: If Tones is selected, when the  amount of  indentation changes, tones indicate the amount of change in indent.
+<li>Speech: If speech is selected, when the amount of indentation changes, NVDA will say something like "twelve space" or "four tab."</li>
+<li>Tones: If Tones is selected, when the amount of indentation changes, tones indicate the amount of change in indent.
 The tone will increase in pitch every space, and for a tab, it will increase in pitch the equivalent of 4 spaces.</li>
 <li>Both Speech and Tones: This option reads indentation using both of the above methods.</li>
 </ul>
@@ -4409,11 +4558,13 @@ Note that this paragraph style cannot be used in Microsoft Word or Microsoft Out
 <p>You may toggle through the available paragraph styles from anywhere by assigning a key in the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
 <h4 id="AddonStoreSettings">Add-on Store Settings</h4>
 <p>This category allows you to adjust the behaviour of the Add-on Store.</p>
-<h5 id="AutomaticAddonUpdates">Update Notifications</h5>
+<h5 id="AutomaticAddonUpdates">Automatic updates</h5>
 <p>When this option is set to "Notify", the Add-on Store will notify you after NVDA startup if any add-on updates are available.
 This check is performed every 24 hours.
-Notifications will only occur for add-ons with updates available within the same channel.
-For example, for installed beta add-ons, you will only be notified of updates within the beta channel.</p>
+By default, notifications will only occur for add-ons with updates available within the same <a href="#AddonStoreFilterChannel" title="channel">channel</a> (e.g. stable, beta or dev).
+You can configure add-on update channels <a href="#AddonStoreUpdateChannel" title="individually for each add-on">individually for each add-on</a> or for <a href="#DefaultAddonUpdateChannel" title="all add-ons">all add-ons</a>.</p>
+<p>When set to "Update Automatically", add-ons will automatically update in the background.
+You will be prompted to restart NVDA when the updates are finished.</p>
 <table>
 <thead>
 <tr>
@@ -4424,7 +4575,7 @@ For example, for installed beta add-ons, you will only be notified of updates wi
 <tbody>
 <tr>
 <td>Options</td>
-<td>Notify (Default), Disabled</td>
+<td>Notify (Default), Update Automatically, Disabled</td>
 </tr>
 <tr>
 <td>Default</td>
@@ -4442,7 +4593,11 @@ For example, for installed beta add-ons, you will only be notified of updates wi
 <tbody>
 <tr>
 <td>Notify</td>
-<td>Notify when updates are available to add-ons within the same channel</td>
+<td>Notify when updates are available to add-ons</td>
+</tr>
+<tr>
+<td>Update Automatically</td>
+<td>Automatically update add-ons in the background</td>
 </tr>
 <tr>
 <td>Disabled</td>
@@ -4450,6 +4605,159 @@ For example, for installed beta add-ons, you will only be notified of updates wi
 </tr>
 </tbody>
 </table>
+<h5 id="DefaultAddonUpdateChannel">Default Update Channel</h5>
+<p>When <a href="#AutomaticAddonUpdates" title="Automatic add-on updates">Automatic add-on updates</a> are enabled, by default, add-ons only update to the same <a href="#AddonStoreFilterChannel" title="channel">channel</a>.
+For example, an installed beta version will only update to a newer beta version.
+This option sets the default update channel for all add-ons.
+You can also change the update channel for a <a href="#AddonStoreUpdateChannel" title="specific add-on individually from the Add-on Store">specific add-on individually from the Add-on Store</a>.</p>
+<table>
+<thead>
+<tr>
+<th class="hideHeaderRow">.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Same (Default), Any, Do not update, Stable, Beta or dev, Beta, Dev</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Same</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Same</td>
+<td>Add-ons will remain on their channel</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Add-ons will automatically update to the latest version, regardless of channel</td>
+</tr>
+<tr>
+<td>Do not update</td>
+<td>Add-ons will not automatically update by default, you must enable them individually</td>
+</tr>
+<tr>
+<td>Stable</td>
+<td>Add-ons will automatically update to stable versions</td>
+</tr>
+<tr>
+<td>Beta or dev</td>
+<td>Add-ons will automatically update to beta or dev versions</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>Add-ons will automatically update to beta versions</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Add-ons will automatically update to dev versions</td>
+</tr>
+</tbody>
+</table>
+<h5 id="AllowIncompatibleAddonUpdates">Allow automatic updates to install incompatible add-ons</h5>
+<p>This setting enables automatic updates to add-ons that may not be fully compatible with the current version of NVDA.
+By default, this is disabled, meaning automatic updates will only upgrade to add-on versions marked as compatible with the current version of NVDA.
+Automatic updates will still update an incompatible add-on version to a compatible version when it is released.
+Enabling this may be useful for switching over to using add-on breaking releases (the first release of the year).
+This is particularly useful for alpha and beta testers, who are testing compatibility of add-ons during the early stages of an add-on breaking release.</p>
+<h5 id="AddonStoreMetadataMirror">Mirror server</h5>
+<p>These controls allow you to specify an alternative URL to download Add-on Store data from.
+This may be of use in locations where access to the NV Access Add-on Store server is slow or unavailable.</p>
+<p>The read-only text box shows the current mirror URL.
+If no mirror is in use (i.e. the NV Access Add-on Store server is being used), "No mirror" is displayed.</p>
+<p>If you wish to change the Add-on Store mirror, press the "Change..." button to open the <a href="#SetURLDialog" title="Set Add-on Store Mirror dialog">Set Add-on Store Mirror dialog</a>.</p>
+<h4 id="RemoteSettings">Remote Access Settings</h4>
+<p>This category allows you to configure the behaviour of <a href="#RemoteAccess" title="Remote Access">Remote Access</a>.</p>
+<h5 id="RemoteEnable">Enable Remote Access</h5>
+<p>Use this checkbox to enable or disable NVDA's Remote Access feature.</p>
+<p>When this is unchecked, the Remote Access feature is entirely unavailable.</p>
+<p>Please note that in order to continue a Remote Access session on secure screens such as User Account Control prompts, you must enable this setting, save the changes, and then <a href="#GeneralSettingsCopySettings" title="copy your settings to NVDA's system configuration directory">copy your settings to NVDA's system configuration directory</a>.
+Remote Access will only continue sessions started by the installed copy of NVDA on secure desktops.
+This means that you cannot, for instance, start a Remote Access session with a portable copy of NVDA and have the session continue on secure screens.</p>
+<p>The following options are only available if Remote Access is enabled.</p>
+<h5 id="RemoteConfirmDisconnect">Confirm before disconnecting when controlled</h5>
+<p>This option controls whether confirmation is required before disconnecting from a Remote Access session when connected as the controlled computer.</p>
+<p>When checked, NVDA will ask for confirmation before disconnecting.
+When unchecked, NVDA will disconnect immediately without confirmation.</p>
+<h5 id="RemoteMuteOnLocalControl">Mute when controlling the local computer</h5>
+<p>This option controls whether you can hear speech and sounds from the remote computer when controlling the local computer.</p>
+<p>When checked, Remote Access will be muted automatically when first connecting as the controlling computer, and when switching to controlling the local computer.
+When unchecked, Remote Access sessions start unmuted, and must be muted explicitly.</p>
+<p>You can still manually mute or unmute Remote Access when controlling the local computer <a href="#RemoteAccessUsage" title="via the Remote Access menu">via the Remote Access menu</a>, or by assigning a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
+<h5 id="RemoteAutoconnect">Automatically connect after NVDA starts</h5>
+<p>This option allows you to automatically establish a Remote Access session when NVDA starts.
+This could be useful, for example, to control your home computer when away from home.</p>
+<p>Use caution when enabling this option, as it may increase the risk of unauthorized access to your computer.</p>
+<p>For further details on the following options, please refer to the <a href="#RemoteAccessSetup" title="Setting Up a Remote Access Session section">Setting Up a Remote Access Session section</a></p>
+<h5 id="RemoteAutoconnectMode">Mode</h5>
+<p>Select the connection mode for automatic connections.</p>
+<p>This option is only available when <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> is checked.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Allow this computer to be controlled</td>
+<td>Use this computer as the "controlled" computer. This allows the operator of the "controlling" computer to use this computer as if they were sitting in front of it.</td>
+</tr>
+<tr>
+<td>Control another computer</td>
+<td>Use this computer as the "controlling" computer. This allows you to execute commands on the remote computer.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="RemoteAutoconnectServer">Server</h5>
+<p>Select the server type for automatic connections.</p>
+<p>This option is only available when <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> is checked.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use existing</td>
+<td>Use an existing Remote Access server to mediate the connection (recommended).</td>
+</tr>
+<tr>
+<td>Host locally</td>
+<td>Use this instance of NVDA as the Remote Access server (advanced). This option may require network configuration that is out of scope for this manual.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="RemoteAutoconnectHost">Host</h5>
+<p>Use this field to set the URL of the Remote Access server you would like to use for automatic connections.
+If the server uses a port other than 6837, include it after a colon (eg. <code>example.com:1234</code>).</p>
+<p>This option is only available when <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> is checked, and <a href="#RemoteAutoconnectServer" title="Server">Server</a> is set to "Use existing".</p>
+<h5 id="RemoteAutoconnectPort">Port</h5>
+<p>Use this field to set the TCP port you would like to use for automatic connections.</p>
+<p>This option is only available when <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> is checked, and <a href="#RemoteAutoconnectServer" title="Server">Server</a> is set to "Host locally".</p>
+<h5 id="RemoteAutoconnectKey">Key</h5>
+<p>Use this field to set the key (password) you would like to use for automatic connections.</p>
+<p>This option is only available when <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> is checked.</p>
+<h5 id="RemoteDeleteFingerprints">Delete all trusted fingerprints</h5>
+<p>This button allows you to forget the fingerprints of all previously trusted Remote Access servers.
+This means that you will again be asked whether to connect to all unrecognised Remote Access servers, even ones that you have previously connected to.
+You will be asked to confirm before all trusted fingerprints are deleted.</p>
+<p>This option is only available if there are trusted fingerprints stored in your configuration.</p>
 <h4 id="Win10OcrSettings">Windows OCR Settings</h4>
 <p>The settings in this category allow you to configure <a href="#Win10Ocr" title="Windows OCR">Windows OCR</a>.
 This category contains the following options:</p>
@@ -4461,6 +4769,22 @@ To cycle through available languages from anywhere, please assign a custom gestu
 This can be very useful when you want to monitor constantly changing content, such as when watching a video with subtitles.
 The refresh takes place every one and a half seconds.
 This option is disabled by default.</p>
+<h4 id="SetURLDialog">Set Mirror Dialog</h4>
+<p>This dialog allows you to specify the URL of a mirror to use when <a href="#GeneralSettingsCheckForUpdates" title="updating NVDA">updating NVDA</a> or <a href="#AddonsManager" title="using the Add-on Store">using the Add-on Store</a>.
+This may be of use in locations where access to the NV Access servers for these functions is slow or unavailable.</p>
+<ul>
+<li>When setting the <a href="#UpdateMirror" title="NVDA update mirror">NVDA update mirror</a>, the title of this dialog will be "Set NVDA Update Mirror".</li>
+<li>When setting the <a href="#AddonStoreMetadataMirror" title="Add-on Store mirror">Add-on Store mirror</a>, the title of this dialog will be "Set Add-on Store Mirror Server".</li>
+</ul>
+<h5 id="SetURLTextbox">URL</h5>
+<p>Enter the URL (web address) of the mirror you wish to use here.
+Only HTTP and HTTPS URLs are supported.
+For your privacy, NV Access recommends using HTTPS URLs whenever possible.</p>
+<p>Leave this blank to use the default NV Access server.</p>
+<h5 id="SetURLTest">Test...</h5>
+<p>Press this button to test the mirror URL you have entered.
+You must be connected to the internet for the test to succeed.
+It is recommended that you always test the URL before saving it.</p>
 <h4 id="AdvancedSettings">Advanced Settings</h4>
 <p>Warning! The settings in this category are for advanced users and may cause NVDA to not function correctly if configured in the wrong way.
 Only make changes to these settings if you are sure you know what you are doing or if you have been specifically instructed to by an NVDA developer.</p>
@@ -4514,8 +4838,8 @@ This applies to documents in Microsoft word itself, plus messages in Microsoft O
 This setting contains the following values:</p>
 <ul>
 <li>Default (where suitable)</li>
-<li>Only where necessary: where the Microsoft Word object model is not  available at all</li>
-<li>Where suitable: Microsoft Word version 16.0.15000 or higher, or where the Microsoft Word object model is unavailable</li>
+<li>Only where necessary: where the Microsoft Word object model is not available at all</li>
+<li>Where suitable: Microsoft Word version 16.0.15000 or higher on Windows 11, or where the Microsoft Word object model is unavailable</li>
 <li>Always: where ever UI automation is available in Microsoft word (no matter how complete).</li>
 </ul>
 <h5 id="UseUiaForExcel">Use UI automation to access Microsoft Excel spreadsheet controls when available</h5>
@@ -4689,15 +5013,16 @@ Additionally, contiguous spans of output of over 1,000 characters may not be rep
 <p>This option enables behaviour which attempts to cancel speech for expired focus events.
 In particular moving quickly through messages in Gmail with Chrome can cause NVDA to speak outdated information.
 This functionality is enabled by default as of NVDA 2021.1.</p>
-<h5 id="AdvancedSettingsCaretMoveTimeout">Caret move timeout (in MS)</h5>
-<p>This option allows you to configure the number of milliseconds NVDA will wait for the caret (insertion point) to move in editable text controls.
-If you find that NVDA seems to be incorrectly tracking the caret E.g. it seems to be always one character behind or is repeating lines, then you may wish to try increasing this value.</p>
-<h5 id="ReportTransparentColors">Report transparency for colors</h5>
-<p>This option enables reporting when colors are transparent, useful for addon/appModule developers gathering information to improve user experience with a 3rd party application.
-Some GDI applications will highlight text with a background color, NVDA (via display model) attempts to report this color.
-In some situations, the text background may be entirely transparent, with the text layered on some other GUI element.
-With several historically popular GUI APIs, the text may be rendered with a transparent background, but visually the background color is accurate.</p>
-<h5 id="WASAPI">Use WASAPI for audio output</h5>
+<h5 id="TrimLeadingSilenceSpeech">Trim leading silence in speech audio</h5>
+<p>When enabled, NVDA will remove silence from the start of speech audio, which may improve the responsiveness of some speech synthesizers.
+This option is enabled by default, and should only affect the silence at the beginning of speech.
+If you find that some necessary silence periods are also missing (e.g. pause between two sentences) when using a speech synthesizer add-on, you may turn this feature off entirely to resolve the issue.</p>
+<h5 id="UseWASAPIForSAPI4">Use WASAPI for SAPI 4 audio output</h5>
+<p>This option enables Microsoft Speech API version 4 (SAPI 4) voices to output audio via the Windows Audio Session API (WASAPI).
+This can allow SAPI 4 voices to work with more features, such as audio ducking, leading silence trimming, and keeping audio device awake.
+However, some SAPI 4 voices might not work with the current WASAPI implementation.
+If you find that the SAPI 4 voice you are using stops working, you may disable this option.</p>
+<p>Note that in Speech settings, there is a similar <a href="#SpeechSettingsUseWasapi" title="option for SAPI 5 voices">option for SAPI 5 voices</a>, not to be confused with this one.</p>
 <table>
 <thead>
 <tr>
@@ -4716,14 +5041,14 @@ With several historically popular GUI APIs, the text may be rendered with a tran
 </tr>
 </tbody>
 </table>
-<p>This option enables audio output via the Windows Audio Session API (WASAPI).
-WASAPI is a more modern audio framework which may improve the responsiveness, performance and stability of NVDA audio output, including both speech and sounds.
-After changing this option, you will need to restart NVDA for the change to take effect.
-Disabling WASAPI will disable the following options:</p>
-<ul>
-<li><a href="#SoundVolumeFollowsVoice" title="Volume of NVDA sounds follows voice volume">Volume of NVDA sounds follows voice volume</a></li>
-<li><a href="#SoundVolume" title="Volume of NVDA sounds">Volume of NVDA sounds</a></li>
-</ul>
+<h5 id="AdvancedSettingsCaretMoveTimeout">Caret move timeout (in MS)</h5>
+<p>This option allows you to configure the number of milliseconds NVDA will wait for the caret (insertion point) to move in editable text controls.
+If you find that NVDA seems to be incorrectly tracking the caret E.g. it seems to be always one character behind or is repeating lines, then you may wish to try increasing this value.</p>
+<h5 id="ReportTransparentColors">Report transparency for colors</h5>
+<p>This option enables reporting when colors are transparent, useful for addon/appModule developers gathering information to improve user experience with a 3rd party application.
+Some GDI applications will highlight text with a background color, NVDA (via display model) attempts to report this color.
+In some situations, the text background may be entirely transparent, with the text layered on some other GUI element.
+With several historically popular GUI APIs, the text may be rendered with a transparent background, but visually the background color is accurate.</p>
 <h5 id="AdvancedSettingsDebugLoggingCategories">Debug logging categories</h5>
 <p>The checkboxes in this list allow you to enable specific categories of debug messages in NVDA's log.
 Logging these messages can result in decreased performance and large log files.
@@ -4797,7 +5122,7 @@ Then, change the fields for the new symbol as you would for other symbols.</p>
 <p>You can remove a symbol you previously added by pressing the Remove button.</p>
 <p>When you are finished, press the OK button to save your changes or the Cancel button to discard them.</p>
 <p>In the case of complex symbols, the Replacement field may have to include some group references of the matched text. For instance, for a pattern matching a whole date, \1, \2, and \3 would need to appear in the field, to be replaced by the corresponding parts of the date.
-Normal backslashes in the Replacement field should thus be doubled, e.g. "a\b" should be typed in order to get the "a\b" replacement.</p>
+Normal backslashes in the Replacement field should thus be doubled, e.g. "a\\b" should be typed in order to get the "a\b" replacement.</p>
 <h4 id="InputGestures">Input Gestures</h4>
 <p>In this dialog, you can customize the input gestures (keys on the keyboard, buttons on a braille display, etc.) for NVDA commands.</p>
 <p>Only commands that are applicable immediately before the dialog is opened are shown.
@@ -4844,14 +5169,14 @@ You can also reset your settings to their original factory defaults by choosing 
 <tbody>
 <tr>
 <td>Save configuration</td>
-<td>NVDA+control+c</td>
-<td>NVDA+control+c</td>
+<td><code>NVDA+control+c</code></td>
+<td><code>NVDA+control+c</code></td>
 <td>Saves your current configuration so that it is not lost when you exit NVDA</td>
 </tr>
 <tr>
-<td>Revert  configuration</td>
-<td>NVDA+control+r</td>
-<td>NVDA+control+r</td>
+<td>Revert configuration</td>
+<td><code>NVDA+control+r</code></td>
+<td><code>NVDA+control+r</code></td>
 <td>Pressing once resets your configuration to when you last saved it. Pressing three times will reset it back to factory defaults.</td>
 </tr>
 </tbody>
@@ -4934,6 +5259,150 @@ In addition for an installed version of NVDA, on the start menu you can go to pr
 <p>Settings for NVDA when running during sign-in or on UAC screens are stored in the systemConfig directory in NVDA's installation directory.
 Usually, this configuration should not be touched.
 To change NVDA's configuration during sign-in or on UAC screens, configure NVDA as you wish while signed into Windows, save the configuration, and then press the "use currently saved settings during sign-in and on secure screens" button in the General category of the <a href="#NVDASettings" title="NVDA Settings">NVDA Settings</a> dialog.</p>
+<h2 id="RemoteAccess">Remote Access</h2>
+<p>With NVDA's built-in remote access feature, you can control another computer running NVDA or allow someone to control your computer.
+This makes it easy to provide or receive assistance, collaborate, or access your own computer remotely.</p>
+<p>Remote access is disabled by default for your security.
+You can enable Remote Access <a href="#RemoteSettings" title="in Remote Access settings">in Remote Access settings</a>.</p>
+<h3 id="RemoteAccessGettingStarted">Getting Started</h3>
+<p>Before you begin, ensure NVDA is installed and running on both computers.
+Also ensure that the Enable Remote Access checkbox <a href="#RemoteSettings" title="in Remote Access settings">in Remote Access settings</a> is checked on both computers.
+The remote access feature will then be available from the Tools menu in NVDA; there's no need for additional downloads or installations.</p>
+<p>If NVDA is running in <a href="#SecureMode" title="secure mode">secure mode</a>, you cannot manually initiate a new Remote Access session.
+However, NVDA will still automatically start a new Remote Access session if configured to do so with the <a href="#RemoteAutoconnect" title="Automatically connect after NVDA starts">Automatically connect after NVDA starts</a> setting.
+You can still manually disconnect in secure mode.</p>
+<h3 id="RemoteAccessSetup">Setting Up a Remote Access Session</h3>
+<p>Remote access sessions are configured via the Remote Access connection dialog.
+Open the NVDA menu and select Tools, then "Remote Access", then "Connect...".
+Or from anywhere press <code>NVDA+alt+r</code>.</p>
+<h4 id="RemoteAccessMode">Mode Selection (Controlling or Controlled)</h4>
+<p>You'll need to decide which computer will be controlled (the controlled computer) and which will be controlling (the controlling computer).</p>
+<p>the mode combo box allows you to choose whether this computer will be controlled (Another person will interact with your computer) or controlling (you will interact with someone else's computer).</p>
+<ul>
+<li>If you require another person to help you with your computer, choose "Allow this computer to be controlled".</li>
+<li>If you are going to help someone with their computer, choose "Control another computer".</li>
+</ul>
+<h4 id="RemoteAccessJoin">Connecting to an existing server (Host and Key Provided)</h4>
+<p>In this case, the other person has either started the connection via a relay server, or is hosting the connection locally.</p>
+<ol>
+<li>For Server, choose "Use existing".</li>
+<li>In the Host field, Enter the host address (and port if also given).<ul>
+<li>You may include the port to connect on by appending a colon (":") and the port number to the host address.
+For example, <code>example.com:1234</code>.</li>
+</ul>
+</li>
+<li>In the Key field, enter the key provided.
+Be careful to type the key exactly as given.</li>
+<li>Press OK.</li>
+</ol>
+<h4 id="RemoteAccessConnectRelay">Starting a Connection Via a Relay Server</h4>
+<p>If allowing another person to connect to you over the internet, the easiest option is to use a relay server. To do this:</p>
+<ol>
+<li>For Server, choose "Use existing".</li>
+<li>For host, provide the host name of a relay server, such as <code>nvdaremote.com</code>.
+You will need to provide this address to the other person.<ul>
+<li>You may include the port to connect on by appending a colon (":") and the port number to the host.
+For example, <code>example.com:1234</code>.</li>
+</ul>
+</li>
+<li>For key: come up with a long, hard to guess key, or press the "Generate Key" button to have one automatically generated.
+You will need to provide this to the other person.<ul>
+<li>Note that the key acts as both the identifier for the session and the password, so it is very important it is hard to guess.</li>
+</ul>
+</li>
+<li>Press OK.</li>
+<li>Provide the connection details (such as host and key) to the other person so they can connect.</li>
+</ol>
+<h4 id="RemoteAccessConnectSelfHosted">Using NVDA as the server</h4>
+<p>If you do not wish to use a relay server or you are connecting over a local network:</p>
+<ol>
+<li>For Server, choose "Host locally".</li>
+<li>If connecting over the internet, you can press the "Get External IP" button to show your external IP (internet visible) address.
+You will need to provide this external IP to the other person.</li>
+<li>If connecting over a local network, you will need to provide the other person with your local IP.
+Locating this is not covered in this documentation.</li>
+<li>For Port, enter the port you want to use for incoming Remote connections.
+The other person will also need this.<ul>
+<li>This should be a port that is not used by any other services.</li>
+<li>By default, Remote Access uses port 6837.</li>
+<li>If connecting over the internet, the port may need to be forwarded.
+This documentation does not cover how to forward ports.
+You may need to contact your network administrator to do this.</li>
+</ul>
+</li>
+<li>For key: come up with a long, hard to guess key, or press the "Generate Key" button to have one automatically generated.
+You will need to provide this to the other person.<ul>
+<li>Note that the key acts as both the identifier for the session and the password, so it is very important it is hard to guess.</li>
+</ul>
+</li>
+<li>Press OK.</li>
+<li>Provide the connection details (such as host and key) to the other person so they can connect.</li>
+</ol>
+<h3 id="RemoteAccessUsage">Using Remote Access</h3>
+<p>Once a Remote Access session is active, you can switch between controlling the remote computer and your own, share your clipboard, and mute the remote session:</p>
+<ul>
+<li>Press <code>NVDA+alt+tab</code> to toggle between controlling and returning to your own computer.</li>
+<li>Send text from your clipboard to the other computer by opening the NVDA menu, then selecting Tools, then "Remote Access", then "Send clipboard".</li>
+<li>If connected as the controlling computer, mute the remote computer's speech output on your local computer by opening the NVDA menu, then selecting Tools, then "Remote Access", then "Mute remote".</li>
+<li>If connected as the controlling computer, send <code>control+alt+delete</code> to the controlled computer by opening the NVDA menu, then selecting Tools, then "Remote Access", then "Send control+alt+delete".
+  In order for this to work, the controlled computer must be running an installed copy of NVDA.
+  Additionally, depending on the settings of the controlled computer, this function may not always work.</li>
+</ul>
+<h3 id="RemoteAccessGestures">Remote Access Key Commands Summary</h3>
+<!-- KC:beginInclude -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Toggle Remote connection</td>
+<td><code>NVDA+alt+r</code></td>
+<td>Starts a new Remote Access session or, if a session is already in progress, disconnects from it.</td>
+</tr>
+<tr>
+<td>Toggle Control</td>
+<td><code>NVDA+alt+tab</code></td>
+<td>Switches between controlling the remote and local computer.</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>None</td>
+<td>Starts a new Remote Access session. Unavailable in <a href="#SecureMode" title="secure mode">secure mode</a>.</td>
+</tr>
+<tr>
+<td>Copy link</td>
+<td>None</td>
+<td>Copies a link to the remote session to the clipboard.</td>
+</tr>
+<tr>
+<td>Disconnect</td>
+<td>None</td>
+<td>Ends an existing Remote Access session.</td>
+</tr>
+<tr>
+<td>Mute remote</td>
+<td>None</td>
+<td>Mutes or unmutes the speech coming from the remote computer.</td>
+</tr>
+<tr>
+<td>Send clipboard</td>
+<td>None</td>
+<td>Sends the contents of the clipboard to the remote computer.</td>
+</tr>
+<tr>
+<td>Send <code>control+alt+delete</code></td>
+<td>None</td>
+<td>Sends <code>control+alt+delete</code> to the controlled computer.</td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h2 id="AddonsManager">Add-ons and the Add-on Store</h2>
 <p>Add-ons are software packages which provide new or altered functionality for NVDA.
 They are developed by the NVDA community, and external organisations such as commercial vendors.
@@ -4988,6 +5457,11 @@ NVDA alpha testers may need to use a "Dev" version of their add-ons.</li>
 You can reach it by pressing <code>shift+tab</code> from the list of add-ons.
 Type a keyword or two for the kind of add-on you're looking for, then <code>tab</code> to the list of add-ons.
 Add-ons will be listed if the search text can be found in the add-on ID, display name, publisher, author or description.</p>
+<h4 id="AddonStoreSortByColumn">Sorting the add-ons list by column</h4>
+<p>By default, the add-ons list is sorted by the add-ons' display name.
+The "Sort by column" combo box can be used to sort the list by the available columns for each tab.
+For example, you may wish to sort add-ons by publisher, available version, etc.
+Add-ons can be sortered in ascending or descending order.</p>
 <h3 id="AddonStoreActions">Add-on actions</h3>
 <p>Add-ons have associated actions, such as install, help, disable, and remove.
 For an add-on in the add-on list, these actions can be accessed through a menu opened by pressing the <code>applications</code> key, <code>enter</code>, right clicking or double clicking the add-on.
@@ -4999,7 +5473,9 @@ The functionality of add-ons is unrestricted inside NVDA.
 This could include accessing your personal data or even the entire system.</p>
 <p>You can install and update add-ons by <a href="#AddonStoreBrowsing" title="browsing Available add-ons">browsing Available add-ons</a>.
 Select an add-on from the "Available add-ons" or "Updatable add-ons" tab.
-Then use the update, install, or replace action to start the installation.</p>
+Then use the update, install, or replace action to start the installation.
+If the download or installation fails you can retry the installation.
+It is also possible to cancel the install before exiting the Add-on Store.</p>
 <p>You can also install multiple add-ons at once.
 This can be done by selecting multiple add-ons in the available add-ons tab, then activating the context menu on the selection and choosing the "Install selected add-ons" action.</p>
 <p>To install an add-on you have obtained outside of the Add-on Store, press the "Install from external source" button.
@@ -5019,7 +5495,7 @@ As with installing, you can also remove multiple add-ons at once.</p>
 <h4 id="AddonStoreDisablingEnabling">Disabling and Enabling Add-ons</h4>
 <p>To disable an add-on, use the "disable" action.
 To enable a previously disabled add-on, use the "enable" action.
-You can disable an add-on if the add-on status indicates it is  "enabled", or enable it if the add-on is "disabled".
+You can disable an add-on if the add-on status indicates it is "enabled", or enable it if the add-on is "disabled".
 For each use of the enable/disable action, add-on status changes to indicate what will happen when NVDA restarts.
 If the add-on was previously "disabled", the status will show "enabled after restart".
 If the add-on was previously "enabled", the status will show "disabled after restart".
@@ -5032,6 +5508,52 @@ To read reviews for an add-on, select it, and use the "Community reviews" action
 This links to a GitHub Discussion webpage, where you will be able to read and write reviews for the add-on.
 Please be aware that this doesn't replace direct communication with add-on developers.
 Instead, the purpose of this feature is to share feedback to help users decide if an add-on may be useful for them.</p>
+<h4 id="AddonStoreUpdateChannel">Changing the automatic update channel</h4>
+<p>You can manage the automatic update channels for add-ons from the <a href="#AddonStoreFilterStatus" title="installed and updatable add-ons tabs">installed and updatable add-ons tabs</a>.
+When <a href="#AutomaticAddonUpdates" title="Automatic add-on updates">Automatic add-on updates</a> are enabled, add-ons will update to the same <a href="#AddonStoreFilterChannel" title="channel">channel</a> they were installed from by <a href="#DefaultAddonUpdateChannel" title="default">default</a>.
+From an add-on's actions menu, using the submenu "Update channel", you can modify the channels an add-on will automatically update to.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default</td>
+<td>Add-on will follow the <a href="#DefaultAddonUpdateChannel" title="default update channel">default update channel</a></td>
+</tr>
+<tr>
+<td>Same</td>
+<td>Add-on will remain on the same channel</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Add-on will automatically update to the latest version, regardless of channel</td>
+</tr>
+<tr>
+<td>Do not update</td>
+<td>Add-on will not automatically update</td>
+</tr>
+<tr>
+<td>Stable</td>
+<td>Add-on will automatically update to stable versions</td>
+</tr>
+<tr>
+<td>Beta or dev</td>
+<td>Add-on will automatically update to beta or dev versions</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>Add-on will automatically update to beta versions</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Add-on will automatically update to dev versions</td>
+</tr>
+</tbody>
+</table>
 <h3 id="incompatibleAddonsManager">Incompatible Add-ons</h3>
 <p>Some older add-ons may no longer be compatible with the version of NVDA that you have.
 If you are using an older version of NVDA, some newer add-ons may not be compatible either.
@@ -5109,7 +5631,7 @@ The cell will start as a light yellow colour, transition to orange, then suddenl
 <p>To toggle the braille viewer from anywhere, please assign a custom gesture using the <a href="#InputGestures" title="Input Gestures dialog">Input Gestures dialog</a>.</p>
 <h3 id="PythonConsole">Python Console</h3>
 <p>The NVDA Python console, found under Tools in the NVDA menu, is a development tool which is useful for debugging, general inspection of NVDA internals or inspection of the accessibility hierarchy of an application.
-For more information, please see the <a href="https://www.nvaccess.org/files/nvda/documentation/developerGuide.html" rel="noopener" target="_blank" title="NVDA Developer Guide">NVDA Developer Guide</a>.</p>
+For more information, please see the <a href="https://download.nvaccess.org/documentation/developerGuide.html" rel="noopener" target="_blank" title="NVDA Developer Guide">NVDA Developer Guide</a>.</p>
 <h3 id="AddonStoreMenuItem">Add-on Store</h3>
 <p>This will open the <a href="#AddonsManager" title="NVDA Add-on Store">NVDA Add-on Store</a>.
 For more information, read the in-depth section: <a href="#AddonsManager" title="Add-ons and the Add-on Store">Add-ons and the Add-on Store</a>.</p>
@@ -5117,17 +5639,18 @@ For more information, read the in-depth section: <a href="#AddonsManager" title=
 <p>This will open a dialog which allows you to create a portable copy of NVDA out of the currently running version.</p>
 <p>Follow the directions in <a href="#CreatingAPortableCopy" title="Creating a portable copy">Creating a portable copy</a> for more information.</p>
 <h3 id="RunCOMRegistrationFixingTool">Run COM registration fixing tool...</h3>
-<p>Installing and uninstalling programs on a computer can, in certain cases, cause COM DLL files to get unregistered.
-As COM Interfaces such as IAccessible depend on correct COM DLL registrations, issues can appear in case the correct registration is missing.</p>
-<p>This can happen i.e. after installing and uninstalling Adobe Reader, Math Player and other programs.</p>
-<p>The missing registration can cause issues in browsers, desktop apps, task bar and other interfaces.</p>
-<p>Specifically, following issues can be solved by running this tool:</p>
+<p>Sometimes, problems can develop with the Windows Registry, that result in NVDA behaving abnormally.
+This can be caused by, for example, installing or uninstalling certain programs (such as Adobe Reader or Math Player), as well as Windows updates and other events.
+THE COM Registration Fixing Tool attempts to fix these issues by repairing accessibility entries in the registry.</p>
+<p>The types of problem this tool can fix include:</p>
 <ul>
-<li>NVDA reports "unknown" when navigating in browsers such as Firefox, Thunderbird etc.</li>
-<li>NVDA fails to switch between focus mode and browse mode</li>
-<li>NVDA is very slow when navigating in browsers while using browse mode</li>
-<li>And possibly other issues.</li>
+<li>NVDA reporting "unknown" or "pane", when navigating in browsers such as Firefox or Edge, mail programs such as Thunderbird, Windows Explorer, the task bar, and other programs.</li>
+<li>NVDA failing to switch between focus mode and browse mode when you expect it to.</li>
+<li>Buttons which previously had their names spoken, suddenly being reported only as "button".</li>
+<li>NVDA being very slow when navigating in browsers while using browse mode.</li>
 </ul>
+<p>Because this tool corrects entries in the Windows registry, it requires administrative access to work, just like when installing a program.
+If you have UAC (User Access Control) enabled, as most users do, you will need to follow whatever prompts are presented by UAC, to run the tool successfully.</p>
 <h3 id="ReloadPlugins">Reload plugins</h3>
 <p>This item, once activated, reloads app modules and global plugins without restarting NVDA, which can be useful for developers.
 App modules manage how NVDA interacts with specific applications.
@@ -5160,7 +5683,7 @@ Global plugins manage how NVDA interacts with all applications.</p>
 
 <h2 id="SupportedSpeechSynths">Supported Speech Synthesizers</h2>
 <p>This section contains information about the speech synthesizers supported by NVDA.
-For an even more extensive list of  free and commercial synthesizers that you can purchase and download for use with NVDA, please see the <a href="https://github.com/nvaccess/nvda/wiki/ExtraVoices" rel="noopener" target="_blank" title="extra voices page">extra voices page</a>.</p>
+For an even more extensive list of free and commercial synthesizers that you can purchase and download for use with NVDA, please see the <a href="https://github.com/nvaccess/nvda/wiki/ExtraVoices" rel="noopener" target="_blank" title="extra voices page">extra voices page</a>.</p>
 <h3 id="eSpeakNG">eSpeak NG</h3>
 <p>The <a href="https://github.com/espeak-ng/espeak-ng" rel="noopener" target="_blank" title="eSpeak NG">eSpeak NG</a> synthesizer is built directly into NVDA and does not require any other special drivers or components to be installed.
 On Windows 8.1 NVDA uses eSpeak NG by default (<a href="#OneCore" title="Windows OneCore">Windows OneCore</a> is used in Windows 10 and later by default).
@@ -5222,6 +5745,7 @@ This option is selected by default.</p>
 <li>Nattiq nBraille displays</li>
 <li>Seika Notetaker: MiniSeika (16, 24 cells), V6, and V6Pro (40 cells)</li>
 <li>Tivomatic Caiku Albatross 46/80 displays</li>
+<li>NLS eReader Zoomax</li>
 <li>Any Display that supports the Standard HID Braille protocol</li>
 </ul>
 <h3 id="FreedomScientificFocus">Freedom Scientific Focus/PAC Mate Series</h3>
@@ -5998,7 +6522,7 @@ Please see the display's documentation for descriptions of where these keys can 
 <!-- KC:endInclude -->
 
 <h3 id="HumanWareBrailliant">HumanWare Brailliant BI/B Series / BrailleNote Touch</h3>
-<p>The Brailliant BI and B series of displays  from <a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a>, including the BI 14, BI 32, BI 20X, BI 40, BI 40X and B 80, are supported when connected via USB or bluetooth.
+<p>The Brailliant BI and B series of displays from <a href="https://www.humanware.com/" rel="noopener" target="_blank" title="HumanWare">HumanWare</a>, including the BI 14, BI 32, BI 20X, BI 40, BI 40X and B 80, are supported when connected via USB or bluetooth.
 If connecting via USB with the protocol set to HumanWare, you must first install the USB drivers provided by the manufacturer.
 USB drivers are not required if the protocol is set to OpenBraille.</p>
 <p>The following extra devices are also supported (and do not require any special drivers to be installed):</p>
@@ -6006,12 +6530,9 @@ USB drivers are not required if the protocol is set to OpenBraille.</p>
 <li>APH Mantis Q40</li>
 <li>APH Chameleon 20</li>
 <li>Humanware BrailleOne</li>
-<li>NLS eReader<ul>
-<li>Note that the Zoomax is currently not supported without external drivers</li>
+<li>NLS eReader HumanWare</li>
 </ul>
-</li>
-</ul>
-<p>Following are the key assignments for  the Brailliant BI/B and BrailleNote touch displays with NVDA.
+<p>Following are the key assignments for the Brailliant BI/B and BrailleNote touch displays with NVDA.
 Please see the display's documentation for descriptions of where these keys can be found.</p>
 <h4 id="HumanWareBrailliantKeyAssignmentForAllModels">Key assignments for All models</h4>
 <!-- KC:beginInclude -->
@@ -7148,7 +7669,7 @@ The following models are supported:</p>
 <li>BrailleNote MPower (Serial and bluetooth connections)</li>
 <li>BrailleNote Apex (USB and Bluetooth connections)</li>
 </ul>
-<p>For BrailleNote Touch, please refer to  the <a href="#HumanWareBrailliant" title="Brailliant BI Series / BrailleNote Touch">Brailliant BI Series / BrailleNote Touch</a> section.</p>
+<p>For BrailleNote Touch, please refer to the <a href="#HumanWareBrailliant" title="Brailliant BI Series / BrailleNote Touch">Brailliant BI Series / BrailleNote Touch</a> section.</p>
 <p>Except for BrailleNote PK, both braille (BT) and QWERTY (QT) keyboards are supported.
 For BrailleNote QT, PC keyboard emulation isn't supported.
 You can also enter braille dots using the QT keyboard.
@@ -8428,6 +8949,68 @@ Please see the display's documentation for descriptions of where these keys can 
 </table>
 <!-- KC:endInclude -->
 
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<p>The NLS eReader Zoomax device supports USB or bluetooth connections.
+The Windows 10 and Windows 11 operating systems will automatically detect and install the necessary drivers for this display.
+For computers where the Internet connection is disabled or not available, you can manually <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener" target="_blank" title="download and install the USB to serial CH340 chip driver">download and install the USB to serial CH340 chip driver</a> to support this display over USB.</p>
+<p>By default, NVDA can automatically detect and connect to this display via USB or bluetooth.
+However, when configuring the display, you can also explicitly select "USB" or "Bluetooth" ports to restrict the connection type to be used.</p>
+<p>Following are the key assignments for this display with NVDA.
+Please see the display's documentation for descriptions of where these keys can be found.</p>
+<!-- KC:beginInclude -->
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scroll braille display back</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Scroll braille display forward</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Move braille display to previous line</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Move braille display to next line</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Route to braille cell</td>
+<td><code>routing</code></td>
+</tr>
+<tr>
+<td>Up arrow key</td>
+<td><code>up</code></td>
+</tr>
+<tr>
+<td>Down arrow key</td>
+<td><code>down</code></td>
+</tr>
+<tr>
+<td>Left arrow key</td>
+<td><code>left</code></td>
+</tr>
+<tr>
+<td>Right arrow key</td>
+<td><code>right</code></td>
+</tr>
+<tr>
+<td>Enter key</td>
+<td><code>select</code></td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h3 id="HIDBraille">Standard HID Braille displays</h3>
 <p>This is an experimental driver for the new Standard HID Braille Specification, agreed upon in 2018 by Microsoft, Google, Apple and several assistive technology companies including NV Access.
 The hope is that all future Braille Display models created by any manufacturer, will use this standard protocol which will remove the need for manufacturer-specific Braille drivers.</p>
@@ -8469,7 +9052,7 @@ The hope is that all future Braille Display models created by any manufacturer, 
 </tr>
 <tr>
 <td>leftArrow key</td>
-<td>space+dot3, joystick left  or dpad left</td>
+<td>space+dot3, joystick left or dpad left</td>
 </tr>
 <tr>
 <td>rightArrow key</td>
@@ -8519,6 +9102,41 @@ The hope is that all future Braille Display models created by any manufacturer, 
 </table>
 <!-- KC:endInclude -->
 
+<h3 id="dotPad">Dot Pad</h3>
+<p>The Dot Pad from Dot Inc is a device that can display refreshable tactile graphics and braille.
+NVDA can display either a single line of braille on the devices dedicated braille display line, or multiple lines of braille on its tactile graphics area.
+The A300 model has a tactile graphics area of 120 by 80 dots, which can fit 8 lines of 20 cells each.</p>
+<p>You can configure whether NVDA displays braille on the dedicated braille display line or on the tactile graphics area via the Braille Destination option in NVDA's Braille settings for this driver.</p>
+<p>Panning keys are supported, but due to limited buttons on the device, other commands and routing capabilities are currently not available.</p>
+<p>The Dot Pad driver supports automatic detection of USB-connected devices.
+However, automatic detection is disabled by default due to the device using generic USB identifiers that could conflict with other devices.
+To enable automatic detection, go to NVDA's Braille settings and check "Dot Pad" in the automatic detection list.
+When automatic detection is enabled and a compatible device is detected, NVDA will automatically connect to it.
+You can also manually select a specific USB or Bluetooth virtual serial port if needed.</p>
+<p>Please note that due to hardware limitations, the Dot Pad will not refresh all dots correctly while your hand is on the device.
+Make sure to lift your hand entirely off the device when navigating with NVDA, and only start reading again once it has fully updated.</p>
+<!-- KC:beginInclude -->
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scroll braille display back</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>Scroll braille display forward</td>
+<td><code>pan_right</code></td>
+</tr>
+</tbody>
+</table>
+<!-- KC:endInclude -->
+
 <h2 id="AdvancedTopics">Advanced Topics</h2>
 <h3 id="SecureMode">Secure Mode</h3>
 <p>System administrators may wish to configure NVDA to restrict unauthorized system access.
@@ -8539,7 +9157,7 @@ NVDA can also be started in secure mode with the <code>-s</code> <a href="#Comma
 <li>The <a href="#PythonConsole" title="NVDA Python console">NVDA Python console</a></li>
 <li>The <a href="#LogViewer" title="Log Viewer">Log Viewer</a> and logging</li>
 <li>The <a href="#BrailleViewer" title="Braille Viewer">Braille Viewer</a> and <a href="#SpeechViewer" title="Speech Viewer">Speech Viewer</a></li>
-<li>Opening external documents from the NVDA menu, such as the user guide or contributors file.</li>
+<li>Opening external documents from the NVDA menu, such as the user guide file.</li>
 </ul>
 <p>Installed copies of NVDA store their configuration including add-ons in <code>%APPDATA%\nvda</code>.
 To prevent NVDA users from modifying their configuration or add-ons directly, user access to this folder must also be restricted.</p>
@@ -8657,7 +9275,7 @@ Those parameters should be placed after the option, separated from the option by
 <td>The path where all settings for NVDA are stored. The default value is forced if secure mode is enabled.</td>
 </tr>
 <tr>
-<td>None</td>
+<td><code>-n LANGUAGE</code></td>
 <td><code>--lang=LANGUAGE</code></td>
 <td>Override the configured NVDA language. Set to "Windows" for current user default, "en" for English, etc.</td>
 </tr>
@@ -8672,7 +9290,7 @@ Those parameters should be placed after the option, separated from the option by
 <td>Starts NVDA in <a href="#SecureMode" title="Secure Mode">Secure Mode</a></td>
 </tr>
 <tr>
-<td>None</td>
+<td><code>-d</code></td>
 <td><code>--disable-addons</code></td>
 <td>Add-ons will have no effect</td>
 </tr>
@@ -8719,12 +9337,36 @@ Those parameters should be placed after the option, separated from the option by
 <tr>
 <td>None</td>
 <td><code>--create-portable-silent</code></td>
-<td>Creates a portable copy of NVDA  (without starting the new copy). Requires <code>--portable-path</code> to be specified. This option suppresses warnings when writing to non-empty directories and may overwrite files without warning.</td>
+<td>Creates a portable copy of NVDA (without starting the new copy). Requires <code>--portable-path</code> to be specified. This option suppresses warnings when writing to non-empty directories and may overwrite files without warning.</td>
 </tr>
 <tr>
 <td>None</td>
 <td><code>--portable-path=PORTABLEPATH</code></td>
 <td>The path where a portable copy will be created</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UninstallingNVDA">Uninstalling NVDA</h3>
+<p>NVDA's uninstaller is called <code>uninstall.exe</code> and resides under the NVDA installation directory, <code>%ProgramFiles(x86)%\nvda</code> on 64-bit Windows, or <code>%ProgramFiles%\nvda</code> on 32-bit Windows.</p>
+<p>Note: It is possible to stop NVDA from starting automatically without needing to uninstall NVDA.
+To stop NVDA starting automatically, please refer to the options: <a href="#GeneralSettingsStartAfterLogOn" title="Start NVDA after I sign in">Start NVDA after I sign in</a> and <a href="#GeneralSettingsStartOnLogOnScreen" title="Use NVDA during sign-in">Use NVDA during sign-in</a> in NVDA's general settings.</p>
+<p>Just as you can silently install NVDA by passing the <code>--install-silent</code> command line option to NVDA, it can be silently uninstalled by passing the <code>/S</code> command to the uninstaller.</p>
+<p>Installed copies of NVDA store their configuration including add-ons in <code>%APPDATA%\nvda</code>.
+These files are not removed by NVDA's uninstaller.</p>
+<p>The following are the command line options for NVDA's uninstaller:</p>
+<table>
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/S</code></td>
+<td>None</td>
+<td>Silently uninstall NVDA.</td>
 </tr>
 </tbody>
 </table>

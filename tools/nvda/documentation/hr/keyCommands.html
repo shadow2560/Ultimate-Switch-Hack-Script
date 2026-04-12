@@ -2,15 +2,16 @@
 <html lang="hr" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.4.2 – Pregled tipkovničkih prečaca</title>
+<title>NVDA 2025.3.3 – Pregled tipkovničkih prečaca</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 
 </head>
-<body><h1 id="nvda-202442-pregled-tipkovnickih-precaca">NVDA 2024.4.2 – Pregled tipkovničkih prečaca</h1>
+<body><h1 id="nvda-202533-pregled-tipkovnickih-precaca">NVDA 2025.3.3 – Pregled tipkovničkih prečaca</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202442-pregled-tipkovnickih-precaca" title="NVDA 2024.4.2 – Pregled tipkovničkih prečaca">NVDA 2024.4.2 – Pregled tipkovničkih prečaca</a><ul>
+<li><a href="#nvda-202533-pregled-tipkovnickih-precaca" title="NVDA 2025.3.3 – Pregled tipkovničkih prečaca">NVDA 2025.3.3 – Pregled tipkovničkih prečaca</a><ul>
 <li><a href="#GettingStartedWithNVDA" title="Korištenje NVDA">Korištenje NVDA</a><ul>
 <li><a href="#NVDATouchGestures" title="NVDA dodirne geste">NVDA dodirne geste</a><ul>
 <li><a href="#TouchModes" title="Modusi dodira">Modusi dodira</a></li>
@@ -114,6 +115,10 @@
 </li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="Daljinska podrška">Daljinska podrška</a><ul>
+<li><a href="#RemoteAccessGestures" title="Kratak pregled prečaca NVDA udaljene podrške">Kratak pregled prečaca NVDA udaljene podrške</a></li>
+</ul>
+</li>
 <li><a href="#ExtraTools" title="Dodatni alati">Dodatni alati</a><ul>
 <li><a href="#LogViewer" title="Preglednik log zapisa">Preglednik log zapisa</a></li>
 <li><a href="#ReloadPlugins" title="Ponovo učitaj dodatke">Ponovo učitaj dodatke</a></li>
@@ -155,7 +160,9 @@
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille redovi">Nattiq nBraille redovi</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="Standardni HID brajični retci">Standardni HID brajični retci</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 </ul>
@@ -674,6 +681,20 @@
 <td>Premješta pregledni kursor na sljedeću stranicu teksta, ako to podržava program</td>
 </tr>
 <tr>
+<td>Pomakni se na početak označenog u pregledu</td>
+<td><code>NVDA+alt+home</code></td>
+<td><code>NVDA+alt+home</code></td>
+<td>nema</td>
+<td>pomiće pregledni kursor na prvi znak označenog teksta</td>
+</tr>
+<tr>
+<td>Pomakni se na kraj označenoga u pregledu</td>
+<td><code>NVDA+alt+end</code></td>
+<td><code>NVDA+alt+end</code></td>
+<td>Nema</td>
+<td>pomiće pregledni kursor na zadnji znak označenog teksta</td>
+</tr>
+<tr>
 <td>Izgovori sve pomoću pregleda</td>
 <td>numPlus</td>
 <td>NVDA+šift+a</td>
@@ -894,7 +915,7 @@
 <li>g: slika</li>
 <li>d: orjentir</li>
 <li>o: ugrađeni objekt (audio i video player, aplikacija, dijaloški okvir, itd.)</li>
-<li>1 do 6: naslovi od 1 do 6</li>
+<li>1 do 9: naslovi  razina od 1. do 9.</li>
 <li>a: zabilješka (komentar, revizija urednika, itd.)</li>
 <li><code>p</code>: odlomak teksta</li>
 <li>w: pravopisna pogreška</li>
@@ -950,9 +971,9 @@
 </thead>
 <tbody>
 <tr>
-<td>Traži tekst</td>
-<td>NVDA+kontrol+f</td>
-<td>Otvara dijaloški okvir pretrage</td>
+<td>Pretraži tekst</td>
+<td>NVDA+control+f</td>
+<td>Otvara dijaloški okvir za pretragu</td>
 </tr>
 <tr>
 <td>Traži sljedeće</td>
@@ -960,9 +981,9 @@
 <td>Traži sljedeće pojavljivanje trenutačno traženog teksta</td>
 </tr>
 <tr>
-<td>Traži prethodno</td>
-<td>NVDA+šift+f3</td>
-<td>Traži prethodno pojavljivanje trenutačno traženog teksta</td>
+<td>Pronađi prethodno</td>
+<td>NVDA+shift+f3</td>
+<td>Traži prethodno poklapanje trenutnog upita pretraživanja</td>
 </tr>
 </tbody>
 </table>
@@ -1057,14 +1078,14 @@ Pritiskom kombinacije točkice 7 + točkice 8 prevodi svaki brajični unos, ali 
 </thead>
 <tbody>
 <tr>
-<td>postavi zaglavlja stupaca</td>
-<td>insert+šift+c</td>
-<td>pritišćući ovu kombinaciju nvda zna da je ovo prvo zaglavlje  u redku koje sadržava zaglavlje stupaca, koji trebaju biti automatski izgovoreni kad se krećete po stupcima ispod tog stupca. kad se pritisne dvaput briše postavku.</td>
+<td>Postavi zaglavlja stupaca</td>
+<td><code>NVDA+shift+c</code></td>
+<td>Kada se ovaj prečac pritisne jedamput, pokazujemo NVDA da je to prva ćelija u stupcu, koja treba biti izgovorena u stupcima ispod tog redka. Dvostruki brzi pritisak briše postavku.</td>
 </tr>
 <tr>
-<td>postavi zaglavlja redaka</td>
-<td>insert+šift+r</td>
-<td>kad se pritisne nvda zna da je to prvo zaglavlje ćelije u stupcu koje sadrži zaglavlje redaka, koji će biti automatski izgovoren šećući se po stupcima između tih stupaca. Kad se pritisne dvaput, izbrisat će se postavka.</td>
+<td>Postavi zaglavlja redaka</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Kada se pritisne jedamput, označava ovu ćeliju kao prvu ćeliju u redku koja sadrži zaglavlja redaka, koja prva treba biti pročitana prilikom čitanja od te ćelije. Dvostruki pritisak briše postavku.</td>
 </tr>
 </tbody>
 </table>
@@ -1088,13 +1109,13 @@ Kada se dvaput pritisne, informacija će se pokazati u modusu čitanja.</p>
 <tbody>
 <tr>
 <td>Postavi zaglavlja stupaca</td>
-<td>NVDA+šift+c</td>
-<td>Kad se pritisne jednom, NVDA zna da je to prva ćelija zaglavlja u retku koja sadrži zaglavlje stupaca, koja treba automatski najaviti kad se premještate po stupcima ispod ovog retka. Kad se pritisne dvaput, postavka se briše.</td>
+<td><code>NVDA+shift+c</code></td>
+<td>Kada se ovaj prečac pritisne jedamput, pokazujemo NVDA da je to prva ćelija u stupcu, koja treba biti izgovorena u stupcima ispod tog redka. Dvostruki brzi pritisak briše postavku.</td>
 </tr>
 <tr>
 <td>Postavi zaglavlja redaka</td>
-<td>NVDA+šift+r</td>
-<td>Kad se pritisne jednom, NVDA zna da je to prva ćelija zaglavlja u stupcu koja sadrži zaglavlja redaka, koja treba automatski najaviti kad se premještate po redcima nakon ovog stupca. Kad se pritisne dvaput, postavka se briše.</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Kada se pritisne jedamput, označava ovu ćeliju kao prvu ćeliju u redku koja sadrži zaglavlja redaka, koja prva treba biti pročitana prilikom čitanja od te ćelije. Dvostruki pritisak briše postavku.</td>
 </tr>
 </tbody>
 </table>
@@ -1480,15 +1501,15 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedCharacters">Izgovori utipkane znakove</td>
-<td>NVDA+2</td>
-<td>NVDA+2</td>
-<td>Kad je aktivirano, NVDA će izgovoriti sve znakove koje tipkate na tipkovnici.</td>
+<td><code>NVDA+2</code></td>
+<td><code>NVDA+2</code></td>
+<td>Ova opcija regulira izgovor pojedinačinh znakova pri pisanju s NVDA.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedWords">Izgovori utipkane riječi</td>
-<td>NVDA+3</td>
-<td>NVDA+3</td>
-<td>Kad je aktivirano, NVDA će izgovoriti sve riječi koje tipkate na tipkovnici.</td>
+<td><code>NVDA+3</code></td>
+<td><code>NVDA+3</code></td>
+<td>Ova opcija regulira izgovor upisaivanih znakova na tipkovnici.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakCommandKeys">Izgovori naredbene tipke</td>
@@ -1602,12 +1623,6 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 <td>NVDA+v</td>
 <td>Ova vam opcija omogućuje da odredite treba li u načinu pregleda smjestiti sadržaj koji se može kliknuti (poveznice, gumbe i polja) u svoje zasebne redke, ili trebaju ostati zajedno s tekstom kao što je to vizualno prikazano.</td>
 </tr>
-<tr>
-<td id="BrowseModeSettingsAutoFocusFocusableElements">Automatski postavi fokus na elemente koji se mogu fokusirati</td>
-<td>NVDA+8</td>
-<td>NVDA+8</td>
-<td>Onemogućena podrazumjevano, ova opcija omogućuje vam hoće li elementi koji  mogu preuzeti fokus sustava činiti isto. To mogu biti Veze, polja obrazaca, itd. when navigating content with the browse mode caret.</td>
-</tr>
 </tbody>
 </table>
 <h4 id="DocumentFormattingSettings">Oblikovanje dokumenta</h4>
@@ -1644,16 +1659,16 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 </thead>
 <tbody>
 <tr>
-<td>Spremi konfiguraciju</td>
-<td>NVDA+kontrol+c</td>
-<td>NVDA+kontrol+c</td>
-<td>Sprema vašu trenutačnu konfiguraciju kako se ne bi izgubila, kad izađete iz NVDA čitača</td>
+<td>spremi konfiguraciju</td>
+<td><code>NVDA+control+c</code></td>
+<td><code>NVDA+control+c</code></td>
+<td>Sprema konfiguraciju, tako da ne bude izgubljena poslije ponovnog pokretanja NVDA</td>
 </tr>
 <tr>
 <td>Vrati konfiguraciju</td>
-<td>NVDA+kontrol+r</td>
-<td>NVDA+kontrol+r</td>
-<td>Kad se pritisne jednom, vraća na zadnje spremljene postavke. Kad se pritisne triput, vratit će je na standardnu.</td>
+<td><code>NVDA+control+r</code></td>
+<td><code>NVDA+control+r</code></td>
+<td>Jednostruki pritisak vraća konfiguraciju na zadnju spremljenu konfiguraciju Kada se pritisne tri puta konfiguracija će se vratiti na zadane postavke.</td>
 </tr>
 </tbody>
 </table>
@@ -1662,6 +1677,59 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 <ul>
 <li>NVDA+kontrol+p: Prikazuje dijaloški okvir konfiguracijski profili.</li>
 </ul>
+<h2 id="RemoteAccess">Daljinska podrška</h2>
+<h3 id="RemoteAccessGestures">Kratak pregled prečaca NVDA udaljene podrške</h3>
+<table>
+<thead>
+<tr>
+<th>Naziv</th>
+<th>Prečac</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uključi ili isključi udaljenu vezu</td>
+<td><code>NVDA+alt+r</code></td>
+<td>Pokreće udaljenu vezu, ili ako je u tije,u prekida ju.</td>
+</tr>
+<tr>
+<td>Prebacuj kontrolu</td>
+<td><code>NVDA+alt+tab</code></td>
+<td>Prebacuje između lokalnog i udaljenog računala</td>
+</tr>
+<tr>
+<td>Spoji se</td>
+<td>nema</td>
+<td>Stvara novu udaljenu vezu. Nedostupno <a href="#SecureMode" title="u sigurnom načinu rada">u sigurnom načinu rada</a>.</td>
+</tr>
+<tr>
+<td>Kopiraj poveznicu</td>
+<td>nema</td>
+<td>Kopira poveznicu udaljene poveznice u međuspremnik.</td>
+</tr>
+<tr>
+<td>Odspoji se</td>
+<td>nema</td>
+<td>Prekida vezu postojeće udaljene podrške..</td>
+</tr>
+<tr>
+<td>Utišaj udaljenu podršku</td>
+<td>Nema</td>
+<td>Utišava ili odtišava govor koji dolazi s udaljenog računala.</td>
+</tr>
+<tr>
+<td>Pošalji međuspremnik</td>
+<td>Nema</td>
+<td>Šalje sadržaj međuspremnika na udaljeno računalo.</td>
+</tr>
+<tr>
+<td>Pošalji <code>control+alt+delete</code></td>
+<td>Nema</td>
+<td>Šalje <code>control+alt+delete</code> na udaljeno računalo.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ExtraTools">Dodatni alati</h2>
 <h3 id="LogViewer">Preglednik log zapisa</h3>
 <table>
@@ -4461,6 +4529,57 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 </tr>
 </tbody>
 </table>
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<table>
+<thead>
+<tr>
+<th>Naziv</th>
+<th>tipka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prebaci brajični redak u nazad</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Prebaci brajični redak u naprijed</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Prebaci brajični redak na prethodni redak teksta</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Prebaci brajični redak na slijedeći redak teksta</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Prebaci se na brajični znak</td>
+<td><code>routing</code></td>
+</tr>
+<tr>
+<td>Strelica gore</td>
+<td><code>up</code></td>
+</tr>
+<tr>
+<td>Strelica dolje</td>
+<td><code>down</code></td>
+</tr>
+<tr>
+<td>Strelica lijevo</td>
+<td><code>left</code></td>
+</tr>
+<tr>
+<td>Strelica desno</td>
+<td><code>right</code></td>
+</tr>
+<tr>
+<td>Enter</td>
+<td><code>select</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="HIDBraille">Standardni HID brajični retci</h3>
 <table>
 <thead>
@@ -4495,8 +4614,8 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 <td>joystick down, dpad down ili razmaknica+točkica4</td>
 </tr>
 <tr>
-<td>strelica lijevo</td>
-<td>razmaknica+točkica3, joystick left  ili dpad left</td>
+<td>Strelica lijevo</td>
+<td>razmaknica+točkica3, joystick lijevo ili dpad lijevo</td>
 </tr>
 <tr>
 <td>strelica desno</td>
@@ -4541,6 +4660,25 @@ In Microsoft Officeu 2016, 365 i novijim inačicama, klasični su komentari u Mi
 <tr>
 <td>Čitaj sve</td>
 <td>razmak+točkica1+točkica2+točkica3+točkica4+točkica5+točkica6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dotPad">Dot Pad</h3>
+<table>
+<thead>
+<tr>
+<th>Naziv</th>
+<th>prečac</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pomakni brajični redak u nazad</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>pomakni brajični redak u naprijed</td>
+<td><code>pan_right</code></td>
 </tr>
 </tbody>
 </table>

@@ -2,15 +2,16 @@
 <html lang="es" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>Referencia Rápida de Órdenes de NVDA 2024.4.2</title>
+<title>Referencia Rápida de Órdenes de NVDA 2025.3.3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 
 </head>
-<body><h1 id="referencia-rapida-de-ordenes-de-nvda-202442">Referencia Rápida de Órdenes de NVDA 2024.4.2</h1>
+<body><h1 id="referencia-rapida-de-ordenes-de-nvda-202533">Referencia Rápida de Órdenes de NVDA 2025.3.3</h1>
 <div class="toc">
 <ul>
-<li><a href="#referencia-rapida-de-ordenes-de-nvda-202442" title="Referencia Rápida de Órdenes de NVDA 2024.4.2">Referencia Rápida de Órdenes de NVDA 2024.4.2</a><ul>
+<li><a href="#referencia-rapida-de-ordenes-de-nvda-202533" title="Referencia Rápida de Órdenes de NVDA 2025.3.3">Referencia Rápida de Órdenes de NVDA 2025.3.3</a><ul>
 <li><a href="#GettingStartedWithNVDA" title="Utilizar NVDA">Utilizar NVDA</a><ul>
 <li><a href="#NVDATouchGestures" title="Gestos táctiles de NVDA">Gestos táctiles de NVDA</a><ul>
 <li><a href="#TouchModes" title="Modos Táctiles">Modos Táctiles</a></li>
@@ -114,6 +115,10 @@
 </li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="Acceso Remoto">Acceso Remoto</a><ul>
+<li><a href="#RemoteAccessGestures" title="Resumen de teclas de órdenes de acceso remoto">Resumen de teclas de órdenes de acceso remoto</a></li>
+</ul>
+</li>
 <li><a href="#ExtraTools" title="Herramientas Extra">Herramientas Extra</a><ul>
 <li><a href="#LogViewer" title="Visualizador del Registro">Visualizador del Registro</a></li>
 <li><a href="#ReloadPlugins" title="Recargar plugins">Recargar plugins</a></li>
@@ -155,7 +160,9 @@
 <li><a href="#NattiqTechnologies" title="Pantallas Nattiq nBraille">Pantallas Nattiq nBraille</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="Pantallas HID Braille estándar">Pantallas HID Braille estándar</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 </ul>
@@ -674,6 +681,20 @@
 <td>Mueve el cursor de revisión a la página siguiente de texto si se admite por la aplicación</td>
 </tr>
 <tr>
+<td>Mover al inicio de la selección en revisión</td>
+<td><code>NVDA+alt+inicio</code></td>
+<td><code>NVDA+alt+inicio</code></td>
+<td>No</td>
+<td>Desplaza el cursor de revisión al primer carácter del texto seleccionado</td>
+</tr>
+<tr>
+<td>Mover al final de la selección en revisión</td>
+<td><code>NVDA+alt+fin</code></td>
+<td><code>NVDA+alt+fin</code></td>
+<td>No</td>
+<td>Desplaza el cursor de revisión al último carácter del texto seleccionado</td>
+</tr>
+<tr>
 <td>Leer todo con revisión</td>
 <td>Más teclado numérico</td>
 <td>NVDA+shift+a</td>
@@ -894,7 +915,7 @@
 <li>g: gráfico</li>
 <li>d: región</li>
 <li>o: objeto integrado (reproductor de audio y vídeo, aplicación, diálogo, etc.)</li>
-<li>1 a 6: encabezados de 1 a 6 respectivamente</li>
+<li>1 a 9: encabezados a los niveles 1 a 9, respectivamente</li>
 <li>a: anotación (comentario, revisión del editor, etc.)</li>
 <li><code>p</code>: párrafo de texto</li>
 <li>w: error de ortografía</li>
@@ -952,7 +973,7 @@
 <tr>
 <td>Buscar texto</td>
 <td>NVDA+control+f</td>
-<td>Abre el diálogo buscar</td>
+<td>Abre el diálogo de búsqueda</td>
 </tr>
 <tr>
 <td>Buscar siguiente</td>
@@ -961,8 +982,8 @@
 </tr>
 <tr>
 <td>Buscar anterior</td>
-<td>NVDA+shift+f3</td>
-<td>Busca la ocurrencia anterior del término buscado actual</td>
+<td>NVDA+shfit+f3</td>
+<td>busca la aparición anterior del término de búsqueda actual</td>
 </tr>
 </tbody>
 </table>
@@ -1057,14 +1078,14 @@ Pulsando los puntos 7 + 8 transcribe cualquier entrada braille, pero sin añadir
 </thead>
 <tbody>
 <tr>
-<td>Definir encabezados de columna</td>
-<td>NVDA+shift+c</td>
-<td>Pulsando esto una vez dice a NVDA que esta es la primera celda de encabezado en la fila que contiene encabezado de columna, que debería ser anunciada automáticamente al moverse entre columnas por debajo de esta fila. Pulsando dos veces eliminarás la opción.</td>
+<td>Establecer cabeceras de columna</td>
+<td><code>NVDA+shift+c</code></td>
+<td>Pulsando esto una vez le dice a NVDA que esta es la primera celda de cabecera en la fila que contiene cabeceras de columna, que deberían anunciarse automáticamente al moverse entre columnas por debajo de esta fila. Pulsando dos veces se borrará la configuración.</td>
 </tr>
 <tr>
-<td>Definir encabezados de fila</td>
-<td>NVDA+shift+r</td>
-<td>Pulsando esto una vez dices a NVDA que esta es la primera celda de encabezado en la columna que contiene encabezados de fila, la cual debería anunciarse automáticamente al moverse entre filas después de esta columna. Pulsando dos veces eliminarás la opción.</td>
+<td>Establecer cabeceras de fila</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Pulsando esto una vez le dice a NVDA que esta es la primera celda de cabecera en la columna que contiene cabeceras de fila, que deberían anunciarse automáticamente al moverse entre filas después de esta columna. Pulsando dos veces se borrará la configuración.</td>
 </tr>
 </tbody>
 </table>
@@ -1087,14 +1108,14 @@ Pulsar dos veces muestra la información en un mensaje explorable.</p>
 </thead>
 <tbody>
 <tr>
-<td>Definir encabezado de columnas</td>
-<td>NVDA+shift+c</td>
-<td>Al pulsar esto una vez le dice a NVDA que es la primera celda de encabezado de la fila que contiene los encabezados de columna, que debería ser anunciado automáticamente cuando te desplaces entre las columnas por debajo de esta fila. Pulsando dos veces se eliminará la opción.</td>
+<td>Establecer cabeceras de columna</td>
+<td><code>NVDA+shift+c</code></td>
+<td>Pulsando esto una vez le dice a NVDA que esta es la primera celda de cabecera en la fila que contiene cabeceras de columna, que deberían anunciarse automáticamente al moverse entre columnas por debajo de esta fila. Pulsando dos veces se borrará la configuración.</td>
 </tr>
 <tr>
-<td>Definir encabezado de filas</td>
-<td>NVDA+shift+r</td>
-<td>Al pulsar esto una vez le dice a NVDA que es la primera celda del encabezado de la columna que contiene los encabezados de fila, que debería ser anunciado automáticamente cuando te desplaces entre las filas después de esta columna. Pulsando dos veces eliminarás la opción.</td>
+<td>Establecer cabeceras de fila</td>
+<td><code>NVDA+shift+r</code></td>
+<td>Pulsando esto una vez le dice a NVDA que esta es la primera celda de cabecera en la columna que contiene cabeceras de fila, que deberían anunciarse automáticamente al moverse entre filas después de esta columna. Pulsando dos veces se borrará la configuración.</td>
 </tr>
 </tbody>
 </table>
@@ -1480,15 +1501,15 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedCharacters">Verbalizar caracteres al escribir</td>
-<td>NVDA+2</td>
-<td>NVDA+2</td>
-<td>Cuando está marcada significa que NVDA anunciará todos los caracteres según los escribas en el teclado.</td>
+<td><code>NVDA+2</code></td>
+<td><code>NVDA+2</code></td>
+<td>Esta opción controla cuándo NVDA anuncia los caracteres que escribes en el teclado.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedWords">Verbalizar palabras al escribir</td>
-<td>NVDA+3</td>
-<td>NVDA+3</td>
-<td>Cuando esté marcada significa que NVDA anunciará todas las palabras al escribirlas en el teclado.</td>
+<td><code>NVDA+3</code></td>
+<td><code>NVDA+3</code></td>
+<td>Esta opción controla cuándo NVDA anuncia las palabras que escribes en el teclado.</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakCommandKeys">Verbalizar teclas de órdenes</td>
@@ -1602,12 +1623,6 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 <td>NVDA+v</td>
 <td>Esta opción te permite especificar si el modo exploración debería colocar el contenido en el que se puede hacer clic (enlaces, botones y campos) en su propia línea, o si debería mantenerlo en el flujo de texto tal y como se muestra visualmente.</td>
 </tr>
-<tr>
-<td id="BrowseModeSettingsAutoFocusFocusableElements">Poner el Foco del Sistema Automáticamente en los Elementos Enfocables</td>
-<td>NVDA+8</td>
-<td>NVDA+8</td>
-<td>Desactivada por defecto, esta opción te permite elegir si el foco del sistema debería ponerse automáticamente en elementos que puedan tener el foco del sistema (enlaces, campos de formulario, etc.) al navegar por contenidos con el cursor del modo Exploración.</td>
-</tr>
 </tbody>
 </table>
 <h4 id="DocumentFormattingSettings">Formateado de Documento</h4>
@@ -1645,15 +1660,15 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 <tbody>
 <tr>
 <td>Guardar configuración</td>
-<td>NVDA+control+c</td>
-<td>NVDA+control+c</td>
-<td>Guarda tu configuración actual tal que no se pierda cuando salgas de NVDA</td>
+<td><code>NVDA+control+c</code></td>
+<td><code>NVDA+control+c</code></td>
+<td>Guarda tu configuración actual para que no se pierda al salir de NVDA</td>
 </tr>
 <tr>
-<td>Revertir configuración</td>
-<td>NVDA+control+r</td>
-<td>NVDA+control+r</td>
-<td>Pulsando una vez reinicia tu configuración a cuando la guardaste por última vez. Pulsando tres veces la reiniciará a los valores predeterminados de fábrica.</td>
+<td>Reestablecer configuración</td>
+<td><code>NVDA+control+r</code></td>
+<td><code>NVDA+control+r</code></td>
+<td>Pulsando una vez se restablece la configuración a la última vez que se guardó. Si pulsas tres veces, se restablecerá a los valores predeterminados de fábrica.</td>
 </tr>
 </tbody>
 </table>
@@ -1662,6 +1677,59 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 <ul>
 <li>NVDA+control+p: Muestra el cuadro de diálogo Perfiles de configuración.</li>
 </ul>
+<h2 id="RemoteAccess">Acceso Remoto</h2>
+<h3 id="RemoteAccessGestures">Resumen de teclas de órdenes de acceso remoto</h3>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Tecla</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conmutar conexión remota</td>
+<td><code>NVDA+alt+r</code></td>
+<td>Inicia una nueva sesión de acceso remoto o, si ya hay una sesión en progreso, la desconecta.</td>
+</tr>
+<tr>
+<td>Alternar control</td>
+<td><code>NVDA+alt+tab</code></td>
+<td>Cambia entre controlar el ordenador remoto y el local.</td>
+</tr>
+<tr>
+<td>Conectar</td>
+<td>Ninguno</td>
+<td>Inicia una nueva sesión de acceso remoto. No disponible en <a href="#SecureMode" title="modo seguro">modo seguro</a>.</td>
+</tr>
+<tr>
+<td>Copiar enlace</td>
+<td>No</td>
+<td>Copia un enlace a la sesión remota en el portapapeles.</td>
+</tr>
+<tr>
+<td>Desconectar</td>
+<td>No</td>
+<td>Finaliza una sesión de Acceso Remoto existente.</td>
+</tr>
+<tr>
+<td>Silenciar remoto</td>
+<td>No</td>
+<td>Silencia o desactiva la voz procedente del ordenador remoto.</td>
+</tr>
+<tr>
+<td>Enviar portapapeles</td>
+<td>Ninguno</td>
+<td>Envía los contenidos del portapapeles al equipo remoto.</td>
+</tr>
+<tr>
+<td>Enviar "control+alt+supr"</td>
+<td>no</td>
+<td>Envía «control+alt+supr» al ordenador controlado.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ExtraTools">Herramientas Extra</h2>
 <h3 id="LogViewer">Visualizador del Registro</h3>
 <table>
@@ -4461,6 +4529,57 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 </tr>
 </tbody>
 </table>
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Tecla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desplazar pantalla braille hacia atrás</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Desplazar pantalla braille hacia adelante</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Desplazar la pantalla braille a la línea anterior</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Desplazar la pantalla braille a la línea siguiente</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Encaminar a la celda braille</td>
+<td><code>encaminamiento</code></td>
+</tr>
+<tr>
+<td>Flecha arriba</td>
+<td><code>arriba</code></td>
+</tr>
+<tr>
+<td>Flecha abajo</td>
+<td><code>abajo</code></td>
+</tr>
+<tr>
+<td>Flecha izquierda</td>
+<td><code>izquierda</code></td>
+</tr>
+<tr>
+<td>Flecha derecha</td>
+<td><code>derecha</code></td>
+</tr>
+<tr>
+<td>Intro</td>
+<td><code>seleccionar</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="HIDBraille">Pantallas HID Braille estándar</h3>
 <table>
 <thead>
@@ -4495,8 +4614,8 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 <td>joystick hacia abajo, dpad hacia abajo o espacio+punto4</td>
 </tr>
 <tr>
-<td>tecla flecha izquierda</td>
-<td>espacio+punto3, joystick izquierdo o dpad izquierdo</td>
+<td>flecha izquierda</td>
+<td>espacio+punto3, joystick izquierda o dpad izquierda</td>
 </tr>
 <tr>
 <td>tecla flecha derecha</td>
@@ -4541,6 +4660,25 @@ En Microsoft 2016, 365 y más recientes, los clásicos comentarios en Microsoft 
 <tr>
 <td>Verbalizar todo</td>
 <td>espacio+punto1+punto2+punto3+punto4+punto5+punto6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dotPad">Dot Pad</h3>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Tecla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desplazar pantalla braille atrás</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>Desplazar pantalla braille adelante</td>
+<td><code>pan_right</code></td>
 </tr>
 </tbody>
 </table>

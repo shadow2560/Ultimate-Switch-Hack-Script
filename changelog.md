@@ -1,5 +1,19 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.376</h2>
+<ul>
+<li>Le homebrew CyberFoil était mal nommé, il a donc été renommé correctement, attention donc si vous l'aviez ajouté à vos configs personnalisées.</li>
+<li>Support des firmwares 22.0.0 et 22.1.0.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour les firmwares 22.0.0 et 22.1.0.</li>
+<li>Mise à jour de Hactoolnet.</li>
+<li>Mise à jour de Switch-logo-patcher pour suporter le firmware 22.0.0.</li>
+<li>Ajout des dernières clés dans la vérification d'un fichier de clés.</li>
+<li>Mise à jour de NVDA.</li>
+<li>Mise à jour d'Atmosphere en version 1.11.1.</li>
+<li>Mise à jour de Hekate en version 6.5.2.</li>
+<li>Mise à jour de la documentation et des crédits.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 623.</li>
+</ul>
 <h2>V4.3.375</h2>
 <ul>
 <li>Sphaira devrait maintenant bien remplacer le Homebrew Menu si choisi durant la préparation d'une SD.</li>
@@ -21,8 +35,8 @@
 <li>Correction de bugs dans le script TegraExplorer de débrickage.</li>
 <li>Le script de débrickage ne proposera plus le débrickage via ChoixDuJour devenu inutile aujourd'hui.</li>
 <li>Le script de débrickage proposera maintenant le débrickage via le payload LockSmith-RCM.</li>
-<li>Support du firmware 21.0.0, 21.0.1, 21.1.0 et 21.2.0.</li>
-<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour le firmware 21.0.0, 21.0.1, 21.1.0 et 21.2.0.</li>
+<li>Support des firmwares 21.0.0, 21.0.1, 21.1.0 et 21.2.0.</li>
+<li>Mise à jour de la version 014d294296685cc14125985c0099af35d42bcf4b de NXNandManager pour y inclure la détection des titres pour les firmwares 21.0.0, 21.0.1, 21.1.0 et 21.2.0.</li>
 <li>Mise à jour de Hactoolnet.</li>
 <li>Mise à jour de Switch-logo-patcher pour suporter le firmware 21.0.0.</li>
 <li>Mise à jour de SwitchThemeInjector en version 4.8.3.</li>

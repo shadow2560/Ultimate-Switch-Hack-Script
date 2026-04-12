@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>NVDA 2025.3.3 Developer Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="numberedHeadings.css">
+</head>
+<body><h1 id="nvda-202533-developer-guide">NVDA 2025.3.3 Developer Guide</h1>
+<div class="toc">
+<ul>
+<li><a href="#nvda-202533-developer-guide" title="NVDA 2025.3.3 Developer Guide">NVDA 2025.3.3 Developer Guide</a><ul>
+<li><a href="#introduction" title="Introduction">Introduction</a><ul>
+<li><a href="#API" title="Add-on API stability">Add-on API stability</a></li>
+<li><a href="#aboutPython" title="A Note About Python">A Note About Python</a></li>
+<li><a href="#cPlusPlus" title="C++">C++</a></li>
+</ul>
+</li>
+<li><a href="#translation" title="Translation">Translation</a><ul>
+<li><a href="#characterDescriptions" title="Character Descriptions">Character Descriptions</a><ul>
+<li><a href="#TranslatingCharacterDescriptionsFile" title="Translating this file">Translating this file</a></li>
+</ul>
+</li>
+<li><a href="#symbolPronunciation" title="Symbol Pronunciation">Symbol Pronunciation</a><ul>
+<li><a href="#complexSymbols" title="Defining Complex Symbols">Defining Complex Symbols</a></li>
+<li><a href="#symbolInformation" title="Defining Symbol Information">Defining Symbol Information</a></li>
+<li><a href="#TranslatingSymbolsExamples" title="Examples">Examples</a></li>
+<li><a href="#TranslatingSymbolsFile" title="Translating this file">Translating this file</a></li>
+</ul>
+</li>
+<li><a href="#TranslatingGestures" title="Gestures">Gestures</a><ul>
+<li><a href="#TranslatingGesturesExamples" title="Examples">Examples</a><ul>
+<li><a href="#TranslatingGesturesEx1" title="Example 1: The original gesture is defined with a character that is not a key name on the locale keyboard layout">Example 1: The original gesture is defined with a character that is not a key name on the locale keyboard layout</a></li>
+<li><a href="#TranslatingGesturesEx2" title="Example 2: The original gesture takes advantage of the keys physical location">Example 2: The original gesture takes advantage of the keys physical location</a></li>
+<li><a href="#TranslatingGesturesEx3" title="Example 3: The original gesture is defined to match a native shortcut">Example 3: The original gesture is defined to match a native shortcut</a></li>
+</ul>
+</li>
+<li><a href="#TranslatingGesturesSteps" title="How to remap a shortcut key">How to remap a shortcut key</a><ul>
+<li><a href="#TranslatingGesturesStepIdentify" title="Identify the class, the script and the original gesture to be remapped">Identify the class, the script and the original gesture to be remapped</a></li>
+<li><a href="#TranslatingGesturesStepCaseGlobal" title="Case of a global command script">Case of a global command script</a></li>
+<li><a href="#TranslatingGesturesStepCaseApplication" title="Case of an application specific script">Case of an application specific script</a></li>
+<li><a href="#TranslatingGesturesStepCaseObject" title="Case of an object specific script">Case of an object specific script</a></li>
+</ul>
+</li>
+<li><a href="#TranslatingGesturesFile" title="Translating this file">Translating this file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#plugins" title="Plugins">Plugins</a><ul>
+<li><a href="#pluginsOverview" title="Overview">Overview</a></li>
+<li><a href="#pluginsTypes" title="Types of Plugins">Types of Plugins</a></li>
+<li><a href="#appModuleBasics" title="Basics of an App Module">Basics of an App Module</a></li>
+<li><a href="#AssociatingAppModule" title="Associating App Modules with an executable">Associating App Modules with an executable</a></li>
+<li><a href="#Example1" title="Example 1: An App Module that Beeps on Focus Change Events">Example 1: An App Module that Beeps on Focus Change Events</a></li>
+<li><a href="#appModulesForHostedApps" title="App modules for hosted apps">App modules for hosted apps</a></li>
+<li><a href="#example2" title="Example 2: an app module for an app hosted by wwahost.exe">Example 2: an app module for an app hosted by wwahost.exe</a></li>
+<li><a href="#example3" title="Example 3: an app module for an app employing Edge WebView2 (msedgewebview2.exe)">Example 3: an app module for an app employing Edge WebView2 (msedgewebview2.exe)</a></li>
+<li><a href="#globalPluginBasics" title="Basics of a Global Plugin">Basics of a Global Plugin</a></li>
+<li><a href="#example3" title="Example 3: a Global Plugin Providing a Script to Announce the NVDA Version">Example 3: a Global Plugin Providing a Script to Announce the NVDA Version</a></li>
+<li><a href="#NVDAObjects" title="NVDA Objects">NVDA Objects</a></li>
+<li><a href="#scripts" title="Scripts and Gesture Bindings">Scripts and Gesture Bindings</a><ul>
+<li><a href="#DefiningScriptProperties" title="Defining script properties">Defining script properties</a></li>
+</ul>
+</li>
+<li><a href="#example4" title="Example 4: A Global Plugin to Find out Window Class and Control ID">Example 4: A Global Plugin to Find out Window Class and Control ID</a></li>
+<li><a href="#events" title="Events">Events</a></li>
+<li><a href="#appModuleSleepMode" title="the App Module SleepMode variable">the App Module SleepMode variable</a></li>
+<li><a href="#example5" title="Example 5: A Sleep Mode App Module">Example 5: A Sleep Mode App Module</a></li>
+<li><a href="#customNVDAObjectClasses" title="Providing Custom NVDA Object Classes">Providing Custom NVDA Object Classes</a></li>
+<li><a href="#example6" title="Example 6: Command to Retrieve the Length of Text in an Edit Field Using a Custom NVDA Object">Example 6: Command to Retrieve the Length of Text in an Edit Field Using a Custom NVDA Object</a></li>
+<li><a href="#smallChangesToNVDAObjectInAppModules" title="Making Small Changes to an NVDA Object in App Modules">Making Small Changes to an NVDA Object in App Modules</a></li>
+<li><a href="#example7" title="Example 7: Labelling the Notepad Edit Field Using event_NVDAObject_init">Example 7: Labelling the Notepad Edit Field Using event_NVDAObject_init</a></li>
+<li><a href="#PluginCLIArgs" title="Parsing additional command line arguments in your plugin">Parsing additional command line arguments in your plugin</a></li>
+</ul>
+</li>
+<li><a href="#Addons" title="Packaging Code as NVDA Add-ons">Packaging Code as NVDA Add-ons</a><ul>
+<li><a href="#nonASCIIFileNamesInZip" title="Non-ASCII File Names in Zip Archives">Non-ASCII File Names in Zip Archives</a></li>
+<li><a href="#manifest" title="Manifest Files">Manifest Files</a><ul>
+<li><a href="#manifestFields" title="Available Fields">Available Fields</a></li>
+<li><a href="#manifestExample" title="An Example Manifest File">An Example Manifest File</a></li>
+</ul>
+</li>
+<li><a href="#pluginsAndDrivers" title="Plugins and Drivers">Plugins and Drivers</a></li>
+<li><a href="#installUninstallCode" title="Optional install / Uninstall code">Optional install / Uninstall code</a><ul>
+<li><a href="#onInstall" title="the onInstall function">the onInstall function</a></li>
+<li><a href="#onUninstall" title="The onUninstall Function">The onUninstall Function</a></li>
+</ul>
+</li>
+<li><a href="#localizingAddons" title="Localizing Add-ons">Localizing Add-ons</a><ul>
+<li><a href="#localeManifest" title="Locale-specific Manifest Files">Locale-specific Manifest Files</a></li>
+<li><a href="#localeMessages" title="Locale-specific Messages">Locale-specific Messages</a></li>
+<li><a href="#AddonSymbolDictionaries" title="Speech symbol dictionaries">Speech symbol dictionaries</a></li>
+</ul>
+</li>
+<li><a href="#AddonDoc" title="Add-on Documentation">Add-on Documentation</a></li>
+<li><a href="#BrailleTables" title="Braille translation tables">Braille translation tables</a></li>
+</ul>
+</li>
+<li><a href="#PythonConsole" title="NVDA Python Console">NVDA Python Console</a><ul>
+<li><a href="#pythonConsoleUsage" title="Usage">Usage</a></li>
+<li><a href="#PythonConsoleNamespace" title="Namespace">Namespace</a><ul>
+<li><a href="#pythonConsoleAutoImports" title="Automatic Imports">Automatic Imports</a></li>
+<li><a href="#PythonConsoleSnapshotVariables" title="Snapshot Variables">Snapshot Variables</a></li>
+</ul>
+</li>
+<li><a href="#pythonConsoleTab" title="Tab completion">Tab completion</a></li>
+</ul>
+</li>
+<li><a href="#remotePythonConsole" title="Remote Python Console">Remote Python Console</a><ul>
+<li><a href="#remotePythonConsoleUsage" title="Usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#ExtensionPoints" title="Extension Points">Extension Points</a><ul>
+<li><a href="#brailleExtPts" title="braille">braille</a></li>
+<li><a href="#appModuleHandlerExtPts" title="appModuleHandler">appModuleHandler</a></li>
+<li><a href="#addonHandlerExtPts" title="addonHandler">addonHandler</a></li>
+<li><a href="#brailleViewerExtPts" title="brailleViewer">brailleViewer</a></li>
+<li><a href="#configExtPts" title="config">config</a></li>
+<li><a href="#coreExtPts" title="core">core</a></li>
+<li><a href="#inputCoreExtPts" title="inputCore">inputCore</a></li>
+<li><a href="#logHandlerExtPts" title="logHandler">logHandler</a></li>
+<li><a href="#nvwaveExtPts" title="nvwave">nvwave</a></li>
+<li><a href="#speechExtPts" title="speech">speech</a></li>
+<li><a href="#synthDriverHandlerExtPts" title="synthDriverHandler">synthDriverHandler</a></li>
+<li><a href="#tonesExtPts" title="tones">tones</a></li>
+<li><a href="#treeInterceptorHandlerExtPts" title="treeInterceptorHandler">treeInterceptorHandler</a></li>
+<li><a href="#utils_securityExtPts" title="utils.security">utils.security</a></li>
+<li><a href="#winAPI_messageWindowExtPts" title="winAPI.messageWindow">winAPI.messageWindow</a></li>
+<li><a href="#winAPI_secureDesktopExtPts" title="winAPI.secureDesktop">winAPI.secureDesktop</a></li>
+<li><a href="#bdDetectExtPts" title="bdDetect">bdDetect</a></li>
+<li><a href="#visionExtPts" title="vision.visionHandlerExtensionPoints.EventExtensionPoints">vision.visionHandlerExtensionPoints.EventExtensionPoints</a></li>
+</ul>
+</li>
+<li><a href="#communicating-with-the-user" title="Communicating with the user">Communicating with the user</a><ul>
+<li><a href="#the-message-dialog-api" title="The message dialog API">The message dialog API</a><ul>
+<li><a href="#fallback-actions" title="Fallback actions">Fallback actions</a></li>
+<li><a href="#a-note-on-threading" title="A note on threading">A note on threading</a></li>
+<li><a href="#buttons" title="Buttons">Buttons</a></li>
+<li><a href="#callbacks" title="Callbacks">Callbacks</a></li>
+<li><a href="#convenience-methods" title="Convenience methods">Convenience methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>This guide provides information concerning NVDA development, including translation and the development of components for NVDA.</p>
+<h3 id="API">Add-on API stability</h3>
+<p>The NVDA Add-on API includes all NVDA internals, except symbols that are prefixed with an underscore.</p>
+<p>The NVDA Add-on API changes over time, for example because of the addition of new features, removal or replacement of outdated libraries, deprecation of unused or replaced code and methodologies, and changes to Python.
+Important changes to the API are announced on the <a href="https://groups.google.com/a/nvaccess.org/g/nvda-api/about" rel="noopener" target="_blank" title="NVDA API mailing list">NVDA API mailing list</a>.
+Changes relevant to developers are also announced via the <a href="https://download.nvaccess.org/documentation/changes.html" rel="noopener" target="_blank" title="NVDA changes file">NVDA changes file</a>.
+Any changes to the API policy outlined in this section will be conveyed via these two channels.</p>
+<p>API breaking releases happen at most once per year, these are <code>.1</code> releases, e.g. <code>2022.1</code>.
+The API remains backwards compatible between breaking releases.
+API breaking changes should be considered relatively stable in the first beta: e.g. <code>2022.1.beta1</code>.</p>
+<p>API features may become deprecated over time.
+Deprecated API features may have a scheduled removal date, a future breaking release (e.g. <code>2022.1</code>).
+Deprecations may also have no scheduled removal date, and will remain supported until it is no longer reasonable.
+Note, the roadmap for removals is 'best effort' and may be subject to change.
+Please open a GitHub issue if the described add-on API changes result in the API no longer meeting the needs of an add-on you develop or maintain.</p>
+<h3 id="aboutPython">A Note About Python</h3>
+<p>NVDA and its components are primarily written in the Python programming language.
+It is not the goal of this guide to teach you Python, though examples are provided through out this guide which will help to familiarise you with the Python syntax.
+Documentation and other resources related to the Python language can be found at <a href="http://www.python.org/" rel="noopener" target="_blank" title="www.python.org/">www.python.org/</a></p>
+<h3 id="cPlusPlus">C++</h3>
+<p>Some of NVDA is written in C++, e.g. nvdaHelper.
+For an overview of nvdaHelper, including how to configure Visual Studio to enable intellisense see the
+<a href="https://github.com/nvaccess/nvda/blob/master/nvdaHelper/readme.md" rel="noopener" target="_blank" title="nvdaHelper readme">nvdaHelper readme</a></p>
+<h2 id="translation">Translation</h2>
+<p>In order to support multiple languages/locales, NVDA must be translated, and data specific to the locale must be provided.
+This section only includes information on custom NVDA file formats required for translation.
+Other items need to be translated, such as the NVDA user interface and documentation, but these use standard file formats.
+For complete documentation about translating NVDA, please see the <a href="https://github.com/nvaccess/nvda/blob/master/projectDocs/translating/readme.md" rel="noopener" target="_blank" title="Translating page">Translating page</a></p>
+<h3 id="characterDescriptions">Character Descriptions</h3>
+<p>Sometimes it can be very difficult or even impossible to distinguish one character from another.
+For example, two characters might be pronounced the same way, even though they are actually different characters.
+To help users when this occurs, character descriptions can be provided which describe the character in a unique way.</p>
+<p>Character descriptions can be provided for a locale in a file named <code>characterDescriptions.dic</code> in the directory for the locale.
+This is a UTF-8 encoded text file.
+Blank lines and lines beginning with a "<code>#</code>" character are ignored.
+All other lines should contain a character, followed by a tab, then one or more descriptions separated by tabs.
+Multiple descriptions for a character will be read with natural pauses between them when reading a single character, e.g. when using <code>leftArrow</code> or <code>rightArrow</code>.
+When reading character descriptions of multiple subsequent characters using spelling commands, the first description is used for each character, e.g. spelling the current line with triple press on <code>NVDA+upArrow</code>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code># This is a comment.
+a	alpha
+b	bravo beta
+</code></pre></div>
+<p>In this example, "a" will read "alpha" as the character description, and "b" will read as "bravo, beta".</p>
+<p>In most cases, the characters in this file should be a single lower case character.
+It is assumed that characters will have the same description regardless of their case, so upper case characters are converted to lower case before looking up their character descriptions.</p>
+<h4 id="TranslatingCharacterDescriptionsFile">Translating this file</h4>
+<p>Translation of <code>characterDescriptions.dic</code> happens via <a href="https://github.com/nvaccess/nvda/blob/master/projectDocs/translating/github.md" rel="noopener" target="_blank" title="Pull Request to NVDA">Pull Request to NVDA</a>.</p>
+<p>For a full example and reference, please look at <a href="https://github.com/nvaccess/nvda/blob/master/source/locale/en/characterDescriptions.dic" rel="noopener" target="_blank" title="the English characterDescriptions.dic file">the English <code>characterDescriptions.dic</code> file</a>.</p>
+<h3 id="symbolPronunciation">Symbol Pronunciation</h3>
+<p>It is often useful to hear punctuation and other symbols pronounced as words when reading text, particularly when moving by character.
+Unfortunately, the pronunciation of symbols is inconsistent between speech synthesisers and many synthesisers do not speak many symbols and/or do not allow control over what symbols are spoken.
+Therefore, NVDA allows information about symbol pronunciation to be provided.</p>
+<p>This is done for a locale by providing a file named <code>symbols.dic</code> in the directory for the locale.
+This is a UTF-8 encoded text file.
+Blank lines and lines beginning with a "<code>#</code>" character are ignored.
+All locales implicitly inherit the symbol information for English, though any of this information can be overridden.</p>
+<p>The file contains two sections, <a href="#complexSymbols" title="complex symbols">complex symbols</a> and <a href="#symbolInformation" title="symbols">symbols</a>.</p>
+<h4 id="complexSymbols">Defining Complex Symbols</h4>
+<p>The first section is optional and defines regular expression patterns for complex symbols.
+Complex symbols are symbols which aren't simply a character or sequence of characters, but instead require a more complicated match.
+An example is the full stop (.) sentence ending in English.
+The "." is used for multiple purposes, so a more complicated check is required to determine whether this refers to the end of a sentence.</p>
+<p>The complex symbols section begins with the line:</p>
+<div class="highlight"><pre><span></span><code>complexSymbols:
+</code></pre></div>
+<p>Subsequent lines contain a textual identifier used to identify the symbol, a tab and the regular expression pattern for that symbol.
+For example:</p>
+<div class="highlight"><pre><span></span><code>sentence ending	(?&lt;=[^\s.])\.(?=[\"')\s]|$)
+dates with .	\b(\d\d)\.(\d\d)\.(\d{2}|\d{4})\b
+</code></pre></div>
+<p>Again, the English symbols are inherited by all other locales, so you need not include any complex symbols already defined for English.</p>
+<h4 id="symbolInformation">Defining Symbol Information</h4>
+<p>The second section provides information about when and how to pronounce all symbols.
+It begins with the line:</p>
+<div class="highlight"><pre><span></span><code>symbols:
+</code></pre></div>
+<p>Subsequent lines should contain several fields separated by tabs.
+The only mandatory fields are the identifier and replacement.
+The default will be used for omitted fields.
+The fields are as follows:</p>
+<ul>
+<li><code>identifier</code>: The identifier of the symbol.
+  In most cases, this is just the character or characters of the symbol.
+  However, it can also be the identifier of a complex symbol.
+  Certain characters cannot be typed into the file, so the following special sequences can be used:<ul>
+<li><code>\0</code>: null</li>
+<li><code>\t</code>: tab</li>
+<li><code>\n</code>: line feed</li>
+<li><code>\r</code>: carriage return</li>
+<li><code>\f</code>: form feed</li>
+<li><code>\#</code>: # character (needed because # at the start of a line denotes a comment)</li>
+</ul>
+</li>
+<li><code>replacement:</code> The text which should be spoken for the symbol.
+  If the symbol is a complex symbol, <code>\1</code>, <code>\2</code>, etc. can be used to refer to the groups matches, which will be inlined in the replacement, allowing for simpler rules.
+  This also means that to get a <code>\</code> character in the replacement, one has to type <code>\\</code>.</li>
+<li><code>level</code>: The symbol level at which the symbol should be spoken.<ul>
+<li>The symbol level is configured by the user and specifies the amount of symbols that should be spoken.</li>
+<li>This field should contain one of the levels "none", "some", "most", "all" or "char", or "-" to use the default.</li>
+<li>"char" means that the symbol should only be pronounced when moving by character.</li>
+<li>The default is to inherit the value or "all" if there is nothing to inherit.</li>
+</ul>
+</li>
+<li><code>preserve</code>: Whether the symbol itself should be preserved to facilitate correct pronunciation by the synthesiser.
+  For example, symbols which cause pauses or inflection (such as the comma in English) should be preserved.
+  This field should be one of the following:<ul>
+<li><code>never</code>: Never preserve the symbol.</li>
+<li><code>always</code>: Always preserve the symbol.</li>
+<li><code>norep</code>: Only preserve the symbol if it is not being replaced; i.e. the user has set symbol level lower than the level of this symbol.</li>
+<li><code>-</code>: Use the default.
+The default is to inherit the value or "never" if there is nothing to inherit.</li>
+</ul>
+</li>
+</ul>
+<p>Finally, a display name for the symbol can be provided in a comment after a tab at the end of the line.
+This will be shown to users when editing the symbol information and is especially useful for translators to define translated names for English complex symbols.</p>
+<h4 id="TranslatingSymbolsExamples">Examples</h4>
+<div class="highlight"><pre><span></span><code>(	left paren	most
+</code></pre></div>
+<p>This means that the "(" character should be spoken as "left paren" only when the symbol level is set to most or higher; i.e. most or all.</p>
+<div class="highlight"><pre><span></span><code>,	comma	all	always
+</code></pre></div>
+<p>This means that the "," character should be spoken as "comma" when the symbol level is set to all and that the character itself should always be preserved so that the synthesiser will pause appropriately.</p>
+<div class="highlight"><pre><span></span><code>. sentence ending	point	# . fin de phrase
+</code></pre></div>
+<p>This line appears in the French symbols.dic file.
+It means that the ". sentence ending" complex symbol should be spoken as "point".
+Level and preserve are not specified, so they will be taken from English.
+A display name is provided so that French users will know what the symbol represents.</p>
+<div class="highlight"><pre><span></span><code>dates with .	\1 point \2 point \3	all	norep	# date avec points
+</code></pre></div>
+<p>This line appears in the French symbols.dic file.
+It means that the first, second, and third groups of the match will be included, separated by the word 'point'.
+The effect is thus to replace the dots from the date with the word 'point'.</p>
+<p>If your language uses a thousands separator such as a full stop (.) which is handled incorrectly due to other rules, you will need to define a complex symbol pattern for it.
+For example, if your language uses a comma (,) as its thousands separator, you would include the following in the complex symbols section:</p>
+<div class="highlight"><pre><span></span><code>thousands separator	(?&lt;=\d)\,(?=\d)
+</code></pre></div>
+<p>You would also include something like the following in the main symbols section:</p>
+<div class="highlight"><pre><span></span><code>thousands separator	comma	all	norep
+</code></pre></div>
+<h4 id="TranslatingSymbolsFile">Translating this file</h4>
+<p>Translation of <code>symbols.dic</code> happens via <a href="https://github.com/nvaccess/nvda/blob/master/projectDocs/translating/github.md" rel="noopener" target="_blank" title="Pull Request to NVDA">Pull Request to NVDA</a>.</p>
+<p>See the file <a href="https://github.com/nvaccess/nvda/blob/master/source/locale/en/symbols.dic" rel="noopener" target="_blank" title="locale\en\symbols.dic">locale\en\symbols.dic</a> for the English definitions which are inherited for all locales.</p>
+<h3 id="TranslatingGestures">Gestures</h3>
+<p>The gestures defined originally in NVDA are configured to expect English software and keyboard layout.
+In most cases, these gestures can also be executed on other keyboard layouts without any problem.
+However, sometimes a gesture originally defined by NVDA is not suitable for a specific locale (keyboard layout or software).
+The need to modify an original gesture may be due to the following reasons:</p>
+<ul>
+<li>The original gesture is defined with a character that is not a key name on the locale keyboard layout.
+Generally, the key names are the characters that can be input without the help of a modifier key (<code>shift</code>, <code>control</code>, etc.)</li>
+<li>The original gesture takes advantage of the key's physical location on the English keyboard layout, but this advantage does not exist with the locale keyboard layout.</li>
+<li>The original gesture is defined to match a native shortcut in Windows or in an application, but the shortcut in the local version of Windows or of this application is not the same as the English one.</li>
+</ul>
+<p>In all of these cases, NVDA allows remapping of this gesture for this specific locale.</p>
+<h4 id="TranslatingGesturesExamples">Examples</h4>
+<p>Below are three detailed examples of <code>gestures.ini</code> files corresponding to the three listed situations where a gesture remapping could be required.</p>
+<h5 id="TranslatingGesturesEx1">Example 1: The original gesture is defined with a character that is not a key name on the locale keyboard layout</h5>
+<p>In the original English version, the scripts for left and right mouse click (laptop layout) are executed with <code>NVDA+[</code> and <code>NVDA+]</code>, respectively.</p>
+<ul>
+<li>On an English keyboard layout, the <code>[</code> and <code>]</code> keys are the two keys to the right of the <code>p</code> key.</li>
+<li>On an Italian keyboard layout, <code>[</code> and <code>]</code> characters can only be input with the help of the <code>altGr</code> modifier: <code>altGr+è</code> and <code>altGr+plus</code>, respectively.</li>
+</ul>
+<p>Thus, the Italian translators decided to remap these scripts using the two keys at the right of the <code>p</code> key on the Italian keyboard layout, i.e. <code>è</code> and <code>+</code>.
+To do this, they have added the following lines in the <code>gestures.ini</code> file:</p>
+<div class="highlight"><pre><span></span><code>[globalCommands.GlobalCommands]
+	leftMouseClick = kb(laptop):NVDA+è
+	rightMouseClick = kb(laptop):NVDA+plus
+</code></pre></div>
+<h5 id="TranslatingGesturesEx2">Example 2: The original gesture takes advantage of the keys physical location</h5>
+<p>Looking again at the scripts for left and right mouse click (laptop layout) we can see that they are originally mapped (in English) to two neighboring keys.
+This corresponds to the left and right buttons of the mouse.
+As seen in example 1, many translators have had to modify these keys.
+Most of them (if not all) have chosen two neighboring keys.
+For example, in the French <code>gestures.ini</code>, the following lines have been added:</p>
+<div class="highlight"><pre><span></span><code>[globalCommands.GlobalCommands]
+	None = kb(laptop):nvda+[, kb(laptop):nvda+control+[, kb(laptop):nvda+], kb(laptop):nvda+control+], kb(laptop):nvda+shift+., kb(laptop):nvda+., kb(laptop):nvda+control+.
+	leftMouseClick = kb(laptop):nvda+ù
+	rightMouseClick = kb(laptop):nvda+*
+</code></pre></div>
+<p>The <code>ù</code> and <code>*</code> on the French layout are not at the same location as <code>[</code> and <code>]</code> of the English layout, but these are still two neighboring keys.
+Moreover we can see here that <code>NVDA+[</code> and <code>NVDA+]</code>, among others, have been mapped to <code>None</code>, in order to unbind these gestures.
+For the French (France) layout, this was not mandatory since there is no possibility to input <code>NVDA+[</code> or <code>NVDA+]</code> without any other modifier key.</p>
+<h5 id="TranslatingGesturesEx3">Example 3: The original gesture is defined to match a native shortcut</h5>
+<p>NVDA provides a script for the Word document object named <code>toggleBold</code>.
+This script is mapped to the same gesture as the Word native shortcut to set text bold, i.e. <code>control+b</code> in the English version of Word.
+However in the French version of Word, the shortcut to turn text bold is <code>control+g</code>.
+The G stands for "gras" meaning "bold" in French.
+The following lines have been added in the French <code>gestures.ini</code> file to remap this script:</p>
+<div class="highlight"><pre><span></span><code>[NVDAObjects.window.winword.WordDocument]
+	None = kb:control+b, kb:control+[, kb:control+], "kb:control+shift+,", kb:control+shift+., kb:control+l, kb:control+r
+	toggleBold = kb:control+g, kb:control+shift+b
+</code></pre></div>
+<p>We can see that <code>control+b</code> has been unbound.
+This was necessary because it is the shortcut of another command in the French version of Word.
+No remapping has been done for the <code>toggleItalic</code> script, since the shortcut is the same for French and English versions of Word.</p>
+<h4 id="TranslatingGesturesSteps">How to remap a shortcut key</h4>
+<h5 id="TranslatingGesturesStepIdentify">Identify the class, the script and the original gesture to be remapped</h5>
+<p>To edit the <code>gesture.ini</code> file, you will have to identify the class, the script and the original shortcut you want to remap.</p>
+<h5 id="TranslatingGesturesStepCaseGlobal">Case of a global command script</h5>
+<p>If the gesture to be remapped is a global command, you may execute the following steps to find out the class and the script name of the command:</p>
+<ul>
+<li>activate input help (<code>NVDA+1</code>)</li>
+<li>press the gesture you want to remap, e.g. <code>NVDA+]</code> (laptop layout)</li>
+<li>de-activate input help (<code>NVDA+1</code>)</li>
+<li>open the log (<code>NVDA+F1</code>)</li>
+<li>
+<p>find the line corresponding to the moment you executed the gesture, e.g.:</p>
+<div class="highlight"><pre><span></span><code>Input help: gesture kb(laptop):NVDA+], bound to script rightMouseClick on globalCommands.GlobalCommands
+</code></pre></div>
+</li>
+</ul>
+<p>The information you are searching is on this line:</p>
+<ul>
+<li>script name: <code>rightMouseClick</code></li>
+<li>class name: <code>globalCommands.GlobalCommands</code> (Note that this is always the class for global commands)</li>
+<li>original gesture: <code>kb(laptop):NVDA+]</code></li>
+</ul>
+<h5 id="TranslatingGesturesStepCaseApplication">Case of an application specific script</h5>
+<p>In case you want to remap an application specific script, you will have to follow the same steps as those for a global command script.
+You just need to ensure before proceeding that you are in the targeted application.</p>
+<h5 id="TranslatingGesturesStepCaseObject">Case of an object specific script</h5>
+<p>For object specific scripts such as the ones linked to <code>NVDAObjects.window.winword.WordDocument</code>, you may follow the same steps as those for application specific scripts, paying attention to the following two points:</p>
+<ul>
+<li>You need to ensure before proceeding that the object to which the script is bound is focused.</li>
+<li>Some of these scripts have no help message, so you may not hear anything when executing them in input help mode; but the script's name and the class of the object will still appear in the log.</li>
+</ul>
+<p>Note that the class of the object appearing in the log may be a subclass of the one where the original gesture is actually bound.
+In this case, you will have to explore NVDA's source code to find this parent class.</p>
+<h4 id="TranslatingGesturesFile">Translating this file</h4>
+<p>Translation of <code>gestures.ini</code> happens via <a href="https://github.com/nvaccess/nvda/blob/master/projectDocs/translating/github.md" rel="noopener" target="_blank" title="Pull Request to NVDA">Pull Request to NVDA</a>.</p>
+<ol>
+<li>In this file the sections correspond to the class to which the script belongs.
+If the class your looking for does not exist, create this section.</li>
+<li>
+<p>Under the targeted section, add a line corresponding to the new shortcut. e.g.:</p>
+<div class="highlight"><pre><span></span><code>toggleBold = kb:control+g, kb:control+shift+b
+</code></pre></div>
+<p>If a line already exists for the script name, but you want to modify the shortcut, add the new shortcut on the same line, separating each shortcut with a comma ("<code>,</code>").</p>
+</li>
+<li>
+<p>If you want to unmap the original shortcut, just map it to <code>None</code>, e.g.:</p>
+<div class="highlight"><pre><span></span><code>None = kb:control+b
+</code></pre></div>
+<p>Unmapping the original shortcut is only required if this shortcut does not match any other remapped locale shortcut.</p>
+</li>
+</ol>
+<h2 id="plugins">Plugins</h2>
+<h3 id="pluginsOverview">Overview</h3>
+<p>Plugins allow you to customize the way NVDA behaves overall or within a particular application.
+They are able to:</p>
+<ul>
+<li>Respond to particular events such as focus and object property changes; e.g. when a control changes its name.</li>
+<li>Implement commands which are bound to particular key presses or other input.</li>
+<li>Customise the behaviour of and implement additional functionality for particular controls.</li>
+<li>Customise or add new support for text content and complex documents.</li>
+</ul>
+<p>This section provides an introduction to developing plugins.
+Developers should consult the code documentation for a complete reference.</p>
+<h3 id="pluginsTypes">Types of Plugins</h3>
+<p>There are two types of plugins. These are:</p>
+<ul>
+<li>App Modules: code specific to a particular application.
+The App Module receives all events for a particular application, even if that application is not currently active.
+When the application is active, any commands that the App Module has bound to key presses or other input can be executed by the user.</li>
+<li>Global Plugins: code global to NVDA; i.e. it is used in all applications.
+Global Plugins Receive all events for all controls in the Operating System.
+Any commands bound by a Global Plugin can be executed by the user wherever they are in the operating system, regardless of application.</li>
+</ul>
+<p>If you wish to improve NVDA's access to a particular application, it is most likely you will want to write an App Module.
+In contrast, if you wish to add some overall functionality to NVDA (e.g. a script that announces current Wireless network strength while in any application), then a Global Plugin is what you want.</p>
+<p>Both App Modules and Global Plugins share a common look and feel.
+They are both Python source files (with a .py extension), they both define a special class containing all events, scripts and bindings, and they both may define custom classes to access controls, text content and complex documents.
+However, they do differ in some ways.</p>
+<p>Custom appModules and globalPlugins can be packaged into NVDA add-ons.
+This allows easy distribution, and provides a safe way for the user to install and uninstall the custom code.
+Please refer to the <a href="#Addons" title="Add-ons section">Add-ons section</a> later on in this document.</p>
+<p>In order to test the code while developing, you can place it in a special 'scratchpad' directory in your NVDA user configuration directory.
+You will also need to configure NVDA to enable loading of custom code from the Developer Scratchpad Directory, by enabling this in the Advanced category of NVDA's Settings dialog.
+The Advanced category also contains a button to easily open the Developer Scratchpad directory if enabled.</p>
+<p>The following few sections will talk separately about App Modules and Global Plugins.
+After this point, discussion is again more general.</p>
+<h3 id="appModuleBasics">Basics of an App Module</h3>
+<p>App Module files have a .py extension, and in most cases should be named the same as either the main executable of the application for which you wish them to be used or the package inside a host executable.
+For example, an App Module for notepad would be called notepad.py, as notepad's main executable is called notepad.exe.
+To map a single App Module for multiple executables, or handle when an executable name violates the Python import rules, refer to <a href="#AssociatingAppModule" title="Associating App Modules with an executable">Associating App Modules with an executable</a>.
+For apps hosted inside host executables, see the section on app modules for hosted apps.</p>
+<p>App Module files must be placed in the appModules subdirectory of an add-on, or of the scratchpad directory of the NVDA user configuration directory.</p>
+<p>App Modules must define a class called AppModule, which inherits from appModuleHandler.AppModule.
+This class can then define event and script methods, gesture bindings and other code.
+This will all be covered in depth later.</p>
+<p>NVDA loads an App Module for an application as soon as it notices the application is running.
+The App Module is unloaded once the application is closed or when NVDA is exiting.</p>
+<h3 id="AssociatingAppModule">Associating App Modules with an executable</h3>
+<p>As explained above, sometimes the default way of associating an App Module with an application is not flexible enough. Examples include:</p>
+<ul>
+<li>You want to use a single App Module for various binaries (perhaps both stable and preview versions of the application should have the same accessibility enhancements)</li>
+<li>The executable file is named in a way which conflicts with the Python naming rules. i.e. for an application named "time", naming the App Module "time.py" would conflict with the built-in module from the standard library</li>
+</ul>
+<p>In such cases you can distribute a small global plugin along with your App Module which maps it to the executable.
+For example to map the App Module named "time_app_mod" to the "time" executable the plugin may be written as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">globalPluginHandler</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GlobalPlugin</span><span class="p">(</span><span class="n">globalPluginHandler</span><span class="o">.</span><span class="n">GlobalPlugin</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+		<span class="n">appModuleHandler</span><span class="o">.</span><span class="n">registerExecutableWithAppModule</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"time_app_mod"</span><span class="p">)</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">terminate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+		<span class="n">appModuleHandler</span><span class="o">.</span><span class="n">unregisterExecutable</span><span class="p">(</span><span class="s2">"time"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="Example1">Example 1: An App Module that Beeps on Focus Change Events</h3>
+<p>The following example App Module makes NVDA beep each time the focus changes within the notepad application.
+This example shows you the basic layout of an App Module.</p>
+<p>Copy and paste the code between (but not including) the start and end markers into a new text file called notepad.py, which should be saved in the AppModules subdirectory.
+Be very careful to keep all tabs and spaces intact.</p>
+<p>Once saved in the correct location, either restart NVDA or choose Reload Plugins found under Tools in the NVDA menu.</p>
+<p>Finally, open Notepad and move the focus around the application; e.g. move along the menu bar, open some dialog boxes, etc.
+You should hear beeps each time the focus changes.
+Note though that if you move outside of Notepad - for instance, to Windows Explorer - you do not hear beeps.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Notepad App Module for NVDA</span>
+<span class="c1"># Developer guide example 1</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">appModuleHandler</span><span class="o">.</span><span class="n">AppModule</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">event_gainFocus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">nextHandler</span><span class="p">):</span>
+		<span class="kn">import</span><span class="w"> </span><span class="nn">tones</span>
+		<span class="n">tones</span><span class="o">.</span><span class="n">beep</span><span class="p">(</span><span class="mi">550</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+		<span class="n">nextHandler</span><span class="p">()</span>
+</code></pre></div>
+<p>This App Module file starts with two comment lines, which describe what the file is for.</p>
+<p>It then imports the appModuleHandler module, so that the App Module then has access to the base AppModule class.</p>
+<p>Next, it defines a class called AppModule, which is inherited from appModuleHandler.AppModule.</p>
+<p>Inside this class, it defines 1 or more events, scripts or gesture bindings.
+In this example, it defines one event method for gainFocus events (event_gainFocus), which plays a short beep each time it is executed.
+The implementation of this event is not important for the purposes of this example.
+The most important part is the class itself.
+Events will be covered in greater detail later.</p>
+<p>As with other examples in this guide, remember to delete the created app module when you are finished testing and then restart NVDA or reload plugins, so that original functionality is restored.</p>
+<h3 id="appModulesForHostedApps">App modules for hosted apps</h3>
+<p>Some executables host various apps inside or are employed by an app to display their interfaces.
+These include <code>javaw.exe</code> for running various Java programs, <code>wwahost.exe</code> for some apps in Windows 8 and later, and <code>msedgewebview2.exe</code> for displaying web-like interfaces on apps employing Edge WebView2 runtime.</p>
+<p>If an app runs inside a host executable or employs a different app to display the interface, the name of the app module must be the name as defined by the host or the interface executable, which can be found through the <code>AppModule.appName</code> property.
+For example, an app module for a Java app named "<code>test</code>" hosted inside <code>javaw.exe</code> must be named <code>test.py</code>.
+For apps hosted inside <code>wwahost</code>, not only must the app module name be the name of the loaded app, but the app module must subclass the app module class found in <code>wwahost</code>.
+By default, apps employing Edge WebView2 such as modern Outlook (olk.exe) are displayed as a webpage.</p>
+<h3 id="example2">Example 2: an app module for an app hosted by <code>wwahost.exe</code></h3>
+<p>The following example is the same as the Notepad app module above, except this is for an app hosted by <code>wwahost.exe</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># wwahost/test App Module for NVDA</span>
+<span class="c1"># Developer guide example 2</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">nvdaBuiltin.appModules.wwahost</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">AppModule</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">event_gainFocus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">nextHandler</span><span class="p">):</span>
+		<span class="kn">import</span><span class="w"> </span><span class="nn">tones</span>
+		<span class="n">tones</span><span class="o">.</span><span class="n">beep</span><span class="p">(</span><span class="mi">550</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+		<span class="n">nextHandler</span><span class="p">()</span>
+</code></pre></div>
+<p>The biggest difference from the Notepad app module is where the <code>wwahost</code> app module comes from.
+As a built-in app module, <code>wwahost</code> can be imported from <code>nvdaBuiltin.appModules</code>.</p>
+<p>Another difference is how the app module class is defined.
+As wwahost app module provides necessary infrastructure for apps hosted inside, you just need to subclass the wwahost AppModule class.</p>
+<h3 id="example3">Example 3: an app module for an app employing Edge WebView2 (<code>msedgewebview2.exe</code>)</h3>
+<p>The following example is an app module employing Edge WebView2 runtime with browse mode disabled by default, using modern Outlook (olk.exe) as an example.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># msedgewebview2 example (modern Outlook/olk.py)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">appModuleHandler</span><span class="o">.</span><span class="n">AppModule</span><span class="p">):</span>
+	<span class="n">disableBrowseModeByDefault</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+<p>Browse mode is disabled for this example because apps employing WebView2 display their interfaces as webpages.
+You can remove the "disableBrowseModeByDefault" line if you would like to let users navigate the app using browse mode commands.</p>
+<h3 id="globalPluginBasics">Basics of a Global Plugin</h3>
+<p>Global Plugin files have a .py extension, and should have a short unique name which identifies what they do.</p>
+<p>Global plugin files must be placed in the globalPlugins subdirectory of an add-on, or of the scratchpad directory of the NVDA user configuration directory.</p>
+<p>Global Plugins must define a class called GlobalPlugin, which inherits from globalPluginHandler.GlobalPlugin.
+This class can then define event and script methods, gesture bindings and other code.
+This will all be covered in depth later.</p>
+<p>NVDA loads all global plugins as soon as it starts, and unloads them on exit.</p>
+<h3 id="example3">Example 3: a Global Plugin Providing a Script to Announce the NVDA Version</h3>
+<p>The following example Global Plugin Allows you to press NVDA+shift+v while anywhere in the Operating System to find out NVDA's version.
+This example is only to show you the basic layout of a Global Plugin.</p>
+<p>Copy and paste the code between (but not including) the start and end markers into a new text file with a name of example2.py, which should be saved in the globalPlugins subdirectory.
+Be very careful to keep all tabs and spaces intact.</p>
+<p>Once saved in the right place, either restart NVDA or choose Reload Plugins found under Tools in the NVDA menu.</p>
+<p>From anywhere, you can now press <code>NVDA+shift+v</code> to have NVDA's version spoken and brailled.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Version announcement plugin for NVDA</span>
+<span class="c1"># Developer guide example 3</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">globalPluginHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scriptHandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">script</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">versionInfo</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GlobalPlugin</span><span class="p">(</span><span class="n">globalPluginHandler</span><span class="o">.</span><span class="n">GlobalPlugin</span><span class="p">):</span>
+	<span class="nd">@script</span><span class="p">(</span><span class="n">gesture</span><span class="o">=</span><span class="s2">"kb:NVDA+shift+v"</span><span class="p">)</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">script_announceNVDAVersion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gesture</span><span class="p">):</span>
+		<span class="n">ui</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="n">versionInfo</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</code></pre></div>
+<p>This Global Plugin file starts with two comment lines, which describe what the file is for.</p>
+<p>It then imports the globalPluginHandler module, so that the Global Plugin has access to the base GlobalPlugin class.</p>
+<p>It also imports a few other modules, namely ui, versionInfo and scriptHandler, which this specific plugin needs in order for it to perform the necessary actions to announce the version.</p>
+<p>Next, it defines a class called GlobalPlugin, which is inherited from globalPluginHandler.GlobalPlugin.</p>
+<p>Inside this class, it defines 1 or more events, scripts or gesture bindings.
+In this example, it defines a script method that performs the version announcement.
+The script decorator from the scriptHandler module is used to assign the NVDA+shift+v shortcut to this script.
+However, the details of the script and its binding are not important for the purposes of this example.
+The most important part is the class itself.
+More information about scripts and the script decorator can be found in the <a href="#DefiningScriptProperties" title="Defining script properties">Defining script properties</a> section of this guide.</p>
+<p>As with other examples in this guide, remember to delete the created Global Plugin when finished testing and then restart NVDA or reload plugins, so that original functionality is restored.</p>
+<h3 id="NVDAObjects">NVDA Objects</h3>
+<p>NVDA represents controls and other GUI elements as NVDA Objects.
+These NVDA Objects contain standardised properties, such as name, role, value, states and description, which allow other parts of NVDA to query or present information about a control in a generalised way.
+For example, the OK button in a dialog would be represented as an NVDA Object with a name of "OK" and a role of button.
+Similarly, a checkbox with a label of "I agree" would have a name of "I agree", a role of checkbox, and if currently checked, a state of checked.</p>
+<p>As there are many different GUI Toolkits and platform and accessibility APIs, NVDA Objects abstract these differences into a standard form that NVDA can use, regardless of the toolkit or API a particular control is made with.
+For example, the Ok button just discussed could be a widget in a Java application, an MSAA object, an IAccessible2 object or a UI Automation element.</p>
+<p>NVDA Objects have many properties.
+Some of the most useful are:</p>
+<ul>
+<li>name: the label of the control.</li>
+<li>role: one of the Role.* constants from NVDA's controlTypes module.
+Button, dialog, editableText, window and checkbox are examples of roles.</li>
+<li>states: a set of 0 or more of the State.* constants from NVDA's controlTypes module.
+Focusable, focused, selected, selectable, expanded, collapsed and checked are some examples of states.</li>
+<li>value: the value of the control; e.g. the percentage of a scroll bar or the current setting of a combo box.</li>
+<li>description: a sentence or two describing what the control does (usually the same as its tooltip).</li>
+<li>location: the object's left, top, width and height positions in screen coordinates.</li>
+<li>parent: this object's parent object.
+For example, a list item object's parent would be the list containing it.</li>
+<li>next: the object directly after this one on the same level in logical order.
+For example, a menu item NVDA Object's next object is most likely another menu item within the same menu.</li>
+<li>previous: like next but in reverse.</li>
+<li>firstChild: the first direct child object of this object.
+For example, a list's first child would be the first list item.</li>
+<li>lastChild: the last direct child of this object.</li>
+<li>children: a list of all the direct children of this object; e.g. all the menu items in a menu.</li>
+</ul>
+<p>There are also a few simplified navigation properties such as simpleParent, simpleNext, simpleFirstChild and simpleLastChild.
+These are like their respective navigation properties described above, but NVDA filters out useless objects.
+These properties are used when NVDA's simple review mode is turned on, which is the default.
+These simple properties may be easier to use, but the real navigation properties more closely reflect the underlying Operating System structure.
+Also, these may change in future versions of NVDA as improvements are made to simple review, so they should generally be avoided when programmatically locating specific objects.</p>
+<p>When developing plugins, most of the time, it is not important what toolkit or API backs an NVDA Object, as the plugin will usually only access standard properties such as name, role and value.
+However, as plugins become more advanced, it is certainly possible to delve deeper into NVDA Objects to find out toolkit or API specific information if required.</p>
+<p>Plugins make use of NVDA Objects in three particular ways:</p>
+<ul>
+<li>Most events that plugins receive take an argument which is the NVDA Object on which the event occurred.
+For example, event_gainFocus takes the NVDA Object that represents the control gaining focus.</li>
+<li>Scripts, events or other code may fetch objects of interest such as the NVDA Object with focus, NVDA's current navigator object, or perhaps the Desktop NVDA Object.
+The code may then retrieve information from that object or perhaps even retrieve another object related to it (e.g. its parent, first child, etc.).</li>
+<li>the Plugin may define its own custom NVDA Object classes which will be used to wrap a specific control to give it extra functionality, mutate its properties, etc.</li>
+</ul>
+<p>Just like App Modules and Global Plugins, NVDA Objects can also define events, scripts and gesture bindings.</p>
+<h3 id="scripts">Scripts and Gesture Bindings</h3>
+<p>App Modules, Global Plugins and NVDA Objects can define special methods which can be bound to a particular piece of input such as a key press.
+NVDA refers to these methods as scripts.</p>
+<p>A script is a standard Python instance method with a name starting with "script_"; e.g. "script_sayDateTime".</p>
+<p>A script method takes two arguments:</p>
+<ul>
+<li>self: a reference to the App Module, Global Plugin or NVDA Object instance the script was called on.</li>
+<li>gesture: an Input Gesture object, which represents the input that caused the script to run.</li>
+</ul>
+<p>As well as the actual script method, some form of gesture binding must be defined, so that NVDA knows what input should execute the script.</p>
+<p>A gesture identifier string is a simple string representation of a piece of input.
+It consists of a two letter character code denoting the source of the input, an optional device in brackets, a colon (:) and one or more names separated by a plus (+) denoting the actual keys or input values.</p>
+<p>Some examples of gesture string identifiers are:</p>
+<ul>
+<li>"kb:NVDA+shift+v"</li>
+<li>"br(freedomScientific):leftWizWheelUp"</li>
+<li>"br(alva.BC640):t3"</li>
+<li>"kb(laptop):NVDA+t"</li>
+</ul>
+<p>Currently, the input sources in NVDA are:</p>
+<ul>
+<li>kb: system keyboard input</li>
+<li>br: braille display controls</li>
+<li>ts: touch screen</li>
+<li>bk: braille keyboard input</li>
+</ul>
+<p>When NVDA receives input, it looks for a matching gesture binding in a particular order.
+Once a gesture binding is found, the script is executed and no further bindings are used, nor is that particular gesture passed on automatically to the Operating System.</p>
+<p>The order for gesture binding lookup is:</p>
+<ul>
+<li>The user specific gesture map</li>
+<li>The locale specific gesture map</li>
+<li>The braille display driver specific gesture map</li>
+<li>Loaded Global Plugins</li>
+<li>App Module of the active application</li>
+<li>Tree Interceptor of the NVDA Object with focus if any; e.g. a virtualBuffer</li>
+<li>NVDA Object with focus</li>
+<li>Global Commands (built in commands like quitting NVDA, object navigation commands, etc.)</li>
+</ul>
+<h4 id="DefiningScriptProperties">Defining script properties</h4>
+<p>For NVDA 2018.3 and above, the recommended way to set script properties is by means of the so called script decorator.
+In short, a decorator is a function that modifies the behavior of a particular function or method.
+The script decorator modifies the script in such a way that it will be properly bound to the desired gestures.
+Furthermore, it ensures that the script is listed with the description you specify, and that it is categorised under the desired category in the input gestures dialog.</p>
+<p>In order for you to use the <code>script</code> decorator, you will have to import it from the <code>scriptHandler</code> module.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scriptHandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">script</span>
+</code></pre></div>
+<p>After that, just above your script definition, add the <code>script</code> decorator, providing the desired arguments.
+For example:</p>
+<div class="highlight"><pre><span></span><code>	<span class="nd">@script</span><span class="p">(</span>
+		<span class="n">description</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">"Speaks the date and time"</span><span class="p">),</span>
+		<span class="n">category</span><span class="o">=</span><span class="n">inputCore</span><span class="o">.</span><span class="n">SCRCAT_MISC</span><span class="p">,</span>
+		<span class="n">gestures</span><span class="o">=</span><span class="p">[</span><span class="s2">"kb:NVDA+shift+t"</span><span class="p">,</span> <span class="s2">"kb:NVDA+alt+r"</span><span class="p">]</span>
+	<span class="p">)</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">script_sayDateTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gesture</span><span class="p">):</span>
+</code></pre></div>
+<p>In this example, your script will be listed in the input gestures dialog under the "Miscellaneous" category.
+It will have the description "Speaks the date and time", and will be bound to the "NVDA+shift+t" and "NVDA+alt+r" key combinations on the keyboard.</p>
+<p>The following keyword arguments can be used when applying the script decorator:</p>
+<ul>
+<li>description: A short, translatable string which describes the command for users.
+  This is reported to users when in Input Help mode and shown in the input gestures dialog.
+  The script will not appear in the Input Gestures dialog unless you specify a description.</li>
+<li>category: The category of the script in order for it to be grouped with other similar scripts.
+  For example, a script in a global plugin which adds browse mode quick navigation keys may be categorized under the "Browse mode" category.
+  The category can be set for individual scripts, but you can also set the "scriptCategory" attribute on the plugin class, which will be used for scripts which do not specify a category.
+  There are constants for common categories prefixed with SCRCAT_ in the inputCore and globalCommands modules, which can also be specified.
+  The script will be listed under the specified category in the Input Gestures dialog.
+  If no category is specified, the script will be categorized under "Miscellaneous".</li>
+<li>gesture: A string containing a single gesture associated with this script, e.g. "kb:NVDA+shift+r".</li>
+<li>gestures: A string list of multiple gestures associated with this script, e.g. ["kb:NVDA+shift+r", "kb:NVDA+alt+t"].
+  When both gesture and gestures are specified, they are combined.
+  Either gesture, or any item in gestures can be used to trigger the script.</li>
+<li>canPropagate: A boolean indicating whether this script should also apply when it belongs to a focus ancestor object.
+  For example, this can be used when you want to specify a script on a particular foreground object, or another object in the focus ancestry which is not the current focus object.
+  This option defaults to False.</li>
+<li>bypassInputHelp: A boolean indicating whether this script should run when input help is active.
+  This option defaults to False.</li>
+<li>allowInSleepMode: A boolean indicating whether this script should run when sleep mode is active.
+  This option defaults to False.</li>
+<li>resumeSayAllMode: The say all mode that should be resumed when active before executing this script.
+  The constants for say all mode can be found in the CURSOR enum in speech.sayAll.
+  If resumeSayAllMode is not specified, say all does not resume after this script.</li>
+<li>speakOnDemand: A boolean indicating whether this script should produce speech when called while speech mode is "on-demand".
+  This option defaults to False.</li>
+</ul>
+<p>Though the script decorator makes the script definition process a lot easier, there are more ways of binding gestures and setting script properties.
+For example, a special "__gestures" Python dictionary can be defined as a class variable on an App Module, Global Plugin or NVDA Object.
+This dictionary should contain gesture identifier strings pointing to the name of the requested script, without the "script_" prefix.
+You can also specify a description of the script in the method's "doc" attribute.
+However, beware not to include an inline docstring at the start of the method if you do not set the "doc" attribute, as it would render the description not translatable.
+The script decorator does not suffer from this limitation, so you are encouraged to provide inline docstrings as needed when using it.
+Furthermore, an alternative way of specifying the script's category is by means of setting a "category" attribute on the script method to a string containing the name of the category.</p>
+<h3 id="example4">Example 4: A Global Plugin to Find out Window Class and Control ID</h3>
+<p>The following Global Plugin allows you to press NVDA+leftArrow to have the window class of the current focus announced, and NVDA+rightArrow to have the window control ID of the current focus announced.
+This example shows you how to define one or more scripts and gesture bindings on a class such as an App Module, Global Plugin or NVDA Object.</p>
+<p>Copy and paste the code between (but not including) the start and end markers into a new text file with a name of example3.py, which should be saved in the globalPlugins subdirectory.
+Be very careful to keep all tabs and spaces intact.</p>
+<p>Once saved in the right place, either restart NVDA or choose Reload Plugins found under Tools in the NVDA menu.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#Window utility scripts for NVDA</span>
+<span class="c1">#Developer guide example 4</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">globalPluginHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scriptHandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">script</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">api</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GlobalPlugin</span><span class="p">(</span><span class="n">globalPluginHandler</span><span class="o">.</span><span class="n">GlobalPlugin</span><span class="p">):</span>
+
+	<span class="nd">@script</span><span class="p">(</span>
+		<span class="n">description</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">"Announces the window class name of the current focus object"</span><span class="p">),</span>
+		<span class="n">gesture</span><span class="o">=</span><span class="s2">"kb:NVDA+leftArrow"</span>
+	<span class="p">)</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">script_announceWindowClassName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gesture</span><span class="p">):</span>
+		<span class="n">focusObj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getFocusObject</span><span class="p">()</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="n">focusObj</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">windowClassName</span> <span class="o">=</span> <span class="n">focusObj</span><span class="o">.</span><span class="n">windowClassName</span>
+		<span class="n">ui</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"class for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> window: </span><span class="si">{</span><span class="n">windowClassName</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+	<span class="nd">@script</span><span class="p">(</span>
+		<span class="n">description</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">"Announces the window control ID of the current focus object"</span><span class="p">),</span>
+		<span class="n">gesture</span><span class="o">=</span><span class="s2">"kb:NVDA+rightArrow"</span>
+	<span class="p">)</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">script_announceWindowControlID</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gesture</span><span class="p">):</span>
+		<span class="n">focusObj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getFocusObject</span><span class="p">()</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="n">focusObj</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">windowControlID</span> <span class="o">=</span> <span class="n">focusObj</span><span class="o">.</span><span class="n">windowControlID</span>
+		<span class="n">ui</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Control ID for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> window: </span><span class="si">{</span><span class="n">windowControlID</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="events">Events</h3>
+<p>When NVDA detects particular toolkit, API or Operating System events, it abstracts these and fires its own internal events on plugins and NVDA Objects.</p>
+<p>Although most events are related to a specific NVDA Object (e.g. name change, gain focus, state change, etc.), these events can be handled at various levels.
+When an event is handled, it is stopped from going further down the chain.
+However, code inside the event can choose to propagate it further if needed.</p>
+<p>The order of levels through which the event passes until an event method is found is:</p>
+<ul>
+<li>Loaded Global Plugins</li>
+<li>The App Module associated with the NVDA Object on which the event was fired</li>
+<li>The Tree Interceptor (if any) associated with the NVDAObject on which the event was fired</li>
+<li>the NVDAObject itself.</li>
+</ul>
+<p>Events are Python instance methods, with a name starting with "event_" followed by the actual name of the event (e.g. gainFocus).</p>
+<p>These event methods take slightly different arguments depending at what level they are defined.</p>
+<p>If an event for an NVDA Object is defined on an NVDA Object itself, the method only takes one mandatory argument which is the 'self' argument; i.e. the NVDA Object instance).
+Some events may take extra arguments, though this is quite rare.</p>
+<p>If an event for an NVDA Object is defined on a Global Plugin, App Module or Tree Interceptor, the event takes the following arguments:</p>
+<ul>
+<li>self: the instance of the Global Plugin, App Module or Tree Interceptor</li>
+<li>obj: the NVDA Object on which the event was fired</li>
+<li>nextHandler: a function that when called will propagate the event further down the chain.</li>
+</ul>
+<p>Some common NVDA Object events are:</p>
+<ul>
+<li>foreground: this NVDA Object has become the new foreground object; i.e. active top-level object</li>
+<li>gainFocus</li>
+<li>focusEntered: Focus has moved inside this object; i.e. it is an ancestor of the focus object</li>
+<li>loseFocus</li>
+<li>nameChange</li>
+<li>valueChange</li>
+<li>stateChange</li>
+<li>caret: when the caret (insertion point) within this NVDA Object moves</li>
+<li>locationChange: physical screen location changes</li>
+</ul>
+<p>There are many other events, though those listed above are usually the most useful.</p>
+<p>For an example of an event handled by an App Module, please refer to <a href="#Example1" title="example 1">example 1</a> (focus beeps in notepad).</p>
+<h3 id="appModuleSleepMode">the App Module SleepMode variable</h3>
+<p>App Modules have one very useful property called "sleepMode", which if set to true almost completely disables NVDA within that application.
+Sleep Mode is very useful for self voicing applications that have their own screen reading functionality, or perhaps even some games that need full use of the keyboard.</p>
+<p>Although sleep mode can be toggled on and off by the user with the key command NVDA+shift+s, a developer can choose to have sleep mode enabled by default for an application.
+This is done by providing an App Module for that application which simply sets sleepMode to True in the AppModule class.</p>
+<h3 id="example5">Example 5: A Sleep Mode App Module</h3>
+<p>The following code can be copied and pasted in to a text file, then saved in the <code>appModules</code> directory with the name of the application you wish to enable sleep mode for.
+As always, the file must have a <code>.py</code> extension.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">appModuleHandler</span><span class="o">.</span><span class="n">AppModule</span><span class="p">):</span>
+
+	<span class="n">sleepMode</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+<h3 id="customNVDAObjectClasses">Providing Custom NVDA Object Classes</h3>
+<p>Providing custom NVDA Object classes is probably the most powerful and useful way to improve the experience of an application in an NVDA plugin.
+This method allows you to place all the needed logic for a particular control altogether in one NVDA Object class for that control, rather than scattering code for many controls across a plugin's events.</p>
+<p>There are two steps to providing a custom NVDA Object class:</p>
+<ul>
+<li>Define the NVDA Object class and its events, scripts, gesture bindings and overridden properties.</li>
+<li>Tell NVDA to use this NVDA Object class in specific situations by handling it in the plugin's <code>chooseNVDAObjectOverlayClasses</code> method.</li>
+</ul>
+<p>When defining a custom NVDAObject class, you have many NVDAObject base classes to choose from.
+These base classes contain the base support for the particular accessibility or OS API underlying the control, such as win32, MSAA or Java access Bridge.
+You should usually inherit your custom NVDAObject class from the highest base class you need in order to choose your class in the first place.
+For example, if you choose to use your custom NVDAObject class when the window class name is "Edit" and the window control ID is 15, you should probably inherit from <code>NVDAObjects.window.Window</code>, as you are clearly aware that this is a Window object.
+Similarly, if you match on MSAA's <code>accRole</code> property, you would probably need to inherit from <code>NVDAObjects.IAccessible.IAccessible</code>.
+You should also consider what properties you are going to override on the custom NVDA Object.
+For instance, if you are going to override an IAccessible specific property, such as <code>shouldAllowIAccessibleFocusEvent</code>, then you need to inherit from <code>NVDAObjects.IAccessible.IAccessible</code>.</p>
+<p>The <code>chooseNVDAObjectOverlayClasses</code> method can be implemented on app modules or global plugin classes.
+It takes 3 arguments:</p>
+<ol>
+<li><code>self</code>: the app module or global plugin instance.</li>
+<li><code>obj</code>: the <code>NVDAObject</code> for which classes are being chosen.</li>
+<li><code>clsList</code>: a Python list of <code>NVDAObject</code> classes that will be used for <code>obj</code>.</li>
+</ol>
+<p>Inside this method, you should decide which custom NVDA Object class(es) (if any) this NVDA Object should use by checking its properties, etc.
+If a custom class should be used, it must be inserted into the class list, usually at the beginning.
+You can also remove classes chosen by NVDA from the class list, although this is rarely required.</p>
+<h3 id="example6">Example 6: Command to Retrieve the Length of Text in an Edit Field Using a Custom NVDA Object</h3>
+<p>This app module for notepad provides a command to report the number of characters in edit fields.
+You can activate it using <code>NVDA+l</code>.
+Notice that the command is specific to edit fields; i.e. it only works while you are focused in an edit field, rather than anywhere in the application.</p>
+<p>The following code can be copied and pasted in to a text file, then saved in the <code>appModules</code> directory with the name of <code>notepad.py</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scriptHandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">script</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NVDAObjects.IAccessible</span><span class="w"> </span><span class="kn">import</span> <span class="n">IAccessible</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">controlTypes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ui</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">appModuleHandler</span><span class="o">.</span><span class="n">AppModule</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">chooseNVDAObjectOverlayClasses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">clsList</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">windowClassName</span> <span class="o">==</span> <span class="s2">"Edit"</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="n">controlTypes</span><span class="o">.</span><span class="n">Role</span><span class="o">.</span><span class="n">EDITABLETEXT</span><span class="p">:</span>
+			<span class="n">clsList</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">EnhancedEditField</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">EnhancedEditField</span><span class="p">(</span><span class="n">IAccessible</span><span class="p">):</span>
+
+	<span class="nd">@script</span><span class="p">(</span><span class="n">gesture</span><span class="o">=</span><span class="s2">"kb:NVDA+l"</span><span class="p">)</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">script_reportLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gesture</span><span class="p">):</span>
+		<span class="n">ui</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="smallChangesToNVDAObjectInAppModules">Making Small Changes to an NVDA Object in App Modules</h3>
+<p>Sometimes, you may wish to make only small changes to an NVDA Object in an application, such as overriding its name or role.
+In these cases, you don't need the full power of a custom NVDA Object class.
+To do this, you can use the <code>NVDAObject_init</code> event available only on App Modules.</p>
+<p>The <code>event_NVDAObject_init</code> method takes two arguments:</p>
+<ol>
+<li><code>self</code>: the AppModule instance.</li>
+<li><code>obj</code>: the <code>NVDAObject</code> being initialized.</li>
+</ol>
+<p>Inside this method, you can check whether this object is relevant and then override properties accordingly.</p>
+<h3 id="example7">Example 7: Labelling the Notepad Edit Field Using event_NVDAObject_init</h3>
+<p>This app module for notepad makes NVDA report Notepad's main edit field as having a name of "content".
+That is, when it receives focus, NVDA will say "Content edit".</p>
+<p>The following code can be copied and pasted in to a text file, then saved in the <code>appModules</code> directory with the name of <code>notepad.py</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">appModuleHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NVDAObjects.window</span><span class="w"> </span><span class="kn">import</span> <span class="n">Window</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AppModule</span><span class="p">(</span><span class="n">appModuleHandler</span><span class="o">.</span><span class="n">AppModule</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">event_NVDAObject_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Window</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">windowClassName</span> <span class="o">==</span> <span class="s2">"Edit"</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">windowControlID</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+			<span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"Content"</span>
+</code></pre></div>
+<h3 id="PluginCLIArgs">Parsing additional command line arguments in your plugin</h3>
+<p>By default NVDA accepts a limited set of command line arguments and shows an error for unknown ones.
+However, if you want to use any additional arguments, this is possible by adding a handler to the <a href="#ExtensionPoints" title="extension point">extension point</a> <code>addonHandler.isCLIParamKnown</code>.
+Note that since command line arguments are processed just after NVDA starts, your add-on needs to process them in a global plugin, since app modules or other drivers may not be loaded at this stage.
+A sample handler can be written as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">processArgs</span><span class="p">(</span><span class="n">cliArgument</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+	<span class="k">if</span> <span class="n">cliArgument</span> <span class="o">==</span> <span class="s2">"--enable-addon-feature"</span><span class="p">:</span>
+		<span class="c1"># Code to process your argument...</span>
+		<span class="k">return</span> <span class="kc">True</span>  <span class="c1"># Argument is known to the add-on and should not be flagged by NVDA</span>
+	<span class="k">return</span> <span class="kc">False</span>  <span class="c1"># unknown argument - NVDA should warn user</span>
+</code></pre></div>
+<p>Then the handler needs to be registered, preferably in the constructor of your global plugin:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">addonHandler</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GlobalPlugin</span><span class="p">(</span><span class="n">globalPluginHandler</span><span class="o">.</span><span class="n">GlobalPlugin</span><span class="p">):</span>
+
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+		<span class="n">addonHandler</span><span class="o">.</span><span class="n">isCLIParamKnown</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">processArgs</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="Addons">Packaging Code as NVDA Add-ons</h2>
+<p>Add-ons make it easy for users to share and install plugins, drivers, speech symbol dictionaries and braille translation tables.
+They can be packaged in to a single NVDA add-on package, which the user can then install into a copy of NVDA via the Add-on Store found under Tools in the NVDA menu.
+An add-on package is simply a standard zip archive with the file extension of "<code>nvda-addon</code>".
+It can contain a manifest file, install/uninstall code and directories containing plugins, drivers, speech symbol dictionaries and braille translation tables.</p>
+<h3 id="nonASCIIFileNamesInZip">Non-ASCII File Names in Zip Archives</h3>
+<p>If your add-on includes files which contain non-ASCII (non-English) characters, you should create the zip archive such that it uses UTF-8 file names.
+This means that these files can be extracted properly on all systems, regardless of the system's configured language.
+Unfortunately, many zip archivers do not support this, including Windows Explorer.
+Generally, it has to be explicitly enabled even in archivers that do support it.
+<a href="http://www.7-zip.org/" rel="noopener" target="_blank" title="7-Zip">7-Zip</a> supports this, though it must be enabled by specifying the "cu=on" method parameter.</p>
+<h3 id="manifest">Manifest Files</h3>
+<p>Each add-on package must contain a manifest file named manifest.ini.
+This must be a UTF-8 encoded text file.
+This manifest file contains key = value pairs declaring info such as the add-on's name, version and description.</p>
+<h4 id="manifestFields">Available Fields</h4>
+<p>Although it is highly suggested that manifests contain all fields, the fields marked as mandatory must be included.
+Otherwise, the add-on will not install.</p>
+<ul>
+<li>name (string, required): A short, unique, name for the add-on.<ul>
+<li>The recommended convention is lowerCamelCase.</li>
+<li>This is used to differentiate add-ons internally, and is also used as the name of the add-on's directory in the user configuration directory.</li>
+<li>Special characters should be avoided as the add-on name will be used as a folder name.
+Expected characters are alphanumeric, space, underscore and hyphen.</li>
+</ul>
+</li>
+<li>summary (string, required): The name of the add-on as shown to the user.</li>
+<li>version (string, required): The version of this add-on; e.g. 2.0.1.
+When uploading to the Add-on Store certain requirements apply:<ul>
+<li>Using <code>&lt;major&gt;.&lt;minor&gt;</code> or <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code> format.</li>
+<li>For a user to be able to update to this add-on, the version must be greater than the last version uploaded.</li>
+<li>Add-on versions are expected to be unique for the addon name and channel, meaning that a beta, stable and dev version of the same add-on cannot share a version number.
+This is so there can be a unique ordering of newest to oldest.</li>
+<li>The suggested convention is to increment the patch version number for dev versions, increment the minor version number for beta versions, and increment the major version number for stable versions.</li>
+</ul>
+</li>
+<li>author (string, required): The author of this add-on, preferably in the form Full Name ; e.g. Michael Curran &lt;<a href="mailto:mick@example.com" title="mick@example.com">mick@example.com</a>&gt;.</li>
+<li>description (string): A sentence or two describing what the add-on does.</li>
+<li>url (string): A URL where this add-on, further info and upgrades can be found.<ul>
+<li>Starting the URL with <code>https://</code> is required for submitting to the Add-on Store.</li>
+</ul>
+</li>
+<li>docFileName (string): The name of the main documentation file for this add-on; e.g. readme.html. See the <a href="#AddonDoc" title="Add-on Documentation">Add-on Documentation</a> section for more details.</li>
+<li>minimumNVDAVersion (string, required): The minimum required version of NVDA for this add-on to be installed or enabled.<ul>
+<li>e.g "2021.1"</li>
+<li>Must be a three part version string i.e. Year.Major.Minor, or a two part version string of Year.Major.
+In the second case, Minor defaults to 0.</li>
+<li>Defaults to "0.0.0"</li>
+<li>Must be less than or equal to <code>lastTestedNVDAVersion</code></li>
+<li>This must match a valid API version to be submitted to the Add-on Store.
+Valid API versions are found <a href="https://github.com/nvaccess/addon-datastore-transform/blob/main/nvdaAPIVersions.json" rel="noopener" target="_blank" title="on GitHub">on GitHub</a>.</li>
+</ul>
+</li>
+<li>lastTestedNVDAVersion (string, required): The last version of NVDA this add-on has been tested with.<ul>
+<li>e.g "2022.3.3"</li>
+<li>Must be a three part version string i.e. Year.Major.Minor, or a two part version string of Year.Major.
+In the second case, Minor defaults to 0.</li>
+<li>Defaults to "0.0.0"</li>
+<li>Must be greater than or equal to <code>minimumNVDAVersion</code></li>
+<li>This must match a valid API version to be submitted to the Add-on Store.
+Valid API versions are found <a href="https://github.com/nvaccess/addon-datastore-transform/blob/main/nvdaAPIVersions.json" rel="noopener" target="_blank" title="on GitHub">on GitHub</a>.</li>
+</ul>
+</li>
+</ul>
+<p>All string values must be enclosed in quotes as shown in the example below.</p>
+<p>The lastTestedNVDAVersion field in particular is used to ensure that users can be confident about installing an add-on.
+It allows the add-on author to make an assurance that the add-on will not cause instability, or break the users system.
+When this is not provided, or is less than the current version of NVDA (ignoring minor point updates e.g. 2018.3.1) then the user will be warned not to install the add-on.</p>
+<p>The manifest can also specify information regarding any additional speech symbol dictionaries or braille translation tables provided by the add-on.
+Please refer to the <a href="#AddonSymbolDictionaries" title="speech symbol dictionaries">speech symbol dictionaries</a> and <a href="#BrailleTables" title="braille translation tables">braille translation tables</a> sections.</p>
+<h4 id="manifestExample">An Example Manifest File</h4>
+<div class="highlight"><pre><span></span><code><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"myTestAddon"</span>
+<span class="na">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Cool Test Add-on"</span>
+<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"1.0.0"</span>
+<span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"An example add-on showing how to create add-ons!"</span>
+<span class="na">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Michael Curran &lt;mick@example.com&gt;"</span>
+<span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"https://github.com/nvaccess/nvda/blob/master/projectDocs/dev/addons.md"</span>
+<span class="na">docFileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"readme.html"</span>
+<span class="na">minimumNVDAVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"2021.1"</span>
+<span class="na">lastTestedNVDAVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"2022.3.3"</span>
+</code></pre></div>
+<h3 id="pluginsAndDrivers">Plugins and Drivers</h3>
+<p>The following plugins and drivers can be included in an add-on:</p>
+<ul>
+<li>App modules: Place them in an <code>appModules</code> directory in the archive.</li>
+<li>Braille display drivers: Place them in a <code>brailleDisplayDrivers</code> directory in the archive.</li>
+<li>Global plugins: Place them in a <code>globalPlugins</code> directory in the archive.</li>
+<li>Synthesizer drivers: Place them in a <code>synthDrivers</code> directory in the archive.</li>
+<li><a href="#AddonSymbolDictionaries" title="Speech symbol dictionaries">Speech symbol dictionaries</a>: Place them in the directory for one or more <a href="#localizingAddons" title="locales">locales</a> with a file name of <code>symbols-&lt;name&gt;.dic</code>, e.g. <code>locale\en\symbols-greek.dic</code>.</li>
+<li><a href="#BrailleTables" title="Braille translation tables">Braille translation tables</a>: Place them in a <code>brailleTables</code> directory in the archive.</li>
+</ul>
+<h3 id="installUninstallCode">Optional install / Uninstall code</h3>
+<p>If you need to execute code as your add-on is being installed or uninstalled from NVDA (e.g. to validate license information or to copy files to a custom location), you can provide a Python file called <code>installTasks.py</code> in the archive which contains special functions that NVDA will call while installing or uninstalling your add-on.
+This file should avoid loading any modules that are not absolutely necessary, especially Python C extensions or dlls from your own add-on, as this could cause later removal of the add-on to fail.
+However, if this does happen, the add-on directory will be renamed and then deleted after the next restart of NVDA.
+Finally, it should not depend on the existence or state of other add-ons, as they may not be installed, may have already been removed or may not yet be initialized.</p>
+<h4 id="onInstall">the onInstall function</h4>
+<p>NVDA will look for and execute an <code>onInstall</code> function in <code>installTasks.py</code> after it has finished extracting the add-on into NVDA.
+Note that although the add-on will have been extracted at this point, its directory will have a <code>.pendingInstall</code> suffix until NVDA is restarted, the directory is renamed and the add-on is really loaded for the first time.
+If this function raises an exception, the installation of the add-on will fail and its directory will be cleaned up.</p>
+<h4 id="onUninstall">The onUninstall Function</h4>
+<p>NVDA will look for and execute an <code>onUninstall</code> function in <code>installTasks.py</code> when NVDA is restarted after the user has chosen to remove the add-on.
+After this function completes, the add-on's directory will automatically be removed.
+As this happens on NVDA startup before other components are initialized, this function cannot request input from the user.</p>
+<h3 id="localizingAddons">Localizing Add-ons</h3>
+<p>It is possible to provide locale-specific information and messages for your add-on.
+Locale information can be stored in a locale directory in the archive.
+This directory should contain directories for each language it supports, using the same language code format as the rest of NVDA; e.g. en for English, fr_CA for French Canadian.</p>
+<h4 id="localeManifest">Locale-specific Manifest Files</h4>
+<p>Each of these language directories can contain a locale-specific manifest file called manifest.ini, which can contain a small subset of the manifest fields for translation.
+These fields are <code>summary</code> and <code>description</code>.
+You can also override the <code>displayName</code> field for speech symbol dictionaries and braille translation tables.
+All other fields will be ignored.</p>
+<h4 id="localeMessages">Locale-specific Messages</h4>
+<p>Each language directory can also contain gettext information, which is the system used to translate the rest of NVDA's user interface and reported messages.
+As with the rest of NVDA, an <code>nvda.mo</code> compiled gettext database file should be placed in the <code>LC_MESSAGES</code> directory within this directory.
+To allow plugins in your add-on to access gettext message information via calls to <code>_()</code>, <code>ngettext()</code>, <code>npgettext()</code> and <code>pgettext()</code> you must initialize translations at the top of each Python module by calling <code>addonHandler.initTranslation()</code>.
+This function cannot be called in modules that do not belong to an add-on, e.g. in a scratchpad subdirectory.
+For more information about gettext and NVDA translation in general, please read the <a href="https://github.com/nvaccess/nvda/blob/master/projectDocs/translating/readme.md" rel="noopener" target="_blank" title="Translating NVDA page">Translating NVDA page</a></p>
+<h4 id="AddonSymbolDictionaries">Speech symbol dictionaries</h4>
+<p>You can provide custom speech symbol dictionaries in add-ons to improve symbol pronunciation.
+The process to create custom speech symbol dictionaries is very similar to that of the <a href="#symbolPronunciation" title="translation process of existing symbols">translation process of existing symbols</a>.
+Note that <a href="#complexSymbols" title="complex symbols">complex symbols</a> are not supported.</p>
+<p>Custom dictionaries must be placed in a language directory and have a filename in the form <code>symbols-&lt;name&gt;.dic</code>, where <code>&lt;name&gt;</code> is the name that has to be provided in the add-ons manifest.
+All locales implicitly inherit the symbol information for English, though any of this information can be overridden for specific locales.</p>
+<p>When adding a dictionary not marked as mandatory, some information must be provided such as its display name, since it should be shown in the speech category of the settings dialog.
+A dictionary can also be marked mandatory, in which case it is always enabled with the add-on.
+When an add-on ships with dictionaries, this information is included in its manifest in the optional <code>symbolDictionaries</code> section.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[symbolDictionaries]</span>
+<span class="k">[[greek]]</span>
+<span class="na">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Greek</span>
+<span class="na">mandatory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+
+<span class="k">[[hebrew]]</span>
+<span class="na">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Biblical Hebrew</span>
+<span class="na">mandatory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</code></pre></div>
+<p>In the above example, <code>greek</code> is a dictionary that is optional and will be listed in the speech category of NVDA's settings dialog under the "Extra dictionaries for character and symbol processing" setting.
+Its file will be stored as <code>locale\en\symbols-greek.dic</code>, whereas French translations of the symbols are stored in <code>locale\fr\symbols-greek.dic</code>.
+When using NVDA in French, symbols that aren't defined in the French dictionary inherit the symbol information for English.</p>
+<p>Also in the example, the <code>hebrew</code> dictionary is marked mandatory and will therefore always be enabled as long as the add-on is active.
+Its file will be stored as <code>locale\en\symbols-hebrew.dic</code>, whereas French translations of the symbols are stored in <code>locale\fr\symbols-hebrew.dic</code>.</p>
+<p>Note that for the display name of the dictionary to be translated, an entry should be added to a <a href="#localeManifest" title="locale manifest">locale manifest</a>.
+For example, add the following to <code>locale\fr\manifest.ini</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[symbolDictionaries]</span>
+<span class="k">[[hebrew]]</span>
+<span class="na">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Hébreu Biblique</span>
+</code></pre></div>
+<h3 id="AddonDoc">Add-on Documentation</h3>
+<p>Documentation for an add-on should be placed in the <code>doc</code> directory in the archive.
+Similar to the <code>locale</code> directory, this directory should contain directories for each language in which documentation is available.</p>
+<p>Users can access documentation for a particular add-on by opening the Add-on Store, selecting the add-on and pressing the Add-on help button.
+This will open the file named in the docFileName parameter of the manifest.
+NVDA will search for this file in the appropriate language directories.
+For example, if docFileName is set to readme.html and the user is using English, NVDA will open doc\en\readme.html.</p>
+<h3 id="BrailleTables">Braille translation tables</h3>
+<p>Although NVDA ships with more than a hundred braille translation tables provided by <a href="https://liblouis.io/" rel="noopener" target="_blank" title="the liblouis project">the liblouis project</a> aimed at fitting most needs, it also supports the addition of custom tables.
+Custom tables must be placed in the brailleTables directory of an add-on or subdirectory of the scratchpad directory.
+These tables can either replace standard tables shipped with NVDA or be completely new ones.</p>
+<p>When adding a table, some information must be provided such as its display name in the Preferences dialog, whether it supports input and/or output and whether it is for contracted braille.
+When an add-on ships with tables, this information is included in its manifest in the optional brailleTables section.
+For example:</p>
+<div class="highlight"><pre><span></span><code>[brailleTables]
+[[fr-bfu-tabmod-comp8.utb]]
+displayName = French (unified) 8 dot computer braille - Addition
+contracted = False
+output = True
+input = True
+
+[[no-no-8dot.utb]]
+displayName = Norwegian 8 dot computer braille - Replacement
+contracted = False
+output = True
+input = True
+</code></pre></div>
+<p>In the above example, <code>fr-bfu-tabmod-comp8.utb</code> is a new table, while <code>no-no-8dot.utb</code> replaces a table that is already included in NVDA.
+Both tables need to be shipped in the brailleTables directory of the add-on.
+It is also possible to include a table in the manifest that is shipped with NVDA but otherwise unavailable for selection in the Preferences dialog.
+In that case, the table does not need to be shipped in the add-on's brailleTables directory.</p>
+<p>Providing a custom table, whether it has the same file name as a standard table or a different name, thus requires you to define the table in the add-on's manifest.
+The only exception to this rule applies to tables that are included within other tables.
+While they don't have to be included in the manifest of the add-on, they can only be included from other tables that are part of the same add-on.</p>
+<p>Note that for the display name of the table to be translated, an entry should be added to a <a href="#localeManifest" title="locale manifest">locale manifest</a>.
+For example, add the following to <code>locale\fr\manifest.ini</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[brailleTables]</span>
+<span class="k">[[no-no-8dot.utb]]</span>
+<span class="na">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Norvégien Braille informatique 8 points - Remplacement</span>
+</code></pre></div>
+<p>Custom tables can also be placed in the brailleTables subdirectory of the scratchpad directory.
+In this case, the table metadata can be placed in a <code>manifest.ini</code> file in the root of the scratchpad in the exact same format as the example above.
+Basically, this means that, whether using an add-on or the scratchpad, the requirements and implementation steps are equal.
+Note that a <code>manifest.ini</code> file in the scratchpad is only parsed for braille table metadata.
+Other add-on metadata in the file is ignored.</p>
+<p>Please refer to the <a href="https://liblouis.io/documentation/" rel="noopener" target="_blank" title="liblouis documentation">liblouis documentation</a> for detailed information regarding the braille translation tables format.</p>
+<h2 id="PythonConsole">NVDA Python Console</h2>
+<p>The NVDA Python console emulates the interactive Python interpreter from within NVDA.
+It is a development tool which is useful for debugging, general inspection of NVDA internals or inspection of the accessibility hierarchy of an application.</p>
+<h3 id="pythonConsoleUsage">Usage</h3>
+<p>The console can be activated in two ways:</p>
+<ul>
+<li>By pressing NVDA+control+z.
+If activated in this fashion, a snapshot of the current state of NVDA at the time the key was pressed will be taken and saved in certain variables available in the console.
+See <a href="#PythonConsoleSnapshotVariables" title="Snapshot Variables">Snapshot Variables</a> for more details.</li>
+<li>By selecting Tools -&gt; Python console from the NVDA system tray menu.</li>
+</ul>
+<p>The console is similar to the standard interactive Python interpreter.
+Input is accepted one line at a time and processed when enter is pressed.
+Multiple lines can be pasted at once from the clipboard and will be processed one by one.
+You can navigate through the history of previously entered lines using the up and down arrow keys.</p>
+<p>Output (responses from the interpreter) will be spoken when enter is pressed.
+The f6 key toggles between the input and output controls.
+When on the output control, alt+up/down jumps to the previous/next result (add shift for selecting).
+Pressing control+l clears the output.</p>
+<p>The result of the last executed command is stored in the "<em>" global variable.
+This shadows the gettext function which is stored as a built-in with the same name.
+It can be unshadowed by executing "del </em>" and avoided altogether by executing "<em> = </em>".</p>
+<p>Closing the console window (with escape or alt+F4) simply hides it.
+This allows the user to return to the session as it was left when it was closed, including history and variables.</p>
+<h3 id="PythonConsoleNamespace">Namespace</h3>
+<h4 id="pythonConsoleAutoImports">Automatic Imports</h4>
+<p>For convenience, the following modules and variables are automatically imported in the console:
+sys, os, wx, log (from logHandler), api, queueHandler, config, controlTypes, textInfos, braille, speech, vision, appModules, globalPlugins</p>
+<p>See: pythonConsole.PythonConsole.initNamespace</p>
+<h4 id="PythonConsoleSnapshotVariables">Snapshot Variables</h4>
+<p>Whenever NVDA+control+z is pressed, certain variables available in the console will be assigned according to the current state of NVDA.
+These variables are:</p>
+<ul>
+<li><code>focus</code>: The current focus object</li>
+<li><code>focusAnc</code>: The ancestors of the current focus object</li>
+<li><code>fdl</code>: Focus difference level; i.e. the level at which the ancestors for the current and previous focus differ</li>
+<li><code>fg</code>: The current foreground object</li>
+<li><code>nav</code>: The current navigator object</li>
+<li><code>caretObj</code>: The object which contains the caret (focus or tree interceptor if any)</li>
+<li><code>caretPos</code>: A text info at the position of the caret</li>
+<li><code>review</code>: The current <code>TextInfo</code> instance representing the user's review position</li>
+<li><code>mouse</code>: The current mouse object</li>
+<li><code>brlRegions</code>: The braille regions from the active braille buffer</li>
+</ul>
+<h3 id="pythonConsoleTab">Tab completion</h3>
+<p>The input control supports tab-completion of variables and member attribute names.
+Hit the tab key once to complete the current input if there is one single candidate.
+If there is more than one, hit the tab key a second time to open a menu listing all matching possibilities.
+By default, only "public" member attributes are listed.
+That is, if the input is "nav.", attribute names with no leading underscore are proposed.
+If the input is "nav._", attribute names with a single leading underscore are proposed.
+Similarly, if the input is "nav.__", attribute names with two leading underscores are proposed.</p>
+<h2 id="remotePythonConsole">Remote Python Console</h2>
+<p>A remote Python console is available in source builds of NVDA, for situations where remote debugging of NVDA is useful.
+It is similar to the <a href="#PythonConsole" title="local Python console">local Python console</a> discussed above, but is accessed via TCP.</p>
+<p>Please be aware that this is a huge security risk.
+It is not available in binary builds distributed by NV Access, and You should only enable it if you are connected to trusted networks.</p>
+<h3 id="remotePythonConsoleUsage">Usage</h3>
+<p>To enable the remote Python console, use the local Python console to import remotePythonConsole and call remotePythonConsole.initialize().
+You can then connect to it via TCP port 6832.</p>
+<p>History of previously entered lines is not supported.</p>
+<p>The namespace is the same as <a href="#PythonConsoleNamespace" title="the namespace in the local Python console">the namespace in the local Python console</a>.</p>
+<p>There are some special functions:</p>
+<ul>
+<li>snap(): Takes a snapshot of the current state of NVDA and saves it in the <a href="#PythonConsoleSnapshotVariables" title="snapshot variables">snapshot variables</a>.</li>
+<li>rmSnap(): Removes all snapshot variables.</li>
+</ul>
+<h2 id="ExtensionPoints">Extension Points</h2>
+<p>NVDA's <code>extensionPoints</code> module allows code in different parts of NVDA, or in add-ons, to perform tasks such as:</p>
+<ul>
+<li>Be notified when an action occurs or a state is changed.</li>
+<li>Receive, as part of being notified, variables related to the action or changed state.</li>
+<li>Cancel or alter an action NVDA was going to take, based upon certain conditions.</li>
+<li>Modify data that NVDA is using (such as changing speech sequences or braille, before they are spoken or brailled).</li>
+<li>Delay something NVDA is doing, while intervening operations are performed.</li>
+</ul>
+<p>There are five kinds of extension point:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td>Allows some code to find out what other code is doing. For example, an add-on can be notified before or after a config profile changes.</td>
+</tr>
+<tr>
+<td><code>Filter</code></td>
+<td>Edits data. A filter registered in the speech module, might allow changing speech strings before they are spoken.</td>
+</tr>
+<tr>
+<td><code>Decider</code></td>
+<td>Runs each registered handler until one of them returns <code>False</code>. If one does, it can be used to prevent the invoking code from running.</td>
+</tr>
+<tr>
+<td><code>AccumulatingDecider</code></td>
+<td>Like <code>Decider</code>, but always runs all of its registered handlers, and only decides if one of them failed at the end. The expected result of each is <code>True</code> by default, though expecting <code>False</code> is possible.</td>
+</tr>
+<tr>
+<td><code>Chain</code></td>
+<td>Allows registering handlers that return iterables (mainly generators). Calling <code>iter</code> on the <code>Chain</code> returns a generator that iterates over all the handlers.</td>
+</tr>
+</tbody>
+</table>
+<p>The sections below provide the list of currently defined extension points in NVDA, along with brief descriptions for them.
+Please see code documentation in the associated files, or the code itself, for further explanation.
+The section titles below represent the package or module in which the listed extension points are defined.</p>
+<p>For examples of how to define and use new extension points, please see the code documentation of the <code>extensionPoints</code> package.</p>
+<h3 id="brailleExtPts">braille</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Filter</code></td>
+<td><code>filter_displaySize</code></td>
+<td>[Deprecated] Allows components or add-ons to change the display size used for braille output.</td>
+</tr>
+<tr>
+<td><code>Filter</code></td>
+<td><code>filter_displayDimensions</code></td>
+<td>Allows components or add-ons to change the number of rows and columns of the display used for braille output.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>displaySizeChanged</code></td>
+<td>Notifies of display size changes.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_writeCells</code></td>
+<td>Notifies when cells are about to be written to a braille display</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>displayChanged</code></td>
+<td>Notifies of braille display changes.</td>
+</tr>
+<tr>
+<td><code>Decider</code></td>
+<td><code>decide_enabled</code></td>
+<td>Allows deciding whether the braille handler should be forcefully disabled.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appModuleHandlerExtPts">appModuleHandler</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_appSwitch</code></td>
+<td>Triggered when the foreground application changes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="addonHandlerExtPts">addonHandler</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AccumulatingDecider</code></td>
+<td><code>isCLIParamKnown</code></td>
+<td>Allows adding NVDA commandline parameters which apply to plugins. See <a href="#PluginCLIArgs" title="this section of the Dev Guide">this section of the Dev Guide</a> for more information.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="brailleViewerExtPts">brailleViewer</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>postBrailleViewerToolToggledAction</code></td>
+<td>Triggered every time the Braille Viewer is created / shown or hidden / destroyed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configExtPts">config</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_configProfileSwitch</code></td>
+<td>Notifies after the configuration profile has been switched.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_configSave</code></td>
+<td>Notifies before NVDA's configuration is saved to disk.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_configSave</code></td>
+<td>Notifies after NVDA's configuration has been saved to disk.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_configReset</code></td>
+<td>Notifies before configuration is reloaded from disk or factory defaults are applied.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_configReset</code></td>
+<td>Notifies after configuration has been reloaded from disk or factory defaults were applied.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="coreExtPts">core</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>postNvdaStartup</code></td>
+<td>Notifies after NVDA has finished starting up.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="inputCoreExtPts">inputCore</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Decider</code></td>
+<td><code>decide_handleRawKey</code></td>
+<td>Notifies when a raw keyboard event is received, before any NVDA processing, allowing other code to decide if it should be handled.</td>
+</tr>
+<tr>
+<td><code>Decider</code></td>
+<td><code>decide_executeGesture</code></td>
+<td>Notifies when a gesture is about to be executed, allowing other code to decide if it should be.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logHandlerExtPts">logHandler</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>_onErrorSoundRequested</code></td>
+<td>Triggered every time an error sound needs to be played. This extension point should not be used directly but retrieved calling <code>getOnErrorSoundRequested()</code> instead.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nvwaveExtPts">nvwave</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Decider</code></td>
+<td><code>decide_playWaveFile</code></td>
+<td>Notifies when a wave file is about to be played, allowing other code to decide if it should be.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="speechExtPts">speech</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>speechCanceled</code></td>
+<td>Triggered when speech is canceled.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_speechCanceled</code></td>
+<td>Triggered before speech is canceled.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_speech</code></td>
+<td>Triggered before NVDA handles prepared speech.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_speechPaused</code></td>
+<td>Triggered when speech is paused or resumed.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_speechQueued</code></td>
+<td>Triggered after speech is processed and normalized and directly before it is enqueued.</td>
+</tr>
+<tr>
+<td><code>Filter</code></td>
+<td><code>filter_speechSequence</code></td>
+<td>Allows components or add-ons to filter speech sequence before it passes to the synth driver.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="synthDriverHandlerExtPts">synthDriverHandler</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>synthIndexReached</code></td>
+<td>Notifies when a synthesizer reaches an index during speech.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>synthDoneSpeaking</code></td>
+<td>Notifies when a synthesizer finishes speaking.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>synthChanged</code></td>
+<td>Notifies of synthesizer changes.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_synthSpeak</code></td>
+<td>Notifies when the current synthesizer is about to speak something.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tonesExtPts">tones</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Decider</code></td>
+<td><code>decide_beep</code></td>
+<td>Notifies when a beep is about to be generated and played, allowing a component to decide whether it should be.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="treeInterceptorHandlerExtPts">treeInterceptorHandler</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_browseModeStateChange</code></td>
+<td>Notifies when browse mode state changes.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="utils_securityExtPts">utils.security</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_sessionLockStateChanged</code></td>
+<td>Notifies when a session lock or unlock event occurs.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="winAPI_messageWindowExtPts">winAPI.messageWindow</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>pre_handleWindowMessage</code></td>
+<td>Notifies when NVDA receives a window message, allowing components to perform an action when certain system events occur.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="winAPI_secureDesktopExtPts">winAPI.secureDesktop</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>winAPI.secureDesktop.post_secureDesktopStateChange</code></td>
+<td>Notifies when the user has switched to/from the secure desktop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bdDetectExtPts">bdDetect</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Chain</code></td>
+<td><code>scanForDevices</code></td>
+<td>Can be iterated to scan for braille devices.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="visionExtPts">vision.visionHandlerExtensionPoints.EventExtensionPoints</h3>
+<p>These extension points are expected to be used and registered to differently than other extension points.
+Please see the <code>EventExtensionPoints</code> class documentation for more information, and detailed descriptions.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension Point</th>
+<th>Notifies a vision enhancement provider when ...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_objectUpdate</code></td>
+<td>an object property has changed.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_focusChange</code></td>
+<td>the focused NVDAObject has changed.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_foregroundChange</code></td>
+<td>the foreground NVDAObject has changed.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_caretMove</code></td>
+<td>a physical caret has moved.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_browseModeMove</code></td>
+<td>a virtual caret has moved.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_reviewMove</code></td>
+<td>the position of the review cursor has changed.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_mouseMove</code></td>
+<td>the mouse has moved.</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td><code>post_coreCycle</code></td>
+<td>the end of each core cycle has been reached.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="communicating-with-the-user">Communicating with the user</h2>
+<h3 id="the-message-dialog-api">The message dialog API</h3>
+<p>The message dialog API provides a flexible way of presenting interactive messages to the user.
+The messages are highly customisable, with options to change icons and sounds, button labels, return values, and close behaviour, as well as to attach your own callbacks.</p>
+<p>All classes that make up the message dialog API are importable from <code>gui.message</code>.
+While you are unlikely to need all of them, they are enumerated below:</p>
+<ul>
+<li><code>ReturnCode</code>: Possible return codes from modal <code>MessageDialog</code>s.</li>
+<li><code>EscapeCode</code>: Escape behaviour of <code>MessageDialog</code>s.</li>
+<li><code>DialogType</code>: Types of dialogs (sets the dialog's sound and icon).</li>
+<li><code>Button</code>: Button configuration data structure.</li>
+<li><code>DefaultButton</code>: Enumeration of pre-configured buttons.</li>
+<li><code>DefaultButtonSet</code>: Enumeration of common combinations of buttons.</li>
+<li><code>MessageDialog</code>: The actual dialog class.</li>
+</ul>
+<p>In many simple cases, you will be able to achieve what you need by simply creating a message dialog and calling <code>Show</code> or <code>ShowModal</code>. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">gui.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageDialog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">mainFrame</span>
+
+<span class="n">MessageDialog</span><span class="p">(</span>
+	<span class="n">mainFrame</span><span class="p">,</span>
+	<span class="n">_</span><span class="p">(</span><span class="s2">"Hello world!"</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
+</code></pre></div>
+<p>This will show a non-modal (that is, non-blocking) dialog with the text "Hello world!" and an OK button.</p>
+<p>If you want the dialog to be modal (that is, to block the user from performing other actions in NVDA until they have responded to it), you can call <code>ShowModal</code> instead.</p>
+<p>With modal dialogs, the easiest way to respond to user input is via the return code.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">gui.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultButtonSet</span><span class="p">,</span> <span class="n">ReturnCode</span>
+
+<span class="n">saveDialog</span> <span class="o">=</span> <span class="n">MessageDialog</span><span class="p">(</span>
+	<span class="n">mainFrame</span><span class="p">,</span>
+	<span class="n">_</span><span class="p">(</span><span class="s2">"Would you like to save your changes before exiting?"</span><span class="p">),</span>
+	<span class="n">_</span><span class="p">(</span><span class="s2">"Save changes?"</span><span class="p">),</span>
+	<span class="n">buttons</span><span class="o">=</span><span class="n">DefaultButtonSet</span><span class="o">.</span><span class="n">SAVE_NO_CANCEL</span>
+<span class="p">)</span>
+
+<span class="k">match</span> <span class="n">saveDialog</span><span class="o">.</span><span class="n">ShowModal</span><span class="p">():</span>
+	<span class="k">case</span> <span class="n">ReturnCode</span><span class="o">.</span><span class="n">SAVE</span><span class="p">:</span>
+		<span class="o">...</span>  <span class="c1"># Save the changes and close</span>
+	<span class="k">case</span> <span class="n">ReturnCode</span><span class="o">.</span><span class="n">NO</span><span class="p">:</span>
+		<span class="o">...</span>  <span class="c1"># Discard changes and close</span>
+	<span class="k">case</span> <span class="n">ReturnCode</span><span class="o">.</span><span class="n">CANCEL</span><span class="p">:</span>
+		<span class="o">...</span>  <span class="c1"># Do not close</span>
+</code></pre></div>
+<p>For non-modal dialogs, the easiest way to respond to the user pressing a button is via callback methods.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">gui.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payload</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">readChangelog</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">Payload</span><span class="p">):</span>
+	<span class="o">...</span>  <span class="c1"># Do something</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">downloadUpdate</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">Payload</span><span class="p">):</span>
+	<span class="o">...</span>  <span class="c1"># Do something</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">remindLater</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">Payload</span><span class="p">):</span>
+	<span class="o">...</span>  <span class="c1"># Do something</span>
+
+<span class="n">updateDialog</span> <span class="o">=</span> <span class="n">MessageDialog</span><span class="p">(</span>
+	<span class="n">mainFrame</span><span class="p">,</span>
+	<span class="s2">"An update is available. "</span>
+	<span class="s2">"Would you like to download it now?"</span><span class="p">,</span>
+	<span class="s2">"Update"</span><span class="p">,</span>
+	<span class="n">buttons</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">addYesButton</span><span class="p">(</span>
+	<span class="n">callback</span><span class="o">=</span><span class="n">downloadUpdate</span>
+<span class="p">)</span><span class="o">.</span><span class="n">addNoButton</span><span class="p">(</span>
+	<span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">"&amp;Remind me later"</span><span class="p">),</span>
+	<span class="n">fallbackAction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+	<span class="n">callback</span><span class="o">=</span><span class="n">remindLater</span>
+<span class="p">)</span><span class="o">.</span><span class="n">addHelpButton</span><span class="p">(</span>
+	<span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">"What's &amp;new"</span><span class="p">),</span>
+	<span class="n">callback</span><span class="o">=</span><span class="n">readChangelog</span>
+<span class="p">)</span>
+
+<span class="n">updateDialog</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
+</code></pre></div>
+<p>You can set many of the parameters to <code>addButton</code> later, too:</p>
+<ul>
+<li>The default focus can be set by calling <code>setDefaultFocus</code> on your message dialog instance, and passing it the ID of the button to make the default focus.</li>
+<li>The fallback action can be set later by calling <code>setFallbackAction</code> or <code>SetEscapeId</code> with the ID of the button which performs the fallback action.</li>
+<li>The button's label can be changed by calling <code>setButtonLabel</code> with the ID of the button and the new label.</li>
+</ul>
+<h4 id="fallback-actions">Fallback actions</h4>
+<p>The fallback action is the action performed when the dialog is closed without the user pressing one of the buttons you added to the dialog.
+This can happen for several reasons:</p>
+<ul>
+<li>The user pressed <code>esc</code> or <code>alt+f4</code> to close the dialog.</li>
+<li>The user used the title bar close button or system menu close item to close the dialog.</li>
+<li>The user closed the dialog from the Task View, Taskbar or App Switcher.</li>
+<li>The user is quitting NVDA.</li>
+<li>Some other part of NVDA or an add-on has asked the dialog to close.</li>
+</ul>
+<p>By default, the fallback action is set to <code>EscapeCode.CANCEL_OR_AFFIRMATIVE</code>.
+This means that the fallback action will be the cancel button if there is one, the button whose ID is <code>dialog.GetAffirmativeId()</code> (<code>ReturnCode.OK</code>, by default), or <code>None</code> if no button with either ID exists in the dialog.
+You can use <code>dialog.SetAffirmativeId(id)</code> to change the ID of the button used secondarily to Cancel, if you like.
+The fallback action can also be set to <code>EscapeCode.NO_FALLBACK</code> to disable closing the dialog like this entirely.
+If it is set to any other value, the value must be the id of a button to use as the default action.</p>
+<p>In some cases, the dialog may be forced to close.
+If the dialog is shown modally, a calculated fallback action will be used if the fallback action is <code>EscapeCode.NO_FALLBACK</code> or not found.
+The order of precedence for calculating the fallback when a dialog is forced to close is as follows:</p>
+<ol>
+<li>The developer-set fallback action.</li>
+<li>The developer-set default focus.</li>
+<li>The first button added to the dialog that closes the dialog.</li>
+<li>The first button added to the dialog, regardless of whether it closes the dialog.</li>
+<li>A dummy action that does nothing but close the dialog.
+   In this case, and only this case, the return code from showing the dialog modally will be <code>EscapeCode.NO_FALLBACK</code>.</li>
+</ol>
+<h4 id="a-note-on-threading">A note on threading</h4>
+<p><strong>IMPORTANT:</strong> Most <code>MessageDialog</code> methods are <strong>not</strong> thread safe.
+Calling these methods from non-GUI threads can cause crashes or unpredictable behavior.</p>
+<p>When calling non thread safe methods on <code>MessageDialog</code> or its instances, be sure to do so on the GUI thread.
+To do this with wxPython, you can use <code>wx.CallAfter</code> or  <code>wx.CallLater</code>.
+As these operations schedule the passed callable to occur on the GUI thread, they will return immediately, and will not return the return value of the passed callable.
+If you want to wait until the callable has completed, or care about its return value, consider using <code>gui.guiHelper.wxCallOnMain</code>.</p>
+<p>The <code>wxCallOnMain</code> function executes the callable you pass to it, along with any positional and keyword arguments, on the GUI thread.
+It blocks the calling thread until the passed callable returns or raises an exception, at which point it returns the returned value, or re-raises the raised exception.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># To call</span>
+<span class="n">someFunction</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">kw1</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span> <span class="n">kw2</span><span class="o">=</span><span class="n">value2</span><span class="p">)</span>
+<span class="c1"># on the GUI thread:</span>
+<span class="n">wxCallOnMain</span><span class="p">(</span><span class="n">someFunction</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">kw</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span> <span class="n">kw2</span><span class="o">=</span><span class="n">value2</span><span class="p">)</span>
+</code></pre></div>
+<p>In fact, you cannot create, initialise, or show (modally or non-modally) <code>MessageDialog</code>s from any thread other than the GUI thread.</p>
+<h4 id="buttons">Buttons</h4>
+<p>You can add buttons in a number of ways:</p>
+<ul>
+<li>By passing a <code>Collection</code> of <code>Button</code>s to the <code>buttons</code> keyword-only parameter to <code>MessageDialog</code> when initialising.</li>
+<li>By calling <code>addButton</code> on a <code>MessageDialog</code> instance, either with a <code>Button</code> instance, or with simple parameters.<ul>
+<li>When calling <code>addButton</code> with a <code>Button</code> instance, you can override all of its parameters except <code>id</code> by providing their values as keyword arguments.</li>
+<li>When calling <code>addButton</code> with simple parameters, the parameters it accepts are the same as those of <code>Button</code>.</li>
+<li>In both cases, <code>id</code> or <code>button</code> is the first argument, and is positional only.</li>
+</ul>
+</li>
+<li>By calling <code>addButtons</code> with a <code>Collection</code> of <code>Button</code>s.</li>
+<li>By calling any of the add button helpers.</li>
+</ul>
+<p>Regardless of how you add them, you cannot add multiple buttons with the same ID to the same <code>MessageDialog</code>.</p>
+<p>A <code>Button</code> is an immutable data structure containing all of the information needed to add a button to a <code>MessageDialog</code>.
+Its fields are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><code>ReturnCode</code></td>
+<td>No default</td>
+<td>The ID used to refer to the button.</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>str</code></td>
+<td>No default</td>
+<td>The text label to display on the button. Prefix accelerator keys with an ampersand (&amp;).</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td><code>Callable</code> or <code>None</code></td>
+<td><code>None</code></td>
+<td>The function to call when the button is clicked. This is most useful for non-modal dialogs.</td>
+</tr>
+<tr>
+<td><code>defaultFocus</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether to explicitly set the button as the default focus. (1)</td>
+</tr>
+<tr>
+<td><code>fallbackAction</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether the button should be the fallback action, which is called when the user presses <code>esc</code>, uses the system menu or title bar close buttons, or the dialog is asked to close programmatically. (2)</td>
+</tr>
+<tr>
+<td><code>closesDialog</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether the button should close the dialog when pressed. (3)</td>
+</tr>
+<tr>
+<td><code>returnCode</code></td>
+<td><code>ReturnCode</code> or <code>None</code></td>
+<td><code>None</code></td>
+<td>Value to return when a modal dialog is closed. If <code>None</code>, the button's ID will be used.</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>Setting <code>defaultFocus</code> only overrides the default focus:</p>
+<ul>
+<li>If no buttons have this property, the first button will be the default focus.</li>
+<li>If multiple buttons have this property, the last one will be the default focus.</li>
+</ul>
+</li>
+<li>
+<p><code>fallbackAction</code> only sets whether to override the fallback action:</p>
+<ul>
+<li>This button will still be the fallback action if the dialog's fallback action is set to <code>EscapeCode.CANCEL_OR_AFFIRMATIVE</code> (the default) and its ID is <code>ReturnCode.CANCEL</code> (or whatever the value of <code>GetAffirmativeId()</code> is (<code>ReturnCode.OK</code>, by default), if there is no button with <code>id=ReturnCode.CANCEL</code>), even if it is added with <code>fallbackAction=False</code>.
+  To set a dialog to have no fallback action, use <code>setFallbackAction(EscapeCode.NO_FALLBACK)</code>.</li>
+<li>If multiple buttons have this property, the last one will be the fallback action.</li>
+</ul>
+</li>
+<li>
+<p>Buttons with <code>fallbackAction=True</code> and <code>closesDialog=False</code> are not supported:</p>
+<ul>
+<li>When adding a button with <code>fallbackAction=True</code> and <code>closesDialog=False</code>, <code>closesDialog</code> will be set to <code>True</code>.</li>
+<li>If you attempt to call <code>setFallbackAction</code> with the ID of a button that does not close the dialog, <code>ValueError</code> will be raised.</li>
+</ul>
+</li>
+</ol>
+<p>A number of pre-configured buttons are available for you to use from the <code>DefaultButton</code> enumeration, complete with pre-translated labels.
+None of these buttons will explicitly set themselves as the fallback action.
+You can also add any of these buttons to an existing <code>MessageDialog</code> instance with its add button helper, which also allows you to override all but the <code>id</code> parameter.
+The following default buttons are available:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Label</th>
+<th>ID/return code</th>
+<th>Closes dialog</th>
+<th>Add button helper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>APPLY</code></td>
+<td>&amp;Apply</td>
+<td><code>ReturnCode.APPLY</code></td>
+<td>No</td>
+<td><code>addApplyButton</code></td>
+</tr>
+<tr>
+<td><code>CANCEL</code></td>
+<td>Cancel</td>
+<td><code>ReturnCode.CANCEL</code></td>
+<td>Yes</td>
+<td><code>addCancelButton</code></td>
+</tr>
+<tr>
+<td><code>CLOSE</code></td>
+<td>Close</td>
+<td><code>ReturnCode.CLOSE</code></td>
+<td>Yes</td>
+<td><code>addCloseButton</code></td>
+</tr>
+<tr>
+<td><code>HELP</code></td>
+<td>Help</td>
+<td><code>ReturnCode.HELP</code></td>
+<td>No</td>
+<td><code>addHelpButton</code></td>
+</tr>
+<tr>
+<td><code>NO</code></td>
+<td>&amp;No</td>
+<td><code>ReturnCode.NO</code></td>
+<td>Yes</td>
+<td><code>addNoButton</code></td>
+</tr>
+<tr>
+<td><code>OK</code></td>
+<td>OK</td>
+<td><code>ReturnCode.OK</code></td>
+<td>Yes</td>
+<td><code>addOkButton</code></td>
+</tr>
+<tr>
+<td><code>SAVE</code></td>
+<td>&amp;Save</td>
+<td><code>ReturnCode.SAVE</code></td>
+<td>Yes</td>
+<td><code>addSaveButton</code></td>
+</tr>
+<tr>
+<td><code>YES</code></td>
+<td>&amp;Yes</td>
+<td><code>ReturnCode.YES</code></td>
+<td>Yes</td>
+<td><code>addYesButton</code></td>
+</tr>
+</tbody>
+</table>
+<p>As you usually want more than one button on a dialog, there are also a number of pre-defined sets of buttons available as members of the <code>DefaultButtonSet</code> enumeration.
+All of them comprise members of <code>DefaultButton</code>.
+You can also add any of these default button sets to an existing <code>MessageDialog</code> with one of its add buttons helpers.
+The following default button sets are available:</p>
+<table>
+<thead>
+<tr>
+<th>Button set</th>
+<th>Contains</th>
+<th>Add button set helper</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OK_CANCEL</code></td>
+<td><code>DefaultButton.OK</code> and <code>DefaultButton.Cancel</code></td>
+<td><code>addOkCancelButtons</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>YES_NO</code></td>
+<td><code>DefaultButton.YES</code> and <code>DefaultButton.NO</code></td>
+<td><code>addYesNoButtons</code></td>
+<td>You must set a fallback action if you want the user to be able to press escape to close a dialog with only these buttons.</td>
+</tr>
+<tr>
+<td><code>YES_NO_CANCEL</code></td>
+<td><code>DefaultButton.YES</code>, <code>DefaultButton.NO</code> and <code>DefaultButton.CANCEL</code></td>
+<td><code>addYesNoCancelButtons</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SAVE_NO_CANCEL</code></td>
+<td><code>DefaultButton.SAVE</code>, <code>DefaultButton.NO</code>, <code>DefaultButton.CANCEL</code></td>
+<td><code>addSaveNoCancelButtons</code></td>
+<td>The label of the no button is overridden to be "Do&amp;n't save".</td>
+</tr>
+</tbody>
+</table>
+<p>If none of the standard <code>ReturnCode</code> values are suitable for your button, you may also use <code>ReturnCode.CUSTOM_1</code> through <code>ReturnCode.CUSTOM_5</code>, which will not conflict with any built-in identifiers.</p>
+<h4 id="callbacks">Callbacks</h4>
+<p>A convenient way of responding to button presses, especially for non-modal message dialogs, is to attach callbacks to the buttons.
+This is achieved by passing a <code>callback</code> function to <code>addButton</code>, <code>addButtons</code>, or any of the add button helpers.</p>
+<p>A callback should be a function which accepts exactly one positional argument.
+When called, a <code>Payload</code> data structure will be passed in.
+This data structure currently contains no information, though in future it may be augmented to contain information about the dialog's state and the context from which the callback was called.</p>
+<h4 id="convenience-methods">Convenience methods</h4>
+<p>The <code>MessageDialog</code> class also provides a number of convenience methods for showing common types of modal dialogs.
+Each of them requires a message string, and optionally a title string and parent window.
+They all also support overriding the labels on their buttons via keyword arguments.
+They are all thread safe.
+The following convenience class methods are provided (keyword arguments for overriding button labels indicated in parentheses):</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Buttons</th>
+<th>Return values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alert</code></td>
+<td>OK (<code>okLabel</code>)</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>confirm</code></td>
+<td>OK (<code>okLabel</code>) and Cancel (<code>cancelLabel</code>)</td>
+<td><code>ReturnCode.OK</code> or <code>ReturnCode.CANCEL</code></td>
+</tr>
+<tr>
+<td><code>ask</code></td>
+<td>Yes (<code>yesLabel</code>), No (<code>noLabel</code>) and Cancel (<code>cancelLabel</code>)</td>
+<td><code>ReturnCode.YES</code>, <code>ReturnCode.NO</code> or <code>ReturnCode.CANCEL</code></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

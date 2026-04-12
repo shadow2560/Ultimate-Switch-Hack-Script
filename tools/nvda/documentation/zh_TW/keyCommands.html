@@ -2,15 +2,16 @@
 <html lang="zh_TW" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title>NVDA 2024.4.2 指令快速參考</title>
+<title>NVDA 2025.3.3 指令快速參考</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="styles.css">
+<link rel="shortcut icon" href="favicon.ico">
 
 </head>
-<body><h1 id="nvda-202442">NVDA 2024.4.2 指令快速參考</h1>
+<body><h1 id="nvda-202533">NVDA 2025.3.3 指令快速參考</h1>
 <div class="toc">
 <ul>
-<li><a href="#nvda-202442" title="NVDA 2024.4.2 指令快速參考">NVDA 2024.4.2 指令快速參考</a><ul>
+<li><a href="#nvda-202533" title="NVDA 2025.3.3 指令快速參考">NVDA 2025.3.3 指令快速參考</a><ul>
 <li><a href="#GettingStartedWithNVDA" title="使用 NVDA">使用 NVDA</a><ul>
 <li><a href="#NVDATouchGestures" title="NVDA 觸控手勢">NVDA 觸控手勢</a><ul>
 <li><a href="#TouchModes" title="觸控模式">觸控模式</a></li>
@@ -114,6 +115,10 @@
 </li>
 </ul>
 </li>
+<li><a href="#RemoteAccess" title="遠端存取">遠端存取</a><ul>
+<li><a href="#RemoteAccessGestures" title="遠端存取快速鍵摘要">遠端存取快速鍵摘要</a></li>
+</ul>
+</li>
 <li><a href="#ExtraTools" title="額外工具">額外工具</a><ul>
 <li><a href="#LogViewer" title="事件記錄檢視器">事件記錄檢視器</a></li>
 <li><a href="#ReloadPlugins" title="重新載入外掛程式">重新載入外掛程式</a></li>
@@ -155,7 +160,9 @@
 <li><a href="#NattiqTechnologies" title="Nattiq nBraille 點顯器">Nattiq nBraille 點顯器</a></li>
 <li><a href="#BRLTTY" title="BRLTTY">BRLTTY</a></li>
 <li><a href="#Albatross" title="Tivomatic Caiku Albatross 46/80">Tivomatic Caiku Albatross 46/80</a></li>
+<li><a href="#Zoomax" title="NLS eReader Zoomax">NLS eReader Zoomax</a></li>
 <li><a href="#HIDBraille" title="標準 HID 點顯器">標準 HID 點顯器</a></li>
+<li><a href="#dotPad" title="Dot Pad">Dot Pad</a></li>
 </ul>
 </li>
 </ul>
@@ -674,6 +681,20 @@
 <td>檢閱游標移到文字的下一頁 (若應用程式有支援)</td>
 </tr>
 <tr>
+<td>檢閱游標移到選取範圍的開頭</td>
+<td>NVDA+Alt+Home</td>
+<td>NVDA+Alt+Home</td>
+<td>無</td>
+<td>檢閱游標移到所選文字的第一個字元</td>
+</tr>
+<tr>
+<td>檢閱游標移到選取範圍的結尾</td>
+<td>NVDA+Alt+End</td>
+<td>NVDA+Alt+End</td>
+<td>無</td>
+<td>檢閱游標移到所選文字的最後一個字元</td>
+</tr>
+<tr>
 <td>以檢閱游標讀出全部</td>
 <td>數字鍵盤加號</td>
 <td>NVDA+Shift+A</td>
@@ -894,7 +915,7 @@
 <li>g: 圖片 (graphic)</li>
 <li>d: 地標 (landmark)</li>
 <li>o: 嵌入式物件 (音訊和視訊播放器、應用程式、對話框等) (embedded object)</li>
-<li>主鍵盤上的 1 到 6: 第 1 級到第 6 級標題。</li>
+<li>主鍵盤上的 1 到 9： 第 1 級到第 9 級標題</li>
 <li>a: 註釋 (註解、編輯者修訂等) (annotation)</li>
 <li>p: 文字段落 (text paragraph)</li>
 <li>w: 拼字錯誤 (spelling error)</li>
@@ -962,7 +983,7 @@
 <tr>
 <td>尋找上一個</td>
 <td>NVDA+Shift+F3</td>
-<td>尋找上一個目前搜尋的文字</td>
+<td>在目前文件中向上尋找前次搜尋的文字</td>
 </tr>
 </tbody>
 </table>
@@ -1261,7 +1282,7 @@
 </tbody>
 </table>
 <h2 id="ConfiguringNVDA">設定 NVDA</h2>
-<p>當在對話框中，按 F1 可開啟用戶指南中與焦點所在設定或目前對話框相關的段落，</p>
+<p>當在對話框中，按 F1 可開啟使用者指南中與焦點所在設定或目前對話框相關的段落，</p>
 <h3 id="NVDASettings">NVDA 設定</h3>
 <h4 id="GeneralSettings">一般</h4>
 <table>
@@ -1480,15 +1501,15 @@
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedCharacters">讀出輸入字元</td>
-<td>NVDA+2</td>
-<td>NVDA+2</td>
-<td>當啟用時，NVDA 將讀出所有在鍵盤上輸入的字元。</td>
+<td><code>NVDA+2</code></td>
+<td><code>NVDA+2</code></td>
+<td>此選項控制 NVDA 何時讀出在鍵盤上輸入的字元，</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakTypedWords">讀出輸入單字</td>
-<td>NVDA+3</td>
-<td>NVDA+3</td>
-<td>當啟用時，NVDA 將讀出所有在鍵盤上輸入的單字 (適用英文等拼音文字)。</td>
+<td><code>NVDA+3</code></td>
+<td><code>NVDA+3</code></td>
+<td>此選項控制 NVDA 何時讀出在鍵盤上輸入的單字，</td>
 </tr>
 <tr>
 <td id="KeyboardSettingsSpeakCommandKeys">讀出指令鍵</td>
@@ -1602,12 +1623,6 @@
 <td>NVDA+v</td>
 <td>此選項允許您指定瀏覽模式是否應將可點擊的內容 (如：連結、按鈕和欄位) 單獨放在一行，或是保持在如同視覺上顯示的文字走向中。</td>
 </tr>
-<tr>
-<td id="BrowseModeSettingsAutoFocusFocusableElements">自動將系統焦點設至可設定焦點的元素</td>
-<td>NVDA+8</td>
-<td>NVDA+8</td>
-<td>此選項預設停用，允許您選擇當以瀏覽模式游標導覽時，系統焦點是否要自動設在那些可取得系統焦點的元素 (例如連結、表單欄位) 上，</td>
-</tr>
 </tbody>
 </table>
 <h4 id="DocumentFormattingSettings">文件格式</h4>
@@ -1647,12 +1662,12 @@
 <td>儲存組態</td>
 <td>NVDA+Ctrl+C</td>
 <td>NVDA+Ctrl+C</td>
-<td>儲存目前的組態，當結束 NVDA 時設定不會遺失。</td>
+<td>儲存目前的組態，當結束 NVDA 時設定不會遺失</td>
 </tr>
 <tr>
 <td>還原組態</td>
-<td>NVDA+Ctrl+R</td>
-<td>NVDA+Ctrl+R</td>
+<td><code>NVDA+control+r</code></td>
+<td><code>NVDA+control+r</code></td>
 <td>按一下回復到上次儲存的組態，連按三下重設回原始預設值。</td>
 </tr>
 </tbody>
@@ -1662,6 +1677,59 @@
 <ul>
 <li>NVDA+Ctrl+P: 顯示「組態設定檔」對話框</li>
 </ul>
+<h2 id="RemoteAccess">遠端存取</h2>
+<h3 id="RemoteAccessGestures">遠端存取快速鍵摘要</h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>快速鍵</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切換遠端連線</td>
+<td>NVDA+Alt+R</td>
+<td>發起一個新的遠端連線，若已有連線進行中則中斷該連線。</td>
+</tr>
+<tr>
+<td>切換控制對象</td>
+<td>NVDA+Alt+Tab</td>
+<td>在遠端和本機電腦之間切換。</td>
+</tr>
+<tr>
+<td>連線</td>
+<td>無</td>
+<td>發起一個新的遠端連線，在<a href="#SecureMode" title="安全模式">安全模式</a>中無法使用。</td>
+</tr>
+<tr>
+<td>複製連結</td>
+<td>無</td>
+<td>將遠端連線的連結複製到剪貼簿。</td>
+</tr>
+<tr>
+<td>中斷連線</td>
+<td>無</td>
+<td>結束一個現有的遠端連線。</td>
+</tr>
+<tr>
+<td>遠端靜音</td>
+<td>無</td>
+<td>將來自遠端電腦的語音靜音或取消靜音。</td>
+</tr>
+<tr>
+<td>傳送剪貼簿</td>
+<td>無</td>
+<td>傳送剪貼簿內容到遠端電腦。</td>
+</tr>
+<tr>
+<td>傳送 Ctrl+Alt+Delete</td>
+<td>無</td>
+<td>傳送 Ctrl+Alt+Delete 到被控端電腦。</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ExtraTools">額外工具</h2>
 <h3 id="LogViewer">事件記錄檢視器</h3>
 <table>
@@ -4465,6 +4533,57 @@
 </tr>
 </tbody>
 </table>
+<h3 id="Zoomax">NLS eReader Zoomax</h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>按鍵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scroll braille display back</td>
+<td><code>d2</code></td>
+</tr>
+<tr>
+<td>Scroll braille display forward</td>
+<td><code>d5</code></td>
+</tr>
+<tr>
+<td>Move braille display to previous line</td>
+<td><code>d1</code></td>
+</tr>
+<tr>
+<td>Move braille display to next line</td>
+<td><code>d3</code></td>
+</tr>
+<tr>
+<td>Route to braille cell</td>
+<td><code>routing</code></td>
+</tr>
+<tr>
+<td>Up arrow key</td>
+<td><code>up</code></td>
+</tr>
+<tr>
+<td>Down arrow key</td>
+<td><code>down</code></td>
+</tr>
+<tr>
+<td>Left arrow key</td>
+<td><code>left</code></td>
+</tr>
+<tr>
+<td>Right arrow key</td>
+<td><code>right</code></td>
+</tr>
+<tr>
+<td>Enter key</td>
+<td><code>select</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="HIDBraille">標準 HID 點顯器</h3>
 <table>
 <thead>
@@ -4500,7 +4619,7 @@
 </tr>
 <tr>
 <td>leftArrow key</td>
-<td>space+dot3, joystick left  or dpad left</td>
+<td>space+dot3, joystick left or dpad left</td>
 </tr>
 <tr>
 <td>rightArrow key</td>
@@ -4545,6 +4664,25 @@
 <tr>
 <td>Say all</td>
 <td>space+dot1+dot2+dot3+dot4+dot5+dot6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dotPad">Dot Pad</h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>按鍵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scroll braille display back</td>
+<td><code>pan_left</code></td>
+</tr>
+<tr>
+<td>Scroll braille display forward</td>
+<td><code>pan_right</code></td>
 </tr>
 </tbody>
 </table>

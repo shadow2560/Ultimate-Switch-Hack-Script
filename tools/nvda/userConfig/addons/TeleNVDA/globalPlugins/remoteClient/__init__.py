@@ -28,7 +28,7 @@ import ui
 import uuid
 import wx
 import base64
-from config import conf as nvda_conf, isInstalledCopy
+from config import conf as nvda_conf
 from globalPluginHandler import GlobalPlugin as _GlobalPlugin
 from keyboardHandler import KeyboardInputGesture
 from logHandler import log
@@ -227,8 +227,7 @@ class GlobalPlugin(_GlobalPlugin):
 		except:
 			pass
 		self.menu=None
-		if not isInstalledCopy():
-			url_handler.unregister_url_handler()
+		url_handler.unregister_url_handler()
 		self.url_handler_window.destroy()
 		self.url_handler_window=None
 		core.postNvdaStartup.unregister(self.postStartupHandler)

@@ -3151,6 +3151,7 @@ IF EXIST "tools\Storage\verif_update.ini" del /q "tools\Storage\verif_update.ini
 IF EXIST "DOC\*.*" rmdir /s /q "DOC"
 IF EXIST "tools\sd_switch\atmosphere_fs_and_es_patches" rmdir /s /q "tools\sd_switch\atmosphere_fs_and_es_patches"
 IF EXIST "tools\sd_switch\mixed\modular\DZ" rmdir /s /q "tools\sd_switch\mixed\modular\DZ"
+IF EXIST "tools\sd_switch\mixed\modular\Cyberfwal" rmdir /s /q "tools\sd_switch\mixed\modular\Cyberfwal"
 IF EXIST "tools\sd_switch\mixed\modular\Zerotwoxci" rmdir /s /q "tools\sd_switch\mixed\modular\Zerotwoxci"
 IF EXIST "tools\sd_switch\modules\pack\Sys-Netcheat" rmdir /s /q "tools\sd_switch\modules\pack\Sys-Netcheat"
 IF EXIST "tools\sd_switch\modules\pack\Sys-audioplayer" rmdir /s /q "tools\sd_switch\modules\pack\Sys-audioplayer"
