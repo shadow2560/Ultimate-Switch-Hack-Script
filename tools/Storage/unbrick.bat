@@ -955,7 +955,7 @@ IF "%firmware_choice%"=="20.5.0" (
 )
 IF "%firmware_choice%"=="21.0.0" (
 	set expected_md5=240b675e2d8b6c9d86b406e6101b47d7
-	set "firmware_link=https://mega.nz/file/TZR1zYSJ#6g2PEwa-uw5Sr6JSA5eNHCTySPWk_maWTSVePxLoyww"
+	set "firmware_link=https://mega.nz/file/bcAExIBI#tkA2wkx_0czGIiEFjF0_PMVX_Ds7DvuPrQGzPjUM7dQ"
 	set firmware_file_name=Firmware 21.0.0.zip
 	set firmware_folder=firmware_temp\
 	goto:download_firmware

@@ -1,5 +1,9 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.377</h2>
+<ul>
+<li>Fix the download link for the firmware 21.0.0.</li>
+</ul>
 <h2>V4.3.376</h2>
 <ul>
 <li>The homebrew CyberFoil wasn't named correctly, it has been renamed so be careful if you added it to a custom config.</li>
