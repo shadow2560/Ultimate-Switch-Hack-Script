@@ -957,6 +957,10 @@ for /l %%i in (1,1,%temp_count%) do (
 				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\atmosphere\ " /e >nul
 				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\sxos\ " /e >nul
 			)
+			IF "!temp_module!"=="Ovl-menu" (
+				IF "%~1"=="atmosphere" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\atmosphere\ " /e >nul
+				IF "%~1"=="sxos" "%windir%\System32\Robocopy.exe" "tools\sd_switch\modules\pack\!temp_module!\patches " "%volume_letter%\sxos\ " /e >nul
+			)
 			rem IF "%~1"=="sxos" (
 			rem IF EXIST "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json" del /q "%temp_modules_copy_path%\!temp_module_title_id!\toolbox.json"
 			rem )
@@ -1015,15 +1019,19 @@ exit /b
 :force_copy_overlays_base_files
 IF "%~1"=="atmosphere" (
 	set temp_modules_copy_path=%volume_letter%\atmosphere\contents
+	set temp_patches_copy_path=%volume_letter%\atmosphere\
 )
 IF "%~1"=="reinx" (
 	set temp_modules_copy_path=%volume_letter%\ReiNX\titles
+	set temp_patches_copy_path=%volume_letter%\ReiNX\
 )
 IF "%~1"=="sxos" (
 	set temp_modules_copy_path=%volume_letter%\sxos\titles
+	set temp_patches_copy_path=%volume_letter%\sxos\
 )
 IF EXIST "%temp_modules_copy_path%\010000000007E51A\exefs.nsp" rmdir /s /q "%temp_modules_copy_path%\010000000007E51A"
 %windir%\System32\Robocopy.exe "tools\sd_switch\modules\pack\Ovl-menu\titles " "%temp_modules_copy_path%" /e >nul
+%windir%\System32\Robocopy.exe "tools\sd_switch\modules\pack\Ovl-menu\patches " "%temp_patches_copy_path%" /e >nul
 %windir%\System32\Robocopy.exe "tools\sd_switch\modules\pack\Ovl-menu\others " "%volume_letter%\ " /e >nul
 exit /b
 
