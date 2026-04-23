@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V625</h2>
+<ul>
+<li>Mise à jour de Ultrahand-overlay en version 2.4.1.</li>
+<li>Mise à jour de Cyberfoil en version 1.4.4.</li>
+</ul>
 <h2>V624</h2>
 <ul>
 <li>Mise à jour de Ultrahand-overlay en version 2.4.0.</li>
