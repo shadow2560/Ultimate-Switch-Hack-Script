@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V626</h2>
+<ul>
+<li>Update NXDumpTool.</li>
+<li>Update Switch-90DNS-tester to version 1.1.0.</li>
+<li>Update EdiZon-overlay to version 1.0.15.</li>
+<li>Update Alchemist to version 1.0.6.</li>
+</ul>
 <h2>V625</h2>
 <ul>
 <li>Update Ultrahand-overlay to version 2.4.1.</li>
