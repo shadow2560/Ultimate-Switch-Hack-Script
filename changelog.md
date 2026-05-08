@@ -1,5 +1,11 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.381</h2>
+<ul>
+<li>Suppression de Lockpick-rcm.</li>
+<li>Mise à jour de LockSmith-RCM en version 0.12.0.</li>
+<li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 627.</li>
+</ul>
 <h2>V4.3.380</h2>
 <ul>
 <li>Mise à jour des packs de CFWs/modules/homebrews/overlays/payloads_utiles en version 626.</li>

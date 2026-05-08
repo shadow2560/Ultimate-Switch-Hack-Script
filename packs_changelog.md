@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V627</h2>
+<ul>
+<li>Mise à jour de LockSmith-RCM en version 0.12.0.</li>
+<li>Mise à jour de DBI en version 895.</li>
+</ul>
 <h2>V626</h2>
 <ul>
 <li>Mise à jour de NXDumpTool.</li>
