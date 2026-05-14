@@ -3,6 +3,7 @@
 <h2>V628</h2>
 <ul>
 <li>Update Sys-patch.</li>
+<li>Update Sys-clk for the firmware 21.0.0.</li>
 <li>Update NX-ovlloader to version 2.0.1.</li>
 <li>Update Status-Monitor-Overlay to version 1.4.0.</li>
 <li>Update Salty-nx to version 1.8.1.</li>
