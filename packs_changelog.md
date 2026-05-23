@@ -1,10 +1,17 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V629</h2>
+<ul>
+<li>Mise à jour de Ultrahand-nx-ovlloader en version 2.0.2.</li>
+<li>Mise à jour de Ultrahand-overlay en version 2.4.2.</li>
+<li>Mise à jour de Status-Monitor-Overlay en version 1.4.1.</li>
+<li>Mise à jour de SwitchWave en version 1.1.1.</li>
+</ul>
 <h2>V628</h2>
 <ul>
 <li>Mise à jour de Sys-patch.</li>
 <li>Mise à jour de Sys-clk pour le firmware 21.0.0.</li>
-<li>Mise à jour de NX-ovlloader en version 2.0.1.</li>
+<li>Mise à jour de Ultrahand-nx-ovlloader en version 2.0.1.</li>
 <li>Mise à jour de Status-Monitor-Overlay en version 1.4.0.</li>
 <li>Mise à jour de Salty-nx en version 1.8.1.</li>
 </ul>
