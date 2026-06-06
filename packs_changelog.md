@@ -1,5 +1,10 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V631</h2>
+<ul>
+<li>Mise à jour de LockSmith-RCM en version 0.12.1.</li>
+<li>Mise à jour de Cyberfoil en version 1.4.5.</li>
+</ul>
 <h2>V630</h2>
 <ul>
 <li>Mise à jour de Ultrahand-overlay en version 2.4.4.</li>
