@@ -1,5 +1,14 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V632</h2>
+<ul>
+<li>Update Atmosphere to version 1.11.2.</li>
+<li>Update Hekate to version 6.5.3.</li>
+<li>Update LockSmith-RCM.</li>
+<li>Update Sys-patch.</li>
+<li>Update Ultrahand-overlay to version 2.4.5.</li>
+<li>Update uLaunch to version 1.2.4.</li>
+</ul>
 <h2>V631</h2>
 <ul>
 <li>Update LockSmith-RCM to version 0.12.1.</li>
