@@ -1,5 +1,12 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V633</h2>
+<ul>
+<li>Update Sys-patch.</li>
+<li>Update DBI to version 902.</li>
+<li>Update MissionControl to version 0.15.2.</li>
+<li>Update the patches files used by NXThemesInstaller.</li>
+</ul>
 <h2>V632</h2>
 <ul>
 <li>Update Atmosphere to version 1.11.2.</li>

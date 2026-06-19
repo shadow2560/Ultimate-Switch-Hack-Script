@@ -1,5 +1,12 @@
 <h1>Changelog des packs de l'Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V633</h2>
+<ul>
+<li>Mise à jour de Sys-patch.</li>
+<li>Mise à jour de DBI en version 902.</li>
+<li>Mise à jour de MissionControl en version 0.15.2.</li>
+<li>Mise à jour des fichiers de patches utilisés par NXThemesInstaller.</li>
+</ul>
 <h2>V632</h2>
 <ul>
 <li>Mise à jour d'Atmosphere en version 1.11.2.</li>
