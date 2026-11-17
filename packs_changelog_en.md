@@ -1,5 +1,27 @@
 <h1>Changelog of the Ultimate Switch Hack Script packs</h1>
 &nbsp;
+<h2>V634</h2>
+<ul>
+<li>Replace PPSSPP by Ppsspp-nx.</li>
+<li>Update Atmosphere to version 1.12.2.</li>
+<li>Update Hekate to version 6.5.5.</li>
+<li>Update Sys-patch.</li>
+<li>Update Sphaira to version 1.1.0.</li>
+<li>Update Ultrahand-overlay to version 2.5.4.</li>
+<li>Update MissionControl to version 0.16.1.</li>
+<li>Update CheckPoint to version 5.2.0.</li>
+<li>Update Sys-con to version 2.1.0.</li>
+<li>Update DBI to version 905.</li>
+<li>Update Cyberfoil to version 1.5.1.</li>
+<li>Update Fizeau to version 2.8.3.</li>
+<li>Update NXDumpTool.</li>
+<li>Update NX-Activity-Log to version 1.6.0.</li>
+<li>Update NXThemeInstaller to version 3.0.1.</li>
+<li>Update Ulaunch to version 1.2.6.</li>
+<li>Update Amiigo to version 2.5.0.</li>
+<li>Update Salty-nx to version 2.1.4.</li>
+<li>Update FPSLocker to version 3.5.1.</li>
+</ul>
 <h2>V633</h2>
 <ul>
 <li>Update Sys-patch.</li>

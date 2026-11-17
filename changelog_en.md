@@ -1,5 +1,17 @@
 <h1>Changelog Ultimate Switch Hack Script</h1>
 &nbsp;
+<h2>V4.3.388</h2>
+<ul>
+<li>Replace Theme-Injector by NxThemeTool.</li>
+<li>Suport the firmwares 23.0.0, 23.0.1 and 23.5.0.</li>
+<li>Update the version 014d294296685cc14125985c0099af35d42bcf4b of NXNandManager to include titles detection for firmwares 23.0.0, 23.0.1 and 23.5.0.</li>
+<li>Update Hactoolnet.</li>
+<li>Add the last keys in the keys file verification.</li>
+<li>Update Switch-logo-patcher to suport the firmware 23.0.0.</li>
+<li>Update Atmosphere to version 1.12.2.</li>
+<li>Update Hekate to version 6.5.5.</li>
+<li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 634.</li>
+</ul>
 <h2>V4.3.387</h2>
 <ul>
 <li> Updating CFWs/modules/homebrews/overlays/usful_payloads packs in version 633.</li>

@@ -70,7 +70,7 @@
 <li><a target="_blank" href="https://github.com/Cpasjuste/pemu/tree/master/pfba">Pfba</a></li>
 <li><a target="_blank" href="https://github.com/Cpasjuste/pemu/tree/master/pnes">Pnes</a></li>
 <li><a target="_blank" href="https://github.com/Cpasjuste/pemu/tree/master/pgen">Pgen</a></li>
-<li><a target="_blank" href="https://github.com/m4xw/ppsspp/">PPSSPP</a></li>
+<li><a target="_blank" href="https://github.com/m4xw/ppsspp/">PPSSPP</a>, replaced by <a target="_blank" href="https://github.com/NaGaa95/ppsspp-nx">PPSSPP-nx</a></li>
 <li><a target="_blank" href="https://github.com/Cpasjuste/pemu/tree/master/psnes">Psnes</a></li>
 <li><a target="_blank" href="https://github.com/reicast/reicast-emulator">Reicast</a></li>
 <li><a target="_blank" href="http://retroarch.com/?page=platforms">RetroArch</a></li>
